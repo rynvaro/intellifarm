@@ -1,7 +1,27 @@
 package main
 
-import "fmt"
+import (
+	"cattleai/router"
+	"time"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
-	fmt.Println("init cattle ai")
+	r := gin.Default()
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"*"},
+		AllowHeaders:     []string{"*"},
+		ExposeHeaders:    []string{"*"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
+
+	v1 := r.Group("/api/v1")
+
+	router.Register(v1)
+
+	r.Run(":9090")
 }

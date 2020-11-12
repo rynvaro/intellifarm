@@ -1,6 +1,8 @@
 package main
 
 import (
+	"cattleai/db"
+	"cattleai/logsys"
 	"cattleai/router"
 	"time"
 
@@ -9,6 +11,8 @@ import (
 )
 
 func main() {
+	logsys.Init()
+
 	r := gin.Default()
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
@@ -22,6 +26,10 @@ func main() {
 	v1 := r.Group("/api/v1")
 
 	router.Register(v1)
+
+	// init database
+	db.Init()
+	defer db.Close()
 
 	r.Run(":9090")
 }

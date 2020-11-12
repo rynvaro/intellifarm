@@ -10,6 +10,10 @@ func SuccessResponse(data interface{}) *Resp {
 	return Response(200, "OK", data)
 }
 
+func DefaultResponse() *Resp {
+	return Response(200, "OK", nil)
+}
+
 func Response(code int, msg string, data interface{}) *Resp {
 	return &Resp{
 		Code: code,

@@ -27,6 +27,12 @@ type CattleCate func(*sql.Selector)
 // CattleGender is the predicate function for cattlegender builders.
 type CattleGender func(*sql.Selector)
 
+// CattleGrowsData is the predicate function for cattlegrowsdata builders.
+type CattleGrowsData func(*sql.Selector)
+
+// CattleGrowsRate is the predicate function for cattlegrowsrate builders.
+type CattleGrowsRate func(*sql.Selector)
+
 // CattleHairColor is the predicate function for cattlehaircolor builders.
 type CattleHairColor func(*sql.Selector)
 

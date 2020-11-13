@@ -377,6 +377,54 @@ func (f CattleGenderMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mu
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.CattleGenderMutation", m)
 }
 
+// The CattleGrowsDataQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type CattleGrowsDataQueryRuleFunc func(context.Context, *ent.CattleGrowsDataQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f CattleGrowsDataQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.CattleGrowsDataQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.CattleGrowsDataQuery", q)
+}
+
+// The CattleGrowsDataMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type CattleGrowsDataMutationRuleFunc func(context.Context, *ent.CattleGrowsDataMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f CattleGrowsDataMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.CattleGrowsDataMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.CattleGrowsDataMutation", m)
+}
+
+// The CattleGrowsRateQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type CattleGrowsRateQueryRuleFunc func(context.Context, *ent.CattleGrowsRateQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f CattleGrowsRateQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.CattleGrowsRateQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.CattleGrowsRateQuery", q)
+}
+
+// The CattleGrowsRateMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type CattleGrowsRateMutationRuleFunc func(context.Context, *ent.CattleGrowsRateMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f CattleGrowsRateMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.CattleGrowsRateMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.CattleGrowsRateMutation", m)
+}
+
 // The CattleHairColorQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type CattleHairColorQueryRuleFunc func(context.Context, *ent.CattleHairColorQuery) error

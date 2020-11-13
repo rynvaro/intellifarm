@@ -99,6 +99,32 @@ func (f CattleGenderFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value
 	return f(ctx, mv)
 }
 
+// The CattleGrowsDataFunc type is an adapter to allow the use of ordinary
+// function as CattleGrowsData mutator.
+type CattleGrowsDataFunc func(context.Context, *ent.CattleGrowsDataMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CattleGrowsDataFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.CattleGrowsDataMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CattleGrowsDataMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The CattleGrowsRateFunc type is an adapter to allow the use of ordinary
+// function as CattleGrowsRate mutator.
+type CattleGrowsRateFunc func(context.Context, *ent.CattleGrowsRateMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CattleGrowsRateFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.CattleGrowsRateMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CattleGrowsRateMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The CattleHairColorFunc type is an adapter to allow the use of ordinary
 // function as CattleHairColor mutator.
 type CattleHairColorFunc func(context.Context, *ent.CattleHairColorMutation) (ent.Value, error)

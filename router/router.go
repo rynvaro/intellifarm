@@ -3,11 +3,20 @@ package router
 import (
 	"cattleai/pkg/birthsurroundings"
 	"cattleai/pkg/breathrates"
+	"cattleai/pkg/breedingtypes"
 	"cattleai/pkg/categories"
+	"cattleai/pkg/cattlecates"
+	"cattleai/pkg/cattlegenders"
+	"cattleai/pkg/cattlehaircolors"
+	"cattleai/pkg/cattlejoinedtypes"
+	"cattleai/pkg/cattleowners"
+	"cattleai/pkg/cattles"
+	"cattleai/pkg/cattletypes"
 	"cattleai/pkg/duties"
 	"cattleai/pkg/farms"
 	"cattleai/pkg/hairstates"
 	"cattleai/pkg/positions"
+	"cattleai/pkg/reproductivestates"
 	"cattleai/pkg/shedcates"
 	"cattleai/pkg/sheds"
 	"cattleai/pkg/shedtypes"
@@ -18,7 +27,6 @@ import (
 )
 
 func Register(g *gin.RouterGroup) {
-
 	// users routes
 	users.RegisterRoutes(g)
 	// farms routes
@@ -43,4 +51,22 @@ func Register(g *gin.RouterGroup) {
 	positions.RegisterRoutes(g)
 	// duties
 	duties.RegisterRoutes(g)
+	// breeding types
+	breedingtypes.RegisterRoutes(g)
+	// cattle cates
+	cattlecates.RegisterRoutes(g)
+	// cattle genders
+	cattlegenders.RegisterRoutes(g)
+	// cattle hair colors
+	cattlehaircolors.RegisterRoutes(g)
+	// cattle joined type
+	cattlejoinedtypes.RegisterRoutes(g)
+	// cattle owners
+	cattleowners.RegisterRoutes(g)
+	// cattle types
+	cattletypes.RegisterRoutes(g)
+	// reproductive states
+	reproductivestates.RegisterRoutes(g)
+	// cattles
+	cattles.RegisterRoutes(g)
 }

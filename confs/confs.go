@@ -17,4 +17,12 @@ type InitConf struct {
 	WindDirectionInitialized bool `json:"windDirectionInitialized"`
 	PositionInitialized      bool `json:"positionInitialized"`
 	DutyInitialized          bool `json:"dutyInitialized"`
+	CattleGender             bool `json:"cattleGender"`
+	CattleCate               bool `json:"cattleCate"`
+	ReproductiveState        bool `json:"reproductiveState"`
+	CattleType               bool `json:"cattleType"`
+	CattleJoinedType         bool `json:"cattleJoinedType"`
+	CattleHairColor          bool `json:"cattleHairColor"`
+	BreedingType             bool `json:"breedingType"`
+	CattleOwner              bool `json:"cattleOwner"`
 }

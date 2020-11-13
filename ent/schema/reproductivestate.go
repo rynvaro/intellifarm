@@ -1,6 +1,9 @@
 package schema
 
-import "github.com/facebook/ent"
+import (
+	"github.com/facebook/ent"
+	"github.com/facebook/ent/schema/field"
+)
 
 // ReproductiveState holds the schema definition for the ReproductiveState entity.
 type ReproductiveState struct {
@@ -9,7 +12,9 @@ type ReproductiveState struct {
 
 // Fields of the ReproductiveState.
 func (ReproductiveState) Fields() []ent.Field {
-	return nil
+	return []ent.Field{
+		field.String("name").NotEmpty().Comment("名称"),
+	}
 }
 
 // Edges of the ReproductiveState.

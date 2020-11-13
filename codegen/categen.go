@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	. "github.com/dave/jennifer/jen"
@@ -40,6 +41,10 @@ func GenCates(model string) {
 		ErrStatementWithResp,
 		Id("c.JSON(http.StatusOK, apicommon.SuccessResponse("+modelPluralLowerCase+"))"),
 	).Line()
+
+	if err := os.Mkdir("../pkg/"+pkgName, 0755); err != nil {
+		panic(err)
+	}
 
 	err := f.Save("../pkg/" + pkgName + "/g_handlers.go")
 	if err != nil {

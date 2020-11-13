@@ -1,6 +1,9 @@
 package schema
 
-import "github.com/facebook/ent"
+import (
+	"github.com/facebook/ent"
+	"github.com/facebook/ent/schema/field"
+)
 
 // CattleCate holds the schema definition for the CattleCate entity.
 type CattleCate struct {
@@ -9,7 +12,10 @@ type CattleCate struct {
 
 // Fields of the CattleCate.
 func (CattleCate) Fields() []ent.Field {
-	return nil
+	return []ent.Field{
+		field.String("name").NotEmpty().Comment("名称"),
+		field.String("genderIds").NotEmpty().Comment("性别ID"),
+	}
 }
 
 // Edges of the CattleCate.

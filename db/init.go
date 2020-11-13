@@ -4,65 +4,10 @@ import (
 	"cattleai/confs"
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/rs/zerolog/log"
 )
-
-var initData = map[string][]string{
-	"categories": {
-		"繁育场",
-		"育肥场",
-	},
-	"shedCategories": {
-		"封闭式",
-		"半封闭式",
-		"开放式",
-	},
-	"shedTypes": {
-		"犊牛舍",
-		"后备母牛舍",
-		"繁育母牛舍",
-		"育肥牛舍",
-		"隔离牛舍",
-	},
-	"breathRates": {
-		"极速浅呼吸",
-		"开口呼吸",
-		"无明显表现",
-	},
-	"hairStates": {
-		"干燥清洁",
-		"部分污物",
-		"腿上污物",
-		"大量污物",
-	},
-	"windDirections": {
-		"东",
-		"东南",
-		"南",
-		"西南",
-		"西",
-		"西北",
-		"北",
-		"东北",
-	},
-	"positions": {
-		"场长/经理",
-		"副厂长/副经理",
-		"技术负责人",
-		"组长/班长",
-		"员工/工人",
-	},
-	"duties": {
-		"营养师",
-		"繁育师",
-		"兽医师",
-		"信息员",
-		"饲养员",
-		"库管员",
-		"其他",
-	},
-}
 
 func dataInit() {
 	conf := confs.AppConfs
@@ -177,6 +122,113 @@ func dataInit() {
 			log.Info().Msg(fmt.Sprintf("duty %s initialized", v))
 		}
 		conf.InitConf.DutyInitialized = true
+	}
+
+	// init cattle genders
+	if !conf.InitConf.CattleGender {
+		for _, v := range initData["cattleGenders"] {
+			_, err := Client.CattleGender.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("cattleGender %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("cattleGender %s initialized", v))
+		}
+		conf.InitConf.CattleGender = true
+	}
+
+	// init cattle cates
+	if !conf.InitConf.CattleCate {
+		for _, v := range initData["cattleCates"] {
+			cate := strings.Split(v, "/")
+			name := cate[0]
+			genderIds := cate[1]
+			_, err := Client.CattleCate.Create().SetName(name).SetGenderIds(genderIds).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("cattleCate %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("cattleCate %s initialized", v))
+		}
+		conf.InitConf.CattleCate = true
+	}
+
+	// init ReproductiveState
+	if !conf.InitConf.ReproductiveState {
+		for _, v := range initData["reproductiveStates"] {
+			_, err := Client.ReproductiveState.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("reproductiveState %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("reproductiveState %s initialized", v))
+		}
+		conf.InitConf.ReproductiveState = true
+	}
+
+	// init CattleType
+	if !conf.InitConf.CattleType {
+		for _, v := range initData["cattleTypes"] {
+			_, err := Client.CattleType.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("CattleType %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("CattleType %s initialized", v))
+		}
+		conf.InitConf.CattleType = true
+	}
+
+	// init CattleJoinedType
+	if !conf.InitConf.CattleJoinedType {
+		for _, v := range initData["cattleJoinedTypes"] {
+			_, err := Client.CattleJoinedType.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("CattleJoinedType %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("CattleJoinedType %s initialized", v))
+		}
+		conf.InitConf.CattleJoinedType = true
+	}
+
+	// init CattleHairColor
+	if !conf.InitConf.CattleHairColor {
+		for _, v := range initData["cattleHairColors"] {
+			_, err := Client.CattleHairColor.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("CattleHairColor %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("CattleHairColor %s initialized", v))
+		}
+		conf.InitConf.CattleHairColor = true
+	}
+
+	// init BreedingType
+	if !conf.InitConf.BreedingType {
+		for _, v := range initData["breedingTypes"] {
+			_, err := Client.BreedingType.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("BreedingType %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("BreedingType %s initialized", v))
+		}
+		conf.InitConf.BreedingType = true
+	}
+
+	// init CattleOwner
+	if !conf.InitConf.CattleOwner {
+		for _, v := range initData["cattleOwners"] {
+			_, err := Client.CattleOwner.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("CattleOwner %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("CattleOwner %s initialized", v))
+		}
+		conf.InitConf.CattleOwner = true
 	}
 
 	// update init config

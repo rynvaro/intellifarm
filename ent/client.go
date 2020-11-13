@@ -11,12 +11,21 @@ import (
 
 	"cattleai/ent/birthsurrounding"
 	"cattleai/ent/breathrate"
+	"cattleai/ent/breedingtype"
 	"cattleai/ent/category"
+	"cattleai/ent/cattle"
+	"cattleai/ent/cattlecate"
+	"cattleai/ent/cattlegender"
+	"cattleai/ent/cattlehaircolor"
+	"cattleai/ent/cattlejoinedtype"
+	"cattleai/ent/cattleowner"
+	"cattleai/ent/cattletype"
 	"cattleai/ent/conf"
 	"cattleai/ent/duty"
 	"cattleai/ent/farm"
 	"cattleai/ent/hairstate"
 	"cattleai/ent/position"
+	"cattleai/ent/reproductivestate"
 	"cattleai/ent/shed"
 	"cattleai/ent/shedcategory"
 	"cattleai/ent/shedtype"
@@ -36,8 +45,24 @@ type Client struct {
 	BirthSurrounding *BirthSurroundingClient
 	// BreathRate is the client for interacting with the BreathRate builders.
 	BreathRate *BreathRateClient
+	// BreedingType is the client for interacting with the BreedingType builders.
+	BreedingType *BreedingTypeClient
 	// Category is the client for interacting with the Category builders.
 	Category *CategoryClient
+	// Cattle is the client for interacting with the Cattle builders.
+	Cattle *CattleClient
+	// CattleCate is the client for interacting with the CattleCate builders.
+	CattleCate *CattleCateClient
+	// CattleGender is the client for interacting with the CattleGender builders.
+	CattleGender *CattleGenderClient
+	// CattleHairColor is the client for interacting with the CattleHairColor builders.
+	CattleHairColor *CattleHairColorClient
+	// CattleJoinedType is the client for interacting with the CattleJoinedType builders.
+	CattleJoinedType *CattleJoinedTypeClient
+	// CattleOwner is the client for interacting with the CattleOwner builders.
+	CattleOwner *CattleOwnerClient
+	// CattleType is the client for interacting with the CattleType builders.
+	CattleType *CattleTypeClient
 	// Conf is the client for interacting with the Conf builders.
 	Conf *ConfClient
 	// Duty is the client for interacting with the Duty builders.
@@ -48,6 +73,8 @@ type Client struct {
 	HairState *HairStateClient
 	// Position is the client for interacting with the Position builders.
 	Position *PositionClient
+	// ReproductiveState is the client for interacting with the ReproductiveState builders.
+	ReproductiveState *ReproductiveStateClient
 	// Shed is the client for interacting with the Shed builders.
 	Shed *ShedClient
 	// ShedCategory is the client for interacting with the ShedCategory builders.
@@ -73,12 +100,21 @@ func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
 	c.BirthSurrounding = NewBirthSurroundingClient(c.config)
 	c.BreathRate = NewBreathRateClient(c.config)
+	c.BreedingType = NewBreedingTypeClient(c.config)
 	c.Category = NewCategoryClient(c.config)
+	c.Cattle = NewCattleClient(c.config)
+	c.CattleCate = NewCattleCateClient(c.config)
+	c.CattleGender = NewCattleGenderClient(c.config)
+	c.CattleHairColor = NewCattleHairColorClient(c.config)
+	c.CattleJoinedType = NewCattleJoinedTypeClient(c.config)
+	c.CattleOwner = NewCattleOwnerClient(c.config)
+	c.CattleType = NewCattleTypeClient(c.config)
 	c.Conf = NewConfClient(c.config)
 	c.Duty = NewDutyClient(c.config)
 	c.Farm = NewFarmClient(c.config)
 	c.HairState = NewHairStateClient(c.config)
 	c.Position = NewPositionClient(c.config)
+	c.ReproductiveState = NewReproductiveStateClient(c.config)
 	c.Shed = NewShedClient(c.config)
 	c.ShedCategory = NewShedCategoryClient(c.config)
 	c.ShedType = NewShedTypeClient(c.config)
@@ -114,21 +150,30 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	}
 	cfg := config{driver: tx, log: c.log, debug: c.debug, hooks: c.hooks}
 	return &Tx{
-		ctx:              ctx,
-		config:           cfg,
-		BirthSurrounding: NewBirthSurroundingClient(cfg),
-		BreathRate:       NewBreathRateClient(cfg),
-		Category:         NewCategoryClient(cfg),
-		Conf:             NewConfClient(cfg),
-		Duty:             NewDutyClient(cfg),
-		Farm:             NewFarmClient(cfg),
-		HairState:        NewHairStateClient(cfg),
-		Position:         NewPositionClient(cfg),
-		Shed:             NewShedClient(cfg),
-		ShedCategory:     NewShedCategoryClient(cfg),
-		ShedType:         NewShedTypeClient(cfg),
-		User:             NewUserClient(cfg),
-		WindDirection:    NewWindDirectionClient(cfg),
+		ctx:               ctx,
+		config:            cfg,
+		BirthSurrounding:  NewBirthSurroundingClient(cfg),
+		BreathRate:        NewBreathRateClient(cfg),
+		BreedingType:      NewBreedingTypeClient(cfg),
+		Category:          NewCategoryClient(cfg),
+		Cattle:            NewCattleClient(cfg),
+		CattleCate:        NewCattleCateClient(cfg),
+		CattleGender:      NewCattleGenderClient(cfg),
+		CattleHairColor:   NewCattleHairColorClient(cfg),
+		CattleJoinedType:  NewCattleJoinedTypeClient(cfg),
+		CattleOwner:       NewCattleOwnerClient(cfg),
+		CattleType:        NewCattleTypeClient(cfg),
+		Conf:              NewConfClient(cfg),
+		Duty:              NewDutyClient(cfg),
+		Farm:              NewFarmClient(cfg),
+		HairState:         NewHairStateClient(cfg),
+		Position:          NewPositionClient(cfg),
+		ReproductiveState: NewReproductiveStateClient(cfg),
+		Shed:              NewShedClient(cfg),
+		ShedCategory:      NewShedCategoryClient(cfg),
+		ShedType:          NewShedTypeClient(cfg),
+		User:              NewUserClient(cfg),
+		WindDirection:     NewWindDirectionClient(cfg),
 	}, nil
 }
 
@@ -143,20 +188,29 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	}
 	cfg := config{driver: &txDriver{tx: tx, drv: c.driver}, log: c.log, debug: c.debug, hooks: c.hooks}
 	return &Tx{
-		config:           cfg,
-		BirthSurrounding: NewBirthSurroundingClient(cfg),
-		BreathRate:       NewBreathRateClient(cfg),
-		Category:         NewCategoryClient(cfg),
-		Conf:             NewConfClient(cfg),
-		Duty:             NewDutyClient(cfg),
-		Farm:             NewFarmClient(cfg),
-		HairState:        NewHairStateClient(cfg),
-		Position:         NewPositionClient(cfg),
-		Shed:             NewShedClient(cfg),
-		ShedCategory:     NewShedCategoryClient(cfg),
-		ShedType:         NewShedTypeClient(cfg),
-		User:             NewUserClient(cfg),
-		WindDirection:    NewWindDirectionClient(cfg),
+		config:            cfg,
+		BirthSurrounding:  NewBirthSurroundingClient(cfg),
+		BreathRate:        NewBreathRateClient(cfg),
+		BreedingType:      NewBreedingTypeClient(cfg),
+		Category:          NewCategoryClient(cfg),
+		Cattle:            NewCattleClient(cfg),
+		CattleCate:        NewCattleCateClient(cfg),
+		CattleGender:      NewCattleGenderClient(cfg),
+		CattleHairColor:   NewCattleHairColorClient(cfg),
+		CattleJoinedType:  NewCattleJoinedTypeClient(cfg),
+		CattleOwner:       NewCattleOwnerClient(cfg),
+		CattleType:        NewCattleTypeClient(cfg),
+		Conf:              NewConfClient(cfg),
+		Duty:              NewDutyClient(cfg),
+		Farm:              NewFarmClient(cfg),
+		HairState:         NewHairStateClient(cfg),
+		Position:          NewPositionClient(cfg),
+		ReproductiveState: NewReproductiveStateClient(cfg),
+		Shed:              NewShedClient(cfg),
+		ShedCategory:      NewShedCategoryClient(cfg),
+		ShedType:          NewShedTypeClient(cfg),
+		User:              NewUserClient(cfg),
+		WindDirection:     NewWindDirectionClient(cfg),
 	}, nil
 }
 
@@ -187,12 +241,21 @@ func (c *Client) Close() error {
 func (c *Client) Use(hooks ...Hook) {
 	c.BirthSurrounding.Use(hooks...)
 	c.BreathRate.Use(hooks...)
+	c.BreedingType.Use(hooks...)
 	c.Category.Use(hooks...)
+	c.Cattle.Use(hooks...)
+	c.CattleCate.Use(hooks...)
+	c.CattleGender.Use(hooks...)
+	c.CattleHairColor.Use(hooks...)
+	c.CattleJoinedType.Use(hooks...)
+	c.CattleOwner.Use(hooks...)
+	c.CattleType.Use(hooks...)
 	c.Conf.Use(hooks...)
 	c.Duty.Use(hooks...)
 	c.Farm.Use(hooks...)
 	c.HairState.Use(hooks...)
 	c.Position.Use(hooks...)
+	c.ReproductiveState.Use(hooks...)
 	c.Shed.Use(hooks...)
 	c.ShedCategory.Use(hooks...)
 	c.ShedType.Use(hooks...)
@@ -376,6 +439,94 @@ func (c *BreathRateClient) Hooks() []Hook {
 	return c.hooks.BreathRate
 }
 
+// BreedingTypeClient is a client for the BreedingType schema.
+type BreedingTypeClient struct {
+	config
+}
+
+// NewBreedingTypeClient returns a client for the BreedingType from the given config.
+func NewBreedingTypeClient(c config) *BreedingTypeClient {
+	return &BreedingTypeClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `breedingtype.Hooks(f(g(h())))`.
+func (c *BreedingTypeClient) Use(hooks ...Hook) {
+	c.hooks.BreedingType = append(c.hooks.BreedingType, hooks...)
+}
+
+// Create returns a create builder for BreedingType.
+func (c *BreedingTypeClient) Create() *BreedingTypeCreate {
+	mutation := newBreedingTypeMutation(c.config, OpCreate)
+	return &BreedingTypeCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of BreedingType entities.
+func (c *BreedingTypeClient) CreateBulk(builders ...*BreedingTypeCreate) *BreedingTypeCreateBulk {
+	return &BreedingTypeCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for BreedingType.
+func (c *BreedingTypeClient) Update() *BreedingTypeUpdate {
+	mutation := newBreedingTypeMutation(c.config, OpUpdate)
+	return &BreedingTypeUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *BreedingTypeClient) UpdateOne(bt *BreedingType) *BreedingTypeUpdateOne {
+	mutation := newBreedingTypeMutation(c.config, OpUpdateOne, withBreedingType(bt))
+	return &BreedingTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *BreedingTypeClient) UpdateOneID(id int64) *BreedingTypeUpdateOne {
+	mutation := newBreedingTypeMutation(c.config, OpUpdateOne, withBreedingTypeID(id))
+	return &BreedingTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for BreedingType.
+func (c *BreedingTypeClient) Delete() *BreedingTypeDelete {
+	mutation := newBreedingTypeMutation(c.config, OpDelete)
+	return &BreedingTypeDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *BreedingTypeClient) DeleteOne(bt *BreedingType) *BreedingTypeDeleteOne {
+	return c.DeleteOneID(bt.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *BreedingTypeClient) DeleteOneID(id int64) *BreedingTypeDeleteOne {
+	builder := c.Delete().Where(breedingtype.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &BreedingTypeDeleteOne{builder}
+}
+
+// Query returns a query builder for BreedingType.
+func (c *BreedingTypeClient) Query() *BreedingTypeQuery {
+	return &BreedingTypeQuery{config: c.config}
+}
+
+// Get returns a BreedingType entity by its id.
+func (c *BreedingTypeClient) Get(ctx context.Context, id int64) (*BreedingType, error) {
+	return c.Query().Where(breedingtype.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *BreedingTypeClient) GetX(ctx context.Context, id int64) *BreedingType {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *BreedingTypeClient) Hooks() []Hook {
+	return c.hooks.BreedingType
+}
+
 // CategoryClient is a client for the Category schema.
 type CategoryClient struct {
 	config
@@ -462,6 +613,622 @@ func (c *CategoryClient) GetX(ctx context.Context, id int64) *Category {
 // Hooks returns the client hooks.
 func (c *CategoryClient) Hooks() []Hook {
 	return c.hooks.Category
+}
+
+// CattleClient is a client for the Cattle schema.
+type CattleClient struct {
+	config
+}
+
+// NewCattleClient returns a client for the Cattle from the given config.
+func NewCattleClient(c config) *CattleClient {
+	return &CattleClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `cattle.Hooks(f(g(h())))`.
+func (c *CattleClient) Use(hooks ...Hook) {
+	c.hooks.Cattle = append(c.hooks.Cattle, hooks...)
+}
+
+// Create returns a create builder for Cattle.
+func (c *CattleClient) Create() *CattleCreate {
+	mutation := newCattleMutation(c.config, OpCreate)
+	return &CattleCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Cattle entities.
+func (c *CattleClient) CreateBulk(builders ...*CattleCreate) *CattleCreateBulk {
+	return &CattleCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Cattle.
+func (c *CattleClient) Update() *CattleUpdate {
+	mutation := newCattleMutation(c.config, OpUpdate)
+	return &CattleUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CattleClient) UpdateOne(ca *Cattle) *CattleUpdateOne {
+	mutation := newCattleMutation(c.config, OpUpdateOne, withCattle(ca))
+	return &CattleUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CattleClient) UpdateOneID(id int64) *CattleUpdateOne {
+	mutation := newCattleMutation(c.config, OpUpdateOne, withCattleID(id))
+	return &CattleUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Cattle.
+func (c *CattleClient) Delete() *CattleDelete {
+	mutation := newCattleMutation(c.config, OpDelete)
+	return &CattleDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *CattleClient) DeleteOne(ca *Cattle) *CattleDeleteOne {
+	return c.DeleteOneID(ca.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *CattleClient) DeleteOneID(id int64) *CattleDeleteOne {
+	builder := c.Delete().Where(cattle.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CattleDeleteOne{builder}
+}
+
+// Query returns a query builder for Cattle.
+func (c *CattleClient) Query() *CattleQuery {
+	return &CattleQuery{config: c.config}
+}
+
+// Get returns a Cattle entity by its id.
+func (c *CattleClient) Get(ctx context.Context, id int64) (*Cattle, error) {
+	return c.Query().Where(cattle.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CattleClient) GetX(ctx context.Context, id int64) *Cattle {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CattleClient) Hooks() []Hook {
+	return c.hooks.Cattle
+}
+
+// CattleCateClient is a client for the CattleCate schema.
+type CattleCateClient struct {
+	config
+}
+
+// NewCattleCateClient returns a client for the CattleCate from the given config.
+func NewCattleCateClient(c config) *CattleCateClient {
+	return &CattleCateClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `cattlecate.Hooks(f(g(h())))`.
+func (c *CattleCateClient) Use(hooks ...Hook) {
+	c.hooks.CattleCate = append(c.hooks.CattleCate, hooks...)
+}
+
+// Create returns a create builder for CattleCate.
+func (c *CattleCateClient) Create() *CattleCateCreate {
+	mutation := newCattleCateMutation(c.config, OpCreate)
+	return &CattleCateCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of CattleCate entities.
+func (c *CattleCateClient) CreateBulk(builders ...*CattleCateCreate) *CattleCateCreateBulk {
+	return &CattleCateCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CattleCate.
+func (c *CattleCateClient) Update() *CattleCateUpdate {
+	mutation := newCattleCateMutation(c.config, OpUpdate)
+	return &CattleCateUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CattleCateClient) UpdateOne(cc *CattleCate) *CattleCateUpdateOne {
+	mutation := newCattleCateMutation(c.config, OpUpdateOne, withCattleCate(cc))
+	return &CattleCateUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CattleCateClient) UpdateOneID(id int64) *CattleCateUpdateOne {
+	mutation := newCattleCateMutation(c.config, OpUpdateOne, withCattleCateID(id))
+	return &CattleCateUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CattleCate.
+func (c *CattleCateClient) Delete() *CattleCateDelete {
+	mutation := newCattleCateMutation(c.config, OpDelete)
+	return &CattleCateDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *CattleCateClient) DeleteOne(cc *CattleCate) *CattleCateDeleteOne {
+	return c.DeleteOneID(cc.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *CattleCateClient) DeleteOneID(id int64) *CattleCateDeleteOne {
+	builder := c.Delete().Where(cattlecate.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CattleCateDeleteOne{builder}
+}
+
+// Query returns a query builder for CattleCate.
+func (c *CattleCateClient) Query() *CattleCateQuery {
+	return &CattleCateQuery{config: c.config}
+}
+
+// Get returns a CattleCate entity by its id.
+func (c *CattleCateClient) Get(ctx context.Context, id int64) (*CattleCate, error) {
+	return c.Query().Where(cattlecate.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CattleCateClient) GetX(ctx context.Context, id int64) *CattleCate {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CattleCateClient) Hooks() []Hook {
+	return c.hooks.CattleCate
+}
+
+// CattleGenderClient is a client for the CattleGender schema.
+type CattleGenderClient struct {
+	config
+}
+
+// NewCattleGenderClient returns a client for the CattleGender from the given config.
+func NewCattleGenderClient(c config) *CattleGenderClient {
+	return &CattleGenderClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `cattlegender.Hooks(f(g(h())))`.
+func (c *CattleGenderClient) Use(hooks ...Hook) {
+	c.hooks.CattleGender = append(c.hooks.CattleGender, hooks...)
+}
+
+// Create returns a create builder for CattleGender.
+func (c *CattleGenderClient) Create() *CattleGenderCreate {
+	mutation := newCattleGenderMutation(c.config, OpCreate)
+	return &CattleGenderCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of CattleGender entities.
+func (c *CattleGenderClient) CreateBulk(builders ...*CattleGenderCreate) *CattleGenderCreateBulk {
+	return &CattleGenderCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CattleGender.
+func (c *CattleGenderClient) Update() *CattleGenderUpdate {
+	mutation := newCattleGenderMutation(c.config, OpUpdate)
+	return &CattleGenderUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CattleGenderClient) UpdateOne(cg *CattleGender) *CattleGenderUpdateOne {
+	mutation := newCattleGenderMutation(c.config, OpUpdateOne, withCattleGender(cg))
+	return &CattleGenderUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CattleGenderClient) UpdateOneID(id int64) *CattleGenderUpdateOne {
+	mutation := newCattleGenderMutation(c.config, OpUpdateOne, withCattleGenderID(id))
+	return &CattleGenderUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CattleGender.
+func (c *CattleGenderClient) Delete() *CattleGenderDelete {
+	mutation := newCattleGenderMutation(c.config, OpDelete)
+	return &CattleGenderDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *CattleGenderClient) DeleteOne(cg *CattleGender) *CattleGenderDeleteOne {
+	return c.DeleteOneID(cg.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *CattleGenderClient) DeleteOneID(id int64) *CattleGenderDeleteOne {
+	builder := c.Delete().Where(cattlegender.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CattleGenderDeleteOne{builder}
+}
+
+// Query returns a query builder for CattleGender.
+func (c *CattleGenderClient) Query() *CattleGenderQuery {
+	return &CattleGenderQuery{config: c.config}
+}
+
+// Get returns a CattleGender entity by its id.
+func (c *CattleGenderClient) Get(ctx context.Context, id int64) (*CattleGender, error) {
+	return c.Query().Where(cattlegender.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CattleGenderClient) GetX(ctx context.Context, id int64) *CattleGender {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CattleGenderClient) Hooks() []Hook {
+	return c.hooks.CattleGender
+}
+
+// CattleHairColorClient is a client for the CattleHairColor schema.
+type CattleHairColorClient struct {
+	config
+}
+
+// NewCattleHairColorClient returns a client for the CattleHairColor from the given config.
+func NewCattleHairColorClient(c config) *CattleHairColorClient {
+	return &CattleHairColorClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `cattlehaircolor.Hooks(f(g(h())))`.
+func (c *CattleHairColorClient) Use(hooks ...Hook) {
+	c.hooks.CattleHairColor = append(c.hooks.CattleHairColor, hooks...)
+}
+
+// Create returns a create builder for CattleHairColor.
+func (c *CattleHairColorClient) Create() *CattleHairColorCreate {
+	mutation := newCattleHairColorMutation(c.config, OpCreate)
+	return &CattleHairColorCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of CattleHairColor entities.
+func (c *CattleHairColorClient) CreateBulk(builders ...*CattleHairColorCreate) *CattleHairColorCreateBulk {
+	return &CattleHairColorCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CattleHairColor.
+func (c *CattleHairColorClient) Update() *CattleHairColorUpdate {
+	mutation := newCattleHairColorMutation(c.config, OpUpdate)
+	return &CattleHairColorUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CattleHairColorClient) UpdateOne(chc *CattleHairColor) *CattleHairColorUpdateOne {
+	mutation := newCattleHairColorMutation(c.config, OpUpdateOne, withCattleHairColor(chc))
+	return &CattleHairColorUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CattleHairColorClient) UpdateOneID(id int64) *CattleHairColorUpdateOne {
+	mutation := newCattleHairColorMutation(c.config, OpUpdateOne, withCattleHairColorID(id))
+	return &CattleHairColorUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CattleHairColor.
+func (c *CattleHairColorClient) Delete() *CattleHairColorDelete {
+	mutation := newCattleHairColorMutation(c.config, OpDelete)
+	return &CattleHairColorDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *CattleHairColorClient) DeleteOne(chc *CattleHairColor) *CattleHairColorDeleteOne {
+	return c.DeleteOneID(chc.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *CattleHairColorClient) DeleteOneID(id int64) *CattleHairColorDeleteOne {
+	builder := c.Delete().Where(cattlehaircolor.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CattleHairColorDeleteOne{builder}
+}
+
+// Query returns a query builder for CattleHairColor.
+func (c *CattleHairColorClient) Query() *CattleHairColorQuery {
+	return &CattleHairColorQuery{config: c.config}
+}
+
+// Get returns a CattleHairColor entity by its id.
+func (c *CattleHairColorClient) Get(ctx context.Context, id int64) (*CattleHairColor, error) {
+	return c.Query().Where(cattlehaircolor.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CattleHairColorClient) GetX(ctx context.Context, id int64) *CattleHairColor {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CattleHairColorClient) Hooks() []Hook {
+	return c.hooks.CattleHairColor
+}
+
+// CattleJoinedTypeClient is a client for the CattleJoinedType schema.
+type CattleJoinedTypeClient struct {
+	config
+}
+
+// NewCattleJoinedTypeClient returns a client for the CattleJoinedType from the given config.
+func NewCattleJoinedTypeClient(c config) *CattleJoinedTypeClient {
+	return &CattleJoinedTypeClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `cattlejoinedtype.Hooks(f(g(h())))`.
+func (c *CattleJoinedTypeClient) Use(hooks ...Hook) {
+	c.hooks.CattleJoinedType = append(c.hooks.CattleJoinedType, hooks...)
+}
+
+// Create returns a create builder for CattleJoinedType.
+func (c *CattleJoinedTypeClient) Create() *CattleJoinedTypeCreate {
+	mutation := newCattleJoinedTypeMutation(c.config, OpCreate)
+	return &CattleJoinedTypeCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of CattleJoinedType entities.
+func (c *CattleJoinedTypeClient) CreateBulk(builders ...*CattleJoinedTypeCreate) *CattleJoinedTypeCreateBulk {
+	return &CattleJoinedTypeCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CattleJoinedType.
+func (c *CattleJoinedTypeClient) Update() *CattleJoinedTypeUpdate {
+	mutation := newCattleJoinedTypeMutation(c.config, OpUpdate)
+	return &CattleJoinedTypeUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CattleJoinedTypeClient) UpdateOne(cjt *CattleJoinedType) *CattleJoinedTypeUpdateOne {
+	mutation := newCattleJoinedTypeMutation(c.config, OpUpdateOne, withCattleJoinedType(cjt))
+	return &CattleJoinedTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CattleJoinedTypeClient) UpdateOneID(id int64) *CattleJoinedTypeUpdateOne {
+	mutation := newCattleJoinedTypeMutation(c.config, OpUpdateOne, withCattleJoinedTypeID(id))
+	return &CattleJoinedTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CattleJoinedType.
+func (c *CattleJoinedTypeClient) Delete() *CattleJoinedTypeDelete {
+	mutation := newCattleJoinedTypeMutation(c.config, OpDelete)
+	return &CattleJoinedTypeDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *CattleJoinedTypeClient) DeleteOne(cjt *CattleJoinedType) *CattleJoinedTypeDeleteOne {
+	return c.DeleteOneID(cjt.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *CattleJoinedTypeClient) DeleteOneID(id int64) *CattleJoinedTypeDeleteOne {
+	builder := c.Delete().Where(cattlejoinedtype.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CattleJoinedTypeDeleteOne{builder}
+}
+
+// Query returns a query builder for CattleJoinedType.
+func (c *CattleJoinedTypeClient) Query() *CattleJoinedTypeQuery {
+	return &CattleJoinedTypeQuery{config: c.config}
+}
+
+// Get returns a CattleJoinedType entity by its id.
+func (c *CattleJoinedTypeClient) Get(ctx context.Context, id int64) (*CattleJoinedType, error) {
+	return c.Query().Where(cattlejoinedtype.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CattleJoinedTypeClient) GetX(ctx context.Context, id int64) *CattleJoinedType {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CattleJoinedTypeClient) Hooks() []Hook {
+	return c.hooks.CattleJoinedType
+}
+
+// CattleOwnerClient is a client for the CattleOwner schema.
+type CattleOwnerClient struct {
+	config
+}
+
+// NewCattleOwnerClient returns a client for the CattleOwner from the given config.
+func NewCattleOwnerClient(c config) *CattleOwnerClient {
+	return &CattleOwnerClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `cattleowner.Hooks(f(g(h())))`.
+func (c *CattleOwnerClient) Use(hooks ...Hook) {
+	c.hooks.CattleOwner = append(c.hooks.CattleOwner, hooks...)
+}
+
+// Create returns a create builder for CattleOwner.
+func (c *CattleOwnerClient) Create() *CattleOwnerCreate {
+	mutation := newCattleOwnerMutation(c.config, OpCreate)
+	return &CattleOwnerCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of CattleOwner entities.
+func (c *CattleOwnerClient) CreateBulk(builders ...*CattleOwnerCreate) *CattleOwnerCreateBulk {
+	return &CattleOwnerCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CattleOwner.
+func (c *CattleOwnerClient) Update() *CattleOwnerUpdate {
+	mutation := newCattleOwnerMutation(c.config, OpUpdate)
+	return &CattleOwnerUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CattleOwnerClient) UpdateOne(co *CattleOwner) *CattleOwnerUpdateOne {
+	mutation := newCattleOwnerMutation(c.config, OpUpdateOne, withCattleOwner(co))
+	return &CattleOwnerUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CattleOwnerClient) UpdateOneID(id int64) *CattleOwnerUpdateOne {
+	mutation := newCattleOwnerMutation(c.config, OpUpdateOne, withCattleOwnerID(id))
+	return &CattleOwnerUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CattleOwner.
+func (c *CattleOwnerClient) Delete() *CattleOwnerDelete {
+	mutation := newCattleOwnerMutation(c.config, OpDelete)
+	return &CattleOwnerDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *CattleOwnerClient) DeleteOne(co *CattleOwner) *CattleOwnerDeleteOne {
+	return c.DeleteOneID(co.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *CattleOwnerClient) DeleteOneID(id int64) *CattleOwnerDeleteOne {
+	builder := c.Delete().Where(cattleowner.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CattleOwnerDeleteOne{builder}
+}
+
+// Query returns a query builder for CattleOwner.
+func (c *CattleOwnerClient) Query() *CattleOwnerQuery {
+	return &CattleOwnerQuery{config: c.config}
+}
+
+// Get returns a CattleOwner entity by its id.
+func (c *CattleOwnerClient) Get(ctx context.Context, id int64) (*CattleOwner, error) {
+	return c.Query().Where(cattleowner.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CattleOwnerClient) GetX(ctx context.Context, id int64) *CattleOwner {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CattleOwnerClient) Hooks() []Hook {
+	return c.hooks.CattleOwner
+}
+
+// CattleTypeClient is a client for the CattleType schema.
+type CattleTypeClient struct {
+	config
+}
+
+// NewCattleTypeClient returns a client for the CattleType from the given config.
+func NewCattleTypeClient(c config) *CattleTypeClient {
+	return &CattleTypeClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `cattletype.Hooks(f(g(h())))`.
+func (c *CattleTypeClient) Use(hooks ...Hook) {
+	c.hooks.CattleType = append(c.hooks.CattleType, hooks...)
+}
+
+// Create returns a create builder for CattleType.
+func (c *CattleTypeClient) Create() *CattleTypeCreate {
+	mutation := newCattleTypeMutation(c.config, OpCreate)
+	return &CattleTypeCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of CattleType entities.
+func (c *CattleTypeClient) CreateBulk(builders ...*CattleTypeCreate) *CattleTypeCreateBulk {
+	return &CattleTypeCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CattleType.
+func (c *CattleTypeClient) Update() *CattleTypeUpdate {
+	mutation := newCattleTypeMutation(c.config, OpUpdate)
+	return &CattleTypeUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CattleTypeClient) UpdateOne(ct *CattleType) *CattleTypeUpdateOne {
+	mutation := newCattleTypeMutation(c.config, OpUpdateOne, withCattleType(ct))
+	return &CattleTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CattleTypeClient) UpdateOneID(id int64) *CattleTypeUpdateOne {
+	mutation := newCattleTypeMutation(c.config, OpUpdateOne, withCattleTypeID(id))
+	return &CattleTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CattleType.
+func (c *CattleTypeClient) Delete() *CattleTypeDelete {
+	mutation := newCattleTypeMutation(c.config, OpDelete)
+	return &CattleTypeDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *CattleTypeClient) DeleteOne(ct *CattleType) *CattleTypeDeleteOne {
+	return c.DeleteOneID(ct.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *CattleTypeClient) DeleteOneID(id int64) *CattleTypeDeleteOne {
+	builder := c.Delete().Where(cattletype.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CattleTypeDeleteOne{builder}
+}
+
+// Query returns a query builder for CattleType.
+func (c *CattleTypeClient) Query() *CattleTypeQuery {
+	return &CattleTypeQuery{config: c.config}
+}
+
+// Get returns a CattleType entity by its id.
+func (c *CattleTypeClient) Get(ctx context.Context, id int64) (*CattleType, error) {
+	return c.Query().Where(cattletype.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CattleTypeClient) GetX(ctx context.Context, id int64) *CattleType {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CattleTypeClient) Hooks() []Hook {
+	return c.hooks.CattleType
 }
 
 // ConfClient is a client for the Conf schema.
@@ -902,6 +1669,94 @@ func (c *PositionClient) GetX(ctx context.Context, id int64) *Position {
 // Hooks returns the client hooks.
 func (c *PositionClient) Hooks() []Hook {
 	return c.hooks.Position
+}
+
+// ReproductiveStateClient is a client for the ReproductiveState schema.
+type ReproductiveStateClient struct {
+	config
+}
+
+// NewReproductiveStateClient returns a client for the ReproductiveState from the given config.
+func NewReproductiveStateClient(c config) *ReproductiveStateClient {
+	return &ReproductiveStateClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `reproductivestate.Hooks(f(g(h())))`.
+func (c *ReproductiveStateClient) Use(hooks ...Hook) {
+	c.hooks.ReproductiveState = append(c.hooks.ReproductiveState, hooks...)
+}
+
+// Create returns a create builder for ReproductiveState.
+func (c *ReproductiveStateClient) Create() *ReproductiveStateCreate {
+	mutation := newReproductiveStateMutation(c.config, OpCreate)
+	return &ReproductiveStateCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of ReproductiveState entities.
+func (c *ReproductiveStateClient) CreateBulk(builders ...*ReproductiveStateCreate) *ReproductiveStateCreateBulk {
+	return &ReproductiveStateCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for ReproductiveState.
+func (c *ReproductiveStateClient) Update() *ReproductiveStateUpdate {
+	mutation := newReproductiveStateMutation(c.config, OpUpdate)
+	return &ReproductiveStateUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *ReproductiveStateClient) UpdateOne(rs *ReproductiveState) *ReproductiveStateUpdateOne {
+	mutation := newReproductiveStateMutation(c.config, OpUpdateOne, withReproductiveState(rs))
+	return &ReproductiveStateUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *ReproductiveStateClient) UpdateOneID(id int64) *ReproductiveStateUpdateOne {
+	mutation := newReproductiveStateMutation(c.config, OpUpdateOne, withReproductiveStateID(id))
+	return &ReproductiveStateUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for ReproductiveState.
+func (c *ReproductiveStateClient) Delete() *ReproductiveStateDelete {
+	mutation := newReproductiveStateMutation(c.config, OpDelete)
+	return &ReproductiveStateDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *ReproductiveStateClient) DeleteOne(rs *ReproductiveState) *ReproductiveStateDeleteOne {
+	return c.DeleteOneID(rs.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *ReproductiveStateClient) DeleteOneID(id int64) *ReproductiveStateDeleteOne {
+	builder := c.Delete().Where(reproductivestate.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &ReproductiveStateDeleteOne{builder}
+}
+
+// Query returns a query builder for ReproductiveState.
+func (c *ReproductiveStateClient) Query() *ReproductiveStateQuery {
+	return &ReproductiveStateQuery{config: c.config}
+}
+
+// Get returns a ReproductiveState entity by its id.
+func (c *ReproductiveStateClient) Get(ctx context.Context, id int64) (*ReproductiveState, error) {
+	return c.Query().Where(reproductivestate.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *ReproductiveStateClient) GetX(ctx context.Context, id int64) *ReproductiveState {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *ReproductiveStateClient) Hooks() []Hook {
+	return c.hooks.ReproductiveState
 }
 
 // ShedClient is a client for the Shed schema.

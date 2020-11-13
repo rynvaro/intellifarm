@@ -1,6 +1,9 @@
 package schema
 
-import "github.com/facebook/ent"
+import (
+	"github.com/facebook/ent"
+	"github.com/facebook/ent/schema/field"
+)
 
 // BreedingType holds the schema definition for the BreedingType entity.
 type BreedingType struct {
@@ -9,7 +12,9 @@ type BreedingType struct {
 
 // Fields of the BreedingType.
 func (BreedingType) Fields() []ent.Field {
-	return nil
+	return []ent.Field{
+		field.String("name").NotEmpty().Comment("名称"),
+	}
 }
 
 // Edges of the BreedingType.

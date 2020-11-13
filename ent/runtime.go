@@ -5,11 +5,20 @@ package ent
 import (
 	"cattleai/ent/birthsurrounding"
 	"cattleai/ent/breathrate"
+	"cattleai/ent/breedingtype"
 	"cattleai/ent/category"
+	"cattleai/ent/cattle"
+	"cattleai/ent/cattlecate"
+	"cattleai/ent/cattlegender"
+	"cattleai/ent/cattlehaircolor"
+	"cattleai/ent/cattlejoinedtype"
+	"cattleai/ent/cattleowner"
+	"cattleai/ent/cattletype"
 	"cattleai/ent/duty"
 	"cattleai/ent/farm"
 	"cattleai/ent/hairstate"
 	"cattleai/ent/position"
+	"cattleai/ent/reproductivestate"
 	"cattleai/ent/schema"
 	"cattleai/ent/shed"
 	"cattleai/ent/user"
@@ -36,12 +45,76 @@ func init() {
 	breathrateDescName := breathrateFields[0].Descriptor()
 	// breathrate.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	breathrate.NameValidator = breathrateDescName.Validators[0].(func(string) error)
+	breedingtypeFields := schema.BreedingType{}.Fields()
+	_ = breedingtypeFields
+	// breedingtypeDescName is the schema descriptor for name field.
+	breedingtypeDescName := breedingtypeFields[0].Descriptor()
+	// breedingtype.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	breedingtype.NameValidator = breedingtypeDescName.Validators[0].(func(string) error)
 	categoryFields := schema.Category{}.Fields()
 	_ = categoryFields
 	// categoryDescName is the schema descriptor for name field.
 	categoryDescName := categoryFields[0].Descriptor()
 	// category.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	category.NameValidator = categoryDescName.Validators[0].(func(string) error)
+	cattleFields := schema.Cattle{}.Fields()
+	_ = cattleFields
+	// cattleDescFarmName is the schema descriptor for farmName field.
+	cattleDescFarmName := cattleFields[2].Descriptor()
+	// cattle.FarmNameValidator is a validator for the "farmName" field. It is called by the builders before save.
+	cattle.FarmNameValidator = cattleDescFarmName.Validators[0].(func(string) error)
+	// cattleDescShedName is the schema descriptor for shedName field.
+	cattleDescShedName := cattleFields[4].Descriptor()
+	// cattle.ShedNameValidator is a validator for the "shedName" field. It is called by the builders before save.
+	cattle.ShedNameValidator = cattleDescShedName.Validators[0].(func(string) error)
+	// cattleDescShedTypeName is the schema descriptor for shedTypeName field.
+	cattleDescShedTypeName := cattleFields[6].Descriptor()
+	// cattle.ShedTypeNameValidator is a validator for the "shedTypeName" field. It is called by the builders before save.
+	cattle.ShedTypeNameValidator = cattleDescShedTypeName.Validators[0].(func(string) error)
+	// cattleDescEarNumber is the schema descriptor for earNumber field.
+	cattleDescEarNumber := cattleFields[7].Descriptor()
+	// cattle.EarNumberValidator is a validator for the "earNumber" field. It is called by the builders before save.
+	cattle.EarNumberValidator = cattleDescEarNumber.Validators[0].(func(string) error)
+	cattlecateFields := schema.CattleCate{}.Fields()
+	_ = cattlecateFields
+	// cattlecateDescName is the schema descriptor for name field.
+	cattlecateDescName := cattlecateFields[0].Descriptor()
+	// cattlecate.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	cattlecate.NameValidator = cattlecateDescName.Validators[0].(func(string) error)
+	// cattlecateDescGenderIds is the schema descriptor for genderIds field.
+	cattlecateDescGenderIds := cattlecateFields[1].Descriptor()
+	// cattlecate.GenderIdsValidator is a validator for the "genderIds" field. It is called by the builders before save.
+	cattlecate.GenderIdsValidator = cattlecateDescGenderIds.Validators[0].(func(string) error)
+	cattlegenderFields := schema.CattleGender{}.Fields()
+	_ = cattlegenderFields
+	// cattlegenderDescName is the schema descriptor for name field.
+	cattlegenderDescName := cattlegenderFields[0].Descriptor()
+	// cattlegender.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	cattlegender.NameValidator = cattlegenderDescName.Validators[0].(func(string) error)
+	cattlehaircolorFields := schema.CattleHairColor{}.Fields()
+	_ = cattlehaircolorFields
+	// cattlehaircolorDescName is the schema descriptor for name field.
+	cattlehaircolorDescName := cattlehaircolorFields[0].Descriptor()
+	// cattlehaircolor.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	cattlehaircolor.NameValidator = cattlehaircolorDescName.Validators[0].(func(string) error)
+	cattlejoinedtypeFields := schema.CattleJoinedType{}.Fields()
+	_ = cattlejoinedtypeFields
+	// cattlejoinedtypeDescName is the schema descriptor for name field.
+	cattlejoinedtypeDescName := cattlejoinedtypeFields[0].Descriptor()
+	// cattlejoinedtype.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	cattlejoinedtype.NameValidator = cattlejoinedtypeDescName.Validators[0].(func(string) error)
+	cattleownerFields := schema.CattleOwner{}.Fields()
+	_ = cattleownerFields
+	// cattleownerDescName is the schema descriptor for name field.
+	cattleownerDescName := cattleownerFields[0].Descriptor()
+	// cattleowner.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	cattleowner.NameValidator = cattleownerDescName.Validators[0].(func(string) error)
+	cattletypeFields := schema.CattleType{}.Fields()
+	_ = cattletypeFields
+	// cattletypeDescName is the schema descriptor for name field.
+	cattletypeDescName := cattletypeFields[0].Descriptor()
+	// cattletype.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	cattletype.NameValidator = cattletypeDescName.Validators[0].(func(string) error)
 	dutyFields := schema.Duty{}.Fields()
 	_ = dutyFields
 	// dutyDescName is the schema descriptor for name field.
@@ -74,6 +147,12 @@ func init() {
 	positionDescName := positionFields[0].Descriptor()
 	// position.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	position.NameValidator = positionDescName.Validators[0].(func(string) error)
+	reproductivestateFields := schema.ReproductiveState{}.Fields()
+	_ = reproductivestateFields
+	// reproductivestateDescName is the schema descriptor for name field.
+	reproductivestateDescName := reproductivestateFields[0].Descriptor()
+	// reproductivestate.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	reproductivestate.NameValidator = reproductivestateDescName.Validators[0].(func(string) error)
 	shedFields := schema.Shed{}.Fields()
 	_ = shedFields
 	// shedDescFarmName is the schema descriptor for farmName field.

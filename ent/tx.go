@@ -16,8 +16,24 @@ type Tx struct {
 	BirthSurrounding *BirthSurroundingClient
 	// BreathRate is the client for interacting with the BreathRate builders.
 	BreathRate *BreathRateClient
+	// BreedingType is the client for interacting with the BreedingType builders.
+	BreedingType *BreedingTypeClient
 	// Category is the client for interacting with the Category builders.
 	Category *CategoryClient
+	// Cattle is the client for interacting with the Cattle builders.
+	Cattle *CattleClient
+	// CattleCate is the client for interacting with the CattleCate builders.
+	CattleCate *CattleCateClient
+	// CattleGender is the client for interacting with the CattleGender builders.
+	CattleGender *CattleGenderClient
+	// CattleHairColor is the client for interacting with the CattleHairColor builders.
+	CattleHairColor *CattleHairColorClient
+	// CattleJoinedType is the client for interacting with the CattleJoinedType builders.
+	CattleJoinedType *CattleJoinedTypeClient
+	// CattleOwner is the client for interacting with the CattleOwner builders.
+	CattleOwner *CattleOwnerClient
+	// CattleType is the client for interacting with the CattleType builders.
+	CattleType *CattleTypeClient
 	// Conf is the client for interacting with the Conf builders.
 	Conf *ConfClient
 	// Duty is the client for interacting with the Duty builders.
@@ -28,6 +44,8 @@ type Tx struct {
 	HairState *HairStateClient
 	// Position is the client for interacting with the Position builders.
 	Position *PositionClient
+	// ReproductiveState is the client for interacting with the ReproductiveState builders.
+	ReproductiveState *ReproductiveStateClient
 	// Shed is the client for interacting with the Shed builders.
 	Shed *ShedClient
 	// ShedCategory is the client for interacting with the ShedCategory builders.
@@ -175,12 +193,21 @@ func (tx *Tx) Client() *Client {
 func (tx *Tx) init() {
 	tx.BirthSurrounding = NewBirthSurroundingClient(tx.config)
 	tx.BreathRate = NewBreathRateClient(tx.config)
+	tx.BreedingType = NewBreedingTypeClient(tx.config)
 	tx.Category = NewCategoryClient(tx.config)
+	tx.Cattle = NewCattleClient(tx.config)
+	tx.CattleCate = NewCattleCateClient(tx.config)
+	tx.CattleGender = NewCattleGenderClient(tx.config)
+	tx.CattleHairColor = NewCattleHairColorClient(tx.config)
+	tx.CattleJoinedType = NewCattleJoinedTypeClient(tx.config)
+	tx.CattleOwner = NewCattleOwnerClient(tx.config)
+	tx.CattleType = NewCattleTypeClient(tx.config)
 	tx.Conf = NewConfClient(tx.config)
 	tx.Duty = NewDutyClient(tx.config)
 	tx.Farm = NewFarmClient(tx.config)
 	tx.HairState = NewHairStateClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)
+	tx.ReproductiveState = NewReproductiveStateClient(tx.config)
 	tx.Shed = NewShedClient(tx.config)
 	tx.ShedCategory = NewShedCategoryClient(tx.config)
 	tx.ShedType = NewShedTypeClient(tx.config)

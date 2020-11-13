@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"reflect"
 	"strings"
 
@@ -119,6 +120,10 @@ func Gen(model string, ins interface{}) {
 		),
 		Id("c.JSON(http.StatusOK, apicommon.SuccessResponse("+lowerModel+"))"),
 	).Line()
+
+	if err := os.Mkdir("../pkg/"+pkgName, 0755); err != nil {
+		panic(err)
+	}
 
 	err := f.Save("../pkg/" + pkgName + "/g_handlers.go")
 	if err != nil {

@@ -80,6 +80,18 @@ var (
 		PrimaryKey:  []*schema.Column{ConfsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// DutiesColumns holds the columns for the "duties" table.
+	DutiesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+	}
+	// DutiesTable holds the schema information for the "duties" table.
+	DutiesTable = &schema.Table{
+		Name:        "duties",
+		Columns:     DutiesColumns,
+		PrimaryKey:  []*schema.Column{DutiesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// FarmsColumns holds the columns for the "farms" table.
 	FarmsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -120,6 +132,18 @@ var (
 		Name:        "hair_states",
 		Columns:     HairStatesColumns,
 		PrimaryKey:  []*schema.Column{HairStatesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// PositionsColumns holds the columns for the "positions" table.
+	PositionsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+	}
+	// PositionsTable holds the schema information for the "positions" table.
+	PositionsTable = &schema.Table{
+		Name:        "positions",
+		Columns:     PositionsColumns,
+		PrimaryKey:  []*schema.Column{PositionsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// ShedsColumns holds the columns for the "sheds" table.
@@ -174,6 +198,37 @@ var (
 		PrimaryKey:  []*schema.Column{ShedTypesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// UsersColumns holds the columns for the "users" table.
+	UsersColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "farm_id", Type: field.TypeInt64},
+		{Name: "farm_name", Type: field.TypeString},
+		{Name: "position_id", Type: field.TypeInt64},
+		{Name: "position_name", Type: field.TypeString},
+		{Name: "duty_name", Type: field.TypeString},
+		{Name: "name", Type: field.TypeString},
+		{Name: "gender", Type: field.TypeInt},
+		{Name: "age", Type: field.TypeInt},
+		{Name: "education", Type: field.TypeString},
+		{Name: "major", Type: field.TypeString},
+		{Name: "job_title", Type: field.TypeString},
+		{Name: "phone", Type: field.TypeString},
+		{Name: "id_card", Type: field.TypeString},
+		{Name: "address", Type: field.TypeString},
+		{Name: "on_job_state", Type: field.TypeInt, Default: 1},
+		{Name: "joined_at", Type: field.TypeInt64},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// UsersTable holds the schema information for the "users" table.
+	UsersTable = &schema.Table{
+		Name:        "users",
+		Columns:     UsersColumns,
+		PrimaryKey:  []*schema.Column{UsersColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// WindDirectionsColumns holds the columns for the "wind_directions" table.
 	WindDirectionsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -192,11 +247,14 @@ var (
 		BreathRatesTable,
 		CategoriesTable,
 		ConfsTable,
+		DutiesTable,
 		FarmsTable,
 		HairStatesTable,
+		PositionsTable,
 		ShedsTable,
 		ShedCategoriesTable,
 		ShedTypesTable,
+		UsersTable,
 		WindDirectionsTable,
 	}
 )

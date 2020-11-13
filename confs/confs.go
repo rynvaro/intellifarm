@@ -15,4 +15,6 @@ type InitConf struct {
 	BreathRateInitialized    bool `json:"breathRateInitialized"`
 	HairStateInitialized     bool `json:"hairStateInitialized"`
 	WindDirectionInitialized bool `json:"windDirectionInitialized"`
+	PositionInitialized      bool `json:"positionInitialized"`
+	DutyInitialized          bool `json:"dutyInitialized"`
 }

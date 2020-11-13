@@ -20,16 +20,22 @@ type Tx struct {
 	Category *CategoryClient
 	// Conf is the client for interacting with the Conf builders.
 	Conf *ConfClient
+	// Duty is the client for interacting with the Duty builders.
+	Duty *DutyClient
 	// Farm is the client for interacting with the Farm builders.
 	Farm *FarmClient
 	// HairState is the client for interacting with the HairState builders.
 	HairState *HairStateClient
+	// Position is the client for interacting with the Position builders.
+	Position *PositionClient
 	// Shed is the client for interacting with the Shed builders.
 	Shed *ShedClient
 	// ShedCategory is the client for interacting with the ShedCategory builders.
 	ShedCategory *ShedCategoryClient
 	// ShedType is the client for interacting with the ShedType builders.
 	ShedType *ShedTypeClient
+	// User is the client for interacting with the User builders.
+	User *UserClient
 	// WindDirection is the client for interacting with the WindDirection builders.
 	WindDirection *WindDirectionClient
 
@@ -171,11 +177,14 @@ func (tx *Tx) init() {
 	tx.BreathRate = NewBreathRateClient(tx.config)
 	tx.Category = NewCategoryClient(tx.config)
 	tx.Conf = NewConfClient(tx.config)
+	tx.Duty = NewDutyClient(tx.config)
 	tx.Farm = NewFarmClient(tx.config)
 	tx.HairState = NewHairStateClient(tx.config)
+	tx.Position = NewPositionClient(tx.config)
 	tx.Shed = NewShedClient(tx.config)
 	tx.ShedCategory = NewShedCategoryClient(tx.config)
 	tx.ShedType = NewShedTypeClient(tx.config)
+	tx.User = NewUserClient(tx.config)
 	tx.WindDirection = NewWindDirectionClient(tx.config)
 }
 

@@ -4,8 +4,10 @@ import (
 	"cattleai/pkg/birthsurroundings"
 	"cattleai/pkg/breathrates"
 	"cattleai/pkg/categories"
+	"cattleai/pkg/duties"
 	"cattleai/pkg/farms"
 	"cattleai/pkg/hairstates"
+	"cattleai/pkg/positions"
 	"cattleai/pkg/shedcates"
 	"cattleai/pkg/sheds"
 	"cattleai/pkg/shedtypes"
@@ -37,4 +39,8 @@ func Register(g *gin.RouterGroup) {
 	winddirections.RegisterRoutes(g)
 	// birth surroundings
 	birthsurroundings.RegisterRoutes(g)
+	// positions
+	positions.RegisterRoutes(g)
+	// duties
+	duties.RegisterRoutes(g)
 }

@@ -6,10 +6,13 @@ import (
 	"cattleai/ent/birthsurrounding"
 	"cattleai/ent/breathrate"
 	"cattleai/ent/category"
+	"cattleai/ent/duty"
 	"cattleai/ent/farm"
 	"cattleai/ent/hairstate"
+	"cattleai/ent/position"
 	"cattleai/ent/schema"
 	"cattleai/ent/shed"
+	"cattleai/ent/user"
 	"cattleai/ent/winddirection"
 )
 
@@ -39,6 +42,12 @@ func init() {
 	categoryDescName := categoryFields[0].Descriptor()
 	// category.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	category.NameValidator = categoryDescName.Validators[0].(func(string) error)
+	dutyFields := schema.Duty{}.Fields()
+	_ = dutyFields
+	// dutyDescName is the schema descriptor for name field.
+	dutyDescName := dutyFields[0].Descriptor()
+	// duty.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	duty.NameValidator = dutyDescName.Validators[0].(func(string) error)
 	farmFields := schema.Farm{}.Fields()
 	_ = farmFields
 	// farmDescName is the schema descriptor for name field.
@@ -59,6 +68,12 @@ func init() {
 	hairstateDescName := hairstateFields[0].Descriptor()
 	// hairstate.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	hairstate.NameValidator = hairstateDescName.Validators[0].(func(string) error)
+	positionFields := schema.Position{}.Fields()
+	_ = positionFields
+	// positionDescName is the schema descriptor for name field.
+	positionDescName := positionFields[0].Descriptor()
+	// position.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	position.NameValidator = positionDescName.Validators[0].(func(string) error)
 	shedFields := schema.Shed{}.Fields()
 	_ = shedFields
 	// shedDescFarmName is the schema descriptor for farmName field.
@@ -77,6 +92,28 @@ func init() {
 	shedDescShedTypeName := shedFields[6].Descriptor()
 	// shed.ShedTypeNameValidator is a validator for the "shedTypeName" field. It is called by the builders before save.
 	shed.ShedTypeNameValidator = shedDescShedTypeName.Validators[0].(func(string) error)
+	userFields := schema.User{}.Fields()
+	_ = userFields
+	// userDescFarmName is the schema descriptor for farmName field.
+	userDescFarmName := userFields[1].Descriptor()
+	// user.FarmNameValidator is a validator for the "farmName" field. It is called by the builders before save.
+	user.FarmNameValidator = userDescFarmName.Validators[0].(func(string) error)
+	// userDescPositionName is the schema descriptor for positionName field.
+	userDescPositionName := userFields[3].Descriptor()
+	// user.PositionNameValidator is a validator for the "positionName" field. It is called by the builders before save.
+	user.PositionNameValidator = userDescPositionName.Validators[0].(func(string) error)
+	// userDescDutyName is the schema descriptor for dutyName field.
+	userDescDutyName := userFields[4].Descriptor()
+	// user.DutyNameValidator is a validator for the "dutyName" field. It is called by the builders before save.
+	user.DutyNameValidator = userDescDutyName.Validators[0].(func(string) error)
+	// userDescName is the schema descriptor for name field.
+	userDescName := userFields[5].Descriptor()
+	// user.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	user.NameValidator = userDescName.Validators[0].(func(string) error)
+	// userDescOnJobState is the schema descriptor for onJobState field.
+	userDescOnJobState := userFields[14].Descriptor()
+	// user.DefaultOnJobState holds the default value on creation for the onJobState field.
+	user.DefaultOnJobState = userDescOnJobState.Default.(int)
 	winddirectionFields := schema.WindDirection{}.Fields()
 	_ = winddirectionFields
 	// winddirectionDescName is the schema descriptor for name field.

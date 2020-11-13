@@ -41,7 +41,7 @@ func GenCates(model string) {
 		Id("c.JSON(http.StatusOK, apicommon.SuccessResponse("+modelPluralLowerCase+"))"),
 	).Line()
 
-	err := f.Save("../pkg/" + pkgName + "/ghandlers.go")
+	err := f.Save("../pkg/" + pkgName + "/g_handlers.go")
 	if err != nil {
 		panic(err)
 	}
@@ -54,7 +54,7 @@ func GenCates(model string) {
 		Id(`g.GET("/` + pkgName + `", ` + modelPlural + `)`),
 	)
 
-	err = routeF.Save("../pkg/" + pkgName + "/generatedroutes.go")
+	err = routeF.Save("../pkg/" + pkgName + "/g_routes.go")
 	if err != nil {
 		panic(err)
 	}

@@ -18,11 +18,17 @@ type Category func(*sql.Selector)
 // Conf is the predicate function for conf builders.
 type Conf func(*sql.Selector)
 
+// Duty is the predicate function for duty builders.
+type Duty func(*sql.Selector)
+
 // Farm is the predicate function for farm builders.
 type Farm func(*sql.Selector)
 
 // HairState is the predicate function for hairstate builders.
 type HairState func(*sql.Selector)
+
+// Position is the predicate function for position builders.
+type Position func(*sql.Selector)
 
 // Shed is the predicate function for shed builders.
 type Shed func(*sql.Selector)
@@ -32,6 +38,9 @@ type ShedCategory func(*sql.Selector)
 
 // ShedType is the predicate function for shedtype builders.
 type ShedType func(*sql.Selector)
+
+// User is the predicate function for user builders.
+type User func(*sql.Selector)
 
 // WindDirection is the predicate function for winddirection builders.
 type WindDirection func(*sql.Selector)

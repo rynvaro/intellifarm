@@ -46,6 +46,22 @@ var initData = map[string][]string{
 		"北",
 		"东北",
 	},
+	"positions": {
+		"场长/经理",
+		"副厂长/副经理",
+		"技术负责人",
+		"组长/班长",
+		"员工/工人",
+	},
+	"duties": {
+		"营养师",
+		"繁育师",
+		"兽医师",
+		"信息员",
+		"饲养员",
+		"库管员",
+		"其他",
+	},
 }
 
 func dataInit() {
@@ -135,6 +151,32 @@ func dataInit() {
 			log.Info().Msg(fmt.Sprintf("windDirection %s initialized", v))
 		}
 		conf.InitConf.WindDirectionInitialized = true
+	}
+
+	// init positions
+	if !conf.InitConf.PositionInitialized {
+		for _, v := range initData["positions"] {
+			_, err := Client.Position.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("position %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("position %s initialized", v))
+		}
+		conf.InitConf.PositionInitialized = true
+	}
+
+	// init positions
+	if !conf.InitConf.DutyInitialized {
+		for _, v := range initData["duties"] {
+			_, err := Client.Duty.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("duty %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("duty %s initialized", v))
+		}
+		conf.InitConf.DutyInitialized = true
 	}
 
 	// update init config

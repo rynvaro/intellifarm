@@ -13,11 +13,14 @@ import (
 	"cattleai/ent/breathrate"
 	"cattleai/ent/category"
 	"cattleai/ent/conf"
+	"cattleai/ent/duty"
 	"cattleai/ent/farm"
 	"cattleai/ent/hairstate"
+	"cattleai/ent/position"
 	"cattleai/ent/shed"
 	"cattleai/ent/shedcategory"
 	"cattleai/ent/shedtype"
+	"cattleai/ent/user"
 	"cattleai/ent/winddirection"
 
 	"github.com/facebook/ent/dialect"
@@ -37,16 +40,22 @@ type Client struct {
 	Category *CategoryClient
 	// Conf is the client for interacting with the Conf builders.
 	Conf *ConfClient
+	// Duty is the client for interacting with the Duty builders.
+	Duty *DutyClient
 	// Farm is the client for interacting with the Farm builders.
 	Farm *FarmClient
 	// HairState is the client for interacting with the HairState builders.
 	HairState *HairStateClient
+	// Position is the client for interacting with the Position builders.
+	Position *PositionClient
 	// Shed is the client for interacting with the Shed builders.
 	Shed *ShedClient
 	// ShedCategory is the client for interacting with the ShedCategory builders.
 	ShedCategory *ShedCategoryClient
 	// ShedType is the client for interacting with the ShedType builders.
 	ShedType *ShedTypeClient
+	// User is the client for interacting with the User builders.
+	User *UserClient
 	// WindDirection is the client for interacting with the WindDirection builders.
 	WindDirection *WindDirectionClient
 }
@@ -66,11 +75,14 @@ func (c *Client) init() {
 	c.BreathRate = NewBreathRateClient(c.config)
 	c.Category = NewCategoryClient(c.config)
 	c.Conf = NewConfClient(c.config)
+	c.Duty = NewDutyClient(c.config)
 	c.Farm = NewFarmClient(c.config)
 	c.HairState = NewHairStateClient(c.config)
+	c.Position = NewPositionClient(c.config)
 	c.Shed = NewShedClient(c.config)
 	c.ShedCategory = NewShedCategoryClient(c.config)
 	c.ShedType = NewShedTypeClient(c.config)
+	c.User = NewUserClient(c.config)
 	c.WindDirection = NewWindDirectionClient(c.config)
 }
 
@@ -108,11 +120,14 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		BreathRate:       NewBreathRateClient(cfg),
 		Category:         NewCategoryClient(cfg),
 		Conf:             NewConfClient(cfg),
+		Duty:             NewDutyClient(cfg),
 		Farm:             NewFarmClient(cfg),
 		HairState:        NewHairStateClient(cfg),
+		Position:         NewPositionClient(cfg),
 		Shed:             NewShedClient(cfg),
 		ShedCategory:     NewShedCategoryClient(cfg),
 		ShedType:         NewShedTypeClient(cfg),
+		User:             NewUserClient(cfg),
 		WindDirection:    NewWindDirectionClient(cfg),
 	}, nil
 }
@@ -133,11 +148,14 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		BreathRate:       NewBreathRateClient(cfg),
 		Category:         NewCategoryClient(cfg),
 		Conf:             NewConfClient(cfg),
+		Duty:             NewDutyClient(cfg),
 		Farm:             NewFarmClient(cfg),
 		HairState:        NewHairStateClient(cfg),
+		Position:         NewPositionClient(cfg),
 		Shed:             NewShedClient(cfg),
 		ShedCategory:     NewShedCategoryClient(cfg),
 		ShedType:         NewShedTypeClient(cfg),
+		User:             NewUserClient(cfg),
 		WindDirection:    NewWindDirectionClient(cfg),
 	}, nil
 }
@@ -171,11 +189,14 @@ func (c *Client) Use(hooks ...Hook) {
 	c.BreathRate.Use(hooks...)
 	c.Category.Use(hooks...)
 	c.Conf.Use(hooks...)
+	c.Duty.Use(hooks...)
 	c.Farm.Use(hooks...)
 	c.HairState.Use(hooks...)
+	c.Position.Use(hooks...)
 	c.Shed.Use(hooks...)
 	c.ShedCategory.Use(hooks...)
 	c.ShedType.Use(hooks...)
+	c.User.Use(hooks...)
 	c.WindDirection.Use(hooks...)
 }
 
@@ -531,6 +552,94 @@ func (c *ConfClient) Hooks() []Hook {
 	return c.hooks.Conf
 }
 
+// DutyClient is a client for the Duty schema.
+type DutyClient struct {
+	config
+}
+
+// NewDutyClient returns a client for the Duty from the given config.
+func NewDutyClient(c config) *DutyClient {
+	return &DutyClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `duty.Hooks(f(g(h())))`.
+func (c *DutyClient) Use(hooks ...Hook) {
+	c.hooks.Duty = append(c.hooks.Duty, hooks...)
+}
+
+// Create returns a create builder for Duty.
+func (c *DutyClient) Create() *DutyCreate {
+	mutation := newDutyMutation(c.config, OpCreate)
+	return &DutyCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Duty entities.
+func (c *DutyClient) CreateBulk(builders ...*DutyCreate) *DutyCreateBulk {
+	return &DutyCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Duty.
+func (c *DutyClient) Update() *DutyUpdate {
+	mutation := newDutyMutation(c.config, OpUpdate)
+	return &DutyUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *DutyClient) UpdateOne(d *Duty) *DutyUpdateOne {
+	mutation := newDutyMutation(c.config, OpUpdateOne, withDuty(d))
+	return &DutyUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *DutyClient) UpdateOneID(id int64) *DutyUpdateOne {
+	mutation := newDutyMutation(c.config, OpUpdateOne, withDutyID(id))
+	return &DutyUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Duty.
+func (c *DutyClient) Delete() *DutyDelete {
+	mutation := newDutyMutation(c.config, OpDelete)
+	return &DutyDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *DutyClient) DeleteOne(d *Duty) *DutyDeleteOne {
+	return c.DeleteOneID(d.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *DutyClient) DeleteOneID(id int64) *DutyDeleteOne {
+	builder := c.Delete().Where(duty.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &DutyDeleteOne{builder}
+}
+
+// Query returns a query builder for Duty.
+func (c *DutyClient) Query() *DutyQuery {
+	return &DutyQuery{config: c.config}
+}
+
+// Get returns a Duty entity by its id.
+func (c *DutyClient) Get(ctx context.Context, id int64) (*Duty, error) {
+	return c.Query().Where(duty.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *DutyClient) GetX(ctx context.Context, id int64) *Duty {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *DutyClient) Hooks() []Hook {
+	return c.hooks.Duty
+}
+
 // FarmClient is a client for the Farm schema.
 type FarmClient struct {
 	config
@@ -705,6 +814,94 @@ func (c *HairStateClient) GetX(ctx context.Context, id int64) *HairState {
 // Hooks returns the client hooks.
 func (c *HairStateClient) Hooks() []Hook {
 	return c.hooks.HairState
+}
+
+// PositionClient is a client for the Position schema.
+type PositionClient struct {
+	config
+}
+
+// NewPositionClient returns a client for the Position from the given config.
+func NewPositionClient(c config) *PositionClient {
+	return &PositionClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `position.Hooks(f(g(h())))`.
+func (c *PositionClient) Use(hooks ...Hook) {
+	c.hooks.Position = append(c.hooks.Position, hooks...)
+}
+
+// Create returns a create builder for Position.
+func (c *PositionClient) Create() *PositionCreate {
+	mutation := newPositionMutation(c.config, OpCreate)
+	return &PositionCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Position entities.
+func (c *PositionClient) CreateBulk(builders ...*PositionCreate) *PositionCreateBulk {
+	return &PositionCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Position.
+func (c *PositionClient) Update() *PositionUpdate {
+	mutation := newPositionMutation(c.config, OpUpdate)
+	return &PositionUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *PositionClient) UpdateOne(po *Position) *PositionUpdateOne {
+	mutation := newPositionMutation(c.config, OpUpdateOne, withPosition(po))
+	return &PositionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *PositionClient) UpdateOneID(id int64) *PositionUpdateOne {
+	mutation := newPositionMutation(c.config, OpUpdateOne, withPositionID(id))
+	return &PositionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Position.
+func (c *PositionClient) Delete() *PositionDelete {
+	mutation := newPositionMutation(c.config, OpDelete)
+	return &PositionDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *PositionClient) DeleteOne(po *Position) *PositionDeleteOne {
+	return c.DeleteOneID(po.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *PositionClient) DeleteOneID(id int64) *PositionDeleteOne {
+	builder := c.Delete().Where(position.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &PositionDeleteOne{builder}
+}
+
+// Query returns a query builder for Position.
+func (c *PositionClient) Query() *PositionQuery {
+	return &PositionQuery{config: c.config}
+}
+
+// Get returns a Position entity by its id.
+func (c *PositionClient) Get(ctx context.Context, id int64) (*Position, error) {
+	return c.Query().Where(position.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *PositionClient) GetX(ctx context.Context, id int64) *Position {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *PositionClient) Hooks() []Hook {
+	return c.hooks.Position
 }
 
 // ShedClient is a client for the Shed schema.
@@ -969,6 +1166,94 @@ func (c *ShedTypeClient) GetX(ctx context.Context, id int64) *ShedType {
 // Hooks returns the client hooks.
 func (c *ShedTypeClient) Hooks() []Hook {
 	return c.hooks.ShedType
+}
+
+// UserClient is a client for the User schema.
+type UserClient struct {
+	config
+}
+
+// NewUserClient returns a client for the User from the given config.
+func NewUserClient(c config) *UserClient {
+	return &UserClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `user.Hooks(f(g(h())))`.
+func (c *UserClient) Use(hooks ...Hook) {
+	c.hooks.User = append(c.hooks.User, hooks...)
+}
+
+// Create returns a create builder for User.
+func (c *UserClient) Create() *UserCreate {
+	mutation := newUserMutation(c.config, OpCreate)
+	return &UserCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of User entities.
+func (c *UserClient) CreateBulk(builders ...*UserCreate) *UserCreateBulk {
+	return &UserCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for User.
+func (c *UserClient) Update() *UserUpdate {
+	mutation := newUserMutation(c.config, OpUpdate)
+	return &UserUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *UserClient) UpdateOne(u *User) *UserUpdateOne {
+	mutation := newUserMutation(c.config, OpUpdateOne, withUser(u))
+	return &UserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *UserClient) UpdateOneID(id int64) *UserUpdateOne {
+	mutation := newUserMutation(c.config, OpUpdateOne, withUserID(id))
+	return &UserUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for User.
+func (c *UserClient) Delete() *UserDelete {
+	mutation := newUserMutation(c.config, OpDelete)
+	return &UserDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *UserClient) DeleteOne(u *User) *UserDeleteOne {
+	return c.DeleteOneID(u.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *UserClient) DeleteOneID(id int64) *UserDeleteOne {
+	builder := c.Delete().Where(user.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &UserDeleteOne{builder}
+}
+
+// Query returns a query builder for User.
+func (c *UserClient) Query() *UserQuery {
+	return &UserQuery{config: c.config}
+}
+
+// Get returns a User entity by its id.
+func (c *UserClient) Get(ctx context.Context, id int64) (*User, error) {
+	return c.Query().Where(user.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *UserClient) GetX(ctx context.Context, id int64) *User {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *UserClient) Hooks() []Hook {
+	return c.hooks.User
 }
 
 // WindDirectionClient is a client for the WindDirection schema.

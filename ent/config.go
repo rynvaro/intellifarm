@@ -28,11 +28,14 @@ type hooks struct {
 	BreathRate       []ent.Hook
 	Category         []ent.Hook
 	Conf             []ent.Hook
+	Duty             []ent.Hook
 	Farm             []ent.Hook
 	HairState        []ent.Hook
+	Position         []ent.Hook
 	Shed             []ent.Hook
 	ShedCategory     []ent.Hook
 	ShedType         []ent.Hook
+	User             []ent.Hook
 	WindDirection    []ent.Hook
 }
 

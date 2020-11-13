@@ -127,32 +127,32 @@ func Gen(model string, ins interface{}) {
 
 	fmt.Printf("%#v", f)
 
-	// whereF := NewFile(pkgName)
-	// whereF.Func().Id("Where").Params(Id("listParams *params.ListParams")).Id("predicate."+model).Block(
-	// 	Id("wheres").Op(":=").Id("[]predicate."+model+"{"+lowerModel+".Deleted(0)}"),
-	// 	If(Id("listParams.Q")).Op("!=").Id(`""`).Block(
-	// 		Id("wheres").Op("=").Id("append(wheres, "+lowerModel+".NameContains(listParams.Q))"),
-	// 	),
-	// 	Id("return "+lowerModel+".And(wheres...)"),
-	// )
-	// err = whereF.Save("../pkg/" + pkgName + "/g_where.go")
-	// if err != nil {
-	// 	panic(err)
-	// }
+	whereF := NewFile(pkgName)
+	whereF.Func().Id("Where").Params(Id("listParams *params.ListParams")).Id("predicate."+model).Block(
+		Id("wheres").Op(":=").Id("[]predicate."+model+"{"+lowerModel+".Deleted(0)}"),
+		If(Id("listParams.Q")).Op("!=").Id(`""`).Block(
+			Id("wheres").Op("=").Id("append(wheres, "+lowerModel+".NameContains(listParams.Q))"),
+		),
+		Id("return "+lowerModel+".And(wheres...)"),
+	)
+	err = whereF.Save("../pkg/" + pkgName + "/g_where.go")
+	if err != nil {
+		panic(err)
+	}
 
-	// // routes
-	// routeF := NewFile(pkgName)
+	// routes
+	routeF := NewFile(pkgName)
 
-	// routeF.Func().Id("RegisterRoutes").Params(Id("g *gin.RouterGroup")).Block(
-	// 	Id(`g.POST("/`+pkgName+`", `+funcAdd+`)`),
-	// 	Id(`g.GET("/`+pkgName+`", `+funcList+`)`),
-	// 	Id(`g.DELETE("/`+pkgName+`/:id", `+funcDelete+`)`),
-	// 	Id(`g.PUT("/`+pkgName+`/:id", `+funcUpdate+`)`),
-	// )
+	routeF.Func().Id("RegisterRoutes").Params(Id("g *gin.RouterGroup")).Block(
+		Id(`g.POST("/`+pkgName+`", `+funcAdd+`)`),
+		Id(`g.GET("/`+pkgName+`", `+funcList+`)`),
+		Id(`g.DELETE("/`+pkgName+`/:id", `+funcDelete+`)`),
+		Id(`g.PUT("/`+pkgName+`/:id", `+funcUpdate+`)`),
+	)
 
-	// err = routeF.Save("../pkg/" + pkgName + "/g_routes.go")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// fmt.Printf("%#v", routeF)
+	err = routeF.Save("../pkg/" + pkgName + "/g_routes.go")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("%#v", routeF)
 }

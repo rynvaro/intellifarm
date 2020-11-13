@@ -13,9 +13,5 @@ func UserLogin(c *gin.Context) {
 }
 
 func UserInfo(c *gin.Context) {
-	info := &Info{
-		Name: "helx",
-		Age:  18,
-	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(info))
+	c.JSON(http.StatusOK, apicommon.SuccessResponse("info"))
 }

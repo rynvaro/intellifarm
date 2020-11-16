@@ -315,6 +315,18 @@ func dataInit() {
 		conf.InitConf.PregnancyTestResult = true
 	}
 
+	if !conf.InitConf.AbortionType {
+		for _, v := range initData["abortionTypes"] {
+			_, err := Client.AbortionType.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("AbortionType %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("AbortionType %s initialized", v))
+		}
+		conf.InitConf.AbortionType = true
+	}
+
 	// update init config
 	if len(confs) > 0 {
 		_, err := Client.Conf.UpdateOneID(confs[0].ID).SetConfs(conf).Save(ctx)

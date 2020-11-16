@@ -3,6 +3,7 @@
 package ent
 
 import (
+	"cattleai/ent/abortiontype"
 	"cattleai/ent/birthsurrounding"
 	"cattleai/ent/breathrate"
 	"cattleai/ent/breedingtype"
@@ -36,6 +37,12 @@ import (
 // code (default values, validators or hooks) and stitches it
 // to their package variables.
 func init() {
+	abortiontypeFields := schema.AbortionType{}.Fields()
+	_ = abortiontypeFields
+	// abortiontypeDescName is the schema descriptor for name field.
+	abortiontypeDescName := abortiontypeFields[0].Descriptor()
+	// abortiontype.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	abortiontype.NameValidator = abortiontypeDescName.Validators[0].(func(string) error)
 	birthsurroundingFields := schema.BirthSurrounding{}.Fields()
 	_ = birthsurroundingFields
 	// birthsurroundingDescFarmName is the schema descriptor for farmName field.

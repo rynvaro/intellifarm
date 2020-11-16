@@ -209,6 +209,54 @@ func DenyMutationOperationRule(op ent.Op) MutationRule {
 	return OnMutationOperation(rule, op)
 }
 
+// The AbortionQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type AbortionQueryRuleFunc func(context.Context, *ent.AbortionQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f AbortionQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.AbortionQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.AbortionQuery", q)
+}
+
+// The AbortionMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type AbortionMutationRuleFunc func(context.Context, *ent.AbortionMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f AbortionMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.AbortionMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.AbortionMutation", m)
+}
+
+// The AbortionTypeQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type AbortionTypeQueryRuleFunc func(context.Context, *ent.AbortionTypeQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f AbortionTypeQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.AbortionTypeQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.AbortionTypeQuery", q)
+}
+
+// The AbortionTypeMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type AbortionTypeMutationRuleFunc func(context.Context, *ent.AbortionTypeMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f AbortionTypeMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.AbortionTypeMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.AbortionTypeMutation", m)
+}
+
 // The BirthSurroundingQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type BirthSurroundingQueryRuleFunc func(context.Context, *ent.BirthSurroundingQuery) error

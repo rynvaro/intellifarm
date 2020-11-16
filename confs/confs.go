@@ -32,4 +32,5 @@ type InitConf struct {
 	PregnancyTestType        bool `json:"pregnancyTestType"`
 	PregnancyTestMethod      bool `json:"pregnancyTestMethod"`
 	PregnancyTestResult      bool `json:"pregnancyTestResult"`
+	AbortionType             bool `json:"abortionType"`
 }

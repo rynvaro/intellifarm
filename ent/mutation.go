@@ -4,6 +4,8 @@ package ent
 
 import (
 	"cattleai/confs"
+	"cattleai/ent/abortion"
+	"cattleai/ent/abortiontype"
 	"cattleai/ent/birthsurrounding"
 	"cattleai/ent/breathrate"
 	"cattleai/ent/breeding"
@@ -56,6 +58,8 @@ const (
 	OpUpdateOne = ent.OpUpdateOne
 
 	// Node types.
+	TypeAbortion            = "Abortion"
+	TypeAbortionType        = "AbortionType"
 	TypeBirthSurrounding    = "BirthSurrounding"
 	TypeBreathRate          = "BreathRate"
 	TypeBreeding            = "Breeding"
@@ -93,6 +97,1563 @@ const (
 	TypeUser                = "User"
 	TypeWindDirection       = "WindDirection"
 )
+
+// AbortionMutation represents an operation that mutate the Abortions
+// nodes in the graph.
+type AbortionMutation struct {
+	config
+	op                Op
+	typ               string
+	id                *int64
+	name              *string
+	earNumber         *string
+	times             *int
+	addtimes          *int
+	reproductiveState *string
+	shedName          *string
+	pregnantAt        *int64
+	addpregnantAt     *int64
+	abortionAt        *int64
+	addabortionAt     *int64
+	abortionTypeId    *int
+	addabortionTypeId *int
+	abortionTypeName  *string
+	userName          *string
+	remarks           *string
+	createdAt         *int64
+	addcreatedAt      *int64
+	updatedAt         *int64
+	addupdatedAt      *int64
+	deleted           *int
+	adddeleted        *int
+	clearedFields     map[string]struct{}
+	done              bool
+	oldValue          func(context.Context) (*Abortion, error)
+}
+
+var _ ent.Mutation = (*AbortionMutation)(nil)
+
+// abortionOption allows to manage the mutation configuration using functional options.
+type abortionOption func(*AbortionMutation)
+
+// newAbortionMutation creates new mutation for $n.Name.
+func newAbortionMutation(c config, op Op, opts ...abortionOption) *AbortionMutation {
+	m := &AbortionMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeAbortion,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withAbortionID sets the id field of the mutation.
+func withAbortionID(id int64) abortionOption {
+	return func(m *AbortionMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *Abortion
+		)
+		m.oldValue = func(ctx context.Context) (*Abortion, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().Abortion.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withAbortion sets the old Abortion of the mutation.
+func withAbortion(node *Abortion) abortionOption {
+	return func(m *AbortionMutation) {
+		m.oldValue = func(context.Context) (*Abortion, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m AbortionMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m AbortionMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *AbortionMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *AbortionMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *AbortionMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the Abortion.
+// If the Abortion object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbortionMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ClearName clears the value of name.
+func (m *AbortionMutation) ClearName() {
+	m.name = nil
+	m.clearedFields[abortion.FieldName] = struct{}{}
+}
+
+// NameCleared returns if the field name was cleared in this mutation.
+func (m *AbortionMutation) NameCleared() bool {
+	_, ok := m.clearedFields[abortion.FieldName]
+	return ok
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *AbortionMutation) ResetName() {
+	m.name = nil
+	delete(m.clearedFields, abortion.FieldName)
+}
+
+// SetEarNumber sets the earNumber field.
+func (m *AbortionMutation) SetEarNumber(s string) {
+	m.earNumber = &s
+}
+
+// EarNumber returns the earNumber value in the mutation.
+func (m *AbortionMutation) EarNumber() (r string, exists bool) {
+	v := m.earNumber
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEarNumber returns the old earNumber value of the Abortion.
+// If the Abortion object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbortionMutation) OldEarNumber(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldEarNumber is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldEarNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEarNumber: %w", err)
+	}
+	return oldValue.EarNumber, nil
+}
+
+// ResetEarNumber reset all changes of the "earNumber" field.
+func (m *AbortionMutation) ResetEarNumber() {
+	m.earNumber = nil
+}
+
+// SetTimes sets the times field.
+func (m *AbortionMutation) SetTimes(i int) {
+	m.times = &i
+	m.addtimes = nil
+}
+
+// Times returns the times value in the mutation.
+func (m *AbortionMutation) Times() (r int, exists bool) {
+	v := m.times
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTimes returns the old times value of the Abortion.
+// If the Abortion object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbortionMutation) OldTimes(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldTimes is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldTimes requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTimes: %w", err)
+	}
+	return oldValue.Times, nil
+}
+
+// AddTimes adds i to times.
+func (m *AbortionMutation) AddTimes(i int) {
+	if m.addtimes != nil {
+		*m.addtimes += i
+	} else {
+		m.addtimes = &i
+	}
+}
+
+// AddedTimes returns the value that was added to the times field in this mutation.
+func (m *AbortionMutation) AddedTimes() (r int, exists bool) {
+	v := m.addtimes
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetTimes reset all changes of the "times" field.
+func (m *AbortionMutation) ResetTimes() {
+	m.times = nil
+	m.addtimes = nil
+}
+
+// SetReproductiveState sets the reproductiveState field.
+func (m *AbortionMutation) SetReproductiveState(s string) {
+	m.reproductiveState = &s
+}
+
+// ReproductiveState returns the reproductiveState value in the mutation.
+func (m *AbortionMutation) ReproductiveState() (r string, exists bool) {
+	v := m.reproductiveState
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldReproductiveState returns the old reproductiveState value of the Abortion.
+// If the Abortion object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbortionMutation) OldReproductiveState(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldReproductiveState is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldReproductiveState requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldReproductiveState: %w", err)
+	}
+	return oldValue.ReproductiveState, nil
+}
+
+// ResetReproductiveState reset all changes of the "reproductiveState" field.
+func (m *AbortionMutation) ResetReproductiveState() {
+	m.reproductiveState = nil
+}
+
+// SetShedName sets the shedName field.
+func (m *AbortionMutation) SetShedName(s string) {
+	m.shedName = &s
+}
+
+// ShedName returns the shedName value in the mutation.
+func (m *AbortionMutation) ShedName() (r string, exists bool) {
+	v := m.shedName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldShedName returns the old shedName value of the Abortion.
+// If the Abortion object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbortionMutation) OldShedName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldShedName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldShedName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldShedName: %w", err)
+	}
+	return oldValue.ShedName, nil
+}
+
+// ResetShedName reset all changes of the "shedName" field.
+func (m *AbortionMutation) ResetShedName() {
+	m.shedName = nil
+}
+
+// SetPregnantAt sets the pregnantAt field.
+func (m *AbortionMutation) SetPregnantAt(i int64) {
+	m.pregnantAt = &i
+	m.addpregnantAt = nil
+}
+
+// PregnantAt returns the pregnantAt value in the mutation.
+func (m *AbortionMutation) PregnantAt() (r int64, exists bool) {
+	v := m.pregnantAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPregnantAt returns the old pregnantAt value of the Abortion.
+// If the Abortion object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbortionMutation) OldPregnantAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldPregnantAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldPregnantAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPregnantAt: %w", err)
+	}
+	return oldValue.PregnantAt, nil
+}
+
+// AddPregnantAt adds i to pregnantAt.
+func (m *AbortionMutation) AddPregnantAt(i int64) {
+	if m.addpregnantAt != nil {
+		*m.addpregnantAt += i
+	} else {
+		m.addpregnantAt = &i
+	}
+}
+
+// AddedPregnantAt returns the value that was added to the pregnantAt field in this mutation.
+func (m *AbortionMutation) AddedPregnantAt() (r int64, exists bool) {
+	v := m.addpregnantAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetPregnantAt reset all changes of the "pregnantAt" field.
+func (m *AbortionMutation) ResetPregnantAt() {
+	m.pregnantAt = nil
+	m.addpregnantAt = nil
+}
+
+// SetAbortionAt sets the abortionAt field.
+func (m *AbortionMutation) SetAbortionAt(i int64) {
+	m.abortionAt = &i
+	m.addabortionAt = nil
+}
+
+// AbortionAt returns the abortionAt value in the mutation.
+func (m *AbortionMutation) AbortionAt() (r int64, exists bool) {
+	v := m.abortionAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAbortionAt returns the old abortionAt value of the Abortion.
+// If the Abortion object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbortionMutation) OldAbortionAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldAbortionAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldAbortionAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAbortionAt: %w", err)
+	}
+	return oldValue.AbortionAt, nil
+}
+
+// AddAbortionAt adds i to abortionAt.
+func (m *AbortionMutation) AddAbortionAt(i int64) {
+	if m.addabortionAt != nil {
+		*m.addabortionAt += i
+	} else {
+		m.addabortionAt = &i
+	}
+}
+
+// AddedAbortionAt returns the value that was added to the abortionAt field in this mutation.
+func (m *AbortionMutation) AddedAbortionAt() (r int64, exists bool) {
+	v := m.addabortionAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetAbortionAt reset all changes of the "abortionAt" field.
+func (m *AbortionMutation) ResetAbortionAt() {
+	m.abortionAt = nil
+	m.addabortionAt = nil
+}
+
+// SetAbortionTypeId sets the abortionTypeId field.
+func (m *AbortionMutation) SetAbortionTypeId(i int) {
+	m.abortionTypeId = &i
+	m.addabortionTypeId = nil
+}
+
+// AbortionTypeId returns the abortionTypeId value in the mutation.
+func (m *AbortionMutation) AbortionTypeId() (r int, exists bool) {
+	v := m.abortionTypeId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAbortionTypeId returns the old abortionTypeId value of the Abortion.
+// If the Abortion object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbortionMutation) OldAbortionTypeId(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldAbortionTypeId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldAbortionTypeId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAbortionTypeId: %w", err)
+	}
+	return oldValue.AbortionTypeId, nil
+}
+
+// AddAbortionTypeId adds i to abortionTypeId.
+func (m *AbortionMutation) AddAbortionTypeId(i int) {
+	if m.addabortionTypeId != nil {
+		*m.addabortionTypeId += i
+	} else {
+		m.addabortionTypeId = &i
+	}
+}
+
+// AddedAbortionTypeId returns the value that was added to the abortionTypeId field in this mutation.
+func (m *AbortionMutation) AddedAbortionTypeId() (r int, exists bool) {
+	v := m.addabortionTypeId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetAbortionTypeId reset all changes of the "abortionTypeId" field.
+func (m *AbortionMutation) ResetAbortionTypeId() {
+	m.abortionTypeId = nil
+	m.addabortionTypeId = nil
+}
+
+// SetAbortionTypeName sets the abortionTypeName field.
+func (m *AbortionMutation) SetAbortionTypeName(s string) {
+	m.abortionTypeName = &s
+}
+
+// AbortionTypeName returns the abortionTypeName value in the mutation.
+func (m *AbortionMutation) AbortionTypeName() (r string, exists bool) {
+	v := m.abortionTypeName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAbortionTypeName returns the old abortionTypeName value of the Abortion.
+// If the Abortion object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbortionMutation) OldAbortionTypeName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldAbortionTypeName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldAbortionTypeName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAbortionTypeName: %w", err)
+	}
+	return oldValue.AbortionTypeName, nil
+}
+
+// ResetAbortionTypeName reset all changes of the "abortionTypeName" field.
+func (m *AbortionMutation) ResetAbortionTypeName() {
+	m.abortionTypeName = nil
+}
+
+// SetUserName sets the userName field.
+func (m *AbortionMutation) SetUserName(s string) {
+	m.userName = &s
+}
+
+// UserName returns the userName value in the mutation.
+func (m *AbortionMutation) UserName() (r string, exists bool) {
+	v := m.userName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserName returns the old userName value of the Abortion.
+// If the Abortion object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbortionMutation) OldUserName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUserName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUserName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserName: %w", err)
+	}
+	return oldValue.UserName, nil
+}
+
+// ResetUserName reset all changes of the "userName" field.
+func (m *AbortionMutation) ResetUserName() {
+	m.userName = nil
+}
+
+// SetRemarks sets the remarks field.
+func (m *AbortionMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the remarks value in the mutation.
+func (m *AbortionMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old remarks value of the Abortion.
+// If the Abortion object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbortionMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRemarks is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ResetRemarks reset all changes of the "remarks" field.
+func (m *AbortionMutation) ResetRemarks() {
+	m.remarks = nil
+}
+
+// SetCreatedAt sets the createdAt field.
+func (m *AbortionMutation) SetCreatedAt(i int64) {
+	m.createdAt = &i
+	m.addcreatedAt = nil
+}
+
+// CreatedAt returns the createdAt value in the mutation.
+func (m *AbortionMutation) CreatedAt() (r int64, exists bool) {
+	v := m.createdAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old createdAt value of the Abortion.
+// If the Abortion object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbortionMutation) OldCreatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds i to createdAt.
+func (m *AbortionMutation) AddCreatedAt(i int64) {
+	if m.addcreatedAt != nil {
+		*m.addcreatedAt += i
+	} else {
+		m.addcreatedAt = &i
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the createdAt field in this mutation.
+func (m *AbortionMutation) AddedCreatedAt() (r int64, exists bool) {
+	v := m.addcreatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt reset all changes of the "createdAt" field.
+func (m *AbortionMutation) ResetCreatedAt() {
+	m.createdAt = nil
+	m.addcreatedAt = nil
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (m *AbortionMutation) SetUpdatedAt(i int64) {
+	m.updatedAt = &i
+	m.addupdatedAt = nil
+}
+
+// UpdatedAt returns the updatedAt value in the mutation.
+func (m *AbortionMutation) UpdatedAt() (r int64, exists bool) {
+	v := m.updatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old updatedAt value of the Abortion.
+// If the Abortion object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbortionMutation) OldUpdatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUpdatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (m *AbortionMutation) AddUpdatedAt(i int64) {
+	if m.addupdatedAt != nil {
+		*m.addupdatedAt += i
+	} else {
+		m.addupdatedAt = &i
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the updatedAt field in this mutation.
+func (m *AbortionMutation) AddedUpdatedAt() (r int64, exists bool) {
+	v := m.addupdatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt reset all changes of the "updatedAt" field.
+func (m *AbortionMutation) ResetUpdatedAt() {
+	m.updatedAt = nil
+	m.addupdatedAt = nil
+}
+
+// SetDeleted sets the deleted field.
+func (m *AbortionMutation) SetDeleted(i int) {
+	m.deleted = &i
+	m.adddeleted = nil
+}
+
+// Deleted returns the deleted value in the mutation.
+func (m *AbortionMutation) Deleted() (r int, exists bool) {
+	v := m.deleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleted returns the old deleted value of the Abortion.
+// If the Abortion object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbortionMutation) OldDeleted(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleted is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleted requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleted: %w", err)
+	}
+	return oldValue.Deleted, nil
+}
+
+// AddDeleted adds i to deleted.
+func (m *AbortionMutation) AddDeleted(i int) {
+	if m.adddeleted != nil {
+		*m.adddeleted += i
+	} else {
+		m.adddeleted = &i
+	}
+}
+
+// AddedDeleted returns the value that was added to the deleted field in this mutation.
+func (m *AbortionMutation) AddedDeleted() (r int, exists bool) {
+	v := m.adddeleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleted reset all changes of the "deleted" field.
+func (m *AbortionMutation) ResetDeleted() {
+	m.deleted = nil
+	m.adddeleted = nil
+}
+
+// Op returns the operation name.
+func (m *AbortionMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (Abortion).
+func (m *AbortionMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *AbortionMutation) Fields() []string {
+	fields := make([]string, 0, 14)
+	if m.name != nil {
+		fields = append(fields, abortion.FieldName)
+	}
+	if m.earNumber != nil {
+		fields = append(fields, abortion.FieldEarNumber)
+	}
+	if m.times != nil {
+		fields = append(fields, abortion.FieldTimes)
+	}
+	if m.reproductiveState != nil {
+		fields = append(fields, abortion.FieldReproductiveState)
+	}
+	if m.shedName != nil {
+		fields = append(fields, abortion.FieldShedName)
+	}
+	if m.pregnantAt != nil {
+		fields = append(fields, abortion.FieldPregnantAt)
+	}
+	if m.abortionAt != nil {
+		fields = append(fields, abortion.FieldAbortionAt)
+	}
+	if m.abortionTypeId != nil {
+		fields = append(fields, abortion.FieldAbortionTypeId)
+	}
+	if m.abortionTypeName != nil {
+		fields = append(fields, abortion.FieldAbortionTypeName)
+	}
+	if m.userName != nil {
+		fields = append(fields, abortion.FieldUserName)
+	}
+	if m.remarks != nil {
+		fields = append(fields, abortion.FieldRemarks)
+	}
+	if m.createdAt != nil {
+		fields = append(fields, abortion.FieldCreatedAt)
+	}
+	if m.updatedAt != nil {
+		fields = append(fields, abortion.FieldUpdatedAt)
+	}
+	if m.deleted != nil {
+		fields = append(fields, abortion.FieldDeleted)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *AbortionMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case abortion.FieldName:
+		return m.Name()
+	case abortion.FieldEarNumber:
+		return m.EarNumber()
+	case abortion.FieldTimes:
+		return m.Times()
+	case abortion.FieldReproductiveState:
+		return m.ReproductiveState()
+	case abortion.FieldShedName:
+		return m.ShedName()
+	case abortion.FieldPregnantAt:
+		return m.PregnantAt()
+	case abortion.FieldAbortionAt:
+		return m.AbortionAt()
+	case abortion.FieldAbortionTypeId:
+		return m.AbortionTypeId()
+	case abortion.FieldAbortionTypeName:
+		return m.AbortionTypeName()
+	case abortion.FieldUserName:
+		return m.UserName()
+	case abortion.FieldRemarks:
+		return m.Remarks()
+	case abortion.FieldCreatedAt:
+		return m.CreatedAt()
+	case abortion.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case abortion.FieldDeleted:
+		return m.Deleted()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *AbortionMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case abortion.FieldName:
+		return m.OldName(ctx)
+	case abortion.FieldEarNumber:
+		return m.OldEarNumber(ctx)
+	case abortion.FieldTimes:
+		return m.OldTimes(ctx)
+	case abortion.FieldReproductiveState:
+		return m.OldReproductiveState(ctx)
+	case abortion.FieldShedName:
+		return m.OldShedName(ctx)
+	case abortion.FieldPregnantAt:
+		return m.OldPregnantAt(ctx)
+	case abortion.FieldAbortionAt:
+		return m.OldAbortionAt(ctx)
+	case abortion.FieldAbortionTypeId:
+		return m.OldAbortionTypeId(ctx)
+	case abortion.FieldAbortionTypeName:
+		return m.OldAbortionTypeName(ctx)
+	case abortion.FieldUserName:
+		return m.OldUserName(ctx)
+	case abortion.FieldRemarks:
+		return m.OldRemarks(ctx)
+	case abortion.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case abortion.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case abortion.FieldDeleted:
+		return m.OldDeleted(ctx)
+	}
+	return nil, fmt.Errorf("unknown Abortion field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *AbortionMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case abortion.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case abortion.FieldEarNumber:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEarNumber(v)
+		return nil
+	case abortion.FieldTimes:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTimes(v)
+		return nil
+	case abortion.FieldReproductiveState:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetReproductiveState(v)
+		return nil
+	case abortion.FieldShedName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetShedName(v)
+		return nil
+	case abortion.FieldPregnantAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPregnantAt(v)
+		return nil
+	case abortion.FieldAbortionAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAbortionAt(v)
+		return nil
+	case abortion.FieldAbortionTypeId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAbortionTypeId(v)
+		return nil
+	case abortion.FieldAbortionTypeName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAbortionTypeName(v)
+		return nil
+	case abortion.FieldUserName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserName(v)
+		return nil
+	case abortion.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	case abortion.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case abortion.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case abortion.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Abortion field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *AbortionMutation) AddedFields() []string {
+	var fields []string
+	if m.addtimes != nil {
+		fields = append(fields, abortion.FieldTimes)
+	}
+	if m.addpregnantAt != nil {
+		fields = append(fields, abortion.FieldPregnantAt)
+	}
+	if m.addabortionAt != nil {
+		fields = append(fields, abortion.FieldAbortionAt)
+	}
+	if m.addabortionTypeId != nil {
+		fields = append(fields, abortion.FieldAbortionTypeId)
+	}
+	if m.addcreatedAt != nil {
+		fields = append(fields, abortion.FieldCreatedAt)
+	}
+	if m.addupdatedAt != nil {
+		fields = append(fields, abortion.FieldUpdatedAt)
+	}
+	if m.adddeleted != nil {
+		fields = append(fields, abortion.FieldDeleted)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *AbortionMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case abortion.FieldTimes:
+		return m.AddedTimes()
+	case abortion.FieldPregnantAt:
+		return m.AddedPregnantAt()
+	case abortion.FieldAbortionAt:
+		return m.AddedAbortionAt()
+	case abortion.FieldAbortionTypeId:
+		return m.AddedAbortionTypeId()
+	case abortion.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case abortion.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case abortion.FieldDeleted:
+		return m.AddedDeleted()
+	}
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *AbortionMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case abortion.FieldTimes:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTimes(v)
+		return nil
+	case abortion.FieldPregnantAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddPregnantAt(v)
+		return nil
+	case abortion.FieldAbortionAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddAbortionAt(v)
+		return nil
+	case abortion.FieldAbortionTypeId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddAbortionTypeId(v)
+		return nil
+	case abortion.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case abortion.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case abortion.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Abortion numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *AbortionMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(abortion.FieldName) {
+		fields = append(fields, abortion.FieldName)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *AbortionMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *AbortionMutation) ClearField(name string) error {
+	switch name {
+	case abortion.FieldName:
+		m.ClearName()
+		return nil
+	}
+	return fmt.Errorf("unknown Abortion nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *AbortionMutation) ResetField(name string) error {
+	switch name {
+	case abortion.FieldName:
+		m.ResetName()
+		return nil
+	case abortion.FieldEarNumber:
+		m.ResetEarNumber()
+		return nil
+	case abortion.FieldTimes:
+		m.ResetTimes()
+		return nil
+	case abortion.FieldReproductiveState:
+		m.ResetReproductiveState()
+		return nil
+	case abortion.FieldShedName:
+		m.ResetShedName()
+		return nil
+	case abortion.FieldPregnantAt:
+		m.ResetPregnantAt()
+		return nil
+	case abortion.FieldAbortionAt:
+		m.ResetAbortionAt()
+		return nil
+	case abortion.FieldAbortionTypeId:
+		m.ResetAbortionTypeId()
+		return nil
+	case abortion.FieldAbortionTypeName:
+		m.ResetAbortionTypeName()
+		return nil
+	case abortion.FieldUserName:
+		m.ResetUserName()
+		return nil
+	case abortion.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	case abortion.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case abortion.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case abortion.FieldDeleted:
+		m.ResetDeleted()
+		return nil
+	}
+	return fmt.Errorf("unknown Abortion field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *AbortionMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *AbortionMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *AbortionMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *AbortionMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *AbortionMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *AbortionMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *AbortionMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown Abortion unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *AbortionMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown Abortion edge %s", name)
+}
+
+// AbortionTypeMutation represents an operation that mutate the AbortionTypes
+// nodes in the graph.
+type AbortionTypeMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	name          *string
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*AbortionType, error)
+}
+
+var _ ent.Mutation = (*AbortionTypeMutation)(nil)
+
+// abortiontypeOption allows to manage the mutation configuration using functional options.
+type abortiontypeOption func(*AbortionTypeMutation)
+
+// newAbortionTypeMutation creates new mutation for $n.Name.
+func newAbortionTypeMutation(c config, op Op, opts ...abortiontypeOption) *AbortionTypeMutation {
+	m := &AbortionTypeMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeAbortionType,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withAbortionTypeID sets the id field of the mutation.
+func withAbortionTypeID(id int64) abortiontypeOption {
+	return func(m *AbortionTypeMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *AbortionType
+		)
+		m.oldValue = func(ctx context.Context) (*AbortionType, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().AbortionType.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withAbortionType sets the old AbortionType of the mutation.
+func withAbortionType(node *AbortionType) abortiontypeOption {
+	return func(m *AbortionTypeMutation) {
+		m.oldValue = func(context.Context) (*AbortionType, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m AbortionTypeMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m AbortionTypeMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *AbortionTypeMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *AbortionTypeMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *AbortionTypeMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the AbortionType.
+// If the AbortionType object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *AbortionTypeMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *AbortionTypeMutation) ResetName() {
+	m.name = nil
+}
+
+// Op returns the operation name.
+func (m *AbortionTypeMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (AbortionType).
+func (m *AbortionTypeMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *AbortionTypeMutation) Fields() []string {
+	fields := make([]string, 0, 1)
+	if m.name != nil {
+		fields = append(fields, abortiontype.FieldName)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *AbortionTypeMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case abortiontype.FieldName:
+		return m.Name()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *AbortionTypeMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case abortiontype.FieldName:
+		return m.OldName(ctx)
+	}
+	return nil, fmt.Errorf("unknown AbortionType field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *AbortionTypeMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case abortiontype.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	}
+	return fmt.Errorf("unknown AbortionType field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *AbortionTypeMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *AbortionTypeMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *AbortionTypeMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown AbortionType numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *AbortionTypeMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *AbortionTypeMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *AbortionTypeMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown AbortionType nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *AbortionTypeMutation) ResetField(name string) error {
+	switch name {
+	case abortiontype.FieldName:
+		m.ResetName()
+		return nil
+	}
+	return fmt.Errorf("unknown AbortionType field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *AbortionTypeMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *AbortionTypeMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *AbortionTypeMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *AbortionTypeMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *AbortionTypeMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *AbortionTypeMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *AbortionTypeMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown AbortionType unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *AbortionTypeMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown AbortionType edge %s", name)
+}
 
 // BirthSurroundingMutation represents an operation that mutate the BirthSurroundings
 // nodes in the graph.

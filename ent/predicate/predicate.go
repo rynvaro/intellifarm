@@ -6,6 +6,12 @@ import (
 	"github.com/facebook/ent/dialect/sql"
 )
 
+// Abortion is the predicate function for abortion builders.
+type Abortion func(*sql.Selector)
+
+// AbortionType is the predicate function for abortiontype builders.
+type AbortionType func(*sql.Selector)
+
 // BirthSurrounding is the predicate function for birthsurrounding builders.
 type BirthSurrounding func(*sql.Selector)
 

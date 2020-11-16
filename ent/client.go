@@ -9,6 +9,8 @@ import (
 
 	"cattleai/ent/migrate"
 
+	"cattleai/ent/abortion"
+	"cattleai/ent/abortiontype"
 	"cattleai/ent/birthsurrounding"
 	"cattleai/ent/breathrate"
 	"cattleai/ent/breeding"
@@ -55,6 +57,10 @@ type Client struct {
 	config
 	// Schema is the client for creating, migrating and dropping schema.
 	Schema *migrate.Schema
+	// Abortion is the client for interacting with the Abortion builders.
+	Abortion *AbortionClient
+	// AbortionType is the client for interacting with the AbortionType builders.
+	AbortionType *AbortionTypeClient
 	// BirthSurrounding is the client for interacting with the BirthSurrounding builders.
 	BirthSurrounding *BirthSurroundingClient
 	// BreathRate is the client for interacting with the BreathRate builders.
@@ -140,6 +146,8 @@ func NewClient(opts ...Option) *Client {
 
 func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
+	c.Abortion = NewAbortionClient(c.config)
+	c.AbortionType = NewAbortionTypeClient(c.config)
 	c.BirthSurrounding = NewBirthSurroundingClient(c.config)
 	c.BreathRate = NewBreathRateClient(c.config)
 	c.Breeding = NewBreedingClient(c.config)
@@ -208,6 +216,8 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	return &Tx{
 		ctx:                 ctx,
 		config:              cfg,
+		Abortion:            NewAbortionClient(cfg),
+		AbortionType:        NewAbortionTypeClient(cfg),
 		BirthSurrounding:    NewBirthSurroundingClient(cfg),
 		BreathRate:          NewBreathRateClient(cfg),
 		Breeding:            NewBreedingClient(cfg),
@@ -259,6 +269,8 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	cfg := config{driver: &txDriver{tx: tx, drv: c.driver}, log: c.log, debug: c.debug, hooks: c.hooks}
 	return &Tx{
 		config:              cfg,
+		Abortion:            NewAbortionClient(cfg),
+		AbortionType:        NewAbortionTypeClient(cfg),
 		BirthSurrounding:    NewBirthSurroundingClient(cfg),
 		BreathRate:          NewBreathRateClient(cfg),
 		Breeding:            NewBreedingClient(cfg),
@@ -301,7 +313,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 // Debug returns a new debug-client. It's used to get verbose logging on specific operations.
 //
 //	client.Debug().
-//		BirthSurrounding.
+//		Abortion.
 //		Query().
 //		Count(ctx)
 //
@@ -323,6 +335,8 @@ func (c *Client) Close() error {
 // Use adds the mutation hooks to all the entity clients.
 // In order to add hooks to a specific client, call: `client.Node.Use(...)`.
 func (c *Client) Use(hooks ...Hook) {
+	c.Abortion.Use(hooks...)
+	c.AbortionType.Use(hooks...)
 	c.BirthSurrounding.Use(hooks...)
 	c.BreathRate.Use(hooks...)
 	c.Breeding.Use(hooks...)
@@ -359,6 +373,182 @@ func (c *Client) Use(hooks ...Hook) {
 	c.ShedType.Use(hooks...)
 	c.User.Use(hooks...)
 	c.WindDirection.Use(hooks...)
+}
+
+// AbortionClient is a client for the Abortion schema.
+type AbortionClient struct {
+	config
+}
+
+// NewAbortionClient returns a client for the Abortion from the given config.
+func NewAbortionClient(c config) *AbortionClient {
+	return &AbortionClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `abortion.Hooks(f(g(h())))`.
+func (c *AbortionClient) Use(hooks ...Hook) {
+	c.hooks.Abortion = append(c.hooks.Abortion, hooks...)
+}
+
+// Create returns a create builder for Abortion.
+func (c *AbortionClient) Create() *AbortionCreate {
+	mutation := newAbortionMutation(c.config, OpCreate)
+	return &AbortionCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Abortion entities.
+func (c *AbortionClient) CreateBulk(builders ...*AbortionCreate) *AbortionCreateBulk {
+	return &AbortionCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Abortion.
+func (c *AbortionClient) Update() *AbortionUpdate {
+	mutation := newAbortionMutation(c.config, OpUpdate)
+	return &AbortionUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *AbortionClient) UpdateOne(a *Abortion) *AbortionUpdateOne {
+	mutation := newAbortionMutation(c.config, OpUpdateOne, withAbortion(a))
+	return &AbortionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *AbortionClient) UpdateOneID(id int64) *AbortionUpdateOne {
+	mutation := newAbortionMutation(c.config, OpUpdateOne, withAbortionID(id))
+	return &AbortionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Abortion.
+func (c *AbortionClient) Delete() *AbortionDelete {
+	mutation := newAbortionMutation(c.config, OpDelete)
+	return &AbortionDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *AbortionClient) DeleteOne(a *Abortion) *AbortionDeleteOne {
+	return c.DeleteOneID(a.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *AbortionClient) DeleteOneID(id int64) *AbortionDeleteOne {
+	builder := c.Delete().Where(abortion.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &AbortionDeleteOne{builder}
+}
+
+// Query returns a query builder for Abortion.
+func (c *AbortionClient) Query() *AbortionQuery {
+	return &AbortionQuery{config: c.config}
+}
+
+// Get returns a Abortion entity by its id.
+func (c *AbortionClient) Get(ctx context.Context, id int64) (*Abortion, error) {
+	return c.Query().Where(abortion.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *AbortionClient) GetX(ctx context.Context, id int64) *Abortion {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *AbortionClient) Hooks() []Hook {
+	return c.hooks.Abortion
+}
+
+// AbortionTypeClient is a client for the AbortionType schema.
+type AbortionTypeClient struct {
+	config
+}
+
+// NewAbortionTypeClient returns a client for the AbortionType from the given config.
+func NewAbortionTypeClient(c config) *AbortionTypeClient {
+	return &AbortionTypeClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `abortiontype.Hooks(f(g(h())))`.
+func (c *AbortionTypeClient) Use(hooks ...Hook) {
+	c.hooks.AbortionType = append(c.hooks.AbortionType, hooks...)
+}
+
+// Create returns a create builder for AbortionType.
+func (c *AbortionTypeClient) Create() *AbortionTypeCreate {
+	mutation := newAbortionTypeMutation(c.config, OpCreate)
+	return &AbortionTypeCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of AbortionType entities.
+func (c *AbortionTypeClient) CreateBulk(builders ...*AbortionTypeCreate) *AbortionTypeCreateBulk {
+	return &AbortionTypeCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for AbortionType.
+func (c *AbortionTypeClient) Update() *AbortionTypeUpdate {
+	mutation := newAbortionTypeMutation(c.config, OpUpdate)
+	return &AbortionTypeUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *AbortionTypeClient) UpdateOne(at *AbortionType) *AbortionTypeUpdateOne {
+	mutation := newAbortionTypeMutation(c.config, OpUpdateOne, withAbortionType(at))
+	return &AbortionTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *AbortionTypeClient) UpdateOneID(id int64) *AbortionTypeUpdateOne {
+	mutation := newAbortionTypeMutation(c.config, OpUpdateOne, withAbortionTypeID(id))
+	return &AbortionTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for AbortionType.
+func (c *AbortionTypeClient) Delete() *AbortionTypeDelete {
+	mutation := newAbortionTypeMutation(c.config, OpDelete)
+	return &AbortionTypeDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *AbortionTypeClient) DeleteOne(at *AbortionType) *AbortionTypeDeleteOne {
+	return c.DeleteOneID(at.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *AbortionTypeClient) DeleteOneID(id int64) *AbortionTypeDeleteOne {
+	builder := c.Delete().Where(abortiontype.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &AbortionTypeDeleteOne{builder}
+}
+
+// Query returns a query builder for AbortionType.
+func (c *AbortionTypeClient) Query() *AbortionTypeQuery {
+	return &AbortionTypeQuery{config: c.config}
+}
+
+// Get returns a AbortionType entity by its id.
+func (c *AbortionTypeClient) Get(ctx context.Context, id int64) (*AbortionType, error) {
+	return c.Query().Where(abortiontype.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *AbortionTypeClient) GetX(ctx context.Context, id int64) *AbortionType {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *AbortionTypeClient) Hooks() []Hook {
+	return c.hooks.AbortionType
 }
 
 // BirthSurroundingClient is a client for the BirthSurrounding schema.

@@ -1,0 +1,118 @@
+package abortions
+
+import (
+	"cattleai/apicommon"
+	"cattleai/db"
+	"cattleai/ent"
+	"cattleai/ent/abortion"
+	"cattleai/pkg/paging"
+	"cattleai/pkg/params"
+	"fmt"
+	"net/http"
+	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/rs/zerolog/log"
+)
+
+func AbortionAddHandler(c *gin.Context) {
+	form := &ent.Abortion{}
+	if err := c.Bind(form); err != nil {
+		log.Error().Msg(err.Error())
+		return
+	}
+	log.Debug().Msg(form.String())
+	abortion, err := db.Client.Abortion.Create().
+		SetAbortionAt(form.AbortionAt).
+		SetAbortionTypeId(form.AbortionTypeId).
+		SetAbortionTypeName(form.AbortionTypeName).
+		SetEarNumber(form.EarNumber).
+		SetName(form.Name).
+		SetPregnantAt(form.PregnantAt).
+		SetRemarks(form.Remarks).
+		SetReproductiveState(form.ReproductiveState).
+		SetShedName(form.ShedName).
+		SetTimes(form.Times).
+		SetUserName(form.UserName).
+		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
+		Save(c.Request.Context())
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+	c.JSON(http.StatusOK, apicommon.SuccessResponse(abortion))
+}
+
+func AbortionListHandler(c *gin.Context) {
+	listParams := &params.ListParams{}
+	if err := c.BindQuery(listParams); err != nil {
+		log.Error().Msg(err.Error())
+		return
+	}
+	page := listParams.Paging
+	where := Where(listParams)
+	totalCount, err := db.Client.Abortion.Query().Where(where).Count(c.Request.Context())
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+	abortions, err := db.Client.Abortion.Query().Where(where).Order(ent.Desc(abortion.FieldCreatedAt)).Offset((page.CurrentPage - 1) * page.PageSize).Limit(page.PageSize).All(c.Request.Context())
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+	page.TotalCount = totalCount
+	pageData := paging.PageData{
+		Data:   abortions,
+		Paging: page,
+	}
+	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+}
+
+func AbortionDeleteHandler(c *gin.Context) {
+	id := &params.Id{}
+	if err := c.BindUri(id); err != nil {
+		log.Error().Msg(err.Error())
+		return
+	}
+	log.Debug().Msg(fmt.Sprintf("%+v", id))
+	abortion, err := db.Client.Abortion.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+	c.JSON(http.StatusOK, apicommon.SuccessResponse(abortion))
+}
+
+func AbortionUpdateHandler(c *gin.Context) {
+	form := &ent.Abortion{}
+	if err := c.Bind(form); err != nil {
+		log.Error().Msg(err.Error())
+		return
+	}
+	log.Debug().Msg(form.String())
+	abortion, err := db.Client.Abortion.UpdateOneID(form.ID).
+		SetAbortionAt(form.AbortionAt).
+		SetAbortionTypeId(form.AbortionTypeId).
+		SetAbortionTypeName(form.AbortionTypeName).
+		SetEarNumber(form.EarNumber).
+		SetName(form.Name).
+		SetPregnantAt(form.PregnantAt).
+		SetRemarks(form.Remarks).
+		SetReproductiveState(form.ReproductiveState).
+		SetShedName(form.ShedName).
+		SetTimes(form.Times).
+		SetUserName(form.UserName).
+		SetUpdatedAt(time.Now().Unix()).
+		Save(c.Request.Context())
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+	c.JSON(http.StatusOK, apicommon.SuccessResponse(abortion))
+}

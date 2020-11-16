@@ -137,4 +137,9 @@ var initData = map[string][]string{
 		"空怀",
 		"空怀待复检",
 	},
+	"abortionTypes": {
+		"干胎",
+		"鲜胎",
+		"其他",
+	},
 }

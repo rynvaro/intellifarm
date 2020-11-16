@@ -8,6 +8,43 @@ import (
 )
 
 var (
+	// AbortionsColumns holds the columns for the "abortions" table.
+	AbortionsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString, Nullable: true},
+		{Name: "ear_number", Type: field.TypeString},
+		{Name: "times", Type: field.TypeInt},
+		{Name: "reproductive_state", Type: field.TypeString},
+		{Name: "shed_name", Type: field.TypeString},
+		{Name: "pregnant_at", Type: field.TypeInt64},
+		{Name: "abortion_at", Type: field.TypeInt64},
+		{Name: "abortion_type_id", Type: field.TypeInt},
+		{Name: "abortion_type_name", Type: field.TypeString},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// AbortionsTable holds the schema information for the "abortions" table.
+	AbortionsTable = &schema.Table{
+		Name:        "abortions",
+		Columns:     AbortionsColumns,
+		PrimaryKey:  []*schema.Column{AbortionsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// AbortionTypesColumns holds the columns for the "abortion_types" table.
+	AbortionTypesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+	}
+	// AbortionTypesTable holds the schema information for the "abortion_types" table.
+	AbortionTypesTable = &schema.Table{
+		Name:        "abortion_types",
+		Columns:     AbortionTypesColumns,
+		PrimaryKey:  []*schema.Column{AbortionTypesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// BirthSurroundingsColumns holds the columns for the "birth_surroundings" table.
 	BirthSurroundingsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -665,6 +702,8 @@ var (
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
+		AbortionsTable,
+		AbortionTypesTable,
 		BirthSurroundingsTable,
 		BreathRatesTable,
 		BreedingsTable,

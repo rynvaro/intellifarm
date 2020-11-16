@@ -1,6 +1,8 @@
 package router
 
 import (
+	"cattleai/pkg/abortions"
+	"cattleai/pkg/abortiontypes"
 	"cattleai/pkg/birthsurroundings"
 	"cattleai/pkg/breathrates"
 	"cattleai/pkg/breedings"
@@ -104,4 +106,7 @@ func Register(g *gin.RouterGroup) {
 	pregnancytesttypes.RegisterRoutes(g)
 	pregnancytestmethods.RegisterRoutes(g)
 	pregnancytestresults.RegisterRoutes(g)
+
+	abortions.RegisterRoutes(g)
+	abortiontypes.RegisterRoutes(g)
 }

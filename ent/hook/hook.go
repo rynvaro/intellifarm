@@ -8,6 +8,32 @@ import (
 	"fmt"
 )
 
+// The AbortionFunc type is an adapter to allow the use of ordinary
+// function as Abortion mutator.
+type AbortionFunc func(context.Context, *ent.AbortionMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f AbortionFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.AbortionMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.AbortionMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The AbortionTypeFunc type is an adapter to allow the use of ordinary
+// function as AbortionType mutator.
+type AbortionTypeFunc func(context.Context, *ent.AbortionTypeMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f AbortionTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.AbortionTypeMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.AbortionTypeMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The BirthSurroundingFunc type is an adapter to allow the use of ordinary
 // function as BirthSurrounding mutator.
 type BirthSurroundingFunc func(context.Context, *ent.BirthSurroundingMutation) (ent.Value, error)

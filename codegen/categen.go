@@ -7,6 +7,7 @@ import (
 
 	. "github.com/dave/jennifer/jen"
 	"github.com/gertd/go-pluralize"
+	"github.com/rs/zerolog/log"
 )
 
 var (
@@ -43,7 +44,7 @@ func GenCates(model string) {
 	).Line()
 
 	if err := os.Mkdir("../pkg/"+pkgName, 0755); err != nil {
-		panic(err)
+		log.Warn().Msg(err.Error())
 	}
 
 	err := f.Save("../pkg/" + pkgName + "/g_handlers.go")

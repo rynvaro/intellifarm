@@ -1,6 +1,9 @@
 package schema
 
-import "github.com/facebook/ent"
+import (
+	"github.com/facebook/ent"
+	"github.com/facebook/ent/schema/field"
+)
 
 // SemenFrozenType holds the schema definition for the SemenFrozenType entity.
 type SemenFrozenType struct {
@@ -9,7 +12,9 @@ type SemenFrozenType struct {
 
 // Fields of the SemenFrozenType.
 func (SemenFrozenType) Fields() []ent.Field {
-	return nil
+	return []ent.Field{
+		field.String("name").Comment("名称"),
+	}
 }
 
 // Edges of the SemenFrozenType.

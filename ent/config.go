@@ -26,6 +26,7 @@ type config struct {
 type hooks struct {
 	BirthSurrounding  []ent.Hook
 	BreathRate        []ent.Hook
+	Breeding          []ent.Hook
 	BreedingType      []ent.Hook
 	Calve             []ent.Hook
 	CalveCount        []ent.Hook
@@ -49,6 +50,7 @@ type hooks struct {
 	HairState         []ent.Hook
 	Position          []ent.Hook
 	ReproductiveState []ent.Hook
+	SemenFrozenType   []ent.Hook
 	Shed              []ent.Hook
 	ShedCategory      []ent.Hook
 	ShedType          []ent.Hook

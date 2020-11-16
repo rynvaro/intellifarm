@@ -34,6 +34,19 @@ func (f BreathRateFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, 
 	return f(ctx, mv)
 }
 
+// The BreedingFunc type is an adapter to allow the use of ordinary
+// function as Breeding mutator.
+type BreedingFunc func(context.Context, *ent.BreedingMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f BreedingFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.BreedingMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.BreedingMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The BreedingTypeFunc type is an adapter to allow the use of ordinary
 // function as BreedingType mutator.
 type BreedingTypeFunc func(context.Context, *ent.BreedingTypeMutation) (ent.Value, error)
@@ -329,6 +342,19 @@ func (f ReproductiveStateFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.
 	mv, ok := m.(*ent.ReproductiveStateMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ReproductiveStateMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The SemenFrozenTypeFunc type is an adapter to allow the use of ordinary
+// function as SemenFrozenType mutator.
+type SemenFrozenTypeFunc func(context.Context, *ent.SemenFrozenTypeMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f SemenFrozenTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.SemenFrozenTypeMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.SemenFrozenTypeMutation", m)
 	}
 	return f(ctx, mv)
 }

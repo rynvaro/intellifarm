@@ -56,6 +56,33 @@ var (
 		PrimaryKey:  []*schema.Column{BreathRatesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// BreedingsColumns holds the columns for the "breedings" table.
+	BreedingsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString, Nullable: true},
+		{Name: "ear_number", Type: field.TypeString},
+		{Name: "times", Type: field.TypeInt},
+		{Name: "breeding_at", Type: field.TypeInt64},
+		{Name: "breeding_type_id", Type: field.TypeInt},
+		{Name: "breeding_type_name", Type: field.TypeString},
+		{Name: "semen_frozen_type_id", Type: field.TypeInt64},
+		{Name: "semen_frozen_type_name", Type: field.TypeString},
+		{Name: "bull_id", Type: field.TypeString},
+		{Name: "shed_name", Type: field.TypeString},
+		{Name: "count", Type: field.TypeInt},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// BreedingsTable holds the schema information for the "breedings" table.
+	BreedingsTable = &schema.Table{
+		Name:        "breedings",
+		Columns:     BreedingsColumns,
+		PrimaryKey:  []*schema.Column{BreedingsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// BreedingTypesColumns holds the columns for the "breeding_types" table.
 	BreedingTypesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -464,6 +491,18 @@ var (
 		PrimaryKey:  []*schema.Column{ReproductiveStatesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// SemenFrozenTypesColumns holds the columns for the "semen_frozen_types" table.
+	SemenFrozenTypesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+	}
+	// SemenFrozenTypesTable holds the schema information for the "semen_frozen_types" table.
+	SemenFrozenTypesTable = &schema.Table{
+		Name:        "semen_frozen_types",
+		Columns:     SemenFrozenTypesColumns,
+		PrimaryKey:  []*schema.Column{SemenFrozenTypesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// ShedsColumns holds the columns for the "sheds" table.
 	ShedsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -563,6 +602,7 @@ var (
 	Tables = []*schema.Table{
 		BirthSurroundingsTable,
 		BreathRatesTable,
+		BreedingsTable,
 		BreedingTypesTable,
 		CalvesTable,
 		CalveCountsTable,
@@ -586,6 +626,7 @@ var (
 		HairStatesTable,
 		PositionsTable,
 		ReproductiveStatesTable,
+		SemenFrozenTypesTable,
 		ShedsTable,
 		ShedCategoriesTable,
 		ShedTypesTable,

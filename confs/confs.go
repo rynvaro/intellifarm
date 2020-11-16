@@ -28,4 +28,5 @@ type InitConf struct {
 	CalveType                bool `json:"calveType"`
 	CalveCount               bool `json:"calveCount"`
 	EstrusType               bool `json:"estrusType"`
+	SemenFrozenType          bool `json:"semenFrozenType"`
 }

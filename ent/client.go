@@ -11,6 +11,7 @@ import (
 
 	"cattleai/ent/birthsurrounding"
 	"cattleai/ent/breathrate"
+	"cattleai/ent/breeding"
 	"cattleai/ent/breedingtype"
 	"cattleai/ent/calve"
 	"cattleai/ent/calvecount"
@@ -34,6 +35,7 @@ import (
 	"cattleai/ent/hairstate"
 	"cattleai/ent/position"
 	"cattleai/ent/reproductivestate"
+	"cattleai/ent/semenfrozentype"
 	"cattleai/ent/shed"
 	"cattleai/ent/shedcategory"
 	"cattleai/ent/shedtype"
@@ -53,6 +55,8 @@ type Client struct {
 	BirthSurrounding *BirthSurroundingClient
 	// BreathRate is the client for interacting with the BreathRate builders.
 	BreathRate *BreathRateClient
+	// Breeding is the client for interacting with the Breeding builders.
+	Breeding *BreedingClient
 	// BreedingType is the client for interacting with the BreedingType builders.
 	BreedingType *BreedingTypeClient
 	// Calve is the client for interacting with the Calve builders.
@@ -99,6 +103,8 @@ type Client struct {
 	Position *PositionClient
 	// ReproductiveState is the client for interacting with the ReproductiveState builders.
 	ReproductiveState *ReproductiveStateClient
+	// SemenFrozenType is the client for interacting with the SemenFrozenType builders.
+	SemenFrozenType *SemenFrozenTypeClient
 	// Shed is the client for interacting with the Shed builders.
 	Shed *ShedClient
 	// ShedCategory is the client for interacting with the ShedCategory builders.
@@ -124,6 +130,7 @@ func (c *Client) init() {
 	c.Schema = migrate.NewSchema(c.driver)
 	c.BirthSurrounding = NewBirthSurroundingClient(c.config)
 	c.BreathRate = NewBreathRateClient(c.config)
+	c.Breeding = NewBreedingClient(c.config)
 	c.BreedingType = NewBreedingTypeClient(c.config)
 	c.Calve = NewCalveClient(c.config)
 	c.CalveCount = NewCalveCountClient(c.config)
@@ -147,6 +154,7 @@ func (c *Client) init() {
 	c.HairState = NewHairStateClient(c.config)
 	c.Position = NewPositionClient(c.config)
 	c.ReproductiveState = NewReproductiveStateClient(c.config)
+	c.SemenFrozenType = NewSemenFrozenTypeClient(c.config)
 	c.Shed = NewShedClient(c.config)
 	c.ShedCategory = NewShedCategoryClient(c.config)
 	c.ShedType = NewShedTypeClient(c.config)
@@ -186,6 +194,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		config:            cfg,
 		BirthSurrounding:  NewBirthSurroundingClient(cfg),
 		BreathRate:        NewBreathRateClient(cfg),
+		Breeding:          NewBreedingClient(cfg),
 		BreedingType:      NewBreedingTypeClient(cfg),
 		Calve:             NewCalveClient(cfg),
 		CalveCount:        NewCalveCountClient(cfg),
@@ -209,6 +218,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		HairState:         NewHairStateClient(cfg),
 		Position:          NewPositionClient(cfg),
 		ReproductiveState: NewReproductiveStateClient(cfg),
+		SemenFrozenType:   NewSemenFrozenTypeClient(cfg),
 		Shed:              NewShedClient(cfg),
 		ShedCategory:      NewShedCategoryClient(cfg),
 		ShedType:          NewShedTypeClient(cfg),
@@ -231,6 +241,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		config:            cfg,
 		BirthSurrounding:  NewBirthSurroundingClient(cfg),
 		BreathRate:        NewBreathRateClient(cfg),
+		Breeding:          NewBreedingClient(cfg),
 		BreedingType:      NewBreedingTypeClient(cfg),
 		Calve:             NewCalveClient(cfg),
 		CalveCount:        NewCalveCountClient(cfg),
@@ -254,6 +265,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		HairState:         NewHairStateClient(cfg),
 		Position:          NewPositionClient(cfg),
 		ReproductiveState: NewReproductiveStateClient(cfg),
+		SemenFrozenType:   NewSemenFrozenTypeClient(cfg),
 		Shed:              NewShedClient(cfg),
 		ShedCategory:      NewShedCategoryClient(cfg),
 		ShedType:          NewShedTypeClient(cfg),
@@ -289,6 +301,7 @@ func (c *Client) Close() error {
 func (c *Client) Use(hooks ...Hook) {
 	c.BirthSurrounding.Use(hooks...)
 	c.BreathRate.Use(hooks...)
+	c.Breeding.Use(hooks...)
 	c.BreedingType.Use(hooks...)
 	c.Calve.Use(hooks...)
 	c.CalveCount.Use(hooks...)
@@ -312,6 +325,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.HairState.Use(hooks...)
 	c.Position.Use(hooks...)
 	c.ReproductiveState.Use(hooks...)
+	c.SemenFrozenType.Use(hooks...)
 	c.Shed.Use(hooks...)
 	c.ShedCategory.Use(hooks...)
 	c.ShedType.Use(hooks...)
@@ -493,6 +507,94 @@ func (c *BreathRateClient) GetX(ctx context.Context, id int64) *BreathRate {
 // Hooks returns the client hooks.
 func (c *BreathRateClient) Hooks() []Hook {
 	return c.hooks.BreathRate
+}
+
+// BreedingClient is a client for the Breeding schema.
+type BreedingClient struct {
+	config
+}
+
+// NewBreedingClient returns a client for the Breeding from the given config.
+func NewBreedingClient(c config) *BreedingClient {
+	return &BreedingClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `breeding.Hooks(f(g(h())))`.
+func (c *BreedingClient) Use(hooks ...Hook) {
+	c.hooks.Breeding = append(c.hooks.Breeding, hooks...)
+}
+
+// Create returns a create builder for Breeding.
+func (c *BreedingClient) Create() *BreedingCreate {
+	mutation := newBreedingMutation(c.config, OpCreate)
+	return &BreedingCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Breeding entities.
+func (c *BreedingClient) CreateBulk(builders ...*BreedingCreate) *BreedingCreateBulk {
+	return &BreedingCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Breeding.
+func (c *BreedingClient) Update() *BreedingUpdate {
+	mutation := newBreedingMutation(c.config, OpUpdate)
+	return &BreedingUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *BreedingClient) UpdateOne(b *Breeding) *BreedingUpdateOne {
+	mutation := newBreedingMutation(c.config, OpUpdateOne, withBreeding(b))
+	return &BreedingUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *BreedingClient) UpdateOneID(id int64) *BreedingUpdateOne {
+	mutation := newBreedingMutation(c.config, OpUpdateOne, withBreedingID(id))
+	return &BreedingUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Breeding.
+func (c *BreedingClient) Delete() *BreedingDelete {
+	mutation := newBreedingMutation(c.config, OpDelete)
+	return &BreedingDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *BreedingClient) DeleteOne(b *Breeding) *BreedingDeleteOne {
+	return c.DeleteOneID(b.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *BreedingClient) DeleteOneID(id int64) *BreedingDeleteOne {
+	builder := c.Delete().Where(breeding.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &BreedingDeleteOne{builder}
+}
+
+// Query returns a query builder for Breeding.
+func (c *BreedingClient) Query() *BreedingQuery {
+	return &BreedingQuery{config: c.config}
+}
+
+// Get returns a Breeding entity by its id.
+func (c *BreedingClient) Get(ctx context.Context, id int64) (*Breeding, error) {
+	return c.Query().Where(breeding.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *BreedingClient) GetX(ctx context.Context, id int64) *Breeding {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *BreedingClient) Hooks() []Hook {
+	return c.hooks.Breeding
 }
 
 // BreedingTypeClient is a client for the BreedingType schema.
@@ -2517,6 +2619,94 @@ func (c *ReproductiveStateClient) GetX(ctx context.Context, id int64) *Reproduct
 // Hooks returns the client hooks.
 func (c *ReproductiveStateClient) Hooks() []Hook {
 	return c.hooks.ReproductiveState
+}
+
+// SemenFrozenTypeClient is a client for the SemenFrozenType schema.
+type SemenFrozenTypeClient struct {
+	config
+}
+
+// NewSemenFrozenTypeClient returns a client for the SemenFrozenType from the given config.
+func NewSemenFrozenTypeClient(c config) *SemenFrozenTypeClient {
+	return &SemenFrozenTypeClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `semenfrozentype.Hooks(f(g(h())))`.
+func (c *SemenFrozenTypeClient) Use(hooks ...Hook) {
+	c.hooks.SemenFrozenType = append(c.hooks.SemenFrozenType, hooks...)
+}
+
+// Create returns a create builder for SemenFrozenType.
+func (c *SemenFrozenTypeClient) Create() *SemenFrozenTypeCreate {
+	mutation := newSemenFrozenTypeMutation(c.config, OpCreate)
+	return &SemenFrozenTypeCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of SemenFrozenType entities.
+func (c *SemenFrozenTypeClient) CreateBulk(builders ...*SemenFrozenTypeCreate) *SemenFrozenTypeCreateBulk {
+	return &SemenFrozenTypeCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for SemenFrozenType.
+func (c *SemenFrozenTypeClient) Update() *SemenFrozenTypeUpdate {
+	mutation := newSemenFrozenTypeMutation(c.config, OpUpdate)
+	return &SemenFrozenTypeUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *SemenFrozenTypeClient) UpdateOne(sft *SemenFrozenType) *SemenFrozenTypeUpdateOne {
+	mutation := newSemenFrozenTypeMutation(c.config, OpUpdateOne, withSemenFrozenType(sft))
+	return &SemenFrozenTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *SemenFrozenTypeClient) UpdateOneID(id int64) *SemenFrozenTypeUpdateOne {
+	mutation := newSemenFrozenTypeMutation(c.config, OpUpdateOne, withSemenFrozenTypeID(id))
+	return &SemenFrozenTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for SemenFrozenType.
+func (c *SemenFrozenTypeClient) Delete() *SemenFrozenTypeDelete {
+	mutation := newSemenFrozenTypeMutation(c.config, OpDelete)
+	return &SemenFrozenTypeDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *SemenFrozenTypeClient) DeleteOne(sft *SemenFrozenType) *SemenFrozenTypeDeleteOne {
+	return c.DeleteOneID(sft.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *SemenFrozenTypeClient) DeleteOneID(id int64) *SemenFrozenTypeDeleteOne {
+	builder := c.Delete().Where(semenfrozentype.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &SemenFrozenTypeDeleteOne{builder}
+}
+
+// Query returns a query builder for SemenFrozenType.
+func (c *SemenFrozenTypeClient) Query() *SemenFrozenTypeQuery {
+	return &SemenFrozenTypeQuery{config: c.config}
+}
+
+// Get returns a SemenFrozenType entity by its id.
+func (c *SemenFrozenTypeClient) Get(ctx context.Context, id int64) (*SemenFrozenType, error) {
+	return c.Query().Where(semenfrozentype.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *SemenFrozenTypeClient) GetX(ctx context.Context, id int64) *SemenFrozenType {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *SemenFrozenTypeClient) Hooks() []Hook {
+	return c.hooks.SemenFrozenType
 }
 
 // ShedClient is a client for the Shed schema.

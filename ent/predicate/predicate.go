@@ -12,6 +12,9 @@ type BirthSurrounding func(*sql.Selector)
 // BreathRate is the predicate function for breathrate builders.
 type BreathRate func(*sql.Selector)
 
+// Breeding is the predicate function for breeding builders.
+type Breeding func(*sql.Selector)
+
 // BreedingType is the predicate function for breedingtype builders.
 type BreedingType func(*sql.Selector)
 
@@ -80,6 +83,9 @@ type Position func(*sql.Selector)
 
 // ReproductiveState is the predicate function for reproductivestate builders.
 type ReproductiveState func(*sql.Selector)
+
+// SemenFrozenType is the predicate function for semenfrozentype builders.
+type SemenFrozenType func(*sql.Selector)
 
 // Shed is the predicate function for shed builders.
 type Shed func(*sql.Selector)

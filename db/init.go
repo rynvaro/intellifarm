@@ -267,6 +267,18 @@ func dataInit() {
 		conf.InitConf.EstrusType = true
 	}
 
+	if !conf.InitConf.SemenFrozenType {
+		for _, v := range initData["semenFrozenTypes"] {
+			_, err := Client.SemenFrozenType.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("SemenFrozenType %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("SemenFrozenType %s initialized", v))
+		}
+		conf.InitConf.SemenFrozenType = true
+	}
+
 	// update init config
 	if len(confs) > 0 {
 		_, err := Client.Conf.UpdateOneID(confs[0].ID).SetConfs(conf).Save(ctx)

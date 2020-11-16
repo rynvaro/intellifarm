@@ -16,6 +16,8 @@ type Tx struct {
 	BirthSurrounding *BirthSurroundingClient
 	// BreathRate is the client for interacting with the BreathRate builders.
 	BreathRate *BreathRateClient
+	// Breeding is the client for interacting with the Breeding builders.
+	Breeding *BreedingClient
 	// BreedingType is the client for interacting with the BreedingType builders.
 	BreedingType *BreedingTypeClient
 	// Calve is the client for interacting with the Calve builders.
@@ -62,6 +64,8 @@ type Tx struct {
 	Position *PositionClient
 	// ReproductiveState is the client for interacting with the ReproductiveState builders.
 	ReproductiveState *ReproductiveStateClient
+	// SemenFrozenType is the client for interacting with the SemenFrozenType builders.
+	SemenFrozenType *SemenFrozenTypeClient
 	// Shed is the client for interacting with the Shed builders.
 	Shed *ShedClient
 	// ShedCategory is the client for interacting with the ShedCategory builders.
@@ -209,6 +213,7 @@ func (tx *Tx) Client() *Client {
 func (tx *Tx) init() {
 	tx.BirthSurrounding = NewBirthSurroundingClient(tx.config)
 	tx.BreathRate = NewBreathRateClient(tx.config)
+	tx.Breeding = NewBreedingClient(tx.config)
 	tx.BreedingType = NewBreedingTypeClient(tx.config)
 	tx.Calve = NewCalveClient(tx.config)
 	tx.CalveCount = NewCalveCountClient(tx.config)
@@ -232,6 +237,7 @@ func (tx *Tx) init() {
 	tx.HairState = NewHairStateClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)
 	tx.ReproductiveState = NewReproductiveStateClient(tx.config)
+	tx.SemenFrozenType = NewSemenFrozenTypeClient(tx.config)
 	tx.Shed = NewShedClient(tx.config)
 	tx.ShedCategory = NewShedCategoryClient(tx.config)
 	tx.ShedType = NewShedTypeClient(tx.config)

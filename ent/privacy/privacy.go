@@ -257,6 +257,30 @@ func (f BreathRateMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Muta
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.BreathRateMutation", m)
 }
 
+// The BreedingQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type BreedingQueryRuleFunc func(context.Context, *ent.BreedingQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f BreedingQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.BreedingQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.BreedingQuery", q)
+}
+
+// The BreedingMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type BreedingMutationRuleFunc func(context.Context, *ent.BreedingMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f BreedingMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.BreedingMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.BreedingMutation", m)
+}
+
 // The BreedingTypeQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type BreedingTypeQueryRuleFunc func(context.Context, *ent.BreedingTypeQuery) error
@@ -807,6 +831,30 @@ func (f ReproductiveStateMutationRuleFunc) EvalMutation(ctx context.Context, m e
 		return f(ctx, m)
 	}
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.ReproductiveStateMutation", m)
+}
+
+// The SemenFrozenTypeQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type SemenFrozenTypeQueryRuleFunc func(context.Context, *ent.SemenFrozenTypeQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f SemenFrozenTypeQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.SemenFrozenTypeQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.SemenFrozenTypeQuery", q)
+}
+
+// The SemenFrozenTypeMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type SemenFrozenTypeMutationRuleFunc func(context.Context, *ent.SemenFrozenTypeMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f SemenFrozenTypeMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.SemenFrozenTypeMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.SemenFrozenTypeMutation", m)
 }
 
 // The ShedQueryRuleFunc type is an adapter to allow the use of ordinary

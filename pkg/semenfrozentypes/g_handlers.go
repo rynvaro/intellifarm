@@ -1,0 +1,20 @@
+package semenfrozentypes
+
+import (
+	"cattleai/apicommon"
+	"cattleai/db"
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"github.com/rs/zerolog/log"
+)
+
+func SemenFrozenTypes(c *gin.Context) {
+	semenfrozentypes, err := db.Client.SemenFrozenType.Query().All(c.Request.Context())
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+	c.JSON(http.StatusOK, apicommon.SuccessResponse(semenfrozentypes))
+}

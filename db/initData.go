@@ -115,4 +115,11 @@ var initData = map[string][]string{
 		"自然发情",
 		"同期发情",
 	},
+	"semenFrozenTypes": {
+		"常规",
+		"后测常规",
+		"性控",
+		"后测性控",
+		"胚胎",
+	},
 }

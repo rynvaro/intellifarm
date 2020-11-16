@@ -3,6 +3,7 @@ package router
 import (
 	"cattleai/pkg/birthsurroundings"
 	"cattleai/pkg/breathrates"
+	"cattleai/pkg/breedings"
 	"cattleai/pkg/breedingtypes"
 	"cattleai/pkg/calvecounts"
 	"cattleai/pkg/calves"
@@ -25,6 +26,7 @@ import (
 	"cattleai/pkg/hairstates"
 	"cattleai/pkg/positions"
 	"cattleai/pkg/reproductivestates"
+	"cattleai/pkg/semenfrozentypes"
 	"cattleai/pkg/shedcates"
 	"cattleai/pkg/sheds"
 	"cattleai/pkg/shedtypes"
@@ -90,4 +92,7 @@ func Register(g *gin.RouterGroup) {
 
 	estruses.RegisterRoutes(g)
 	estrustypes.RegisterRoutes(g)
+
+	semenfrozentypes.RegisterRoutes(g)
+	breedings.RegisterRoutes(g)
 }

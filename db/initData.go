@@ -122,4 +122,19 @@ var initData = map[string][]string{
 		"后测性控",
 		"胚胎",
 	},
+	"pregnancyTestTypes": {
+		"初检",
+		"复检",
+	},
+	"pregnancyTestMethods": {
+		"直肠检查",
+		"B超检查",
+		"试剂盒检查",
+		"试纸条检查",
+	},
+	"pregnancyTestResults": {
+		"怀孕",
+		"空怀",
+		"空怀待复检",
+	},
 }

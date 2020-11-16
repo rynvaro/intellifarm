@@ -25,6 +25,10 @@ import (
 	"cattleai/pkg/farms"
 	"cattleai/pkg/hairstates"
 	"cattleai/pkg/positions"
+	"cattleai/pkg/pregnancytestmethods"
+	"cattleai/pkg/pregnancytestresults"
+	"cattleai/pkg/pregnancytests"
+	"cattleai/pkg/pregnancytesttypes"
 	"cattleai/pkg/reproductivestates"
 	"cattleai/pkg/semenfrozentypes"
 	"cattleai/pkg/shedcates"
@@ -95,4 +99,9 @@ func Register(g *gin.RouterGroup) {
 
 	semenfrozentypes.RegisterRoutes(g)
 	breedings.RegisterRoutes(g)
+
+	pregnancytests.RegisterRoutes(g)
+	pregnancytesttypes.RegisterRoutes(g)
+	pregnancytestmethods.RegisterRoutes(g)
+	pregnancytestresults.RegisterRoutes(g)
 }

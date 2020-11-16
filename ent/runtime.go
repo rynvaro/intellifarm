@@ -22,6 +22,9 @@ import (
 	"cattleai/ent/farm"
 	"cattleai/ent/hairstate"
 	"cattleai/ent/position"
+	"cattleai/ent/pregnancytestmethod"
+	"cattleai/ent/pregnancytestresult"
+	"cattleai/ent/pregnancytesttype"
 	"cattleai/ent/reproductivestate"
 	"cattleai/ent/schema"
 	"cattleai/ent/shed"
@@ -179,6 +182,24 @@ func init() {
 	positionDescName := positionFields[0].Descriptor()
 	// position.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	position.NameValidator = positionDescName.Validators[0].(func(string) error)
+	pregnancytestmethodFields := schema.PregnancyTestMethod{}.Fields()
+	_ = pregnancytestmethodFields
+	// pregnancytestmethodDescName is the schema descriptor for name field.
+	pregnancytestmethodDescName := pregnancytestmethodFields[0].Descriptor()
+	// pregnancytestmethod.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	pregnancytestmethod.NameValidator = pregnancytestmethodDescName.Validators[0].(func(string) error)
+	pregnancytestresultFields := schema.PregnancyTestResult{}.Fields()
+	_ = pregnancytestresultFields
+	// pregnancytestresultDescName is the schema descriptor for name field.
+	pregnancytestresultDescName := pregnancytestresultFields[0].Descriptor()
+	// pregnancytestresult.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	pregnancytestresult.NameValidator = pregnancytestresultDescName.Validators[0].(func(string) error)
+	pregnancytesttypeFields := schema.PregnancyTestType{}.Fields()
+	_ = pregnancytesttypeFields
+	// pregnancytesttypeDescName is the schema descriptor for name field.
+	pregnancytesttypeDescName := pregnancytesttypeFields[0].Descriptor()
+	// pregnancytesttype.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	pregnancytesttype.NameValidator = pregnancytesttypeDescName.Validators[0].(func(string) error)
 	reproductivestateFields := schema.ReproductiveState{}.Fields()
 	_ = reproductivestateFields
 	// reproductivestateDescName is the schema descriptor for name field.

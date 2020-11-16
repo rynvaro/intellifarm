@@ -809,6 +809,102 @@ func (f PositionMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutati
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.PositionMutation", m)
 }
 
+// The PregnancyTestQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type PregnancyTestQueryRuleFunc func(context.Context, *ent.PregnancyTestQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f PregnancyTestQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.PregnancyTestQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.PregnancyTestQuery", q)
+}
+
+// The PregnancyTestMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type PregnancyTestMutationRuleFunc func(context.Context, *ent.PregnancyTestMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f PregnancyTestMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.PregnancyTestMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.PregnancyTestMutation", m)
+}
+
+// The PregnancyTestMethodQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type PregnancyTestMethodQueryRuleFunc func(context.Context, *ent.PregnancyTestMethodQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f PregnancyTestMethodQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.PregnancyTestMethodQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.PregnancyTestMethodQuery", q)
+}
+
+// The PregnancyTestMethodMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type PregnancyTestMethodMutationRuleFunc func(context.Context, *ent.PregnancyTestMethodMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f PregnancyTestMethodMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.PregnancyTestMethodMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.PregnancyTestMethodMutation", m)
+}
+
+// The PregnancyTestResultQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type PregnancyTestResultQueryRuleFunc func(context.Context, *ent.PregnancyTestResultQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f PregnancyTestResultQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.PregnancyTestResultQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.PregnancyTestResultQuery", q)
+}
+
+// The PregnancyTestResultMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type PregnancyTestResultMutationRuleFunc func(context.Context, *ent.PregnancyTestResultMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f PregnancyTestResultMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.PregnancyTestResultMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.PregnancyTestResultMutation", m)
+}
+
+// The PregnancyTestTypeQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type PregnancyTestTypeQueryRuleFunc func(context.Context, *ent.PregnancyTestTypeQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f PregnancyTestTypeQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.PregnancyTestTypeQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.PregnancyTestTypeQuery", q)
+}
+
+// The PregnancyTestTypeMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type PregnancyTestTypeMutationRuleFunc func(context.Context, *ent.PregnancyTestTypeMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f PregnancyTestTypeMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.PregnancyTestTypeMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.PregnancyTestTypeMutation", m)
+}
+
 // The ReproductiveStateQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type ReproductiveStateQueryRuleFunc func(context.Context, *ent.ReproductiveStateQuery) error

@@ -29,6 +29,10 @@ import (
 	"cattleai/ent/farm"
 	"cattleai/ent/hairstate"
 	"cattleai/ent/position"
+	"cattleai/ent/pregnancytest"
+	"cattleai/ent/pregnancytestmethod"
+	"cattleai/ent/pregnancytestresult"
+	"cattleai/ent/pregnancytesttype"
 	"cattleai/ent/reproductivestate"
 	"cattleai/ent/semenfrozentype"
 	"cattleai/ent/shed"
@@ -52,38 +56,42 @@ const (
 	OpUpdateOne = ent.OpUpdateOne
 
 	// Node types.
-	TypeBirthSurrounding  = "BirthSurrounding"
-	TypeBreathRate        = "BreathRate"
-	TypeBreeding          = "Breeding"
-	TypeBreedingType      = "BreedingType"
-	TypeCalve             = "Calve"
-	TypeCalveCount        = "CalveCount"
-	TypeCalveType         = "CalveType"
-	TypeCategory          = "Category"
-	TypeCattle            = "Cattle"
-	TypeCattleCate        = "CattleCate"
-	TypeCattleGender      = "CattleGender"
-	TypeCattleGrow        = "CattleGrow"
-	TypeCattleGrowsData   = "CattleGrowsData"
-	TypeCattleGrowsRate   = "CattleGrowsRate"
-	TypeCattleHairColor   = "CattleHairColor"
-	TypeCattleJoinedType  = "CattleJoinedType"
-	TypeCattleOwner       = "CattleOwner"
-	TypeCattleType        = "CattleType"
-	TypeConf              = "Conf"
-	TypeDuty              = "Duty"
-	TypeEstrus            = "Estrus"
-	TypeEstrusType        = "EstrusType"
-	TypeFarm              = "Farm"
-	TypeHairState         = "HairState"
-	TypePosition          = "Position"
-	TypeReproductiveState = "ReproductiveState"
-	TypeSemenFrozenType   = "SemenFrozenType"
-	TypeShed              = "Shed"
-	TypeShedCategory      = "ShedCategory"
-	TypeShedType          = "ShedType"
-	TypeUser              = "User"
-	TypeWindDirection     = "WindDirection"
+	TypeBirthSurrounding    = "BirthSurrounding"
+	TypeBreathRate          = "BreathRate"
+	TypeBreeding            = "Breeding"
+	TypeBreedingType        = "BreedingType"
+	TypeCalve               = "Calve"
+	TypeCalveCount          = "CalveCount"
+	TypeCalveType           = "CalveType"
+	TypeCategory            = "Category"
+	TypeCattle              = "Cattle"
+	TypeCattleCate          = "CattleCate"
+	TypeCattleGender        = "CattleGender"
+	TypeCattleGrow          = "CattleGrow"
+	TypeCattleGrowsData     = "CattleGrowsData"
+	TypeCattleGrowsRate     = "CattleGrowsRate"
+	TypeCattleHairColor     = "CattleHairColor"
+	TypeCattleJoinedType    = "CattleJoinedType"
+	TypeCattleOwner         = "CattleOwner"
+	TypeCattleType          = "CattleType"
+	TypeConf                = "Conf"
+	TypeDuty                = "Duty"
+	TypeEstrus              = "Estrus"
+	TypeEstrusType          = "EstrusType"
+	TypeFarm                = "Farm"
+	TypeHairState           = "HairState"
+	TypePosition            = "Position"
+	TypePregnancyTest       = "PregnancyTest"
+	TypePregnancyTestMethod = "PregnancyTestMethod"
+	TypePregnancyTestResult = "PregnancyTestResult"
+	TypePregnancyTestType   = "PregnancyTestType"
+	TypeReproductiveState   = "ReproductiveState"
+	TypeSemenFrozenType     = "SemenFrozenType"
+	TypeShed                = "Shed"
+	TypeShedCategory        = "ShedCategory"
+	TypeShedType            = "ShedType"
+	TypeUser                = "User"
+	TypeWindDirection       = "WindDirection"
 )
 
 // BirthSurroundingMutation represents an operation that mutate the BirthSurroundings
@@ -20361,6 +20369,2435 @@ func (m *PositionMutation) ClearEdge(name string) error {
 // defined in the schema.
 func (m *PositionMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown Position edge %s", name)
+}
+
+// PregnancyTestMutation represents an operation that mutate the PregnancyTests
+// nodes in the graph.
+type PregnancyTestMutation struct {
+	config
+	op                       Op
+	typ                      string
+	id                       *int64
+	name                     *string
+	earNumber                *string
+	times                    *int
+	addtimes                 *int
+	reproductiveState        *string
+	shedName                 *string
+	breedingAt               *int64
+	addbreedingAt            *int64
+	testAt                   *int64
+	addtestAt                *int64
+	pregnancyTestTypeId      *int
+	addpregnancyTestTypeId   *int
+	pregnancyTestTypeName    *string
+	pregnancyTestMethodId    *int
+	addpregnancyTestMethodId *int
+	pregnancyTestMethodName  *string
+	pregnancyTestResultId    *int
+	addpregnancyTestResultId *int
+	pregnancyTestResultName  *string
+	userName                 *string
+	remarks                  *string
+	createdAt                *int64
+	addcreatedAt             *int64
+	updatedAt                *int64
+	addupdatedAt             *int64
+	deleted                  *int
+	adddeleted               *int
+	clearedFields            map[string]struct{}
+	done                     bool
+	oldValue                 func(context.Context) (*PregnancyTest, error)
+}
+
+var _ ent.Mutation = (*PregnancyTestMutation)(nil)
+
+// pregnancytestOption allows to manage the mutation configuration using functional options.
+type pregnancytestOption func(*PregnancyTestMutation)
+
+// newPregnancyTestMutation creates new mutation for $n.Name.
+func newPregnancyTestMutation(c config, op Op, opts ...pregnancytestOption) *PregnancyTestMutation {
+	m := &PregnancyTestMutation{
+		config:        c,
+		op:            op,
+		typ:           TypePregnancyTest,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withPregnancyTestID sets the id field of the mutation.
+func withPregnancyTestID(id int64) pregnancytestOption {
+	return func(m *PregnancyTestMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *PregnancyTest
+		)
+		m.oldValue = func(ctx context.Context) (*PregnancyTest, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().PregnancyTest.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withPregnancyTest sets the old PregnancyTest of the mutation.
+func withPregnancyTest(node *PregnancyTest) pregnancytestOption {
+	return func(m *PregnancyTestMutation) {
+		m.oldValue = func(context.Context) (*PregnancyTest, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m PregnancyTestMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m PregnancyTestMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *PregnancyTestMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *PregnancyTestMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *PregnancyTestMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ClearName clears the value of name.
+func (m *PregnancyTestMutation) ClearName() {
+	m.name = nil
+	m.clearedFields[pregnancytest.FieldName] = struct{}{}
+}
+
+// NameCleared returns if the field name was cleared in this mutation.
+func (m *PregnancyTestMutation) NameCleared() bool {
+	_, ok := m.clearedFields[pregnancytest.FieldName]
+	return ok
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *PregnancyTestMutation) ResetName() {
+	m.name = nil
+	delete(m.clearedFields, pregnancytest.FieldName)
+}
+
+// SetEarNumber sets the earNumber field.
+func (m *PregnancyTestMutation) SetEarNumber(s string) {
+	m.earNumber = &s
+}
+
+// EarNumber returns the earNumber value in the mutation.
+func (m *PregnancyTestMutation) EarNumber() (r string, exists bool) {
+	v := m.earNumber
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEarNumber returns the old earNumber value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldEarNumber(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldEarNumber is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldEarNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEarNumber: %w", err)
+	}
+	return oldValue.EarNumber, nil
+}
+
+// ResetEarNumber reset all changes of the "earNumber" field.
+func (m *PregnancyTestMutation) ResetEarNumber() {
+	m.earNumber = nil
+}
+
+// SetTimes sets the times field.
+func (m *PregnancyTestMutation) SetTimes(i int) {
+	m.times = &i
+	m.addtimes = nil
+}
+
+// Times returns the times value in the mutation.
+func (m *PregnancyTestMutation) Times() (r int, exists bool) {
+	v := m.times
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTimes returns the old times value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldTimes(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldTimes is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldTimes requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTimes: %w", err)
+	}
+	return oldValue.Times, nil
+}
+
+// AddTimes adds i to times.
+func (m *PregnancyTestMutation) AddTimes(i int) {
+	if m.addtimes != nil {
+		*m.addtimes += i
+	} else {
+		m.addtimes = &i
+	}
+}
+
+// AddedTimes returns the value that was added to the times field in this mutation.
+func (m *PregnancyTestMutation) AddedTimes() (r int, exists bool) {
+	v := m.addtimes
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetTimes reset all changes of the "times" field.
+func (m *PregnancyTestMutation) ResetTimes() {
+	m.times = nil
+	m.addtimes = nil
+}
+
+// SetReproductiveState sets the reproductiveState field.
+func (m *PregnancyTestMutation) SetReproductiveState(s string) {
+	m.reproductiveState = &s
+}
+
+// ReproductiveState returns the reproductiveState value in the mutation.
+func (m *PregnancyTestMutation) ReproductiveState() (r string, exists bool) {
+	v := m.reproductiveState
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldReproductiveState returns the old reproductiveState value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldReproductiveState(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldReproductiveState is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldReproductiveState requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldReproductiveState: %w", err)
+	}
+	return oldValue.ReproductiveState, nil
+}
+
+// ResetReproductiveState reset all changes of the "reproductiveState" field.
+func (m *PregnancyTestMutation) ResetReproductiveState() {
+	m.reproductiveState = nil
+}
+
+// SetShedName sets the shedName field.
+func (m *PregnancyTestMutation) SetShedName(s string) {
+	m.shedName = &s
+}
+
+// ShedName returns the shedName value in the mutation.
+func (m *PregnancyTestMutation) ShedName() (r string, exists bool) {
+	v := m.shedName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldShedName returns the old shedName value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldShedName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldShedName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldShedName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldShedName: %w", err)
+	}
+	return oldValue.ShedName, nil
+}
+
+// ResetShedName reset all changes of the "shedName" field.
+func (m *PregnancyTestMutation) ResetShedName() {
+	m.shedName = nil
+}
+
+// SetBreedingAt sets the breedingAt field.
+func (m *PregnancyTestMutation) SetBreedingAt(i int64) {
+	m.breedingAt = &i
+	m.addbreedingAt = nil
+}
+
+// BreedingAt returns the breedingAt value in the mutation.
+func (m *PregnancyTestMutation) BreedingAt() (r int64, exists bool) {
+	v := m.breedingAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBreedingAt returns the old breedingAt value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldBreedingAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldBreedingAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldBreedingAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBreedingAt: %w", err)
+	}
+	return oldValue.BreedingAt, nil
+}
+
+// AddBreedingAt adds i to breedingAt.
+func (m *PregnancyTestMutation) AddBreedingAt(i int64) {
+	if m.addbreedingAt != nil {
+		*m.addbreedingAt += i
+	} else {
+		m.addbreedingAt = &i
+	}
+}
+
+// AddedBreedingAt returns the value that was added to the breedingAt field in this mutation.
+func (m *PregnancyTestMutation) AddedBreedingAt() (r int64, exists bool) {
+	v := m.addbreedingAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetBreedingAt reset all changes of the "breedingAt" field.
+func (m *PregnancyTestMutation) ResetBreedingAt() {
+	m.breedingAt = nil
+	m.addbreedingAt = nil
+}
+
+// SetTestAt sets the testAt field.
+func (m *PregnancyTestMutation) SetTestAt(i int64) {
+	m.testAt = &i
+	m.addtestAt = nil
+}
+
+// TestAt returns the testAt value in the mutation.
+func (m *PregnancyTestMutation) TestAt() (r int64, exists bool) {
+	v := m.testAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTestAt returns the old testAt value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldTestAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldTestAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldTestAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTestAt: %w", err)
+	}
+	return oldValue.TestAt, nil
+}
+
+// AddTestAt adds i to testAt.
+func (m *PregnancyTestMutation) AddTestAt(i int64) {
+	if m.addtestAt != nil {
+		*m.addtestAt += i
+	} else {
+		m.addtestAt = &i
+	}
+}
+
+// AddedTestAt returns the value that was added to the testAt field in this mutation.
+func (m *PregnancyTestMutation) AddedTestAt() (r int64, exists bool) {
+	v := m.addtestAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetTestAt reset all changes of the "testAt" field.
+func (m *PregnancyTestMutation) ResetTestAt() {
+	m.testAt = nil
+	m.addtestAt = nil
+}
+
+// SetPregnancyTestTypeId sets the pregnancyTestTypeId field.
+func (m *PregnancyTestMutation) SetPregnancyTestTypeId(i int) {
+	m.pregnancyTestTypeId = &i
+	m.addpregnancyTestTypeId = nil
+}
+
+// PregnancyTestTypeId returns the pregnancyTestTypeId value in the mutation.
+func (m *PregnancyTestMutation) PregnancyTestTypeId() (r int, exists bool) {
+	v := m.pregnancyTestTypeId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPregnancyTestTypeId returns the old pregnancyTestTypeId value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldPregnancyTestTypeId(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldPregnancyTestTypeId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldPregnancyTestTypeId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPregnancyTestTypeId: %w", err)
+	}
+	return oldValue.PregnancyTestTypeId, nil
+}
+
+// AddPregnancyTestTypeId adds i to pregnancyTestTypeId.
+func (m *PregnancyTestMutation) AddPregnancyTestTypeId(i int) {
+	if m.addpregnancyTestTypeId != nil {
+		*m.addpregnancyTestTypeId += i
+	} else {
+		m.addpregnancyTestTypeId = &i
+	}
+}
+
+// AddedPregnancyTestTypeId returns the value that was added to the pregnancyTestTypeId field in this mutation.
+func (m *PregnancyTestMutation) AddedPregnancyTestTypeId() (r int, exists bool) {
+	v := m.addpregnancyTestTypeId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetPregnancyTestTypeId reset all changes of the "pregnancyTestTypeId" field.
+func (m *PregnancyTestMutation) ResetPregnancyTestTypeId() {
+	m.pregnancyTestTypeId = nil
+	m.addpregnancyTestTypeId = nil
+}
+
+// SetPregnancyTestTypeName sets the pregnancyTestTypeName field.
+func (m *PregnancyTestMutation) SetPregnancyTestTypeName(s string) {
+	m.pregnancyTestTypeName = &s
+}
+
+// PregnancyTestTypeName returns the pregnancyTestTypeName value in the mutation.
+func (m *PregnancyTestMutation) PregnancyTestTypeName() (r string, exists bool) {
+	v := m.pregnancyTestTypeName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPregnancyTestTypeName returns the old pregnancyTestTypeName value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldPregnancyTestTypeName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldPregnancyTestTypeName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldPregnancyTestTypeName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPregnancyTestTypeName: %w", err)
+	}
+	return oldValue.PregnancyTestTypeName, nil
+}
+
+// ResetPregnancyTestTypeName reset all changes of the "pregnancyTestTypeName" field.
+func (m *PregnancyTestMutation) ResetPregnancyTestTypeName() {
+	m.pregnancyTestTypeName = nil
+}
+
+// SetPregnancyTestMethodId sets the pregnancyTestMethodId field.
+func (m *PregnancyTestMutation) SetPregnancyTestMethodId(i int) {
+	m.pregnancyTestMethodId = &i
+	m.addpregnancyTestMethodId = nil
+}
+
+// PregnancyTestMethodId returns the pregnancyTestMethodId value in the mutation.
+func (m *PregnancyTestMutation) PregnancyTestMethodId() (r int, exists bool) {
+	v := m.pregnancyTestMethodId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPregnancyTestMethodId returns the old pregnancyTestMethodId value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldPregnancyTestMethodId(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldPregnancyTestMethodId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldPregnancyTestMethodId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPregnancyTestMethodId: %w", err)
+	}
+	return oldValue.PregnancyTestMethodId, nil
+}
+
+// AddPregnancyTestMethodId adds i to pregnancyTestMethodId.
+func (m *PregnancyTestMutation) AddPregnancyTestMethodId(i int) {
+	if m.addpregnancyTestMethodId != nil {
+		*m.addpregnancyTestMethodId += i
+	} else {
+		m.addpregnancyTestMethodId = &i
+	}
+}
+
+// AddedPregnancyTestMethodId returns the value that was added to the pregnancyTestMethodId field in this mutation.
+func (m *PregnancyTestMutation) AddedPregnancyTestMethodId() (r int, exists bool) {
+	v := m.addpregnancyTestMethodId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetPregnancyTestMethodId reset all changes of the "pregnancyTestMethodId" field.
+func (m *PregnancyTestMutation) ResetPregnancyTestMethodId() {
+	m.pregnancyTestMethodId = nil
+	m.addpregnancyTestMethodId = nil
+}
+
+// SetPregnancyTestMethodName sets the pregnancyTestMethodName field.
+func (m *PregnancyTestMutation) SetPregnancyTestMethodName(s string) {
+	m.pregnancyTestMethodName = &s
+}
+
+// PregnancyTestMethodName returns the pregnancyTestMethodName value in the mutation.
+func (m *PregnancyTestMutation) PregnancyTestMethodName() (r string, exists bool) {
+	v := m.pregnancyTestMethodName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPregnancyTestMethodName returns the old pregnancyTestMethodName value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldPregnancyTestMethodName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldPregnancyTestMethodName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldPregnancyTestMethodName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPregnancyTestMethodName: %w", err)
+	}
+	return oldValue.PregnancyTestMethodName, nil
+}
+
+// ResetPregnancyTestMethodName reset all changes of the "pregnancyTestMethodName" field.
+func (m *PregnancyTestMutation) ResetPregnancyTestMethodName() {
+	m.pregnancyTestMethodName = nil
+}
+
+// SetPregnancyTestResultId sets the pregnancyTestResultId field.
+func (m *PregnancyTestMutation) SetPregnancyTestResultId(i int) {
+	m.pregnancyTestResultId = &i
+	m.addpregnancyTestResultId = nil
+}
+
+// PregnancyTestResultId returns the pregnancyTestResultId value in the mutation.
+func (m *PregnancyTestMutation) PregnancyTestResultId() (r int, exists bool) {
+	v := m.pregnancyTestResultId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPregnancyTestResultId returns the old pregnancyTestResultId value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldPregnancyTestResultId(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldPregnancyTestResultId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldPregnancyTestResultId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPregnancyTestResultId: %w", err)
+	}
+	return oldValue.PregnancyTestResultId, nil
+}
+
+// AddPregnancyTestResultId adds i to pregnancyTestResultId.
+func (m *PregnancyTestMutation) AddPregnancyTestResultId(i int) {
+	if m.addpregnancyTestResultId != nil {
+		*m.addpregnancyTestResultId += i
+	} else {
+		m.addpregnancyTestResultId = &i
+	}
+}
+
+// AddedPregnancyTestResultId returns the value that was added to the pregnancyTestResultId field in this mutation.
+func (m *PregnancyTestMutation) AddedPregnancyTestResultId() (r int, exists bool) {
+	v := m.addpregnancyTestResultId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetPregnancyTestResultId reset all changes of the "pregnancyTestResultId" field.
+func (m *PregnancyTestMutation) ResetPregnancyTestResultId() {
+	m.pregnancyTestResultId = nil
+	m.addpregnancyTestResultId = nil
+}
+
+// SetPregnancyTestResultName sets the pregnancyTestResultName field.
+func (m *PregnancyTestMutation) SetPregnancyTestResultName(s string) {
+	m.pregnancyTestResultName = &s
+}
+
+// PregnancyTestResultName returns the pregnancyTestResultName value in the mutation.
+func (m *PregnancyTestMutation) PregnancyTestResultName() (r string, exists bool) {
+	v := m.pregnancyTestResultName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPregnancyTestResultName returns the old pregnancyTestResultName value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldPregnancyTestResultName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldPregnancyTestResultName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldPregnancyTestResultName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPregnancyTestResultName: %w", err)
+	}
+	return oldValue.PregnancyTestResultName, nil
+}
+
+// ResetPregnancyTestResultName reset all changes of the "pregnancyTestResultName" field.
+func (m *PregnancyTestMutation) ResetPregnancyTestResultName() {
+	m.pregnancyTestResultName = nil
+}
+
+// SetUserName sets the userName field.
+func (m *PregnancyTestMutation) SetUserName(s string) {
+	m.userName = &s
+}
+
+// UserName returns the userName value in the mutation.
+func (m *PregnancyTestMutation) UserName() (r string, exists bool) {
+	v := m.userName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserName returns the old userName value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldUserName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUserName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUserName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserName: %w", err)
+	}
+	return oldValue.UserName, nil
+}
+
+// ResetUserName reset all changes of the "userName" field.
+func (m *PregnancyTestMutation) ResetUserName() {
+	m.userName = nil
+}
+
+// SetRemarks sets the remarks field.
+func (m *PregnancyTestMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the remarks value in the mutation.
+func (m *PregnancyTestMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old remarks value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRemarks is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ResetRemarks reset all changes of the "remarks" field.
+func (m *PregnancyTestMutation) ResetRemarks() {
+	m.remarks = nil
+}
+
+// SetCreatedAt sets the createdAt field.
+func (m *PregnancyTestMutation) SetCreatedAt(i int64) {
+	m.createdAt = &i
+	m.addcreatedAt = nil
+}
+
+// CreatedAt returns the createdAt value in the mutation.
+func (m *PregnancyTestMutation) CreatedAt() (r int64, exists bool) {
+	v := m.createdAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old createdAt value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldCreatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds i to createdAt.
+func (m *PregnancyTestMutation) AddCreatedAt(i int64) {
+	if m.addcreatedAt != nil {
+		*m.addcreatedAt += i
+	} else {
+		m.addcreatedAt = &i
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the createdAt field in this mutation.
+func (m *PregnancyTestMutation) AddedCreatedAt() (r int64, exists bool) {
+	v := m.addcreatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt reset all changes of the "createdAt" field.
+func (m *PregnancyTestMutation) ResetCreatedAt() {
+	m.createdAt = nil
+	m.addcreatedAt = nil
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (m *PregnancyTestMutation) SetUpdatedAt(i int64) {
+	m.updatedAt = &i
+	m.addupdatedAt = nil
+}
+
+// UpdatedAt returns the updatedAt value in the mutation.
+func (m *PregnancyTestMutation) UpdatedAt() (r int64, exists bool) {
+	v := m.updatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old updatedAt value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldUpdatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUpdatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (m *PregnancyTestMutation) AddUpdatedAt(i int64) {
+	if m.addupdatedAt != nil {
+		*m.addupdatedAt += i
+	} else {
+		m.addupdatedAt = &i
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the updatedAt field in this mutation.
+func (m *PregnancyTestMutation) AddedUpdatedAt() (r int64, exists bool) {
+	v := m.addupdatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt reset all changes of the "updatedAt" field.
+func (m *PregnancyTestMutation) ResetUpdatedAt() {
+	m.updatedAt = nil
+	m.addupdatedAt = nil
+}
+
+// SetDeleted sets the deleted field.
+func (m *PregnancyTestMutation) SetDeleted(i int) {
+	m.deleted = &i
+	m.adddeleted = nil
+}
+
+// Deleted returns the deleted value in the mutation.
+func (m *PregnancyTestMutation) Deleted() (r int, exists bool) {
+	v := m.deleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleted returns the old deleted value of the PregnancyTest.
+// If the PregnancyTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMutation) OldDeleted(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleted is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleted requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleted: %w", err)
+	}
+	return oldValue.Deleted, nil
+}
+
+// AddDeleted adds i to deleted.
+func (m *PregnancyTestMutation) AddDeleted(i int) {
+	if m.adddeleted != nil {
+		*m.adddeleted += i
+	} else {
+		m.adddeleted = &i
+	}
+}
+
+// AddedDeleted returns the value that was added to the deleted field in this mutation.
+func (m *PregnancyTestMutation) AddedDeleted() (r int, exists bool) {
+	v := m.adddeleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleted reset all changes of the "deleted" field.
+func (m *PregnancyTestMutation) ResetDeleted() {
+	m.deleted = nil
+	m.adddeleted = nil
+}
+
+// Op returns the operation name.
+func (m *PregnancyTestMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (PregnancyTest).
+func (m *PregnancyTestMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *PregnancyTestMutation) Fields() []string {
+	fields := make([]string, 0, 18)
+	if m.name != nil {
+		fields = append(fields, pregnancytest.FieldName)
+	}
+	if m.earNumber != nil {
+		fields = append(fields, pregnancytest.FieldEarNumber)
+	}
+	if m.times != nil {
+		fields = append(fields, pregnancytest.FieldTimes)
+	}
+	if m.reproductiveState != nil {
+		fields = append(fields, pregnancytest.FieldReproductiveState)
+	}
+	if m.shedName != nil {
+		fields = append(fields, pregnancytest.FieldShedName)
+	}
+	if m.breedingAt != nil {
+		fields = append(fields, pregnancytest.FieldBreedingAt)
+	}
+	if m.testAt != nil {
+		fields = append(fields, pregnancytest.FieldTestAt)
+	}
+	if m.pregnancyTestTypeId != nil {
+		fields = append(fields, pregnancytest.FieldPregnancyTestTypeId)
+	}
+	if m.pregnancyTestTypeName != nil {
+		fields = append(fields, pregnancytest.FieldPregnancyTestTypeName)
+	}
+	if m.pregnancyTestMethodId != nil {
+		fields = append(fields, pregnancytest.FieldPregnancyTestMethodId)
+	}
+	if m.pregnancyTestMethodName != nil {
+		fields = append(fields, pregnancytest.FieldPregnancyTestMethodName)
+	}
+	if m.pregnancyTestResultId != nil {
+		fields = append(fields, pregnancytest.FieldPregnancyTestResultId)
+	}
+	if m.pregnancyTestResultName != nil {
+		fields = append(fields, pregnancytest.FieldPregnancyTestResultName)
+	}
+	if m.userName != nil {
+		fields = append(fields, pregnancytest.FieldUserName)
+	}
+	if m.remarks != nil {
+		fields = append(fields, pregnancytest.FieldRemarks)
+	}
+	if m.createdAt != nil {
+		fields = append(fields, pregnancytest.FieldCreatedAt)
+	}
+	if m.updatedAt != nil {
+		fields = append(fields, pregnancytest.FieldUpdatedAt)
+	}
+	if m.deleted != nil {
+		fields = append(fields, pregnancytest.FieldDeleted)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *PregnancyTestMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case pregnancytest.FieldName:
+		return m.Name()
+	case pregnancytest.FieldEarNumber:
+		return m.EarNumber()
+	case pregnancytest.FieldTimes:
+		return m.Times()
+	case pregnancytest.FieldReproductiveState:
+		return m.ReproductiveState()
+	case pregnancytest.FieldShedName:
+		return m.ShedName()
+	case pregnancytest.FieldBreedingAt:
+		return m.BreedingAt()
+	case pregnancytest.FieldTestAt:
+		return m.TestAt()
+	case pregnancytest.FieldPregnancyTestTypeId:
+		return m.PregnancyTestTypeId()
+	case pregnancytest.FieldPregnancyTestTypeName:
+		return m.PregnancyTestTypeName()
+	case pregnancytest.FieldPregnancyTestMethodId:
+		return m.PregnancyTestMethodId()
+	case pregnancytest.FieldPregnancyTestMethodName:
+		return m.PregnancyTestMethodName()
+	case pregnancytest.FieldPregnancyTestResultId:
+		return m.PregnancyTestResultId()
+	case pregnancytest.FieldPregnancyTestResultName:
+		return m.PregnancyTestResultName()
+	case pregnancytest.FieldUserName:
+		return m.UserName()
+	case pregnancytest.FieldRemarks:
+		return m.Remarks()
+	case pregnancytest.FieldCreatedAt:
+		return m.CreatedAt()
+	case pregnancytest.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case pregnancytest.FieldDeleted:
+		return m.Deleted()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *PregnancyTestMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case pregnancytest.FieldName:
+		return m.OldName(ctx)
+	case pregnancytest.FieldEarNumber:
+		return m.OldEarNumber(ctx)
+	case pregnancytest.FieldTimes:
+		return m.OldTimes(ctx)
+	case pregnancytest.FieldReproductiveState:
+		return m.OldReproductiveState(ctx)
+	case pregnancytest.FieldShedName:
+		return m.OldShedName(ctx)
+	case pregnancytest.FieldBreedingAt:
+		return m.OldBreedingAt(ctx)
+	case pregnancytest.FieldTestAt:
+		return m.OldTestAt(ctx)
+	case pregnancytest.FieldPregnancyTestTypeId:
+		return m.OldPregnancyTestTypeId(ctx)
+	case pregnancytest.FieldPregnancyTestTypeName:
+		return m.OldPregnancyTestTypeName(ctx)
+	case pregnancytest.FieldPregnancyTestMethodId:
+		return m.OldPregnancyTestMethodId(ctx)
+	case pregnancytest.FieldPregnancyTestMethodName:
+		return m.OldPregnancyTestMethodName(ctx)
+	case pregnancytest.FieldPregnancyTestResultId:
+		return m.OldPregnancyTestResultId(ctx)
+	case pregnancytest.FieldPregnancyTestResultName:
+		return m.OldPregnancyTestResultName(ctx)
+	case pregnancytest.FieldUserName:
+		return m.OldUserName(ctx)
+	case pregnancytest.FieldRemarks:
+		return m.OldRemarks(ctx)
+	case pregnancytest.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case pregnancytest.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case pregnancytest.FieldDeleted:
+		return m.OldDeleted(ctx)
+	}
+	return nil, fmt.Errorf("unknown PregnancyTest field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *PregnancyTestMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case pregnancytest.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case pregnancytest.FieldEarNumber:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEarNumber(v)
+		return nil
+	case pregnancytest.FieldTimes:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTimes(v)
+		return nil
+	case pregnancytest.FieldReproductiveState:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetReproductiveState(v)
+		return nil
+	case pregnancytest.FieldShedName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetShedName(v)
+		return nil
+	case pregnancytest.FieldBreedingAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBreedingAt(v)
+		return nil
+	case pregnancytest.FieldTestAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTestAt(v)
+		return nil
+	case pregnancytest.FieldPregnancyTestTypeId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPregnancyTestTypeId(v)
+		return nil
+	case pregnancytest.FieldPregnancyTestTypeName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPregnancyTestTypeName(v)
+		return nil
+	case pregnancytest.FieldPregnancyTestMethodId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPregnancyTestMethodId(v)
+		return nil
+	case pregnancytest.FieldPregnancyTestMethodName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPregnancyTestMethodName(v)
+		return nil
+	case pregnancytest.FieldPregnancyTestResultId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPregnancyTestResultId(v)
+		return nil
+	case pregnancytest.FieldPregnancyTestResultName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPregnancyTestResultName(v)
+		return nil
+	case pregnancytest.FieldUserName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserName(v)
+		return nil
+	case pregnancytest.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	case pregnancytest.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case pregnancytest.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case pregnancytest.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown PregnancyTest field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *PregnancyTestMutation) AddedFields() []string {
+	var fields []string
+	if m.addtimes != nil {
+		fields = append(fields, pregnancytest.FieldTimes)
+	}
+	if m.addbreedingAt != nil {
+		fields = append(fields, pregnancytest.FieldBreedingAt)
+	}
+	if m.addtestAt != nil {
+		fields = append(fields, pregnancytest.FieldTestAt)
+	}
+	if m.addpregnancyTestTypeId != nil {
+		fields = append(fields, pregnancytest.FieldPregnancyTestTypeId)
+	}
+	if m.addpregnancyTestMethodId != nil {
+		fields = append(fields, pregnancytest.FieldPregnancyTestMethodId)
+	}
+	if m.addpregnancyTestResultId != nil {
+		fields = append(fields, pregnancytest.FieldPregnancyTestResultId)
+	}
+	if m.addcreatedAt != nil {
+		fields = append(fields, pregnancytest.FieldCreatedAt)
+	}
+	if m.addupdatedAt != nil {
+		fields = append(fields, pregnancytest.FieldUpdatedAt)
+	}
+	if m.adddeleted != nil {
+		fields = append(fields, pregnancytest.FieldDeleted)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *PregnancyTestMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case pregnancytest.FieldTimes:
+		return m.AddedTimes()
+	case pregnancytest.FieldBreedingAt:
+		return m.AddedBreedingAt()
+	case pregnancytest.FieldTestAt:
+		return m.AddedTestAt()
+	case pregnancytest.FieldPregnancyTestTypeId:
+		return m.AddedPregnancyTestTypeId()
+	case pregnancytest.FieldPregnancyTestMethodId:
+		return m.AddedPregnancyTestMethodId()
+	case pregnancytest.FieldPregnancyTestResultId:
+		return m.AddedPregnancyTestResultId()
+	case pregnancytest.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case pregnancytest.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case pregnancytest.FieldDeleted:
+		return m.AddedDeleted()
+	}
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *PregnancyTestMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case pregnancytest.FieldTimes:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTimes(v)
+		return nil
+	case pregnancytest.FieldBreedingAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddBreedingAt(v)
+		return nil
+	case pregnancytest.FieldTestAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTestAt(v)
+		return nil
+	case pregnancytest.FieldPregnancyTestTypeId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddPregnancyTestTypeId(v)
+		return nil
+	case pregnancytest.FieldPregnancyTestMethodId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddPregnancyTestMethodId(v)
+		return nil
+	case pregnancytest.FieldPregnancyTestResultId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddPregnancyTestResultId(v)
+		return nil
+	case pregnancytest.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case pregnancytest.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case pregnancytest.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown PregnancyTest numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *PregnancyTestMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(pregnancytest.FieldName) {
+		fields = append(fields, pregnancytest.FieldName)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *PregnancyTestMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *PregnancyTestMutation) ClearField(name string) error {
+	switch name {
+	case pregnancytest.FieldName:
+		m.ClearName()
+		return nil
+	}
+	return fmt.Errorf("unknown PregnancyTest nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *PregnancyTestMutation) ResetField(name string) error {
+	switch name {
+	case pregnancytest.FieldName:
+		m.ResetName()
+		return nil
+	case pregnancytest.FieldEarNumber:
+		m.ResetEarNumber()
+		return nil
+	case pregnancytest.FieldTimes:
+		m.ResetTimes()
+		return nil
+	case pregnancytest.FieldReproductiveState:
+		m.ResetReproductiveState()
+		return nil
+	case pregnancytest.FieldShedName:
+		m.ResetShedName()
+		return nil
+	case pregnancytest.FieldBreedingAt:
+		m.ResetBreedingAt()
+		return nil
+	case pregnancytest.FieldTestAt:
+		m.ResetTestAt()
+		return nil
+	case pregnancytest.FieldPregnancyTestTypeId:
+		m.ResetPregnancyTestTypeId()
+		return nil
+	case pregnancytest.FieldPregnancyTestTypeName:
+		m.ResetPregnancyTestTypeName()
+		return nil
+	case pregnancytest.FieldPregnancyTestMethodId:
+		m.ResetPregnancyTestMethodId()
+		return nil
+	case pregnancytest.FieldPregnancyTestMethodName:
+		m.ResetPregnancyTestMethodName()
+		return nil
+	case pregnancytest.FieldPregnancyTestResultId:
+		m.ResetPregnancyTestResultId()
+		return nil
+	case pregnancytest.FieldPregnancyTestResultName:
+		m.ResetPregnancyTestResultName()
+		return nil
+	case pregnancytest.FieldUserName:
+		m.ResetUserName()
+		return nil
+	case pregnancytest.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	case pregnancytest.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case pregnancytest.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case pregnancytest.FieldDeleted:
+		m.ResetDeleted()
+		return nil
+	}
+	return fmt.Errorf("unknown PregnancyTest field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *PregnancyTestMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *PregnancyTestMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *PregnancyTestMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *PregnancyTestMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *PregnancyTestMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *PregnancyTestMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *PregnancyTestMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown PregnancyTest unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *PregnancyTestMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown PregnancyTest edge %s", name)
+}
+
+// PregnancyTestMethodMutation represents an operation that mutate the PregnancyTestMethods
+// nodes in the graph.
+type PregnancyTestMethodMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	name          *string
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*PregnancyTestMethod, error)
+}
+
+var _ ent.Mutation = (*PregnancyTestMethodMutation)(nil)
+
+// pregnancytestmethodOption allows to manage the mutation configuration using functional options.
+type pregnancytestmethodOption func(*PregnancyTestMethodMutation)
+
+// newPregnancyTestMethodMutation creates new mutation for $n.Name.
+func newPregnancyTestMethodMutation(c config, op Op, opts ...pregnancytestmethodOption) *PregnancyTestMethodMutation {
+	m := &PregnancyTestMethodMutation{
+		config:        c,
+		op:            op,
+		typ:           TypePregnancyTestMethod,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withPregnancyTestMethodID sets the id field of the mutation.
+func withPregnancyTestMethodID(id int64) pregnancytestmethodOption {
+	return func(m *PregnancyTestMethodMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *PregnancyTestMethod
+		)
+		m.oldValue = func(ctx context.Context) (*PregnancyTestMethod, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().PregnancyTestMethod.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withPregnancyTestMethod sets the old PregnancyTestMethod of the mutation.
+func withPregnancyTestMethod(node *PregnancyTestMethod) pregnancytestmethodOption {
+	return func(m *PregnancyTestMethodMutation) {
+		m.oldValue = func(context.Context) (*PregnancyTestMethod, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m PregnancyTestMethodMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m PregnancyTestMethodMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *PregnancyTestMethodMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *PregnancyTestMethodMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *PregnancyTestMethodMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the PregnancyTestMethod.
+// If the PregnancyTestMethod object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestMethodMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *PregnancyTestMethodMutation) ResetName() {
+	m.name = nil
+}
+
+// Op returns the operation name.
+func (m *PregnancyTestMethodMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (PregnancyTestMethod).
+func (m *PregnancyTestMethodMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *PregnancyTestMethodMutation) Fields() []string {
+	fields := make([]string, 0, 1)
+	if m.name != nil {
+		fields = append(fields, pregnancytestmethod.FieldName)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *PregnancyTestMethodMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case pregnancytestmethod.FieldName:
+		return m.Name()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *PregnancyTestMethodMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case pregnancytestmethod.FieldName:
+		return m.OldName(ctx)
+	}
+	return nil, fmt.Errorf("unknown PregnancyTestMethod field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *PregnancyTestMethodMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case pregnancytestmethod.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	}
+	return fmt.Errorf("unknown PregnancyTestMethod field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *PregnancyTestMethodMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *PregnancyTestMethodMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *PregnancyTestMethodMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown PregnancyTestMethod numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *PregnancyTestMethodMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *PregnancyTestMethodMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *PregnancyTestMethodMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown PregnancyTestMethod nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *PregnancyTestMethodMutation) ResetField(name string) error {
+	switch name {
+	case pregnancytestmethod.FieldName:
+		m.ResetName()
+		return nil
+	}
+	return fmt.Errorf("unknown PregnancyTestMethod field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *PregnancyTestMethodMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *PregnancyTestMethodMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *PregnancyTestMethodMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *PregnancyTestMethodMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *PregnancyTestMethodMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *PregnancyTestMethodMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *PregnancyTestMethodMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown PregnancyTestMethod unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *PregnancyTestMethodMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown PregnancyTestMethod edge %s", name)
+}
+
+// PregnancyTestResultMutation represents an operation that mutate the PregnancyTestResults
+// nodes in the graph.
+type PregnancyTestResultMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	name          *string
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*PregnancyTestResult, error)
+}
+
+var _ ent.Mutation = (*PregnancyTestResultMutation)(nil)
+
+// pregnancytestresultOption allows to manage the mutation configuration using functional options.
+type pregnancytestresultOption func(*PregnancyTestResultMutation)
+
+// newPregnancyTestResultMutation creates new mutation for $n.Name.
+func newPregnancyTestResultMutation(c config, op Op, opts ...pregnancytestresultOption) *PregnancyTestResultMutation {
+	m := &PregnancyTestResultMutation{
+		config:        c,
+		op:            op,
+		typ:           TypePregnancyTestResult,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withPregnancyTestResultID sets the id field of the mutation.
+func withPregnancyTestResultID(id int64) pregnancytestresultOption {
+	return func(m *PregnancyTestResultMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *PregnancyTestResult
+		)
+		m.oldValue = func(ctx context.Context) (*PregnancyTestResult, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().PregnancyTestResult.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withPregnancyTestResult sets the old PregnancyTestResult of the mutation.
+func withPregnancyTestResult(node *PregnancyTestResult) pregnancytestresultOption {
+	return func(m *PregnancyTestResultMutation) {
+		m.oldValue = func(context.Context) (*PregnancyTestResult, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m PregnancyTestResultMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m PregnancyTestResultMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *PregnancyTestResultMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *PregnancyTestResultMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *PregnancyTestResultMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the PregnancyTestResult.
+// If the PregnancyTestResult object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestResultMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *PregnancyTestResultMutation) ResetName() {
+	m.name = nil
+}
+
+// Op returns the operation name.
+func (m *PregnancyTestResultMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (PregnancyTestResult).
+func (m *PregnancyTestResultMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *PregnancyTestResultMutation) Fields() []string {
+	fields := make([]string, 0, 1)
+	if m.name != nil {
+		fields = append(fields, pregnancytestresult.FieldName)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *PregnancyTestResultMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case pregnancytestresult.FieldName:
+		return m.Name()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *PregnancyTestResultMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case pregnancytestresult.FieldName:
+		return m.OldName(ctx)
+	}
+	return nil, fmt.Errorf("unknown PregnancyTestResult field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *PregnancyTestResultMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case pregnancytestresult.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	}
+	return fmt.Errorf("unknown PregnancyTestResult field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *PregnancyTestResultMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *PregnancyTestResultMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *PregnancyTestResultMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown PregnancyTestResult numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *PregnancyTestResultMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *PregnancyTestResultMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *PregnancyTestResultMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown PregnancyTestResult nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *PregnancyTestResultMutation) ResetField(name string) error {
+	switch name {
+	case pregnancytestresult.FieldName:
+		m.ResetName()
+		return nil
+	}
+	return fmt.Errorf("unknown PregnancyTestResult field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *PregnancyTestResultMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *PregnancyTestResultMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *PregnancyTestResultMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *PregnancyTestResultMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *PregnancyTestResultMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *PregnancyTestResultMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *PregnancyTestResultMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown PregnancyTestResult unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *PregnancyTestResultMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown PregnancyTestResult edge %s", name)
+}
+
+// PregnancyTestTypeMutation represents an operation that mutate the PregnancyTestTypes
+// nodes in the graph.
+type PregnancyTestTypeMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	name          *string
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*PregnancyTestType, error)
+}
+
+var _ ent.Mutation = (*PregnancyTestTypeMutation)(nil)
+
+// pregnancytesttypeOption allows to manage the mutation configuration using functional options.
+type pregnancytesttypeOption func(*PregnancyTestTypeMutation)
+
+// newPregnancyTestTypeMutation creates new mutation for $n.Name.
+func newPregnancyTestTypeMutation(c config, op Op, opts ...pregnancytesttypeOption) *PregnancyTestTypeMutation {
+	m := &PregnancyTestTypeMutation{
+		config:        c,
+		op:            op,
+		typ:           TypePregnancyTestType,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withPregnancyTestTypeID sets the id field of the mutation.
+func withPregnancyTestTypeID(id int64) pregnancytesttypeOption {
+	return func(m *PregnancyTestTypeMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *PregnancyTestType
+		)
+		m.oldValue = func(ctx context.Context) (*PregnancyTestType, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().PregnancyTestType.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withPregnancyTestType sets the old PregnancyTestType of the mutation.
+func withPregnancyTestType(node *PregnancyTestType) pregnancytesttypeOption {
+	return func(m *PregnancyTestTypeMutation) {
+		m.oldValue = func(context.Context) (*PregnancyTestType, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m PregnancyTestTypeMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m PregnancyTestTypeMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *PregnancyTestTypeMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *PregnancyTestTypeMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *PregnancyTestTypeMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the PregnancyTestType.
+// If the PregnancyTestType object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *PregnancyTestTypeMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *PregnancyTestTypeMutation) ResetName() {
+	m.name = nil
+}
+
+// Op returns the operation name.
+func (m *PregnancyTestTypeMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (PregnancyTestType).
+func (m *PregnancyTestTypeMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *PregnancyTestTypeMutation) Fields() []string {
+	fields := make([]string, 0, 1)
+	if m.name != nil {
+		fields = append(fields, pregnancytesttype.FieldName)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *PregnancyTestTypeMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case pregnancytesttype.FieldName:
+		return m.Name()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *PregnancyTestTypeMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case pregnancytesttype.FieldName:
+		return m.OldName(ctx)
+	}
+	return nil, fmt.Errorf("unknown PregnancyTestType field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *PregnancyTestTypeMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case pregnancytesttype.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	}
+	return fmt.Errorf("unknown PregnancyTestType field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *PregnancyTestTypeMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *PregnancyTestTypeMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *PregnancyTestTypeMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown PregnancyTestType numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *PregnancyTestTypeMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *PregnancyTestTypeMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *PregnancyTestTypeMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown PregnancyTestType nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *PregnancyTestTypeMutation) ResetField(name string) error {
+	switch name {
+	case pregnancytesttype.FieldName:
+		m.ResetName()
+		return nil
+	}
+	return fmt.Errorf("unknown PregnancyTestType field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *PregnancyTestTypeMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *PregnancyTestTypeMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *PregnancyTestTypeMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *PregnancyTestTypeMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *PregnancyTestTypeMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *PregnancyTestTypeMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *PregnancyTestTypeMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown PregnancyTestType unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *PregnancyTestTypeMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown PregnancyTestType edge %s", name)
 }
 
 // ReproductiveStateMutation represents an operation that mutate the ReproductiveStates

@@ -62,6 +62,14 @@ type Tx struct {
 	HairState *HairStateClient
 	// Position is the client for interacting with the Position builders.
 	Position *PositionClient
+	// PregnancyTest is the client for interacting with the PregnancyTest builders.
+	PregnancyTest *PregnancyTestClient
+	// PregnancyTestMethod is the client for interacting with the PregnancyTestMethod builders.
+	PregnancyTestMethod *PregnancyTestMethodClient
+	// PregnancyTestResult is the client for interacting with the PregnancyTestResult builders.
+	PregnancyTestResult *PregnancyTestResultClient
+	// PregnancyTestType is the client for interacting with the PregnancyTestType builders.
+	PregnancyTestType *PregnancyTestTypeClient
 	// ReproductiveState is the client for interacting with the ReproductiveState builders.
 	ReproductiveState *ReproductiveStateClient
 	// SemenFrozenType is the client for interacting with the SemenFrozenType builders.
@@ -236,6 +244,10 @@ func (tx *Tx) init() {
 	tx.Farm = NewFarmClient(tx.config)
 	tx.HairState = NewHairStateClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)
+	tx.PregnancyTest = NewPregnancyTestClient(tx.config)
+	tx.PregnancyTestMethod = NewPregnancyTestMethodClient(tx.config)
+	tx.PregnancyTestResult = NewPregnancyTestResultClient(tx.config)
+	tx.PregnancyTestType = NewPregnancyTestTypeClient(tx.config)
 	tx.ReproductiveState = NewReproductiveStateClient(tx.config)
 	tx.SemenFrozenType = NewSemenFrozenTypeClient(tx.config)
 	tx.Shed = NewShedClient(tx.config)

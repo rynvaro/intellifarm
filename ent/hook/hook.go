@@ -333,6 +333,58 @@ func (f PositionFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, er
 	return f(ctx, mv)
 }
 
+// The PregnancyTestFunc type is an adapter to allow the use of ordinary
+// function as PregnancyTest mutator.
+type PregnancyTestFunc func(context.Context, *ent.PregnancyTestMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f PregnancyTestFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.PregnancyTestMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.PregnancyTestMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The PregnancyTestMethodFunc type is an adapter to allow the use of ordinary
+// function as PregnancyTestMethod mutator.
+type PregnancyTestMethodFunc func(context.Context, *ent.PregnancyTestMethodMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f PregnancyTestMethodFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.PregnancyTestMethodMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.PregnancyTestMethodMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The PregnancyTestResultFunc type is an adapter to allow the use of ordinary
+// function as PregnancyTestResult mutator.
+type PregnancyTestResultFunc func(context.Context, *ent.PregnancyTestResultMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f PregnancyTestResultFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.PregnancyTestResultMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.PregnancyTestResultMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The PregnancyTestTypeFunc type is an adapter to allow the use of ordinary
+// function as PregnancyTestType mutator.
+type PregnancyTestTypeFunc func(context.Context, *ent.PregnancyTestTypeMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f PregnancyTestTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.PregnancyTestTypeMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.PregnancyTestTypeMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The ReproductiveStateFunc type is an adapter to allow the use of ordinary
 // function as ReproductiveState mutator.
 type ReproductiveStateFunc func(context.Context, *ent.ReproductiveStateMutation) (ent.Value, error)

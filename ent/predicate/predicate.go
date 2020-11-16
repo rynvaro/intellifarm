@@ -81,6 +81,18 @@ type HairState func(*sql.Selector)
 // Position is the predicate function for position builders.
 type Position func(*sql.Selector)
 
+// PregnancyTest is the predicate function for pregnancytest builders.
+type PregnancyTest func(*sql.Selector)
+
+// PregnancyTestMethod is the predicate function for pregnancytestmethod builders.
+type PregnancyTestMethod func(*sql.Selector)
+
+// PregnancyTestResult is the predicate function for pregnancytestresult builders.
+type PregnancyTestResult func(*sql.Selector)
+
+// PregnancyTestType is the predicate function for pregnancytesttype builders.
+type PregnancyTestType func(*sql.Selector)
+
 // ReproductiveState is the predicate function for reproductivestate builders.
 type ReproductiveState func(*sql.Selector)
 

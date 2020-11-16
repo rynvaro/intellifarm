@@ -24,38 +24,42 @@ type config struct {
 
 // hooks per client, for fast access.
 type hooks struct {
-	BirthSurrounding  []ent.Hook
-	BreathRate        []ent.Hook
-	Breeding          []ent.Hook
-	BreedingType      []ent.Hook
-	Calve             []ent.Hook
-	CalveCount        []ent.Hook
-	CalveType         []ent.Hook
-	Category          []ent.Hook
-	Cattle            []ent.Hook
-	CattleCate        []ent.Hook
-	CattleGender      []ent.Hook
-	CattleGrow        []ent.Hook
-	CattleGrowsData   []ent.Hook
-	CattleGrowsRate   []ent.Hook
-	CattleHairColor   []ent.Hook
-	CattleJoinedType  []ent.Hook
-	CattleOwner       []ent.Hook
-	CattleType        []ent.Hook
-	Conf              []ent.Hook
-	Duty              []ent.Hook
-	Estrus            []ent.Hook
-	EstrusType        []ent.Hook
-	Farm              []ent.Hook
-	HairState         []ent.Hook
-	Position          []ent.Hook
-	ReproductiveState []ent.Hook
-	SemenFrozenType   []ent.Hook
-	Shed              []ent.Hook
-	ShedCategory      []ent.Hook
-	ShedType          []ent.Hook
-	User              []ent.Hook
-	WindDirection     []ent.Hook
+	BirthSurrounding    []ent.Hook
+	BreathRate          []ent.Hook
+	Breeding            []ent.Hook
+	BreedingType        []ent.Hook
+	Calve               []ent.Hook
+	CalveCount          []ent.Hook
+	CalveType           []ent.Hook
+	Category            []ent.Hook
+	Cattle              []ent.Hook
+	CattleCate          []ent.Hook
+	CattleGender        []ent.Hook
+	CattleGrow          []ent.Hook
+	CattleGrowsData     []ent.Hook
+	CattleGrowsRate     []ent.Hook
+	CattleHairColor     []ent.Hook
+	CattleJoinedType    []ent.Hook
+	CattleOwner         []ent.Hook
+	CattleType          []ent.Hook
+	Conf                []ent.Hook
+	Duty                []ent.Hook
+	Estrus              []ent.Hook
+	EstrusType          []ent.Hook
+	Farm                []ent.Hook
+	HairState           []ent.Hook
+	Position            []ent.Hook
+	PregnancyTest       []ent.Hook
+	PregnancyTestMethod []ent.Hook
+	PregnancyTestResult []ent.Hook
+	PregnancyTestType   []ent.Hook
+	ReproductiveState   []ent.Hook
+	SemenFrozenType     []ent.Hook
+	Shed                []ent.Hook
+	ShedCategory        []ent.Hook
+	ShedType            []ent.Hook
+	User                []ent.Hook
+	WindDirection       []ent.Hook
 }
 
 // Options applies the options on the config object.

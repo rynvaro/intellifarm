@@ -479,6 +479,71 @@ var (
 		PrimaryKey:  []*schema.Column{PositionsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// PregnancyTestsColumns holds the columns for the "pregnancy_tests" table.
+	PregnancyTestsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString, Nullable: true},
+		{Name: "ear_number", Type: field.TypeString},
+		{Name: "times", Type: field.TypeInt},
+		{Name: "reproductive_state", Type: field.TypeString},
+		{Name: "shed_name", Type: field.TypeString},
+		{Name: "breeding_at", Type: field.TypeInt64},
+		{Name: "test_at", Type: field.TypeInt64},
+		{Name: "pregnancy_test_type_id", Type: field.TypeInt},
+		{Name: "pregnancy_test_type_name", Type: field.TypeString},
+		{Name: "pregnancy_test_method_id", Type: field.TypeInt},
+		{Name: "pregnancy_test_method_name", Type: field.TypeString},
+		{Name: "pregnancy_test_result_id", Type: field.TypeInt},
+		{Name: "pregnancy_test_result_name", Type: field.TypeString},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// PregnancyTestsTable holds the schema information for the "pregnancy_tests" table.
+	PregnancyTestsTable = &schema.Table{
+		Name:        "pregnancy_tests",
+		Columns:     PregnancyTestsColumns,
+		PrimaryKey:  []*schema.Column{PregnancyTestsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// PregnancyTestMethodsColumns holds the columns for the "pregnancy_test_methods" table.
+	PregnancyTestMethodsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+	}
+	// PregnancyTestMethodsTable holds the schema information for the "pregnancy_test_methods" table.
+	PregnancyTestMethodsTable = &schema.Table{
+		Name:        "pregnancy_test_methods",
+		Columns:     PregnancyTestMethodsColumns,
+		PrimaryKey:  []*schema.Column{PregnancyTestMethodsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// PregnancyTestResultsColumns holds the columns for the "pregnancy_test_results" table.
+	PregnancyTestResultsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+	}
+	// PregnancyTestResultsTable holds the schema information for the "pregnancy_test_results" table.
+	PregnancyTestResultsTable = &schema.Table{
+		Name:        "pregnancy_test_results",
+		Columns:     PregnancyTestResultsColumns,
+		PrimaryKey:  []*schema.Column{PregnancyTestResultsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// PregnancyTestTypesColumns holds the columns for the "pregnancy_test_types" table.
+	PregnancyTestTypesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+	}
+	// PregnancyTestTypesTable holds the schema information for the "pregnancy_test_types" table.
+	PregnancyTestTypesTable = &schema.Table{
+		Name:        "pregnancy_test_types",
+		Columns:     PregnancyTestTypesColumns,
+		PrimaryKey:  []*schema.Column{PregnancyTestTypesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// ReproductiveStatesColumns holds the columns for the "reproductive_states" table.
 	ReproductiveStatesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -625,6 +690,10 @@ var (
 		FarmsTable,
 		HairStatesTable,
 		PositionsTable,
+		PregnancyTestsTable,
+		PregnancyTestMethodsTable,
+		PregnancyTestResultsTable,
+		PregnancyTestTypesTable,
 		ReproductiveStatesTable,
 		SemenFrozenTypesTable,
 		ShedsTable,

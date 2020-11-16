@@ -34,6 +34,10 @@ import (
 	"cattleai/ent/farm"
 	"cattleai/ent/hairstate"
 	"cattleai/ent/position"
+	"cattleai/ent/pregnancytest"
+	"cattleai/ent/pregnancytestmethod"
+	"cattleai/ent/pregnancytestresult"
+	"cattleai/ent/pregnancytesttype"
 	"cattleai/ent/reproductivestate"
 	"cattleai/ent/semenfrozentype"
 	"cattleai/ent/shed"
@@ -101,6 +105,14 @@ type Client struct {
 	HairState *HairStateClient
 	// Position is the client for interacting with the Position builders.
 	Position *PositionClient
+	// PregnancyTest is the client for interacting with the PregnancyTest builders.
+	PregnancyTest *PregnancyTestClient
+	// PregnancyTestMethod is the client for interacting with the PregnancyTestMethod builders.
+	PregnancyTestMethod *PregnancyTestMethodClient
+	// PregnancyTestResult is the client for interacting with the PregnancyTestResult builders.
+	PregnancyTestResult *PregnancyTestResultClient
+	// PregnancyTestType is the client for interacting with the PregnancyTestType builders.
+	PregnancyTestType *PregnancyTestTypeClient
 	// ReproductiveState is the client for interacting with the ReproductiveState builders.
 	ReproductiveState *ReproductiveStateClient
 	// SemenFrozenType is the client for interacting with the SemenFrozenType builders.
@@ -153,6 +165,10 @@ func (c *Client) init() {
 	c.Farm = NewFarmClient(c.config)
 	c.HairState = NewHairStateClient(c.config)
 	c.Position = NewPositionClient(c.config)
+	c.PregnancyTest = NewPregnancyTestClient(c.config)
+	c.PregnancyTestMethod = NewPregnancyTestMethodClient(c.config)
+	c.PregnancyTestResult = NewPregnancyTestResultClient(c.config)
+	c.PregnancyTestType = NewPregnancyTestTypeClient(c.config)
 	c.ReproductiveState = NewReproductiveStateClient(c.config)
 	c.SemenFrozenType = NewSemenFrozenTypeClient(c.config)
 	c.Shed = NewShedClient(c.config)
@@ -190,40 +206,44 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 	}
 	cfg := config{driver: tx, log: c.log, debug: c.debug, hooks: c.hooks}
 	return &Tx{
-		ctx:               ctx,
-		config:            cfg,
-		BirthSurrounding:  NewBirthSurroundingClient(cfg),
-		BreathRate:        NewBreathRateClient(cfg),
-		Breeding:          NewBreedingClient(cfg),
-		BreedingType:      NewBreedingTypeClient(cfg),
-		Calve:             NewCalveClient(cfg),
-		CalveCount:        NewCalveCountClient(cfg),
-		CalveType:         NewCalveTypeClient(cfg),
-		Category:          NewCategoryClient(cfg),
-		Cattle:            NewCattleClient(cfg),
-		CattleCate:        NewCattleCateClient(cfg),
-		CattleGender:      NewCattleGenderClient(cfg),
-		CattleGrow:        NewCattleGrowClient(cfg),
-		CattleGrowsData:   NewCattleGrowsDataClient(cfg),
-		CattleGrowsRate:   NewCattleGrowsRateClient(cfg),
-		CattleHairColor:   NewCattleHairColorClient(cfg),
-		CattleJoinedType:  NewCattleJoinedTypeClient(cfg),
-		CattleOwner:       NewCattleOwnerClient(cfg),
-		CattleType:        NewCattleTypeClient(cfg),
-		Conf:              NewConfClient(cfg),
-		Duty:              NewDutyClient(cfg),
-		Estrus:            NewEstrusClient(cfg),
-		EstrusType:        NewEstrusTypeClient(cfg),
-		Farm:              NewFarmClient(cfg),
-		HairState:         NewHairStateClient(cfg),
-		Position:          NewPositionClient(cfg),
-		ReproductiveState: NewReproductiveStateClient(cfg),
-		SemenFrozenType:   NewSemenFrozenTypeClient(cfg),
-		Shed:              NewShedClient(cfg),
-		ShedCategory:      NewShedCategoryClient(cfg),
-		ShedType:          NewShedTypeClient(cfg),
-		User:              NewUserClient(cfg),
-		WindDirection:     NewWindDirectionClient(cfg),
+		ctx:                 ctx,
+		config:              cfg,
+		BirthSurrounding:    NewBirthSurroundingClient(cfg),
+		BreathRate:          NewBreathRateClient(cfg),
+		Breeding:            NewBreedingClient(cfg),
+		BreedingType:        NewBreedingTypeClient(cfg),
+		Calve:               NewCalveClient(cfg),
+		CalveCount:          NewCalveCountClient(cfg),
+		CalveType:           NewCalveTypeClient(cfg),
+		Category:            NewCategoryClient(cfg),
+		Cattle:              NewCattleClient(cfg),
+		CattleCate:          NewCattleCateClient(cfg),
+		CattleGender:        NewCattleGenderClient(cfg),
+		CattleGrow:          NewCattleGrowClient(cfg),
+		CattleGrowsData:     NewCattleGrowsDataClient(cfg),
+		CattleGrowsRate:     NewCattleGrowsRateClient(cfg),
+		CattleHairColor:     NewCattleHairColorClient(cfg),
+		CattleJoinedType:    NewCattleJoinedTypeClient(cfg),
+		CattleOwner:         NewCattleOwnerClient(cfg),
+		CattleType:          NewCattleTypeClient(cfg),
+		Conf:                NewConfClient(cfg),
+		Duty:                NewDutyClient(cfg),
+		Estrus:              NewEstrusClient(cfg),
+		EstrusType:          NewEstrusTypeClient(cfg),
+		Farm:                NewFarmClient(cfg),
+		HairState:           NewHairStateClient(cfg),
+		Position:            NewPositionClient(cfg),
+		PregnancyTest:       NewPregnancyTestClient(cfg),
+		PregnancyTestMethod: NewPregnancyTestMethodClient(cfg),
+		PregnancyTestResult: NewPregnancyTestResultClient(cfg),
+		PregnancyTestType:   NewPregnancyTestTypeClient(cfg),
+		ReproductiveState:   NewReproductiveStateClient(cfg),
+		SemenFrozenType:     NewSemenFrozenTypeClient(cfg),
+		Shed:                NewShedClient(cfg),
+		ShedCategory:        NewShedCategoryClient(cfg),
+		ShedType:            NewShedTypeClient(cfg),
+		User:                NewUserClient(cfg),
+		WindDirection:       NewWindDirectionClient(cfg),
 	}, nil
 }
 
@@ -238,39 +258,43 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 	}
 	cfg := config{driver: &txDriver{tx: tx, drv: c.driver}, log: c.log, debug: c.debug, hooks: c.hooks}
 	return &Tx{
-		config:            cfg,
-		BirthSurrounding:  NewBirthSurroundingClient(cfg),
-		BreathRate:        NewBreathRateClient(cfg),
-		Breeding:          NewBreedingClient(cfg),
-		BreedingType:      NewBreedingTypeClient(cfg),
-		Calve:             NewCalveClient(cfg),
-		CalveCount:        NewCalveCountClient(cfg),
-		CalveType:         NewCalveTypeClient(cfg),
-		Category:          NewCategoryClient(cfg),
-		Cattle:            NewCattleClient(cfg),
-		CattleCate:        NewCattleCateClient(cfg),
-		CattleGender:      NewCattleGenderClient(cfg),
-		CattleGrow:        NewCattleGrowClient(cfg),
-		CattleGrowsData:   NewCattleGrowsDataClient(cfg),
-		CattleGrowsRate:   NewCattleGrowsRateClient(cfg),
-		CattleHairColor:   NewCattleHairColorClient(cfg),
-		CattleJoinedType:  NewCattleJoinedTypeClient(cfg),
-		CattleOwner:       NewCattleOwnerClient(cfg),
-		CattleType:        NewCattleTypeClient(cfg),
-		Conf:              NewConfClient(cfg),
-		Duty:              NewDutyClient(cfg),
-		Estrus:            NewEstrusClient(cfg),
-		EstrusType:        NewEstrusTypeClient(cfg),
-		Farm:              NewFarmClient(cfg),
-		HairState:         NewHairStateClient(cfg),
-		Position:          NewPositionClient(cfg),
-		ReproductiveState: NewReproductiveStateClient(cfg),
-		SemenFrozenType:   NewSemenFrozenTypeClient(cfg),
-		Shed:              NewShedClient(cfg),
-		ShedCategory:      NewShedCategoryClient(cfg),
-		ShedType:          NewShedTypeClient(cfg),
-		User:              NewUserClient(cfg),
-		WindDirection:     NewWindDirectionClient(cfg),
+		config:              cfg,
+		BirthSurrounding:    NewBirthSurroundingClient(cfg),
+		BreathRate:          NewBreathRateClient(cfg),
+		Breeding:            NewBreedingClient(cfg),
+		BreedingType:        NewBreedingTypeClient(cfg),
+		Calve:               NewCalveClient(cfg),
+		CalveCount:          NewCalveCountClient(cfg),
+		CalveType:           NewCalveTypeClient(cfg),
+		Category:            NewCategoryClient(cfg),
+		Cattle:              NewCattleClient(cfg),
+		CattleCate:          NewCattleCateClient(cfg),
+		CattleGender:        NewCattleGenderClient(cfg),
+		CattleGrow:          NewCattleGrowClient(cfg),
+		CattleGrowsData:     NewCattleGrowsDataClient(cfg),
+		CattleGrowsRate:     NewCattleGrowsRateClient(cfg),
+		CattleHairColor:     NewCattleHairColorClient(cfg),
+		CattleJoinedType:    NewCattleJoinedTypeClient(cfg),
+		CattleOwner:         NewCattleOwnerClient(cfg),
+		CattleType:          NewCattleTypeClient(cfg),
+		Conf:                NewConfClient(cfg),
+		Duty:                NewDutyClient(cfg),
+		Estrus:              NewEstrusClient(cfg),
+		EstrusType:          NewEstrusTypeClient(cfg),
+		Farm:                NewFarmClient(cfg),
+		HairState:           NewHairStateClient(cfg),
+		Position:            NewPositionClient(cfg),
+		PregnancyTest:       NewPregnancyTestClient(cfg),
+		PregnancyTestMethod: NewPregnancyTestMethodClient(cfg),
+		PregnancyTestResult: NewPregnancyTestResultClient(cfg),
+		PregnancyTestType:   NewPregnancyTestTypeClient(cfg),
+		ReproductiveState:   NewReproductiveStateClient(cfg),
+		SemenFrozenType:     NewSemenFrozenTypeClient(cfg),
+		Shed:                NewShedClient(cfg),
+		ShedCategory:        NewShedCategoryClient(cfg),
+		ShedType:            NewShedTypeClient(cfg),
+		User:                NewUserClient(cfg),
+		WindDirection:       NewWindDirectionClient(cfg),
 	}, nil
 }
 
@@ -324,6 +348,10 @@ func (c *Client) Use(hooks ...Hook) {
 	c.Farm.Use(hooks...)
 	c.HairState.Use(hooks...)
 	c.Position.Use(hooks...)
+	c.PregnancyTest.Use(hooks...)
+	c.PregnancyTestMethod.Use(hooks...)
+	c.PregnancyTestResult.Use(hooks...)
+	c.PregnancyTestType.Use(hooks...)
 	c.ReproductiveState.Use(hooks...)
 	c.SemenFrozenType.Use(hooks...)
 	c.Shed.Use(hooks...)
@@ -2531,6 +2559,358 @@ func (c *PositionClient) GetX(ctx context.Context, id int64) *Position {
 // Hooks returns the client hooks.
 func (c *PositionClient) Hooks() []Hook {
 	return c.hooks.Position
+}
+
+// PregnancyTestClient is a client for the PregnancyTest schema.
+type PregnancyTestClient struct {
+	config
+}
+
+// NewPregnancyTestClient returns a client for the PregnancyTest from the given config.
+func NewPregnancyTestClient(c config) *PregnancyTestClient {
+	return &PregnancyTestClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `pregnancytest.Hooks(f(g(h())))`.
+func (c *PregnancyTestClient) Use(hooks ...Hook) {
+	c.hooks.PregnancyTest = append(c.hooks.PregnancyTest, hooks...)
+}
+
+// Create returns a create builder for PregnancyTest.
+func (c *PregnancyTestClient) Create() *PregnancyTestCreate {
+	mutation := newPregnancyTestMutation(c.config, OpCreate)
+	return &PregnancyTestCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of PregnancyTest entities.
+func (c *PregnancyTestClient) CreateBulk(builders ...*PregnancyTestCreate) *PregnancyTestCreateBulk {
+	return &PregnancyTestCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for PregnancyTest.
+func (c *PregnancyTestClient) Update() *PregnancyTestUpdate {
+	mutation := newPregnancyTestMutation(c.config, OpUpdate)
+	return &PregnancyTestUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *PregnancyTestClient) UpdateOne(pt *PregnancyTest) *PregnancyTestUpdateOne {
+	mutation := newPregnancyTestMutation(c.config, OpUpdateOne, withPregnancyTest(pt))
+	return &PregnancyTestUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *PregnancyTestClient) UpdateOneID(id int64) *PregnancyTestUpdateOne {
+	mutation := newPregnancyTestMutation(c.config, OpUpdateOne, withPregnancyTestID(id))
+	return &PregnancyTestUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for PregnancyTest.
+func (c *PregnancyTestClient) Delete() *PregnancyTestDelete {
+	mutation := newPregnancyTestMutation(c.config, OpDelete)
+	return &PregnancyTestDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *PregnancyTestClient) DeleteOne(pt *PregnancyTest) *PregnancyTestDeleteOne {
+	return c.DeleteOneID(pt.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *PregnancyTestClient) DeleteOneID(id int64) *PregnancyTestDeleteOne {
+	builder := c.Delete().Where(pregnancytest.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &PregnancyTestDeleteOne{builder}
+}
+
+// Query returns a query builder for PregnancyTest.
+func (c *PregnancyTestClient) Query() *PregnancyTestQuery {
+	return &PregnancyTestQuery{config: c.config}
+}
+
+// Get returns a PregnancyTest entity by its id.
+func (c *PregnancyTestClient) Get(ctx context.Context, id int64) (*PregnancyTest, error) {
+	return c.Query().Where(pregnancytest.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *PregnancyTestClient) GetX(ctx context.Context, id int64) *PregnancyTest {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *PregnancyTestClient) Hooks() []Hook {
+	return c.hooks.PregnancyTest
+}
+
+// PregnancyTestMethodClient is a client for the PregnancyTestMethod schema.
+type PregnancyTestMethodClient struct {
+	config
+}
+
+// NewPregnancyTestMethodClient returns a client for the PregnancyTestMethod from the given config.
+func NewPregnancyTestMethodClient(c config) *PregnancyTestMethodClient {
+	return &PregnancyTestMethodClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `pregnancytestmethod.Hooks(f(g(h())))`.
+func (c *PregnancyTestMethodClient) Use(hooks ...Hook) {
+	c.hooks.PregnancyTestMethod = append(c.hooks.PregnancyTestMethod, hooks...)
+}
+
+// Create returns a create builder for PregnancyTestMethod.
+func (c *PregnancyTestMethodClient) Create() *PregnancyTestMethodCreate {
+	mutation := newPregnancyTestMethodMutation(c.config, OpCreate)
+	return &PregnancyTestMethodCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of PregnancyTestMethod entities.
+func (c *PregnancyTestMethodClient) CreateBulk(builders ...*PregnancyTestMethodCreate) *PregnancyTestMethodCreateBulk {
+	return &PregnancyTestMethodCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for PregnancyTestMethod.
+func (c *PregnancyTestMethodClient) Update() *PregnancyTestMethodUpdate {
+	mutation := newPregnancyTestMethodMutation(c.config, OpUpdate)
+	return &PregnancyTestMethodUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *PregnancyTestMethodClient) UpdateOne(ptm *PregnancyTestMethod) *PregnancyTestMethodUpdateOne {
+	mutation := newPregnancyTestMethodMutation(c.config, OpUpdateOne, withPregnancyTestMethod(ptm))
+	return &PregnancyTestMethodUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *PregnancyTestMethodClient) UpdateOneID(id int64) *PregnancyTestMethodUpdateOne {
+	mutation := newPregnancyTestMethodMutation(c.config, OpUpdateOne, withPregnancyTestMethodID(id))
+	return &PregnancyTestMethodUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for PregnancyTestMethod.
+func (c *PregnancyTestMethodClient) Delete() *PregnancyTestMethodDelete {
+	mutation := newPregnancyTestMethodMutation(c.config, OpDelete)
+	return &PregnancyTestMethodDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *PregnancyTestMethodClient) DeleteOne(ptm *PregnancyTestMethod) *PregnancyTestMethodDeleteOne {
+	return c.DeleteOneID(ptm.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *PregnancyTestMethodClient) DeleteOneID(id int64) *PregnancyTestMethodDeleteOne {
+	builder := c.Delete().Where(pregnancytestmethod.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &PregnancyTestMethodDeleteOne{builder}
+}
+
+// Query returns a query builder for PregnancyTestMethod.
+func (c *PregnancyTestMethodClient) Query() *PregnancyTestMethodQuery {
+	return &PregnancyTestMethodQuery{config: c.config}
+}
+
+// Get returns a PregnancyTestMethod entity by its id.
+func (c *PregnancyTestMethodClient) Get(ctx context.Context, id int64) (*PregnancyTestMethod, error) {
+	return c.Query().Where(pregnancytestmethod.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *PregnancyTestMethodClient) GetX(ctx context.Context, id int64) *PregnancyTestMethod {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *PregnancyTestMethodClient) Hooks() []Hook {
+	return c.hooks.PregnancyTestMethod
+}
+
+// PregnancyTestResultClient is a client for the PregnancyTestResult schema.
+type PregnancyTestResultClient struct {
+	config
+}
+
+// NewPregnancyTestResultClient returns a client for the PregnancyTestResult from the given config.
+func NewPregnancyTestResultClient(c config) *PregnancyTestResultClient {
+	return &PregnancyTestResultClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `pregnancytestresult.Hooks(f(g(h())))`.
+func (c *PregnancyTestResultClient) Use(hooks ...Hook) {
+	c.hooks.PregnancyTestResult = append(c.hooks.PregnancyTestResult, hooks...)
+}
+
+// Create returns a create builder for PregnancyTestResult.
+func (c *PregnancyTestResultClient) Create() *PregnancyTestResultCreate {
+	mutation := newPregnancyTestResultMutation(c.config, OpCreate)
+	return &PregnancyTestResultCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of PregnancyTestResult entities.
+func (c *PregnancyTestResultClient) CreateBulk(builders ...*PregnancyTestResultCreate) *PregnancyTestResultCreateBulk {
+	return &PregnancyTestResultCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for PregnancyTestResult.
+func (c *PregnancyTestResultClient) Update() *PregnancyTestResultUpdate {
+	mutation := newPregnancyTestResultMutation(c.config, OpUpdate)
+	return &PregnancyTestResultUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *PregnancyTestResultClient) UpdateOne(ptr *PregnancyTestResult) *PregnancyTestResultUpdateOne {
+	mutation := newPregnancyTestResultMutation(c.config, OpUpdateOne, withPregnancyTestResult(ptr))
+	return &PregnancyTestResultUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *PregnancyTestResultClient) UpdateOneID(id int64) *PregnancyTestResultUpdateOne {
+	mutation := newPregnancyTestResultMutation(c.config, OpUpdateOne, withPregnancyTestResultID(id))
+	return &PregnancyTestResultUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for PregnancyTestResult.
+func (c *PregnancyTestResultClient) Delete() *PregnancyTestResultDelete {
+	mutation := newPregnancyTestResultMutation(c.config, OpDelete)
+	return &PregnancyTestResultDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *PregnancyTestResultClient) DeleteOne(ptr *PregnancyTestResult) *PregnancyTestResultDeleteOne {
+	return c.DeleteOneID(ptr.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *PregnancyTestResultClient) DeleteOneID(id int64) *PregnancyTestResultDeleteOne {
+	builder := c.Delete().Where(pregnancytestresult.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &PregnancyTestResultDeleteOne{builder}
+}
+
+// Query returns a query builder for PregnancyTestResult.
+func (c *PregnancyTestResultClient) Query() *PregnancyTestResultQuery {
+	return &PregnancyTestResultQuery{config: c.config}
+}
+
+// Get returns a PregnancyTestResult entity by its id.
+func (c *PregnancyTestResultClient) Get(ctx context.Context, id int64) (*PregnancyTestResult, error) {
+	return c.Query().Where(pregnancytestresult.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *PregnancyTestResultClient) GetX(ctx context.Context, id int64) *PregnancyTestResult {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *PregnancyTestResultClient) Hooks() []Hook {
+	return c.hooks.PregnancyTestResult
+}
+
+// PregnancyTestTypeClient is a client for the PregnancyTestType schema.
+type PregnancyTestTypeClient struct {
+	config
+}
+
+// NewPregnancyTestTypeClient returns a client for the PregnancyTestType from the given config.
+func NewPregnancyTestTypeClient(c config) *PregnancyTestTypeClient {
+	return &PregnancyTestTypeClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `pregnancytesttype.Hooks(f(g(h())))`.
+func (c *PregnancyTestTypeClient) Use(hooks ...Hook) {
+	c.hooks.PregnancyTestType = append(c.hooks.PregnancyTestType, hooks...)
+}
+
+// Create returns a create builder for PregnancyTestType.
+func (c *PregnancyTestTypeClient) Create() *PregnancyTestTypeCreate {
+	mutation := newPregnancyTestTypeMutation(c.config, OpCreate)
+	return &PregnancyTestTypeCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of PregnancyTestType entities.
+func (c *PregnancyTestTypeClient) CreateBulk(builders ...*PregnancyTestTypeCreate) *PregnancyTestTypeCreateBulk {
+	return &PregnancyTestTypeCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for PregnancyTestType.
+func (c *PregnancyTestTypeClient) Update() *PregnancyTestTypeUpdate {
+	mutation := newPregnancyTestTypeMutation(c.config, OpUpdate)
+	return &PregnancyTestTypeUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *PregnancyTestTypeClient) UpdateOne(ptt *PregnancyTestType) *PregnancyTestTypeUpdateOne {
+	mutation := newPregnancyTestTypeMutation(c.config, OpUpdateOne, withPregnancyTestType(ptt))
+	return &PregnancyTestTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *PregnancyTestTypeClient) UpdateOneID(id int64) *PregnancyTestTypeUpdateOne {
+	mutation := newPregnancyTestTypeMutation(c.config, OpUpdateOne, withPregnancyTestTypeID(id))
+	return &PregnancyTestTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for PregnancyTestType.
+func (c *PregnancyTestTypeClient) Delete() *PregnancyTestTypeDelete {
+	mutation := newPregnancyTestTypeMutation(c.config, OpDelete)
+	return &PregnancyTestTypeDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *PregnancyTestTypeClient) DeleteOne(ptt *PregnancyTestType) *PregnancyTestTypeDeleteOne {
+	return c.DeleteOneID(ptt.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *PregnancyTestTypeClient) DeleteOneID(id int64) *PregnancyTestTypeDeleteOne {
+	builder := c.Delete().Where(pregnancytesttype.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &PregnancyTestTypeDeleteOne{builder}
+}
+
+// Query returns a query builder for PregnancyTestType.
+func (c *PregnancyTestTypeClient) Query() *PregnancyTestTypeQuery {
+	return &PregnancyTestTypeQuery{config: c.config}
+}
+
+// Get returns a PregnancyTestType entity by its id.
+func (c *PregnancyTestTypeClient) Get(ctx context.Context, id int64) (*PregnancyTestType, error) {
+	return c.Query().Where(pregnancytesttype.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *PregnancyTestTypeClient) GetX(ctx context.Context, id int64) *PregnancyTestType {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *PregnancyTestTypeClient) Hooks() []Hook {
+	return c.hooks.PregnancyTestType
 }
 
 // ReproductiveStateClient is a client for the ReproductiveState schema.

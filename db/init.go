@@ -279,6 +279,42 @@ func dataInit() {
 		conf.InitConf.SemenFrozenType = true
 	}
 
+	if !conf.InitConf.PregnancyTestType {
+		for _, v := range initData["pregnancyTestTypes"] {
+			_, err := Client.PregnancyTestType.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("PregnancyTestType %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("PregnancyTestType %s initialized", v))
+		}
+		conf.InitConf.PregnancyTestType = true
+	}
+
+	if !conf.InitConf.PregnancyTestMethod {
+		for _, v := range initData["pregnancyTestMethods"] {
+			_, err := Client.PregnancyTestMethod.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("PregnancyTestMethod %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("PregnancyTestMethod %s initialized", v))
+		}
+		conf.InitConf.PregnancyTestMethod = true
+	}
+
+	if !conf.InitConf.PregnancyTestResult {
+		for _, v := range initData["pregnancyTestResults"] {
+			_, err := Client.PregnancyTestResult.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("PregnancyTestResult %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("PregnancyTestResult %s initialized", v))
+		}
+		conf.InitConf.PregnancyTestResult = true
+	}
+
 	// update init config
 	if len(confs) > 0 {
 		_, err := Client.Conf.UpdateOneID(confs[0].ID).SetConfs(conf).Save(ctx)

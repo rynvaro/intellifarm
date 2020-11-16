@@ -68,6 +68,67 @@ var (
 		PrimaryKey:  []*schema.Column{BreedingTypesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// CalvesColumns holds the columns for the "calves" table.
+	CalvesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString, Nullable: true},
+		{Name: "ear_number", Type: field.TypeString},
+		{Name: "times", Type: field.TypeInt},
+		{Name: "pregnant_at", Type: field.TypeInt64},
+		{Name: "calve_at", Type: field.TypeInt64},
+		{Name: "calve_type_id", Type: field.TypeInt},
+		{Name: "calve_type_name", Type: field.TypeString},
+		{Name: "calve_cate", Type: field.TypeInt},
+		{Name: "calve_count_id", Type: field.TypeInt},
+		{Name: "calve_count_name", Type: field.TypeString},
+		{Name: "complexity", Type: field.TypeInt},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "baby_status", Type: field.TypeInt},
+		{Name: "baby_gender", Type: field.TypeInt},
+		{Name: "baby_ear_number", Type: field.TypeInt},
+		{Name: "baby_breed_id", Type: field.TypeInt},
+		{Name: "baby_breed_name", Type: field.TypeString},
+		{Name: "baby_hair_color_id", Type: field.TypeInt},
+		{Name: "baby_hair_color_name", Type: field.TypeString},
+		{Name: "baby_weight", Type: field.TypeFloat32},
+		{Name: "baby_shed_id", Type: field.TypeInt},
+		{Name: "baby_shed_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// CalvesTable holds the schema information for the "calves" table.
+	CalvesTable = &schema.Table{
+		Name:        "calves",
+		Columns:     CalvesColumns,
+		PrimaryKey:  []*schema.Column{CalvesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// CalveCountsColumns holds the columns for the "calve_counts" table.
+	CalveCountsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+	}
+	// CalveCountsTable holds the schema information for the "calve_counts" table.
+	CalveCountsTable = &schema.Table{
+		Name:        "calve_counts",
+		Columns:     CalveCountsColumns,
+		PrimaryKey:  []*schema.Column{CalveCountsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// CalveTypesColumns holds the columns for the "calve_types" table.
+	CalveTypesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+	}
+	// CalveTypesTable holds the schema information for the "calve_types" table.
+	CalveTypesTable = &schema.Table{
+		Name:        "calve_types",
+		Columns:     CalveTypesColumns,
+		PrimaryKey:  []*schema.Column{CalveTypesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// CategoriesColumns holds the columns for the "categories" table.
 	CategoriesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -301,6 +362,42 @@ var (
 		PrimaryKey:  []*schema.Column{DutiesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// EstrusColumns holds the columns for the "estrus" table.
+	EstrusColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString, Nullable: true},
+		{Name: "ear_number", Type: field.TypeString},
+		{Name: "times", Type: field.TypeInt},
+		{Name: "reproductive_state", Type: field.TypeString},
+		{Name: "shed_name", Type: field.TypeString},
+		{Name: "estrus_at", Type: field.TypeInt64},
+		{Name: "estrus_type_id", Type: field.TypeInt},
+		{Name: "estrus_type_name", Type: field.TypeString},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// EstrusTable holds the schema information for the "estrus" table.
+	EstrusTable = &schema.Table{
+		Name:        "estrus",
+		Columns:     EstrusColumns,
+		PrimaryKey:  []*schema.Column{EstrusColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// EstrusTypesColumns holds the columns for the "estrus_types" table.
+	EstrusTypesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+	}
+	// EstrusTypesTable holds the schema information for the "estrus_types" table.
+	EstrusTypesTable = &schema.Table{
+		Name:        "estrus_types",
+		Columns:     EstrusTypesColumns,
+		PrimaryKey:  []*schema.Column{EstrusTypesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// FarmsColumns holds the columns for the "farms" table.
 	FarmsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -467,6 +564,9 @@ var (
 		BirthSurroundingsTable,
 		BreathRatesTable,
 		BreedingTypesTable,
+		CalvesTable,
+		CalveCountsTable,
+		CalveTypesTable,
 		CategoriesTable,
 		CattlesTable,
 		CattleCatesTable,
@@ -480,6 +580,8 @@ var (
 		CattleTypesTable,
 		ConfsTable,
 		DutiesTable,
+		EstrusTable,
+		EstrusTypesTable,
 		FarmsTable,
 		HairStatesTable,
 		PositionsTable,

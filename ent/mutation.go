@@ -7,6 +7,9 @@ import (
 	"cattleai/ent/birthsurrounding"
 	"cattleai/ent/breathrate"
 	"cattleai/ent/breedingtype"
+	"cattleai/ent/calve"
+	"cattleai/ent/calvecount"
+	"cattleai/ent/calvetype"
 	"cattleai/ent/category"
 	"cattleai/ent/cattle"
 	"cattleai/ent/cattlecate"
@@ -20,6 +23,8 @@ import (
 	"cattleai/ent/cattletype"
 	"cattleai/ent/conf"
 	"cattleai/ent/duty"
+	"cattleai/ent/estrus"
+	"cattleai/ent/estrustype"
 	"cattleai/ent/farm"
 	"cattleai/ent/hairstate"
 	"cattleai/ent/position"
@@ -48,6 +53,9 @@ const (
 	TypeBirthSurrounding  = "BirthSurrounding"
 	TypeBreathRate        = "BreathRate"
 	TypeBreedingType      = "BreedingType"
+	TypeCalve             = "Calve"
+	TypeCalveCount        = "CalveCount"
+	TypeCalveType         = "CalveType"
 	TypeCategory          = "Category"
 	TypeCattle            = "Cattle"
 	TypeCattleCate        = "CattleCate"
@@ -61,6 +69,8 @@ const (
 	TypeCattleType        = "CattleType"
 	TypeConf              = "Conf"
 	TypeDuty              = "Duty"
+	TypeEstrus            = "Estrus"
+	TypeEstrusType        = "EstrusType"
 	TypeFarm              = "Farm"
 	TypeHairState         = "HairState"
 	TypePosition          = "Position"
@@ -2866,6 +2876,2846 @@ func (m *BreedingTypeMutation) ClearEdge(name string) error {
 // defined in the schema.
 func (m *BreedingTypeMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown BreedingType edge %s", name)
+}
+
+// CalveMutation represents an operation that mutate the Calves
+// nodes in the graph.
+type CalveMutation struct {
+	config
+	op                 Op
+	typ                string
+	id                 *int64
+	name               *string
+	earNumber          *string
+	times              *int
+	addtimes           *int
+	pregnantAt         *int64
+	addpregnantAt      *int64
+	calveAt            *int64
+	addcalveAt         *int64
+	calveTypeId        *int
+	addcalveTypeId     *int
+	calveTypeName      *string
+	calveCate          *int
+	addcalveCate       *int
+	calveCountId       *int
+	addcalveCountId    *int
+	calveCountName     *string
+	complexity         *int
+	addcomplexity      *int
+	userName           *string
+	babyStatus         *int
+	addbabyStatus      *int
+	babyGender         *int
+	addbabyGender      *int
+	babyEarNumber      *int
+	addbabyEarNumber   *int
+	babyBreedId        *int
+	addbabyBreedId     *int
+	babyBreedName      *string
+	babyHairColorId    *int
+	addbabyHairColorId *int
+	babyHairColorName  *string
+	babyWeight         *float32
+	addbabyWeight      *float32
+	babyShedId         *int
+	addbabyShedId      *int
+	babyShedName       *string
+	remarks            *string
+	createdAt          *int64
+	addcreatedAt       *int64
+	updatedAt          *int64
+	addupdatedAt       *int64
+	deleted            *int
+	adddeleted         *int
+	clearedFields      map[string]struct{}
+	done               bool
+	oldValue           func(context.Context) (*Calve, error)
+}
+
+var _ ent.Mutation = (*CalveMutation)(nil)
+
+// calveOption allows to manage the mutation configuration using functional options.
+type calveOption func(*CalveMutation)
+
+// newCalveMutation creates new mutation for $n.Name.
+func newCalveMutation(c config, op Op, opts ...calveOption) *CalveMutation {
+	m := &CalveMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeCalve,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withCalveID sets the id field of the mutation.
+func withCalveID(id int64) calveOption {
+	return func(m *CalveMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *Calve
+		)
+		m.oldValue = func(ctx context.Context) (*Calve, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().Calve.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withCalve sets the old Calve of the mutation.
+func withCalve(node *Calve) calveOption {
+	return func(m *CalveMutation) {
+		m.oldValue = func(context.Context) (*Calve, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m CalveMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m CalveMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *CalveMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *CalveMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *CalveMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ClearName clears the value of name.
+func (m *CalveMutation) ClearName() {
+	m.name = nil
+	m.clearedFields[calve.FieldName] = struct{}{}
+}
+
+// NameCleared returns if the field name was cleared in this mutation.
+func (m *CalveMutation) NameCleared() bool {
+	_, ok := m.clearedFields[calve.FieldName]
+	return ok
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *CalveMutation) ResetName() {
+	m.name = nil
+	delete(m.clearedFields, calve.FieldName)
+}
+
+// SetEarNumber sets the earNumber field.
+func (m *CalveMutation) SetEarNumber(s string) {
+	m.earNumber = &s
+}
+
+// EarNumber returns the earNumber value in the mutation.
+func (m *CalveMutation) EarNumber() (r string, exists bool) {
+	v := m.earNumber
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEarNumber returns the old earNumber value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldEarNumber(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldEarNumber is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldEarNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEarNumber: %w", err)
+	}
+	return oldValue.EarNumber, nil
+}
+
+// ResetEarNumber reset all changes of the "earNumber" field.
+func (m *CalveMutation) ResetEarNumber() {
+	m.earNumber = nil
+}
+
+// SetTimes sets the times field.
+func (m *CalveMutation) SetTimes(i int) {
+	m.times = &i
+	m.addtimes = nil
+}
+
+// Times returns the times value in the mutation.
+func (m *CalveMutation) Times() (r int, exists bool) {
+	v := m.times
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTimes returns the old times value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldTimes(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldTimes is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldTimes requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTimes: %w", err)
+	}
+	return oldValue.Times, nil
+}
+
+// AddTimes adds i to times.
+func (m *CalveMutation) AddTimes(i int) {
+	if m.addtimes != nil {
+		*m.addtimes += i
+	} else {
+		m.addtimes = &i
+	}
+}
+
+// AddedTimes returns the value that was added to the times field in this mutation.
+func (m *CalveMutation) AddedTimes() (r int, exists bool) {
+	v := m.addtimes
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetTimes reset all changes of the "times" field.
+func (m *CalveMutation) ResetTimes() {
+	m.times = nil
+	m.addtimes = nil
+}
+
+// SetPregnantAt sets the pregnantAt field.
+func (m *CalveMutation) SetPregnantAt(i int64) {
+	m.pregnantAt = &i
+	m.addpregnantAt = nil
+}
+
+// PregnantAt returns the pregnantAt value in the mutation.
+func (m *CalveMutation) PregnantAt() (r int64, exists bool) {
+	v := m.pregnantAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPregnantAt returns the old pregnantAt value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldPregnantAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldPregnantAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldPregnantAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPregnantAt: %w", err)
+	}
+	return oldValue.PregnantAt, nil
+}
+
+// AddPregnantAt adds i to pregnantAt.
+func (m *CalveMutation) AddPregnantAt(i int64) {
+	if m.addpregnantAt != nil {
+		*m.addpregnantAt += i
+	} else {
+		m.addpregnantAt = &i
+	}
+}
+
+// AddedPregnantAt returns the value that was added to the pregnantAt field in this mutation.
+func (m *CalveMutation) AddedPregnantAt() (r int64, exists bool) {
+	v := m.addpregnantAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetPregnantAt reset all changes of the "pregnantAt" field.
+func (m *CalveMutation) ResetPregnantAt() {
+	m.pregnantAt = nil
+	m.addpregnantAt = nil
+}
+
+// SetCalveAt sets the calveAt field.
+func (m *CalveMutation) SetCalveAt(i int64) {
+	m.calveAt = &i
+	m.addcalveAt = nil
+}
+
+// CalveAt returns the calveAt value in the mutation.
+func (m *CalveMutation) CalveAt() (r int64, exists bool) {
+	v := m.calveAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCalveAt returns the old calveAt value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldCalveAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCalveAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCalveAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCalveAt: %w", err)
+	}
+	return oldValue.CalveAt, nil
+}
+
+// AddCalveAt adds i to calveAt.
+func (m *CalveMutation) AddCalveAt(i int64) {
+	if m.addcalveAt != nil {
+		*m.addcalveAt += i
+	} else {
+		m.addcalveAt = &i
+	}
+}
+
+// AddedCalveAt returns the value that was added to the calveAt field in this mutation.
+func (m *CalveMutation) AddedCalveAt() (r int64, exists bool) {
+	v := m.addcalveAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCalveAt reset all changes of the "calveAt" field.
+func (m *CalveMutation) ResetCalveAt() {
+	m.calveAt = nil
+	m.addcalveAt = nil
+}
+
+// SetCalveTypeId sets the calveTypeId field.
+func (m *CalveMutation) SetCalveTypeId(i int) {
+	m.calveTypeId = &i
+	m.addcalveTypeId = nil
+}
+
+// CalveTypeId returns the calveTypeId value in the mutation.
+func (m *CalveMutation) CalveTypeId() (r int, exists bool) {
+	v := m.calveTypeId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCalveTypeId returns the old calveTypeId value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldCalveTypeId(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCalveTypeId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCalveTypeId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCalveTypeId: %w", err)
+	}
+	return oldValue.CalveTypeId, nil
+}
+
+// AddCalveTypeId adds i to calveTypeId.
+func (m *CalveMutation) AddCalveTypeId(i int) {
+	if m.addcalveTypeId != nil {
+		*m.addcalveTypeId += i
+	} else {
+		m.addcalveTypeId = &i
+	}
+}
+
+// AddedCalveTypeId returns the value that was added to the calveTypeId field in this mutation.
+func (m *CalveMutation) AddedCalveTypeId() (r int, exists bool) {
+	v := m.addcalveTypeId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCalveTypeId reset all changes of the "calveTypeId" field.
+func (m *CalveMutation) ResetCalveTypeId() {
+	m.calveTypeId = nil
+	m.addcalveTypeId = nil
+}
+
+// SetCalveTypeName sets the calveTypeName field.
+func (m *CalveMutation) SetCalveTypeName(s string) {
+	m.calveTypeName = &s
+}
+
+// CalveTypeName returns the calveTypeName value in the mutation.
+func (m *CalveMutation) CalveTypeName() (r string, exists bool) {
+	v := m.calveTypeName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCalveTypeName returns the old calveTypeName value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldCalveTypeName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCalveTypeName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCalveTypeName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCalveTypeName: %w", err)
+	}
+	return oldValue.CalveTypeName, nil
+}
+
+// ResetCalveTypeName reset all changes of the "calveTypeName" field.
+func (m *CalveMutation) ResetCalveTypeName() {
+	m.calveTypeName = nil
+}
+
+// SetCalveCate sets the calveCate field.
+func (m *CalveMutation) SetCalveCate(i int) {
+	m.calveCate = &i
+	m.addcalveCate = nil
+}
+
+// CalveCate returns the calveCate value in the mutation.
+func (m *CalveMutation) CalveCate() (r int, exists bool) {
+	v := m.calveCate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCalveCate returns the old calveCate value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldCalveCate(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCalveCate is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCalveCate requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCalveCate: %w", err)
+	}
+	return oldValue.CalveCate, nil
+}
+
+// AddCalveCate adds i to calveCate.
+func (m *CalveMutation) AddCalveCate(i int) {
+	if m.addcalveCate != nil {
+		*m.addcalveCate += i
+	} else {
+		m.addcalveCate = &i
+	}
+}
+
+// AddedCalveCate returns the value that was added to the calveCate field in this mutation.
+func (m *CalveMutation) AddedCalveCate() (r int, exists bool) {
+	v := m.addcalveCate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCalveCate reset all changes of the "calveCate" field.
+func (m *CalveMutation) ResetCalveCate() {
+	m.calveCate = nil
+	m.addcalveCate = nil
+}
+
+// SetCalveCountId sets the calveCountId field.
+func (m *CalveMutation) SetCalveCountId(i int) {
+	m.calveCountId = &i
+	m.addcalveCountId = nil
+}
+
+// CalveCountId returns the calveCountId value in the mutation.
+func (m *CalveMutation) CalveCountId() (r int, exists bool) {
+	v := m.calveCountId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCalveCountId returns the old calveCountId value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldCalveCountId(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCalveCountId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCalveCountId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCalveCountId: %w", err)
+	}
+	return oldValue.CalveCountId, nil
+}
+
+// AddCalveCountId adds i to calveCountId.
+func (m *CalveMutation) AddCalveCountId(i int) {
+	if m.addcalveCountId != nil {
+		*m.addcalveCountId += i
+	} else {
+		m.addcalveCountId = &i
+	}
+}
+
+// AddedCalveCountId returns the value that was added to the calveCountId field in this mutation.
+func (m *CalveMutation) AddedCalveCountId() (r int, exists bool) {
+	v := m.addcalveCountId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCalveCountId reset all changes of the "calveCountId" field.
+func (m *CalveMutation) ResetCalveCountId() {
+	m.calveCountId = nil
+	m.addcalveCountId = nil
+}
+
+// SetCalveCountName sets the calveCountName field.
+func (m *CalveMutation) SetCalveCountName(s string) {
+	m.calveCountName = &s
+}
+
+// CalveCountName returns the calveCountName value in the mutation.
+func (m *CalveMutation) CalveCountName() (r string, exists bool) {
+	v := m.calveCountName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCalveCountName returns the old calveCountName value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldCalveCountName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCalveCountName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCalveCountName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCalveCountName: %w", err)
+	}
+	return oldValue.CalveCountName, nil
+}
+
+// ResetCalveCountName reset all changes of the "calveCountName" field.
+func (m *CalveMutation) ResetCalveCountName() {
+	m.calveCountName = nil
+}
+
+// SetComplexity sets the complexity field.
+func (m *CalveMutation) SetComplexity(i int) {
+	m.complexity = &i
+	m.addcomplexity = nil
+}
+
+// Complexity returns the complexity value in the mutation.
+func (m *CalveMutation) Complexity() (r int, exists bool) {
+	v := m.complexity
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldComplexity returns the old complexity value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldComplexity(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldComplexity is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldComplexity requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldComplexity: %w", err)
+	}
+	return oldValue.Complexity, nil
+}
+
+// AddComplexity adds i to complexity.
+func (m *CalveMutation) AddComplexity(i int) {
+	if m.addcomplexity != nil {
+		*m.addcomplexity += i
+	} else {
+		m.addcomplexity = &i
+	}
+}
+
+// AddedComplexity returns the value that was added to the complexity field in this mutation.
+func (m *CalveMutation) AddedComplexity() (r int, exists bool) {
+	v := m.addcomplexity
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetComplexity reset all changes of the "complexity" field.
+func (m *CalveMutation) ResetComplexity() {
+	m.complexity = nil
+	m.addcomplexity = nil
+}
+
+// SetUserName sets the userName field.
+func (m *CalveMutation) SetUserName(s string) {
+	m.userName = &s
+}
+
+// UserName returns the userName value in the mutation.
+func (m *CalveMutation) UserName() (r string, exists bool) {
+	v := m.userName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserName returns the old userName value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldUserName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUserName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUserName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserName: %w", err)
+	}
+	return oldValue.UserName, nil
+}
+
+// ResetUserName reset all changes of the "userName" field.
+func (m *CalveMutation) ResetUserName() {
+	m.userName = nil
+}
+
+// SetBabyStatus sets the babyStatus field.
+func (m *CalveMutation) SetBabyStatus(i int) {
+	m.babyStatus = &i
+	m.addbabyStatus = nil
+}
+
+// BabyStatus returns the babyStatus value in the mutation.
+func (m *CalveMutation) BabyStatus() (r int, exists bool) {
+	v := m.babyStatus
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBabyStatus returns the old babyStatus value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldBabyStatus(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldBabyStatus is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldBabyStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBabyStatus: %w", err)
+	}
+	return oldValue.BabyStatus, nil
+}
+
+// AddBabyStatus adds i to babyStatus.
+func (m *CalveMutation) AddBabyStatus(i int) {
+	if m.addbabyStatus != nil {
+		*m.addbabyStatus += i
+	} else {
+		m.addbabyStatus = &i
+	}
+}
+
+// AddedBabyStatus returns the value that was added to the babyStatus field in this mutation.
+func (m *CalveMutation) AddedBabyStatus() (r int, exists bool) {
+	v := m.addbabyStatus
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetBabyStatus reset all changes of the "babyStatus" field.
+func (m *CalveMutation) ResetBabyStatus() {
+	m.babyStatus = nil
+	m.addbabyStatus = nil
+}
+
+// SetBabyGender sets the babyGender field.
+func (m *CalveMutation) SetBabyGender(i int) {
+	m.babyGender = &i
+	m.addbabyGender = nil
+}
+
+// BabyGender returns the babyGender value in the mutation.
+func (m *CalveMutation) BabyGender() (r int, exists bool) {
+	v := m.babyGender
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBabyGender returns the old babyGender value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldBabyGender(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldBabyGender is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldBabyGender requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBabyGender: %w", err)
+	}
+	return oldValue.BabyGender, nil
+}
+
+// AddBabyGender adds i to babyGender.
+func (m *CalveMutation) AddBabyGender(i int) {
+	if m.addbabyGender != nil {
+		*m.addbabyGender += i
+	} else {
+		m.addbabyGender = &i
+	}
+}
+
+// AddedBabyGender returns the value that was added to the babyGender field in this mutation.
+func (m *CalveMutation) AddedBabyGender() (r int, exists bool) {
+	v := m.addbabyGender
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetBabyGender reset all changes of the "babyGender" field.
+func (m *CalveMutation) ResetBabyGender() {
+	m.babyGender = nil
+	m.addbabyGender = nil
+}
+
+// SetBabyEarNumber sets the babyEarNumber field.
+func (m *CalveMutation) SetBabyEarNumber(i int) {
+	m.babyEarNumber = &i
+	m.addbabyEarNumber = nil
+}
+
+// BabyEarNumber returns the babyEarNumber value in the mutation.
+func (m *CalveMutation) BabyEarNumber() (r int, exists bool) {
+	v := m.babyEarNumber
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBabyEarNumber returns the old babyEarNumber value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldBabyEarNumber(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldBabyEarNumber is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldBabyEarNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBabyEarNumber: %w", err)
+	}
+	return oldValue.BabyEarNumber, nil
+}
+
+// AddBabyEarNumber adds i to babyEarNumber.
+func (m *CalveMutation) AddBabyEarNumber(i int) {
+	if m.addbabyEarNumber != nil {
+		*m.addbabyEarNumber += i
+	} else {
+		m.addbabyEarNumber = &i
+	}
+}
+
+// AddedBabyEarNumber returns the value that was added to the babyEarNumber field in this mutation.
+func (m *CalveMutation) AddedBabyEarNumber() (r int, exists bool) {
+	v := m.addbabyEarNumber
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetBabyEarNumber reset all changes of the "babyEarNumber" field.
+func (m *CalveMutation) ResetBabyEarNumber() {
+	m.babyEarNumber = nil
+	m.addbabyEarNumber = nil
+}
+
+// SetBabyBreedId sets the babyBreedId field.
+func (m *CalveMutation) SetBabyBreedId(i int) {
+	m.babyBreedId = &i
+	m.addbabyBreedId = nil
+}
+
+// BabyBreedId returns the babyBreedId value in the mutation.
+func (m *CalveMutation) BabyBreedId() (r int, exists bool) {
+	v := m.babyBreedId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBabyBreedId returns the old babyBreedId value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldBabyBreedId(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldBabyBreedId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldBabyBreedId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBabyBreedId: %w", err)
+	}
+	return oldValue.BabyBreedId, nil
+}
+
+// AddBabyBreedId adds i to babyBreedId.
+func (m *CalveMutation) AddBabyBreedId(i int) {
+	if m.addbabyBreedId != nil {
+		*m.addbabyBreedId += i
+	} else {
+		m.addbabyBreedId = &i
+	}
+}
+
+// AddedBabyBreedId returns the value that was added to the babyBreedId field in this mutation.
+func (m *CalveMutation) AddedBabyBreedId() (r int, exists bool) {
+	v := m.addbabyBreedId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetBabyBreedId reset all changes of the "babyBreedId" field.
+func (m *CalveMutation) ResetBabyBreedId() {
+	m.babyBreedId = nil
+	m.addbabyBreedId = nil
+}
+
+// SetBabyBreedName sets the babyBreedName field.
+func (m *CalveMutation) SetBabyBreedName(s string) {
+	m.babyBreedName = &s
+}
+
+// BabyBreedName returns the babyBreedName value in the mutation.
+func (m *CalveMutation) BabyBreedName() (r string, exists bool) {
+	v := m.babyBreedName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBabyBreedName returns the old babyBreedName value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldBabyBreedName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldBabyBreedName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldBabyBreedName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBabyBreedName: %w", err)
+	}
+	return oldValue.BabyBreedName, nil
+}
+
+// ResetBabyBreedName reset all changes of the "babyBreedName" field.
+func (m *CalveMutation) ResetBabyBreedName() {
+	m.babyBreedName = nil
+}
+
+// SetBabyHairColorId sets the babyHairColorId field.
+func (m *CalveMutation) SetBabyHairColorId(i int) {
+	m.babyHairColorId = &i
+	m.addbabyHairColorId = nil
+}
+
+// BabyHairColorId returns the babyHairColorId value in the mutation.
+func (m *CalveMutation) BabyHairColorId() (r int, exists bool) {
+	v := m.babyHairColorId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBabyHairColorId returns the old babyHairColorId value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldBabyHairColorId(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldBabyHairColorId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldBabyHairColorId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBabyHairColorId: %w", err)
+	}
+	return oldValue.BabyHairColorId, nil
+}
+
+// AddBabyHairColorId adds i to babyHairColorId.
+func (m *CalveMutation) AddBabyHairColorId(i int) {
+	if m.addbabyHairColorId != nil {
+		*m.addbabyHairColorId += i
+	} else {
+		m.addbabyHairColorId = &i
+	}
+}
+
+// AddedBabyHairColorId returns the value that was added to the babyHairColorId field in this mutation.
+func (m *CalveMutation) AddedBabyHairColorId() (r int, exists bool) {
+	v := m.addbabyHairColorId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetBabyHairColorId reset all changes of the "babyHairColorId" field.
+func (m *CalveMutation) ResetBabyHairColorId() {
+	m.babyHairColorId = nil
+	m.addbabyHairColorId = nil
+}
+
+// SetBabyHairColorName sets the babyHairColorName field.
+func (m *CalveMutation) SetBabyHairColorName(s string) {
+	m.babyHairColorName = &s
+}
+
+// BabyHairColorName returns the babyHairColorName value in the mutation.
+func (m *CalveMutation) BabyHairColorName() (r string, exists bool) {
+	v := m.babyHairColorName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBabyHairColorName returns the old babyHairColorName value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldBabyHairColorName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldBabyHairColorName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldBabyHairColorName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBabyHairColorName: %w", err)
+	}
+	return oldValue.BabyHairColorName, nil
+}
+
+// ResetBabyHairColorName reset all changes of the "babyHairColorName" field.
+func (m *CalveMutation) ResetBabyHairColorName() {
+	m.babyHairColorName = nil
+}
+
+// SetBabyWeight sets the babyWeight field.
+func (m *CalveMutation) SetBabyWeight(f float32) {
+	m.babyWeight = &f
+	m.addbabyWeight = nil
+}
+
+// BabyWeight returns the babyWeight value in the mutation.
+func (m *CalveMutation) BabyWeight() (r float32, exists bool) {
+	v := m.babyWeight
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBabyWeight returns the old babyWeight value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldBabyWeight(ctx context.Context) (v float32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldBabyWeight is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldBabyWeight requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBabyWeight: %w", err)
+	}
+	return oldValue.BabyWeight, nil
+}
+
+// AddBabyWeight adds f to babyWeight.
+func (m *CalveMutation) AddBabyWeight(f float32) {
+	if m.addbabyWeight != nil {
+		*m.addbabyWeight += f
+	} else {
+		m.addbabyWeight = &f
+	}
+}
+
+// AddedBabyWeight returns the value that was added to the babyWeight field in this mutation.
+func (m *CalveMutation) AddedBabyWeight() (r float32, exists bool) {
+	v := m.addbabyWeight
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetBabyWeight reset all changes of the "babyWeight" field.
+func (m *CalveMutation) ResetBabyWeight() {
+	m.babyWeight = nil
+	m.addbabyWeight = nil
+}
+
+// SetBabyShedId sets the babyShedId field.
+func (m *CalveMutation) SetBabyShedId(i int) {
+	m.babyShedId = &i
+	m.addbabyShedId = nil
+}
+
+// BabyShedId returns the babyShedId value in the mutation.
+func (m *CalveMutation) BabyShedId() (r int, exists bool) {
+	v := m.babyShedId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBabyShedId returns the old babyShedId value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldBabyShedId(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldBabyShedId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldBabyShedId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBabyShedId: %w", err)
+	}
+	return oldValue.BabyShedId, nil
+}
+
+// AddBabyShedId adds i to babyShedId.
+func (m *CalveMutation) AddBabyShedId(i int) {
+	if m.addbabyShedId != nil {
+		*m.addbabyShedId += i
+	} else {
+		m.addbabyShedId = &i
+	}
+}
+
+// AddedBabyShedId returns the value that was added to the babyShedId field in this mutation.
+func (m *CalveMutation) AddedBabyShedId() (r int, exists bool) {
+	v := m.addbabyShedId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetBabyShedId reset all changes of the "babyShedId" field.
+func (m *CalveMutation) ResetBabyShedId() {
+	m.babyShedId = nil
+	m.addbabyShedId = nil
+}
+
+// SetBabyShedName sets the babyShedName field.
+func (m *CalveMutation) SetBabyShedName(s string) {
+	m.babyShedName = &s
+}
+
+// BabyShedName returns the babyShedName value in the mutation.
+func (m *CalveMutation) BabyShedName() (r string, exists bool) {
+	v := m.babyShedName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldBabyShedName returns the old babyShedName value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldBabyShedName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldBabyShedName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldBabyShedName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldBabyShedName: %w", err)
+	}
+	return oldValue.BabyShedName, nil
+}
+
+// ResetBabyShedName reset all changes of the "babyShedName" field.
+func (m *CalveMutation) ResetBabyShedName() {
+	m.babyShedName = nil
+}
+
+// SetRemarks sets the remarks field.
+func (m *CalveMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the remarks value in the mutation.
+func (m *CalveMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old remarks value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRemarks is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ResetRemarks reset all changes of the "remarks" field.
+func (m *CalveMutation) ResetRemarks() {
+	m.remarks = nil
+}
+
+// SetCreatedAt sets the createdAt field.
+func (m *CalveMutation) SetCreatedAt(i int64) {
+	m.createdAt = &i
+	m.addcreatedAt = nil
+}
+
+// CreatedAt returns the createdAt value in the mutation.
+func (m *CalveMutation) CreatedAt() (r int64, exists bool) {
+	v := m.createdAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old createdAt value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldCreatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds i to createdAt.
+func (m *CalveMutation) AddCreatedAt(i int64) {
+	if m.addcreatedAt != nil {
+		*m.addcreatedAt += i
+	} else {
+		m.addcreatedAt = &i
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the createdAt field in this mutation.
+func (m *CalveMutation) AddedCreatedAt() (r int64, exists bool) {
+	v := m.addcreatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt reset all changes of the "createdAt" field.
+func (m *CalveMutation) ResetCreatedAt() {
+	m.createdAt = nil
+	m.addcreatedAt = nil
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (m *CalveMutation) SetUpdatedAt(i int64) {
+	m.updatedAt = &i
+	m.addupdatedAt = nil
+}
+
+// UpdatedAt returns the updatedAt value in the mutation.
+func (m *CalveMutation) UpdatedAt() (r int64, exists bool) {
+	v := m.updatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old updatedAt value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldUpdatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUpdatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (m *CalveMutation) AddUpdatedAt(i int64) {
+	if m.addupdatedAt != nil {
+		*m.addupdatedAt += i
+	} else {
+		m.addupdatedAt = &i
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the updatedAt field in this mutation.
+func (m *CalveMutation) AddedUpdatedAt() (r int64, exists bool) {
+	v := m.addupdatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt reset all changes of the "updatedAt" field.
+func (m *CalveMutation) ResetUpdatedAt() {
+	m.updatedAt = nil
+	m.addupdatedAt = nil
+}
+
+// SetDeleted sets the deleted field.
+func (m *CalveMutation) SetDeleted(i int) {
+	m.deleted = &i
+	m.adddeleted = nil
+}
+
+// Deleted returns the deleted value in the mutation.
+func (m *CalveMutation) Deleted() (r int, exists bool) {
+	v := m.deleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleted returns the old deleted value of the Calve.
+// If the Calve object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveMutation) OldDeleted(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleted is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleted requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleted: %w", err)
+	}
+	return oldValue.Deleted, nil
+}
+
+// AddDeleted adds i to deleted.
+func (m *CalveMutation) AddDeleted(i int) {
+	if m.adddeleted != nil {
+		*m.adddeleted += i
+	} else {
+		m.adddeleted = &i
+	}
+}
+
+// AddedDeleted returns the value that was added to the deleted field in this mutation.
+func (m *CalveMutation) AddedDeleted() (r int, exists bool) {
+	v := m.adddeleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleted reset all changes of the "deleted" field.
+func (m *CalveMutation) ResetDeleted() {
+	m.deleted = nil
+	m.adddeleted = nil
+}
+
+// Op returns the operation name.
+func (m *CalveMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (Calve).
+func (m *CalveMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *CalveMutation) Fields() []string {
+	fields := make([]string, 0, 26)
+	if m.name != nil {
+		fields = append(fields, calve.FieldName)
+	}
+	if m.earNumber != nil {
+		fields = append(fields, calve.FieldEarNumber)
+	}
+	if m.times != nil {
+		fields = append(fields, calve.FieldTimes)
+	}
+	if m.pregnantAt != nil {
+		fields = append(fields, calve.FieldPregnantAt)
+	}
+	if m.calveAt != nil {
+		fields = append(fields, calve.FieldCalveAt)
+	}
+	if m.calveTypeId != nil {
+		fields = append(fields, calve.FieldCalveTypeId)
+	}
+	if m.calveTypeName != nil {
+		fields = append(fields, calve.FieldCalveTypeName)
+	}
+	if m.calveCate != nil {
+		fields = append(fields, calve.FieldCalveCate)
+	}
+	if m.calveCountId != nil {
+		fields = append(fields, calve.FieldCalveCountId)
+	}
+	if m.calveCountName != nil {
+		fields = append(fields, calve.FieldCalveCountName)
+	}
+	if m.complexity != nil {
+		fields = append(fields, calve.FieldComplexity)
+	}
+	if m.userName != nil {
+		fields = append(fields, calve.FieldUserName)
+	}
+	if m.babyStatus != nil {
+		fields = append(fields, calve.FieldBabyStatus)
+	}
+	if m.babyGender != nil {
+		fields = append(fields, calve.FieldBabyGender)
+	}
+	if m.babyEarNumber != nil {
+		fields = append(fields, calve.FieldBabyEarNumber)
+	}
+	if m.babyBreedId != nil {
+		fields = append(fields, calve.FieldBabyBreedId)
+	}
+	if m.babyBreedName != nil {
+		fields = append(fields, calve.FieldBabyBreedName)
+	}
+	if m.babyHairColorId != nil {
+		fields = append(fields, calve.FieldBabyHairColorId)
+	}
+	if m.babyHairColorName != nil {
+		fields = append(fields, calve.FieldBabyHairColorName)
+	}
+	if m.babyWeight != nil {
+		fields = append(fields, calve.FieldBabyWeight)
+	}
+	if m.babyShedId != nil {
+		fields = append(fields, calve.FieldBabyShedId)
+	}
+	if m.babyShedName != nil {
+		fields = append(fields, calve.FieldBabyShedName)
+	}
+	if m.remarks != nil {
+		fields = append(fields, calve.FieldRemarks)
+	}
+	if m.createdAt != nil {
+		fields = append(fields, calve.FieldCreatedAt)
+	}
+	if m.updatedAt != nil {
+		fields = append(fields, calve.FieldUpdatedAt)
+	}
+	if m.deleted != nil {
+		fields = append(fields, calve.FieldDeleted)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *CalveMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case calve.FieldName:
+		return m.Name()
+	case calve.FieldEarNumber:
+		return m.EarNumber()
+	case calve.FieldTimes:
+		return m.Times()
+	case calve.FieldPregnantAt:
+		return m.PregnantAt()
+	case calve.FieldCalveAt:
+		return m.CalveAt()
+	case calve.FieldCalveTypeId:
+		return m.CalveTypeId()
+	case calve.FieldCalveTypeName:
+		return m.CalveTypeName()
+	case calve.FieldCalveCate:
+		return m.CalveCate()
+	case calve.FieldCalveCountId:
+		return m.CalveCountId()
+	case calve.FieldCalveCountName:
+		return m.CalveCountName()
+	case calve.FieldComplexity:
+		return m.Complexity()
+	case calve.FieldUserName:
+		return m.UserName()
+	case calve.FieldBabyStatus:
+		return m.BabyStatus()
+	case calve.FieldBabyGender:
+		return m.BabyGender()
+	case calve.FieldBabyEarNumber:
+		return m.BabyEarNumber()
+	case calve.FieldBabyBreedId:
+		return m.BabyBreedId()
+	case calve.FieldBabyBreedName:
+		return m.BabyBreedName()
+	case calve.FieldBabyHairColorId:
+		return m.BabyHairColorId()
+	case calve.FieldBabyHairColorName:
+		return m.BabyHairColorName()
+	case calve.FieldBabyWeight:
+		return m.BabyWeight()
+	case calve.FieldBabyShedId:
+		return m.BabyShedId()
+	case calve.FieldBabyShedName:
+		return m.BabyShedName()
+	case calve.FieldRemarks:
+		return m.Remarks()
+	case calve.FieldCreatedAt:
+		return m.CreatedAt()
+	case calve.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case calve.FieldDeleted:
+		return m.Deleted()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *CalveMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case calve.FieldName:
+		return m.OldName(ctx)
+	case calve.FieldEarNumber:
+		return m.OldEarNumber(ctx)
+	case calve.FieldTimes:
+		return m.OldTimes(ctx)
+	case calve.FieldPregnantAt:
+		return m.OldPregnantAt(ctx)
+	case calve.FieldCalveAt:
+		return m.OldCalveAt(ctx)
+	case calve.FieldCalveTypeId:
+		return m.OldCalveTypeId(ctx)
+	case calve.FieldCalveTypeName:
+		return m.OldCalveTypeName(ctx)
+	case calve.FieldCalveCate:
+		return m.OldCalveCate(ctx)
+	case calve.FieldCalveCountId:
+		return m.OldCalveCountId(ctx)
+	case calve.FieldCalveCountName:
+		return m.OldCalveCountName(ctx)
+	case calve.FieldComplexity:
+		return m.OldComplexity(ctx)
+	case calve.FieldUserName:
+		return m.OldUserName(ctx)
+	case calve.FieldBabyStatus:
+		return m.OldBabyStatus(ctx)
+	case calve.FieldBabyGender:
+		return m.OldBabyGender(ctx)
+	case calve.FieldBabyEarNumber:
+		return m.OldBabyEarNumber(ctx)
+	case calve.FieldBabyBreedId:
+		return m.OldBabyBreedId(ctx)
+	case calve.FieldBabyBreedName:
+		return m.OldBabyBreedName(ctx)
+	case calve.FieldBabyHairColorId:
+		return m.OldBabyHairColorId(ctx)
+	case calve.FieldBabyHairColorName:
+		return m.OldBabyHairColorName(ctx)
+	case calve.FieldBabyWeight:
+		return m.OldBabyWeight(ctx)
+	case calve.FieldBabyShedId:
+		return m.OldBabyShedId(ctx)
+	case calve.FieldBabyShedName:
+		return m.OldBabyShedName(ctx)
+	case calve.FieldRemarks:
+		return m.OldRemarks(ctx)
+	case calve.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case calve.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case calve.FieldDeleted:
+		return m.OldDeleted(ctx)
+	}
+	return nil, fmt.Errorf("unknown Calve field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *CalveMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case calve.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case calve.FieldEarNumber:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEarNumber(v)
+		return nil
+	case calve.FieldTimes:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTimes(v)
+		return nil
+	case calve.FieldPregnantAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPregnantAt(v)
+		return nil
+	case calve.FieldCalveAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCalveAt(v)
+		return nil
+	case calve.FieldCalveTypeId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCalveTypeId(v)
+		return nil
+	case calve.FieldCalveTypeName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCalveTypeName(v)
+		return nil
+	case calve.FieldCalveCate:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCalveCate(v)
+		return nil
+	case calve.FieldCalveCountId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCalveCountId(v)
+		return nil
+	case calve.FieldCalveCountName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCalveCountName(v)
+		return nil
+	case calve.FieldComplexity:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetComplexity(v)
+		return nil
+	case calve.FieldUserName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserName(v)
+		return nil
+	case calve.FieldBabyStatus:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBabyStatus(v)
+		return nil
+	case calve.FieldBabyGender:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBabyGender(v)
+		return nil
+	case calve.FieldBabyEarNumber:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBabyEarNumber(v)
+		return nil
+	case calve.FieldBabyBreedId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBabyBreedId(v)
+		return nil
+	case calve.FieldBabyBreedName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBabyBreedName(v)
+		return nil
+	case calve.FieldBabyHairColorId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBabyHairColorId(v)
+		return nil
+	case calve.FieldBabyHairColorName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBabyHairColorName(v)
+		return nil
+	case calve.FieldBabyWeight:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBabyWeight(v)
+		return nil
+	case calve.FieldBabyShedId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBabyShedId(v)
+		return nil
+	case calve.FieldBabyShedName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetBabyShedName(v)
+		return nil
+	case calve.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	case calve.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case calve.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case calve.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Calve field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *CalveMutation) AddedFields() []string {
+	var fields []string
+	if m.addtimes != nil {
+		fields = append(fields, calve.FieldTimes)
+	}
+	if m.addpregnantAt != nil {
+		fields = append(fields, calve.FieldPregnantAt)
+	}
+	if m.addcalveAt != nil {
+		fields = append(fields, calve.FieldCalveAt)
+	}
+	if m.addcalveTypeId != nil {
+		fields = append(fields, calve.FieldCalveTypeId)
+	}
+	if m.addcalveCate != nil {
+		fields = append(fields, calve.FieldCalveCate)
+	}
+	if m.addcalveCountId != nil {
+		fields = append(fields, calve.FieldCalveCountId)
+	}
+	if m.addcomplexity != nil {
+		fields = append(fields, calve.FieldComplexity)
+	}
+	if m.addbabyStatus != nil {
+		fields = append(fields, calve.FieldBabyStatus)
+	}
+	if m.addbabyGender != nil {
+		fields = append(fields, calve.FieldBabyGender)
+	}
+	if m.addbabyEarNumber != nil {
+		fields = append(fields, calve.FieldBabyEarNumber)
+	}
+	if m.addbabyBreedId != nil {
+		fields = append(fields, calve.FieldBabyBreedId)
+	}
+	if m.addbabyHairColorId != nil {
+		fields = append(fields, calve.FieldBabyHairColorId)
+	}
+	if m.addbabyWeight != nil {
+		fields = append(fields, calve.FieldBabyWeight)
+	}
+	if m.addbabyShedId != nil {
+		fields = append(fields, calve.FieldBabyShedId)
+	}
+	if m.addcreatedAt != nil {
+		fields = append(fields, calve.FieldCreatedAt)
+	}
+	if m.addupdatedAt != nil {
+		fields = append(fields, calve.FieldUpdatedAt)
+	}
+	if m.adddeleted != nil {
+		fields = append(fields, calve.FieldDeleted)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *CalveMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case calve.FieldTimes:
+		return m.AddedTimes()
+	case calve.FieldPregnantAt:
+		return m.AddedPregnantAt()
+	case calve.FieldCalveAt:
+		return m.AddedCalveAt()
+	case calve.FieldCalveTypeId:
+		return m.AddedCalveTypeId()
+	case calve.FieldCalveCate:
+		return m.AddedCalveCate()
+	case calve.FieldCalveCountId:
+		return m.AddedCalveCountId()
+	case calve.FieldComplexity:
+		return m.AddedComplexity()
+	case calve.FieldBabyStatus:
+		return m.AddedBabyStatus()
+	case calve.FieldBabyGender:
+		return m.AddedBabyGender()
+	case calve.FieldBabyEarNumber:
+		return m.AddedBabyEarNumber()
+	case calve.FieldBabyBreedId:
+		return m.AddedBabyBreedId()
+	case calve.FieldBabyHairColorId:
+		return m.AddedBabyHairColorId()
+	case calve.FieldBabyWeight:
+		return m.AddedBabyWeight()
+	case calve.FieldBabyShedId:
+		return m.AddedBabyShedId()
+	case calve.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case calve.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case calve.FieldDeleted:
+		return m.AddedDeleted()
+	}
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *CalveMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case calve.FieldTimes:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTimes(v)
+		return nil
+	case calve.FieldPregnantAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddPregnantAt(v)
+		return nil
+	case calve.FieldCalveAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCalveAt(v)
+		return nil
+	case calve.FieldCalveTypeId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCalveTypeId(v)
+		return nil
+	case calve.FieldCalveCate:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCalveCate(v)
+		return nil
+	case calve.FieldCalveCountId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCalveCountId(v)
+		return nil
+	case calve.FieldComplexity:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddComplexity(v)
+		return nil
+	case calve.FieldBabyStatus:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddBabyStatus(v)
+		return nil
+	case calve.FieldBabyGender:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddBabyGender(v)
+		return nil
+	case calve.FieldBabyEarNumber:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddBabyEarNumber(v)
+		return nil
+	case calve.FieldBabyBreedId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddBabyBreedId(v)
+		return nil
+	case calve.FieldBabyHairColorId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddBabyHairColorId(v)
+		return nil
+	case calve.FieldBabyWeight:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddBabyWeight(v)
+		return nil
+	case calve.FieldBabyShedId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddBabyShedId(v)
+		return nil
+	case calve.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case calve.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case calve.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Calve numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *CalveMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(calve.FieldName) {
+		fields = append(fields, calve.FieldName)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *CalveMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *CalveMutation) ClearField(name string) error {
+	switch name {
+	case calve.FieldName:
+		m.ClearName()
+		return nil
+	}
+	return fmt.Errorf("unknown Calve nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *CalveMutation) ResetField(name string) error {
+	switch name {
+	case calve.FieldName:
+		m.ResetName()
+		return nil
+	case calve.FieldEarNumber:
+		m.ResetEarNumber()
+		return nil
+	case calve.FieldTimes:
+		m.ResetTimes()
+		return nil
+	case calve.FieldPregnantAt:
+		m.ResetPregnantAt()
+		return nil
+	case calve.FieldCalveAt:
+		m.ResetCalveAt()
+		return nil
+	case calve.FieldCalveTypeId:
+		m.ResetCalveTypeId()
+		return nil
+	case calve.FieldCalveTypeName:
+		m.ResetCalveTypeName()
+		return nil
+	case calve.FieldCalveCate:
+		m.ResetCalveCate()
+		return nil
+	case calve.FieldCalveCountId:
+		m.ResetCalveCountId()
+		return nil
+	case calve.FieldCalveCountName:
+		m.ResetCalveCountName()
+		return nil
+	case calve.FieldComplexity:
+		m.ResetComplexity()
+		return nil
+	case calve.FieldUserName:
+		m.ResetUserName()
+		return nil
+	case calve.FieldBabyStatus:
+		m.ResetBabyStatus()
+		return nil
+	case calve.FieldBabyGender:
+		m.ResetBabyGender()
+		return nil
+	case calve.FieldBabyEarNumber:
+		m.ResetBabyEarNumber()
+		return nil
+	case calve.FieldBabyBreedId:
+		m.ResetBabyBreedId()
+		return nil
+	case calve.FieldBabyBreedName:
+		m.ResetBabyBreedName()
+		return nil
+	case calve.FieldBabyHairColorId:
+		m.ResetBabyHairColorId()
+		return nil
+	case calve.FieldBabyHairColorName:
+		m.ResetBabyHairColorName()
+		return nil
+	case calve.FieldBabyWeight:
+		m.ResetBabyWeight()
+		return nil
+	case calve.FieldBabyShedId:
+		m.ResetBabyShedId()
+		return nil
+	case calve.FieldBabyShedName:
+		m.ResetBabyShedName()
+		return nil
+	case calve.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	case calve.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case calve.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case calve.FieldDeleted:
+		m.ResetDeleted()
+		return nil
+	}
+	return fmt.Errorf("unknown Calve field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *CalveMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *CalveMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *CalveMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *CalveMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *CalveMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *CalveMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *CalveMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown Calve unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *CalveMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown Calve edge %s", name)
+}
+
+// CalveCountMutation represents an operation that mutate the CalveCounts
+// nodes in the graph.
+type CalveCountMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	name          *string
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*CalveCount, error)
+}
+
+var _ ent.Mutation = (*CalveCountMutation)(nil)
+
+// calvecountOption allows to manage the mutation configuration using functional options.
+type calvecountOption func(*CalveCountMutation)
+
+// newCalveCountMutation creates new mutation for $n.Name.
+func newCalveCountMutation(c config, op Op, opts ...calvecountOption) *CalveCountMutation {
+	m := &CalveCountMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeCalveCount,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withCalveCountID sets the id field of the mutation.
+func withCalveCountID(id int64) calvecountOption {
+	return func(m *CalveCountMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *CalveCount
+		)
+		m.oldValue = func(ctx context.Context) (*CalveCount, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().CalveCount.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withCalveCount sets the old CalveCount of the mutation.
+func withCalveCount(node *CalveCount) calvecountOption {
+	return func(m *CalveCountMutation) {
+		m.oldValue = func(context.Context) (*CalveCount, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m CalveCountMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m CalveCountMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *CalveCountMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *CalveCountMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *CalveCountMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the CalveCount.
+// If the CalveCount object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveCountMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *CalveCountMutation) ResetName() {
+	m.name = nil
+}
+
+// Op returns the operation name.
+func (m *CalveCountMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (CalveCount).
+func (m *CalveCountMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *CalveCountMutation) Fields() []string {
+	fields := make([]string, 0, 1)
+	if m.name != nil {
+		fields = append(fields, calvecount.FieldName)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *CalveCountMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case calvecount.FieldName:
+		return m.Name()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *CalveCountMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case calvecount.FieldName:
+		return m.OldName(ctx)
+	}
+	return nil, fmt.Errorf("unknown CalveCount field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *CalveCountMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case calvecount.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	}
+	return fmt.Errorf("unknown CalveCount field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *CalveCountMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *CalveCountMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *CalveCountMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown CalveCount numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *CalveCountMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *CalveCountMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *CalveCountMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown CalveCount nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *CalveCountMutation) ResetField(name string) error {
+	switch name {
+	case calvecount.FieldName:
+		m.ResetName()
+		return nil
+	}
+	return fmt.Errorf("unknown CalveCount field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *CalveCountMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *CalveCountMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *CalveCountMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *CalveCountMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *CalveCountMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *CalveCountMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *CalveCountMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown CalveCount unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *CalveCountMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown CalveCount edge %s", name)
+}
+
+// CalveTypeMutation represents an operation that mutate the CalveTypes
+// nodes in the graph.
+type CalveTypeMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	name          *string
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*CalveType, error)
+}
+
+var _ ent.Mutation = (*CalveTypeMutation)(nil)
+
+// calvetypeOption allows to manage the mutation configuration using functional options.
+type calvetypeOption func(*CalveTypeMutation)
+
+// newCalveTypeMutation creates new mutation for $n.Name.
+func newCalveTypeMutation(c config, op Op, opts ...calvetypeOption) *CalveTypeMutation {
+	m := &CalveTypeMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeCalveType,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withCalveTypeID sets the id field of the mutation.
+func withCalveTypeID(id int64) calvetypeOption {
+	return func(m *CalveTypeMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *CalveType
+		)
+		m.oldValue = func(ctx context.Context) (*CalveType, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().CalveType.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withCalveType sets the old CalveType of the mutation.
+func withCalveType(node *CalveType) calvetypeOption {
+	return func(m *CalveTypeMutation) {
+		m.oldValue = func(context.Context) (*CalveType, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m CalveTypeMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m CalveTypeMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *CalveTypeMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *CalveTypeMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *CalveTypeMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the CalveType.
+// If the CalveType object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CalveTypeMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *CalveTypeMutation) ResetName() {
+	m.name = nil
+}
+
+// Op returns the operation name.
+func (m *CalveTypeMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (CalveType).
+func (m *CalveTypeMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *CalveTypeMutation) Fields() []string {
+	fields := make([]string, 0, 1)
+	if m.name != nil {
+		fields = append(fields, calvetype.FieldName)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *CalveTypeMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case calvetype.FieldName:
+		return m.Name()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *CalveTypeMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case calvetype.FieldName:
+		return m.OldName(ctx)
+	}
+	return nil, fmt.Errorf("unknown CalveType field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *CalveTypeMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case calvetype.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	}
+	return fmt.Errorf("unknown CalveType field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *CalveTypeMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *CalveTypeMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *CalveTypeMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown CalveType numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *CalveTypeMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *CalveTypeMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *CalveTypeMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown CalveType nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *CalveTypeMutation) ResetField(name string) error {
+	switch name {
+	case calvetype.FieldName:
+		m.ResetName()
+		return nil
+	}
+	return fmt.Errorf("unknown CalveType field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *CalveTypeMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *CalveTypeMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *CalveTypeMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *CalveTypeMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *CalveTypeMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *CalveTypeMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *CalveTypeMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown CalveType unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *CalveTypeMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown CalveType edge %s", name)
 }
 
 // CategoryMutation represents an operation that mutate the Categories
@@ -12495,6 +15345,1475 @@ func (m *DutyMutation) ClearEdge(name string) error {
 // defined in the schema.
 func (m *DutyMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown Duty edge %s", name)
+}
+
+// EstrusMutation represents an operation that mutate the EstrusSlice
+// nodes in the graph.
+type EstrusMutation struct {
+	config
+	op                Op
+	typ               string
+	id                *int64
+	name              *string
+	earNumber         *string
+	times             *int
+	addtimes          *int
+	reproductiveState *string
+	shedName          *string
+	estrusAt          *int64
+	addestrusAt       *int64
+	estrusTypeId      *int
+	addestrusTypeId   *int
+	estrusTypeName    *string
+	userName          *string
+	remarks           *string
+	createdAt         *int64
+	addcreatedAt      *int64
+	updatedAt         *int64
+	addupdatedAt      *int64
+	deleted           *int
+	adddeleted        *int
+	clearedFields     map[string]struct{}
+	done              bool
+	oldValue          func(context.Context) (*Estrus, error)
+}
+
+var _ ent.Mutation = (*EstrusMutation)(nil)
+
+// estrusOption allows to manage the mutation configuration using functional options.
+type estrusOption func(*EstrusMutation)
+
+// newEstrusMutation creates new mutation for $n.Name.
+func newEstrusMutation(c config, op Op, opts ...estrusOption) *EstrusMutation {
+	m := &EstrusMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeEstrus,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withEstrusID sets the id field of the mutation.
+func withEstrusID(id int64) estrusOption {
+	return func(m *EstrusMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *Estrus
+		)
+		m.oldValue = func(ctx context.Context) (*Estrus, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().Estrus.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withEstrus sets the old Estrus of the mutation.
+func withEstrus(node *Estrus) estrusOption {
+	return func(m *EstrusMutation) {
+		m.oldValue = func(context.Context) (*Estrus, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m EstrusMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m EstrusMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *EstrusMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *EstrusMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *EstrusMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the Estrus.
+// If the Estrus object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *EstrusMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ClearName clears the value of name.
+func (m *EstrusMutation) ClearName() {
+	m.name = nil
+	m.clearedFields[estrus.FieldName] = struct{}{}
+}
+
+// NameCleared returns if the field name was cleared in this mutation.
+func (m *EstrusMutation) NameCleared() bool {
+	_, ok := m.clearedFields[estrus.FieldName]
+	return ok
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *EstrusMutation) ResetName() {
+	m.name = nil
+	delete(m.clearedFields, estrus.FieldName)
+}
+
+// SetEarNumber sets the earNumber field.
+func (m *EstrusMutation) SetEarNumber(s string) {
+	m.earNumber = &s
+}
+
+// EarNumber returns the earNumber value in the mutation.
+func (m *EstrusMutation) EarNumber() (r string, exists bool) {
+	v := m.earNumber
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEarNumber returns the old earNumber value of the Estrus.
+// If the Estrus object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *EstrusMutation) OldEarNumber(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldEarNumber is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldEarNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEarNumber: %w", err)
+	}
+	return oldValue.EarNumber, nil
+}
+
+// ResetEarNumber reset all changes of the "earNumber" field.
+func (m *EstrusMutation) ResetEarNumber() {
+	m.earNumber = nil
+}
+
+// SetTimes sets the times field.
+func (m *EstrusMutation) SetTimes(i int) {
+	m.times = &i
+	m.addtimes = nil
+}
+
+// Times returns the times value in the mutation.
+func (m *EstrusMutation) Times() (r int, exists bool) {
+	v := m.times
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTimes returns the old times value of the Estrus.
+// If the Estrus object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *EstrusMutation) OldTimes(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldTimes is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldTimes requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTimes: %w", err)
+	}
+	return oldValue.Times, nil
+}
+
+// AddTimes adds i to times.
+func (m *EstrusMutation) AddTimes(i int) {
+	if m.addtimes != nil {
+		*m.addtimes += i
+	} else {
+		m.addtimes = &i
+	}
+}
+
+// AddedTimes returns the value that was added to the times field in this mutation.
+func (m *EstrusMutation) AddedTimes() (r int, exists bool) {
+	v := m.addtimes
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetTimes reset all changes of the "times" field.
+func (m *EstrusMutation) ResetTimes() {
+	m.times = nil
+	m.addtimes = nil
+}
+
+// SetReproductiveState sets the reproductiveState field.
+func (m *EstrusMutation) SetReproductiveState(s string) {
+	m.reproductiveState = &s
+}
+
+// ReproductiveState returns the reproductiveState value in the mutation.
+func (m *EstrusMutation) ReproductiveState() (r string, exists bool) {
+	v := m.reproductiveState
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldReproductiveState returns the old reproductiveState value of the Estrus.
+// If the Estrus object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *EstrusMutation) OldReproductiveState(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldReproductiveState is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldReproductiveState requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldReproductiveState: %w", err)
+	}
+	return oldValue.ReproductiveState, nil
+}
+
+// ResetReproductiveState reset all changes of the "reproductiveState" field.
+func (m *EstrusMutation) ResetReproductiveState() {
+	m.reproductiveState = nil
+}
+
+// SetShedName sets the shedName field.
+func (m *EstrusMutation) SetShedName(s string) {
+	m.shedName = &s
+}
+
+// ShedName returns the shedName value in the mutation.
+func (m *EstrusMutation) ShedName() (r string, exists bool) {
+	v := m.shedName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldShedName returns the old shedName value of the Estrus.
+// If the Estrus object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *EstrusMutation) OldShedName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldShedName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldShedName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldShedName: %w", err)
+	}
+	return oldValue.ShedName, nil
+}
+
+// ResetShedName reset all changes of the "shedName" field.
+func (m *EstrusMutation) ResetShedName() {
+	m.shedName = nil
+}
+
+// SetEstrusAt sets the estrusAt field.
+func (m *EstrusMutation) SetEstrusAt(i int64) {
+	m.estrusAt = &i
+	m.addestrusAt = nil
+}
+
+// EstrusAt returns the estrusAt value in the mutation.
+func (m *EstrusMutation) EstrusAt() (r int64, exists bool) {
+	v := m.estrusAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEstrusAt returns the old estrusAt value of the Estrus.
+// If the Estrus object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *EstrusMutation) OldEstrusAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldEstrusAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldEstrusAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEstrusAt: %w", err)
+	}
+	return oldValue.EstrusAt, nil
+}
+
+// AddEstrusAt adds i to estrusAt.
+func (m *EstrusMutation) AddEstrusAt(i int64) {
+	if m.addestrusAt != nil {
+		*m.addestrusAt += i
+	} else {
+		m.addestrusAt = &i
+	}
+}
+
+// AddedEstrusAt returns the value that was added to the estrusAt field in this mutation.
+func (m *EstrusMutation) AddedEstrusAt() (r int64, exists bool) {
+	v := m.addestrusAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetEstrusAt reset all changes of the "estrusAt" field.
+func (m *EstrusMutation) ResetEstrusAt() {
+	m.estrusAt = nil
+	m.addestrusAt = nil
+}
+
+// SetEstrusTypeId sets the estrusTypeId field.
+func (m *EstrusMutation) SetEstrusTypeId(i int) {
+	m.estrusTypeId = &i
+	m.addestrusTypeId = nil
+}
+
+// EstrusTypeId returns the estrusTypeId value in the mutation.
+func (m *EstrusMutation) EstrusTypeId() (r int, exists bool) {
+	v := m.estrusTypeId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEstrusTypeId returns the old estrusTypeId value of the Estrus.
+// If the Estrus object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *EstrusMutation) OldEstrusTypeId(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldEstrusTypeId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldEstrusTypeId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEstrusTypeId: %w", err)
+	}
+	return oldValue.EstrusTypeId, nil
+}
+
+// AddEstrusTypeId adds i to estrusTypeId.
+func (m *EstrusMutation) AddEstrusTypeId(i int) {
+	if m.addestrusTypeId != nil {
+		*m.addestrusTypeId += i
+	} else {
+		m.addestrusTypeId = &i
+	}
+}
+
+// AddedEstrusTypeId returns the value that was added to the estrusTypeId field in this mutation.
+func (m *EstrusMutation) AddedEstrusTypeId() (r int, exists bool) {
+	v := m.addestrusTypeId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetEstrusTypeId reset all changes of the "estrusTypeId" field.
+func (m *EstrusMutation) ResetEstrusTypeId() {
+	m.estrusTypeId = nil
+	m.addestrusTypeId = nil
+}
+
+// SetEstrusTypeName sets the estrusTypeName field.
+func (m *EstrusMutation) SetEstrusTypeName(s string) {
+	m.estrusTypeName = &s
+}
+
+// EstrusTypeName returns the estrusTypeName value in the mutation.
+func (m *EstrusMutation) EstrusTypeName() (r string, exists bool) {
+	v := m.estrusTypeName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEstrusTypeName returns the old estrusTypeName value of the Estrus.
+// If the Estrus object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *EstrusMutation) OldEstrusTypeName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldEstrusTypeName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldEstrusTypeName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEstrusTypeName: %w", err)
+	}
+	return oldValue.EstrusTypeName, nil
+}
+
+// ResetEstrusTypeName reset all changes of the "estrusTypeName" field.
+func (m *EstrusMutation) ResetEstrusTypeName() {
+	m.estrusTypeName = nil
+}
+
+// SetUserName sets the userName field.
+func (m *EstrusMutation) SetUserName(s string) {
+	m.userName = &s
+}
+
+// UserName returns the userName value in the mutation.
+func (m *EstrusMutation) UserName() (r string, exists bool) {
+	v := m.userName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserName returns the old userName value of the Estrus.
+// If the Estrus object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *EstrusMutation) OldUserName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUserName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUserName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserName: %w", err)
+	}
+	return oldValue.UserName, nil
+}
+
+// ResetUserName reset all changes of the "userName" field.
+func (m *EstrusMutation) ResetUserName() {
+	m.userName = nil
+}
+
+// SetRemarks sets the remarks field.
+func (m *EstrusMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the remarks value in the mutation.
+func (m *EstrusMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old remarks value of the Estrus.
+// If the Estrus object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *EstrusMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRemarks is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ResetRemarks reset all changes of the "remarks" field.
+func (m *EstrusMutation) ResetRemarks() {
+	m.remarks = nil
+}
+
+// SetCreatedAt sets the createdAt field.
+func (m *EstrusMutation) SetCreatedAt(i int64) {
+	m.createdAt = &i
+	m.addcreatedAt = nil
+}
+
+// CreatedAt returns the createdAt value in the mutation.
+func (m *EstrusMutation) CreatedAt() (r int64, exists bool) {
+	v := m.createdAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old createdAt value of the Estrus.
+// If the Estrus object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *EstrusMutation) OldCreatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds i to createdAt.
+func (m *EstrusMutation) AddCreatedAt(i int64) {
+	if m.addcreatedAt != nil {
+		*m.addcreatedAt += i
+	} else {
+		m.addcreatedAt = &i
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the createdAt field in this mutation.
+func (m *EstrusMutation) AddedCreatedAt() (r int64, exists bool) {
+	v := m.addcreatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt reset all changes of the "createdAt" field.
+func (m *EstrusMutation) ResetCreatedAt() {
+	m.createdAt = nil
+	m.addcreatedAt = nil
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (m *EstrusMutation) SetUpdatedAt(i int64) {
+	m.updatedAt = &i
+	m.addupdatedAt = nil
+}
+
+// UpdatedAt returns the updatedAt value in the mutation.
+func (m *EstrusMutation) UpdatedAt() (r int64, exists bool) {
+	v := m.updatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old updatedAt value of the Estrus.
+// If the Estrus object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *EstrusMutation) OldUpdatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUpdatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (m *EstrusMutation) AddUpdatedAt(i int64) {
+	if m.addupdatedAt != nil {
+		*m.addupdatedAt += i
+	} else {
+		m.addupdatedAt = &i
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the updatedAt field in this mutation.
+func (m *EstrusMutation) AddedUpdatedAt() (r int64, exists bool) {
+	v := m.addupdatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt reset all changes of the "updatedAt" field.
+func (m *EstrusMutation) ResetUpdatedAt() {
+	m.updatedAt = nil
+	m.addupdatedAt = nil
+}
+
+// SetDeleted sets the deleted field.
+func (m *EstrusMutation) SetDeleted(i int) {
+	m.deleted = &i
+	m.adddeleted = nil
+}
+
+// Deleted returns the deleted value in the mutation.
+func (m *EstrusMutation) Deleted() (r int, exists bool) {
+	v := m.deleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleted returns the old deleted value of the Estrus.
+// If the Estrus object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *EstrusMutation) OldDeleted(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleted is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleted requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleted: %w", err)
+	}
+	return oldValue.Deleted, nil
+}
+
+// AddDeleted adds i to deleted.
+func (m *EstrusMutation) AddDeleted(i int) {
+	if m.adddeleted != nil {
+		*m.adddeleted += i
+	} else {
+		m.adddeleted = &i
+	}
+}
+
+// AddedDeleted returns the value that was added to the deleted field in this mutation.
+func (m *EstrusMutation) AddedDeleted() (r int, exists bool) {
+	v := m.adddeleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleted reset all changes of the "deleted" field.
+func (m *EstrusMutation) ResetDeleted() {
+	m.deleted = nil
+	m.adddeleted = nil
+}
+
+// Op returns the operation name.
+func (m *EstrusMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (Estrus).
+func (m *EstrusMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *EstrusMutation) Fields() []string {
+	fields := make([]string, 0, 13)
+	if m.name != nil {
+		fields = append(fields, estrus.FieldName)
+	}
+	if m.earNumber != nil {
+		fields = append(fields, estrus.FieldEarNumber)
+	}
+	if m.times != nil {
+		fields = append(fields, estrus.FieldTimes)
+	}
+	if m.reproductiveState != nil {
+		fields = append(fields, estrus.FieldReproductiveState)
+	}
+	if m.shedName != nil {
+		fields = append(fields, estrus.FieldShedName)
+	}
+	if m.estrusAt != nil {
+		fields = append(fields, estrus.FieldEstrusAt)
+	}
+	if m.estrusTypeId != nil {
+		fields = append(fields, estrus.FieldEstrusTypeId)
+	}
+	if m.estrusTypeName != nil {
+		fields = append(fields, estrus.FieldEstrusTypeName)
+	}
+	if m.userName != nil {
+		fields = append(fields, estrus.FieldUserName)
+	}
+	if m.remarks != nil {
+		fields = append(fields, estrus.FieldRemarks)
+	}
+	if m.createdAt != nil {
+		fields = append(fields, estrus.FieldCreatedAt)
+	}
+	if m.updatedAt != nil {
+		fields = append(fields, estrus.FieldUpdatedAt)
+	}
+	if m.deleted != nil {
+		fields = append(fields, estrus.FieldDeleted)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *EstrusMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case estrus.FieldName:
+		return m.Name()
+	case estrus.FieldEarNumber:
+		return m.EarNumber()
+	case estrus.FieldTimes:
+		return m.Times()
+	case estrus.FieldReproductiveState:
+		return m.ReproductiveState()
+	case estrus.FieldShedName:
+		return m.ShedName()
+	case estrus.FieldEstrusAt:
+		return m.EstrusAt()
+	case estrus.FieldEstrusTypeId:
+		return m.EstrusTypeId()
+	case estrus.FieldEstrusTypeName:
+		return m.EstrusTypeName()
+	case estrus.FieldUserName:
+		return m.UserName()
+	case estrus.FieldRemarks:
+		return m.Remarks()
+	case estrus.FieldCreatedAt:
+		return m.CreatedAt()
+	case estrus.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case estrus.FieldDeleted:
+		return m.Deleted()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *EstrusMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case estrus.FieldName:
+		return m.OldName(ctx)
+	case estrus.FieldEarNumber:
+		return m.OldEarNumber(ctx)
+	case estrus.FieldTimes:
+		return m.OldTimes(ctx)
+	case estrus.FieldReproductiveState:
+		return m.OldReproductiveState(ctx)
+	case estrus.FieldShedName:
+		return m.OldShedName(ctx)
+	case estrus.FieldEstrusAt:
+		return m.OldEstrusAt(ctx)
+	case estrus.FieldEstrusTypeId:
+		return m.OldEstrusTypeId(ctx)
+	case estrus.FieldEstrusTypeName:
+		return m.OldEstrusTypeName(ctx)
+	case estrus.FieldUserName:
+		return m.OldUserName(ctx)
+	case estrus.FieldRemarks:
+		return m.OldRemarks(ctx)
+	case estrus.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case estrus.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case estrus.FieldDeleted:
+		return m.OldDeleted(ctx)
+	}
+	return nil, fmt.Errorf("unknown Estrus field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *EstrusMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case estrus.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case estrus.FieldEarNumber:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEarNumber(v)
+		return nil
+	case estrus.FieldTimes:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTimes(v)
+		return nil
+	case estrus.FieldReproductiveState:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetReproductiveState(v)
+		return nil
+	case estrus.FieldShedName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetShedName(v)
+		return nil
+	case estrus.FieldEstrusAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEstrusAt(v)
+		return nil
+	case estrus.FieldEstrusTypeId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEstrusTypeId(v)
+		return nil
+	case estrus.FieldEstrusTypeName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEstrusTypeName(v)
+		return nil
+	case estrus.FieldUserName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserName(v)
+		return nil
+	case estrus.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	case estrus.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case estrus.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case estrus.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Estrus field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *EstrusMutation) AddedFields() []string {
+	var fields []string
+	if m.addtimes != nil {
+		fields = append(fields, estrus.FieldTimes)
+	}
+	if m.addestrusAt != nil {
+		fields = append(fields, estrus.FieldEstrusAt)
+	}
+	if m.addestrusTypeId != nil {
+		fields = append(fields, estrus.FieldEstrusTypeId)
+	}
+	if m.addcreatedAt != nil {
+		fields = append(fields, estrus.FieldCreatedAt)
+	}
+	if m.addupdatedAt != nil {
+		fields = append(fields, estrus.FieldUpdatedAt)
+	}
+	if m.adddeleted != nil {
+		fields = append(fields, estrus.FieldDeleted)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *EstrusMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case estrus.FieldTimes:
+		return m.AddedTimes()
+	case estrus.FieldEstrusAt:
+		return m.AddedEstrusAt()
+	case estrus.FieldEstrusTypeId:
+		return m.AddedEstrusTypeId()
+	case estrus.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case estrus.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case estrus.FieldDeleted:
+		return m.AddedDeleted()
+	}
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *EstrusMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case estrus.FieldTimes:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTimes(v)
+		return nil
+	case estrus.FieldEstrusAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddEstrusAt(v)
+		return nil
+	case estrus.FieldEstrusTypeId:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddEstrusTypeId(v)
+		return nil
+	case estrus.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case estrus.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case estrus.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Estrus numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *EstrusMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(estrus.FieldName) {
+		fields = append(fields, estrus.FieldName)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *EstrusMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *EstrusMutation) ClearField(name string) error {
+	switch name {
+	case estrus.FieldName:
+		m.ClearName()
+		return nil
+	}
+	return fmt.Errorf("unknown Estrus nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *EstrusMutation) ResetField(name string) error {
+	switch name {
+	case estrus.FieldName:
+		m.ResetName()
+		return nil
+	case estrus.FieldEarNumber:
+		m.ResetEarNumber()
+		return nil
+	case estrus.FieldTimes:
+		m.ResetTimes()
+		return nil
+	case estrus.FieldReproductiveState:
+		m.ResetReproductiveState()
+		return nil
+	case estrus.FieldShedName:
+		m.ResetShedName()
+		return nil
+	case estrus.FieldEstrusAt:
+		m.ResetEstrusAt()
+		return nil
+	case estrus.FieldEstrusTypeId:
+		m.ResetEstrusTypeId()
+		return nil
+	case estrus.FieldEstrusTypeName:
+		m.ResetEstrusTypeName()
+		return nil
+	case estrus.FieldUserName:
+		m.ResetUserName()
+		return nil
+	case estrus.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	case estrus.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case estrus.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case estrus.FieldDeleted:
+		m.ResetDeleted()
+		return nil
+	}
+	return fmt.Errorf("unknown Estrus field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *EstrusMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *EstrusMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *EstrusMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *EstrusMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *EstrusMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *EstrusMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *EstrusMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown Estrus unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *EstrusMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown Estrus edge %s", name)
+}
+
+// EstrusTypeMutation represents an operation that mutate the EstrusTypes
+// nodes in the graph.
+type EstrusTypeMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	name          *string
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*EstrusType, error)
+}
+
+var _ ent.Mutation = (*EstrusTypeMutation)(nil)
+
+// estrustypeOption allows to manage the mutation configuration using functional options.
+type estrustypeOption func(*EstrusTypeMutation)
+
+// newEstrusTypeMutation creates new mutation for $n.Name.
+func newEstrusTypeMutation(c config, op Op, opts ...estrustypeOption) *EstrusTypeMutation {
+	m := &EstrusTypeMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeEstrusType,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withEstrusTypeID sets the id field of the mutation.
+func withEstrusTypeID(id int64) estrustypeOption {
+	return func(m *EstrusTypeMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *EstrusType
+		)
+		m.oldValue = func(ctx context.Context) (*EstrusType, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().EstrusType.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withEstrusType sets the old EstrusType of the mutation.
+func withEstrusType(node *EstrusType) estrustypeOption {
+	return func(m *EstrusTypeMutation) {
+		m.oldValue = func(context.Context) (*EstrusType, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m EstrusTypeMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m EstrusTypeMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *EstrusTypeMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *EstrusTypeMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *EstrusTypeMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the EstrusType.
+// If the EstrusType object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *EstrusTypeMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *EstrusTypeMutation) ResetName() {
+	m.name = nil
+}
+
+// Op returns the operation name.
+func (m *EstrusTypeMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (EstrusType).
+func (m *EstrusTypeMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *EstrusTypeMutation) Fields() []string {
+	fields := make([]string, 0, 1)
+	if m.name != nil {
+		fields = append(fields, estrustype.FieldName)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *EstrusTypeMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case estrustype.FieldName:
+		return m.Name()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *EstrusTypeMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case estrustype.FieldName:
+		return m.OldName(ctx)
+	}
+	return nil, fmt.Errorf("unknown EstrusType field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *EstrusTypeMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case estrustype.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	}
+	return fmt.Errorf("unknown EstrusType field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *EstrusTypeMutation) AddedFields() []string {
+	return nil
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *EstrusTypeMutation) AddedField(name string) (ent.Value, bool) {
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *EstrusTypeMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	}
+	return fmt.Errorf("unknown EstrusType numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *EstrusTypeMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *EstrusTypeMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *EstrusTypeMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown EstrusType nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *EstrusTypeMutation) ResetField(name string) error {
+	switch name {
+	case estrustype.FieldName:
+		m.ResetName()
+		return nil
+	}
+	return fmt.Errorf("unknown EstrusType field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *EstrusTypeMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *EstrusTypeMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *EstrusTypeMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *EstrusTypeMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *EstrusTypeMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *EstrusTypeMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *EstrusTypeMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown EstrusType unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *EstrusTypeMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown EstrusType edge %s", name)
 }
 
 // FarmMutation represents an operation that mutate the Farms

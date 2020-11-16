@@ -15,6 +15,15 @@ type BreathRate func(*sql.Selector)
 // BreedingType is the predicate function for breedingtype builders.
 type BreedingType func(*sql.Selector)
 
+// Calve is the predicate function for calve builders.
+type Calve func(*sql.Selector)
+
+// CalveCount is the predicate function for calvecount builders.
+type CalveCount func(*sql.Selector)
+
+// CalveType is the predicate function for calvetype builders.
+type CalveType func(*sql.Selector)
+
 // Category is the predicate function for category builders.
 type Category func(*sql.Selector)
 
@@ -53,6 +62,12 @@ type Conf func(*sql.Selector)
 
 // Duty is the predicate function for duty builders.
 type Duty func(*sql.Selector)
+
+// Estrus is the predicate function for estrus builders.
+type Estrus func(*sql.Selector)
+
+// EstrusType is the predicate function for estrustype builders.
+type EstrusType func(*sql.Selector)
 
 // Farm is the predicate function for farm builders.
 type Farm func(*sql.Selector)

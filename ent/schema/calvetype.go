@@ -1,6 +1,9 @@
 package schema
 
-import "github.com/facebook/ent"
+import (
+	"github.com/facebook/ent"
+	"github.com/facebook/ent/schema/field"
+)
 
 // CalveType holds the schema definition for the CalveType entity.
 type CalveType struct {
@@ -9,7 +12,9 @@ type CalveType struct {
 
 // Fields of the CalveType.
 func (CalveType) Fields() []ent.Field {
-	return nil
+	return []ent.Field{
+		field.String("name").NotEmpty().Comment("名称"),
+	}
 }
 
 // Edges of the CalveType.

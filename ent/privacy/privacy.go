@@ -281,6 +281,78 @@ func (f BreedingTypeMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mu
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.BreedingTypeMutation", m)
 }
 
+// The CalveQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type CalveQueryRuleFunc func(context.Context, *ent.CalveQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f CalveQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.CalveQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.CalveQuery", q)
+}
+
+// The CalveMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type CalveMutationRuleFunc func(context.Context, *ent.CalveMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f CalveMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.CalveMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.CalveMutation", m)
+}
+
+// The CalveCountQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type CalveCountQueryRuleFunc func(context.Context, *ent.CalveCountQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f CalveCountQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.CalveCountQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.CalveCountQuery", q)
+}
+
+// The CalveCountMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type CalveCountMutationRuleFunc func(context.Context, *ent.CalveCountMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f CalveCountMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.CalveCountMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.CalveCountMutation", m)
+}
+
+// The CalveTypeQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type CalveTypeQueryRuleFunc func(context.Context, *ent.CalveTypeQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f CalveTypeQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.CalveTypeQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.CalveTypeQuery", q)
+}
+
+// The CalveTypeMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type CalveTypeMutationRuleFunc func(context.Context, *ent.CalveTypeMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f CalveTypeMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.CalveTypeMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.CalveTypeMutation", m)
+}
+
 // The CategoryQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type CategoryQueryRuleFunc func(context.Context, *ent.CategoryQuery) error
@@ -591,6 +663,54 @@ func (f DutyMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) 
 		return f(ctx, m)
 	}
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.DutyMutation", m)
+}
+
+// The EstrusQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type EstrusQueryRuleFunc func(context.Context, *ent.EstrusQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f EstrusQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.EstrusQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.EstrusQuery", q)
+}
+
+// The EstrusMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type EstrusMutationRuleFunc func(context.Context, *ent.EstrusMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f EstrusMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.EstrusMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.EstrusMutation", m)
+}
+
+// The EstrusTypeQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type EstrusTypeQueryRuleFunc func(context.Context, *ent.EstrusTypeQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f EstrusTypeQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.EstrusTypeQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.EstrusTypeQuery", q)
+}
+
+// The EstrusTypeMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type EstrusTypeMutationRuleFunc func(context.Context, *ent.EstrusTypeMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f EstrusTypeMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.EstrusTypeMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.EstrusTypeMutation", m)
 }
 
 // The FarmQueryRuleFunc type is an adapter to allow the use of ordinary

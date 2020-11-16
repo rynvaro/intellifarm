@@ -25,4 +25,7 @@ type InitConf struct {
 	CattleHairColor          bool `json:"cattleHairColor"`
 	BreedingType             bool `json:"breedingType"`
 	CattleOwner              bool `json:"cattleOwner"`
+	CalveType                bool `json:"calveType"`
+	CalveCount               bool `json:"calveCount"`
+	EstrusType               bool `json:"estrusType"`
 }

@@ -12,6 +12,9 @@ import (
 	"cattleai/ent/birthsurrounding"
 	"cattleai/ent/breathrate"
 	"cattleai/ent/breedingtype"
+	"cattleai/ent/calve"
+	"cattleai/ent/calvecount"
+	"cattleai/ent/calvetype"
 	"cattleai/ent/category"
 	"cattleai/ent/cattle"
 	"cattleai/ent/cattlecate"
@@ -25,6 +28,8 @@ import (
 	"cattleai/ent/cattletype"
 	"cattleai/ent/conf"
 	"cattleai/ent/duty"
+	"cattleai/ent/estrus"
+	"cattleai/ent/estrustype"
 	"cattleai/ent/farm"
 	"cattleai/ent/hairstate"
 	"cattleai/ent/position"
@@ -50,6 +55,12 @@ type Client struct {
 	BreathRate *BreathRateClient
 	// BreedingType is the client for interacting with the BreedingType builders.
 	BreedingType *BreedingTypeClient
+	// Calve is the client for interacting with the Calve builders.
+	Calve *CalveClient
+	// CalveCount is the client for interacting with the CalveCount builders.
+	CalveCount *CalveCountClient
+	// CalveType is the client for interacting with the CalveType builders.
+	CalveType *CalveTypeClient
 	// Category is the client for interacting with the Category builders.
 	Category *CategoryClient
 	// Cattle is the client for interacting with the Cattle builders.
@@ -76,6 +87,10 @@ type Client struct {
 	Conf *ConfClient
 	// Duty is the client for interacting with the Duty builders.
 	Duty *DutyClient
+	// Estrus is the client for interacting with the Estrus builders.
+	Estrus *EstrusClient
+	// EstrusType is the client for interacting with the EstrusType builders.
+	EstrusType *EstrusTypeClient
 	// Farm is the client for interacting with the Farm builders.
 	Farm *FarmClient
 	// HairState is the client for interacting with the HairState builders.
@@ -110,6 +125,9 @@ func (c *Client) init() {
 	c.BirthSurrounding = NewBirthSurroundingClient(c.config)
 	c.BreathRate = NewBreathRateClient(c.config)
 	c.BreedingType = NewBreedingTypeClient(c.config)
+	c.Calve = NewCalveClient(c.config)
+	c.CalveCount = NewCalveCountClient(c.config)
+	c.CalveType = NewCalveTypeClient(c.config)
 	c.Category = NewCategoryClient(c.config)
 	c.Cattle = NewCattleClient(c.config)
 	c.CattleCate = NewCattleCateClient(c.config)
@@ -123,6 +141,8 @@ func (c *Client) init() {
 	c.CattleType = NewCattleTypeClient(c.config)
 	c.Conf = NewConfClient(c.config)
 	c.Duty = NewDutyClient(c.config)
+	c.Estrus = NewEstrusClient(c.config)
+	c.EstrusType = NewEstrusTypeClient(c.config)
 	c.Farm = NewFarmClient(c.config)
 	c.HairState = NewHairStateClient(c.config)
 	c.Position = NewPositionClient(c.config)
@@ -167,6 +187,9 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		BirthSurrounding:  NewBirthSurroundingClient(cfg),
 		BreathRate:        NewBreathRateClient(cfg),
 		BreedingType:      NewBreedingTypeClient(cfg),
+		Calve:             NewCalveClient(cfg),
+		CalveCount:        NewCalveCountClient(cfg),
+		CalveType:         NewCalveTypeClient(cfg),
 		Category:          NewCategoryClient(cfg),
 		Cattle:            NewCattleClient(cfg),
 		CattleCate:        NewCattleCateClient(cfg),
@@ -180,6 +203,8 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		CattleType:        NewCattleTypeClient(cfg),
 		Conf:              NewConfClient(cfg),
 		Duty:              NewDutyClient(cfg),
+		Estrus:            NewEstrusClient(cfg),
+		EstrusType:        NewEstrusTypeClient(cfg),
 		Farm:              NewFarmClient(cfg),
 		HairState:         NewHairStateClient(cfg),
 		Position:          NewPositionClient(cfg),
@@ -207,6 +232,9 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		BirthSurrounding:  NewBirthSurroundingClient(cfg),
 		BreathRate:        NewBreathRateClient(cfg),
 		BreedingType:      NewBreedingTypeClient(cfg),
+		Calve:             NewCalveClient(cfg),
+		CalveCount:        NewCalveCountClient(cfg),
+		CalveType:         NewCalveTypeClient(cfg),
 		Category:          NewCategoryClient(cfg),
 		Cattle:            NewCattleClient(cfg),
 		CattleCate:        NewCattleCateClient(cfg),
@@ -220,6 +248,8 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		CattleType:        NewCattleTypeClient(cfg),
 		Conf:              NewConfClient(cfg),
 		Duty:              NewDutyClient(cfg),
+		Estrus:            NewEstrusClient(cfg),
+		EstrusType:        NewEstrusTypeClient(cfg),
 		Farm:              NewFarmClient(cfg),
 		HairState:         NewHairStateClient(cfg),
 		Position:          NewPositionClient(cfg),
@@ -260,6 +290,9 @@ func (c *Client) Use(hooks ...Hook) {
 	c.BirthSurrounding.Use(hooks...)
 	c.BreathRate.Use(hooks...)
 	c.BreedingType.Use(hooks...)
+	c.Calve.Use(hooks...)
+	c.CalveCount.Use(hooks...)
+	c.CalveType.Use(hooks...)
 	c.Category.Use(hooks...)
 	c.Cattle.Use(hooks...)
 	c.CattleCate.Use(hooks...)
@@ -273,6 +306,8 @@ func (c *Client) Use(hooks ...Hook) {
 	c.CattleType.Use(hooks...)
 	c.Conf.Use(hooks...)
 	c.Duty.Use(hooks...)
+	c.Estrus.Use(hooks...)
+	c.EstrusType.Use(hooks...)
 	c.Farm.Use(hooks...)
 	c.HairState.Use(hooks...)
 	c.Position.Use(hooks...)
@@ -546,6 +581,270 @@ func (c *BreedingTypeClient) GetX(ctx context.Context, id int64) *BreedingType {
 // Hooks returns the client hooks.
 func (c *BreedingTypeClient) Hooks() []Hook {
 	return c.hooks.BreedingType
+}
+
+// CalveClient is a client for the Calve schema.
+type CalveClient struct {
+	config
+}
+
+// NewCalveClient returns a client for the Calve from the given config.
+func NewCalveClient(c config) *CalveClient {
+	return &CalveClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `calve.Hooks(f(g(h())))`.
+func (c *CalveClient) Use(hooks ...Hook) {
+	c.hooks.Calve = append(c.hooks.Calve, hooks...)
+}
+
+// Create returns a create builder for Calve.
+func (c *CalveClient) Create() *CalveCreate {
+	mutation := newCalveMutation(c.config, OpCreate)
+	return &CalveCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Calve entities.
+func (c *CalveClient) CreateBulk(builders ...*CalveCreate) *CalveCreateBulk {
+	return &CalveCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Calve.
+func (c *CalveClient) Update() *CalveUpdate {
+	mutation := newCalveMutation(c.config, OpUpdate)
+	return &CalveUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CalveClient) UpdateOne(ca *Calve) *CalveUpdateOne {
+	mutation := newCalveMutation(c.config, OpUpdateOne, withCalve(ca))
+	return &CalveUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CalveClient) UpdateOneID(id int64) *CalveUpdateOne {
+	mutation := newCalveMutation(c.config, OpUpdateOne, withCalveID(id))
+	return &CalveUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Calve.
+func (c *CalveClient) Delete() *CalveDelete {
+	mutation := newCalveMutation(c.config, OpDelete)
+	return &CalveDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *CalveClient) DeleteOne(ca *Calve) *CalveDeleteOne {
+	return c.DeleteOneID(ca.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *CalveClient) DeleteOneID(id int64) *CalveDeleteOne {
+	builder := c.Delete().Where(calve.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CalveDeleteOne{builder}
+}
+
+// Query returns a query builder for Calve.
+func (c *CalveClient) Query() *CalveQuery {
+	return &CalveQuery{config: c.config}
+}
+
+// Get returns a Calve entity by its id.
+func (c *CalveClient) Get(ctx context.Context, id int64) (*Calve, error) {
+	return c.Query().Where(calve.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CalveClient) GetX(ctx context.Context, id int64) *Calve {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CalveClient) Hooks() []Hook {
+	return c.hooks.Calve
+}
+
+// CalveCountClient is a client for the CalveCount schema.
+type CalveCountClient struct {
+	config
+}
+
+// NewCalveCountClient returns a client for the CalveCount from the given config.
+func NewCalveCountClient(c config) *CalveCountClient {
+	return &CalveCountClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `calvecount.Hooks(f(g(h())))`.
+func (c *CalveCountClient) Use(hooks ...Hook) {
+	c.hooks.CalveCount = append(c.hooks.CalveCount, hooks...)
+}
+
+// Create returns a create builder for CalveCount.
+func (c *CalveCountClient) Create() *CalveCountCreate {
+	mutation := newCalveCountMutation(c.config, OpCreate)
+	return &CalveCountCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of CalveCount entities.
+func (c *CalveCountClient) CreateBulk(builders ...*CalveCountCreate) *CalveCountCreateBulk {
+	return &CalveCountCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CalveCount.
+func (c *CalveCountClient) Update() *CalveCountUpdate {
+	mutation := newCalveCountMutation(c.config, OpUpdate)
+	return &CalveCountUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CalveCountClient) UpdateOne(cc *CalveCount) *CalveCountUpdateOne {
+	mutation := newCalveCountMutation(c.config, OpUpdateOne, withCalveCount(cc))
+	return &CalveCountUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CalveCountClient) UpdateOneID(id int64) *CalveCountUpdateOne {
+	mutation := newCalveCountMutation(c.config, OpUpdateOne, withCalveCountID(id))
+	return &CalveCountUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CalveCount.
+func (c *CalveCountClient) Delete() *CalveCountDelete {
+	mutation := newCalveCountMutation(c.config, OpDelete)
+	return &CalveCountDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *CalveCountClient) DeleteOne(cc *CalveCount) *CalveCountDeleteOne {
+	return c.DeleteOneID(cc.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *CalveCountClient) DeleteOneID(id int64) *CalveCountDeleteOne {
+	builder := c.Delete().Where(calvecount.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CalveCountDeleteOne{builder}
+}
+
+// Query returns a query builder for CalveCount.
+func (c *CalveCountClient) Query() *CalveCountQuery {
+	return &CalveCountQuery{config: c.config}
+}
+
+// Get returns a CalveCount entity by its id.
+func (c *CalveCountClient) Get(ctx context.Context, id int64) (*CalveCount, error) {
+	return c.Query().Where(calvecount.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CalveCountClient) GetX(ctx context.Context, id int64) *CalveCount {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CalveCountClient) Hooks() []Hook {
+	return c.hooks.CalveCount
+}
+
+// CalveTypeClient is a client for the CalveType schema.
+type CalveTypeClient struct {
+	config
+}
+
+// NewCalveTypeClient returns a client for the CalveType from the given config.
+func NewCalveTypeClient(c config) *CalveTypeClient {
+	return &CalveTypeClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `calvetype.Hooks(f(g(h())))`.
+func (c *CalveTypeClient) Use(hooks ...Hook) {
+	c.hooks.CalveType = append(c.hooks.CalveType, hooks...)
+}
+
+// Create returns a create builder for CalveType.
+func (c *CalveTypeClient) Create() *CalveTypeCreate {
+	mutation := newCalveTypeMutation(c.config, OpCreate)
+	return &CalveTypeCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of CalveType entities.
+func (c *CalveTypeClient) CreateBulk(builders ...*CalveTypeCreate) *CalveTypeCreateBulk {
+	return &CalveTypeCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CalveType.
+func (c *CalveTypeClient) Update() *CalveTypeUpdate {
+	mutation := newCalveTypeMutation(c.config, OpUpdate)
+	return &CalveTypeUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CalveTypeClient) UpdateOne(ct *CalveType) *CalveTypeUpdateOne {
+	mutation := newCalveTypeMutation(c.config, OpUpdateOne, withCalveType(ct))
+	return &CalveTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CalveTypeClient) UpdateOneID(id int64) *CalveTypeUpdateOne {
+	mutation := newCalveTypeMutation(c.config, OpUpdateOne, withCalveTypeID(id))
+	return &CalveTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CalveType.
+func (c *CalveTypeClient) Delete() *CalveTypeDelete {
+	mutation := newCalveTypeMutation(c.config, OpDelete)
+	return &CalveTypeDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *CalveTypeClient) DeleteOne(ct *CalveType) *CalveTypeDeleteOne {
+	return c.DeleteOneID(ct.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *CalveTypeClient) DeleteOneID(id int64) *CalveTypeDeleteOne {
+	builder := c.Delete().Where(calvetype.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CalveTypeDeleteOne{builder}
+}
+
+// Query returns a query builder for CalveType.
+func (c *CalveTypeClient) Query() *CalveTypeQuery {
+	return &CalveTypeQuery{config: c.config}
+}
+
+// Get returns a CalveType entity by its id.
+func (c *CalveTypeClient) Get(ctx context.Context, id int64) (*CalveType, error) {
+	return c.Query().Where(calvetype.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CalveTypeClient) GetX(ctx context.Context, id int64) *CalveType {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CalveTypeClient) Hooks() []Hook {
+	return c.hooks.CalveType
 }
 
 // CategoryClient is a client for the Category schema.
@@ -1690,6 +1989,182 @@ func (c *DutyClient) GetX(ctx context.Context, id int64) *Duty {
 // Hooks returns the client hooks.
 func (c *DutyClient) Hooks() []Hook {
 	return c.hooks.Duty
+}
+
+// EstrusClient is a client for the Estrus schema.
+type EstrusClient struct {
+	config
+}
+
+// NewEstrusClient returns a client for the Estrus from the given config.
+func NewEstrusClient(c config) *EstrusClient {
+	return &EstrusClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `estrus.Hooks(f(g(h())))`.
+func (c *EstrusClient) Use(hooks ...Hook) {
+	c.hooks.Estrus = append(c.hooks.Estrus, hooks...)
+}
+
+// Create returns a create builder for Estrus.
+func (c *EstrusClient) Create() *EstrusCreate {
+	mutation := newEstrusMutation(c.config, OpCreate)
+	return &EstrusCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Estrus entities.
+func (c *EstrusClient) CreateBulk(builders ...*EstrusCreate) *EstrusCreateBulk {
+	return &EstrusCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Estrus.
+func (c *EstrusClient) Update() *EstrusUpdate {
+	mutation := newEstrusMutation(c.config, OpUpdate)
+	return &EstrusUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *EstrusClient) UpdateOne(e *Estrus) *EstrusUpdateOne {
+	mutation := newEstrusMutation(c.config, OpUpdateOne, withEstrus(e))
+	return &EstrusUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *EstrusClient) UpdateOneID(id int64) *EstrusUpdateOne {
+	mutation := newEstrusMutation(c.config, OpUpdateOne, withEstrusID(id))
+	return &EstrusUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Estrus.
+func (c *EstrusClient) Delete() *EstrusDelete {
+	mutation := newEstrusMutation(c.config, OpDelete)
+	return &EstrusDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *EstrusClient) DeleteOne(e *Estrus) *EstrusDeleteOne {
+	return c.DeleteOneID(e.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *EstrusClient) DeleteOneID(id int64) *EstrusDeleteOne {
+	builder := c.Delete().Where(estrus.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &EstrusDeleteOne{builder}
+}
+
+// Query returns a query builder for Estrus.
+func (c *EstrusClient) Query() *EstrusQuery {
+	return &EstrusQuery{config: c.config}
+}
+
+// Get returns a Estrus entity by its id.
+func (c *EstrusClient) Get(ctx context.Context, id int64) (*Estrus, error) {
+	return c.Query().Where(estrus.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *EstrusClient) GetX(ctx context.Context, id int64) *Estrus {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *EstrusClient) Hooks() []Hook {
+	return c.hooks.Estrus
+}
+
+// EstrusTypeClient is a client for the EstrusType schema.
+type EstrusTypeClient struct {
+	config
+}
+
+// NewEstrusTypeClient returns a client for the EstrusType from the given config.
+func NewEstrusTypeClient(c config) *EstrusTypeClient {
+	return &EstrusTypeClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `estrustype.Hooks(f(g(h())))`.
+func (c *EstrusTypeClient) Use(hooks ...Hook) {
+	c.hooks.EstrusType = append(c.hooks.EstrusType, hooks...)
+}
+
+// Create returns a create builder for EstrusType.
+func (c *EstrusTypeClient) Create() *EstrusTypeCreate {
+	mutation := newEstrusTypeMutation(c.config, OpCreate)
+	return &EstrusTypeCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of EstrusType entities.
+func (c *EstrusTypeClient) CreateBulk(builders ...*EstrusTypeCreate) *EstrusTypeCreateBulk {
+	return &EstrusTypeCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for EstrusType.
+func (c *EstrusTypeClient) Update() *EstrusTypeUpdate {
+	mutation := newEstrusTypeMutation(c.config, OpUpdate)
+	return &EstrusTypeUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *EstrusTypeClient) UpdateOne(et *EstrusType) *EstrusTypeUpdateOne {
+	mutation := newEstrusTypeMutation(c.config, OpUpdateOne, withEstrusType(et))
+	return &EstrusTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *EstrusTypeClient) UpdateOneID(id int64) *EstrusTypeUpdateOne {
+	mutation := newEstrusTypeMutation(c.config, OpUpdateOne, withEstrusTypeID(id))
+	return &EstrusTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for EstrusType.
+func (c *EstrusTypeClient) Delete() *EstrusTypeDelete {
+	mutation := newEstrusTypeMutation(c.config, OpDelete)
+	return &EstrusTypeDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *EstrusTypeClient) DeleteOne(et *EstrusType) *EstrusTypeDeleteOne {
+	return c.DeleteOneID(et.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *EstrusTypeClient) DeleteOneID(id int64) *EstrusTypeDeleteOne {
+	builder := c.Delete().Where(estrustype.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &EstrusTypeDeleteOne{builder}
+}
+
+// Query returns a query builder for EstrusType.
+func (c *EstrusTypeClient) Query() *EstrusTypeQuery {
+	return &EstrusTypeQuery{config: c.config}
+}
+
+// Get returns a EstrusType entity by its id.
+func (c *EstrusTypeClient) Get(ctx context.Context, id int64) (*EstrusType, error) {
+	return c.Query().Where(estrustype.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *EstrusTypeClient) GetX(ctx context.Context, id int64) *EstrusType {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *EstrusTypeClient) Hooks() []Hook {
+	return c.hooks.EstrusType
 }
 
 // FarmClient is a client for the Farm schema.

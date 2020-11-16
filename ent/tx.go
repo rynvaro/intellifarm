@@ -18,6 +18,12 @@ type Tx struct {
 	BreathRate *BreathRateClient
 	// BreedingType is the client for interacting with the BreedingType builders.
 	BreedingType *BreedingTypeClient
+	// Calve is the client for interacting with the Calve builders.
+	Calve *CalveClient
+	// CalveCount is the client for interacting with the CalveCount builders.
+	CalveCount *CalveCountClient
+	// CalveType is the client for interacting with the CalveType builders.
+	CalveType *CalveTypeClient
 	// Category is the client for interacting with the Category builders.
 	Category *CategoryClient
 	// Cattle is the client for interacting with the Cattle builders.
@@ -44,6 +50,10 @@ type Tx struct {
 	Conf *ConfClient
 	// Duty is the client for interacting with the Duty builders.
 	Duty *DutyClient
+	// Estrus is the client for interacting with the Estrus builders.
+	Estrus *EstrusClient
+	// EstrusType is the client for interacting with the EstrusType builders.
+	EstrusType *EstrusTypeClient
 	// Farm is the client for interacting with the Farm builders.
 	Farm *FarmClient
 	// HairState is the client for interacting with the HairState builders.
@@ -200,6 +210,9 @@ func (tx *Tx) init() {
 	tx.BirthSurrounding = NewBirthSurroundingClient(tx.config)
 	tx.BreathRate = NewBreathRateClient(tx.config)
 	tx.BreedingType = NewBreedingTypeClient(tx.config)
+	tx.Calve = NewCalveClient(tx.config)
+	tx.CalveCount = NewCalveCountClient(tx.config)
+	tx.CalveType = NewCalveTypeClient(tx.config)
 	tx.Category = NewCategoryClient(tx.config)
 	tx.Cattle = NewCattleClient(tx.config)
 	tx.CattleCate = NewCattleCateClient(tx.config)
@@ -213,6 +226,8 @@ func (tx *Tx) init() {
 	tx.CattleType = NewCattleTypeClient(tx.config)
 	tx.Conf = NewConfClient(tx.config)
 	tx.Duty = NewDutyClient(tx.config)
+	tx.Estrus = NewEstrusClient(tx.config)
+	tx.EstrusType = NewEstrusTypeClient(tx.config)
 	tx.Farm = NewFarmClient(tx.config)
 	tx.HairState = NewHairStateClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)

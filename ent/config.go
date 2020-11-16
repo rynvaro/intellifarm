@@ -27,6 +27,9 @@ type hooks struct {
 	BirthSurrounding  []ent.Hook
 	BreathRate        []ent.Hook
 	BreedingType      []ent.Hook
+	Calve             []ent.Hook
+	CalveCount        []ent.Hook
+	CalveType         []ent.Hook
 	Category          []ent.Hook
 	Cattle            []ent.Hook
 	CattleCate        []ent.Hook
@@ -40,6 +43,8 @@ type hooks struct {
 	CattleType        []ent.Hook
 	Conf              []ent.Hook
 	Duty              []ent.Hook
+	Estrus            []ent.Hook
+	EstrusType        []ent.Hook
 	Farm              []ent.Hook
 	HairState         []ent.Hook
 	Position          []ent.Hook

@@ -4,6 +4,9 @@ import (
 	"cattleai/pkg/birthsurroundings"
 	"cattleai/pkg/breathrates"
 	"cattleai/pkg/breedingtypes"
+	"cattleai/pkg/calvecounts"
+	"cattleai/pkg/calves"
+	"cattleai/pkg/calvetypes"
 	"cattleai/pkg/categories"
 	"cattleai/pkg/cattlecates"
 	"cattleai/pkg/cattlegenders"
@@ -16,6 +19,8 @@ import (
 	"cattleai/pkg/cattles"
 	"cattleai/pkg/cattletypes"
 	"cattleai/pkg/duties"
+	"cattleai/pkg/estruses"
+	"cattleai/pkg/estrustypes"
 	"cattleai/pkg/farms"
 	"cattleai/pkg/hairstates"
 	"cattleai/pkg/positions"
@@ -78,4 +83,11 @@ func Register(g *gin.RouterGroup) {
 	cattlegrowsrates.RegisterRoutes(g)
 	// cattle grows
 	cattlegrows.RegisterRoutes(g)
+
+	calvetypes.RegisterRoutes(g)
+	calvecounts.RegisterRoutes(g)
+	calves.RegisterRoutes(g)
+
+	estruses.RegisterRoutes(g)
+	estrustypes.RegisterRoutes(g)
 }

@@ -231,6 +231,42 @@ func dataInit() {
 		conf.InitConf.CattleOwner = true
 	}
 
+	if !conf.InitConf.CalveType {
+		for _, v := range initData["calveTypes"] {
+			_, err := Client.CalveType.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("CalveType %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("CalveType %s initialized", v))
+		}
+		conf.InitConf.CalveType = true
+	}
+
+	if !conf.InitConf.CalveCount {
+		for _, v := range initData["calveCounts"] {
+			_, err := Client.CalveCount.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("CalveCount %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("CalveCount %s initialized", v))
+		}
+		conf.InitConf.CalveCount = true
+	}
+
+	if !conf.InitConf.EstrusType {
+		for _, v := range initData["estrusTypes"] {
+			_, err := Client.EstrusType.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("EstrusType %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("EstrusType %s initialized", v))
+		}
+		conf.InitConf.EstrusType = true
+	}
+
 	// update init config
 	if len(confs) > 0 {
 		_, err := Client.Conf.UpdateOneID(confs[0].ID).SetConfs(conf).Save(ctx)

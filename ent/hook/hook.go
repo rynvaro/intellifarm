@@ -47,6 +47,45 @@ func (f BreedingTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value
 	return f(ctx, mv)
 }
 
+// The CalveFunc type is an adapter to allow the use of ordinary
+// function as Calve mutator.
+type CalveFunc func(context.Context, *ent.CalveMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CalveFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.CalveMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CalveMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The CalveCountFunc type is an adapter to allow the use of ordinary
+// function as CalveCount mutator.
+type CalveCountFunc func(context.Context, *ent.CalveCountMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CalveCountFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.CalveCountMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CalveCountMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The CalveTypeFunc type is an adapter to allow the use of ordinary
+// function as CalveType mutator.
+type CalveTypeFunc func(context.Context, *ent.CalveTypeMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CalveTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.CalveTypeMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CalveTypeMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The CategoryFunc type is an adapter to allow the use of ordinary
 // function as Category mutator.
 type CategoryFunc func(context.Context, *ent.CategoryMutation) (ent.Value, error)
@@ -212,6 +251,32 @@ func (f DutyFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error)
 	mv, ok := m.(*ent.DutyMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DutyMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The EstrusFunc type is an adapter to allow the use of ordinary
+// function as Estrus mutator.
+type EstrusFunc func(context.Context, *ent.EstrusMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f EstrusFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.EstrusMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.EstrusMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The EstrusTypeFunc type is an adapter to allow the use of ordinary
+// function as EstrusType mutator.
+type EstrusTypeFunc func(context.Context, *ent.EstrusTypeMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f EstrusTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.EstrusTypeMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.EstrusTypeMutation", m)
 	}
 	return f(ctx, mv)
 }

@@ -6,6 +6,8 @@ import (
 	"cattleai/ent/birthsurrounding"
 	"cattleai/ent/breathrate"
 	"cattleai/ent/breedingtype"
+	"cattleai/ent/calvecount"
+	"cattleai/ent/calvetype"
 	"cattleai/ent/category"
 	"cattleai/ent/cattle"
 	"cattleai/ent/cattlecate"
@@ -16,6 +18,7 @@ import (
 	"cattleai/ent/cattleowner"
 	"cattleai/ent/cattletype"
 	"cattleai/ent/duty"
+	"cattleai/ent/estrustype"
 	"cattleai/ent/farm"
 	"cattleai/ent/hairstate"
 	"cattleai/ent/position"
@@ -52,6 +55,18 @@ func init() {
 	breedingtypeDescName := breedingtypeFields[0].Descriptor()
 	// breedingtype.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	breedingtype.NameValidator = breedingtypeDescName.Validators[0].(func(string) error)
+	calvecountFields := schema.CalveCount{}.Fields()
+	_ = calvecountFields
+	// calvecountDescName is the schema descriptor for name field.
+	calvecountDescName := calvecountFields[0].Descriptor()
+	// calvecount.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	calvecount.NameValidator = calvecountDescName.Validators[0].(func(string) error)
+	calvetypeFields := schema.CalveType{}.Fields()
+	_ = calvetypeFields
+	// calvetypeDescName is the schema descriptor for name field.
+	calvetypeDescName := calvetypeFields[0].Descriptor()
+	// calvetype.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	calvetype.NameValidator = calvetypeDescName.Validators[0].(func(string) error)
 	categoryFields := schema.Category{}.Fields()
 	_ = categoryFields
 	// categoryDescName is the schema descriptor for name field.
@@ -132,6 +147,12 @@ func init() {
 	dutyDescName := dutyFields[0].Descriptor()
 	// duty.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	duty.NameValidator = dutyDescName.Validators[0].(func(string) error)
+	estrustypeFields := schema.EstrusType{}.Fields()
+	_ = estrustypeFields
+	// estrustypeDescName is the schema descriptor for name field.
+	estrustypeDescName := estrustypeFields[0].Descriptor()
+	// estrustype.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	estrustype.NameValidator = estrustypeDescName.Validators[0].(func(string) error)
 	farmFields := schema.Farm{}.Fields()
 	_ = farmFields
 	// farmDescName is the schema descriptor for name field.

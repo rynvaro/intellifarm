@@ -26,6 +26,8 @@ type Tx struct {
 	CattleCate *CattleCateClient
 	// CattleGender is the client for interacting with the CattleGender builders.
 	CattleGender *CattleGenderClient
+	// CattleGrow is the client for interacting with the CattleGrow builders.
+	CattleGrow *CattleGrowClient
 	// CattleGrowsData is the client for interacting with the CattleGrowsData builders.
 	CattleGrowsData *CattleGrowsDataClient
 	// CattleGrowsRate is the client for interacting with the CattleGrowsRate builders.
@@ -202,6 +204,7 @@ func (tx *Tx) init() {
 	tx.Cattle = NewCattleClient(tx.config)
 	tx.CattleCate = NewCattleCateClient(tx.config)
 	tx.CattleGender = NewCattleGenderClient(tx.config)
+	tx.CattleGrow = NewCattleGrowClient(tx.config)
 	tx.CattleGrowsData = NewCattleGrowsDataClient(tx.config)
 	tx.CattleGrowsRate = NewCattleGrowsRateClient(tx.config)
 	tx.CattleHairColor = NewCattleHairColorClient(tx.config)

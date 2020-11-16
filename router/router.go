@@ -7,6 +7,7 @@ import (
 	"cattleai/pkg/categories"
 	"cattleai/pkg/cattlecates"
 	"cattleai/pkg/cattlegenders"
+	"cattleai/pkg/cattlegrows"
 	"cattleai/pkg/cattlegrowsdata"
 	"cattleai/pkg/cattlegrowsrates"
 	"cattleai/pkg/cattlehaircolors"
@@ -75,4 +76,6 @@ func Register(g *gin.RouterGroup) {
 	cattlegrowsdata.RegisterRoutes(g)
 	// cattle grows rate
 	cattlegrowsrates.RegisterRoutes(g)
+	// cattle grows
+	cattlegrows.RegisterRoutes(g)
 }

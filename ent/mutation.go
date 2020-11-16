@@ -11,6 +11,7 @@ import (
 	"cattleai/ent/cattle"
 	"cattleai/ent/cattlecate"
 	"cattleai/ent/cattlegender"
+	"cattleai/ent/cattlegrow"
 	"cattleai/ent/cattlegrowsdata"
 	"cattleai/ent/cattlegrowsrate"
 	"cattleai/ent/cattlehaircolor"
@@ -51,6 +52,7 @@ const (
 	TypeCattle            = "Cattle"
 	TypeCattleCate        = "CattleCate"
 	TypeCattleGender      = "CattleGender"
+	TypeCattleGrow        = "CattleGrow"
 	TypeCattleGrowsData   = "CattleGrowsData"
 	TypeCattleGrowsRate   = "CattleGrowsRate"
 	TypeCattleHairColor   = "CattleHairColor"
@@ -7097,6 +7099,1512 @@ func (m *CattleGenderMutation) ClearEdge(name string) error {
 // defined in the schema.
 func (m *CattleGenderMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown CattleGender edge %s", name)
+}
+
+// CattleGrowMutation represents an operation that mutate the CattleGrows
+// nodes in the graph.
+type CattleGrowMutation struct {
+	config
+	op                 Op
+	typ                string
+	id                 *int64
+	name               *string
+	earNumber          *string
+	stage              *string
+	dateStart          *int64
+	adddateStart       *int64
+	dateEnd            *int64
+	adddateEnd         *int64
+	weightStart        *float32
+	addweightStart     *float32
+	weightEnd          *float32
+	addweightEnd       *float32
+	dailyWeight        *float32
+	adddailyWeight     *float32
+	feedWeight         *float32
+	addfeedWeight      *float32
+	dailyFeedWeight    *float32
+	adddailyFeedWeight *float32
+	conversionRate     *float32
+	addconversionRate  *float32
+	userName           *string
+	remarks            *string
+	createdAt          *int64
+	addcreatedAt       *int64
+	updatedAt          *int64
+	addupdatedAt       *int64
+	deleted            *int
+	adddeleted         *int
+	clearedFields      map[string]struct{}
+	done               bool
+	oldValue           func(context.Context) (*CattleGrow, error)
+}
+
+var _ ent.Mutation = (*CattleGrowMutation)(nil)
+
+// cattlegrowOption allows to manage the mutation configuration using functional options.
+type cattlegrowOption func(*CattleGrowMutation)
+
+// newCattleGrowMutation creates new mutation for $n.Name.
+func newCattleGrowMutation(c config, op Op, opts ...cattlegrowOption) *CattleGrowMutation {
+	m := &CattleGrowMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeCattleGrow,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withCattleGrowID sets the id field of the mutation.
+func withCattleGrowID(id int64) cattlegrowOption {
+	return func(m *CattleGrowMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *CattleGrow
+		)
+		m.oldValue = func(ctx context.Context) (*CattleGrow, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().CattleGrow.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withCattleGrow sets the old CattleGrow of the mutation.
+func withCattleGrow(node *CattleGrow) cattlegrowOption {
+	return func(m *CattleGrowMutation) {
+		m.oldValue = func(context.Context) (*CattleGrow, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m CattleGrowMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m CattleGrowMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *CattleGrowMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *CattleGrowMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *CattleGrowMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ClearName clears the value of name.
+func (m *CattleGrowMutation) ClearName() {
+	m.name = nil
+	m.clearedFields[cattlegrow.FieldName] = struct{}{}
+}
+
+// NameCleared returns if the field name was cleared in this mutation.
+func (m *CattleGrowMutation) NameCleared() bool {
+	_, ok := m.clearedFields[cattlegrow.FieldName]
+	return ok
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *CattleGrowMutation) ResetName() {
+	m.name = nil
+	delete(m.clearedFields, cattlegrow.FieldName)
+}
+
+// SetEarNumber sets the earNumber field.
+func (m *CattleGrowMutation) SetEarNumber(s string) {
+	m.earNumber = &s
+}
+
+// EarNumber returns the earNumber value in the mutation.
+func (m *CattleGrowMutation) EarNumber() (r string, exists bool) {
+	v := m.earNumber
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEarNumber returns the old earNumber value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldEarNumber(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldEarNumber is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldEarNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEarNumber: %w", err)
+	}
+	return oldValue.EarNumber, nil
+}
+
+// ResetEarNumber reset all changes of the "earNumber" field.
+func (m *CattleGrowMutation) ResetEarNumber() {
+	m.earNumber = nil
+}
+
+// SetStage sets the stage field.
+func (m *CattleGrowMutation) SetStage(s string) {
+	m.stage = &s
+}
+
+// Stage returns the stage value in the mutation.
+func (m *CattleGrowMutation) Stage() (r string, exists bool) {
+	v := m.stage
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStage returns the old stage value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldStage(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldStage is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldStage requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStage: %w", err)
+	}
+	return oldValue.Stage, nil
+}
+
+// ResetStage reset all changes of the "stage" field.
+func (m *CattleGrowMutation) ResetStage() {
+	m.stage = nil
+}
+
+// SetDateStart sets the dateStart field.
+func (m *CattleGrowMutation) SetDateStart(i int64) {
+	m.dateStart = &i
+	m.adddateStart = nil
+}
+
+// DateStart returns the dateStart value in the mutation.
+func (m *CattleGrowMutation) DateStart() (r int64, exists bool) {
+	v := m.dateStart
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDateStart returns the old dateStart value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldDateStart(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDateStart is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDateStart requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDateStart: %w", err)
+	}
+	return oldValue.DateStart, nil
+}
+
+// AddDateStart adds i to dateStart.
+func (m *CattleGrowMutation) AddDateStart(i int64) {
+	if m.adddateStart != nil {
+		*m.adddateStart += i
+	} else {
+		m.adddateStart = &i
+	}
+}
+
+// AddedDateStart returns the value that was added to the dateStart field in this mutation.
+func (m *CattleGrowMutation) AddedDateStart() (r int64, exists bool) {
+	v := m.adddateStart
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDateStart reset all changes of the "dateStart" field.
+func (m *CattleGrowMutation) ResetDateStart() {
+	m.dateStart = nil
+	m.adddateStart = nil
+}
+
+// SetDateEnd sets the dateEnd field.
+func (m *CattleGrowMutation) SetDateEnd(i int64) {
+	m.dateEnd = &i
+	m.adddateEnd = nil
+}
+
+// DateEnd returns the dateEnd value in the mutation.
+func (m *CattleGrowMutation) DateEnd() (r int64, exists bool) {
+	v := m.dateEnd
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDateEnd returns the old dateEnd value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldDateEnd(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDateEnd is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDateEnd requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDateEnd: %w", err)
+	}
+	return oldValue.DateEnd, nil
+}
+
+// AddDateEnd adds i to dateEnd.
+func (m *CattleGrowMutation) AddDateEnd(i int64) {
+	if m.adddateEnd != nil {
+		*m.adddateEnd += i
+	} else {
+		m.adddateEnd = &i
+	}
+}
+
+// AddedDateEnd returns the value that was added to the dateEnd field in this mutation.
+func (m *CattleGrowMutation) AddedDateEnd() (r int64, exists bool) {
+	v := m.adddateEnd
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDateEnd reset all changes of the "dateEnd" field.
+func (m *CattleGrowMutation) ResetDateEnd() {
+	m.dateEnd = nil
+	m.adddateEnd = nil
+}
+
+// SetWeightStart sets the weightStart field.
+func (m *CattleGrowMutation) SetWeightStart(f float32) {
+	m.weightStart = &f
+	m.addweightStart = nil
+}
+
+// WeightStart returns the weightStart value in the mutation.
+func (m *CattleGrowMutation) WeightStart() (r float32, exists bool) {
+	v := m.weightStart
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldWeightStart returns the old weightStart value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldWeightStart(ctx context.Context) (v float32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldWeightStart is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldWeightStart requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldWeightStart: %w", err)
+	}
+	return oldValue.WeightStart, nil
+}
+
+// AddWeightStart adds f to weightStart.
+func (m *CattleGrowMutation) AddWeightStart(f float32) {
+	if m.addweightStart != nil {
+		*m.addweightStart += f
+	} else {
+		m.addweightStart = &f
+	}
+}
+
+// AddedWeightStart returns the value that was added to the weightStart field in this mutation.
+func (m *CattleGrowMutation) AddedWeightStart() (r float32, exists bool) {
+	v := m.addweightStart
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetWeightStart reset all changes of the "weightStart" field.
+func (m *CattleGrowMutation) ResetWeightStart() {
+	m.weightStart = nil
+	m.addweightStart = nil
+}
+
+// SetWeightEnd sets the weightEnd field.
+func (m *CattleGrowMutation) SetWeightEnd(f float32) {
+	m.weightEnd = &f
+	m.addweightEnd = nil
+}
+
+// WeightEnd returns the weightEnd value in the mutation.
+func (m *CattleGrowMutation) WeightEnd() (r float32, exists bool) {
+	v := m.weightEnd
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldWeightEnd returns the old weightEnd value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldWeightEnd(ctx context.Context) (v float32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldWeightEnd is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldWeightEnd requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldWeightEnd: %w", err)
+	}
+	return oldValue.WeightEnd, nil
+}
+
+// AddWeightEnd adds f to weightEnd.
+func (m *CattleGrowMutation) AddWeightEnd(f float32) {
+	if m.addweightEnd != nil {
+		*m.addweightEnd += f
+	} else {
+		m.addweightEnd = &f
+	}
+}
+
+// AddedWeightEnd returns the value that was added to the weightEnd field in this mutation.
+func (m *CattleGrowMutation) AddedWeightEnd() (r float32, exists bool) {
+	v := m.addweightEnd
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetWeightEnd reset all changes of the "weightEnd" field.
+func (m *CattleGrowMutation) ResetWeightEnd() {
+	m.weightEnd = nil
+	m.addweightEnd = nil
+}
+
+// SetDailyWeight sets the dailyWeight field.
+func (m *CattleGrowMutation) SetDailyWeight(f float32) {
+	m.dailyWeight = &f
+	m.adddailyWeight = nil
+}
+
+// DailyWeight returns the dailyWeight value in the mutation.
+func (m *CattleGrowMutation) DailyWeight() (r float32, exists bool) {
+	v := m.dailyWeight
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDailyWeight returns the old dailyWeight value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldDailyWeight(ctx context.Context) (v float32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDailyWeight is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDailyWeight requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDailyWeight: %w", err)
+	}
+	return oldValue.DailyWeight, nil
+}
+
+// AddDailyWeight adds f to dailyWeight.
+func (m *CattleGrowMutation) AddDailyWeight(f float32) {
+	if m.adddailyWeight != nil {
+		*m.adddailyWeight += f
+	} else {
+		m.adddailyWeight = &f
+	}
+}
+
+// AddedDailyWeight returns the value that was added to the dailyWeight field in this mutation.
+func (m *CattleGrowMutation) AddedDailyWeight() (r float32, exists bool) {
+	v := m.adddailyWeight
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDailyWeight reset all changes of the "dailyWeight" field.
+func (m *CattleGrowMutation) ResetDailyWeight() {
+	m.dailyWeight = nil
+	m.adddailyWeight = nil
+}
+
+// SetFeedWeight sets the feedWeight field.
+func (m *CattleGrowMutation) SetFeedWeight(f float32) {
+	m.feedWeight = &f
+	m.addfeedWeight = nil
+}
+
+// FeedWeight returns the feedWeight value in the mutation.
+func (m *CattleGrowMutation) FeedWeight() (r float32, exists bool) {
+	v := m.feedWeight
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldFeedWeight returns the old feedWeight value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldFeedWeight(ctx context.Context) (v float32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldFeedWeight is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldFeedWeight requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldFeedWeight: %w", err)
+	}
+	return oldValue.FeedWeight, nil
+}
+
+// AddFeedWeight adds f to feedWeight.
+func (m *CattleGrowMutation) AddFeedWeight(f float32) {
+	if m.addfeedWeight != nil {
+		*m.addfeedWeight += f
+	} else {
+		m.addfeedWeight = &f
+	}
+}
+
+// AddedFeedWeight returns the value that was added to the feedWeight field in this mutation.
+func (m *CattleGrowMutation) AddedFeedWeight() (r float32, exists bool) {
+	v := m.addfeedWeight
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetFeedWeight reset all changes of the "feedWeight" field.
+func (m *CattleGrowMutation) ResetFeedWeight() {
+	m.feedWeight = nil
+	m.addfeedWeight = nil
+}
+
+// SetDailyFeedWeight sets the dailyFeedWeight field.
+func (m *CattleGrowMutation) SetDailyFeedWeight(f float32) {
+	m.dailyFeedWeight = &f
+	m.adddailyFeedWeight = nil
+}
+
+// DailyFeedWeight returns the dailyFeedWeight value in the mutation.
+func (m *CattleGrowMutation) DailyFeedWeight() (r float32, exists bool) {
+	v := m.dailyFeedWeight
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDailyFeedWeight returns the old dailyFeedWeight value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldDailyFeedWeight(ctx context.Context) (v float32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDailyFeedWeight is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDailyFeedWeight requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDailyFeedWeight: %w", err)
+	}
+	return oldValue.DailyFeedWeight, nil
+}
+
+// AddDailyFeedWeight adds f to dailyFeedWeight.
+func (m *CattleGrowMutation) AddDailyFeedWeight(f float32) {
+	if m.adddailyFeedWeight != nil {
+		*m.adddailyFeedWeight += f
+	} else {
+		m.adddailyFeedWeight = &f
+	}
+}
+
+// AddedDailyFeedWeight returns the value that was added to the dailyFeedWeight field in this mutation.
+func (m *CattleGrowMutation) AddedDailyFeedWeight() (r float32, exists bool) {
+	v := m.adddailyFeedWeight
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDailyFeedWeight reset all changes of the "dailyFeedWeight" field.
+func (m *CattleGrowMutation) ResetDailyFeedWeight() {
+	m.dailyFeedWeight = nil
+	m.adddailyFeedWeight = nil
+}
+
+// SetConversionRate sets the conversionRate field.
+func (m *CattleGrowMutation) SetConversionRate(f float32) {
+	m.conversionRate = &f
+	m.addconversionRate = nil
+}
+
+// ConversionRate returns the conversionRate value in the mutation.
+func (m *CattleGrowMutation) ConversionRate() (r float32, exists bool) {
+	v := m.conversionRate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldConversionRate returns the old conversionRate value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldConversionRate(ctx context.Context) (v float32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldConversionRate is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldConversionRate requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldConversionRate: %w", err)
+	}
+	return oldValue.ConversionRate, nil
+}
+
+// AddConversionRate adds f to conversionRate.
+func (m *CattleGrowMutation) AddConversionRate(f float32) {
+	if m.addconversionRate != nil {
+		*m.addconversionRate += f
+	} else {
+		m.addconversionRate = &f
+	}
+}
+
+// AddedConversionRate returns the value that was added to the conversionRate field in this mutation.
+func (m *CattleGrowMutation) AddedConversionRate() (r float32, exists bool) {
+	v := m.addconversionRate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetConversionRate reset all changes of the "conversionRate" field.
+func (m *CattleGrowMutation) ResetConversionRate() {
+	m.conversionRate = nil
+	m.addconversionRate = nil
+}
+
+// SetUserName sets the userName field.
+func (m *CattleGrowMutation) SetUserName(s string) {
+	m.userName = &s
+}
+
+// UserName returns the userName value in the mutation.
+func (m *CattleGrowMutation) UserName() (r string, exists bool) {
+	v := m.userName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserName returns the old userName value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldUserName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUserName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUserName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserName: %w", err)
+	}
+	return oldValue.UserName, nil
+}
+
+// ResetUserName reset all changes of the "userName" field.
+func (m *CattleGrowMutation) ResetUserName() {
+	m.userName = nil
+}
+
+// SetRemarks sets the remarks field.
+func (m *CattleGrowMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the remarks value in the mutation.
+func (m *CattleGrowMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old remarks value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRemarks is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ResetRemarks reset all changes of the "remarks" field.
+func (m *CattleGrowMutation) ResetRemarks() {
+	m.remarks = nil
+}
+
+// SetCreatedAt sets the createdAt field.
+func (m *CattleGrowMutation) SetCreatedAt(i int64) {
+	m.createdAt = &i
+	m.addcreatedAt = nil
+}
+
+// CreatedAt returns the createdAt value in the mutation.
+func (m *CattleGrowMutation) CreatedAt() (r int64, exists bool) {
+	v := m.createdAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old createdAt value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldCreatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds i to createdAt.
+func (m *CattleGrowMutation) AddCreatedAt(i int64) {
+	if m.addcreatedAt != nil {
+		*m.addcreatedAt += i
+	} else {
+		m.addcreatedAt = &i
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the createdAt field in this mutation.
+func (m *CattleGrowMutation) AddedCreatedAt() (r int64, exists bool) {
+	v := m.addcreatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt reset all changes of the "createdAt" field.
+func (m *CattleGrowMutation) ResetCreatedAt() {
+	m.createdAt = nil
+	m.addcreatedAt = nil
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (m *CattleGrowMutation) SetUpdatedAt(i int64) {
+	m.updatedAt = &i
+	m.addupdatedAt = nil
+}
+
+// UpdatedAt returns the updatedAt value in the mutation.
+func (m *CattleGrowMutation) UpdatedAt() (r int64, exists bool) {
+	v := m.updatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old updatedAt value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldUpdatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUpdatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (m *CattleGrowMutation) AddUpdatedAt(i int64) {
+	if m.addupdatedAt != nil {
+		*m.addupdatedAt += i
+	} else {
+		m.addupdatedAt = &i
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the updatedAt field in this mutation.
+func (m *CattleGrowMutation) AddedUpdatedAt() (r int64, exists bool) {
+	v := m.addupdatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt reset all changes of the "updatedAt" field.
+func (m *CattleGrowMutation) ResetUpdatedAt() {
+	m.updatedAt = nil
+	m.addupdatedAt = nil
+}
+
+// SetDeleted sets the deleted field.
+func (m *CattleGrowMutation) SetDeleted(i int) {
+	m.deleted = &i
+	m.adddeleted = nil
+}
+
+// Deleted returns the deleted value in the mutation.
+func (m *CattleGrowMutation) Deleted() (r int, exists bool) {
+	v := m.deleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleted returns the old deleted value of the CattleGrow.
+// If the CattleGrow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *CattleGrowMutation) OldDeleted(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleted is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleted requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleted: %w", err)
+	}
+	return oldValue.Deleted, nil
+}
+
+// AddDeleted adds i to deleted.
+func (m *CattleGrowMutation) AddDeleted(i int) {
+	if m.adddeleted != nil {
+		*m.adddeleted += i
+	} else {
+		m.adddeleted = &i
+	}
+}
+
+// AddedDeleted returns the value that was added to the deleted field in this mutation.
+func (m *CattleGrowMutation) AddedDeleted() (r int, exists bool) {
+	v := m.adddeleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleted reset all changes of the "deleted" field.
+func (m *CattleGrowMutation) ResetDeleted() {
+	m.deleted = nil
+	m.adddeleted = nil
+}
+
+// Op returns the operation name.
+func (m *CattleGrowMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (CattleGrow).
+func (m *CattleGrowMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *CattleGrowMutation) Fields() []string {
+	fields := make([]string, 0, 16)
+	if m.name != nil {
+		fields = append(fields, cattlegrow.FieldName)
+	}
+	if m.earNumber != nil {
+		fields = append(fields, cattlegrow.FieldEarNumber)
+	}
+	if m.stage != nil {
+		fields = append(fields, cattlegrow.FieldStage)
+	}
+	if m.dateStart != nil {
+		fields = append(fields, cattlegrow.FieldDateStart)
+	}
+	if m.dateEnd != nil {
+		fields = append(fields, cattlegrow.FieldDateEnd)
+	}
+	if m.weightStart != nil {
+		fields = append(fields, cattlegrow.FieldWeightStart)
+	}
+	if m.weightEnd != nil {
+		fields = append(fields, cattlegrow.FieldWeightEnd)
+	}
+	if m.dailyWeight != nil {
+		fields = append(fields, cattlegrow.FieldDailyWeight)
+	}
+	if m.feedWeight != nil {
+		fields = append(fields, cattlegrow.FieldFeedWeight)
+	}
+	if m.dailyFeedWeight != nil {
+		fields = append(fields, cattlegrow.FieldDailyFeedWeight)
+	}
+	if m.conversionRate != nil {
+		fields = append(fields, cattlegrow.FieldConversionRate)
+	}
+	if m.userName != nil {
+		fields = append(fields, cattlegrow.FieldUserName)
+	}
+	if m.remarks != nil {
+		fields = append(fields, cattlegrow.FieldRemarks)
+	}
+	if m.createdAt != nil {
+		fields = append(fields, cattlegrow.FieldCreatedAt)
+	}
+	if m.updatedAt != nil {
+		fields = append(fields, cattlegrow.FieldUpdatedAt)
+	}
+	if m.deleted != nil {
+		fields = append(fields, cattlegrow.FieldDeleted)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *CattleGrowMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case cattlegrow.FieldName:
+		return m.Name()
+	case cattlegrow.FieldEarNumber:
+		return m.EarNumber()
+	case cattlegrow.FieldStage:
+		return m.Stage()
+	case cattlegrow.FieldDateStart:
+		return m.DateStart()
+	case cattlegrow.FieldDateEnd:
+		return m.DateEnd()
+	case cattlegrow.FieldWeightStart:
+		return m.WeightStart()
+	case cattlegrow.FieldWeightEnd:
+		return m.WeightEnd()
+	case cattlegrow.FieldDailyWeight:
+		return m.DailyWeight()
+	case cattlegrow.FieldFeedWeight:
+		return m.FeedWeight()
+	case cattlegrow.FieldDailyFeedWeight:
+		return m.DailyFeedWeight()
+	case cattlegrow.FieldConversionRate:
+		return m.ConversionRate()
+	case cattlegrow.FieldUserName:
+		return m.UserName()
+	case cattlegrow.FieldRemarks:
+		return m.Remarks()
+	case cattlegrow.FieldCreatedAt:
+		return m.CreatedAt()
+	case cattlegrow.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case cattlegrow.FieldDeleted:
+		return m.Deleted()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *CattleGrowMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case cattlegrow.FieldName:
+		return m.OldName(ctx)
+	case cattlegrow.FieldEarNumber:
+		return m.OldEarNumber(ctx)
+	case cattlegrow.FieldStage:
+		return m.OldStage(ctx)
+	case cattlegrow.FieldDateStart:
+		return m.OldDateStart(ctx)
+	case cattlegrow.FieldDateEnd:
+		return m.OldDateEnd(ctx)
+	case cattlegrow.FieldWeightStart:
+		return m.OldWeightStart(ctx)
+	case cattlegrow.FieldWeightEnd:
+		return m.OldWeightEnd(ctx)
+	case cattlegrow.FieldDailyWeight:
+		return m.OldDailyWeight(ctx)
+	case cattlegrow.FieldFeedWeight:
+		return m.OldFeedWeight(ctx)
+	case cattlegrow.FieldDailyFeedWeight:
+		return m.OldDailyFeedWeight(ctx)
+	case cattlegrow.FieldConversionRate:
+		return m.OldConversionRate(ctx)
+	case cattlegrow.FieldUserName:
+		return m.OldUserName(ctx)
+	case cattlegrow.FieldRemarks:
+		return m.OldRemarks(ctx)
+	case cattlegrow.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case cattlegrow.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case cattlegrow.FieldDeleted:
+		return m.OldDeleted(ctx)
+	}
+	return nil, fmt.Errorf("unknown CattleGrow field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *CattleGrowMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case cattlegrow.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case cattlegrow.FieldEarNumber:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEarNumber(v)
+		return nil
+	case cattlegrow.FieldStage:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStage(v)
+		return nil
+	case cattlegrow.FieldDateStart:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDateStart(v)
+		return nil
+	case cattlegrow.FieldDateEnd:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDateEnd(v)
+		return nil
+	case cattlegrow.FieldWeightStart:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetWeightStart(v)
+		return nil
+	case cattlegrow.FieldWeightEnd:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetWeightEnd(v)
+		return nil
+	case cattlegrow.FieldDailyWeight:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDailyWeight(v)
+		return nil
+	case cattlegrow.FieldFeedWeight:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetFeedWeight(v)
+		return nil
+	case cattlegrow.FieldDailyFeedWeight:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDailyFeedWeight(v)
+		return nil
+	case cattlegrow.FieldConversionRate:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetConversionRate(v)
+		return nil
+	case cattlegrow.FieldUserName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserName(v)
+		return nil
+	case cattlegrow.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	case cattlegrow.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case cattlegrow.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case cattlegrow.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown CattleGrow field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *CattleGrowMutation) AddedFields() []string {
+	var fields []string
+	if m.adddateStart != nil {
+		fields = append(fields, cattlegrow.FieldDateStart)
+	}
+	if m.adddateEnd != nil {
+		fields = append(fields, cattlegrow.FieldDateEnd)
+	}
+	if m.addweightStart != nil {
+		fields = append(fields, cattlegrow.FieldWeightStart)
+	}
+	if m.addweightEnd != nil {
+		fields = append(fields, cattlegrow.FieldWeightEnd)
+	}
+	if m.adddailyWeight != nil {
+		fields = append(fields, cattlegrow.FieldDailyWeight)
+	}
+	if m.addfeedWeight != nil {
+		fields = append(fields, cattlegrow.FieldFeedWeight)
+	}
+	if m.adddailyFeedWeight != nil {
+		fields = append(fields, cattlegrow.FieldDailyFeedWeight)
+	}
+	if m.addconversionRate != nil {
+		fields = append(fields, cattlegrow.FieldConversionRate)
+	}
+	if m.addcreatedAt != nil {
+		fields = append(fields, cattlegrow.FieldCreatedAt)
+	}
+	if m.addupdatedAt != nil {
+		fields = append(fields, cattlegrow.FieldUpdatedAt)
+	}
+	if m.adddeleted != nil {
+		fields = append(fields, cattlegrow.FieldDeleted)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *CattleGrowMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case cattlegrow.FieldDateStart:
+		return m.AddedDateStart()
+	case cattlegrow.FieldDateEnd:
+		return m.AddedDateEnd()
+	case cattlegrow.FieldWeightStart:
+		return m.AddedWeightStart()
+	case cattlegrow.FieldWeightEnd:
+		return m.AddedWeightEnd()
+	case cattlegrow.FieldDailyWeight:
+		return m.AddedDailyWeight()
+	case cattlegrow.FieldFeedWeight:
+		return m.AddedFeedWeight()
+	case cattlegrow.FieldDailyFeedWeight:
+		return m.AddedDailyFeedWeight()
+	case cattlegrow.FieldConversionRate:
+		return m.AddedConversionRate()
+	case cattlegrow.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case cattlegrow.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case cattlegrow.FieldDeleted:
+		return m.AddedDeleted()
+	}
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *CattleGrowMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case cattlegrow.FieldDateStart:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDateStart(v)
+		return nil
+	case cattlegrow.FieldDateEnd:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDateEnd(v)
+		return nil
+	case cattlegrow.FieldWeightStart:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddWeightStart(v)
+		return nil
+	case cattlegrow.FieldWeightEnd:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddWeightEnd(v)
+		return nil
+	case cattlegrow.FieldDailyWeight:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDailyWeight(v)
+		return nil
+	case cattlegrow.FieldFeedWeight:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddFeedWeight(v)
+		return nil
+	case cattlegrow.FieldDailyFeedWeight:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDailyFeedWeight(v)
+		return nil
+	case cattlegrow.FieldConversionRate:
+		v, ok := value.(float32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddConversionRate(v)
+		return nil
+	case cattlegrow.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case cattlegrow.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case cattlegrow.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown CattleGrow numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *CattleGrowMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(cattlegrow.FieldName) {
+		fields = append(fields, cattlegrow.FieldName)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *CattleGrowMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *CattleGrowMutation) ClearField(name string) error {
+	switch name {
+	case cattlegrow.FieldName:
+		m.ClearName()
+		return nil
+	}
+	return fmt.Errorf("unknown CattleGrow nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *CattleGrowMutation) ResetField(name string) error {
+	switch name {
+	case cattlegrow.FieldName:
+		m.ResetName()
+		return nil
+	case cattlegrow.FieldEarNumber:
+		m.ResetEarNumber()
+		return nil
+	case cattlegrow.FieldStage:
+		m.ResetStage()
+		return nil
+	case cattlegrow.FieldDateStart:
+		m.ResetDateStart()
+		return nil
+	case cattlegrow.FieldDateEnd:
+		m.ResetDateEnd()
+		return nil
+	case cattlegrow.FieldWeightStart:
+		m.ResetWeightStart()
+		return nil
+	case cattlegrow.FieldWeightEnd:
+		m.ResetWeightEnd()
+		return nil
+	case cattlegrow.FieldDailyWeight:
+		m.ResetDailyWeight()
+		return nil
+	case cattlegrow.FieldFeedWeight:
+		m.ResetFeedWeight()
+		return nil
+	case cattlegrow.FieldDailyFeedWeight:
+		m.ResetDailyFeedWeight()
+		return nil
+	case cattlegrow.FieldConversionRate:
+		m.ResetConversionRate()
+		return nil
+	case cattlegrow.FieldUserName:
+		m.ResetUserName()
+		return nil
+	case cattlegrow.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	case cattlegrow.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case cattlegrow.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case cattlegrow.FieldDeleted:
+		m.ResetDeleted()
+		return nil
+	}
+	return fmt.Errorf("unknown CattleGrow field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *CattleGrowMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *CattleGrowMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *CattleGrowMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *CattleGrowMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *CattleGrowMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *CattleGrowMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *CattleGrowMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown CattleGrow unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *CattleGrowMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown CattleGrow edge %s", name)
 }
 
 // CattleGrowsDataMutation represents an operation that mutate the CattleGrowsDataSlice

@@ -158,6 +158,33 @@ var (
 		PrimaryKey:  []*schema.Column{CattleGendersColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// CattleGrowsColumns holds the columns for the "cattle_grows" table.
+	CattleGrowsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString, Nullable: true},
+		{Name: "ear_number", Type: field.TypeString},
+		{Name: "stage", Type: field.TypeString},
+		{Name: "date_start", Type: field.TypeInt64},
+		{Name: "date_end", Type: field.TypeInt64},
+		{Name: "weight_start", Type: field.TypeFloat32},
+		{Name: "weight_end", Type: field.TypeFloat32},
+		{Name: "daily_weight", Type: field.TypeFloat32},
+		{Name: "feed_weight", Type: field.TypeFloat32},
+		{Name: "daily_feed_weight", Type: field.TypeFloat32},
+		{Name: "conversion_rate", Type: field.TypeFloat32},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// CattleGrowsTable holds the schema information for the "cattle_grows" table.
+	CattleGrowsTable = &schema.Table{
+		Name:        "cattle_grows",
+		Columns:     CattleGrowsColumns,
+		PrimaryKey:  []*schema.Column{CattleGrowsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// CattleGrowsDataColumns holds the columns for the "cattle_grows_data" table.
 	CattleGrowsDataColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -444,6 +471,7 @@ var (
 		CattlesTable,
 		CattleCatesTable,
 		CattleGendersTable,
+		CattleGrowsTable,
 		CattleGrowsDataTable,
 		CattleGrowsRatesTable,
 		CattleHairColorsTable,

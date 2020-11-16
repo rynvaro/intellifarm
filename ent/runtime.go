@@ -10,6 +10,7 @@ import (
 	"cattleai/ent/cattle"
 	"cattleai/ent/cattlecate"
 	"cattleai/ent/cattlegender"
+	"cattleai/ent/cattlegrow"
 	"cattleai/ent/cattlehaircolor"
 	"cattleai/ent/cattlejoinedtype"
 	"cattleai/ent/cattleowner"
@@ -91,6 +92,16 @@ func init() {
 	cattlegenderDescName := cattlegenderFields[0].Descriptor()
 	// cattlegender.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	cattlegender.NameValidator = cattlegenderDescName.Validators[0].(func(string) error)
+	cattlegrowFields := schema.CattleGrow{}.Fields()
+	_ = cattlegrowFields
+	// cattlegrowDescEarNumber is the schema descriptor for earNumber field.
+	cattlegrowDescEarNumber := cattlegrowFields[1].Descriptor()
+	// cattlegrow.EarNumberValidator is a validator for the "earNumber" field. It is called by the builders before save.
+	cattlegrow.EarNumberValidator = cattlegrowDescEarNumber.Validators[0].(func(string) error)
+	// cattlegrowDescStage is the schema descriptor for stage field.
+	cattlegrowDescStage := cattlegrowFields[2].Descriptor()
+	// cattlegrow.StageValidator is a validator for the "stage" field. It is called by the builders before save.
+	cattlegrow.StageValidator = cattlegrowDescStage.Validators[0].(func(string) error)
 	cattlehaircolorFields := schema.CattleHairColor{}.Fields()
 	_ = cattlehaircolorFields
 	// cattlehaircolorDescName is the schema descriptor for name field.

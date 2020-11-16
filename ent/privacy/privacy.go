@@ -377,6 +377,30 @@ func (f CattleGenderMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mu
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.CattleGenderMutation", m)
 }
 
+// The CattleGrowQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type CattleGrowQueryRuleFunc func(context.Context, *ent.CattleGrowQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f CattleGrowQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.CattleGrowQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.CattleGrowQuery", q)
+}
+
+// The CattleGrowMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type CattleGrowMutationRuleFunc func(context.Context, *ent.CattleGrowMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f CattleGrowMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.CattleGrowMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.CattleGrowMutation", m)
+}
+
 // The CattleGrowsDataQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type CattleGrowsDataQueryRuleFunc func(context.Context, *ent.CattleGrowsDataQuery) error

@@ -16,6 +16,7 @@ import (
 	"cattleai/ent/cattle"
 	"cattleai/ent/cattlecate"
 	"cattleai/ent/cattlegender"
+	"cattleai/ent/cattlegrow"
 	"cattleai/ent/cattlegrowsdata"
 	"cattleai/ent/cattlegrowsrate"
 	"cattleai/ent/cattlehaircolor"
@@ -57,6 +58,8 @@ type Client struct {
 	CattleCate *CattleCateClient
 	// CattleGender is the client for interacting with the CattleGender builders.
 	CattleGender *CattleGenderClient
+	// CattleGrow is the client for interacting with the CattleGrow builders.
+	CattleGrow *CattleGrowClient
 	// CattleGrowsData is the client for interacting with the CattleGrowsData builders.
 	CattleGrowsData *CattleGrowsDataClient
 	// CattleGrowsRate is the client for interacting with the CattleGrowsRate builders.
@@ -111,6 +114,7 @@ func (c *Client) init() {
 	c.Cattle = NewCattleClient(c.config)
 	c.CattleCate = NewCattleCateClient(c.config)
 	c.CattleGender = NewCattleGenderClient(c.config)
+	c.CattleGrow = NewCattleGrowClient(c.config)
 	c.CattleGrowsData = NewCattleGrowsDataClient(c.config)
 	c.CattleGrowsRate = NewCattleGrowsRateClient(c.config)
 	c.CattleHairColor = NewCattleHairColorClient(c.config)
@@ -167,6 +171,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Cattle:            NewCattleClient(cfg),
 		CattleCate:        NewCattleCateClient(cfg),
 		CattleGender:      NewCattleGenderClient(cfg),
+		CattleGrow:        NewCattleGrowClient(cfg),
 		CattleGrowsData:   NewCattleGrowsDataClient(cfg),
 		CattleGrowsRate:   NewCattleGrowsRateClient(cfg),
 		CattleHairColor:   NewCattleHairColorClient(cfg),
@@ -206,6 +211,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Cattle:            NewCattleClient(cfg),
 		CattleCate:        NewCattleCateClient(cfg),
 		CattleGender:      NewCattleGenderClient(cfg),
+		CattleGrow:        NewCattleGrowClient(cfg),
 		CattleGrowsData:   NewCattleGrowsDataClient(cfg),
 		CattleGrowsRate:   NewCattleGrowsRateClient(cfg),
 		CattleHairColor:   NewCattleHairColorClient(cfg),
@@ -258,6 +264,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.Cattle.Use(hooks...)
 	c.CattleCate.Use(hooks...)
 	c.CattleGender.Use(hooks...)
+	c.CattleGrow.Use(hooks...)
 	c.CattleGrowsData.Use(hooks...)
 	c.CattleGrowsRate.Use(hooks...)
 	c.CattleHairColor.Use(hooks...)
@@ -891,6 +898,94 @@ func (c *CattleGenderClient) GetX(ctx context.Context, id int64) *CattleGender {
 // Hooks returns the client hooks.
 func (c *CattleGenderClient) Hooks() []Hook {
 	return c.hooks.CattleGender
+}
+
+// CattleGrowClient is a client for the CattleGrow schema.
+type CattleGrowClient struct {
+	config
+}
+
+// NewCattleGrowClient returns a client for the CattleGrow from the given config.
+func NewCattleGrowClient(c config) *CattleGrowClient {
+	return &CattleGrowClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `cattlegrow.Hooks(f(g(h())))`.
+func (c *CattleGrowClient) Use(hooks ...Hook) {
+	c.hooks.CattleGrow = append(c.hooks.CattleGrow, hooks...)
+}
+
+// Create returns a create builder for CattleGrow.
+func (c *CattleGrowClient) Create() *CattleGrowCreate {
+	mutation := newCattleGrowMutation(c.config, OpCreate)
+	return &CattleGrowCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of CattleGrow entities.
+func (c *CattleGrowClient) CreateBulk(builders ...*CattleGrowCreate) *CattleGrowCreateBulk {
+	return &CattleGrowCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CattleGrow.
+func (c *CattleGrowClient) Update() *CattleGrowUpdate {
+	mutation := newCattleGrowMutation(c.config, OpUpdate)
+	return &CattleGrowUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CattleGrowClient) UpdateOne(cg *CattleGrow) *CattleGrowUpdateOne {
+	mutation := newCattleGrowMutation(c.config, OpUpdateOne, withCattleGrow(cg))
+	return &CattleGrowUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CattleGrowClient) UpdateOneID(id int64) *CattleGrowUpdateOne {
+	mutation := newCattleGrowMutation(c.config, OpUpdateOne, withCattleGrowID(id))
+	return &CattleGrowUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CattleGrow.
+func (c *CattleGrowClient) Delete() *CattleGrowDelete {
+	mutation := newCattleGrowMutation(c.config, OpDelete)
+	return &CattleGrowDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *CattleGrowClient) DeleteOne(cg *CattleGrow) *CattleGrowDeleteOne {
+	return c.DeleteOneID(cg.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *CattleGrowClient) DeleteOneID(id int64) *CattleGrowDeleteOne {
+	builder := c.Delete().Where(cattlegrow.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CattleGrowDeleteOne{builder}
+}
+
+// Query returns a query builder for CattleGrow.
+func (c *CattleGrowClient) Query() *CattleGrowQuery {
+	return &CattleGrowQuery{config: c.config}
+}
+
+// Get returns a CattleGrow entity by its id.
+func (c *CattleGrowClient) Get(ctx context.Context, id int64) (*CattleGrow, error) {
+	return c.Query().Where(cattlegrow.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CattleGrowClient) GetX(ctx context.Context, id int64) *CattleGrow {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CattleGrowClient) Hooks() []Hook {
+	return c.hooks.CattleGrow
 }
 
 // CattleGrowsDataClient is a client for the CattleGrowsData schema.

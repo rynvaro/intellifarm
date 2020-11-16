@@ -4,5 +4,5 @@ import "cattleai/ent"
 
 func main() {
 	// GenCates("CattleGender")
-	Gen("CattleGrowsRate", &ent.CattleGrowsRateCreate{})
+	Gen("CattleGrow", &ent.CattleGrowCreate{})
 }

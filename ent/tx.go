@@ -54,8 +54,14 @@ type Tx struct {
 	CattleType *CattleTypeClient
 	// Conf is the client for interacting with the Conf builders.
 	Conf *ConfClient
+	// Dispence is the client for interacting with the Dispence builders.
+	Dispence *DispenceClient
 	// Duty is the client for interacting with the Duty builders.
 	Duty *DutyClient
+	// Epidemic is the client for interacting with the Epidemic builders.
+	Epidemic *EpidemicClient
+	// EpidemicType is the client for interacting with the EpidemicType builders.
+	EpidemicType *EpidemicTypeClient
 	// Estrus is the client for interacting with the Estrus builders.
 	Estrus *EstrusClient
 	// EstrusType is the client for interacting with the EstrusType builders.
@@ -64,6 +70,8 @@ type Tx struct {
 	Farm *FarmClient
 	// HairState is the client for interacting with the HairState builders.
 	HairState *HairStateClient
+	// Inspection is the client for interacting with the Inspection builders.
+	Inspection *InspectionClient
 	// Position is the client for interacting with the Position builders.
 	Position *PositionClient
 	// PregnancyTest is the client for interacting with the PregnancyTest builders.
@@ -84,8 +92,14 @@ type Tx struct {
 	ShedCategory *ShedCategoryClient
 	// ShedType is the client for interacting with the ShedType builders.
 	ShedType *ShedTypeClient
+	// TreatmentResult is the client for interacting with the TreatmentResult builders.
+	TreatmentResult *TreatmentResultClient
+	// TreatmentState is the client for interacting with the TreatmentState builders.
+	TreatmentState *TreatmentStateClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
+	// Whereabouts is the client for interacting with the Whereabouts builders.
+	Whereabouts *WhereaboutsClient
 	// WindDirection is the client for interacting with the WindDirection builders.
 	WindDirection *WindDirectionClient
 
@@ -244,11 +258,15 @@ func (tx *Tx) init() {
 	tx.CattleOwner = NewCattleOwnerClient(tx.config)
 	tx.CattleType = NewCattleTypeClient(tx.config)
 	tx.Conf = NewConfClient(tx.config)
+	tx.Dispence = NewDispenceClient(tx.config)
 	tx.Duty = NewDutyClient(tx.config)
+	tx.Epidemic = NewEpidemicClient(tx.config)
+	tx.EpidemicType = NewEpidemicTypeClient(tx.config)
 	tx.Estrus = NewEstrusClient(tx.config)
 	tx.EstrusType = NewEstrusTypeClient(tx.config)
 	tx.Farm = NewFarmClient(tx.config)
 	tx.HairState = NewHairStateClient(tx.config)
+	tx.Inspection = NewInspectionClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)
 	tx.PregnancyTest = NewPregnancyTestClient(tx.config)
 	tx.PregnancyTestMethod = NewPregnancyTestMethodClient(tx.config)
@@ -259,7 +277,10 @@ func (tx *Tx) init() {
 	tx.Shed = NewShedClient(tx.config)
 	tx.ShedCategory = NewShedCategoryClient(tx.config)
 	tx.ShedType = NewShedTypeClient(tx.config)
+	tx.TreatmentResult = NewTreatmentResultClient(tx.config)
+	tx.TreatmentState = NewTreatmentStateClient(tx.config)
 	tx.User = NewUserClient(tx.config)
+	tx.Whereabouts = NewWhereaboutsClient(tx.config)
 	tx.WindDirection = NewWindDirectionClient(tx.config)
 }
 

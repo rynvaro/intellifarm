@@ -22,10 +22,13 @@ import (
 	"cattleai/pkg/cattles"
 	"cattleai/pkg/cattletypes"
 	"cattleai/pkg/duties"
+	"cattleai/pkg/epidemics"
+	"cattleai/pkg/epidemictypes"
 	"cattleai/pkg/estruses"
 	"cattleai/pkg/estrustypes"
 	"cattleai/pkg/farms"
 	"cattleai/pkg/hairstates"
+	"cattleai/pkg/inspections"
 	"cattleai/pkg/positions"
 	"cattleai/pkg/pregnancytestmethods"
 	"cattleai/pkg/pregnancytestresults"
@@ -36,7 +39,10 @@ import (
 	"cattleai/pkg/shedcates"
 	"cattleai/pkg/sheds"
 	"cattleai/pkg/shedtypes"
+	"cattleai/pkg/treatmentresults"
+	"cattleai/pkg/treatmentstates"
 	"cattleai/pkg/users"
+	"cattleai/pkg/whereabouts"
 	"cattleai/pkg/winddirections"
 
 	"github.com/gin-gonic/gin"
@@ -109,4 +115,12 @@ func Register(g *gin.RouterGroup) {
 
 	abortions.RegisterRoutes(g)
 	abortiontypes.RegisterRoutes(g)
+
+	epidemics.RegisterRoutes(g)
+	epidemictypes.RegisterRoutes(g)
+	treatmentresults.RegisterRoutes(g)
+	treatmentstates.RegisterRoutes(g)
+	whereabouts.RegisterRoutes(g)
+
+	inspections.RegisterRoutes(g)
 }

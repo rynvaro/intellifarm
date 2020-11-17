@@ -414,6 +414,17 @@ var (
 		PrimaryKey:  []*schema.Column{ConfsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// DispencesColumns holds the columns for the "dispences" table.
+	DispencesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+	}
+	// DispencesTable holds the schema information for the "dispences" table.
+	DispencesTable = &schema.Table{
+		Name:        "dispences",
+		Columns:     DispencesColumns,
+		PrimaryKey:  []*schema.Column{DispencesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// DutiesColumns holds the columns for the "duties" table.
 	DutiesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -424,6 +435,45 @@ var (
 		Name:        "duties",
 		Columns:     DutiesColumns,
 		PrimaryKey:  []*schema.Column{DutiesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// EpidemicsColumns holds the columns for the "epidemics" table.
+	EpidemicsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "ear_number", Type: field.TypeString},
+		{Name: "shed_name", Type: field.TypeString},
+		{Name: "onset", Type: field.TypeInt64},
+		{Name: "epidemic_type_id", Type: field.TypeInt},
+		{Name: "epidemic_type_name", Type: field.TypeString},
+		{Name: "isolated_shed_name", Type: field.TypeString},
+		{Name: "diaged_by", Type: field.TypeString},
+		{Name: "treatment_result_id", Type: field.TypeInt},
+		{Name: "treatment_result_name", Type: field.TypeString},
+		{Name: "treatment_at", Type: field.TypeInt64},
+		{Name: "whereabout", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// EpidemicsTable holds the schema information for the "epidemics" table.
+	EpidemicsTable = &schema.Table{
+		Name:        "epidemics",
+		Columns:     EpidemicsColumns,
+		PrimaryKey:  []*schema.Column{EpidemicsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// EpidemicTypesColumns holds the columns for the "epidemic_types" table.
+	EpidemicTypesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+	}
+	// EpidemicTypesTable holds the schema information for the "epidemic_types" table.
+	EpidemicTypesTable = &schema.Table{
+		Name:        "epidemic_types",
+		Columns:     EpidemicTypesColumns,
+		PrimaryKey:  []*schema.Column{EpidemicTypesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// EstrusColumns holds the columns for the "estrus" table.
@@ -502,6 +552,35 @@ var (
 		Name:        "hair_states",
 		Columns:     HairStatesColumns,
 		PrimaryKey:  []*schema.Column{HairStatesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// InspectionsColumns holds the columns for the "inspections" table.
+	InspectionsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "ear_number", Type: field.TypeString},
+		{Name: "shed_name", Type: field.TypeString},
+		{Name: "date", Type: field.TypeInt64},
+		{Name: "item_id", Type: field.TypeInt},
+		{Name: "item_name", Type: field.TypeString},
+		{Name: "method_id", Type: field.TypeInt},
+		{Name: "method_name", Type: field.TypeString},
+		{Name: "by_id", Type: field.TypeInt64},
+		{Name: "by_name", Type: field.TypeString},
+		{Name: "result_id", Type: field.TypeInt64},
+		{Name: "result_name", Type: field.TypeString},
+		{Name: "handle_id", Type: field.TypeInt},
+		{Name: "handle_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// InspectionsTable holds the schema information for the "inspections" table.
+	InspectionsTable = &schema.Table{
+		Name:        "inspections",
+		Columns:     InspectionsColumns,
+		PrimaryKey:  []*schema.Column{InspectionsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// PositionsColumns holds the columns for the "positions" table.
@@ -657,6 +736,30 @@ var (
 		PrimaryKey:  []*schema.Column{ShedTypesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// TreatmentResultsColumns holds the columns for the "treatment_results" table.
+	TreatmentResultsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+	}
+	// TreatmentResultsTable holds the schema information for the "treatment_results" table.
+	TreatmentResultsTable = &schema.Table{
+		Name:        "treatment_results",
+		Columns:     TreatmentResultsColumns,
+		PrimaryKey:  []*schema.Column{TreatmentResultsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// TreatmentStatesColumns holds the columns for the "treatment_states" table.
+	TreatmentStatesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+	}
+	// TreatmentStatesTable holds the schema information for the "treatment_states" table.
+	TreatmentStatesTable = &schema.Table{
+		Name:        "treatment_states",
+		Columns:     TreatmentStatesColumns,
+		PrimaryKey:  []*schema.Column{TreatmentStatesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// UsersColumns holds the columns for the "users" table.
 	UsersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -686,6 +789,18 @@ var (
 		Name:        "users",
 		Columns:     UsersColumns,
 		PrimaryKey:  []*schema.Column{UsersColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// WhereaboutsColumns holds the columns for the "whereabouts" table.
+	WhereaboutsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+	}
+	// WhereaboutsTable holds the schema information for the "whereabouts" table.
+	WhereaboutsTable = &schema.Table{
+		Name:        "whereabouts",
+		Columns:     WhereaboutsColumns,
+		PrimaryKey:  []*schema.Column{WhereaboutsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// WindDirectionsColumns holds the columns for the "wind_directions" table.
@@ -723,11 +838,15 @@ var (
 		CattleOwnersTable,
 		CattleTypesTable,
 		ConfsTable,
+		DispencesTable,
 		DutiesTable,
+		EpidemicsTable,
+		EpidemicTypesTable,
 		EstrusTable,
 		EstrusTypesTable,
 		FarmsTable,
 		HairStatesTable,
+		InspectionsTable,
 		PositionsTable,
 		PregnancyTestsTable,
 		PregnancyTestMethodsTable,
@@ -738,7 +857,10 @@ var (
 		ShedsTable,
 		ShedCategoriesTable,
 		ShedTypesTable,
+		TreatmentResultsTable,
+		TreatmentStatesTable,
 		UsersTable,
+		WhereaboutsTable,
 		WindDirectionsTable,
 	}
 )

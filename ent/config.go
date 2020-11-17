@@ -45,11 +45,15 @@ type hooks struct {
 	CattleOwner         []ent.Hook
 	CattleType          []ent.Hook
 	Conf                []ent.Hook
+	Dispence            []ent.Hook
 	Duty                []ent.Hook
+	Epidemic            []ent.Hook
+	EpidemicType        []ent.Hook
 	Estrus              []ent.Hook
 	EstrusType          []ent.Hook
 	Farm                []ent.Hook
 	HairState           []ent.Hook
+	Inspection          []ent.Hook
 	Position            []ent.Hook
 	PregnancyTest       []ent.Hook
 	PregnancyTestMethod []ent.Hook
@@ -60,7 +64,10 @@ type hooks struct {
 	Shed                []ent.Hook
 	ShedCategory        []ent.Hook
 	ShedType            []ent.Hook
+	TreatmentResult     []ent.Hook
+	TreatmentState      []ent.Hook
 	User                []ent.Hook
+	Whereabouts         []ent.Hook
 	WindDirection       []ent.Hook
 }
 

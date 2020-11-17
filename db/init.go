@@ -327,6 +327,42 @@ func dataInit() {
 		conf.InitConf.AbortionType = true
 	}
 
+	if !conf.InitConf.TreatmentResult {
+		for _, v := range initData["treatmentResults"] {
+			_, err := Client.TreatmentResult.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("TreatmentResult %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("TreatmentResult %s initialized", v))
+		}
+		conf.InitConf.TreatmentResult = true
+	}
+
+	if !conf.InitConf.TreatmentState {
+		for _, v := range initData["treatmentStates"] {
+			_, err := Client.TreatmentState.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("TreatmentState %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("TreatmentState %s initialized", v))
+		}
+		conf.InitConf.TreatmentState = true
+	}
+
+	if !conf.InitConf.Whereablout {
+		for _, v := range initData["whereablouts"] {
+			_, err := Client.Whereabouts.Create().SetName(v).Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("Whereablout %s init failed with error: %s", v, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("Whereablout %s initialized", v))
+		}
+		conf.InitConf.Whereablout = true
+	}
+
 	// update init config
 	if len(confs) > 0 {
 		_, err := Client.Conf.UpdateOneID(confs[0].ID).SetConfs(conf).Save(ctx)

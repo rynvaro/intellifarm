@@ -142,4 +142,18 @@ var initData = map[string][]string{
 		"鲜胎",
 		"其他",
 	},
+	"treatmentResults": {
+		"已痊愈",
+		"死亡",
+		"淘汰",
+	},
+	"treatmentStates": {
+		"治疗中",
+		"治疗结束",
+	},
+	"whereablouts": {
+		"转入牛群",
+		"淘汰屠宰",
+		"无害处理",
+	},
 }

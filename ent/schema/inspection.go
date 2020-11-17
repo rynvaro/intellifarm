@@ -1,0 +1,40 @@
+package schema
+
+import (
+	"github.com/facebook/ent"
+	"github.com/facebook/ent/schema/field"
+)
+
+// Inspection holds the schema definition for the Inspection entity.
+type Inspection struct {
+	ent.Schema
+}
+
+// Fields of the Inspection.
+func (Inspection) Fields() []ent.Field {
+	return []ent.Field{
+		field.String("name").Comment("名称"),
+		field.String("earNumber"),
+		field.String("shedName"),
+		field.Int64("date").Comment("日期"),
+		field.Int("itemId").Comment("检疫项目ID"),
+		field.String("itemName").Comment("检疫项目"),
+		field.Int("methodId").Comment("检疫方法ID"),
+		field.String("methodName").Comment("检疫方法"),
+		field.Int64("byId").Comment("检疫单位ID"),
+		field.String("byName").Comment("检疫单位"),
+		field.Int64("resultId").Comment("检疫结果ID"),
+		field.String("resultName").Comment("检疫结果"),
+		field.Int("handleId"),
+		field.String("handleName"),
+		field.String("remarks").Comment("备注"),
+		field.Int64("createdAt").Comment("创建时间"),
+		field.Int64("updatedAt").Comment("更新时间"),
+		field.Int("deleted").Comment("是否已删除"),
+	}
+}
+
+// Edges of the Inspection.
+func (Inspection) Edges() []ent.Edge {
+	return nil
+}

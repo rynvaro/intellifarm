@@ -69,8 +69,17 @@ type CattleType func(*sql.Selector)
 // Conf is the predicate function for conf builders.
 type Conf func(*sql.Selector)
 
+// Dispence is the predicate function for dispence builders.
+type Dispence func(*sql.Selector)
+
 // Duty is the predicate function for duty builders.
 type Duty func(*sql.Selector)
+
+// Epidemic is the predicate function for epidemic builders.
+type Epidemic func(*sql.Selector)
+
+// EpidemicType is the predicate function for epidemictype builders.
+type EpidemicType func(*sql.Selector)
 
 // Estrus is the predicate function for estrus builders.
 type Estrus func(*sql.Selector)
@@ -83,6 +92,9 @@ type Farm func(*sql.Selector)
 
 // HairState is the predicate function for hairstate builders.
 type HairState func(*sql.Selector)
+
+// Inspection is the predicate function for inspection builders.
+type Inspection func(*sql.Selector)
 
 // Position is the predicate function for position builders.
 type Position func(*sql.Selector)
@@ -114,8 +126,17 @@ type ShedCategory func(*sql.Selector)
 // ShedType is the predicate function for shedtype builders.
 type ShedType func(*sql.Selector)
 
+// TreatmentResult is the predicate function for treatmentresult builders.
+type TreatmentResult func(*sql.Selector)
+
+// TreatmentState is the predicate function for treatmentstate builders.
+type TreatmentState func(*sql.Selector)
+
 // User is the predicate function for user builders.
 type User func(*sql.Selector)
+
+// Whereabouts is the predicate function for whereabouts builders.
+type Whereabouts func(*sql.Selector)
 
 // WindDirection is the predicate function for winddirection builders.
 type WindDirection func(*sql.Selector)

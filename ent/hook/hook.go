@@ -281,6 +281,19 @@ func (f ConfFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error)
 	return f(ctx, mv)
 }
 
+// The DispenceFunc type is an adapter to allow the use of ordinary
+// function as Dispence mutator.
+type DispenceFunc func(context.Context, *ent.DispenceMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f DispenceFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.DispenceMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DispenceMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The DutyFunc type is an adapter to allow the use of ordinary
 // function as Duty mutator.
 type DutyFunc func(context.Context, *ent.DutyMutation) (ent.Value, error)
@@ -290,6 +303,32 @@ func (f DutyFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error)
 	mv, ok := m.(*ent.DutyMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DutyMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The EpidemicFunc type is an adapter to allow the use of ordinary
+// function as Epidemic mutator.
+type EpidemicFunc func(context.Context, *ent.EpidemicMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f EpidemicFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.EpidemicMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.EpidemicMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The EpidemicTypeFunc type is an adapter to allow the use of ordinary
+// function as EpidemicType mutator.
+type EpidemicTypeFunc func(context.Context, *ent.EpidemicTypeMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f EpidemicTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.EpidemicTypeMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.EpidemicTypeMutation", m)
 	}
 	return f(ctx, mv)
 }
@@ -342,6 +381,19 @@ func (f HairStateFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, e
 	mv, ok := m.(*ent.HairStateMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.HairStateMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The InspectionFunc type is an adapter to allow the use of ordinary
+// function as Inspection mutator.
+type InspectionFunc func(context.Context, *ent.InspectionMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f InspectionFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.InspectionMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.InspectionMutation", m)
 	}
 	return f(ctx, mv)
 }
@@ -476,6 +528,32 @@ func (f ShedTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, er
 	return f(ctx, mv)
 }
 
+// The TreatmentResultFunc type is an adapter to allow the use of ordinary
+// function as TreatmentResult mutator.
+type TreatmentResultFunc func(context.Context, *ent.TreatmentResultMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f TreatmentResultFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.TreatmentResultMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.TreatmentResultMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The TreatmentStateFunc type is an adapter to allow the use of ordinary
+// function as TreatmentState mutator.
+type TreatmentStateFunc func(context.Context, *ent.TreatmentStateMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f TreatmentStateFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.TreatmentStateMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.TreatmentStateMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The UserFunc type is an adapter to allow the use of ordinary
 // function as User mutator.
 type UserFunc func(context.Context, *ent.UserMutation) (ent.Value, error)
@@ -485,6 +563,19 @@ func (f UserFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error)
 	mv, ok := m.(*ent.UserMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.UserMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The WhereaboutsFunc type is an adapter to allow the use of ordinary
+// function as Whereabouts mutator.
+type WhereaboutsFunc func(context.Context, *ent.WhereaboutsMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f WhereaboutsFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.WhereaboutsMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.WhereaboutsMutation", m)
 	}
 	return f(ctx, mv)
 }

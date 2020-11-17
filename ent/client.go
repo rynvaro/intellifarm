@@ -30,11 +30,15 @@ import (
 	"cattleai/ent/cattleowner"
 	"cattleai/ent/cattletype"
 	"cattleai/ent/conf"
+	"cattleai/ent/dispence"
 	"cattleai/ent/duty"
+	"cattleai/ent/epidemic"
+	"cattleai/ent/epidemictype"
 	"cattleai/ent/estrus"
 	"cattleai/ent/estrustype"
 	"cattleai/ent/farm"
 	"cattleai/ent/hairstate"
+	"cattleai/ent/inspection"
 	"cattleai/ent/position"
 	"cattleai/ent/pregnancytest"
 	"cattleai/ent/pregnancytestmethod"
@@ -45,7 +49,10 @@ import (
 	"cattleai/ent/shed"
 	"cattleai/ent/shedcategory"
 	"cattleai/ent/shedtype"
+	"cattleai/ent/treatmentresult"
+	"cattleai/ent/treatmentstate"
 	"cattleai/ent/user"
+	"cattleai/ent/whereabouts"
 	"cattleai/ent/winddirection"
 
 	"github.com/facebook/ent/dialect"
@@ -99,8 +106,14 @@ type Client struct {
 	CattleType *CattleTypeClient
 	// Conf is the client for interacting with the Conf builders.
 	Conf *ConfClient
+	// Dispence is the client for interacting with the Dispence builders.
+	Dispence *DispenceClient
 	// Duty is the client for interacting with the Duty builders.
 	Duty *DutyClient
+	// Epidemic is the client for interacting with the Epidemic builders.
+	Epidemic *EpidemicClient
+	// EpidemicType is the client for interacting with the EpidemicType builders.
+	EpidemicType *EpidemicTypeClient
 	// Estrus is the client for interacting with the Estrus builders.
 	Estrus *EstrusClient
 	// EstrusType is the client for interacting with the EstrusType builders.
@@ -109,6 +122,8 @@ type Client struct {
 	Farm *FarmClient
 	// HairState is the client for interacting with the HairState builders.
 	HairState *HairStateClient
+	// Inspection is the client for interacting with the Inspection builders.
+	Inspection *InspectionClient
 	// Position is the client for interacting with the Position builders.
 	Position *PositionClient
 	// PregnancyTest is the client for interacting with the PregnancyTest builders.
@@ -129,8 +144,14 @@ type Client struct {
 	ShedCategory *ShedCategoryClient
 	// ShedType is the client for interacting with the ShedType builders.
 	ShedType *ShedTypeClient
+	// TreatmentResult is the client for interacting with the TreatmentResult builders.
+	TreatmentResult *TreatmentResultClient
+	// TreatmentState is the client for interacting with the TreatmentState builders.
+	TreatmentState *TreatmentStateClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
+	// Whereabouts is the client for interacting with the Whereabouts builders.
+	Whereabouts *WhereaboutsClient
 	// WindDirection is the client for interacting with the WindDirection builders.
 	WindDirection *WindDirectionClient
 }
@@ -167,11 +188,15 @@ func (c *Client) init() {
 	c.CattleOwner = NewCattleOwnerClient(c.config)
 	c.CattleType = NewCattleTypeClient(c.config)
 	c.Conf = NewConfClient(c.config)
+	c.Dispence = NewDispenceClient(c.config)
 	c.Duty = NewDutyClient(c.config)
+	c.Epidemic = NewEpidemicClient(c.config)
+	c.EpidemicType = NewEpidemicTypeClient(c.config)
 	c.Estrus = NewEstrusClient(c.config)
 	c.EstrusType = NewEstrusTypeClient(c.config)
 	c.Farm = NewFarmClient(c.config)
 	c.HairState = NewHairStateClient(c.config)
+	c.Inspection = NewInspectionClient(c.config)
 	c.Position = NewPositionClient(c.config)
 	c.PregnancyTest = NewPregnancyTestClient(c.config)
 	c.PregnancyTestMethod = NewPregnancyTestMethodClient(c.config)
@@ -182,7 +207,10 @@ func (c *Client) init() {
 	c.Shed = NewShedClient(c.config)
 	c.ShedCategory = NewShedCategoryClient(c.config)
 	c.ShedType = NewShedTypeClient(c.config)
+	c.TreatmentResult = NewTreatmentResultClient(c.config)
+	c.TreatmentState = NewTreatmentStateClient(c.config)
 	c.User = NewUserClient(c.config)
+	c.Whereabouts = NewWhereaboutsClient(c.config)
 	c.WindDirection = NewWindDirectionClient(c.config)
 }
 
@@ -237,11 +265,15 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		CattleOwner:         NewCattleOwnerClient(cfg),
 		CattleType:          NewCattleTypeClient(cfg),
 		Conf:                NewConfClient(cfg),
+		Dispence:            NewDispenceClient(cfg),
 		Duty:                NewDutyClient(cfg),
+		Epidemic:            NewEpidemicClient(cfg),
+		EpidemicType:        NewEpidemicTypeClient(cfg),
 		Estrus:              NewEstrusClient(cfg),
 		EstrusType:          NewEstrusTypeClient(cfg),
 		Farm:                NewFarmClient(cfg),
 		HairState:           NewHairStateClient(cfg),
+		Inspection:          NewInspectionClient(cfg),
 		Position:            NewPositionClient(cfg),
 		PregnancyTest:       NewPregnancyTestClient(cfg),
 		PregnancyTestMethod: NewPregnancyTestMethodClient(cfg),
@@ -252,7 +284,10 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Shed:                NewShedClient(cfg),
 		ShedCategory:        NewShedCategoryClient(cfg),
 		ShedType:            NewShedTypeClient(cfg),
+		TreatmentResult:     NewTreatmentResultClient(cfg),
+		TreatmentState:      NewTreatmentStateClient(cfg),
 		User:                NewUserClient(cfg),
+		Whereabouts:         NewWhereaboutsClient(cfg),
 		WindDirection:       NewWindDirectionClient(cfg),
 	}, nil
 }
@@ -290,11 +325,15 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		CattleOwner:         NewCattleOwnerClient(cfg),
 		CattleType:          NewCattleTypeClient(cfg),
 		Conf:                NewConfClient(cfg),
+		Dispence:            NewDispenceClient(cfg),
 		Duty:                NewDutyClient(cfg),
+		Epidemic:            NewEpidemicClient(cfg),
+		EpidemicType:        NewEpidemicTypeClient(cfg),
 		Estrus:              NewEstrusClient(cfg),
 		EstrusType:          NewEstrusTypeClient(cfg),
 		Farm:                NewFarmClient(cfg),
 		HairState:           NewHairStateClient(cfg),
+		Inspection:          NewInspectionClient(cfg),
 		Position:            NewPositionClient(cfg),
 		PregnancyTest:       NewPregnancyTestClient(cfg),
 		PregnancyTestMethod: NewPregnancyTestMethodClient(cfg),
@@ -305,7 +344,10 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Shed:                NewShedClient(cfg),
 		ShedCategory:        NewShedCategoryClient(cfg),
 		ShedType:            NewShedTypeClient(cfg),
+		TreatmentResult:     NewTreatmentResultClient(cfg),
+		TreatmentState:      NewTreatmentStateClient(cfg),
 		User:                NewUserClient(cfg),
+		Whereabouts:         NewWhereaboutsClient(cfg),
 		WindDirection:       NewWindDirectionClient(cfg),
 	}, nil
 }
@@ -356,11 +398,15 @@ func (c *Client) Use(hooks ...Hook) {
 	c.CattleOwner.Use(hooks...)
 	c.CattleType.Use(hooks...)
 	c.Conf.Use(hooks...)
+	c.Dispence.Use(hooks...)
 	c.Duty.Use(hooks...)
+	c.Epidemic.Use(hooks...)
+	c.EpidemicType.Use(hooks...)
 	c.Estrus.Use(hooks...)
 	c.EstrusType.Use(hooks...)
 	c.Farm.Use(hooks...)
 	c.HairState.Use(hooks...)
+	c.Inspection.Use(hooks...)
 	c.Position.Use(hooks...)
 	c.PregnancyTest.Use(hooks...)
 	c.PregnancyTestMethod.Use(hooks...)
@@ -371,7 +417,10 @@ func (c *Client) Use(hooks ...Hook) {
 	c.Shed.Use(hooks...)
 	c.ShedCategory.Use(hooks...)
 	c.ShedType.Use(hooks...)
+	c.TreatmentResult.Use(hooks...)
+	c.TreatmentState.Use(hooks...)
 	c.User.Use(hooks...)
+	c.Whereabouts.Use(hooks...)
 	c.WindDirection.Use(hooks...)
 }
 
@@ -2223,6 +2272,94 @@ func (c *ConfClient) Hooks() []Hook {
 	return c.hooks.Conf
 }
 
+// DispenceClient is a client for the Dispence schema.
+type DispenceClient struct {
+	config
+}
+
+// NewDispenceClient returns a client for the Dispence from the given config.
+func NewDispenceClient(c config) *DispenceClient {
+	return &DispenceClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `dispence.Hooks(f(g(h())))`.
+func (c *DispenceClient) Use(hooks ...Hook) {
+	c.hooks.Dispence = append(c.hooks.Dispence, hooks...)
+}
+
+// Create returns a create builder for Dispence.
+func (c *DispenceClient) Create() *DispenceCreate {
+	mutation := newDispenceMutation(c.config, OpCreate)
+	return &DispenceCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Dispence entities.
+func (c *DispenceClient) CreateBulk(builders ...*DispenceCreate) *DispenceCreateBulk {
+	return &DispenceCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Dispence.
+func (c *DispenceClient) Update() *DispenceUpdate {
+	mutation := newDispenceMutation(c.config, OpUpdate)
+	return &DispenceUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *DispenceClient) UpdateOne(d *Dispence) *DispenceUpdateOne {
+	mutation := newDispenceMutation(c.config, OpUpdateOne, withDispence(d))
+	return &DispenceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *DispenceClient) UpdateOneID(id int64) *DispenceUpdateOne {
+	mutation := newDispenceMutation(c.config, OpUpdateOne, withDispenceID(id))
+	return &DispenceUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Dispence.
+func (c *DispenceClient) Delete() *DispenceDelete {
+	mutation := newDispenceMutation(c.config, OpDelete)
+	return &DispenceDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *DispenceClient) DeleteOne(d *Dispence) *DispenceDeleteOne {
+	return c.DeleteOneID(d.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *DispenceClient) DeleteOneID(id int64) *DispenceDeleteOne {
+	builder := c.Delete().Where(dispence.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &DispenceDeleteOne{builder}
+}
+
+// Query returns a query builder for Dispence.
+func (c *DispenceClient) Query() *DispenceQuery {
+	return &DispenceQuery{config: c.config}
+}
+
+// Get returns a Dispence entity by its id.
+func (c *DispenceClient) Get(ctx context.Context, id int64) (*Dispence, error) {
+	return c.Query().Where(dispence.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *DispenceClient) GetX(ctx context.Context, id int64) *Dispence {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *DispenceClient) Hooks() []Hook {
+	return c.hooks.Dispence
+}
+
 // DutyClient is a client for the Duty schema.
 type DutyClient struct {
 	config
@@ -2309,6 +2446,182 @@ func (c *DutyClient) GetX(ctx context.Context, id int64) *Duty {
 // Hooks returns the client hooks.
 func (c *DutyClient) Hooks() []Hook {
 	return c.hooks.Duty
+}
+
+// EpidemicClient is a client for the Epidemic schema.
+type EpidemicClient struct {
+	config
+}
+
+// NewEpidemicClient returns a client for the Epidemic from the given config.
+func NewEpidemicClient(c config) *EpidemicClient {
+	return &EpidemicClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `epidemic.Hooks(f(g(h())))`.
+func (c *EpidemicClient) Use(hooks ...Hook) {
+	c.hooks.Epidemic = append(c.hooks.Epidemic, hooks...)
+}
+
+// Create returns a create builder for Epidemic.
+func (c *EpidemicClient) Create() *EpidemicCreate {
+	mutation := newEpidemicMutation(c.config, OpCreate)
+	return &EpidemicCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Epidemic entities.
+func (c *EpidemicClient) CreateBulk(builders ...*EpidemicCreate) *EpidemicCreateBulk {
+	return &EpidemicCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Epidemic.
+func (c *EpidemicClient) Update() *EpidemicUpdate {
+	mutation := newEpidemicMutation(c.config, OpUpdate)
+	return &EpidemicUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *EpidemicClient) UpdateOne(e *Epidemic) *EpidemicUpdateOne {
+	mutation := newEpidemicMutation(c.config, OpUpdateOne, withEpidemic(e))
+	return &EpidemicUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *EpidemicClient) UpdateOneID(id int64) *EpidemicUpdateOne {
+	mutation := newEpidemicMutation(c.config, OpUpdateOne, withEpidemicID(id))
+	return &EpidemicUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Epidemic.
+func (c *EpidemicClient) Delete() *EpidemicDelete {
+	mutation := newEpidemicMutation(c.config, OpDelete)
+	return &EpidemicDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *EpidemicClient) DeleteOne(e *Epidemic) *EpidemicDeleteOne {
+	return c.DeleteOneID(e.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *EpidemicClient) DeleteOneID(id int64) *EpidemicDeleteOne {
+	builder := c.Delete().Where(epidemic.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &EpidemicDeleteOne{builder}
+}
+
+// Query returns a query builder for Epidemic.
+func (c *EpidemicClient) Query() *EpidemicQuery {
+	return &EpidemicQuery{config: c.config}
+}
+
+// Get returns a Epidemic entity by its id.
+func (c *EpidemicClient) Get(ctx context.Context, id int64) (*Epidemic, error) {
+	return c.Query().Where(epidemic.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *EpidemicClient) GetX(ctx context.Context, id int64) *Epidemic {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *EpidemicClient) Hooks() []Hook {
+	return c.hooks.Epidemic
+}
+
+// EpidemicTypeClient is a client for the EpidemicType schema.
+type EpidemicTypeClient struct {
+	config
+}
+
+// NewEpidemicTypeClient returns a client for the EpidemicType from the given config.
+func NewEpidemicTypeClient(c config) *EpidemicTypeClient {
+	return &EpidemicTypeClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `epidemictype.Hooks(f(g(h())))`.
+func (c *EpidemicTypeClient) Use(hooks ...Hook) {
+	c.hooks.EpidemicType = append(c.hooks.EpidemicType, hooks...)
+}
+
+// Create returns a create builder for EpidemicType.
+func (c *EpidemicTypeClient) Create() *EpidemicTypeCreate {
+	mutation := newEpidemicTypeMutation(c.config, OpCreate)
+	return &EpidemicTypeCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of EpidemicType entities.
+func (c *EpidemicTypeClient) CreateBulk(builders ...*EpidemicTypeCreate) *EpidemicTypeCreateBulk {
+	return &EpidemicTypeCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for EpidemicType.
+func (c *EpidemicTypeClient) Update() *EpidemicTypeUpdate {
+	mutation := newEpidemicTypeMutation(c.config, OpUpdate)
+	return &EpidemicTypeUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *EpidemicTypeClient) UpdateOne(et *EpidemicType) *EpidemicTypeUpdateOne {
+	mutation := newEpidemicTypeMutation(c.config, OpUpdateOne, withEpidemicType(et))
+	return &EpidemicTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *EpidemicTypeClient) UpdateOneID(id int64) *EpidemicTypeUpdateOne {
+	mutation := newEpidemicTypeMutation(c.config, OpUpdateOne, withEpidemicTypeID(id))
+	return &EpidemicTypeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for EpidemicType.
+func (c *EpidemicTypeClient) Delete() *EpidemicTypeDelete {
+	mutation := newEpidemicTypeMutation(c.config, OpDelete)
+	return &EpidemicTypeDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *EpidemicTypeClient) DeleteOne(et *EpidemicType) *EpidemicTypeDeleteOne {
+	return c.DeleteOneID(et.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *EpidemicTypeClient) DeleteOneID(id int64) *EpidemicTypeDeleteOne {
+	builder := c.Delete().Where(epidemictype.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &EpidemicTypeDeleteOne{builder}
+}
+
+// Query returns a query builder for EpidemicType.
+func (c *EpidemicTypeClient) Query() *EpidemicTypeQuery {
+	return &EpidemicTypeQuery{config: c.config}
+}
+
+// Get returns a EpidemicType entity by its id.
+func (c *EpidemicTypeClient) Get(ctx context.Context, id int64) (*EpidemicType, error) {
+	return c.Query().Where(epidemictype.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *EpidemicTypeClient) GetX(ctx context.Context, id int64) *EpidemicType {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *EpidemicTypeClient) Hooks() []Hook {
+	return c.hooks.EpidemicType
 }
 
 // EstrusClient is a client for the Estrus schema.
@@ -2661,6 +2974,94 @@ func (c *HairStateClient) GetX(ctx context.Context, id int64) *HairState {
 // Hooks returns the client hooks.
 func (c *HairStateClient) Hooks() []Hook {
 	return c.hooks.HairState
+}
+
+// InspectionClient is a client for the Inspection schema.
+type InspectionClient struct {
+	config
+}
+
+// NewInspectionClient returns a client for the Inspection from the given config.
+func NewInspectionClient(c config) *InspectionClient {
+	return &InspectionClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `inspection.Hooks(f(g(h())))`.
+func (c *InspectionClient) Use(hooks ...Hook) {
+	c.hooks.Inspection = append(c.hooks.Inspection, hooks...)
+}
+
+// Create returns a create builder for Inspection.
+func (c *InspectionClient) Create() *InspectionCreate {
+	mutation := newInspectionMutation(c.config, OpCreate)
+	return &InspectionCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Inspection entities.
+func (c *InspectionClient) CreateBulk(builders ...*InspectionCreate) *InspectionCreateBulk {
+	return &InspectionCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Inspection.
+func (c *InspectionClient) Update() *InspectionUpdate {
+	mutation := newInspectionMutation(c.config, OpUpdate)
+	return &InspectionUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *InspectionClient) UpdateOne(i *Inspection) *InspectionUpdateOne {
+	mutation := newInspectionMutation(c.config, OpUpdateOne, withInspection(i))
+	return &InspectionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *InspectionClient) UpdateOneID(id int64) *InspectionUpdateOne {
+	mutation := newInspectionMutation(c.config, OpUpdateOne, withInspectionID(id))
+	return &InspectionUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Inspection.
+func (c *InspectionClient) Delete() *InspectionDelete {
+	mutation := newInspectionMutation(c.config, OpDelete)
+	return &InspectionDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *InspectionClient) DeleteOne(i *Inspection) *InspectionDeleteOne {
+	return c.DeleteOneID(i.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *InspectionClient) DeleteOneID(id int64) *InspectionDeleteOne {
+	builder := c.Delete().Where(inspection.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &InspectionDeleteOne{builder}
+}
+
+// Query returns a query builder for Inspection.
+func (c *InspectionClient) Query() *InspectionQuery {
+	return &InspectionQuery{config: c.config}
+}
+
+// Get returns a Inspection entity by its id.
+func (c *InspectionClient) Get(ctx context.Context, id int64) (*Inspection, error) {
+	return c.Query().Where(inspection.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *InspectionClient) GetX(ctx context.Context, id int64) *Inspection {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *InspectionClient) Hooks() []Hook {
+	return c.hooks.Inspection
 }
 
 // PositionClient is a client for the Position schema.
@@ -3543,6 +3944,182 @@ func (c *ShedTypeClient) Hooks() []Hook {
 	return c.hooks.ShedType
 }
 
+// TreatmentResultClient is a client for the TreatmentResult schema.
+type TreatmentResultClient struct {
+	config
+}
+
+// NewTreatmentResultClient returns a client for the TreatmentResult from the given config.
+func NewTreatmentResultClient(c config) *TreatmentResultClient {
+	return &TreatmentResultClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `treatmentresult.Hooks(f(g(h())))`.
+func (c *TreatmentResultClient) Use(hooks ...Hook) {
+	c.hooks.TreatmentResult = append(c.hooks.TreatmentResult, hooks...)
+}
+
+// Create returns a create builder for TreatmentResult.
+func (c *TreatmentResultClient) Create() *TreatmentResultCreate {
+	mutation := newTreatmentResultMutation(c.config, OpCreate)
+	return &TreatmentResultCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of TreatmentResult entities.
+func (c *TreatmentResultClient) CreateBulk(builders ...*TreatmentResultCreate) *TreatmentResultCreateBulk {
+	return &TreatmentResultCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for TreatmentResult.
+func (c *TreatmentResultClient) Update() *TreatmentResultUpdate {
+	mutation := newTreatmentResultMutation(c.config, OpUpdate)
+	return &TreatmentResultUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *TreatmentResultClient) UpdateOne(tr *TreatmentResult) *TreatmentResultUpdateOne {
+	mutation := newTreatmentResultMutation(c.config, OpUpdateOne, withTreatmentResult(tr))
+	return &TreatmentResultUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *TreatmentResultClient) UpdateOneID(id int64) *TreatmentResultUpdateOne {
+	mutation := newTreatmentResultMutation(c.config, OpUpdateOne, withTreatmentResultID(id))
+	return &TreatmentResultUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for TreatmentResult.
+func (c *TreatmentResultClient) Delete() *TreatmentResultDelete {
+	mutation := newTreatmentResultMutation(c.config, OpDelete)
+	return &TreatmentResultDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *TreatmentResultClient) DeleteOne(tr *TreatmentResult) *TreatmentResultDeleteOne {
+	return c.DeleteOneID(tr.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *TreatmentResultClient) DeleteOneID(id int64) *TreatmentResultDeleteOne {
+	builder := c.Delete().Where(treatmentresult.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &TreatmentResultDeleteOne{builder}
+}
+
+// Query returns a query builder for TreatmentResult.
+func (c *TreatmentResultClient) Query() *TreatmentResultQuery {
+	return &TreatmentResultQuery{config: c.config}
+}
+
+// Get returns a TreatmentResult entity by its id.
+func (c *TreatmentResultClient) Get(ctx context.Context, id int64) (*TreatmentResult, error) {
+	return c.Query().Where(treatmentresult.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *TreatmentResultClient) GetX(ctx context.Context, id int64) *TreatmentResult {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *TreatmentResultClient) Hooks() []Hook {
+	return c.hooks.TreatmentResult
+}
+
+// TreatmentStateClient is a client for the TreatmentState schema.
+type TreatmentStateClient struct {
+	config
+}
+
+// NewTreatmentStateClient returns a client for the TreatmentState from the given config.
+func NewTreatmentStateClient(c config) *TreatmentStateClient {
+	return &TreatmentStateClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `treatmentstate.Hooks(f(g(h())))`.
+func (c *TreatmentStateClient) Use(hooks ...Hook) {
+	c.hooks.TreatmentState = append(c.hooks.TreatmentState, hooks...)
+}
+
+// Create returns a create builder for TreatmentState.
+func (c *TreatmentStateClient) Create() *TreatmentStateCreate {
+	mutation := newTreatmentStateMutation(c.config, OpCreate)
+	return &TreatmentStateCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of TreatmentState entities.
+func (c *TreatmentStateClient) CreateBulk(builders ...*TreatmentStateCreate) *TreatmentStateCreateBulk {
+	return &TreatmentStateCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for TreatmentState.
+func (c *TreatmentStateClient) Update() *TreatmentStateUpdate {
+	mutation := newTreatmentStateMutation(c.config, OpUpdate)
+	return &TreatmentStateUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *TreatmentStateClient) UpdateOne(ts *TreatmentState) *TreatmentStateUpdateOne {
+	mutation := newTreatmentStateMutation(c.config, OpUpdateOne, withTreatmentState(ts))
+	return &TreatmentStateUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *TreatmentStateClient) UpdateOneID(id int64) *TreatmentStateUpdateOne {
+	mutation := newTreatmentStateMutation(c.config, OpUpdateOne, withTreatmentStateID(id))
+	return &TreatmentStateUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for TreatmentState.
+func (c *TreatmentStateClient) Delete() *TreatmentStateDelete {
+	mutation := newTreatmentStateMutation(c.config, OpDelete)
+	return &TreatmentStateDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *TreatmentStateClient) DeleteOne(ts *TreatmentState) *TreatmentStateDeleteOne {
+	return c.DeleteOneID(ts.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *TreatmentStateClient) DeleteOneID(id int64) *TreatmentStateDeleteOne {
+	builder := c.Delete().Where(treatmentstate.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &TreatmentStateDeleteOne{builder}
+}
+
+// Query returns a query builder for TreatmentState.
+func (c *TreatmentStateClient) Query() *TreatmentStateQuery {
+	return &TreatmentStateQuery{config: c.config}
+}
+
+// Get returns a TreatmentState entity by its id.
+func (c *TreatmentStateClient) Get(ctx context.Context, id int64) (*TreatmentState, error) {
+	return c.Query().Where(treatmentstate.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *TreatmentStateClient) GetX(ctx context.Context, id int64) *TreatmentState {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *TreatmentStateClient) Hooks() []Hook {
+	return c.hooks.TreatmentState
+}
+
 // UserClient is a client for the User schema.
 type UserClient struct {
 	config
@@ -3629,6 +4206,94 @@ func (c *UserClient) GetX(ctx context.Context, id int64) *User {
 // Hooks returns the client hooks.
 func (c *UserClient) Hooks() []Hook {
 	return c.hooks.User
+}
+
+// WhereaboutsClient is a client for the Whereabouts schema.
+type WhereaboutsClient struct {
+	config
+}
+
+// NewWhereaboutsClient returns a client for the Whereabouts from the given config.
+func NewWhereaboutsClient(c config) *WhereaboutsClient {
+	return &WhereaboutsClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `whereabouts.Hooks(f(g(h())))`.
+func (c *WhereaboutsClient) Use(hooks ...Hook) {
+	c.hooks.Whereabouts = append(c.hooks.Whereabouts, hooks...)
+}
+
+// Create returns a create builder for Whereabouts.
+func (c *WhereaboutsClient) Create() *WhereaboutsCreate {
+	mutation := newWhereaboutsMutation(c.config, OpCreate)
+	return &WhereaboutsCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Whereabouts entities.
+func (c *WhereaboutsClient) CreateBulk(builders ...*WhereaboutsCreate) *WhereaboutsCreateBulk {
+	return &WhereaboutsCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Whereabouts.
+func (c *WhereaboutsClient) Update() *WhereaboutsUpdate {
+	mutation := newWhereaboutsMutation(c.config, OpUpdate)
+	return &WhereaboutsUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *WhereaboutsClient) UpdateOne(w *Whereabouts) *WhereaboutsUpdateOne {
+	mutation := newWhereaboutsMutation(c.config, OpUpdateOne, withWhereabouts(w))
+	return &WhereaboutsUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *WhereaboutsClient) UpdateOneID(id int64) *WhereaboutsUpdateOne {
+	mutation := newWhereaboutsMutation(c.config, OpUpdateOne, withWhereaboutsID(id))
+	return &WhereaboutsUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Whereabouts.
+func (c *WhereaboutsClient) Delete() *WhereaboutsDelete {
+	mutation := newWhereaboutsMutation(c.config, OpDelete)
+	return &WhereaboutsDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *WhereaboutsClient) DeleteOne(w *Whereabouts) *WhereaboutsDeleteOne {
+	return c.DeleteOneID(w.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *WhereaboutsClient) DeleteOneID(id int64) *WhereaboutsDeleteOne {
+	builder := c.Delete().Where(whereabouts.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &WhereaboutsDeleteOne{builder}
+}
+
+// Query returns a query builder for Whereabouts.
+func (c *WhereaboutsClient) Query() *WhereaboutsQuery {
+	return &WhereaboutsQuery{config: c.config}
+}
+
+// Get returns a Whereabouts entity by its id.
+func (c *WhereaboutsClient) Get(ctx context.Context, id int64) (*Whereabouts, error) {
+	return c.Query().Where(whereabouts.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *WhereaboutsClient) GetX(ctx context.Context, id int64) *Whereabouts {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *WhereaboutsClient) Hooks() []Hook {
+	return c.hooks.Whereabouts
 }
 
 // WindDirectionClient is a client for the WindDirection schema.

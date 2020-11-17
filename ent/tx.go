@@ -54,6 +54,8 @@ type Tx struct {
 	CattleType *CattleTypeClient
 	// Conf is the client for interacting with the Conf builders.
 	Conf *ConfClient
+	// Disinfect is the client for interacting with the Disinfect builders.
+	Disinfect *DisinfectClient
 	// Dispence is the client for interacting with the Dispence builders.
 	Dispence *DispenceClient
 	// Duty is the client for interacting with the Duty builders.
@@ -70,6 +72,8 @@ type Tx struct {
 	Farm *FarmClient
 	// HairState is the client for interacting with the HairState builders.
 	HairState *HairStateClient
+	// Immunity is the client for interacting with the Immunity builders.
+	Immunity *ImmunityClient
 	// Inspection is the client for interacting with the Inspection builders.
 	Inspection *InspectionClient
 	// Position is the client for interacting with the Position builders.
@@ -258,6 +262,7 @@ func (tx *Tx) init() {
 	tx.CattleOwner = NewCattleOwnerClient(tx.config)
 	tx.CattleType = NewCattleTypeClient(tx.config)
 	tx.Conf = NewConfClient(tx.config)
+	tx.Disinfect = NewDisinfectClient(tx.config)
 	tx.Dispence = NewDispenceClient(tx.config)
 	tx.Duty = NewDutyClient(tx.config)
 	tx.Epidemic = NewEpidemicClient(tx.config)
@@ -266,6 +271,7 @@ func (tx *Tx) init() {
 	tx.EstrusType = NewEstrusTypeClient(tx.config)
 	tx.Farm = NewFarmClient(tx.config)
 	tx.HairState = NewHairStateClient(tx.config)
+	tx.Immunity = NewImmunityClient(tx.config)
 	tx.Inspection = NewInspectionClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)
 	tx.PregnancyTest = NewPregnancyTestClient(tx.config)

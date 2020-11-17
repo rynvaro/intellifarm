@@ -713,6 +713,30 @@ func (f ConfMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) 
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.ConfMutation", m)
 }
 
+// The DisinfectQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type DisinfectQueryRuleFunc func(context.Context, *ent.DisinfectQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f DisinfectQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.DisinfectQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.DisinfectQuery", q)
+}
+
+// The DisinfectMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type DisinfectMutationRuleFunc func(context.Context, *ent.DisinfectMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f DisinfectMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.DisinfectMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.DisinfectMutation", m)
+}
+
 // The DispenceQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type DispenceQueryRuleFunc func(context.Context, *ent.DispenceQuery) error
@@ -903,6 +927,30 @@ func (f HairStateMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutat
 		return f(ctx, m)
 	}
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.HairStateMutation", m)
+}
+
+// The ImmunityQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type ImmunityQueryRuleFunc func(context.Context, *ent.ImmunityQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f ImmunityQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.ImmunityQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.ImmunityQuery", q)
+}
+
+// The ImmunityMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type ImmunityMutationRuleFunc func(context.Context, *ent.ImmunityMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f ImmunityMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.ImmunityMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.ImmunityMutation", m)
 }
 
 // The InspectionQueryRuleFunc type is an adapter to allow the use of ordinary

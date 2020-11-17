@@ -21,6 +21,7 @@ import (
 	"cattleai/pkg/cattleowners"
 	"cattleai/pkg/cattles"
 	"cattleai/pkg/cattletypes"
+	"cattleai/pkg/disinfects"
 	"cattleai/pkg/duties"
 	"cattleai/pkg/epidemics"
 	"cattleai/pkg/epidemictypes"
@@ -28,6 +29,7 @@ import (
 	"cattleai/pkg/estrustypes"
 	"cattleai/pkg/farms"
 	"cattleai/pkg/hairstates"
+	"cattleai/pkg/immunities"
 	"cattleai/pkg/inspections"
 	"cattleai/pkg/positions"
 	"cattleai/pkg/pregnancytestmethods"
@@ -123,4 +125,8 @@ func Register(g *gin.RouterGroup) {
 	whereabouts.RegisterRoutes(g)
 
 	inspections.RegisterRoutes(g)
+
+	immunities.RegisterRoutes(g)
+
+	disinfects.RegisterRoutes(g)
 }

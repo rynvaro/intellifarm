@@ -281,6 +281,19 @@ func (f ConfFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error)
 	return f(ctx, mv)
 }
 
+// The DisinfectFunc type is an adapter to allow the use of ordinary
+// function as Disinfect mutator.
+type DisinfectFunc func(context.Context, *ent.DisinfectMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f DisinfectFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.DisinfectMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DisinfectMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The DispenceFunc type is an adapter to allow the use of ordinary
 // function as Dispence mutator.
 type DispenceFunc func(context.Context, *ent.DispenceMutation) (ent.Value, error)
@@ -381,6 +394,19 @@ func (f HairStateFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, e
 	mv, ok := m.(*ent.HairStateMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.HairStateMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The ImmunityFunc type is an adapter to allow the use of ordinary
+// function as Immunity mutator.
+type ImmunityFunc func(context.Context, *ent.ImmunityMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f ImmunityFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.ImmunityMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ImmunityMutation", m)
 	}
 	return f(ctx, mv)
 }

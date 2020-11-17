@@ -69,6 +69,9 @@ type CattleType func(*sql.Selector)
 // Conf is the predicate function for conf builders.
 type Conf func(*sql.Selector)
 
+// Disinfect is the predicate function for disinfect builders.
+type Disinfect func(*sql.Selector)
+
 // Dispence is the predicate function for dispence builders.
 type Dispence func(*sql.Selector)
 
@@ -92,6 +95,9 @@ type Farm func(*sql.Selector)
 
 // HairState is the predicate function for hairstate builders.
 type HairState func(*sql.Selector)
+
+// Immunity is the predicate function for immunity builders.
+type Immunity func(*sql.Selector)
 
 // Inspection is the predicate function for inspection builders.
 type Inspection func(*sql.Selector)

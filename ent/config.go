@@ -45,6 +45,7 @@ type hooks struct {
 	CattleOwner         []ent.Hook
 	CattleType          []ent.Hook
 	Conf                []ent.Hook
+	Disinfect           []ent.Hook
 	Dispence            []ent.Hook
 	Duty                []ent.Hook
 	Epidemic            []ent.Hook
@@ -53,6 +54,7 @@ type hooks struct {
 	EstrusType          []ent.Hook
 	Farm                []ent.Hook
 	HairState           []ent.Hook
+	Immunity            []ent.Hook
 	Inspection          []ent.Hook
 	Position            []ent.Hook
 	PregnancyTest       []ent.Hook

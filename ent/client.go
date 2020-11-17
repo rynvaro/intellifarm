@@ -30,6 +30,7 @@ import (
 	"cattleai/ent/cattleowner"
 	"cattleai/ent/cattletype"
 	"cattleai/ent/conf"
+	"cattleai/ent/disinfect"
 	"cattleai/ent/dispence"
 	"cattleai/ent/duty"
 	"cattleai/ent/epidemic"
@@ -38,6 +39,7 @@ import (
 	"cattleai/ent/estrustype"
 	"cattleai/ent/farm"
 	"cattleai/ent/hairstate"
+	"cattleai/ent/immunity"
 	"cattleai/ent/inspection"
 	"cattleai/ent/position"
 	"cattleai/ent/pregnancytest"
@@ -106,6 +108,8 @@ type Client struct {
 	CattleType *CattleTypeClient
 	// Conf is the client for interacting with the Conf builders.
 	Conf *ConfClient
+	// Disinfect is the client for interacting with the Disinfect builders.
+	Disinfect *DisinfectClient
 	// Dispence is the client for interacting with the Dispence builders.
 	Dispence *DispenceClient
 	// Duty is the client for interacting with the Duty builders.
@@ -122,6 +126,8 @@ type Client struct {
 	Farm *FarmClient
 	// HairState is the client for interacting with the HairState builders.
 	HairState *HairStateClient
+	// Immunity is the client for interacting with the Immunity builders.
+	Immunity *ImmunityClient
 	// Inspection is the client for interacting with the Inspection builders.
 	Inspection *InspectionClient
 	// Position is the client for interacting with the Position builders.
@@ -188,6 +194,7 @@ func (c *Client) init() {
 	c.CattleOwner = NewCattleOwnerClient(c.config)
 	c.CattleType = NewCattleTypeClient(c.config)
 	c.Conf = NewConfClient(c.config)
+	c.Disinfect = NewDisinfectClient(c.config)
 	c.Dispence = NewDispenceClient(c.config)
 	c.Duty = NewDutyClient(c.config)
 	c.Epidemic = NewEpidemicClient(c.config)
@@ -196,6 +203,7 @@ func (c *Client) init() {
 	c.EstrusType = NewEstrusTypeClient(c.config)
 	c.Farm = NewFarmClient(c.config)
 	c.HairState = NewHairStateClient(c.config)
+	c.Immunity = NewImmunityClient(c.config)
 	c.Inspection = NewInspectionClient(c.config)
 	c.Position = NewPositionClient(c.config)
 	c.PregnancyTest = NewPregnancyTestClient(c.config)
@@ -265,6 +273,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		CattleOwner:         NewCattleOwnerClient(cfg),
 		CattleType:          NewCattleTypeClient(cfg),
 		Conf:                NewConfClient(cfg),
+		Disinfect:           NewDisinfectClient(cfg),
 		Dispence:            NewDispenceClient(cfg),
 		Duty:                NewDutyClient(cfg),
 		Epidemic:            NewEpidemicClient(cfg),
@@ -273,6 +282,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		EstrusType:          NewEstrusTypeClient(cfg),
 		Farm:                NewFarmClient(cfg),
 		HairState:           NewHairStateClient(cfg),
+		Immunity:            NewImmunityClient(cfg),
 		Inspection:          NewInspectionClient(cfg),
 		Position:            NewPositionClient(cfg),
 		PregnancyTest:       NewPregnancyTestClient(cfg),
@@ -325,6 +335,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		CattleOwner:         NewCattleOwnerClient(cfg),
 		CattleType:          NewCattleTypeClient(cfg),
 		Conf:                NewConfClient(cfg),
+		Disinfect:           NewDisinfectClient(cfg),
 		Dispence:            NewDispenceClient(cfg),
 		Duty:                NewDutyClient(cfg),
 		Epidemic:            NewEpidemicClient(cfg),
@@ -333,6 +344,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		EstrusType:          NewEstrusTypeClient(cfg),
 		Farm:                NewFarmClient(cfg),
 		HairState:           NewHairStateClient(cfg),
+		Immunity:            NewImmunityClient(cfg),
 		Inspection:          NewInspectionClient(cfg),
 		Position:            NewPositionClient(cfg),
 		PregnancyTest:       NewPregnancyTestClient(cfg),
@@ -398,6 +410,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.CattleOwner.Use(hooks...)
 	c.CattleType.Use(hooks...)
 	c.Conf.Use(hooks...)
+	c.Disinfect.Use(hooks...)
 	c.Dispence.Use(hooks...)
 	c.Duty.Use(hooks...)
 	c.Epidemic.Use(hooks...)
@@ -406,6 +419,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.EstrusType.Use(hooks...)
 	c.Farm.Use(hooks...)
 	c.HairState.Use(hooks...)
+	c.Immunity.Use(hooks...)
 	c.Inspection.Use(hooks...)
 	c.Position.Use(hooks...)
 	c.PregnancyTest.Use(hooks...)
@@ -2272,6 +2286,94 @@ func (c *ConfClient) Hooks() []Hook {
 	return c.hooks.Conf
 }
 
+// DisinfectClient is a client for the Disinfect schema.
+type DisinfectClient struct {
+	config
+}
+
+// NewDisinfectClient returns a client for the Disinfect from the given config.
+func NewDisinfectClient(c config) *DisinfectClient {
+	return &DisinfectClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `disinfect.Hooks(f(g(h())))`.
+func (c *DisinfectClient) Use(hooks ...Hook) {
+	c.hooks.Disinfect = append(c.hooks.Disinfect, hooks...)
+}
+
+// Create returns a create builder for Disinfect.
+func (c *DisinfectClient) Create() *DisinfectCreate {
+	mutation := newDisinfectMutation(c.config, OpCreate)
+	return &DisinfectCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Disinfect entities.
+func (c *DisinfectClient) CreateBulk(builders ...*DisinfectCreate) *DisinfectCreateBulk {
+	return &DisinfectCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Disinfect.
+func (c *DisinfectClient) Update() *DisinfectUpdate {
+	mutation := newDisinfectMutation(c.config, OpUpdate)
+	return &DisinfectUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *DisinfectClient) UpdateOne(d *Disinfect) *DisinfectUpdateOne {
+	mutation := newDisinfectMutation(c.config, OpUpdateOne, withDisinfect(d))
+	return &DisinfectUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *DisinfectClient) UpdateOneID(id int64) *DisinfectUpdateOne {
+	mutation := newDisinfectMutation(c.config, OpUpdateOne, withDisinfectID(id))
+	return &DisinfectUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Disinfect.
+func (c *DisinfectClient) Delete() *DisinfectDelete {
+	mutation := newDisinfectMutation(c.config, OpDelete)
+	return &DisinfectDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *DisinfectClient) DeleteOne(d *Disinfect) *DisinfectDeleteOne {
+	return c.DeleteOneID(d.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *DisinfectClient) DeleteOneID(id int64) *DisinfectDeleteOne {
+	builder := c.Delete().Where(disinfect.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &DisinfectDeleteOne{builder}
+}
+
+// Query returns a query builder for Disinfect.
+func (c *DisinfectClient) Query() *DisinfectQuery {
+	return &DisinfectQuery{config: c.config}
+}
+
+// Get returns a Disinfect entity by its id.
+func (c *DisinfectClient) Get(ctx context.Context, id int64) (*Disinfect, error) {
+	return c.Query().Where(disinfect.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *DisinfectClient) GetX(ctx context.Context, id int64) *Disinfect {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *DisinfectClient) Hooks() []Hook {
+	return c.hooks.Disinfect
+}
+
 // DispenceClient is a client for the Dispence schema.
 type DispenceClient struct {
 	config
@@ -2974,6 +3076,94 @@ func (c *HairStateClient) GetX(ctx context.Context, id int64) *HairState {
 // Hooks returns the client hooks.
 func (c *HairStateClient) Hooks() []Hook {
 	return c.hooks.HairState
+}
+
+// ImmunityClient is a client for the Immunity schema.
+type ImmunityClient struct {
+	config
+}
+
+// NewImmunityClient returns a client for the Immunity from the given config.
+func NewImmunityClient(c config) *ImmunityClient {
+	return &ImmunityClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `immunity.Hooks(f(g(h())))`.
+func (c *ImmunityClient) Use(hooks ...Hook) {
+	c.hooks.Immunity = append(c.hooks.Immunity, hooks...)
+}
+
+// Create returns a create builder for Immunity.
+func (c *ImmunityClient) Create() *ImmunityCreate {
+	mutation := newImmunityMutation(c.config, OpCreate)
+	return &ImmunityCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Immunity entities.
+func (c *ImmunityClient) CreateBulk(builders ...*ImmunityCreate) *ImmunityCreateBulk {
+	return &ImmunityCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Immunity.
+func (c *ImmunityClient) Update() *ImmunityUpdate {
+	mutation := newImmunityMutation(c.config, OpUpdate)
+	return &ImmunityUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *ImmunityClient) UpdateOne(i *Immunity) *ImmunityUpdateOne {
+	mutation := newImmunityMutation(c.config, OpUpdateOne, withImmunity(i))
+	return &ImmunityUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *ImmunityClient) UpdateOneID(id int64) *ImmunityUpdateOne {
+	mutation := newImmunityMutation(c.config, OpUpdateOne, withImmunityID(id))
+	return &ImmunityUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Immunity.
+func (c *ImmunityClient) Delete() *ImmunityDelete {
+	mutation := newImmunityMutation(c.config, OpDelete)
+	return &ImmunityDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *ImmunityClient) DeleteOne(i *Immunity) *ImmunityDeleteOne {
+	return c.DeleteOneID(i.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *ImmunityClient) DeleteOneID(id int64) *ImmunityDeleteOne {
+	builder := c.Delete().Where(immunity.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &ImmunityDeleteOne{builder}
+}
+
+// Query returns a query builder for Immunity.
+func (c *ImmunityClient) Query() *ImmunityQuery {
+	return &ImmunityQuery{config: c.config}
+}
+
+// Get returns a Immunity entity by its id.
+func (c *ImmunityClient) Get(ctx context.Context, id int64) (*Immunity, error) {
+	return c.Query().Where(immunity.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *ImmunityClient) GetX(ctx context.Context, id int64) *Immunity {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *ImmunityClient) Hooks() []Hook {
+	return c.hooks.Immunity
 }
 
 // InspectionClient is a client for the Inspection schema.

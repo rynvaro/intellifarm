@@ -414,6 +414,30 @@ var (
 		PrimaryKey:  []*schema.Column{ConfsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// DisinfectsColumns holds the columns for the "disinfects" table.
+	DisinfectsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "date", Type: field.TypeInt64},
+		{Name: "type_id", Type: field.TypeInt},
+		{Name: "type_name", Type: field.TypeString},
+		{Name: "method_id", Type: field.TypeInt},
+		{Name: "method_name", Type: field.TypeString},
+		{Name: "way_id", Type: field.TypeInt},
+		{Name: "way_name", Type: field.TypeString},
+		{Name: "drug", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// DisinfectsTable holds the schema information for the "disinfects" table.
+	DisinfectsTable = &schema.Table{
+		Name:        "disinfects",
+		Columns:     DisinfectsColumns,
+		PrimaryKey:  []*schema.Column{DisinfectsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// DispencesColumns holds the columns for the "dispences" table.
 	DispencesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -552,6 +576,29 @@ var (
 		Name:        "hair_states",
 		Columns:     HairStatesColumns,
 		PrimaryKey:  []*schema.Column{HairStatesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// ImmunitiesColumns holds the columns for the "immunities" table.
+	ImmunitiesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "ear_number", Type: field.TypeString},
+		{Name: "shed_name", Type: field.TypeString},
+		{Name: "date", Type: field.TypeInt64},
+		{Name: "item_id", Type: field.TypeInt},
+		{Name: "item_name", Type: field.TypeString},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "drug", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// ImmunitiesTable holds the schema information for the "immunities" table.
+	ImmunitiesTable = &schema.Table{
+		Name:        "immunities",
+		Columns:     ImmunitiesColumns,
+		PrimaryKey:  []*schema.Column{ImmunitiesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// InspectionsColumns holds the columns for the "inspections" table.
@@ -838,6 +885,7 @@ var (
 		CattleOwnersTable,
 		CattleTypesTable,
 		ConfsTable,
+		DisinfectsTable,
 		DispencesTable,
 		DutiesTable,
 		EpidemicsTable,
@@ -846,6 +894,7 @@ var (
 		EstrusTypesTable,
 		FarmsTable,
 		HairStatesTable,
+		ImmunitiesTable,
 		InspectionsTable,
 		PositionsTable,
 		PregnancyTestsTable,

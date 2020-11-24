@@ -630,6 +630,55 @@ var (
 		PrimaryKey:  []*schema.Column{InspectionsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// MaterialsColumns holds the columns for the "materials" table.
+	MaterialsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "seq_number", Type: field.TypeString},
+		{Name: "date", Type: field.TypeInt64},
+		{Name: "type", Type: field.TypeInt},
+		{Name: "count", Type: field.TypeInt},
+		{Name: "category", Type: field.TypeInt},
+		{Name: "status", Type: field.TypeInt},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "pay_at", Type: field.TypeInt64},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// MaterialsTable holds the schema information for the "materials" table.
+	MaterialsTable = &schema.Table{
+		Name:        "materials",
+		Columns:     MaterialsColumns,
+		PrimaryKey:  []*schema.Column{MaterialsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// MaterialTestsColumns holds the columns for the "material_tests" table.
+	MaterialTestsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "seq_number", Type: field.TypeString},
+		{Name: "add_seq_number", Type: field.TypeString},
+		{Name: "date", Type: field.TypeInt64},
+		{Name: "type", Type: field.TypeInt},
+		{Name: "category", Type: field.TypeInt},
+		{Name: "material_category", Type: field.TypeInt},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// MaterialTestsTable holds the schema information for the "material_tests" table.
+	MaterialTestsTable = &schema.Table{
+		Name:        "material_tests",
+		Columns:     MaterialTestsColumns,
+		PrimaryKey:  []*schema.Column{MaterialTestsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// PositionsColumns holds the columns for the "positions" table.
 	PositionsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -896,6 +945,8 @@ var (
 		HairStatesTable,
 		ImmunitiesTable,
 		InspectionsTable,
+		MaterialsTable,
+		MaterialTestsTable,
 		PositionsTable,
 		PregnancyTestsTable,
 		PregnancyTestMethodsTable,

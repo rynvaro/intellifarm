@@ -76,6 +76,10 @@ type Tx struct {
 	Immunity *ImmunityClient
 	// Inspection is the client for interacting with the Inspection builders.
 	Inspection *InspectionClient
+	// Material is the client for interacting with the Material builders.
+	Material *MaterialClient
+	// MaterialTest is the client for interacting with the MaterialTest builders.
+	MaterialTest *MaterialTestClient
 	// Position is the client for interacting with the Position builders.
 	Position *PositionClient
 	// PregnancyTest is the client for interacting with the PregnancyTest builders.
@@ -273,6 +277,8 @@ func (tx *Tx) init() {
 	tx.HairState = NewHairStateClient(tx.config)
 	tx.Immunity = NewImmunityClient(tx.config)
 	tx.Inspection = NewInspectionClient(tx.config)
+	tx.Material = NewMaterialClient(tx.config)
+	tx.MaterialTest = NewMaterialTestClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)
 	tx.PregnancyTest = NewPregnancyTestClient(tx.config)
 	tx.PregnancyTestMethod = NewPregnancyTestMethodClient(tx.config)

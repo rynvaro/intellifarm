@@ -31,6 +31,8 @@ import (
 	"cattleai/pkg/hairstates"
 	"cattleai/pkg/immunities"
 	"cattleai/pkg/inspections"
+	"cattleai/pkg/materials"
+	"cattleai/pkg/materialtests"
 	"cattleai/pkg/positions"
 	"cattleai/pkg/pregnancytestmethods"
 	"cattleai/pkg/pregnancytestresults"
@@ -129,4 +131,7 @@ func Register(g *gin.RouterGroup) {
 	immunities.RegisterRoutes(g)
 
 	disinfects.RegisterRoutes(g)
+
+	materials.RegisterRoutes(g)
+	materialtests.RegisterRoutes(g)
 }

@@ -977,6 +977,54 @@ func (f InspectionMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Muta
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.InspectionMutation", m)
 }
 
+// The MaterialQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type MaterialQueryRuleFunc func(context.Context, *ent.MaterialQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f MaterialQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.MaterialQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.MaterialQuery", q)
+}
+
+// The MaterialMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type MaterialMutationRuleFunc func(context.Context, *ent.MaterialMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f MaterialMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.MaterialMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.MaterialMutation", m)
+}
+
+// The MaterialTestQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type MaterialTestQueryRuleFunc func(context.Context, *ent.MaterialTestQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f MaterialTestQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.MaterialTestQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.MaterialTestQuery", q)
+}
+
+// The MaterialTestMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type MaterialTestMutationRuleFunc func(context.Context, *ent.MaterialTestMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f MaterialTestMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.MaterialTestMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.MaterialTestMutation", m)
+}
+
 // The PositionQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type PositionQueryRuleFunc func(context.Context, *ent.PositionQuery) error

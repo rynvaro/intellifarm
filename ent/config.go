@@ -56,6 +56,8 @@ type hooks struct {
 	HairState           []ent.Hook
 	Immunity            []ent.Hook
 	Inspection          []ent.Hook
+	Material            []ent.Hook
+	MaterialTest        []ent.Hook
 	Position            []ent.Hook
 	PregnancyTest       []ent.Hook
 	PregnancyTestMethod []ent.Hook

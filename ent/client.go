@@ -41,6 +41,8 @@ import (
 	"cattleai/ent/hairstate"
 	"cattleai/ent/immunity"
 	"cattleai/ent/inspection"
+	"cattleai/ent/material"
+	"cattleai/ent/materialtest"
 	"cattleai/ent/position"
 	"cattleai/ent/pregnancytest"
 	"cattleai/ent/pregnancytestmethod"
@@ -130,6 +132,10 @@ type Client struct {
 	Immunity *ImmunityClient
 	// Inspection is the client for interacting with the Inspection builders.
 	Inspection *InspectionClient
+	// Material is the client for interacting with the Material builders.
+	Material *MaterialClient
+	// MaterialTest is the client for interacting with the MaterialTest builders.
+	MaterialTest *MaterialTestClient
 	// Position is the client for interacting with the Position builders.
 	Position *PositionClient
 	// PregnancyTest is the client for interacting with the PregnancyTest builders.
@@ -205,6 +211,8 @@ func (c *Client) init() {
 	c.HairState = NewHairStateClient(c.config)
 	c.Immunity = NewImmunityClient(c.config)
 	c.Inspection = NewInspectionClient(c.config)
+	c.Material = NewMaterialClient(c.config)
+	c.MaterialTest = NewMaterialTestClient(c.config)
 	c.Position = NewPositionClient(c.config)
 	c.PregnancyTest = NewPregnancyTestClient(c.config)
 	c.PregnancyTestMethod = NewPregnancyTestMethodClient(c.config)
@@ -284,6 +292,8 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		HairState:           NewHairStateClient(cfg),
 		Immunity:            NewImmunityClient(cfg),
 		Inspection:          NewInspectionClient(cfg),
+		Material:            NewMaterialClient(cfg),
+		MaterialTest:        NewMaterialTestClient(cfg),
 		Position:            NewPositionClient(cfg),
 		PregnancyTest:       NewPregnancyTestClient(cfg),
 		PregnancyTestMethod: NewPregnancyTestMethodClient(cfg),
@@ -346,6 +356,8 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		HairState:           NewHairStateClient(cfg),
 		Immunity:            NewImmunityClient(cfg),
 		Inspection:          NewInspectionClient(cfg),
+		Material:            NewMaterialClient(cfg),
+		MaterialTest:        NewMaterialTestClient(cfg),
 		Position:            NewPositionClient(cfg),
 		PregnancyTest:       NewPregnancyTestClient(cfg),
 		PregnancyTestMethod: NewPregnancyTestMethodClient(cfg),
@@ -421,6 +433,8 @@ func (c *Client) Use(hooks ...Hook) {
 	c.HairState.Use(hooks...)
 	c.Immunity.Use(hooks...)
 	c.Inspection.Use(hooks...)
+	c.Material.Use(hooks...)
+	c.MaterialTest.Use(hooks...)
 	c.Position.Use(hooks...)
 	c.PregnancyTest.Use(hooks...)
 	c.PregnancyTestMethod.Use(hooks...)
@@ -3252,6 +3266,182 @@ func (c *InspectionClient) GetX(ctx context.Context, id int64) *Inspection {
 // Hooks returns the client hooks.
 func (c *InspectionClient) Hooks() []Hook {
 	return c.hooks.Inspection
+}
+
+// MaterialClient is a client for the Material schema.
+type MaterialClient struct {
+	config
+}
+
+// NewMaterialClient returns a client for the Material from the given config.
+func NewMaterialClient(c config) *MaterialClient {
+	return &MaterialClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `material.Hooks(f(g(h())))`.
+func (c *MaterialClient) Use(hooks ...Hook) {
+	c.hooks.Material = append(c.hooks.Material, hooks...)
+}
+
+// Create returns a create builder for Material.
+func (c *MaterialClient) Create() *MaterialCreate {
+	mutation := newMaterialMutation(c.config, OpCreate)
+	return &MaterialCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Material entities.
+func (c *MaterialClient) CreateBulk(builders ...*MaterialCreate) *MaterialCreateBulk {
+	return &MaterialCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Material.
+func (c *MaterialClient) Update() *MaterialUpdate {
+	mutation := newMaterialMutation(c.config, OpUpdate)
+	return &MaterialUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *MaterialClient) UpdateOne(m *Material) *MaterialUpdateOne {
+	mutation := newMaterialMutation(c.config, OpUpdateOne, withMaterial(m))
+	return &MaterialUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *MaterialClient) UpdateOneID(id int64) *MaterialUpdateOne {
+	mutation := newMaterialMutation(c.config, OpUpdateOne, withMaterialID(id))
+	return &MaterialUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Material.
+func (c *MaterialClient) Delete() *MaterialDelete {
+	mutation := newMaterialMutation(c.config, OpDelete)
+	return &MaterialDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *MaterialClient) DeleteOne(m *Material) *MaterialDeleteOne {
+	return c.DeleteOneID(m.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *MaterialClient) DeleteOneID(id int64) *MaterialDeleteOne {
+	builder := c.Delete().Where(material.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &MaterialDeleteOne{builder}
+}
+
+// Query returns a query builder for Material.
+func (c *MaterialClient) Query() *MaterialQuery {
+	return &MaterialQuery{config: c.config}
+}
+
+// Get returns a Material entity by its id.
+func (c *MaterialClient) Get(ctx context.Context, id int64) (*Material, error) {
+	return c.Query().Where(material.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *MaterialClient) GetX(ctx context.Context, id int64) *Material {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *MaterialClient) Hooks() []Hook {
+	return c.hooks.Material
+}
+
+// MaterialTestClient is a client for the MaterialTest schema.
+type MaterialTestClient struct {
+	config
+}
+
+// NewMaterialTestClient returns a client for the MaterialTest from the given config.
+func NewMaterialTestClient(c config) *MaterialTestClient {
+	return &MaterialTestClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `materialtest.Hooks(f(g(h())))`.
+func (c *MaterialTestClient) Use(hooks ...Hook) {
+	c.hooks.MaterialTest = append(c.hooks.MaterialTest, hooks...)
+}
+
+// Create returns a create builder for MaterialTest.
+func (c *MaterialTestClient) Create() *MaterialTestCreate {
+	mutation := newMaterialTestMutation(c.config, OpCreate)
+	return &MaterialTestCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of MaterialTest entities.
+func (c *MaterialTestClient) CreateBulk(builders ...*MaterialTestCreate) *MaterialTestCreateBulk {
+	return &MaterialTestCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for MaterialTest.
+func (c *MaterialTestClient) Update() *MaterialTestUpdate {
+	mutation := newMaterialTestMutation(c.config, OpUpdate)
+	return &MaterialTestUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *MaterialTestClient) UpdateOne(mt *MaterialTest) *MaterialTestUpdateOne {
+	mutation := newMaterialTestMutation(c.config, OpUpdateOne, withMaterialTest(mt))
+	return &MaterialTestUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *MaterialTestClient) UpdateOneID(id int64) *MaterialTestUpdateOne {
+	mutation := newMaterialTestMutation(c.config, OpUpdateOne, withMaterialTestID(id))
+	return &MaterialTestUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for MaterialTest.
+func (c *MaterialTestClient) Delete() *MaterialTestDelete {
+	mutation := newMaterialTestMutation(c.config, OpDelete)
+	return &MaterialTestDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *MaterialTestClient) DeleteOne(mt *MaterialTest) *MaterialTestDeleteOne {
+	return c.DeleteOneID(mt.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *MaterialTestClient) DeleteOneID(id int64) *MaterialTestDeleteOne {
+	builder := c.Delete().Where(materialtest.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &MaterialTestDeleteOne{builder}
+}
+
+// Query returns a query builder for MaterialTest.
+func (c *MaterialTestClient) Query() *MaterialTestQuery {
+	return &MaterialTestQuery{config: c.config}
+}
+
+// Get returns a MaterialTest entity by its id.
+func (c *MaterialTestClient) Get(ctx context.Context, id int64) (*MaterialTest, error) {
+	return c.Query().Where(materialtest.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *MaterialTestClient) GetX(ctx context.Context, id int64) *MaterialTest {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *MaterialTestClient) Hooks() []Hook {
+	return c.hooks.MaterialTest
 }
 
 // PositionClient is a client for the Position schema.

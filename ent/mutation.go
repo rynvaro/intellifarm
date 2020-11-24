@@ -35,6 +35,8 @@ import (
 	"cattleai/ent/hairstate"
 	"cattleai/ent/immunity"
 	"cattleai/ent/inspection"
+	"cattleai/ent/material"
+	"cattleai/ent/materialtest"
 	"cattleai/ent/position"
 	"cattleai/ent/pregnancytest"
 	"cattleai/ent/pregnancytestmethod"
@@ -98,6 +100,8 @@ const (
 	TypeHairState           = "HairState"
 	TypeImmunity            = "Immunity"
 	TypeInspection          = "Inspection"
+	TypeMaterial            = "Material"
+	TypeMaterialTest        = "MaterialTest"
 	TypePosition            = "Position"
 	TypePregnancyTest       = "PregnancyTest"
 	TypePregnancyTestMethod = "PregnancyTestMethod"
@@ -27310,6 +27314,2501 @@ func (m *InspectionMutation) ClearEdge(name string) error {
 // defined in the schema.
 func (m *InspectionMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown Inspection edge %s", name)
+}
+
+// MaterialMutation represents an operation that mutate the Materials
+// nodes in the graph.
+type MaterialMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	name          *string
+	code          *string
+	seqNumber     *string
+	date          *int64
+	adddate       *int64
+	_type         *int
+	add_type      *int
+	count         *int
+	addcount      *int
+	category      *int
+	addcategory   *int
+	status        *int
+	addstatus     *int
+	userName      *string
+	payAt         *int64
+	addpayAt      *int64
+	remarks       *string
+	createdAt     *int64
+	addcreatedAt  *int64
+	updatedAt     *int64
+	addupdatedAt  *int64
+	deleted       *int
+	adddeleted    *int
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*Material, error)
+}
+
+var _ ent.Mutation = (*MaterialMutation)(nil)
+
+// materialOption allows to manage the mutation configuration using functional options.
+type materialOption func(*MaterialMutation)
+
+// newMaterialMutation creates new mutation for $n.Name.
+func newMaterialMutation(c config, op Op, opts ...materialOption) *MaterialMutation {
+	m := &MaterialMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeMaterial,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withMaterialID sets the id field of the mutation.
+func withMaterialID(id int64) materialOption {
+	return func(m *MaterialMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *Material
+		)
+		m.oldValue = func(ctx context.Context) (*Material, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().Material.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withMaterial sets the old Material of the mutation.
+func withMaterial(node *Material) materialOption {
+	return func(m *MaterialMutation) {
+		m.oldValue = func(context.Context) (*Material, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m MaterialMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m MaterialMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *MaterialMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *MaterialMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *MaterialMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the Material.
+// If the Material object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *MaterialMutation) ResetName() {
+	m.name = nil
+}
+
+// SetCode sets the code field.
+func (m *MaterialMutation) SetCode(s string) {
+	m.code = &s
+}
+
+// Code returns the code value in the mutation.
+func (m *MaterialMutation) Code() (r string, exists bool) {
+	v := m.code
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCode returns the old code value of the Material.
+// If the Material object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialMutation) OldCode(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCode is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCode requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCode: %w", err)
+	}
+	return oldValue.Code, nil
+}
+
+// ResetCode reset all changes of the "code" field.
+func (m *MaterialMutation) ResetCode() {
+	m.code = nil
+}
+
+// SetSeqNumber sets the seqNumber field.
+func (m *MaterialMutation) SetSeqNumber(s string) {
+	m.seqNumber = &s
+}
+
+// SeqNumber returns the seqNumber value in the mutation.
+func (m *MaterialMutation) SeqNumber() (r string, exists bool) {
+	v := m.seqNumber
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSeqNumber returns the old seqNumber value of the Material.
+// If the Material object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialMutation) OldSeqNumber(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldSeqNumber is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldSeqNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSeqNumber: %w", err)
+	}
+	return oldValue.SeqNumber, nil
+}
+
+// ResetSeqNumber reset all changes of the "seqNumber" field.
+func (m *MaterialMutation) ResetSeqNumber() {
+	m.seqNumber = nil
+}
+
+// SetDate sets the date field.
+func (m *MaterialMutation) SetDate(i int64) {
+	m.date = &i
+	m.adddate = nil
+}
+
+// Date returns the date value in the mutation.
+func (m *MaterialMutation) Date() (r int64, exists bool) {
+	v := m.date
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDate returns the old date value of the Material.
+// If the Material object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialMutation) OldDate(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDate is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDate requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDate: %w", err)
+	}
+	return oldValue.Date, nil
+}
+
+// AddDate adds i to date.
+func (m *MaterialMutation) AddDate(i int64) {
+	if m.adddate != nil {
+		*m.adddate += i
+	} else {
+		m.adddate = &i
+	}
+}
+
+// AddedDate returns the value that was added to the date field in this mutation.
+func (m *MaterialMutation) AddedDate() (r int64, exists bool) {
+	v := m.adddate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDate reset all changes of the "date" field.
+func (m *MaterialMutation) ResetDate() {
+	m.date = nil
+	m.adddate = nil
+}
+
+// SetType sets the type field.
+func (m *MaterialMutation) SetType(i int) {
+	m._type = &i
+	m.add_type = nil
+}
+
+// GetType returns the type value in the mutation.
+func (m *MaterialMutation) GetType() (r int, exists bool) {
+	v := m._type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldType returns the old type value of the Material.
+// If the Material object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialMutation) OldType(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldType is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldType requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldType: %w", err)
+	}
+	return oldValue.Type, nil
+}
+
+// AddType adds i to type.
+func (m *MaterialMutation) AddType(i int) {
+	if m.add_type != nil {
+		*m.add_type += i
+	} else {
+		m.add_type = &i
+	}
+}
+
+// AddedType returns the value that was added to the type field in this mutation.
+func (m *MaterialMutation) AddedType() (r int, exists bool) {
+	v := m.add_type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetType reset all changes of the "type" field.
+func (m *MaterialMutation) ResetType() {
+	m._type = nil
+	m.add_type = nil
+}
+
+// SetCount sets the count field.
+func (m *MaterialMutation) SetCount(i int) {
+	m.count = &i
+	m.addcount = nil
+}
+
+// Count returns the count value in the mutation.
+func (m *MaterialMutation) Count() (r int, exists bool) {
+	v := m.count
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCount returns the old count value of the Material.
+// If the Material object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialMutation) OldCount(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCount is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCount requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCount: %w", err)
+	}
+	return oldValue.Count, nil
+}
+
+// AddCount adds i to count.
+func (m *MaterialMutation) AddCount(i int) {
+	if m.addcount != nil {
+		*m.addcount += i
+	} else {
+		m.addcount = &i
+	}
+}
+
+// AddedCount returns the value that was added to the count field in this mutation.
+func (m *MaterialMutation) AddedCount() (r int, exists bool) {
+	v := m.addcount
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCount reset all changes of the "count" field.
+func (m *MaterialMutation) ResetCount() {
+	m.count = nil
+	m.addcount = nil
+}
+
+// SetCategory sets the category field.
+func (m *MaterialMutation) SetCategory(i int) {
+	m.category = &i
+	m.addcategory = nil
+}
+
+// Category returns the category value in the mutation.
+func (m *MaterialMutation) Category() (r int, exists bool) {
+	v := m.category
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCategory returns the old category value of the Material.
+// If the Material object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialMutation) OldCategory(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCategory is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCategory requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCategory: %w", err)
+	}
+	return oldValue.Category, nil
+}
+
+// AddCategory adds i to category.
+func (m *MaterialMutation) AddCategory(i int) {
+	if m.addcategory != nil {
+		*m.addcategory += i
+	} else {
+		m.addcategory = &i
+	}
+}
+
+// AddedCategory returns the value that was added to the category field in this mutation.
+func (m *MaterialMutation) AddedCategory() (r int, exists bool) {
+	v := m.addcategory
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCategory reset all changes of the "category" field.
+func (m *MaterialMutation) ResetCategory() {
+	m.category = nil
+	m.addcategory = nil
+}
+
+// SetStatus sets the status field.
+func (m *MaterialMutation) SetStatus(i int) {
+	m.status = &i
+	m.addstatus = nil
+}
+
+// Status returns the status value in the mutation.
+func (m *MaterialMutation) Status() (r int, exists bool) {
+	v := m.status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStatus returns the old status value of the Material.
+// If the Material object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialMutation) OldStatus(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldStatus is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStatus: %w", err)
+	}
+	return oldValue.Status, nil
+}
+
+// AddStatus adds i to status.
+func (m *MaterialMutation) AddStatus(i int) {
+	if m.addstatus != nil {
+		*m.addstatus += i
+	} else {
+		m.addstatus = &i
+	}
+}
+
+// AddedStatus returns the value that was added to the status field in this mutation.
+func (m *MaterialMutation) AddedStatus() (r int, exists bool) {
+	v := m.addstatus
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetStatus reset all changes of the "status" field.
+func (m *MaterialMutation) ResetStatus() {
+	m.status = nil
+	m.addstatus = nil
+}
+
+// SetUserName sets the userName field.
+func (m *MaterialMutation) SetUserName(s string) {
+	m.userName = &s
+}
+
+// UserName returns the userName value in the mutation.
+func (m *MaterialMutation) UserName() (r string, exists bool) {
+	v := m.userName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserName returns the old userName value of the Material.
+// If the Material object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialMutation) OldUserName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUserName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUserName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserName: %w", err)
+	}
+	return oldValue.UserName, nil
+}
+
+// ResetUserName reset all changes of the "userName" field.
+func (m *MaterialMutation) ResetUserName() {
+	m.userName = nil
+}
+
+// SetPayAt sets the payAt field.
+func (m *MaterialMutation) SetPayAt(i int64) {
+	m.payAt = &i
+	m.addpayAt = nil
+}
+
+// PayAt returns the payAt value in the mutation.
+func (m *MaterialMutation) PayAt() (r int64, exists bool) {
+	v := m.payAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPayAt returns the old payAt value of the Material.
+// If the Material object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialMutation) OldPayAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldPayAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldPayAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPayAt: %w", err)
+	}
+	return oldValue.PayAt, nil
+}
+
+// AddPayAt adds i to payAt.
+func (m *MaterialMutation) AddPayAt(i int64) {
+	if m.addpayAt != nil {
+		*m.addpayAt += i
+	} else {
+		m.addpayAt = &i
+	}
+}
+
+// AddedPayAt returns the value that was added to the payAt field in this mutation.
+func (m *MaterialMutation) AddedPayAt() (r int64, exists bool) {
+	v := m.addpayAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetPayAt reset all changes of the "payAt" field.
+func (m *MaterialMutation) ResetPayAt() {
+	m.payAt = nil
+	m.addpayAt = nil
+}
+
+// SetRemarks sets the remarks field.
+func (m *MaterialMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the remarks value in the mutation.
+func (m *MaterialMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old remarks value of the Material.
+// If the Material object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRemarks is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ResetRemarks reset all changes of the "remarks" field.
+func (m *MaterialMutation) ResetRemarks() {
+	m.remarks = nil
+}
+
+// SetCreatedAt sets the createdAt field.
+func (m *MaterialMutation) SetCreatedAt(i int64) {
+	m.createdAt = &i
+	m.addcreatedAt = nil
+}
+
+// CreatedAt returns the createdAt value in the mutation.
+func (m *MaterialMutation) CreatedAt() (r int64, exists bool) {
+	v := m.createdAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old createdAt value of the Material.
+// If the Material object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialMutation) OldCreatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds i to createdAt.
+func (m *MaterialMutation) AddCreatedAt(i int64) {
+	if m.addcreatedAt != nil {
+		*m.addcreatedAt += i
+	} else {
+		m.addcreatedAt = &i
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the createdAt field in this mutation.
+func (m *MaterialMutation) AddedCreatedAt() (r int64, exists bool) {
+	v := m.addcreatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt reset all changes of the "createdAt" field.
+func (m *MaterialMutation) ResetCreatedAt() {
+	m.createdAt = nil
+	m.addcreatedAt = nil
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (m *MaterialMutation) SetUpdatedAt(i int64) {
+	m.updatedAt = &i
+	m.addupdatedAt = nil
+}
+
+// UpdatedAt returns the updatedAt value in the mutation.
+func (m *MaterialMutation) UpdatedAt() (r int64, exists bool) {
+	v := m.updatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old updatedAt value of the Material.
+// If the Material object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialMutation) OldUpdatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUpdatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (m *MaterialMutation) AddUpdatedAt(i int64) {
+	if m.addupdatedAt != nil {
+		*m.addupdatedAt += i
+	} else {
+		m.addupdatedAt = &i
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the updatedAt field in this mutation.
+func (m *MaterialMutation) AddedUpdatedAt() (r int64, exists bool) {
+	v := m.addupdatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt reset all changes of the "updatedAt" field.
+func (m *MaterialMutation) ResetUpdatedAt() {
+	m.updatedAt = nil
+	m.addupdatedAt = nil
+}
+
+// SetDeleted sets the deleted field.
+func (m *MaterialMutation) SetDeleted(i int) {
+	m.deleted = &i
+	m.adddeleted = nil
+}
+
+// Deleted returns the deleted value in the mutation.
+func (m *MaterialMutation) Deleted() (r int, exists bool) {
+	v := m.deleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleted returns the old deleted value of the Material.
+// If the Material object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialMutation) OldDeleted(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleted is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleted requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleted: %w", err)
+	}
+	return oldValue.Deleted, nil
+}
+
+// AddDeleted adds i to deleted.
+func (m *MaterialMutation) AddDeleted(i int) {
+	if m.adddeleted != nil {
+		*m.adddeleted += i
+	} else {
+		m.adddeleted = &i
+	}
+}
+
+// AddedDeleted returns the value that was added to the deleted field in this mutation.
+func (m *MaterialMutation) AddedDeleted() (r int, exists bool) {
+	v := m.adddeleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleted reset all changes of the "deleted" field.
+func (m *MaterialMutation) ResetDeleted() {
+	m.deleted = nil
+	m.adddeleted = nil
+}
+
+// Op returns the operation name.
+func (m *MaterialMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (Material).
+func (m *MaterialMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *MaterialMutation) Fields() []string {
+	fields := make([]string, 0, 14)
+	if m.name != nil {
+		fields = append(fields, material.FieldName)
+	}
+	if m.code != nil {
+		fields = append(fields, material.FieldCode)
+	}
+	if m.seqNumber != nil {
+		fields = append(fields, material.FieldSeqNumber)
+	}
+	if m.date != nil {
+		fields = append(fields, material.FieldDate)
+	}
+	if m._type != nil {
+		fields = append(fields, material.FieldType)
+	}
+	if m.count != nil {
+		fields = append(fields, material.FieldCount)
+	}
+	if m.category != nil {
+		fields = append(fields, material.FieldCategory)
+	}
+	if m.status != nil {
+		fields = append(fields, material.FieldStatus)
+	}
+	if m.userName != nil {
+		fields = append(fields, material.FieldUserName)
+	}
+	if m.payAt != nil {
+		fields = append(fields, material.FieldPayAt)
+	}
+	if m.remarks != nil {
+		fields = append(fields, material.FieldRemarks)
+	}
+	if m.createdAt != nil {
+		fields = append(fields, material.FieldCreatedAt)
+	}
+	if m.updatedAt != nil {
+		fields = append(fields, material.FieldUpdatedAt)
+	}
+	if m.deleted != nil {
+		fields = append(fields, material.FieldDeleted)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *MaterialMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case material.FieldName:
+		return m.Name()
+	case material.FieldCode:
+		return m.Code()
+	case material.FieldSeqNumber:
+		return m.SeqNumber()
+	case material.FieldDate:
+		return m.Date()
+	case material.FieldType:
+		return m.GetType()
+	case material.FieldCount:
+		return m.Count()
+	case material.FieldCategory:
+		return m.Category()
+	case material.FieldStatus:
+		return m.Status()
+	case material.FieldUserName:
+		return m.UserName()
+	case material.FieldPayAt:
+		return m.PayAt()
+	case material.FieldRemarks:
+		return m.Remarks()
+	case material.FieldCreatedAt:
+		return m.CreatedAt()
+	case material.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case material.FieldDeleted:
+		return m.Deleted()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *MaterialMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case material.FieldName:
+		return m.OldName(ctx)
+	case material.FieldCode:
+		return m.OldCode(ctx)
+	case material.FieldSeqNumber:
+		return m.OldSeqNumber(ctx)
+	case material.FieldDate:
+		return m.OldDate(ctx)
+	case material.FieldType:
+		return m.OldType(ctx)
+	case material.FieldCount:
+		return m.OldCount(ctx)
+	case material.FieldCategory:
+		return m.OldCategory(ctx)
+	case material.FieldStatus:
+		return m.OldStatus(ctx)
+	case material.FieldUserName:
+		return m.OldUserName(ctx)
+	case material.FieldPayAt:
+		return m.OldPayAt(ctx)
+	case material.FieldRemarks:
+		return m.OldRemarks(ctx)
+	case material.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case material.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case material.FieldDeleted:
+		return m.OldDeleted(ctx)
+	}
+	return nil, fmt.Errorf("unknown Material field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *MaterialMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case material.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case material.FieldCode:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCode(v)
+		return nil
+	case material.FieldSeqNumber:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSeqNumber(v)
+		return nil
+	case material.FieldDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDate(v)
+		return nil
+	case material.FieldType:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetType(v)
+		return nil
+	case material.FieldCount:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCount(v)
+		return nil
+	case material.FieldCategory:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCategory(v)
+		return nil
+	case material.FieldStatus:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStatus(v)
+		return nil
+	case material.FieldUserName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserName(v)
+		return nil
+	case material.FieldPayAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPayAt(v)
+		return nil
+	case material.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	case material.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case material.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case material.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Material field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *MaterialMutation) AddedFields() []string {
+	var fields []string
+	if m.adddate != nil {
+		fields = append(fields, material.FieldDate)
+	}
+	if m.add_type != nil {
+		fields = append(fields, material.FieldType)
+	}
+	if m.addcount != nil {
+		fields = append(fields, material.FieldCount)
+	}
+	if m.addcategory != nil {
+		fields = append(fields, material.FieldCategory)
+	}
+	if m.addstatus != nil {
+		fields = append(fields, material.FieldStatus)
+	}
+	if m.addpayAt != nil {
+		fields = append(fields, material.FieldPayAt)
+	}
+	if m.addcreatedAt != nil {
+		fields = append(fields, material.FieldCreatedAt)
+	}
+	if m.addupdatedAt != nil {
+		fields = append(fields, material.FieldUpdatedAt)
+	}
+	if m.adddeleted != nil {
+		fields = append(fields, material.FieldDeleted)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *MaterialMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case material.FieldDate:
+		return m.AddedDate()
+	case material.FieldType:
+		return m.AddedType()
+	case material.FieldCount:
+		return m.AddedCount()
+	case material.FieldCategory:
+		return m.AddedCategory()
+	case material.FieldStatus:
+		return m.AddedStatus()
+	case material.FieldPayAt:
+		return m.AddedPayAt()
+	case material.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case material.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case material.FieldDeleted:
+		return m.AddedDeleted()
+	}
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *MaterialMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case material.FieldDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDate(v)
+		return nil
+	case material.FieldType:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddType(v)
+		return nil
+	case material.FieldCount:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCount(v)
+		return nil
+	case material.FieldCategory:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCategory(v)
+		return nil
+	case material.FieldStatus:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddStatus(v)
+		return nil
+	case material.FieldPayAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddPayAt(v)
+		return nil
+	case material.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case material.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case material.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Material numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *MaterialMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *MaterialMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *MaterialMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown Material nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *MaterialMutation) ResetField(name string) error {
+	switch name {
+	case material.FieldName:
+		m.ResetName()
+		return nil
+	case material.FieldCode:
+		m.ResetCode()
+		return nil
+	case material.FieldSeqNumber:
+		m.ResetSeqNumber()
+		return nil
+	case material.FieldDate:
+		m.ResetDate()
+		return nil
+	case material.FieldType:
+		m.ResetType()
+		return nil
+	case material.FieldCount:
+		m.ResetCount()
+		return nil
+	case material.FieldCategory:
+		m.ResetCategory()
+		return nil
+	case material.FieldStatus:
+		m.ResetStatus()
+		return nil
+	case material.FieldUserName:
+		m.ResetUserName()
+		return nil
+	case material.FieldPayAt:
+		m.ResetPayAt()
+		return nil
+	case material.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	case material.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case material.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case material.FieldDeleted:
+		m.ResetDeleted()
+		return nil
+	}
+	return fmt.Errorf("unknown Material field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *MaterialMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *MaterialMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *MaterialMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *MaterialMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *MaterialMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *MaterialMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *MaterialMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown Material unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *MaterialMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown Material edge %s", name)
+}
+
+// MaterialTestMutation represents an operation that mutate the MaterialTests
+// nodes in the graph.
+type MaterialTestMutation struct {
+	config
+	op                  Op
+	typ                 string
+	id                  *int64
+	name                *string
+	code                *string
+	seqNumber           *string
+	addSeqNumber        *string
+	date                *int64
+	adddate             *int64
+	_type               *int
+	add_type            *int
+	category            *int
+	addcategory         *int
+	materialCategory    *int
+	addmaterialCategory *int
+	userName            *string
+	remarks             *string
+	createdAt           *int64
+	addcreatedAt        *int64
+	updatedAt           *int64
+	addupdatedAt        *int64
+	deleted             *int
+	adddeleted          *int
+	clearedFields       map[string]struct{}
+	done                bool
+	oldValue            func(context.Context) (*MaterialTest, error)
+}
+
+var _ ent.Mutation = (*MaterialTestMutation)(nil)
+
+// materialtestOption allows to manage the mutation configuration using functional options.
+type materialtestOption func(*MaterialTestMutation)
+
+// newMaterialTestMutation creates new mutation for $n.Name.
+func newMaterialTestMutation(c config, op Op, opts ...materialtestOption) *MaterialTestMutation {
+	m := &MaterialTestMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeMaterialTest,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withMaterialTestID sets the id field of the mutation.
+func withMaterialTestID(id int64) materialtestOption {
+	return func(m *MaterialTestMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *MaterialTest
+		)
+		m.oldValue = func(ctx context.Context) (*MaterialTest, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().MaterialTest.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withMaterialTest sets the old MaterialTest of the mutation.
+func withMaterialTest(node *MaterialTest) materialtestOption {
+	return func(m *MaterialTestMutation) {
+		m.oldValue = func(context.Context) (*MaterialTest, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m MaterialTestMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m MaterialTestMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *MaterialTestMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *MaterialTestMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *MaterialTestMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the MaterialTest.
+// If the MaterialTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialTestMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *MaterialTestMutation) ResetName() {
+	m.name = nil
+}
+
+// SetCode sets the code field.
+func (m *MaterialTestMutation) SetCode(s string) {
+	m.code = &s
+}
+
+// Code returns the code value in the mutation.
+func (m *MaterialTestMutation) Code() (r string, exists bool) {
+	v := m.code
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCode returns the old code value of the MaterialTest.
+// If the MaterialTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialTestMutation) OldCode(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCode is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCode requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCode: %w", err)
+	}
+	return oldValue.Code, nil
+}
+
+// ResetCode reset all changes of the "code" field.
+func (m *MaterialTestMutation) ResetCode() {
+	m.code = nil
+}
+
+// SetSeqNumber sets the seqNumber field.
+func (m *MaterialTestMutation) SetSeqNumber(s string) {
+	m.seqNumber = &s
+}
+
+// SeqNumber returns the seqNumber value in the mutation.
+func (m *MaterialTestMutation) SeqNumber() (r string, exists bool) {
+	v := m.seqNumber
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSeqNumber returns the old seqNumber value of the MaterialTest.
+// If the MaterialTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialTestMutation) OldSeqNumber(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldSeqNumber is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldSeqNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSeqNumber: %w", err)
+	}
+	return oldValue.SeqNumber, nil
+}
+
+// ResetSeqNumber reset all changes of the "seqNumber" field.
+func (m *MaterialTestMutation) ResetSeqNumber() {
+	m.seqNumber = nil
+}
+
+// SetAddSeqNumber sets the addSeqNumber field.
+func (m *MaterialTestMutation) SetAddSeqNumber(s string) {
+	m.addSeqNumber = &s
+}
+
+// AddSeqNumber returns the addSeqNumber value in the mutation.
+func (m *MaterialTestMutation) AddSeqNumber() (r string, exists bool) {
+	v := m.addSeqNumber
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAddSeqNumber returns the old addSeqNumber value of the MaterialTest.
+// If the MaterialTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialTestMutation) OldAddSeqNumber(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldAddSeqNumber is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldAddSeqNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAddSeqNumber: %w", err)
+	}
+	return oldValue.AddSeqNumber, nil
+}
+
+// ResetAddSeqNumber reset all changes of the "addSeqNumber" field.
+func (m *MaterialTestMutation) ResetAddSeqNumber() {
+	m.addSeqNumber = nil
+}
+
+// SetDate sets the date field.
+func (m *MaterialTestMutation) SetDate(i int64) {
+	m.date = &i
+	m.adddate = nil
+}
+
+// Date returns the date value in the mutation.
+func (m *MaterialTestMutation) Date() (r int64, exists bool) {
+	v := m.date
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDate returns the old date value of the MaterialTest.
+// If the MaterialTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialTestMutation) OldDate(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDate is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDate requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDate: %w", err)
+	}
+	return oldValue.Date, nil
+}
+
+// AddDate adds i to date.
+func (m *MaterialTestMutation) AddDate(i int64) {
+	if m.adddate != nil {
+		*m.adddate += i
+	} else {
+		m.adddate = &i
+	}
+}
+
+// AddedDate returns the value that was added to the date field in this mutation.
+func (m *MaterialTestMutation) AddedDate() (r int64, exists bool) {
+	v := m.adddate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDate reset all changes of the "date" field.
+func (m *MaterialTestMutation) ResetDate() {
+	m.date = nil
+	m.adddate = nil
+}
+
+// SetType sets the type field.
+func (m *MaterialTestMutation) SetType(i int) {
+	m._type = &i
+	m.add_type = nil
+}
+
+// GetType returns the type value in the mutation.
+func (m *MaterialTestMutation) GetType() (r int, exists bool) {
+	v := m._type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldType returns the old type value of the MaterialTest.
+// If the MaterialTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialTestMutation) OldType(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldType is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldType requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldType: %w", err)
+	}
+	return oldValue.Type, nil
+}
+
+// AddType adds i to type.
+func (m *MaterialTestMutation) AddType(i int) {
+	if m.add_type != nil {
+		*m.add_type += i
+	} else {
+		m.add_type = &i
+	}
+}
+
+// AddedType returns the value that was added to the type field in this mutation.
+func (m *MaterialTestMutation) AddedType() (r int, exists bool) {
+	v := m.add_type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetType reset all changes of the "type" field.
+func (m *MaterialTestMutation) ResetType() {
+	m._type = nil
+	m.add_type = nil
+}
+
+// SetCategory sets the category field.
+func (m *MaterialTestMutation) SetCategory(i int) {
+	m.category = &i
+	m.addcategory = nil
+}
+
+// Category returns the category value in the mutation.
+func (m *MaterialTestMutation) Category() (r int, exists bool) {
+	v := m.category
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCategory returns the old category value of the MaterialTest.
+// If the MaterialTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialTestMutation) OldCategory(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCategory is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCategory requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCategory: %w", err)
+	}
+	return oldValue.Category, nil
+}
+
+// AddCategory adds i to category.
+func (m *MaterialTestMutation) AddCategory(i int) {
+	if m.addcategory != nil {
+		*m.addcategory += i
+	} else {
+		m.addcategory = &i
+	}
+}
+
+// AddedCategory returns the value that was added to the category field in this mutation.
+func (m *MaterialTestMutation) AddedCategory() (r int, exists bool) {
+	v := m.addcategory
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCategory reset all changes of the "category" field.
+func (m *MaterialTestMutation) ResetCategory() {
+	m.category = nil
+	m.addcategory = nil
+}
+
+// SetMaterialCategory sets the materialCategory field.
+func (m *MaterialTestMutation) SetMaterialCategory(i int) {
+	m.materialCategory = &i
+	m.addmaterialCategory = nil
+}
+
+// MaterialCategory returns the materialCategory value in the mutation.
+func (m *MaterialTestMutation) MaterialCategory() (r int, exists bool) {
+	v := m.materialCategory
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldMaterialCategory returns the old materialCategory value of the MaterialTest.
+// If the MaterialTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialTestMutation) OldMaterialCategory(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldMaterialCategory is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldMaterialCategory requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldMaterialCategory: %w", err)
+	}
+	return oldValue.MaterialCategory, nil
+}
+
+// AddMaterialCategory adds i to materialCategory.
+func (m *MaterialTestMutation) AddMaterialCategory(i int) {
+	if m.addmaterialCategory != nil {
+		*m.addmaterialCategory += i
+	} else {
+		m.addmaterialCategory = &i
+	}
+}
+
+// AddedMaterialCategory returns the value that was added to the materialCategory field in this mutation.
+func (m *MaterialTestMutation) AddedMaterialCategory() (r int, exists bool) {
+	v := m.addmaterialCategory
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetMaterialCategory reset all changes of the "materialCategory" field.
+func (m *MaterialTestMutation) ResetMaterialCategory() {
+	m.materialCategory = nil
+	m.addmaterialCategory = nil
+}
+
+// SetUserName sets the userName field.
+func (m *MaterialTestMutation) SetUserName(s string) {
+	m.userName = &s
+}
+
+// UserName returns the userName value in the mutation.
+func (m *MaterialTestMutation) UserName() (r string, exists bool) {
+	v := m.userName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserName returns the old userName value of the MaterialTest.
+// If the MaterialTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialTestMutation) OldUserName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUserName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUserName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserName: %w", err)
+	}
+	return oldValue.UserName, nil
+}
+
+// ResetUserName reset all changes of the "userName" field.
+func (m *MaterialTestMutation) ResetUserName() {
+	m.userName = nil
+}
+
+// SetRemarks sets the remarks field.
+func (m *MaterialTestMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the remarks value in the mutation.
+func (m *MaterialTestMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old remarks value of the MaterialTest.
+// If the MaterialTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialTestMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRemarks is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ResetRemarks reset all changes of the "remarks" field.
+func (m *MaterialTestMutation) ResetRemarks() {
+	m.remarks = nil
+}
+
+// SetCreatedAt sets the createdAt field.
+func (m *MaterialTestMutation) SetCreatedAt(i int64) {
+	m.createdAt = &i
+	m.addcreatedAt = nil
+}
+
+// CreatedAt returns the createdAt value in the mutation.
+func (m *MaterialTestMutation) CreatedAt() (r int64, exists bool) {
+	v := m.createdAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old createdAt value of the MaterialTest.
+// If the MaterialTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialTestMutation) OldCreatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds i to createdAt.
+func (m *MaterialTestMutation) AddCreatedAt(i int64) {
+	if m.addcreatedAt != nil {
+		*m.addcreatedAt += i
+	} else {
+		m.addcreatedAt = &i
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the createdAt field in this mutation.
+func (m *MaterialTestMutation) AddedCreatedAt() (r int64, exists bool) {
+	v := m.addcreatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt reset all changes of the "createdAt" field.
+func (m *MaterialTestMutation) ResetCreatedAt() {
+	m.createdAt = nil
+	m.addcreatedAt = nil
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (m *MaterialTestMutation) SetUpdatedAt(i int64) {
+	m.updatedAt = &i
+	m.addupdatedAt = nil
+}
+
+// UpdatedAt returns the updatedAt value in the mutation.
+func (m *MaterialTestMutation) UpdatedAt() (r int64, exists bool) {
+	v := m.updatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old updatedAt value of the MaterialTest.
+// If the MaterialTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialTestMutation) OldUpdatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUpdatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (m *MaterialTestMutation) AddUpdatedAt(i int64) {
+	if m.addupdatedAt != nil {
+		*m.addupdatedAt += i
+	} else {
+		m.addupdatedAt = &i
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the updatedAt field in this mutation.
+func (m *MaterialTestMutation) AddedUpdatedAt() (r int64, exists bool) {
+	v := m.addupdatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt reset all changes of the "updatedAt" field.
+func (m *MaterialTestMutation) ResetUpdatedAt() {
+	m.updatedAt = nil
+	m.addupdatedAt = nil
+}
+
+// SetDeleted sets the deleted field.
+func (m *MaterialTestMutation) SetDeleted(i int) {
+	m.deleted = &i
+	m.adddeleted = nil
+}
+
+// Deleted returns the deleted value in the mutation.
+func (m *MaterialTestMutation) Deleted() (r int, exists bool) {
+	v := m.deleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleted returns the old deleted value of the MaterialTest.
+// If the MaterialTest object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MaterialTestMutation) OldDeleted(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleted is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleted requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleted: %w", err)
+	}
+	return oldValue.Deleted, nil
+}
+
+// AddDeleted adds i to deleted.
+func (m *MaterialTestMutation) AddDeleted(i int) {
+	if m.adddeleted != nil {
+		*m.adddeleted += i
+	} else {
+		m.adddeleted = &i
+	}
+}
+
+// AddedDeleted returns the value that was added to the deleted field in this mutation.
+func (m *MaterialTestMutation) AddedDeleted() (r int, exists bool) {
+	v := m.adddeleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleted reset all changes of the "deleted" field.
+func (m *MaterialTestMutation) ResetDeleted() {
+	m.deleted = nil
+	m.adddeleted = nil
+}
+
+// Op returns the operation name.
+func (m *MaterialTestMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (MaterialTest).
+func (m *MaterialTestMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *MaterialTestMutation) Fields() []string {
+	fields := make([]string, 0, 13)
+	if m.name != nil {
+		fields = append(fields, materialtest.FieldName)
+	}
+	if m.code != nil {
+		fields = append(fields, materialtest.FieldCode)
+	}
+	if m.seqNumber != nil {
+		fields = append(fields, materialtest.FieldSeqNumber)
+	}
+	if m.addSeqNumber != nil {
+		fields = append(fields, materialtest.FieldAddSeqNumber)
+	}
+	if m.date != nil {
+		fields = append(fields, materialtest.FieldDate)
+	}
+	if m._type != nil {
+		fields = append(fields, materialtest.FieldType)
+	}
+	if m.category != nil {
+		fields = append(fields, materialtest.FieldCategory)
+	}
+	if m.materialCategory != nil {
+		fields = append(fields, materialtest.FieldMaterialCategory)
+	}
+	if m.userName != nil {
+		fields = append(fields, materialtest.FieldUserName)
+	}
+	if m.remarks != nil {
+		fields = append(fields, materialtest.FieldRemarks)
+	}
+	if m.createdAt != nil {
+		fields = append(fields, materialtest.FieldCreatedAt)
+	}
+	if m.updatedAt != nil {
+		fields = append(fields, materialtest.FieldUpdatedAt)
+	}
+	if m.deleted != nil {
+		fields = append(fields, materialtest.FieldDeleted)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *MaterialTestMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case materialtest.FieldName:
+		return m.Name()
+	case materialtest.FieldCode:
+		return m.Code()
+	case materialtest.FieldSeqNumber:
+		return m.SeqNumber()
+	case materialtest.FieldAddSeqNumber:
+		return m.AddSeqNumber()
+	case materialtest.FieldDate:
+		return m.Date()
+	case materialtest.FieldType:
+		return m.GetType()
+	case materialtest.FieldCategory:
+		return m.Category()
+	case materialtest.FieldMaterialCategory:
+		return m.MaterialCategory()
+	case materialtest.FieldUserName:
+		return m.UserName()
+	case materialtest.FieldRemarks:
+		return m.Remarks()
+	case materialtest.FieldCreatedAt:
+		return m.CreatedAt()
+	case materialtest.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case materialtest.FieldDeleted:
+		return m.Deleted()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *MaterialTestMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case materialtest.FieldName:
+		return m.OldName(ctx)
+	case materialtest.FieldCode:
+		return m.OldCode(ctx)
+	case materialtest.FieldSeqNumber:
+		return m.OldSeqNumber(ctx)
+	case materialtest.FieldAddSeqNumber:
+		return m.OldAddSeqNumber(ctx)
+	case materialtest.FieldDate:
+		return m.OldDate(ctx)
+	case materialtest.FieldType:
+		return m.OldType(ctx)
+	case materialtest.FieldCategory:
+		return m.OldCategory(ctx)
+	case materialtest.FieldMaterialCategory:
+		return m.OldMaterialCategory(ctx)
+	case materialtest.FieldUserName:
+		return m.OldUserName(ctx)
+	case materialtest.FieldRemarks:
+		return m.OldRemarks(ctx)
+	case materialtest.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case materialtest.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case materialtest.FieldDeleted:
+		return m.OldDeleted(ctx)
+	}
+	return nil, fmt.Errorf("unknown MaterialTest field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *MaterialTestMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case materialtest.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case materialtest.FieldCode:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCode(v)
+		return nil
+	case materialtest.FieldSeqNumber:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSeqNumber(v)
+		return nil
+	case materialtest.FieldAddSeqNumber:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAddSeqNumber(v)
+		return nil
+	case materialtest.FieldDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDate(v)
+		return nil
+	case materialtest.FieldType:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetType(v)
+		return nil
+	case materialtest.FieldCategory:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCategory(v)
+		return nil
+	case materialtest.FieldMaterialCategory:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetMaterialCategory(v)
+		return nil
+	case materialtest.FieldUserName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserName(v)
+		return nil
+	case materialtest.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	case materialtest.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case materialtest.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case materialtest.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown MaterialTest field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *MaterialTestMutation) AddedFields() []string {
+	var fields []string
+	if m.adddate != nil {
+		fields = append(fields, materialtest.FieldDate)
+	}
+	if m.add_type != nil {
+		fields = append(fields, materialtest.FieldType)
+	}
+	if m.addcategory != nil {
+		fields = append(fields, materialtest.FieldCategory)
+	}
+	if m.addmaterialCategory != nil {
+		fields = append(fields, materialtest.FieldMaterialCategory)
+	}
+	if m.addcreatedAt != nil {
+		fields = append(fields, materialtest.FieldCreatedAt)
+	}
+	if m.addupdatedAt != nil {
+		fields = append(fields, materialtest.FieldUpdatedAt)
+	}
+	if m.adddeleted != nil {
+		fields = append(fields, materialtest.FieldDeleted)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *MaterialTestMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case materialtest.FieldDate:
+		return m.AddedDate()
+	case materialtest.FieldType:
+		return m.AddedType()
+	case materialtest.FieldCategory:
+		return m.AddedCategory()
+	case materialtest.FieldMaterialCategory:
+		return m.AddedMaterialCategory()
+	case materialtest.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case materialtest.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case materialtest.FieldDeleted:
+		return m.AddedDeleted()
+	}
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *MaterialTestMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case materialtest.FieldDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDate(v)
+		return nil
+	case materialtest.FieldType:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddType(v)
+		return nil
+	case materialtest.FieldCategory:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCategory(v)
+		return nil
+	case materialtest.FieldMaterialCategory:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddMaterialCategory(v)
+		return nil
+	case materialtest.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case materialtest.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case materialtest.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown MaterialTest numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *MaterialTestMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *MaterialTestMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *MaterialTestMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown MaterialTest nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *MaterialTestMutation) ResetField(name string) error {
+	switch name {
+	case materialtest.FieldName:
+		m.ResetName()
+		return nil
+	case materialtest.FieldCode:
+		m.ResetCode()
+		return nil
+	case materialtest.FieldSeqNumber:
+		m.ResetSeqNumber()
+		return nil
+	case materialtest.FieldAddSeqNumber:
+		m.ResetAddSeqNumber()
+		return nil
+	case materialtest.FieldDate:
+		m.ResetDate()
+		return nil
+	case materialtest.FieldType:
+		m.ResetType()
+		return nil
+	case materialtest.FieldCategory:
+		m.ResetCategory()
+		return nil
+	case materialtest.FieldMaterialCategory:
+		m.ResetMaterialCategory()
+		return nil
+	case materialtest.FieldUserName:
+		m.ResetUserName()
+		return nil
+	case materialtest.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	case materialtest.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case materialtest.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case materialtest.FieldDeleted:
+		m.ResetDeleted()
+		return nil
+	}
+	return fmt.Errorf("unknown MaterialTest field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *MaterialTestMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *MaterialTestMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *MaterialTestMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *MaterialTestMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *MaterialTestMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *MaterialTestMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *MaterialTestMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown MaterialTest unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *MaterialTestMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown MaterialTest edge %s", name)
 }
 
 // PositionMutation represents an operation that mutate the Positions

@@ -424,6 +424,32 @@ func (f InspectionFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, 
 	return f(ctx, mv)
 }
 
+// The MaterialFunc type is an adapter to allow the use of ordinary
+// function as Material mutator.
+type MaterialFunc func(context.Context, *ent.MaterialMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f MaterialFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.MaterialMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MaterialMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The MaterialTestFunc type is an adapter to allow the use of ordinary
+// function as MaterialTest mutator.
+type MaterialTestFunc func(context.Context, *ent.MaterialTestMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f MaterialTestFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.MaterialTestMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MaterialTestMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The PositionFunc type is an adapter to allow the use of ordinary
 // function as Position mutator.
 type PositionFunc func(context.Context, *ent.PositionMutation) (ent.Value, error)

@@ -102,6 +102,12 @@ type Immunity func(*sql.Selector)
 // Inspection is the predicate function for inspection builders.
 type Inspection func(*sql.Selector)
 
+// Material is the predicate function for material builders.
+type Material func(*sql.Selector)
+
+// MaterialTest is the predicate function for materialtest builders.
+type MaterialTest func(*sql.Selector)
+
 // Position is the predicate function for position builders.
 type Position func(*sql.Selector)
 

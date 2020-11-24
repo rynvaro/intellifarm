@@ -5,13 +5,13 @@ import (
 	"github.com/facebook/ent/schema/field"
 )
 
-// ConcentrateFormula holds the schema definition for the ConcentrateFormula entity.
-type ConcentrateFormula struct {
+// Ration holds the schema definition for the Ration entity.
+type Ration struct {
 	ent.Schema
 }
 
-// Fields of the ConcentrateFormula.
-func (ConcentrateFormula) Fields() []ent.Field {
+// Fields of the Ration.
+func (Ration) Fields() []ent.Field {
 	return []ent.Field{
 		field.String("name"),
 		field.String("code"),
@@ -27,7 +27,7 @@ func (ConcentrateFormula) Fields() []ent.Field {
 	}
 }
 
-// Edges of the ConcentrateFormula.
-func (ConcentrateFormula) Edges() []ent.Edge {
+// Edges of the Ration.
+func (Ration) Edges() []ent.Edge {
 	return nil
 }

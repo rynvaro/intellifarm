@@ -44,6 +44,8 @@ type hooks struct {
 	CattleJoinedType    []ent.Hook
 	CattleOwner         []ent.Hook
 	CattleType          []ent.Hook
+	ConcentrateFormula  []ent.Hook
+	ConcentrateProcess  []ent.Hook
 	Conf                []ent.Hook
 	Disinfect           []ent.Hook
 	Dispence            []ent.Hook
@@ -53,6 +55,7 @@ type hooks struct {
 	Estrus              []ent.Hook
 	EstrusType          []ent.Hook
 	Farm                []ent.Hook
+	FeedRecord          []ent.Hook
 	HairState           []ent.Hook
 	Immunity            []ent.Hook
 	Inspection          []ent.Hook
@@ -63,6 +66,7 @@ type hooks struct {
 	PregnancyTestMethod []ent.Hook
 	PregnancyTestResult []ent.Hook
 	PregnancyTestType   []ent.Hook
+	Ration              []ent.Hook
 	ReproductiveState   []ent.Hook
 	SemenFrozenType     []ent.Hook
 	Shed                []ent.Hook

@@ -689,6 +689,54 @@ func (f CattleTypeMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Muta
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.CattleTypeMutation", m)
 }
 
+// The ConcentrateFormulaQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type ConcentrateFormulaQueryRuleFunc func(context.Context, *ent.ConcentrateFormulaQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f ConcentrateFormulaQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.ConcentrateFormulaQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.ConcentrateFormulaQuery", q)
+}
+
+// The ConcentrateFormulaMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type ConcentrateFormulaMutationRuleFunc func(context.Context, *ent.ConcentrateFormulaMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f ConcentrateFormulaMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.ConcentrateFormulaMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.ConcentrateFormulaMutation", m)
+}
+
+// The ConcentrateProcessQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type ConcentrateProcessQueryRuleFunc func(context.Context, *ent.ConcentrateProcessQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f ConcentrateProcessQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.ConcentrateProcessQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.ConcentrateProcessQuery", q)
+}
+
+// The ConcentrateProcessMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type ConcentrateProcessMutationRuleFunc func(context.Context, *ent.ConcentrateProcessMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f ConcentrateProcessMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.ConcentrateProcessMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.ConcentrateProcessMutation", m)
+}
+
 // The ConfQueryRuleFunc type is an adapter to allow the use of ordinary
 // functions as a query rule.
 type ConfQueryRuleFunc func(context.Context, *ent.ConfQuery) error
@@ -903,6 +951,30 @@ func (f FarmMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) 
 		return f(ctx, m)
 	}
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.FarmMutation", m)
+}
+
+// The FeedRecordQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type FeedRecordQueryRuleFunc func(context.Context, *ent.FeedRecordQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f FeedRecordQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.FeedRecordQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.FeedRecordQuery", q)
+}
+
+// The FeedRecordMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type FeedRecordMutationRuleFunc func(context.Context, *ent.FeedRecordMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f FeedRecordMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.FeedRecordMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.FeedRecordMutation", m)
 }
 
 // The HairStateQueryRuleFunc type is an adapter to allow the use of ordinary
@@ -1143,6 +1215,30 @@ func (f PregnancyTestTypeMutationRuleFunc) EvalMutation(ctx context.Context, m e
 		return f(ctx, m)
 	}
 	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.PregnancyTestTypeMutation", m)
+}
+
+// The RationQueryRuleFunc type is an adapter to allow the use of ordinary
+// functions as a query rule.
+type RationQueryRuleFunc func(context.Context, *ent.RationQuery) error
+
+// EvalQuery return f(ctx, q).
+func (f RationQueryRuleFunc) EvalQuery(ctx context.Context, q ent.Query) error {
+	if q, ok := q.(*ent.RationQuery); ok {
+		return f(ctx, q)
+	}
+	return Denyf("ent/privacy: unexpected query type %T, expect *ent.RationQuery", q)
+}
+
+// The RationMutationRuleFunc type is an adapter to allow the use of ordinary
+// functions as a mutation rule.
+type RationMutationRuleFunc func(context.Context, *ent.RationMutation) error
+
+// EvalMutation calls f(ctx, m).
+func (f RationMutationRuleFunc) EvalMutation(ctx context.Context, m ent.Mutation) error {
+	if m, ok := m.(*ent.RationMutation); ok {
+		return f(ctx, m)
+	}
+	return Denyf("ent/privacy: unexpected mutation type %T, expect *ent.RationMutation", m)
 }
 
 // The ReproductiveStateQueryRuleFunc type is an adapter to allow the use of ordinary

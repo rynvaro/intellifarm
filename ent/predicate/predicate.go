@@ -66,6 +66,12 @@ type CattleOwner func(*sql.Selector)
 // CattleType is the predicate function for cattletype builders.
 type CattleType func(*sql.Selector)
 
+// ConcentrateFormula is the predicate function for concentrateformula builders.
+type ConcentrateFormula func(*sql.Selector)
+
+// ConcentrateProcess is the predicate function for concentrateprocess builders.
+type ConcentrateProcess func(*sql.Selector)
+
 // Conf is the predicate function for conf builders.
 type Conf func(*sql.Selector)
 
@@ -92,6 +98,9 @@ type EstrusType func(*sql.Selector)
 
 // Farm is the predicate function for farm builders.
 type Farm func(*sql.Selector)
+
+// FeedRecord is the predicate function for feedrecord builders.
+type FeedRecord func(*sql.Selector)
 
 // HairState is the predicate function for hairstate builders.
 type HairState func(*sql.Selector)
@@ -122,6 +131,9 @@ type PregnancyTestResult func(*sql.Selector)
 
 // PregnancyTestType is the predicate function for pregnancytesttype builders.
 type PregnancyTestType func(*sql.Selector)
+
+// Ration is the predicate function for ration builders.
+type Ration func(*sql.Selector)
 
 // ReproductiveState is the predicate function for reproductivestate builders.
 type ReproductiveState func(*sql.Selector)

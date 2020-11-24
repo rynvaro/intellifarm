@@ -21,6 +21,8 @@ import (
 	"cattleai/pkg/cattleowners"
 	"cattleai/pkg/cattles"
 	"cattleai/pkg/cattletypes"
+	"cattleai/pkg/concentrateformulas"
+	"cattleai/pkg/concentrateprocesses"
 	"cattleai/pkg/disinfects"
 	"cattleai/pkg/duties"
 	"cattleai/pkg/epidemics"
@@ -28,6 +30,7 @@ import (
 	"cattleai/pkg/estruses"
 	"cattleai/pkg/estrustypes"
 	"cattleai/pkg/farms"
+	"cattleai/pkg/feedrecords"
 	"cattleai/pkg/hairstates"
 	"cattleai/pkg/immunities"
 	"cattleai/pkg/inspections"
@@ -38,6 +41,7 @@ import (
 	"cattleai/pkg/pregnancytestresults"
 	"cattleai/pkg/pregnancytests"
 	"cattleai/pkg/pregnancytesttypes"
+	"cattleai/pkg/rations"
 	"cattleai/pkg/reproductivestates"
 	"cattleai/pkg/semenfrozentypes"
 	"cattleai/pkg/shedcates"
@@ -134,4 +138,9 @@ func Register(g *gin.RouterGroup) {
 
 	materials.RegisterRoutes(g)
 	materialtests.RegisterRoutes(g)
+
+	concentrateformulas.RegisterRoutes(g)
+	concentrateprocesses.RegisterRoutes(g)
+	rations.RegisterRoutes(g)
+	feedrecords.RegisterRoutes(g)
 }

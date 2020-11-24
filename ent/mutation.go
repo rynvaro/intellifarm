@@ -24,6 +24,8 @@ import (
 	"cattleai/ent/cattlejoinedtype"
 	"cattleai/ent/cattleowner"
 	"cattleai/ent/cattletype"
+	"cattleai/ent/concentrateformula"
+	"cattleai/ent/concentrateprocess"
 	"cattleai/ent/conf"
 	"cattleai/ent/disinfect"
 	"cattleai/ent/duty"
@@ -32,6 +34,7 @@ import (
 	"cattleai/ent/estrus"
 	"cattleai/ent/estrustype"
 	"cattleai/ent/farm"
+	"cattleai/ent/feedrecord"
 	"cattleai/ent/hairstate"
 	"cattleai/ent/immunity"
 	"cattleai/ent/inspection"
@@ -42,6 +45,7 @@ import (
 	"cattleai/ent/pregnancytestmethod"
 	"cattleai/ent/pregnancytestresult"
 	"cattleai/ent/pregnancytesttype"
+	"cattleai/ent/ration"
 	"cattleai/ent/reproductivestate"
 	"cattleai/ent/semenfrozentype"
 	"cattleai/ent/shed"
@@ -88,6 +92,8 @@ const (
 	TypeCattleJoinedType    = "CattleJoinedType"
 	TypeCattleOwner         = "CattleOwner"
 	TypeCattleType          = "CattleType"
+	TypeConcentrateFormula  = "ConcentrateFormula"
+	TypeConcentrateProcess  = "ConcentrateProcess"
 	TypeConf                = "Conf"
 	TypeDisinfect           = "Disinfect"
 	TypeDispence            = "Dispence"
@@ -97,6 +103,7 @@ const (
 	TypeEstrus              = "Estrus"
 	TypeEstrusType          = "EstrusType"
 	TypeFarm                = "Farm"
+	TypeFeedRecord          = "FeedRecord"
 	TypeHairState           = "HairState"
 	TypeImmunity            = "Immunity"
 	TypeInspection          = "Inspection"
@@ -107,6 +114,7 @@ const (
 	TypePregnancyTestMethod = "PregnancyTestMethod"
 	TypePregnancyTestResult = "PregnancyTestResult"
 	TypePregnancyTestType   = "PregnancyTestType"
+	TypeRation              = "Ration"
 	TypeReproductiveState   = "ReproductiveState"
 	TypeSemenFrozenType     = "SemenFrozenType"
 	TypeShed                = "Shed"
@@ -17762,6 +17770,2193 @@ func (m *CattleTypeMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown CattleType edge %s", name)
 }
 
+// ConcentrateFormulaMutation represents an operation that mutate the ConcentrateFormulas
+// nodes in the graph.
+type ConcentrateFormulaMutation struct {
+	config
+	op             Op
+	typ            string
+	id             *int64
+	name           *string
+	code           *string
+	status         *int
+	addstatus      *int
+	createDate     *int64
+	addcreateDate  *int64
+	adjustDate     *int64
+	addadjustDate  *int64
+	disableDate    *int64
+	adddisableDate *int64
+	cost           *int64
+	addcost        *int64
+	remarks        *string
+	createdAt      *int64
+	addcreatedAt   *int64
+	updatedAt      *int64
+	addupdatedAt   *int64
+	deleted        *int
+	adddeleted     *int
+	clearedFields  map[string]struct{}
+	done           bool
+	oldValue       func(context.Context) (*ConcentrateFormula, error)
+}
+
+var _ ent.Mutation = (*ConcentrateFormulaMutation)(nil)
+
+// concentrateformulaOption allows to manage the mutation configuration using functional options.
+type concentrateformulaOption func(*ConcentrateFormulaMutation)
+
+// newConcentrateFormulaMutation creates new mutation for $n.Name.
+func newConcentrateFormulaMutation(c config, op Op, opts ...concentrateformulaOption) *ConcentrateFormulaMutation {
+	m := &ConcentrateFormulaMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeConcentrateFormula,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withConcentrateFormulaID sets the id field of the mutation.
+func withConcentrateFormulaID(id int64) concentrateformulaOption {
+	return func(m *ConcentrateFormulaMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *ConcentrateFormula
+		)
+		m.oldValue = func(ctx context.Context) (*ConcentrateFormula, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().ConcentrateFormula.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withConcentrateFormula sets the old ConcentrateFormula of the mutation.
+func withConcentrateFormula(node *ConcentrateFormula) concentrateformulaOption {
+	return func(m *ConcentrateFormulaMutation) {
+		m.oldValue = func(context.Context) (*ConcentrateFormula, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m ConcentrateFormulaMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m ConcentrateFormulaMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *ConcentrateFormulaMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *ConcentrateFormulaMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *ConcentrateFormulaMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the ConcentrateFormula.
+// If the ConcentrateFormula object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateFormulaMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *ConcentrateFormulaMutation) ResetName() {
+	m.name = nil
+}
+
+// SetCode sets the code field.
+func (m *ConcentrateFormulaMutation) SetCode(s string) {
+	m.code = &s
+}
+
+// Code returns the code value in the mutation.
+func (m *ConcentrateFormulaMutation) Code() (r string, exists bool) {
+	v := m.code
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCode returns the old code value of the ConcentrateFormula.
+// If the ConcentrateFormula object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateFormulaMutation) OldCode(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCode is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCode requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCode: %w", err)
+	}
+	return oldValue.Code, nil
+}
+
+// ResetCode reset all changes of the "code" field.
+func (m *ConcentrateFormulaMutation) ResetCode() {
+	m.code = nil
+}
+
+// SetStatus sets the status field.
+func (m *ConcentrateFormulaMutation) SetStatus(i int) {
+	m.status = &i
+	m.addstatus = nil
+}
+
+// Status returns the status value in the mutation.
+func (m *ConcentrateFormulaMutation) Status() (r int, exists bool) {
+	v := m.status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStatus returns the old status value of the ConcentrateFormula.
+// If the ConcentrateFormula object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateFormulaMutation) OldStatus(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldStatus is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStatus: %w", err)
+	}
+	return oldValue.Status, nil
+}
+
+// AddStatus adds i to status.
+func (m *ConcentrateFormulaMutation) AddStatus(i int) {
+	if m.addstatus != nil {
+		*m.addstatus += i
+	} else {
+		m.addstatus = &i
+	}
+}
+
+// AddedStatus returns the value that was added to the status field in this mutation.
+func (m *ConcentrateFormulaMutation) AddedStatus() (r int, exists bool) {
+	v := m.addstatus
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetStatus reset all changes of the "status" field.
+func (m *ConcentrateFormulaMutation) ResetStatus() {
+	m.status = nil
+	m.addstatus = nil
+}
+
+// SetCreateDate sets the createDate field.
+func (m *ConcentrateFormulaMutation) SetCreateDate(i int64) {
+	m.createDate = &i
+	m.addcreateDate = nil
+}
+
+// CreateDate returns the createDate value in the mutation.
+func (m *ConcentrateFormulaMutation) CreateDate() (r int64, exists bool) {
+	v := m.createDate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreateDate returns the old createDate value of the ConcentrateFormula.
+// If the ConcentrateFormula object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateFormulaMutation) OldCreateDate(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreateDate is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreateDate requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreateDate: %w", err)
+	}
+	return oldValue.CreateDate, nil
+}
+
+// AddCreateDate adds i to createDate.
+func (m *ConcentrateFormulaMutation) AddCreateDate(i int64) {
+	if m.addcreateDate != nil {
+		*m.addcreateDate += i
+	} else {
+		m.addcreateDate = &i
+	}
+}
+
+// AddedCreateDate returns the value that was added to the createDate field in this mutation.
+func (m *ConcentrateFormulaMutation) AddedCreateDate() (r int64, exists bool) {
+	v := m.addcreateDate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreateDate reset all changes of the "createDate" field.
+func (m *ConcentrateFormulaMutation) ResetCreateDate() {
+	m.createDate = nil
+	m.addcreateDate = nil
+}
+
+// SetAdjustDate sets the adjustDate field.
+func (m *ConcentrateFormulaMutation) SetAdjustDate(i int64) {
+	m.adjustDate = &i
+	m.addadjustDate = nil
+}
+
+// AdjustDate returns the adjustDate value in the mutation.
+func (m *ConcentrateFormulaMutation) AdjustDate() (r int64, exists bool) {
+	v := m.adjustDate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAdjustDate returns the old adjustDate value of the ConcentrateFormula.
+// If the ConcentrateFormula object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateFormulaMutation) OldAdjustDate(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldAdjustDate is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldAdjustDate requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAdjustDate: %w", err)
+	}
+	return oldValue.AdjustDate, nil
+}
+
+// AddAdjustDate adds i to adjustDate.
+func (m *ConcentrateFormulaMutation) AddAdjustDate(i int64) {
+	if m.addadjustDate != nil {
+		*m.addadjustDate += i
+	} else {
+		m.addadjustDate = &i
+	}
+}
+
+// AddedAdjustDate returns the value that was added to the adjustDate field in this mutation.
+func (m *ConcentrateFormulaMutation) AddedAdjustDate() (r int64, exists bool) {
+	v := m.addadjustDate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetAdjustDate reset all changes of the "adjustDate" field.
+func (m *ConcentrateFormulaMutation) ResetAdjustDate() {
+	m.adjustDate = nil
+	m.addadjustDate = nil
+}
+
+// SetDisableDate sets the disableDate field.
+func (m *ConcentrateFormulaMutation) SetDisableDate(i int64) {
+	m.disableDate = &i
+	m.adddisableDate = nil
+}
+
+// DisableDate returns the disableDate value in the mutation.
+func (m *ConcentrateFormulaMutation) DisableDate() (r int64, exists bool) {
+	v := m.disableDate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDisableDate returns the old disableDate value of the ConcentrateFormula.
+// If the ConcentrateFormula object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateFormulaMutation) OldDisableDate(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDisableDate is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDisableDate requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDisableDate: %w", err)
+	}
+	return oldValue.DisableDate, nil
+}
+
+// AddDisableDate adds i to disableDate.
+func (m *ConcentrateFormulaMutation) AddDisableDate(i int64) {
+	if m.adddisableDate != nil {
+		*m.adddisableDate += i
+	} else {
+		m.adddisableDate = &i
+	}
+}
+
+// AddedDisableDate returns the value that was added to the disableDate field in this mutation.
+func (m *ConcentrateFormulaMutation) AddedDisableDate() (r int64, exists bool) {
+	v := m.adddisableDate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDisableDate reset all changes of the "disableDate" field.
+func (m *ConcentrateFormulaMutation) ResetDisableDate() {
+	m.disableDate = nil
+	m.adddisableDate = nil
+}
+
+// SetCost sets the cost field.
+func (m *ConcentrateFormulaMutation) SetCost(i int64) {
+	m.cost = &i
+	m.addcost = nil
+}
+
+// Cost returns the cost value in the mutation.
+func (m *ConcentrateFormulaMutation) Cost() (r int64, exists bool) {
+	v := m.cost
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCost returns the old cost value of the ConcentrateFormula.
+// If the ConcentrateFormula object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateFormulaMutation) OldCost(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCost is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCost requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCost: %w", err)
+	}
+	return oldValue.Cost, nil
+}
+
+// AddCost adds i to cost.
+func (m *ConcentrateFormulaMutation) AddCost(i int64) {
+	if m.addcost != nil {
+		*m.addcost += i
+	} else {
+		m.addcost = &i
+	}
+}
+
+// AddedCost returns the value that was added to the cost field in this mutation.
+func (m *ConcentrateFormulaMutation) AddedCost() (r int64, exists bool) {
+	v := m.addcost
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCost reset all changes of the "cost" field.
+func (m *ConcentrateFormulaMutation) ResetCost() {
+	m.cost = nil
+	m.addcost = nil
+}
+
+// SetRemarks sets the remarks field.
+func (m *ConcentrateFormulaMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the remarks value in the mutation.
+func (m *ConcentrateFormulaMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old remarks value of the ConcentrateFormula.
+// If the ConcentrateFormula object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateFormulaMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRemarks is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ResetRemarks reset all changes of the "remarks" field.
+func (m *ConcentrateFormulaMutation) ResetRemarks() {
+	m.remarks = nil
+}
+
+// SetCreatedAt sets the createdAt field.
+func (m *ConcentrateFormulaMutation) SetCreatedAt(i int64) {
+	m.createdAt = &i
+	m.addcreatedAt = nil
+}
+
+// CreatedAt returns the createdAt value in the mutation.
+func (m *ConcentrateFormulaMutation) CreatedAt() (r int64, exists bool) {
+	v := m.createdAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old createdAt value of the ConcentrateFormula.
+// If the ConcentrateFormula object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateFormulaMutation) OldCreatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds i to createdAt.
+func (m *ConcentrateFormulaMutation) AddCreatedAt(i int64) {
+	if m.addcreatedAt != nil {
+		*m.addcreatedAt += i
+	} else {
+		m.addcreatedAt = &i
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the createdAt field in this mutation.
+func (m *ConcentrateFormulaMutation) AddedCreatedAt() (r int64, exists bool) {
+	v := m.addcreatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt reset all changes of the "createdAt" field.
+func (m *ConcentrateFormulaMutation) ResetCreatedAt() {
+	m.createdAt = nil
+	m.addcreatedAt = nil
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (m *ConcentrateFormulaMutation) SetUpdatedAt(i int64) {
+	m.updatedAt = &i
+	m.addupdatedAt = nil
+}
+
+// UpdatedAt returns the updatedAt value in the mutation.
+func (m *ConcentrateFormulaMutation) UpdatedAt() (r int64, exists bool) {
+	v := m.updatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old updatedAt value of the ConcentrateFormula.
+// If the ConcentrateFormula object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateFormulaMutation) OldUpdatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUpdatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (m *ConcentrateFormulaMutation) AddUpdatedAt(i int64) {
+	if m.addupdatedAt != nil {
+		*m.addupdatedAt += i
+	} else {
+		m.addupdatedAt = &i
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the updatedAt field in this mutation.
+func (m *ConcentrateFormulaMutation) AddedUpdatedAt() (r int64, exists bool) {
+	v := m.addupdatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt reset all changes of the "updatedAt" field.
+func (m *ConcentrateFormulaMutation) ResetUpdatedAt() {
+	m.updatedAt = nil
+	m.addupdatedAt = nil
+}
+
+// SetDeleted sets the deleted field.
+func (m *ConcentrateFormulaMutation) SetDeleted(i int) {
+	m.deleted = &i
+	m.adddeleted = nil
+}
+
+// Deleted returns the deleted value in the mutation.
+func (m *ConcentrateFormulaMutation) Deleted() (r int, exists bool) {
+	v := m.deleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleted returns the old deleted value of the ConcentrateFormula.
+// If the ConcentrateFormula object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateFormulaMutation) OldDeleted(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleted is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleted requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleted: %w", err)
+	}
+	return oldValue.Deleted, nil
+}
+
+// AddDeleted adds i to deleted.
+func (m *ConcentrateFormulaMutation) AddDeleted(i int) {
+	if m.adddeleted != nil {
+		*m.adddeleted += i
+	} else {
+		m.adddeleted = &i
+	}
+}
+
+// AddedDeleted returns the value that was added to the deleted field in this mutation.
+func (m *ConcentrateFormulaMutation) AddedDeleted() (r int, exists bool) {
+	v := m.adddeleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleted reset all changes of the "deleted" field.
+func (m *ConcentrateFormulaMutation) ResetDeleted() {
+	m.deleted = nil
+	m.adddeleted = nil
+}
+
+// Op returns the operation name.
+func (m *ConcentrateFormulaMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (ConcentrateFormula).
+func (m *ConcentrateFormulaMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *ConcentrateFormulaMutation) Fields() []string {
+	fields := make([]string, 0, 11)
+	if m.name != nil {
+		fields = append(fields, concentrateformula.FieldName)
+	}
+	if m.code != nil {
+		fields = append(fields, concentrateformula.FieldCode)
+	}
+	if m.status != nil {
+		fields = append(fields, concentrateformula.FieldStatus)
+	}
+	if m.createDate != nil {
+		fields = append(fields, concentrateformula.FieldCreateDate)
+	}
+	if m.adjustDate != nil {
+		fields = append(fields, concentrateformula.FieldAdjustDate)
+	}
+	if m.disableDate != nil {
+		fields = append(fields, concentrateformula.FieldDisableDate)
+	}
+	if m.cost != nil {
+		fields = append(fields, concentrateformula.FieldCost)
+	}
+	if m.remarks != nil {
+		fields = append(fields, concentrateformula.FieldRemarks)
+	}
+	if m.createdAt != nil {
+		fields = append(fields, concentrateformula.FieldCreatedAt)
+	}
+	if m.updatedAt != nil {
+		fields = append(fields, concentrateformula.FieldUpdatedAt)
+	}
+	if m.deleted != nil {
+		fields = append(fields, concentrateformula.FieldDeleted)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *ConcentrateFormulaMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case concentrateformula.FieldName:
+		return m.Name()
+	case concentrateformula.FieldCode:
+		return m.Code()
+	case concentrateformula.FieldStatus:
+		return m.Status()
+	case concentrateformula.FieldCreateDate:
+		return m.CreateDate()
+	case concentrateformula.FieldAdjustDate:
+		return m.AdjustDate()
+	case concentrateformula.FieldDisableDate:
+		return m.DisableDate()
+	case concentrateformula.FieldCost:
+		return m.Cost()
+	case concentrateformula.FieldRemarks:
+		return m.Remarks()
+	case concentrateformula.FieldCreatedAt:
+		return m.CreatedAt()
+	case concentrateformula.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case concentrateformula.FieldDeleted:
+		return m.Deleted()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *ConcentrateFormulaMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case concentrateformula.FieldName:
+		return m.OldName(ctx)
+	case concentrateformula.FieldCode:
+		return m.OldCode(ctx)
+	case concentrateformula.FieldStatus:
+		return m.OldStatus(ctx)
+	case concentrateformula.FieldCreateDate:
+		return m.OldCreateDate(ctx)
+	case concentrateformula.FieldAdjustDate:
+		return m.OldAdjustDate(ctx)
+	case concentrateformula.FieldDisableDate:
+		return m.OldDisableDate(ctx)
+	case concentrateformula.FieldCost:
+		return m.OldCost(ctx)
+	case concentrateformula.FieldRemarks:
+		return m.OldRemarks(ctx)
+	case concentrateformula.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case concentrateformula.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case concentrateformula.FieldDeleted:
+		return m.OldDeleted(ctx)
+	}
+	return nil, fmt.Errorf("unknown ConcentrateFormula field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *ConcentrateFormulaMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case concentrateformula.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case concentrateformula.FieldCode:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCode(v)
+		return nil
+	case concentrateformula.FieldStatus:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStatus(v)
+		return nil
+	case concentrateformula.FieldCreateDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreateDate(v)
+		return nil
+	case concentrateformula.FieldAdjustDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAdjustDate(v)
+		return nil
+	case concentrateformula.FieldDisableDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDisableDate(v)
+		return nil
+	case concentrateformula.FieldCost:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCost(v)
+		return nil
+	case concentrateformula.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	case concentrateformula.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case concentrateformula.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case concentrateformula.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown ConcentrateFormula field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *ConcentrateFormulaMutation) AddedFields() []string {
+	var fields []string
+	if m.addstatus != nil {
+		fields = append(fields, concentrateformula.FieldStatus)
+	}
+	if m.addcreateDate != nil {
+		fields = append(fields, concentrateformula.FieldCreateDate)
+	}
+	if m.addadjustDate != nil {
+		fields = append(fields, concentrateformula.FieldAdjustDate)
+	}
+	if m.adddisableDate != nil {
+		fields = append(fields, concentrateformula.FieldDisableDate)
+	}
+	if m.addcost != nil {
+		fields = append(fields, concentrateformula.FieldCost)
+	}
+	if m.addcreatedAt != nil {
+		fields = append(fields, concentrateformula.FieldCreatedAt)
+	}
+	if m.addupdatedAt != nil {
+		fields = append(fields, concentrateformula.FieldUpdatedAt)
+	}
+	if m.adddeleted != nil {
+		fields = append(fields, concentrateformula.FieldDeleted)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *ConcentrateFormulaMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case concentrateformula.FieldStatus:
+		return m.AddedStatus()
+	case concentrateformula.FieldCreateDate:
+		return m.AddedCreateDate()
+	case concentrateformula.FieldAdjustDate:
+		return m.AddedAdjustDate()
+	case concentrateformula.FieldDisableDate:
+		return m.AddedDisableDate()
+	case concentrateformula.FieldCost:
+		return m.AddedCost()
+	case concentrateformula.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case concentrateformula.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case concentrateformula.FieldDeleted:
+		return m.AddedDeleted()
+	}
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *ConcentrateFormulaMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case concentrateformula.FieldStatus:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddStatus(v)
+		return nil
+	case concentrateformula.FieldCreateDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreateDate(v)
+		return nil
+	case concentrateformula.FieldAdjustDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddAdjustDate(v)
+		return nil
+	case concentrateformula.FieldDisableDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDisableDate(v)
+		return nil
+	case concentrateformula.FieldCost:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCost(v)
+		return nil
+	case concentrateformula.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case concentrateformula.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case concentrateformula.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown ConcentrateFormula numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *ConcentrateFormulaMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *ConcentrateFormulaMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *ConcentrateFormulaMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown ConcentrateFormula nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *ConcentrateFormulaMutation) ResetField(name string) error {
+	switch name {
+	case concentrateformula.FieldName:
+		m.ResetName()
+		return nil
+	case concentrateformula.FieldCode:
+		m.ResetCode()
+		return nil
+	case concentrateformula.FieldStatus:
+		m.ResetStatus()
+		return nil
+	case concentrateformula.FieldCreateDate:
+		m.ResetCreateDate()
+		return nil
+	case concentrateformula.FieldAdjustDate:
+		m.ResetAdjustDate()
+		return nil
+	case concentrateformula.FieldDisableDate:
+		m.ResetDisableDate()
+		return nil
+	case concentrateformula.FieldCost:
+		m.ResetCost()
+		return nil
+	case concentrateformula.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	case concentrateformula.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case concentrateformula.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case concentrateformula.FieldDeleted:
+		m.ResetDeleted()
+		return nil
+	}
+	return fmt.Errorf("unknown ConcentrateFormula field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *ConcentrateFormulaMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *ConcentrateFormulaMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *ConcentrateFormulaMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *ConcentrateFormulaMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *ConcentrateFormulaMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *ConcentrateFormulaMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *ConcentrateFormulaMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown ConcentrateFormula unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *ConcentrateFormulaMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown ConcentrateFormula edge %s", name)
+}
+
+// ConcentrateProcessMutation represents an operation that mutate the ConcentrateProcesses
+// nodes in the graph.
+type ConcentrateProcessMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	name          *string
+	code          *string
+	date          *int64
+	adddate       *int64
+	count         *int64
+	addcount      *int64
+	in            *int64
+	addin         *int64
+	inventory     *int64
+	addinventory  *int64
+	userName      *string
+	remarks       *string
+	createdAt     *int64
+	addcreatedAt  *int64
+	updatedAt     *int64
+	addupdatedAt  *int64
+	deleted       *int
+	adddeleted    *int
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*ConcentrateProcess, error)
+}
+
+var _ ent.Mutation = (*ConcentrateProcessMutation)(nil)
+
+// concentrateprocessOption allows to manage the mutation configuration using functional options.
+type concentrateprocessOption func(*ConcentrateProcessMutation)
+
+// newConcentrateProcessMutation creates new mutation for $n.Name.
+func newConcentrateProcessMutation(c config, op Op, opts ...concentrateprocessOption) *ConcentrateProcessMutation {
+	m := &ConcentrateProcessMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeConcentrateProcess,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withConcentrateProcessID sets the id field of the mutation.
+func withConcentrateProcessID(id int64) concentrateprocessOption {
+	return func(m *ConcentrateProcessMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *ConcentrateProcess
+		)
+		m.oldValue = func(ctx context.Context) (*ConcentrateProcess, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().ConcentrateProcess.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withConcentrateProcess sets the old ConcentrateProcess of the mutation.
+func withConcentrateProcess(node *ConcentrateProcess) concentrateprocessOption {
+	return func(m *ConcentrateProcessMutation) {
+		m.oldValue = func(context.Context) (*ConcentrateProcess, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m ConcentrateProcessMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m ConcentrateProcessMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *ConcentrateProcessMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *ConcentrateProcessMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *ConcentrateProcessMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the ConcentrateProcess.
+// If the ConcentrateProcess object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateProcessMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *ConcentrateProcessMutation) ResetName() {
+	m.name = nil
+}
+
+// SetCode sets the code field.
+func (m *ConcentrateProcessMutation) SetCode(s string) {
+	m.code = &s
+}
+
+// Code returns the code value in the mutation.
+func (m *ConcentrateProcessMutation) Code() (r string, exists bool) {
+	v := m.code
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCode returns the old code value of the ConcentrateProcess.
+// If the ConcentrateProcess object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateProcessMutation) OldCode(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCode is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCode requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCode: %w", err)
+	}
+	return oldValue.Code, nil
+}
+
+// ResetCode reset all changes of the "code" field.
+func (m *ConcentrateProcessMutation) ResetCode() {
+	m.code = nil
+}
+
+// SetDate sets the date field.
+func (m *ConcentrateProcessMutation) SetDate(i int64) {
+	m.date = &i
+	m.adddate = nil
+}
+
+// Date returns the date value in the mutation.
+func (m *ConcentrateProcessMutation) Date() (r int64, exists bool) {
+	v := m.date
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDate returns the old date value of the ConcentrateProcess.
+// If the ConcentrateProcess object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateProcessMutation) OldDate(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDate is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDate requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDate: %w", err)
+	}
+	return oldValue.Date, nil
+}
+
+// AddDate adds i to date.
+func (m *ConcentrateProcessMutation) AddDate(i int64) {
+	if m.adddate != nil {
+		*m.adddate += i
+	} else {
+		m.adddate = &i
+	}
+}
+
+// AddedDate returns the value that was added to the date field in this mutation.
+func (m *ConcentrateProcessMutation) AddedDate() (r int64, exists bool) {
+	v := m.adddate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDate reset all changes of the "date" field.
+func (m *ConcentrateProcessMutation) ResetDate() {
+	m.date = nil
+	m.adddate = nil
+}
+
+// SetCount sets the count field.
+func (m *ConcentrateProcessMutation) SetCount(i int64) {
+	m.count = &i
+	m.addcount = nil
+}
+
+// Count returns the count value in the mutation.
+func (m *ConcentrateProcessMutation) Count() (r int64, exists bool) {
+	v := m.count
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCount returns the old count value of the ConcentrateProcess.
+// If the ConcentrateProcess object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateProcessMutation) OldCount(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCount is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCount requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCount: %w", err)
+	}
+	return oldValue.Count, nil
+}
+
+// AddCount adds i to count.
+func (m *ConcentrateProcessMutation) AddCount(i int64) {
+	if m.addcount != nil {
+		*m.addcount += i
+	} else {
+		m.addcount = &i
+	}
+}
+
+// AddedCount returns the value that was added to the count field in this mutation.
+func (m *ConcentrateProcessMutation) AddedCount() (r int64, exists bool) {
+	v := m.addcount
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCount reset all changes of the "count" field.
+func (m *ConcentrateProcessMutation) ResetCount() {
+	m.count = nil
+	m.addcount = nil
+}
+
+// SetIn sets the in field.
+func (m *ConcentrateProcessMutation) SetIn(i int64) {
+	m.in = &i
+	m.addin = nil
+}
+
+// In returns the in value in the mutation.
+func (m *ConcentrateProcessMutation) In() (r int64, exists bool) {
+	v := m.in
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldIn returns the old in value of the ConcentrateProcess.
+// If the ConcentrateProcess object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateProcessMutation) OldIn(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldIn is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldIn requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldIn: %w", err)
+	}
+	return oldValue.In, nil
+}
+
+// AddIn adds i to in.
+func (m *ConcentrateProcessMutation) AddIn(i int64) {
+	if m.addin != nil {
+		*m.addin += i
+	} else {
+		m.addin = &i
+	}
+}
+
+// AddedIn returns the value that was added to the in field in this mutation.
+func (m *ConcentrateProcessMutation) AddedIn() (r int64, exists bool) {
+	v := m.addin
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetIn reset all changes of the "in" field.
+func (m *ConcentrateProcessMutation) ResetIn() {
+	m.in = nil
+	m.addin = nil
+}
+
+// SetInventory sets the inventory field.
+func (m *ConcentrateProcessMutation) SetInventory(i int64) {
+	m.inventory = &i
+	m.addinventory = nil
+}
+
+// Inventory returns the inventory value in the mutation.
+func (m *ConcentrateProcessMutation) Inventory() (r int64, exists bool) {
+	v := m.inventory
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldInventory returns the old inventory value of the ConcentrateProcess.
+// If the ConcentrateProcess object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateProcessMutation) OldInventory(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldInventory is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldInventory requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldInventory: %w", err)
+	}
+	return oldValue.Inventory, nil
+}
+
+// AddInventory adds i to inventory.
+func (m *ConcentrateProcessMutation) AddInventory(i int64) {
+	if m.addinventory != nil {
+		*m.addinventory += i
+	} else {
+		m.addinventory = &i
+	}
+}
+
+// AddedInventory returns the value that was added to the inventory field in this mutation.
+func (m *ConcentrateProcessMutation) AddedInventory() (r int64, exists bool) {
+	v := m.addinventory
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetInventory reset all changes of the "inventory" field.
+func (m *ConcentrateProcessMutation) ResetInventory() {
+	m.inventory = nil
+	m.addinventory = nil
+}
+
+// SetUserName sets the userName field.
+func (m *ConcentrateProcessMutation) SetUserName(s string) {
+	m.userName = &s
+}
+
+// UserName returns the userName value in the mutation.
+func (m *ConcentrateProcessMutation) UserName() (r string, exists bool) {
+	v := m.userName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserName returns the old userName value of the ConcentrateProcess.
+// If the ConcentrateProcess object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateProcessMutation) OldUserName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUserName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUserName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserName: %w", err)
+	}
+	return oldValue.UserName, nil
+}
+
+// ResetUserName reset all changes of the "userName" field.
+func (m *ConcentrateProcessMutation) ResetUserName() {
+	m.userName = nil
+}
+
+// SetRemarks sets the remarks field.
+func (m *ConcentrateProcessMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the remarks value in the mutation.
+func (m *ConcentrateProcessMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old remarks value of the ConcentrateProcess.
+// If the ConcentrateProcess object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateProcessMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRemarks is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ResetRemarks reset all changes of the "remarks" field.
+func (m *ConcentrateProcessMutation) ResetRemarks() {
+	m.remarks = nil
+}
+
+// SetCreatedAt sets the createdAt field.
+func (m *ConcentrateProcessMutation) SetCreatedAt(i int64) {
+	m.createdAt = &i
+	m.addcreatedAt = nil
+}
+
+// CreatedAt returns the createdAt value in the mutation.
+func (m *ConcentrateProcessMutation) CreatedAt() (r int64, exists bool) {
+	v := m.createdAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old createdAt value of the ConcentrateProcess.
+// If the ConcentrateProcess object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateProcessMutation) OldCreatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds i to createdAt.
+func (m *ConcentrateProcessMutation) AddCreatedAt(i int64) {
+	if m.addcreatedAt != nil {
+		*m.addcreatedAt += i
+	} else {
+		m.addcreatedAt = &i
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the createdAt field in this mutation.
+func (m *ConcentrateProcessMutation) AddedCreatedAt() (r int64, exists bool) {
+	v := m.addcreatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt reset all changes of the "createdAt" field.
+func (m *ConcentrateProcessMutation) ResetCreatedAt() {
+	m.createdAt = nil
+	m.addcreatedAt = nil
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (m *ConcentrateProcessMutation) SetUpdatedAt(i int64) {
+	m.updatedAt = &i
+	m.addupdatedAt = nil
+}
+
+// UpdatedAt returns the updatedAt value in the mutation.
+func (m *ConcentrateProcessMutation) UpdatedAt() (r int64, exists bool) {
+	v := m.updatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old updatedAt value of the ConcentrateProcess.
+// If the ConcentrateProcess object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateProcessMutation) OldUpdatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUpdatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (m *ConcentrateProcessMutation) AddUpdatedAt(i int64) {
+	if m.addupdatedAt != nil {
+		*m.addupdatedAt += i
+	} else {
+		m.addupdatedAt = &i
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the updatedAt field in this mutation.
+func (m *ConcentrateProcessMutation) AddedUpdatedAt() (r int64, exists bool) {
+	v := m.addupdatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt reset all changes of the "updatedAt" field.
+func (m *ConcentrateProcessMutation) ResetUpdatedAt() {
+	m.updatedAt = nil
+	m.addupdatedAt = nil
+}
+
+// SetDeleted sets the deleted field.
+func (m *ConcentrateProcessMutation) SetDeleted(i int) {
+	m.deleted = &i
+	m.adddeleted = nil
+}
+
+// Deleted returns the deleted value in the mutation.
+func (m *ConcentrateProcessMutation) Deleted() (r int, exists bool) {
+	v := m.deleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleted returns the old deleted value of the ConcentrateProcess.
+// If the ConcentrateProcess object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateProcessMutation) OldDeleted(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleted is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleted requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleted: %w", err)
+	}
+	return oldValue.Deleted, nil
+}
+
+// AddDeleted adds i to deleted.
+func (m *ConcentrateProcessMutation) AddDeleted(i int) {
+	if m.adddeleted != nil {
+		*m.adddeleted += i
+	} else {
+		m.adddeleted = &i
+	}
+}
+
+// AddedDeleted returns the value that was added to the deleted field in this mutation.
+func (m *ConcentrateProcessMutation) AddedDeleted() (r int, exists bool) {
+	v := m.adddeleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleted reset all changes of the "deleted" field.
+func (m *ConcentrateProcessMutation) ResetDeleted() {
+	m.deleted = nil
+	m.adddeleted = nil
+}
+
+// Op returns the operation name.
+func (m *ConcentrateProcessMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (ConcentrateProcess).
+func (m *ConcentrateProcessMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *ConcentrateProcessMutation) Fields() []string {
+	fields := make([]string, 0, 11)
+	if m.name != nil {
+		fields = append(fields, concentrateprocess.FieldName)
+	}
+	if m.code != nil {
+		fields = append(fields, concentrateprocess.FieldCode)
+	}
+	if m.date != nil {
+		fields = append(fields, concentrateprocess.FieldDate)
+	}
+	if m.count != nil {
+		fields = append(fields, concentrateprocess.FieldCount)
+	}
+	if m.in != nil {
+		fields = append(fields, concentrateprocess.FieldIn)
+	}
+	if m.inventory != nil {
+		fields = append(fields, concentrateprocess.FieldInventory)
+	}
+	if m.userName != nil {
+		fields = append(fields, concentrateprocess.FieldUserName)
+	}
+	if m.remarks != nil {
+		fields = append(fields, concentrateprocess.FieldRemarks)
+	}
+	if m.createdAt != nil {
+		fields = append(fields, concentrateprocess.FieldCreatedAt)
+	}
+	if m.updatedAt != nil {
+		fields = append(fields, concentrateprocess.FieldUpdatedAt)
+	}
+	if m.deleted != nil {
+		fields = append(fields, concentrateprocess.FieldDeleted)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *ConcentrateProcessMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case concentrateprocess.FieldName:
+		return m.Name()
+	case concentrateprocess.FieldCode:
+		return m.Code()
+	case concentrateprocess.FieldDate:
+		return m.Date()
+	case concentrateprocess.FieldCount:
+		return m.Count()
+	case concentrateprocess.FieldIn:
+		return m.In()
+	case concentrateprocess.FieldInventory:
+		return m.Inventory()
+	case concentrateprocess.FieldUserName:
+		return m.UserName()
+	case concentrateprocess.FieldRemarks:
+		return m.Remarks()
+	case concentrateprocess.FieldCreatedAt:
+		return m.CreatedAt()
+	case concentrateprocess.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case concentrateprocess.FieldDeleted:
+		return m.Deleted()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *ConcentrateProcessMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case concentrateprocess.FieldName:
+		return m.OldName(ctx)
+	case concentrateprocess.FieldCode:
+		return m.OldCode(ctx)
+	case concentrateprocess.FieldDate:
+		return m.OldDate(ctx)
+	case concentrateprocess.FieldCount:
+		return m.OldCount(ctx)
+	case concentrateprocess.FieldIn:
+		return m.OldIn(ctx)
+	case concentrateprocess.FieldInventory:
+		return m.OldInventory(ctx)
+	case concentrateprocess.FieldUserName:
+		return m.OldUserName(ctx)
+	case concentrateprocess.FieldRemarks:
+		return m.OldRemarks(ctx)
+	case concentrateprocess.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case concentrateprocess.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case concentrateprocess.FieldDeleted:
+		return m.OldDeleted(ctx)
+	}
+	return nil, fmt.Errorf("unknown ConcentrateProcess field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *ConcentrateProcessMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case concentrateprocess.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case concentrateprocess.FieldCode:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCode(v)
+		return nil
+	case concentrateprocess.FieldDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDate(v)
+		return nil
+	case concentrateprocess.FieldCount:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCount(v)
+		return nil
+	case concentrateprocess.FieldIn:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetIn(v)
+		return nil
+	case concentrateprocess.FieldInventory:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetInventory(v)
+		return nil
+	case concentrateprocess.FieldUserName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserName(v)
+		return nil
+	case concentrateprocess.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	case concentrateprocess.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case concentrateprocess.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case concentrateprocess.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown ConcentrateProcess field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *ConcentrateProcessMutation) AddedFields() []string {
+	var fields []string
+	if m.adddate != nil {
+		fields = append(fields, concentrateprocess.FieldDate)
+	}
+	if m.addcount != nil {
+		fields = append(fields, concentrateprocess.FieldCount)
+	}
+	if m.addin != nil {
+		fields = append(fields, concentrateprocess.FieldIn)
+	}
+	if m.addinventory != nil {
+		fields = append(fields, concentrateprocess.FieldInventory)
+	}
+	if m.addcreatedAt != nil {
+		fields = append(fields, concentrateprocess.FieldCreatedAt)
+	}
+	if m.addupdatedAt != nil {
+		fields = append(fields, concentrateprocess.FieldUpdatedAt)
+	}
+	if m.adddeleted != nil {
+		fields = append(fields, concentrateprocess.FieldDeleted)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *ConcentrateProcessMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case concentrateprocess.FieldDate:
+		return m.AddedDate()
+	case concentrateprocess.FieldCount:
+		return m.AddedCount()
+	case concentrateprocess.FieldIn:
+		return m.AddedIn()
+	case concentrateprocess.FieldInventory:
+		return m.AddedInventory()
+	case concentrateprocess.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case concentrateprocess.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case concentrateprocess.FieldDeleted:
+		return m.AddedDeleted()
+	}
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *ConcentrateProcessMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case concentrateprocess.FieldDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDate(v)
+		return nil
+	case concentrateprocess.FieldCount:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCount(v)
+		return nil
+	case concentrateprocess.FieldIn:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddIn(v)
+		return nil
+	case concentrateprocess.FieldInventory:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddInventory(v)
+		return nil
+	case concentrateprocess.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case concentrateprocess.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case concentrateprocess.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown ConcentrateProcess numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *ConcentrateProcessMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *ConcentrateProcessMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *ConcentrateProcessMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown ConcentrateProcess nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *ConcentrateProcessMutation) ResetField(name string) error {
+	switch name {
+	case concentrateprocess.FieldName:
+		m.ResetName()
+		return nil
+	case concentrateprocess.FieldCode:
+		m.ResetCode()
+		return nil
+	case concentrateprocess.FieldDate:
+		m.ResetDate()
+		return nil
+	case concentrateprocess.FieldCount:
+		m.ResetCount()
+		return nil
+	case concentrateprocess.FieldIn:
+		m.ResetIn()
+		return nil
+	case concentrateprocess.FieldInventory:
+		m.ResetInventory()
+		return nil
+	case concentrateprocess.FieldUserName:
+		m.ResetUserName()
+		return nil
+	case concentrateprocess.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	case concentrateprocess.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case concentrateprocess.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case concentrateprocess.FieldDeleted:
+		m.ResetDeleted()
+		return nil
+	}
+	return fmt.Errorf("unknown ConcentrateProcess field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *ConcentrateProcessMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *ConcentrateProcessMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *ConcentrateProcessMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *ConcentrateProcessMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *ConcentrateProcessMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *ConcentrateProcessMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *ConcentrateProcessMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown ConcentrateProcess unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *ConcentrateProcessMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown ConcentrateProcess edge %s", name)
+}
+
 // ConfMutation represents an operation that mutate the Confs
 // nodes in the graph.
 type ConfMutation struct {
@@ -24427,6 +26622,1127 @@ func (m *FarmMutation) ClearEdge(name string) error {
 // defined in the schema.
 func (m *FarmMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown Farm edge %s", name)
+}
+
+// FeedRecordMutation represents an operation that mutate the FeedRecords
+// nodes in the graph.
+type FeedRecordMutation struct {
+	config
+	op              Op
+	typ             string
+	id              *int64
+	name            *string
+	shedName        *string
+	date            *int64
+	adddate         *int64
+	rationCode      *string
+	rationName      *string
+	rationAmount    *int64
+	addrationAmount *int64
+	count           *int64
+	addcount        *int64
+	userName        *string
+	remarks         *string
+	createdAt       *int64
+	addcreatedAt    *int64
+	updatedAt       *int64
+	addupdatedAt    *int64
+	deleted         *int
+	adddeleted      *int
+	clearedFields   map[string]struct{}
+	done            bool
+	oldValue        func(context.Context) (*FeedRecord, error)
+}
+
+var _ ent.Mutation = (*FeedRecordMutation)(nil)
+
+// feedrecordOption allows to manage the mutation configuration using functional options.
+type feedrecordOption func(*FeedRecordMutation)
+
+// newFeedRecordMutation creates new mutation for $n.Name.
+func newFeedRecordMutation(c config, op Op, opts ...feedrecordOption) *FeedRecordMutation {
+	m := &FeedRecordMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeFeedRecord,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withFeedRecordID sets the id field of the mutation.
+func withFeedRecordID(id int64) feedrecordOption {
+	return func(m *FeedRecordMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *FeedRecord
+		)
+		m.oldValue = func(ctx context.Context) (*FeedRecord, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().FeedRecord.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withFeedRecord sets the old FeedRecord of the mutation.
+func withFeedRecord(node *FeedRecord) feedrecordOption {
+	return func(m *FeedRecordMutation) {
+		m.oldValue = func(context.Context) (*FeedRecord, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m FeedRecordMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m FeedRecordMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *FeedRecordMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *FeedRecordMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *FeedRecordMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the FeedRecord.
+// If the FeedRecord object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *FeedRecordMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ClearName clears the value of name.
+func (m *FeedRecordMutation) ClearName() {
+	m.name = nil
+	m.clearedFields[feedrecord.FieldName] = struct{}{}
+}
+
+// NameCleared returns if the field name was cleared in this mutation.
+func (m *FeedRecordMutation) NameCleared() bool {
+	_, ok := m.clearedFields[feedrecord.FieldName]
+	return ok
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *FeedRecordMutation) ResetName() {
+	m.name = nil
+	delete(m.clearedFields, feedrecord.FieldName)
+}
+
+// SetShedName sets the shedName field.
+func (m *FeedRecordMutation) SetShedName(s string) {
+	m.shedName = &s
+}
+
+// ShedName returns the shedName value in the mutation.
+func (m *FeedRecordMutation) ShedName() (r string, exists bool) {
+	v := m.shedName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldShedName returns the old shedName value of the FeedRecord.
+// If the FeedRecord object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *FeedRecordMutation) OldShedName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldShedName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldShedName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldShedName: %w", err)
+	}
+	return oldValue.ShedName, nil
+}
+
+// ResetShedName reset all changes of the "shedName" field.
+func (m *FeedRecordMutation) ResetShedName() {
+	m.shedName = nil
+}
+
+// SetDate sets the date field.
+func (m *FeedRecordMutation) SetDate(i int64) {
+	m.date = &i
+	m.adddate = nil
+}
+
+// Date returns the date value in the mutation.
+func (m *FeedRecordMutation) Date() (r int64, exists bool) {
+	v := m.date
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDate returns the old date value of the FeedRecord.
+// If the FeedRecord object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *FeedRecordMutation) OldDate(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDate is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDate requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDate: %w", err)
+	}
+	return oldValue.Date, nil
+}
+
+// AddDate adds i to date.
+func (m *FeedRecordMutation) AddDate(i int64) {
+	if m.adddate != nil {
+		*m.adddate += i
+	} else {
+		m.adddate = &i
+	}
+}
+
+// AddedDate returns the value that was added to the date field in this mutation.
+func (m *FeedRecordMutation) AddedDate() (r int64, exists bool) {
+	v := m.adddate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDate reset all changes of the "date" field.
+func (m *FeedRecordMutation) ResetDate() {
+	m.date = nil
+	m.adddate = nil
+}
+
+// SetRationCode sets the rationCode field.
+func (m *FeedRecordMutation) SetRationCode(s string) {
+	m.rationCode = &s
+}
+
+// RationCode returns the rationCode value in the mutation.
+func (m *FeedRecordMutation) RationCode() (r string, exists bool) {
+	v := m.rationCode
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRationCode returns the old rationCode value of the FeedRecord.
+// If the FeedRecord object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *FeedRecordMutation) OldRationCode(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRationCode is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRationCode requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRationCode: %w", err)
+	}
+	return oldValue.RationCode, nil
+}
+
+// ResetRationCode reset all changes of the "rationCode" field.
+func (m *FeedRecordMutation) ResetRationCode() {
+	m.rationCode = nil
+}
+
+// SetRationName sets the rationName field.
+func (m *FeedRecordMutation) SetRationName(s string) {
+	m.rationName = &s
+}
+
+// RationName returns the rationName value in the mutation.
+func (m *FeedRecordMutation) RationName() (r string, exists bool) {
+	v := m.rationName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRationName returns the old rationName value of the FeedRecord.
+// If the FeedRecord object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *FeedRecordMutation) OldRationName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRationName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRationName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRationName: %w", err)
+	}
+	return oldValue.RationName, nil
+}
+
+// ResetRationName reset all changes of the "rationName" field.
+func (m *FeedRecordMutation) ResetRationName() {
+	m.rationName = nil
+}
+
+// SetRationAmount sets the rationAmount field.
+func (m *FeedRecordMutation) SetRationAmount(i int64) {
+	m.rationAmount = &i
+	m.addrationAmount = nil
+}
+
+// RationAmount returns the rationAmount value in the mutation.
+func (m *FeedRecordMutation) RationAmount() (r int64, exists bool) {
+	v := m.rationAmount
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRationAmount returns the old rationAmount value of the FeedRecord.
+// If the FeedRecord object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *FeedRecordMutation) OldRationAmount(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRationAmount is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRationAmount requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRationAmount: %w", err)
+	}
+	return oldValue.RationAmount, nil
+}
+
+// AddRationAmount adds i to rationAmount.
+func (m *FeedRecordMutation) AddRationAmount(i int64) {
+	if m.addrationAmount != nil {
+		*m.addrationAmount += i
+	} else {
+		m.addrationAmount = &i
+	}
+}
+
+// AddedRationAmount returns the value that was added to the rationAmount field in this mutation.
+func (m *FeedRecordMutation) AddedRationAmount() (r int64, exists bool) {
+	v := m.addrationAmount
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetRationAmount reset all changes of the "rationAmount" field.
+func (m *FeedRecordMutation) ResetRationAmount() {
+	m.rationAmount = nil
+	m.addrationAmount = nil
+}
+
+// SetCount sets the count field.
+func (m *FeedRecordMutation) SetCount(i int64) {
+	m.count = &i
+	m.addcount = nil
+}
+
+// Count returns the count value in the mutation.
+func (m *FeedRecordMutation) Count() (r int64, exists bool) {
+	v := m.count
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCount returns the old count value of the FeedRecord.
+// If the FeedRecord object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *FeedRecordMutation) OldCount(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCount is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCount requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCount: %w", err)
+	}
+	return oldValue.Count, nil
+}
+
+// AddCount adds i to count.
+func (m *FeedRecordMutation) AddCount(i int64) {
+	if m.addcount != nil {
+		*m.addcount += i
+	} else {
+		m.addcount = &i
+	}
+}
+
+// AddedCount returns the value that was added to the count field in this mutation.
+func (m *FeedRecordMutation) AddedCount() (r int64, exists bool) {
+	v := m.addcount
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCount reset all changes of the "count" field.
+func (m *FeedRecordMutation) ResetCount() {
+	m.count = nil
+	m.addcount = nil
+}
+
+// SetUserName sets the userName field.
+func (m *FeedRecordMutation) SetUserName(s string) {
+	m.userName = &s
+}
+
+// UserName returns the userName value in the mutation.
+func (m *FeedRecordMutation) UserName() (r string, exists bool) {
+	v := m.userName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserName returns the old userName value of the FeedRecord.
+// If the FeedRecord object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *FeedRecordMutation) OldUserName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUserName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUserName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserName: %w", err)
+	}
+	return oldValue.UserName, nil
+}
+
+// ResetUserName reset all changes of the "userName" field.
+func (m *FeedRecordMutation) ResetUserName() {
+	m.userName = nil
+}
+
+// SetRemarks sets the remarks field.
+func (m *FeedRecordMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the remarks value in the mutation.
+func (m *FeedRecordMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old remarks value of the FeedRecord.
+// If the FeedRecord object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *FeedRecordMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRemarks is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ResetRemarks reset all changes of the "remarks" field.
+func (m *FeedRecordMutation) ResetRemarks() {
+	m.remarks = nil
+}
+
+// SetCreatedAt sets the createdAt field.
+func (m *FeedRecordMutation) SetCreatedAt(i int64) {
+	m.createdAt = &i
+	m.addcreatedAt = nil
+}
+
+// CreatedAt returns the createdAt value in the mutation.
+func (m *FeedRecordMutation) CreatedAt() (r int64, exists bool) {
+	v := m.createdAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old createdAt value of the FeedRecord.
+// If the FeedRecord object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *FeedRecordMutation) OldCreatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds i to createdAt.
+func (m *FeedRecordMutation) AddCreatedAt(i int64) {
+	if m.addcreatedAt != nil {
+		*m.addcreatedAt += i
+	} else {
+		m.addcreatedAt = &i
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the createdAt field in this mutation.
+func (m *FeedRecordMutation) AddedCreatedAt() (r int64, exists bool) {
+	v := m.addcreatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt reset all changes of the "createdAt" field.
+func (m *FeedRecordMutation) ResetCreatedAt() {
+	m.createdAt = nil
+	m.addcreatedAt = nil
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (m *FeedRecordMutation) SetUpdatedAt(i int64) {
+	m.updatedAt = &i
+	m.addupdatedAt = nil
+}
+
+// UpdatedAt returns the updatedAt value in the mutation.
+func (m *FeedRecordMutation) UpdatedAt() (r int64, exists bool) {
+	v := m.updatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old updatedAt value of the FeedRecord.
+// If the FeedRecord object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *FeedRecordMutation) OldUpdatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUpdatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (m *FeedRecordMutation) AddUpdatedAt(i int64) {
+	if m.addupdatedAt != nil {
+		*m.addupdatedAt += i
+	} else {
+		m.addupdatedAt = &i
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the updatedAt field in this mutation.
+func (m *FeedRecordMutation) AddedUpdatedAt() (r int64, exists bool) {
+	v := m.addupdatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt reset all changes of the "updatedAt" field.
+func (m *FeedRecordMutation) ResetUpdatedAt() {
+	m.updatedAt = nil
+	m.addupdatedAt = nil
+}
+
+// SetDeleted sets the deleted field.
+func (m *FeedRecordMutation) SetDeleted(i int) {
+	m.deleted = &i
+	m.adddeleted = nil
+}
+
+// Deleted returns the deleted value in the mutation.
+func (m *FeedRecordMutation) Deleted() (r int, exists bool) {
+	v := m.deleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleted returns the old deleted value of the FeedRecord.
+// If the FeedRecord object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *FeedRecordMutation) OldDeleted(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleted is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleted requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleted: %w", err)
+	}
+	return oldValue.Deleted, nil
+}
+
+// AddDeleted adds i to deleted.
+func (m *FeedRecordMutation) AddDeleted(i int) {
+	if m.adddeleted != nil {
+		*m.adddeleted += i
+	} else {
+		m.adddeleted = &i
+	}
+}
+
+// AddedDeleted returns the value that was added to the deleted field in this mutation.
+func (m *FeedRecordMutation) AddedDeleted() (r int, exists bool) {
+	v := m.adddeleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleted reset all changes of the "deleted" field.
+func (m *FeedRecordMutation) ResetDeleted() {
+	m.deleted = nil
+	m.adddeleted = nil
+}
+
+// Op returns the operation name.
+func (m *FeedRecordMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (FeedRecord).
+func (m *FeedRecordMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *FeedRecordMutation) Fields() []string {
+	fields := make([]string, 0, 12)
+	if m.name != nil {
+		fields = append(fields, feedrecord.FieldName)
+	}
+	if m.shedName != nil {
+		fields = append(fields, feedrecord.FieldShedName)
+	}
+	if m.date != nil {
+		fields = append(fields, feedrecord.FieldDate)
+	}
+	if m.rationCode != nil {
+		fields = append(fields, feedrecord.FieldRationCode)
+	}
+	if m.rationName != nil {
+		fields = append(fields, feedrecord.FieldRationName)
+	}
+	if m.rationAmount != nil {
+		fields = append(fields, feedrecord.FieldRationAmount)
+	}
+	if m.count != nil {
+		fields = append(fields, feedrecord.FieldCount)
+	}
+	if m.userName != nil {
+		fields = append(fields, feedrecord.FieldUserName)
+	}
+	if m.remarks != nil {
+		fields = append(fields, feedrecord.FieldRemarks)
+	}
+	if m.createdAt != nil {
+		fields = append(fields, feedrecord.FieldCreatedAt)
+	}
+	if m.updatedAt != nil {
+		fields = append(fields, feedrecord.FieldUpdatedAt)
+	}
+	if m.deleted != nil {
+		fields = append(fields, feedrecord.FieldDeleted)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *FeedRecordMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case feedrecord.FieldName:
+		return m.Name()
+	case feedrecord.FieldShedName:
+		return m.ShedName()
+	case feedrecord.FieldDate:
+		return m.Date()
+	case feedrecord.FieldRationCode:
+		return m.RationCode()
+	case feedrecord.FieldRationName:
+		return m.RationName()
+	case feedrecord.FieldRationAmount:
+		return m.RationAmount()
+	case feedrecord.FieldCount:
+		return m.Count()
+	case feedrecord.FieldUserName:
+		return m.UserName()
+	case feedrecord.FieldRemarks:
+		return m.Remarks()
+	case feedrecord.FieldCreatedAt:
+		return m.CreatedAt()
+	case feedrecord.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case feedrecord.FieldDeleted:
+		return m.Deleted()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *FeedRecordMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case feedrecord.FieldName:
+		return m.OldName(ctx)
+	case feedrecord.FieldShedName:
+		return m.OldShedName(ctx)
+	case feedrecord.FieldDate:
+		return m.OldDate(ctx)
+	case feedrecord.FieldRationCode:
+		return m.OldRationCode(ctx)
+	case feedrecord.FieldRationName:
+		return m.OldRationName(ctx)
+	case feedrecord.FieldRationAmount:
+		return m.OldRationAmount(ctx)
+	case feedrecord.FieldCount:
+		return m.OldCount(ctx)
+	case feedrecord.FieldUserName:
+		return m.OldUserName(ctx)
+	case feedrecord.FieldRemarks:
+		return m.OldRemarks(ctx)
+	case feedrecord.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case feedrecord.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case feedrecord.FieldDeleted:
+		return m.OldDeleted(ctx)
+	}
+	return nil, fmt.Errorf("unknown FeedRecord field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *FeedRecordMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case feedrecord.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case feedrecord.FieldShedName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetShedName(v)
+		return nil
+	case feedrecord.FieldDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDate(v)
+		return nil
+	case feedrecord.FieldRationCode:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRationCode(v)
+		return nil
+	case feedrecord.FieldRationName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRationName(v)
+		return nil
+	case feedrecord.FieldRationAmount:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRationAmount(v)
+		return nil
+	case feedrecord.FieldCount:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCount(v)
+		return nil
+	case feedrecord.FieldUserName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserName(v)
+		return nil
+	case feedrecord.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	case feedrecord.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case feedrecord.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case feedrecord.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown FeedRecord field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *FeedRecordMutation) AddedFields() []string {
+	var fields []string
+	if m.adddate != nil {
+		fields = append(fields, feedrecord.FieldDate)
+	}
+	if m.addrationAmount != nil {
+		fields = append(fields, feedrecord.FieldRationAmount)
+	}
+	if m.addcount != nil {
+		fields = append(fields, feedrecord.FieldCount)
+	}
+	if m.addcreatedAt != nil {
+		fields = append(fields, feedrecord.FieldCreatedAt)
+	}
+	if m.addupdatedAt != nil {
+		fields = append(fields, feedrecord.FieldUpdatedAt)
+	}
+	if m.adddeleted != nil {
+		fields = append(fields, feedrecord.FieldDeleted)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *FeedRecordMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case feedrecord.FieldDate:
+		return m.AddedDate()
+	case feedrecord.FieldRationAmount:
+		return m.AddedRationAmount()
+	case feedrecord.FieldCount:
+		return m.AddedCount()
+	case feedrecord.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case feedrecord.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case feedrecord.FieldDeleted:
+		return m.AddedDeleted()
+	}
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *FeedRecordMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case feedrecord.FieldDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDate(v)
+		return nil
+	case feedrecord.FieldRationAmount:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddRationAmount(v)
+		return nil
+	case feedrecord.FieldCount:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCount(v)
+		return nil
+	case feedrecord.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case feedrecord.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case feedrecord.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown FeedRecord numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *FeedRecordMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(feedrecord.FieldName) {
+		fields = append(fields, feedrecord.FieldName)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *FeedRecordMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *FeedRecordMutation) ClearField(name string) error {
+	switch name {
+	case feedrecord.FieldName:
+		m.ClearName()
+		return nil
+	}
+	return fmt.Errorf("unknown FeedRecord nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *FeedRecordMutation) ResetField(name string) error {
+	switch name {
+	case feedrecord.FieldName:
+		m.ResetName()
+		return nil
+	case feedrecord.FieldShedName:
+		m.ResetShedName()
+		return nil
+	case feedrecord.FieldDate:
+		m.ResetDate()
+		return nil
+	case feedrecord.FieldRationCode:
+		m.ResetRationCode()
+		return nil
+	case feedrecord.FieldRationName:
+		m.ResetRationName()
+		return nil
+	case feedrecord.FieldRationAmount:
+		m.ResetRationAmount()
+		return nil
+	case feedrecord.FieldCount:
+		m.ResetCount()
+		return nil
+	case feedrecord.FieldUserName:
+		m.ResetUserName()
+		return nil
+	case feedrecord.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	case feedrecord.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case feedrecord.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case feedrecord.FieldDeleted:
+		m.ResetDeleted()
+		return nil
+	}
+	return fmt.Errorf("unknown FeedRecord field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *FeedRecordMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *FeedRecordMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *FeedRecordMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *FeedRecordMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *FeedRecordMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *FeedRecordMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *FeedRecordMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown FeedRecord unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *FeedRecordMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown FeedRecord edge %s", name)
 }
 
 // HairStateMutation represents an operation that mutate the HairStates
@@ -32531,6 +35847,1116 @@ func (m *PregnancyTestTypeMutation) ClearEdge(name string) error {
 // defined in the schema.
 func (m *PregnancyTestTypeMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown PregnancyTestType edge %s", name)
+}
+
+// RationMutation represents an operation that mutate the Rations
+// nodes in the graph.
+type RationMutation struct {
+	config
+	op             Op
+	typ            string
+	id             *int64
+	name           *string
+	code           *string
+	status         *int
+	addstatus      *int
+	createDate     *int64
+	addcreateDate  *int64
+	adjustDate     *int64
+	addadjustDate  *int64
+	disableDate    *int64
+	adddisableDate *int64
+	cost           *int64
+	addcost        *int64
+	remarks        *string
+	createdAt      *int64
+	addcreatedAt   *int64
+	updatedAt      *int64
+	addupdatedAt   *int64
+	deleted        *int
+	adddeleted     *int
+	clearedFields  map[string]struct{}
+	done           bool
+	oldValue       func(context.Context) (*Ration, error)
+}
+
+var _ ent.Mutation = (*RationMutation)(nil)
+
+// rationOption allows to manage the mutation configuration using functional options.
+type rationOption func(*RationMutation)
+
+// newRationMutation creates new mutation for $n.Name.
+func newRationMutation(c config, op Op, opts ...rationOption) *RationMutation {
+	m := &RationMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeRation,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withRationID sets the id field of the mutation.
+func withRationID(id int64) rationOption {
+	return func(m *RationMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *Ration
+		)
+		m.oldValue = func(ctx context.Context) (*Ration, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().Ration.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withRation sets the old Ration of the mutation.
+func withRation(node *Ration) rationOption {
+	return func(m *RationMutation) {
+		m.oldValue = func(context.Context) (*Ration, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m RationMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m RationMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *RationMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *RationMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *RationMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the Ration.
+// If the Ration object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *RationMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *RationMutation) ResetName() {
+	m.name = nil
+}
+
+// SetCode sets the code field.
+func (m *RationMutation) SetCode(s string) {
+	m.code = &s
+}
+
+// Code returns the code value in the mutation.
+func (m *RationMutation) Code() (r string, exists bool) {
+	v := m.code
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCode returns the old code value of the Ration.
+// If the Ration object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *RationMutation) OldCode(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCode is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCode requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCode: %w", err)
+	}
+	return oldValue.Code, nil
+}
+
+// ResetCode reset all changes of the "code" field.
+func (m *RationMutation) ResetCode() {
+	m.code = nil
+}
+
+// SetStatus sets the status field.
+func (m *RationMutation) SetStatus(i int) {
+	m.status = &i
+	m.addstatus = nil
+}
+
+// Status returns the status value in the mutation.
+func (m *RationMutation) Status() (r int, exists bool) {
+	v := m.status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStatus returns the old status value of the Ration.
+// If the Ration object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *RationMutation) OldStatus(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldStatus is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStatus: %w", err)
+	}
+	return oldValue.Status, nil
+}
+
+// AddStatus adds i to status.
+func (m *RationMutation) AddStatus(i int) {
+	if m.addstatus != nil {
+		*m.addstatus += i
+	} else {
+		m.addstatus = &i
+	}
+}
+
+// AddedStatus returns the value that was added to the status field in this mutation.
+func (m *RationMutation) AddedStatus() (r int, exists bool) {
+	v := m.addstatus
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetStatus reset all changes of the "status" field.
+func (m *RationMutation) ResetStatus() {
+	m.status = nil
+	m.addstatus = nil
+}
+
+// SetCreateDate sets the createDate field.
+func (m *RationMutation) SetCreateDate(i int64) {
+	m.createDate = &i
+	m.addcreateDate = nil
+}
+
+// CreateDate returns the createDate value in the mutation.
+func (m *RationMutation) CreateDate() (r int64, exists bool) {
+	v := m.createDate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreateDate returns the old createDate value of the Ration.
+// If the Ration object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *RationMutation) OldCreateDate(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreateDate is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreateDate requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreateDate: %w", err)
+	}
+	return oldValue.CreateDate, nil
+}
+
+// AddCreateDate adds i to createDate.
+func (m *RationMutation) AddCreateDate(i int64) {
+	if m.addcreateDate != nil {
+		*m.addcreateDate += i
+	} else {
+		m.addcreateDate = &i
+	}
+}
+
+// AddedCreateDate returns the value that was added to the createDate field in this mutation.
+func (m *RationMutation) AddedCreateDate() (r int64, exists bool) {
+	v := m.addcreateDate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreateDate reset all changes of the "createDate" field.
+func (m *RationMutation) ResetCreateDate() {
+	m.createDate = nil
+	m.addcreateDate = nil
+}
+
+// SetAdjustDate sets the adjustDate field.
+func (m *RationMutation) SetAdjustDate(i int64) {
+	m.adjustDate = &i
+	m.addadjustDate = nil
+}
+
+// AdjustDate returns the adjustDate value in the mutation.
+func (m *RationMutation) AdjustDate() (r int64, exists bool) {
+	v := m.adjustDate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldAdjustDate returns the old adjustDate value of the Ration.
+// If the Ration object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *RationMutation) OldAdjustDate(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldAdjustDate is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldAdjustDate requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldAdjustDate: %w", err)
+	}
+	return oldValue.AdjustDate, nil
+}
+
+// AddAdjustDate adds i to adjustDate.
+func (m *RationMutation) AddAdjustDate(i int64) {
+	if m.addadjustDate != nil {
+		*m.addadjustDate += i
+	} else {
+		m.addadjustDate = &i
+	}
+}
+
+// AddedAdjustDate returns the value that was added to the adjustDate field in this mutation.
+func (m *RationMutation) AddedAdjustDate() (r int64, exists bool) {
+	v := m.addadjustDate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetAdjustDate reset all changes of the "adjustDate" field.
+func (m *RationMutation) ResetAdjustDate() {
+	m.adjustDate = nil
+	m.addadjustDate = nil
+}
+
+// SetDisableDate sets the disableDate field.
+func (m *RationMutation) SetDisableDate(i int64) {
+	m.disableDate = &i
+	m.adddisableDate = nil
+}
+
+// DisableDate returns the disableDate value in the mutation.
+func (m *RationMutation) DisableDate() (r int64, exists bool) {
+	v := m.disableDate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDisableDate returns the old disableDate value of the Ration.
+// If the Ration object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *RationMutation) OldDisableDate(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDisableDate is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDisableDate requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDisableDate: %w", err)
+	}
+	return oldValue.DisableDate, nil
+}
+
+// AddDisableDate adds i to disableDate.
+func (m *RationMutation) AddDisableDate(i int64) {
+	if m.adddisableDate != nil {
+		*m.adddisableDate += i
+	} else {
+		m.adddisableDate = &i
+	}
+}
+
+// AddedDisableDate returns the value that was added to the disableDate field in this mutation.
+func (m *RationMutation) AddedDisableDate() (r int64, exists bool) {
+	v := m.adddisableDate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDisableDate reset all changes of the "disableDate" field.
+func (m *RationMutation) ResetDisableDate() {
+	m.disableDate = nil
+	m.adddisableDate = nil
+}
+
+// SetCost sets the cost field.
+func (m *RationMutation) SetCost(i int64) {
+	m.cost = &i
+	m.addcost = nil
+}
+
+// Cost returns the cost value in the mutation.
+func (m *RationMutation) Cost() (r int64, exists bool) {
+	v := m.cost
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCost returns the old cost value of the Ration.
+// If the Ration object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *RationMutation) OldCost(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCost is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCost requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCost: %w", err)
+	}
+	return oldValue.Cost, nil
+}
+
+// AddCost adds i to cost.
+func (m *RationMutation) AddCost(i int64) {
+	if m.addcost != nil {
+		*m.addcost += i
+	} else {
+		m.addcost = &i
+	}
+}
+
+// AddedCost returns the value that was added to the cost field in this mutation.
+func (m *RationMutation) AddedCost() (r int64, exists bool) {
+	v := m.addcost
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCost reset all changes of the "cost" field.
+func (m *RationMutation) ResetCost() {
+	m.cost = nil
+	m.addcost = nil
+}
+
+// SetRemarks sets the remarks field.
+func (m *RationMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the remarks value in the mutation.
+func (m *RationMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old remarks value of the Ration.
+// If the Ration object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *RationMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRemarks is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ResetRemarks reset all changes of the "remarks" field.
+func (m *RationMutation) ResetRemarks() {
+	m.remarks = nil
+}
+
+// SetCreatedAt sets the createdAt field.
+func (m *RationMutation) SetCreatedAt(i int64) {
+	m.createdAt = &i
+	m.addcreatedAt = nil
+}
+
+// CreatedAt returns the createdAt value in the mutation.
+func (m *RationMutation) CreatedAt() (r int64, exists bool) {
+	v := m.createdAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old createdAt value of the Ration.
+// If the Ration object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *RationMutation) OldCreatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds i to createdAt.
+func (m *RationMutation) AddCreatedAt(i int64) {
+	if m.addcreatedAt != nil {
+		*m.addcreatedAt += i
+	} else {
+		m.addcreatedAt = &i
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the createdAt field in this mutation.
+func (m *RationMutation) AddedCreatedAt() (r int64, exists bool) {
+	v := m.addcreatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt reset all changes of the "createdAt" field.
+func (m *RationMutation) ResetCreatedAt() {
+	m.createdAt = nil
+	m.addcreatedAt = nil
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (m *RationMutation) SetUpdatedAt(i int64) {
+	m.updatedAt = &i
+	m.addupdatedAt = nil
+}
+
+// UpdatedAt returns the updatedAt value in the mutation.
+func (m *RationMutation) UpdatedAt() (r int64, exists bool) {
+	v := m.updatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old updatedAt value of the Ration.
+// If the Ration object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *RationMutation) OldUpdatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUpdatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (m *RationMutation) AddUpdatedAt(i int64) {
+	if m.addupdatedAt != nil {
+		*m.addupdatedAt += i
+	} else {
+		m.addupdatedAt = &i
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the updatedAt field in this mutation.
+func (m *RationMutation) AddedUpdatedAt() (r int64, exists bool) {
+	v := m.addupdatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt reset all changes of the "updatedAt" field.
+func (m *RationMutation) ResetUpdatedAt() {
+	m.updatedAt = nil
+	m.addupdatedAt = nil
+}
+
+// SetDeleted sets the deleted field.
+func (m *RationMutation) SetDeleted(i int) {
+	m.deleted = &i
+	m.adddeleted = nil
+}
+
+// Deleted returns the deleted value in the mutation.
+func (m *RationMutation) Deleted() (r int, exists bool) {
+	v := m.deleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleted returns the old deleted value of the Ration.
+// If the Ration object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *RationMutation) OldDeleted(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleted is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleted requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleted: %w", err)
+	}
+	return oldValue.Deleted, nil
+}
+
+// AddDeleted adds i to deleted.
+func (m *RationMutation) AddDeleted(i int) {
+	if m.adddeleted != nil {
+		*m.adddeleted += i
+	} else {
+		m.adddeleted = &i
+	}
+}
+
+// AddedDeleted returns the value that was added to the deleted field in this mutation.
+func (m *RationMutation) AddedDeleted() (r int, exists bool) {
+	v := m.adddeleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleted reset all changes of the "deleted" field.
+func (m *RationMutation) ResetDeleted() {
+	m.deleted = nil
+	m.adddeleted = nil
+}
+
+// Op returns the operation name.
+func (m *RationMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (Ration).
+func (m *RationMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *RationMutation) Fields() []string {
+	fields := make([]string, 0, 11)
+	if m.name != nil {
+		fields = append(fields, ration.FieldName)
+	}
+	if m.code != nil {
+		fields = append(fields, ration.FieldCode)
+	}
+	if m.status != nil {
+		fields = append(fields, ration.FieldStatus)
+	}
+	if m.createDate != nil {
+		fields = append(fields, ration.FieldCreateDate)
+	}
+	if m.adjustDate != nil {
+		fields = append(fields, ration.FieldAdjustDate)
+	}
+	if m.disableDate != nil {
+		fields = append(fields, ration.FieldDisableDate)
+	}
+	if m.cost != nil {
+		fields = append(fields, ration.FieldCost)
+	}
+	if m.remarks != nil {
+		fields = append(fields, ration.FieldRemarks)
+	}
+	if m.createdAt != nil {
+		fields = append(fields, ration.FieldCreatedAt)
+	}
+	if m.updatedAt != nil {
+		fields = append(fields, ration.FieldUpdatedAt)
+	}
+	if m.deleted != nil {
+		fields = append(fields, ration.FieldDeleted)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *RationMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case ration.FieldName:
+		return m.Name()
+	case ration.FieldCode:
+		return m.Code()
+	case ration.FieldStatus:
+		return m.Status()
+	case ration.FieldCreateDate:
+		return m.CreateDate()
+	case ration.FieldAdjustDate:
+		return m.AdjustDate()
+	case ration.FieldDisableDate:
+		return m.DisableDate()
+	case ration.FieldCost:
+		return m.Cost()
+	case ration.FieldRemarks:
+		return m.Remarks()
+	case ration.FieldCreatedAt:
+		return m.CreatedAt()
+	case ration.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case ration.FieldDeleted:
+		return m.Deleted()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *RationMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case ration.FieldName:
+		return m.OldName(ctx)
+	case ration.FieldCode:
+		return m.OldCode(ctx)
+	case ration.FieldStatus:
+		return m.OldStatus(ctx)
+	case ration.FieldCreateDate:
+		return m.OldCreateDate(ctx)
+	case ration.FieldAdjustDate:
+		return m.OldAdjustDate(ctx)
+	case ration.FieldDisableDate:
+		return m.OldDisableDate(ctx)
+	case ration.FieldCost:
+		return m.OldCost(ctx)
+	case ration.FieldRemarks:
+		return m.OldRemarks(ctx)
+	case ration.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case ration.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case ration.FieldDeleted:
+		return m.OldDeleted(ctx)
+	}
+	return nil, fmt.Errorf("unknown Ration field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *RationMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case ration.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case ration.FieldCode:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCode(v)
+		return nil
+	case ration.FieldStatus:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStatus(v)
+		return nil
+	case ration.FieldCreateDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreateDate(v)
+		return nil
+	case ration.FieldAdjustDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetAdjustDate(v)
+		return nil
+	case ration.FieldDisableDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDisableDate(v)
+		return nil
+	case ration.FieldCost:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCost(v)
+		return nil
+	case ration.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	case ration.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case ration.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case ration.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Ration field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *RationMutation) AddedFields() []string {
+	var fields []string
+	if m.addstatus != nil {
+		fields = append(fields, ration.FieldStatus)
+	}
+	if m.addcreateDate != nil {
+		fields = append(fields, ration.FieldCreateDate)
+	}
+	if m.addadjustDate != nil {
+		fields = append(fields, ration.FieldAdjustDate)
+	}
+	if m.adddisableDate != nil {
+		fields = append(fields, ration.FieldDisableDate)
+	}
+	if m.addcost != nil {
+		fields = append(fields, ration.FieldCost)
+	}
+	if m.addcreatedAt != nil {
+		fields = append(fields, ration.FieldCreatedAt)
+	}
+	if m.addupdatedAt != nil {
+		fields = append(fields, ration.FieldUpdatedAt)
+	}
+	if m.adddeleted != nil {
+		fields = append(fields, ration.FieldDeleted)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *RationMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case ration.FieldStatus:
+		return m.AddedStatus()
+	case ration.FieldCreateDate:
+		return m.AddedCreateDate()
+	case ration.FieldAdjustDate:
+		return m.AddedAdjustDate()
+	case ration.FieldDisableDate:
+		return m.AddedDisableDate()
+	case ration.FieldCost:
+		return m.AddedCost()
+	case ration.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case ration.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case ration.FieldDeleted:
+		return m.AddedDeleted()
+	}
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *RationMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case ration.FieldStatus:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddStatus(v)
+		return nil
+	case ration.FieldCreateDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreateDate(v)
+		return nil
+	case ration.FieldAdjustDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddAdjustDate(v)
+		return nil
+	case ration.FieldDisableDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDisableDate(v)
+		return nil
+	case ration.FieldCost:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCost(v)
+		return nil
+	case ration.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case ration.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case ration.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Ration numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *RationMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *RationMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *RationMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown Ration nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *RationMutation) ResetField(name string) error {
+	switch name {
+	case ration.FieldName:
+		m.ResetName()
+		return nil
+	case ration.FieldCode:
+		m.ResetCode()
+		return nil
+	case ration.FieldStatus:
+		m.ResetStatus()
+		return nil
+	case ration.FieldCreateDate:
+		m.ResetCreateDate()
+		return nil
+	case ration.FieldAdjustDate:
+		m.ResetAdjustDate()
+		return nil
+	case ration.FieldDisableDate:
+		m.ResetDisableDate()
+		return nil
+	case ration.FieldCost:
+		m.ResetCost()
+		return nil
+	case ration.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	case ration.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case ration.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case ration.FieldDeleted:
+		m.ResetDeleted()
+		return nil
+	}
+	return fmt.Errorf("unknown Ration field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *RationMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *RationMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *RationMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *RationMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *RationMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *RationMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *RationMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown Ration unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *RationMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown Ration edge %s", name)
 }
 
 // ReproductiveStateMutation represents an operation that mutate the ReproductiveStates

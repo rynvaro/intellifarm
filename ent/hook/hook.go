@@ -268,6 +268,32 @@ func (f CattleTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, 
 	return f(ctx, mv)
 }
 
+// The ConcentrateFormulaFunc type is an adapter to allow the use of ordinary
+// function as ConcentrateFormula mutator.
+type ConcentrateFormulaFunc func(context.Context, *ent.ConcentrateFormulaMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f ConcentrateFormulaFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.ConcentrateFormulaMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ConcentrateFormulaMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The ConcentrateProcessFunc type is an adapter to allow the use of ordinary
+// function as ConcentrateProcess mutator.
+type ConcentrateProcessFunc func(context.Context, *ent.ConcentrateProcessMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f ConcentrateProcessFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.ConcentrateProcessMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ConcentrateProcessMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The ConfFunc type is an adapter to allow the use of ordinary
 // function as Conf mutator.
 type ConfFunc func(context.Context, *ent.ConfMutation) (ent.Value, error)
@@ -381,6 +407,19 @@ func (f FarmFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error)
 	mv, ok := m.(*ent.FarmMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.FarmMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The FeedRecordFunc type is an adapter to allow the use of ordinary
+// function as FeedRecord mutator.
+type FeedRecordFunc func(context.Context, *ent.FeedRecordMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f FeedRecordFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.FeedRecordMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.FeedRecordMutation", m)
 	}
 	return f(ctx, mv)
 }
@@ -511,6 +550,19 @@ func (f PregnancyTestTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.
 	mv, ok := m.(*ent.PregnancyTestTypeMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.PregnancyTestTypeMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The RationFunc type is an adapter to allow the use of ordinary
+// function as Ration mutator.
+type RationFunc func(context.Context, *ent.RationMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f RationFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.RationMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.RationMutation", m)
 	}
 	return f(ctx, mv)
 }

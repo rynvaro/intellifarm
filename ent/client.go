@@ -29,6 +29,8 @@ import (
 	"cattleai/ent/cattlejoinedtype"
 	"cattleai/ent/cattleowner"
 	"cattleai/ent/cattletype"
+	"cattleai/ent/concentrateformula"
+	"cattleai/ent/concentrateprocess"
 	"cattleai/ent/conf"
 	"cattleai/ent/disinfect"
 	"cattleai/ent/dispence"
@@ -38,6 +40,7 @@ import (
 	"cattleai/ent/estrus"
 	"cattleai/ent/estrustype"
 	"cattleai/ent/farm"
+	"cattleai/ent/feedrecord"
 	"cattleai/ent/hairstate"
 	"cattleai/ent/immunity"
 	"cattleai/ent/inspection"
@@ -48,6 +51,7 @@ import (
 	"cattleai/ent/pregnancytestmethod"
 	"cattleai/ent/pregnancytestresult"
 	"cattleai/ent/pregnancytesttype"
+	"cattleai/ent/ration"
 	"cattleai/ent/reproductivestate"
 	"cattleai/ent/semenfrozentype"
 	"cattleai/ent/shed"
@@ -108,6 +112,10 @@ type Client struct {
 	CattleOwner *CattleOwnerClient
 	// CattleType is the client for interacting with the CattleType builders.
 	CattleType *CattleTypeClient
+	// ConcentrateFormula is the client for interacting with the ConcentrateFormula builders.
+	ConcentrateFormula *ConcentrateFormulaClient
+	// ConcentrateProcess is the client for interacting with the ConcentrateProcess builders.
+	ConcentrateProcess *ConcentrateProcessClient
 	// Conf is the client for interacting with the Conf builders.
 	Conf *ConfClient
 	// Disinfect is the client for interacting with the Disinfect builders.
@@ -126,6 +134,8 @@ type Client struct {
 	EstrusType *EstrusTypeClient
 	// Farm is the client for interacting with the Farm builders.
 	Farm *FarmClient
+	// FeedRecord is the client for interacting with the FeedRecord builders.
+	FeedRecord *FeedRecordClient
 	// HairState is the client for interacting with the HairState builders.
 	HairState *HairStateClient
 	// Immunity is the client for interacting with the Immunity builders.
@@ -146,6 +156,8 @@ type Client struct {
 	PregnancyTestResult *PregnancyTestResultClient
 	// PregnancyTestType is the client for interacting with the PregnancyTestType builders.
 	PregnancyTestType *PregnancyTestTypeClient
+	// Ration is the client for interacting with the Ration builders.
+	Ration *RationClient
 	// ReproductiveState is the client for interacting with the ReproductiveState builders.
 	ReproductiveState *ReproductiveStateClient
 	// SemenFrozenType is the client for interacting with the SemenFrozenType builders.
@@ -199,6 +211,8 @@ func (c *Client) init() {
 	c.CattleJoinedType = NewCattleJoinedTypeClient(c.config)
 	c.CattleOwner = NewCattleOwnerClient(c.config)
 	c.CattleType = NewCattleTypeClient(c.config)
+	c.ConcentrateFormula = NewConcentrateFormulaClient(c.config)
+	c.ConcentrateProcess = NewConcentrateProcessClient(c.config)
 	c.Conf = NewConfClient(c.config)
 	c.Disinfect = NewDisinfectClient(c.config)
 	c.Dispence = NewDispenceClient(c.config)
@@ -208,6 +222,7 @@ func (c *Client) init() {
 	c.Estrus = NewEstrusClient(c.config)
 	c.EstrusType = NewEstrusTypeClient(c.config)
 	c.Farm = NewFarmClient(c.config)
+	c.FeedRecord = NewFeedRecordClient(c.config)
 	c.HairState = NewHairStateClient(c.config)
 	c.Immunity = NewImmunityClient(c.config)
 	c.Inspection = NewInspectionClient(c.config)
@@ -218,6 +233,7 @@ func (c *Client) init() {
 	c.PregnancyTestMethod = NewPregnancyTestMethodClient(c.config)
 	c.PregnancyTestResult = NewPregnancyTestResultClient(c.config)
 	c.PregnancyTestType = NewPregnancyTestTypeClient(c.config)
+	c.Ration = NewRationClient(c.config)
 	c.ReproductiveState = NewReproductiveStateClient(c.config)
 	c.SemenFrozenType = NewSemenFrozenTypeClient(c.config)
 	c.Shed = NewShedClient(c.config)
@@ -280,6 +296,8 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		CattleJoinedType:    NewCattleJoinedTypeClient(cfg),
 		CattleOwner:         NewCattleOwnerClient(cfg),
 		CattleType:          NewCattleTypeClient(cfg),
+		ConcentrateFormula:  NewConcentrateFormulaClient(cfg),
+		ConcentrateProcess:  NewConcentrateProcessClient(cfg),
 		Conf:                NewConfClient(cfg),
 		Disinfect:           NewDisinfectClient(cfg),
 		Dispence:            NewDispenceClient(cfg),
@@ -289,6 +307,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Estrus:              NewEstrusClient(cfg),
 		EstrusType:          NewEstrusTypeClient(cfg),
 		Farm:                NewFarmClient(cfg),
+		FeedRecord:          NewFeedRecordClient(cfg),
 		HairState:           NewHairStateClient(cfg),
 		Immunity:            NewImmunityClient(cfg),
 		Inspection:          NewInspectionClient(cfg),
@@ -299,6 +318,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		PregnancyTestMethod: NewPregnancyTestMethodClient(cfg),
 		PregnancyTestResult: NewPregnancyTestResultClient(cfg),
 		PregnancyTestType:   NewPregnancyTestTypeClient(cfg),
+		Ration:              NewRationClient(cfg),
 		ReproductiveState:   NewReproductiveStateClient(cfg),
 		SemenFrozenType:     NewSemenFrozenTypeClient(cfg),
 		Shed:                NewShedClient(cfg),
@@ -344,6 +364,8 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		CattleJoinedType:    NewCattleJoinedTypeClient(cfg),
 		CattleOwner:         NewCattleOwnerClient(cfg),
 		CattleType:          NewCattleTypeClient(cfg),
+		ConcentrateFormula:  NewConcentrateFormulaClient(cfg),
+		ConcentrateProcess:  NewConcentrateProcessClient(cfg),
 		Conf:                NewConfClient(cfg),
 		Disinfect:           NewDisinfectClient(cfg),
 		Dispence:            NewDispenceClient(cfg),
@@ -353,6 +375,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Estrus:              NewEstrusClient(cfg),
 		EstrusType:          NewEstrusTypeClient(cfg),
 		Farm:                NewFarmClient(cfg),
+		FeedRecord:          NewFeedRecordClient(cfg),
 		HairState:           NewHairStateClient(cfg),
 		Immunity:            NewImmunityClient(cfg),
 		Inspection:          NewInspectionClient(cfg),
@@ -363,6 +386,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		PregnancyTestMethod: NewPregnancyTestMethodClient(cfg),
 		PregnancyTestResult: NewPregnancyTestResultClient(cfg),
 		PregnancyTestType:   NewPregnancyTestTypeClient(cfg),
+		Ration:              NewRationClient(cfg),
 		ReproductiveState:   NewReproductiveStateClient(cfg),
 		SemenFrozenType:     NewSemenFrozenTypeClient(cfg),
 		Shed:                NewShedClient(cfg),
@@ -421,6 +445,8 @@ func (c *Client) Use(hooks ...Hook) {
 	c.CattleJoinedType.Use(hooks...)
 	c.CattleOwner.Use(hooks...)
 	c.CattleType.Use(hooks...)
+	c.ConcentrateFormula.Use(hooks...)
+	c.ConcentrateProcess.Use(hooks...)
 	c.Conf.Use(hooks...)
 	c.Disinfect.Use(hooks...)
 	c.Dispence.Use(hooks...)
@@ -430,6 +456,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.Estrus.Use(hooks...)
 	c.EstrusType.Use(hooks...)
 	c.Farm.Use(hooks...)
+	c.FeedRecord.Use(hooks...)
 	c.HairState.Use(hooks...)
 	c.Immunity.Use(hooks...)
 	c.Inspection.Use(hooks...)
@@ -440,6 +467,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.PregnancyTestMethod.Use(hooks...)
 	c.PregnancyTestResult.Use(hooks...)
 	c.PregnancyTestType.Use(hooks...)
+	c.Ration.Use(hooks...)
 	c.ReproductiveState.Use(hooks...)
 	c.SemenFrozenType.Use(hooks...)
 	c.Shed.Use(hooks...)
@@ -2212,6 +2240,182 @@ func (c *CattleTypeClient) Hooks() []Hook {
 	return c.hooks.CattleType
 }
 
+// ConcentrateFormulaClient is a client for the ConcentrateFormula schema.
+type ConcentrateFormulaClient struct {
+	config
+}
+
+// NewConcentrateFormulaClient returns a client for the ConcentrateFormula from the given config.
+func NewConcentrateFormulaClient(c config) *ConcentrateFormulaClient {
+	return &ConcentrateFormulaClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `concentrateformula.Hooks(f(g(h())))`.
+func (c *ConcentrateFormulaClient) Use(hooks ...Hook) {
+	c.hooks.ConcentrateFormula = append(c.hooks.ConcentrateFormula, hooks...)
+}
+
+// Create returns a create builder for ConcentrateFormula.
+func (c *ConcentrateFormulaClient) Create() *ConcentrateFormulaCreate {
+	mutation := newConcentrateFormulaMutation(c.config, OpCreate)
+	return &ConcentrateFormulaCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of ConcentrateFormula entities.
+func (c *ConcentrateFormulaClient) CreateBulk(builders ...*ConcentrateFormulaCreate) *ConcentrateFormulaCreateBulk {
+	return &ConcentrateFormulaCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for ConcentrateFormula.
+func (c *ConcentrateFormulaClient) Update() *ConcentrateFormulaUpdate {
+	mutation := newConcentrateFormulaMutation(c.config, OpUpdate)
+	return &ConcentrateFormulaUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *ConcentrateFormulaClient) UpdateOne(cf *ConcentrateFormula) *ConcentrateFormulaUpdateOne {
+	mutation := newConcentrateFormulaMutation(c.config, OpUpdateOne, withConcentrateFormula(cf))
+	return &ConcentrateFormulaUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *ConcentrateFormulaClient) UpdateOneID(id int64) *ConcentrateFormulaUpdateOne {
+	mutation := newConcentrateFormulaMutation(c.config, OpUpdateOne, withConcentrateFormulaID(id))
+	return &ConcentrateFormulaUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for ConcentrateFormula.
+func (c *ConcentrateFormulaClient) Delete() *ConcentrateFormulaDelete {
+	mutation := newConcentrateFormulaMutation(c.config, OpDelete)
+	return &ConcentrateFormulaDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *ConcentrateFormulaClient) DeleteOne(cf *ConcentrateFormula) *ConcentrateFormulaDeleteOne {
+	return c.DeleteOneID(cf.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *ConcentrateFormulaClient) DeleteOneID(id int64) *ConcentrateFormulaDeleteOne {
+	builder := c.Delete().Where(concentrateformula.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &ConcentrateFormulaDeleteOne{builder}
+}
+
+// Query returns a query builder for ConcentrateFormula.
+func (c *ConcentrateFormulaClient) Query() *ConcentrateFormulaQuery {
+	return &ConcentrateFormulaQuery{config: c.config}
+}
+
+// Get returns a ConcentrateFormula entity by its id.
+func (c *ConcentrateFormulaClient) Get(ctx context.Context, id int64) (*ConcentrateFormula, error) {
+	return c.Query().Where(concentrateformula.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *ConcentrateFormulaClient) GetX(ctx context.Context, id int64) *ConcentrateFormula {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *ConcentrateFormulaClient) Hooks() []Hook {
+	return c.hooks.ConcentrateFormula
+}
+
+// ConcentrateProcessClient is a client for the ConcentrateProcess schema.
+type ConcentrateProcessClient struct {
+	config
+}
+
+// NewConcentrateProcessClient returns a client for the ConcentrateProcess from the given config.
+func NewConcentrateProcessClient(c config) *ConcentrateProcessClient {
+	return &ConcentrateProcessClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `concentrateprocess.Hooks(f(g(h())))`.
+func (c *ConcentrateProcessClient) Use(hooks ...Hook) {
+	c.hooks.ConcentrateProcess = append(c.hooks.ConcentrateProcess, hooks...)
+}
+
+// Create returns a create builder for ConcentrateProcess.
+func (c *ConcentrateProcessClient) Create() *ConcentrateProcessCreate {
+	mutation := newConcentrateProcessMutation(c.config, OpCreate)
+	return &ConcentrateProcessCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of ConcentrateProcess entities.
+func (c *ConcentrateProcessClient) CreateBulk(builders ...*ConcentrateProcessCreate) *ConcentrateProcessCreateBulk {
+	return &ConcentrateProcessCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for ConcentrateProcess.
+func (c *ConcentrateProcessClient) Update() *ConcentrateProcessUpdate {
+	mutation := newConcentrateProcessMutation(c.config, OpUpdate)
+	return &ConcentrateProcessUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *ConcentrateProcessClient) UpdateOne(cp *ConcentrateProcess) *ConcentrateProcessUpdateOne {
+	mutation := newConcentrateProcessMutation(c.config, OpUpdateOne, withConcentrateProcess(cp))
+	return &ConcentrateProcessUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *ConcentrateProcessClient) UpdateOneID(id int64) *ConcentrateProcessUpdateOne {
+	mutation := newConcentrateProcessMutation(c.config, OpUpdateOne, withConcentrateProcessID(id))
+	return &ConcentrateProcessUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for ConcentrateProcess.
+func (c *ConcentrateProcessClient) Delete() *ConcentrateProcessDelete {
+	mutation := newConcentrateProcessMutation(c.config, OpDelete)
+	return &ConcentrateProcessDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *ConcentrateProcessClient) DeleteOne(cp *ConcentrateProcess) *ConcentrateProcessDeleteOne {
+	return c.DeleteOneID(cp.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *ConcentrateProcessClient) DeleteOneID(id int64) *ConcentrateProcessDeleteOne {
+	builder := c.Delete().Where(concentrateprocess.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &ConcentrateProcessDeleteOne{builder}
+}
+
+// Query returns a query builder for ConcentrateProcess.
+func (c *ConcentrateProcessClient) Query() *ConcentrateProcessQuery {
+	return &ConcentrateProcessQuery{config: c.config}
+}
+
+// Get returns a ConcentrateProcess entity by its id.
+func (c *ConcentrateProcessClient) Get(ctx context.Context, id int64) (*ConcentrateProcess, error) {
+	return c.Query().Where(concentrateprocess.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *ConcentrateProcessClient) GetX(ctx context.Context, id int64) *ConcentrateProcess {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *ConcentrateProcessClient) Hooks() []Hook {
+	return c.hooks.ConcentrateProcess
+}
+
 // ConfClient is a client for the Conf schema.
 type ConfClient struct {
 	config
@@ -3002,6 +3206,94 @@ func (c *FarmClient) GetX(ctx context.Context, id int64) *Farm {
 // Hooks returns the client hooks.
 func (c *FarmClient) Hooks() []Hook {
 	return c.hooks.Farm
+}
+
+// FeedRecordClient is a client for the FeedRecord schema.
+type FeedRecordClient struct {
+	config
+}
+
+// NewFeedRecordClient returns a client for the FeedRecord from the given config.
+func NewFeedRecordClient(c config) *FeedRecordClient {
+	return &FeedRecordClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `feedrecord.Hooks(f(g(h())))`.
+func (c *FeedRecordClient) Use(hooks ...Hook) {
+	c.hooks.FeedRecord = append(c.hooks.FeedRecord, hooks...)
+}
+
+// Create returns a create builder for FeedRecord.
+func (c *FeedRecordClient) Create() *FeedRecordCreate {
+	mutation := newFeedRecordMutation(c.config, OpCreate)
+	return &FeedRecordCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of FeedRecord entities.
+func (c *FeedRecordClient) CreateBulk(builders ...*FeedRecordCreate) *FeedRecordCreateBulk {
+	return &FeedRecordCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for FeedRecord.
+func (c *FeedRecordClient) Update() *FeedRecordUpdate {
+	mutation := newFeedRecordMutation(c.config, OpUpdate)
+	return &FeedRecordUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *FeedRecordClient) UpdateOne(fr *FeedRecord) *FeedRecordUpdateOne {
+	mutation := newFeedRecordMutation(c.config, OpUpdateOne, withFeedRecord(fr))
+	return &FeedRecordUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *FeedRecordClient) UpdateOneID(id int64) *FeedRecordUpdateOne {
+	mutation := newFeedRecordMutation(c.config, OpUpdateOne, withFeedRecordID(id))
+	return &FeedRecordUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for FeedRecord.
+func (c *FeedRecordClient) Delete() *FeedRecordDelete {
+	mutation := newFeedRecordMutation(c.config, OpDelete)
+	return &FeedRecordDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *FeedRecordClient) DeleteOne(fr *FeedRecord) *FeedRecordDeleteOne {
+	return c.DeleteOneID(fr.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *FeedRecordClient) DeleteOneID(id int64) *FeedRecordDeleteOne {
+	builder := c.Delete().Where(feedrecord.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &FeedRecordDeleteOne{builder}
+}
+
+// Query returns a query builder for FeedRecord.
+func (c *FeedRecordClient) Query() *FeedRecordQuery {
+	return &FeedRecordQuery{config: c.config}
+}
+
+// Get returns a FeedRecord entity by its id.
+func (c *FeedRecordClient) Get(ctx context.Context, id int64) (*FeedRecord, error) {
+	return c.Query().Where(feedrecord.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *FeedRecordClient) GetX(ctx context.Context, id int64) *FeedRecord {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *FeedRecordClient) Hooks() []Hook {
+	return c.hooks.FeedRecord
 }
 
 // HairStateClient is a client for the HairState schema.
@@ -3882,6 +4174,94 @@ func (c *PregnancyTestTypeClient) GetX(ctx context.Context, id int64) *Pregnancy
 // Hooks returns the client hooks.
 func (c *PregnancyTestTypeClient) Hooks() []Hook {
 	return c.hooks.PregnancyTestType
+}
+
+// RationClient is a client for the Ration schema.
+type RationClient struct {
+	config
+}
+
+// NewRationClient returns a client for the Ration from the given config.
+func NewRationClient(c config) *RationClient {
+	return &RationClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `ration.Hooks(f(g(h())))`.
+func (c *RationClient) Use(hooks ...Hook) {
+	c.hooks.Ration = append(c.hooks.Ration, hooks...)
+}
+
+// Create returns a create builder for Ration.
+func (c *RationClient) Create() *RationCreate {
+	mutation := newRationMutation(c.config, OpCreate)
+	return &RationCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Ration entities.
+func (c *RationClient) CreateBulk(builders ...*RationCreate) *RationCreateBulk {
+	return &RationCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Ration.
+func (c *RationClient) Update() *RationUpdate {
+	mutation := newRationMutation(c.config, OpUpdate)
+	return &RationUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *RationClient) UpdateOne(r *Ration) *RationUpdateOne {
+	mutation := newRationMutation(c.config, OpUpdateOne, withRation(r))
+	return &RationUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *RationClient) UpdateOneID(id int64) *RationUpdateOne {
+	mutation := newRationMutation(c.config, OpUpdateOne, withRationID(id))
+	return &RationUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Ration.
+func (c *RationClient) Delete() *RationDelete {
+	mutation := newRationMutation(c.config, OpDelete)
+	return &RationDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *RationClient) DeleteOne(r *Ration) *RationDeleteOne {
+	return c.DeleteOneID(r.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *RationClient) DeleteOneID(id int64) *RationDeleteOne {
+	builder := c.Delete().Where(ration.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &RationDeleteOne{builder}
+}
+
+// Query returns a query builder for Ration.
+func (c *RationClient) Query() *RationQuery {
+	return &RationQuery{config: c.config}
+}
+
+// Get returns a Ration entity by its id.
+func (c *RationClient) Get(ctx context.Context, id int64) (*Ration, error) {
+	return c.Query().Where(ration.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *RationClient) GetX(ctx context.Context, id int64) *Ration {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *RationClient) Hooks() []Hook {
+	return c.hooks.Ration
 }
 
 // ReproductiveStateClient is a client for the ReproductiveState schema.

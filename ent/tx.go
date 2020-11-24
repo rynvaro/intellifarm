@@ -52,6 +52,10 @@ type Tx struct {
 	CattleOwner *CattleOwnerClient
 	// CattleType is the client for interacting with the CattleType builders.
 	CattleType *CattleTypeClient
+	// ConcentrateFormula is the client for interacting with the ConcentrateFormula builders.
+	ConcentrateFormula *ConcentrateFormulaClient
+	// ConcentrateProcess is the client for interacting with the ConcentrateProcess builders.
+	ConcentrateProcess *ConcentrateProcessClient
 	// Conf is the client for interacting with the Conf builders.
 	Conf *ConfClient
 	// Disinfect is the client for interacting with the Disinfect builders.
@@ -70,6 +74,8 @@ type Tx struct {
 	EstrusType *EstrusTypeClient
 	// Farm is the client for interacting with the Farm builders.
 	Farm *FarmClient
+	// FeedRecord is the client for interacting with the FeedRecord builders.
+	FeedRecord *FeedRecordClient
 	// HairState is the client for interacting with the HairState builders.
 	HairState *HairStateClient
 	// Immunity is the client for interacting with the Immunity builders.
@@ -90,6 +96,8 @@ type Tx struct {
 	PregnancyTestResult *PregnancyTestResultClient
 	// PregnancyTestType is the client for interacting with the PregnancyTestType builders.
 	PregnancyTestType *PregnancyTestTypeClient
+	// Ration is the client for interacting with the Ration builders.
+	Ration *RationClient
 	// ReproductiveState is the client for interacting with the ReproductiveState builders.
 	ReproductiveState *ReproductiveStateClient
 	// SemenFrozenType is the client for interacting with the SemenFrozenType builders.
@@ -265,6 +273,8 @@ func (tx *Tx) init() {
 	tx.CattleJoinedType = NewCattleJoinedTypeClient(tx.config)
 	tx.CattleOwner = NewCattleOwnerClient(tx.config)
 	tx.CattleType = NewCattleTypeClient(tx.config)
+	tx.ConcentrateFormula = NewConcentrateFormulaClient(tx.config)
+	tx.ConcentrateProcess = NewConcentrateProcessClient(tx.config)
 	tx.Conf = NewConfClient(tx.config)
 	tx.Disinfect = NewDisinfectClient(tx.config)
 	tx.Dispence = NewDispenceClient(tx.config)
@@ -274,6 +284,7 @@ func (tx *Tx) init() {
 	tx.Estrus = NewEstrusClient(tx.config)
 	tx.EstrusType = NewEstrusTypeClient(tx.config)
 	tx.Farm = NewFarmClient(tx.config)
+	tx.FeedRecord = NewFeedRecordClient(tx.config)
 	tx.HairState = NewHairStateClient(tx.config)
 	tx.Immunity = NewImmunityClient(tx.config)
 	tx.Inspection = NewInspectionClient(tx.config)
@@ -284,6 +295,7 @@ func (tx *Tx) init() {
 	tx.PregnancyTestMethod = NewPregnancyTestMethodClient(tx.config)
 	tx.PregnancyTestResult = NewPregnancyTestResultClient(tx.config)
 	tx.PregnancyTestType = NewPregnancyTestTypeClient(tx.config)
+	tx.Ration = NewRationClient(tx.config)
 	tx.ReproductiveState = NewReproductiveStateClient(tx.config)
 	tx.SemenFrozenType = NewSemenFrozenTypeClient(tx.config)
 	tx.Shed = NewShedClient(tx.config)

@@ -402,6 +402,50 @@ var (
 		PrimaryKey:  []*schema.Column{CattleTypesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// ConcentrateFormulasColumns holds the columns for the "concentrate_formulas" table.
+	ConcentrateFormulasColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "status", Type: field.TypeInt},
+		{Name: "create_date", Type: field.TypeInt64},
+		{Name: "adjust_date", Type: field.TypeInt64},
+		{Name: "disable_date", Type: field.TypeInt64},
+		{Name: "cost", Type: field.TypeInt64},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// ConcentrateFormulasTable holds the schema information for the "concentrate_formulas" table.
+	ConcentrateFormulasTable = &schema.Table{
+		Name:        "concentrate_formulas",
+		Columns:     ConcentrateFormulasColumns,
+		PrimaryKey:  []*schema.Column{ConcentrateFormulasColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// ConcentrateProcessesColumns holds the columns for the "concentrate_processes" table.
+	ConcentrateProcessesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "date", Type: field.TypeInt64},
+		{Name: "count", Type: field.TypeInt64},
+		{Name: "in", Type: field.TypeInt64},
+		{Name: "inventory", Type: field.TypeInt64},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// ConcentrateProcessesTable holds the schema information for the "concentrate_processes" table.
+	ConcentrateProcessesTable = &schema.Table{
+		Name:        "concentrate_processes",
+		Columns:     ConcentrateProcessesColumns,
+		PrimaryKey:  []*schema.Column{ConcentrateProcessesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// ConfsColumns holds the columns for the "confs" table.
 	ConfsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -564,6 +608,29 @@ var (
 		Name:        "farms",
 		Columns:     FarmsColumns,
 		PrimaryKey:  []*schema.Column{FarmsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// FeedRecordsColumns holds the columns for the "feed_records" table.
+	FeedRecordsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString, Nullable: true},
+		{Name: "shed_name", Type: field.TypeString},
+		{Name: "date", Type: field.TypeInt64},
+		{Name: "ration_code", Type: field.TypeString},
+		{Name: "ration_name", Type: field.TypeString},
+		{Name: "ration_amount", Type: field.TypeInt64},
+		{Name: "count", Type: field.TypeInt64},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// FeedRecordsTable holds the schema information for the "feed_records" table.
+	FeedRecordsTable = &schema.Table{
+		Name:        "feed_records",
+		Columns:     FeedRecordsColumns,
+		PrimaryKey:  []*schema.Column{FeedRecordsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// HairStatesColumns holds the columns for the "hair_states" table.
@@ -756,6 +823,28 @@ var (
 		PrimaryKey:  []*schema.Column{PregnancyTestTypesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// RationsColumns holds the columns for the "rations" table.
+	RationsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "status", Type: field.TypeInt},
+		{Name: "create_date", Type: field.TypeInt64},
+		{Name: "adjust_date", Type: field.TypeInt64},
+		{Name: "disable_date", Type: field.TypeInt64},
+		{Name: "cost", Type: field.TypeInt64},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// RationsTable holds the schema information for the "rations" table.
+	RationsTable = &schema.Table{
+		Name:        "rations",
+		Columns:     RationsColumns,
+		PrimaryKey:  []*schema.Column{RationsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// ReproductiveStatesColumns holds the columns for the "reproductive_states" table.
 	ReproductiveStatesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -933,6 +1022,8 @@ var (
 		CattleJoinedTypesTable,
 		CattleOwnersTable,
 		CattleTypesTable,
+		ConcentrateFormulasTable,
+		ConcentrateProcessesTable,
 		ConfsTable,
 		DisinfectsTable,
 		DispencesTable,
@@ -942,6 +1033,7 @@ var (
 		EstrusTable,
 		EstrusTypesTable,
 		FarmsTable,
+		FeedRecordsTable,
 		HairStatesTable,
 		ImmunitiesTable,
 		InspectionsTable,
@@ -952,6 +1044,7 @@ var (
 		PregnancyTestMethodsTable,
 		PregnancyTestResultsTable,
 		PregnancyTestTypesTable,
+		RationsTable,
 		ReproductiveStatesTable,
 		SemenFrozenTypesTable,
 		ShedsTable,

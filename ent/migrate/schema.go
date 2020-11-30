@@ -271,6 +271,17 @@ var (
 		PrimaryKey:  []*schema.Column{CattleCatesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// CattleDiesColumns holds the columns for the "cattle_dies" table.
+	CattleDiesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+	}
+	// CattleDiesTable holds the schema information for the "cattle_dies" table.
+	CattleDiesTable = &schema.Table{
+		Name:        "cattle_dies",
+		Columns:     CattleDiesColumns,
+		PrimaryKey:  []*schema.Column{CattleDiesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// CattleGendersColumns holds the columns for the "cattle_genders" table.
 	CattleGendersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -281,6 +292,17 @@ var (
 		Name:        "cattle_genders",
 		Columns:     CattleGendersColumns,
 		PrimaryKey:  []*schema.Column{CattleGendersColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// CattleGroupsColumns holds the columns for the "cattle_groups" table.
+	CattleGroupsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+	}
+	// CattleGroupsTable holds the schema information for the "cattle_groups" table.
+	CattleGroupsTable = &schema.Table{
+		Name:        "cattle_groups",
+		Columns:     CattleGroupsColumns,
+		PrimaryKey:  []*schema.Column{CattleGroupsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// CattleGrowsColumns holds the columns for the "cattle_grows" table.
@@ -366,6 +388,31 @@ var (
 		PrimaryKey:  []*schema.Column{CattleHairColorsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// CattleInsColumns holds the columns for the "cattle_ins" table.
+	CattleInsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "type", Type: field.TypeInt},
+		{Name: "date", Type: field.TypeInt64},
+		{Name: "from", Type: field.TypeString},
+		{Name: "weight", Type: field.TypeFloat32},
+		{Name: "cost", Type: field.TypeFloat32},
+		{Name: "shipping_fee", Type: field.TypeFloat32},
+		{Name: "transport_certificate_number", Type: field.TypeString},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "test_certificate_number", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// CattleInsTable holds the schema information for the "cattle_ins" table.
+	CattleInsTable = &schema.Table{
+		Name:        "cattle_ins",
+		Columns:     CattleInsColumns,
+		PrimaryKey:  []*schema.Column{CattleInsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// CattleJoinedTypesColumns holds the columns for the "cattle_joined_types" table.
 	CattleJoinedTypesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -376,6 +423,31 @@ var (
 		Name:        "cattle_joined_types",
 		Columns:     CattleJoinedTypesColumns,
 		PrimaryKey:  []*schema.Column{CattleJoinedTypesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// CattleOutsColumns holds the columns for the "cattle_outs" table.
+	CattleOutsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "type", Type: field.TypeInt},
+		{Name: "date", Type: field.TypeInt64},
+		{Name: "to", Type: field.TypeString},
+		{Name: "weight", Type: field.TypeFloat32},
+		{Name: "cost", Type: field.TypeFloat32},
+		{Name: "shipping_fee", Type: field.TypeFloat32},
+		{Name: "transport_certificate_number", Type: field.TypeString},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "test_certificate_number", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// CattleOutsTable holds the schema information for the "cattle_outs" table.
+	CattleOutsTable = &schema.Table{
+		Name:        "cattle_outs",
+		Columns:     CattleOutsColumns,
+		PrimaryKey:  []*schema.Column{CattleOutsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// CattleOwnersColumns holds the columns for the "cattle_owners" table.
@@ -400,6 +472,17 @@ var (
 		Name:        "cattle_types",
 		Columns:     CattleTypesColumns,
 		PrimaryKey:  []*schema.Column{CattleTypesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// ChangesColumns holds the columns for the "changes" table.
+	ChangesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+	}
+	// ChangesTable holds the schema information for the "changes" table.
+	ChangesTable = &schema.Table{
+		Name:        "changes",
+		Columns:     ChangesColumns,
+		PrimaryKey:  []*schema.Column{ChangesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// ConcentrateFormulasColumns holds the columns for the "concentrate_formulas" table.
@@ -608,6 +691,17 @@ var (
 		Name:        "farms",
 		Columns:     FarmsColumns,
 		PrimaryKey:  []*schema.Column{FarmsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// FeedGroupsColumns holds the columns for the "feed_groups" table.
+	FeedGroupsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+	}
+	// FeedGroupsTable holds the schema information for the "feed_groups" table.
+	FeedGroupsTable = &schema.Table{
+		Name:        "feed_groups",
+		Columns:     FeedGroupsColumns,
+		PrimaryKey:  []*schema.Column{FeedGroupsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// FeedRecordsColumns holds the columns for the "feed_records" table.
@@ -909,6 +1003,17 @@ var (
 		PrimaryKey:  []*schema.Column{ShedCategoriesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// ShedTransColumns holds the columns for the "shed_trans" table.
+	ShedTransColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+	}
+	// ShedTransTable holds the schema information for the "shed_trans" table.
+	ShedTransTable = &schema.Table{
+		Name:        "shed_trans",
+		Columns:     ShedTransColumns,
+		PrimaryKey:  []*schema.Column{ShedTransColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// ShedTypesColumns holds the columns for the "shed_types" table.
 	ShedTypesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -1014,14 +1119,19 @@ var (
 		CategoriesTable,
 		CattlesTable,
 		CattleCatesTable,
+		CattleDiesTable,
 		CattleGendersTable,
+		CattleGroupsTable,
 		CattleGrowsTable,
 		CattleGrowsDataTable,
 		CattleGrowsRatesTable,
 		CattleHairColorsTable,
+		CattleInsTable,
 		CattleJoinedTypesTable,
+		CattleOutsTable,
 		CattleOwnersTable,
 		CattleTypesTable,
+		ChangesTable,
 		ConcentrateFormulasTable,
 		ConcentrateProcessesTable,
 		ConfsTable,
@@ -1033,6 +1143,7 @@ var (
 		EstrusTable,
 		EstrusTypesTable,
 		FarmsTable,
+		FeedGroupsTable,
 		FeedRecordsTable,
 		HairStatesTable,
 		ImmunitiesTable,
@@ -1049,6 +1160,7 @@ var (
 		SemenFrozenTypesTable,
 		ShedsTable,
 		ShedCategoriesTable,
+		ShedTransTable,
 		ShedTypesTable,
 		TreatmentResultsTable,
 		TreatmentStatesTable,

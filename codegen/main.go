@@ -4,5 +4,6 @@ import "cattleai/ent"
 
 func main() {
 	// GenCates("EpidemicType")
-	Gen("FeedRecord", &ent.FeedRecordCreate{})
+	Gen("CattleIn", &ent.CattleInCreate{})
+	Gen("CattleOut", &ent.CattleOutCreate{})
 }

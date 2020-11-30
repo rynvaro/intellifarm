@@ -42,8 +42,14 @@ type Cattle func(*sql.Selector)
 // CattleCate is the predicate function for cattlecate builders.
 type CattleCate func(*sql.Selector)
 
+// CattleDie is the predicate function for cattledie builders.
+type CattleDie func(*sql.Selector)
+
 // CattleGender is the predicate function for cattlegender builders.
 type CattleGender func(*sql.Selector)
+
+// CattleGroup is the predicate function for cattlegroup builders.
+type CattleGroup func(*sql.Selector)
 
 // CattleGrow is the predicate function for cattlegrow builders.
 type CattleGrow func(*sql.Selector)
@@ -57,14 +63,23 @@ type CattleGrowsRate func(*sql.Selector)
 // CattleHairColor is the predicate function for cattlehaircolor builders.
 type CattleHairColor func(*sql.Selector)
 
+// CattleIn is the predicate function for cattlein builders.
+type CattleIn func(*sql.Selector)
+
 // CattleJoinedType is the predicate function for cattlejoinedtype builders.
 type CattleJoinedType func(*sql.Selector)
+
+// CattleOut is the predicate function for cattleout builders.
+type CattleOut func(*sql.Selector)
 
 // CattleOwner is the predicate function for cattleowner builders.
 type CattleOwner func(*sql.Selector)
 
 // CattleType is the predicate function for cattletype builders.
 type CattleType func(*sql.Selector)
+
+// Change is the predicate function for change builders.
+type Change func(*sql.Selector)
 
 // ConcentrateFormula is the predicate function for concentrateformula builders.
 type ConcentrateFormula func(*sql.Selector)
@@ -98,6 +113,9 @@ type EstrusType func(*sql.Selector)
 
 // Farm is the predicate function for farm builders.
 type Farm func(*sql.Selector)
+
+// FeedGroup is the predicate function for feedgroup builders.
+type FeedGroup func(*sql.Selector)
 
 // FeedRecord is the predicate function for feedrecord builders.
 type FeedRecord func(*sql.Selector)
@@ -146,6 +164,9 @@ type Shed func(*sql.Selector)
 
 // ShedCategory is the predicate function for shedcategory builders.
 type ShedCategory func(*sql.Selector)
+
+// ShedTrans is the predicate function for shedtrans builders.
+type ShedTrans func(*sql.Selector)
 
 // ShedType is the predicate function for shedtype builders.
 type ShedType func(*sql.Selector)

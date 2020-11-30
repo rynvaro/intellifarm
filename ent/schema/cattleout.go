@@ -1,0 +1,36 @@
+package schema
+
+import (
+	"github.com/facebook/ent"
+	"github.com/facebook/ent/schema/field"
+)
+
+// CattleOut holds the schema definition for the CattleOut entity.
+type CattleOut struct {
+	ent.Schema
+}
+
+// Fields of the CattleOut.
+func (CattleOut) Fields() []ent.Field {
+	return []ent.Field{
+		field.String("name"),
+		field.Int("type"),
+		field.Int64("date"),
+		field.String("to"),
+		field.Float32("weight"),
+		field.Float32("cost"),
+		field.Float32("shippingFee"),
+		field.String("transportCertificateNumber"),
+		field.String("userName").Comment("运输人"),
+		field.String("testCertificateNumber"),
+		field.String("remarks").Comment("备注"),
+		field.Int64("createdAt").Comment("创建时间"),
+		field.Int64("updatedAt").Comment("更新时间"),
+		field.Int("deleted").Comment("是否已删除"),
+	}
+}
+
+// Edges of the CattleOut.
+func (CattleOut) Edges() []ent.Edge {
+	return nil
+}

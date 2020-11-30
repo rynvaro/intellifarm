@@ -164,6 +164,19 @@ func (f CattleCateFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, 
 	return f(ctx, mv)
 }
 
+// The CattleDieFunc type is an adapter to allow the use of ordinary
+// function as CattleDie mutator.
+type CattleDieFunc func(context.Context, *ent.CattleDieMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CattleDieFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.CattleDieMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CattleDieMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The CattleGenderFunc type is an adapter to allow the use of ordinary
 // function as CattleGender mutator.
 type CattleGenderFunc func(context.Context, *ent.CattleGenderMutation) (ent.Value, error)
@@ -173,6 +186,19 @@ func (f CattleGenderFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value
 	mv, ok := m.(*ent.CattleGenderMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CattleGenderMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The CattleGroupFunc type is an adapter to allow the use of ordinary
+// function as CattleGroup mutator.
+type CattleGroupFunc func(context.Context, *ent.CattleGroupMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CattleGroupFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.CattleGroupMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CattleGroupMutation", m)
 	}
 	return f(ctx, mv)
 }
@@ -229,6 +255,19 @@ func (f CattleHairColorFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Va
 	return f(ctx, mv)
 }
 
+// The CattleInFunc type is an adapter to allow the use of ordinary
+// function as CattleIn mutator.
+type CattleInFunc func(context.Context, *ent.CattleInMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CattleInFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.CattleInMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CattleInMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The CattleJoinedTypeFunc type is an adapter to allow the use of ordinary
 // function as CattleJoinedType mutator.
 type CattleJoinedTypeFunc func(context.Context, *ent.CattleJoinedTypeMutation) (ent.Value, error)
@@ -238,6 +277,19 @@ func (f CattleJoinedTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.V
 	mv, ok := m.(*ent.CattleJoinedTypeMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CattleJoinedTypeMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The CattleOutFunc type is an adapter to allow the use of ordinary
+// function as CattleOut mutator.
+type CattleOutFunc func(context.Context, *ent.CattleOutMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CattleOutFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.CattleOutMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CattleOutMutation", m)
 	}
 	return f(ctx, mv)
 }
@@ -264,6 +316,19 @@ func (f CattleTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, 
 	mv, ok := m.(*ent.CattleTypeMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CattleTypeMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The ChangeFunc type is an adapter to allow the use of ordinary
+// function as Change mutator.
+type ChangeFunc func(context.Context, *ent.ChangeMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f ChangeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.ChangeMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ChangeMutation", m)
 	}
 	return f(ctx, mv)
 }
@@ -407,6 +472,19 @@ func (f FarmFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error)
 	mv, ok := m.(*ent.FarmMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.FarmMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The FeedGroupFunc type is an adapter to allow the use of ordinary
+// function as FeedGroup mutator.
+type FeedGroupFunc func(context.Context, *ent.FeedGroupMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f FeedGroupFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.FeedGroupMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.FeedGroupMutation", m)
 	}
 	return f(ctx, mv)
 }
@@ -615,6 +693,19 @@ func (f ShedCategoryFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value
 	mv, ok := m.(*ent.ShedCategoryMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ShedCategoryMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The ShedTransFunc type is an adapter to allow the use of ordinary
+// function as ShedTrans mutator.
+type ShedTransFunc func(context.Context, *ent.ShedTransMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f ShedTransFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.ShedTransMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ShedTransMutation", m)
 	}
 	return f(ctx, mv)
 }

@@ -36,14 +36,19 @@ type hooks struct {
 	Category            []ent.Hook
 	Cattle              []ent.Hook
 	CattleCate          []ent.Hook
+	CattleDie           []ent.Hook
 	CattleGender        []ent.Hook
+	CattleGroup         []ent.Hook
 	CattleGrow          []ent.Hook
 	CattleGrowsData     []ent.Hook
 	CattleGrowsRate     []ent.Hook
 	CattleHairColor     []ent.Hook
+	CattleIn            []ent.Hook
 	CattleJoinedType    []ent.Hook
+	CattleOut           []ent.Hook
 	CattleOwner         []ent.Hook
 	CattleType          []ent.Hook
+	Change              []ent.Hook
 	ConcentrateFormula  []ent.Hook
 	ConcentrateProcess  []ent.Hook
 	Conf                []ent.Hook
@@ -55,6 +60,7 @@ type hooks struct {
 	Estrus              []ent.Hook
 	EstrusType          []ent.Hook
 	Farm                []ent.Hook
+	FeedGroup           []ent.Hook
 	FeedRecord          []ent.Hook
 	HairState           []ent.Hook
 	Immunity            []ent.Hook
@@ -71,6 +77,7 @@ type hooks struct {
 	SemenFrozenType     []ent.Hook
 	Shed                []ent.Hook
 	ShedCategory        []ent.Hook
+	ShedTrans           []ent.Hook
 	ShedType            []ent.Hook
 	TreatmentResult     []ent.Hook
 	TreatmentState      []ent.Hook

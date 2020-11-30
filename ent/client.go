@@ -21,14 +21,19 @@ import (
 	"cattleai/ent/category"
 	"cattleai/ent/cattle"
 	"cattleai/ent/cattlecate"
+	"cattleai/ent/cattledie"
 	"cattleai/ent/cattlegender"
+	"cattleai/ent/cattlegroup"
 	"cattleai/ent/cattlegrow"
 	"cattleai/ent/cattlegrowsdata"
 	"cattleai/ent/cattlegrowsrate"
 	"cattleai/ent/cattlehaircolor"
+	"cattleai/ent/cattlein"
 	"cattleai/ent/cattlejoinedtype"
+	"cattleai/ent/cattleout"
 	"cattleai/ent/cattleowner"
 	"cattleai/ent/cattletype"
+	"cattleai/ent/change"
 	"cattleai/ent/concentrateformula"
 	"cattleai/ent/concentrateprocess"
 	"cattleai/ent/conf"
@@ -40,6 +45,7 @@ import (
 	"cattleai/ent/estrus"
 	"cattleai/ent/estrustype"
 	"cattleai/ent/farm"
+	"cattleai/ent/feedgroup"
 	"cattleai/ent/feedrecord"
 	"cattleai/ent/hairstate"
 	"cattleai/ent/immunity"
@@ -56,6 +62,7 @@ import (
 	"cattleai/ent/semenfrozentype"
 	"cattleai/ent/shed"
 	"cattleai/ent/shedcategory"
+	"cattleai/ent/shedtrans"
 	"cattleai/ent/shedtype"
 	"cattleai/ent/treatmentresult"
 	"cattleai/ent/treatmentstate"
@@ -96,8 +103,12 @@ type Client struct {
 	Cattle *CattleClient
 	// CattleCate is the client for interacting with the CattleCate builders.
 	CattleCate *CattleCateClient
+	// CattleDie is the client for interacting with the CattleDie builders.
+	CattleDie *CattleDieClient
 	// CattleGender is the client for interacting with the CattleGender builders.
 	CattleGender *CattleGenderClient
+	// CattleGroup is the client for interacting with the CattleGroup builders.
+	CattleGroup *CattleGroupClient
 	// CattleGrow is the client for interacting with the CattleGrow builders.
 	CattleGrow *CattleGrowClient
 	// CattleGrowsData is the client for interacting with the CattleGrowsData builders.
@@ -106,12 +117,18 @@ type Client struct {
 	CattleGrowsRate *CattleGrowsRateClient
 	// CattleHairColor is the client for interacting with the CattleHairColor builders.
 	CattleHairColor *CattleHairColorClient
+	// CattleIn is the client for interacting with the CattleIn builders.
+	CattleIn *CattleInClient
 	// CattleJoinedType is the client for interacting with the CattleJoinedType builders.
 	CattleJoinedType *CattleJoinedTypeClient
+	// CattleOut is the client for interacting with the CattleOut builders.
+	CattleOut *CattleOutClient
 	// CattleOwner is the client for interacting with the CattleOwner builders.
 	CattleOwner *CattleOwnerClient
 	// CattleType is the client for interacting with the CattleType builders.
 	CattleType *CattleTypeClient
+	// Change is the client for interacting with the Change builders.
+	Change *ChangeClient
 	// ConcentrateFormula is the client for interacting with the ConcentrateFormula builders.
 	ConcentrateFormula *ConcentrateFormulaClient
 	// ConcentrateProcess is the client for interacting with the ConcentrateProcess builders.
@@ -134,6 +151,8 @@ type Client struct {
 	EstrusType *EstrusTypeClient
 	// Farm is the client for interacting with the Farm builders.
 	Farm *FarmClient
+	// FeedGroup is the client for interacting with the FeedGroup builders.
+	FeedGroup *FeedGroupClient
 	// FeedRecord is the client for interacting with the FeedRecord builders.
 	FeedRecord *FeedRecordClient
 	// HairState is the client for interacting with the HairState builders.
@@ -166,6 +185,8 @@ type Client struct {
 	Shed *ShedClient
 	// ShedCategory is the client for interacting with the ShedCategory builders.
 	ShedCategory *ShedCategoryClient
+	// ShedTrans is the client for interacting with the ShedTrans builders.
+	ShedTrans *ShedTransClient
 	// ShedType is the client for interacting with the ShedType builders.
 	ShedType *ShedTypeClient
 	// TreatmentResult is the client for interacting with the TreatmentResult builders.
@@ -203,14 +224,19 @@ func (c *Client) init() {
 	c.Category = NewCategoryClient(c.config)
 	c.Cattle = NewCattleClient(c.config)
 	c.CattleCate = NewCattleCateClient(c.config)
+	c.CattleDie = NewCattleDieClient(c.config)
 	c.CattleGender = NewCattleGenderClient(c.config)
+	c.CattleGroup = NewCattleGroupClient(c.config)
 	c.CattleGrow = NewCattleGrowClient(c.config)
 	c.CattleGrowsData = NewCattleGrowsDataClient(c.config)
 	c.CattleGrowsRate = NewCattleGrowsRateClient(c.config)
 	c.CattleHairColor = NewCattleHairColorClient(c.config)
+	c.CattleIn = NewCattleInClient(c.config)
 	c.CattleJoinedType = NewCattleJoinedTypeClient(c.config)
+	c.CattleOut = NewCattleOutClient(c.config)
 	c.CattleOwner = NewCattleOwnerClient(c.config)
 	c.CattleType = NewCattleTypeClient(c.config)
+	c.Change = NewChangeClient(c.config)
 	c.ConcentrateFormula = NewConcentrateFormulaClient(c.config)
 	c.ConcentrateProcess = NewConcentrateProcessClient(c.config)
 	c.Conf = NewConfClient(c.config)
@@ -222,6 +248,7 @@ func (c *Client) init() {
 	c.Estrus = NewEstrusClient(c.config)
 	c.EstrusType = NewEstrusTypeClient(c.config)
 	c.Farm = NewFarmClient(c.config)
+	c.FeedGroup = NewFeedGroupClient(c.config)
 	c.FeedRecord = NewFeedRecordClient(c.config)
 	c.HairState = NewHairStateClient(c.config)
 	c.Immunity = NewImmunityClient(c.config)
@@ -238,6 +265,7 @@ func (c *Client) init() {
 	c.SemenFrozenType = NewSemenFrozenTypeClient(c.config)
 	c.Shed = NewShedClient(c.config)
 	c.ShedCategory = NewShedCategoryClient(c.config)
+	c.ShedTrans = NewShedTransClient(c.config)
 	c.ShedType = NewShedTypeClient(c.config)
 	c.TreatmentResult = NewTreatmentResultClient(c.config)
 	c.TreatmentState = NewTreatmentStateClient(c.config)
@@ -288,14 +316,19 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Category:            NewCategoryClient(cfg),
 		Cattle:              NewCattleClient(cfg),
 		CattleCate:          NewCattleCateClient(cfg),
+		CattleDie:           NewCattleDieClient(cfg),
 		CattleGender:        NewCattleGenderClient(cfg),
+		CattleGroup:         NewCattleGroupClient(cfg),
 		CattleGrow:          NewCattleGrowClient(cfg),
 		CattleGrowsData:     NewCattleGrowsDataClient(cfg),
 		CattleGrowsRate:     NewCattleGrowsRateClient(cfg),
 		CattleHairColor:     NewCattleHairColorClient(cfg),
+		CattleIn:            NewCattleInClient(cfg),
 		CattleJoinedType:    NewCattleJoinedTypeClient(cfg),
+		CattleOut:           NewCattleOutClient(cfg),
 		CattleOwner:         NewCattleOwnerClient(cfg),
 		CattleType:          NewCattleTypeClient(cfg),
+		Change:              NewChangeClient(cfg),
 		ConcentrateFormula:  NewConcentrateFormulaClient(cfg),
 		ConcentrateProcess:  NewConcentrateProcessClient(cfg),
 		Conf:                NewConfClient(cfg),
@@ -307,6 +340,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Estrus:              NewEstrusClient(cfg),
 		EstrusType:          NewEstrusTypeClient(cfg),
 		Farm:                NewFarmClient(cfg),
+		FeedGroup:           NewFeedGroupClient(cfg),
 		FeedRecord:          NewFeedRecordClient(cfg),
 		HairState:           NewHairStateClient(cfg),
 		Immunity:            NewImmunityClient(cfg),
@@ -323,6 +357,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		SemenFrozenType:     NewSemenFrozenTypeClient(cfg),
 		Shed:                NewShedClient(cfg),
 		ShedCategory:        NewShedCategoryClient(cfg),
+		ShedTrans:           NewShedTransClient(cfg),
 		ShedType:            NewShedTypeClient(cfg),
 		TreatmentResult:     NewTreatmentResultClient(cfg),
 		TreatmentState:      NewTreatmentStateClient(cfg),
@@ -356,14 +391,19 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Category:            NewCategoryClient(cfg),
 		Cattle:              NewCattleClient(cfg),
 		CattleCate:          NewCattleCateClient(cfg),
+		CattleDie:           NewCattleDieClient(cfg),
 		CattleGender:        NewCattleGenderClient(cfg),
+		CattleGroup:         NewCattleGroupClient(cfg),
 		CattleGrow:          NewCattleGrowClient(cfg),
 		CattleGrowsData:     NewCattleGrowsDataClient(cfg),
 		CattleGrowsRate:     NewCattleGrowsRateClient(cfg),
 		CattleHairColor:     NewCattleHairColorClient(cfg),
+		CattleIn:            NewCattleInClient(cfg),
 		CattleJoinedType:    NewCattleJoinedTypeClient(cfg),
+		CattleOut:           NewCattleOutClient(cfg),
 		CattleOwner:         NewCattleOwnerClient(cfg),
 		CattleType:          NewCattleTypeClient(cfg),
+		Change:              NewChangeClient(cfg),
 		ConcentrateFormula:  NewConcentrateFormulaClient(cfg),
 		ConcentrateProcess:  NewConcentrateProcessClient(cfg),
 		Conf:                NewConfClient(cfg),
@@ -375,6 +415,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Estrus:              NewEstrusClient(cfg),
 		EstrusType:          NewEstrusTypeClient(cfg),
 		Farm:                NewFarmClient(cfg),
+		FeedGroup:           NewFeedGroupClient(cfg),
 		FeedRecord:          NewFeedRecordClient(cfg),
 		HairState:           NewHairStateClient(cfg),
 		Immunity:            NewImmunityClient(cfg),
@@ -391,6 +432,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		SemenFrozenType:     NewSemenFrozenTypeClient(cfg),
 		Shed:                NewShedClient(cfg),
 		ShedCategory:        NewShedCategoryClient(cfg),
+		ShedTrans:           NewShedTransClient(cfg),
 		ShedType:            NewShedTypeClient(cfg),
 		TreatmentResult:     NewTreatmentResultClient(cfg),
 		TreatmentState:      NewTreatmentStateClient(cfg),
@@ -437,14 +479,19 @@ func (c *Client) Use(hooks ...Hook) {
 	c.Category.Use(hooks...)
 	c.Cattle.Use(hooks...)
 	c.CattleCate.Use(hooks...)
+	c.CattleDie.Use(hooks...)
 	c.CattleGender.Use(hooks...)
+	c.CattleGroup.Use(hooks...)
 	c.CattleGrow.Use(hooks...)
 	c.CattleGrowsData.Use(hooks...)
 	c.CattleGrowsRate.Use(hooks...)
 	c.CattleHairColor.Use(hooks...)
+	c.CattleIn.Use(hooks...)
 	c.CattleJoinedType.Use(hooks...)
+	c.CattleOut.Use(hooks...)
 	c.CattleOwner.Use(hooks...)
 	c.CattleType.Use(hooks...)
+	c.Change.Use(hooks...)
 	c.ConcentrateFormula.Use(hooks...)
 	c.ConcentrateProcess.Use(hooks...)
 	c.Conf.Use(hooks...)
@@ -456,6 +503,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.Estrus.Use(hooks...)
 	c.EstrusType.Use(hooks...)
 	c.Farm.Use(hooks...)
+	c.FeedGroup.Use(hooks...)
 	c.FeedRecord.Use(hooks...)
 	c.HairState.Use(hooks...)
 	c.Immunity.Use(hooks...)
@@ -472,6 +520,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.SemenFrozenType.Use(hooks...)
 	c.Shed.Use(hooks...)
 	c.ShedCategory.Use(hooks...)
+	c.ShedTrans.Use(hooks...)
 	c.ShedType.Use(hooks...)
 	c.TreatmentResult.Use(hooks...)
 	c.TreatmentState.Use(hooks...)
@@ -1536,6 +1585,94 @@ func (c *CattleCateClient) Hooks() []Hook {
 	return c.hooks.CattleCate
 }
 
+// CattleDieClient is a client for the CattleDie schema.
+type CattleDieClient struct {
+	config
+}
+
+// NewCattleDieClient returns a client for the CattleDie from the given config.
+func NewCattleDieClient(c config) *CattleDieClient {
+	return &CattleDieClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `cattledie.Hooks(f(g(h())))`.
+func (c *CattleDieClient) Use(hooks ...Hook) {
+	c.hooks.CattleDie = append(c.hooks.CattleDie, hooks...)
+}
+
+// Create returns a create builder for CattleDie.
+func (c *CattleDieClient) Create() *CattleDieCreate {
+	mutation := newCattleDieMutation(c.config, OpCreate)
+	return &CattleDieCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of CattleDie entities.
+func (c *CattleDieClient) CreateBulk(builders ...*CattleDieCreate) *CattleDieCreateBulk {
+	return &CattleDieCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CattleDie.
+func (c *CattleDieClient) Update() *CattleDieUpdate {
+	mutation := newCattleDieMutation(c.config, OpUpdate)
+	return &CattleDieUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CattleDieClient) UpdateOne(cd *CattleDie) *CattleDieUpdateOne {
+	mutation := newCattleDieMutation(c.config, OpUpdateOne, withCattleDie(cd))
+	return &CattleDieUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CattleDieClient) UpdateOneID(id int64) *CattleDieUpdateOne {
+	mutation := newCattleDieMutation(c.config, OpUpdateOne, withCattleDieID(id))
+	return &CattleDieUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CattleDie.
+func (c *CattleDieClient) Delete() *CattleDieDelete {
+	mutation := newCattleDieMutation(c.config, OpDelete)
+	return &CattleDieDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *CattleDieClient) DeleteOne(cd *CattleDie) *CattleDieDeleteOne {
+	return c.DeleteOneID(cd.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *CattleDieClient) DeleteOneID(id int64) *CattleDieDeleteOne {
+	builder := c.Delete().Where(cattledie.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CattleDieDeleteOne{builder}
+}
+
+// Query returns a query builder for CattleDie.
+func (c *CattleDieClient) Query() *CattleDieQuery {
+	return &CattleDieQuery{config: c.config}
+}
+
+// Get returns a CattleDie entity by its id.
+func (c *CattleDieClient) Get(ctx context.Context, id int64) (*CattleDie, error) {
+	return c.Query().Where(cattledie.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CattleDieClient) GetX(ctx context.Context, id int64) *CattleDie {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CattleDieClient) Hooks() []Hook {
+	return c.hooks.CattleDie
+}
+
 // CattleGenderClient is a client for the CattleGender schema.
 type CattleGenderClient struct {
 	config
@@ -1622,6 +1759,94 @@ func (c *CattleGenderClient) GetX(ctx context.Context, id int64) *CattleGender {
 // Hooks returns the client hooks.
 func (c *CattleGenderClient) Hooks() []Hook {
 	return c.hooks.CattleGender
+}
+
+// CattleGroupClient is a client for the CattleGroup schema.
+type CattleGroupClient struct {
+	config
+}
+
+// NewCattleGroupClient returns a client for the CattleGroup from the given config.
+func NewCattleGroupClient(c config) *CattleGroupClient {
+	return &CattleGroupClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `cattlegroup.Hooks(f(g(h())))`.
+func (c *CattleGroupClient) Use(hooks ...Hook) {
+	c.hooks.CattleGroup = append(c.hooks.CattleGroup, hooks...)
+}
+
+// Create returns a create builder for CattleGroup.
+func (c *CattleGroupClient) Create() *CattleGroupCreate {
+	mutation := newCattleGroupMutation(c.config, OpCreate)
+	return &CattleGroupCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of CattleGroup entities.
+func (c *CattleGroupClient) CreateBulk(builders ...*CattleGroupCreate) *CattleGroupCreateBulk {
+	return &CattleGroupCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CattleGroup.
+func (c *CattleGroupClient) Update() *CattleGroupUpdate {
+	mutation := newCattleGroupMutation(c.config, OpUpdate)
+	return &CattleGroupUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CattleGroupClient) UpdateOne(cg *CattleGroup) *CattleGroupUpdateOne {
+	mutation := newCattleGroupMutation(c.config, OpUpdateOne, withCattleGroup(cg))
+	return &CattleGroupUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CattleGroupClient) UpdateOneID(id int64) *CattleGroupUpdateOne {
+	mutation := newCattleGroupMutation(c.config, OpUpdateOne, withCattleGroupID(id))
+	return &CattleGroupUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CattleGroup.
+func (c *CattleGroupClient) Delete() *CattleGroupDelete {
+	mutation := newCattleGroupMutation(c.config, OpDelete)
+	return &CattleGroupDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *CattleGroupClient) DeleteOne(cg *CattleGroup) *CattleGroupDeleteOne {
+	return c.DeleteOneID(cg.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *CattleGroupClient) DeleteOneID(id int64) *CattleGroupDeleteOne {
+	builder := c.Delete().Where(cattlegroup.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CattleGroupDeleteOne{builder}
+}
+
+// Query returns a query builder for CattleGroup.
+func (c *CattleGroupClient) Query() *CattleGroupQuery {
+	return &CattleGroupQuery{config: c.config}
+}
+
+// Get returns a CattleGroup entity by its id.
+func (c *CattleGroupClient) Get(ctx context.Context, id int64) (*CattleGroup, error) {
+	return c.Query().Where(cattlegroup.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CattleGroupClient) GetX(ctx context.Context, id int64) *CattleGroup {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CattleGroupClient) Hooks() []Hook {
+	return c.hooks.CattleGroup
 }
 
 // CattleGrowClient is a client for the CattleGrow schema.
@@ -1976,6 +2201,94 @@ func (c *CattleHairColorClient) Hooks() []Hook {
 	return c.hooks.CattleHairColor
 }
 
+// CattleInClient is a client for the CattleIn schema.
+type CattleInClient struct {
+	config
+}
+
+// NewCattleInClient returns a client for the CattleIn from the given config.
+func NewCattleInClient(c config) *CattleInClient {
+	return &CattleInClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `cattlein.Hooks(f(g(h())))`.
+func (c *CattleInClient) Use(hooks ...Hook) {
+	c.hooks.CattleIn = append(c.hooks.CattleIn, hooks...)
+}
+
+// Create returns a create builder for CattleIn.
+func (c *CattleInClient) Create() *CattleInCreate {
+	mutation := newCattleInMutation(c.config, OpCreate)
+	return &CattleInCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of CattleIn entities.
+func (c *CattleInClient) CreateBulk(builders ...*CattleInCreate) *CattleInCreateBulk {
+	return &CattleInCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CattleIn.
+func (c *CattleInClient) Update() *CattleInUpdate {
+	mutation := newCattleInMutation(c.config, OpUpdate)
+	return &CattleInUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CattleInClient) UpdateOne(ci *CattleIn) *CattleInUpdateOne {
+	mutation := newCattleInMutation(c.config, OpUpdateOne, withCattleIn(ci))
+	return &CattleInUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CattleInClient) UpdateOneID(id int64) *CattleInUpdateOne {
+	mutation := newCattleInMutation(c.config, OpUpdateOne, withCattleInID(id))
+	return &CattleInUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CattleIn.
+func (c *CattleInClient) Delete() *CattleInDelete {
+	mutation := newCattleInMutation(c.config, OpDelete)
+	return &CattleInDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *CattleInClient) DeleteOne(ci *CattleIn) *CattleInDeleteOne {
+	return c.DeleteOneID(ci.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *CattleInClient) DeleteOneID(id int64) *CattleInDeleteOne {
+	builder := c.Delete().Where(cattlein.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CattleInDeleteOne{builder}
+}
+
+// Query returns a query builder for CattleIn.
+func (c *CattleInClient) Query() *CattleInQuery {
+	return &CattleInQuery{config: c.config}
+}
+
+// Get returns a CattleIn entity by its id.
+func (c *CattleInClient) Get(ctx context.Context, id int64) (*CattleIn, error) {
+	return c.Query().Where(cattlein.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CattleInClient) GetX(ctx context.Context, id int64) *CattleIn {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CattleInClient) Hooks() []Hook {
+	return c.hooks.CattleIn
+}
+
 // CattleJoinedTypeClient is a client for the CattleJoinedType schema.
 type CattleJoinedTypeClient struct {
 	config
@@ -2062,6 +2375,94 @@ func (c *CattleJoinedTypeClient) GetX(ctx context.Context, id int64) *CattleJoin
 // Hooks returns the client hooks.
 func (c *CattleJoinedTypeClient) Hooks() []Hook {
 	return c.hooks.CattleJoinedType
+}
+
+// CattleOutClient is a client for the CattleOut schema.
+type CattleOutClient struct {
+	config
+}
+
+// NewCattleOutClient returns a client for the CattleOut from the given config.
+func NewCattleOutClient(c config) *CattleOutClient {
+	return &CattleOutClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `cattleout.Hooks(f(g(h())))`.
+func (c *CattleOutClient) Use(hooks ...Hook) {
+	c.hooks.CattleOut = append(c.hooks.CattleOut, hooks...)
+}
+
+// Create returns a create builder for CattleOut.
+func (c *CattleOutClient) Create() *CattleOutCreate {
+	mutation := newCattleOutMutation(c.config, OpCreate)
+	return &CattleOutCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of CattleOut entities.
+func (c *CattleOutClient) CreateBulk(builders ...*CattleOutCreate) *CattleOutCreateBulk {
+	return &CattleOutCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for CattleOut.
+func (c *CattleOutClient) Update() *CattleOutUpdate {
+	mutation := newCattleOutMutation(c.config, OpUpdate)
+	return &CattleOutUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *CattleOutClient) UpdateOne(co *CattleOut) *CattleOutUpdateOne {
+	mutation := newCattleOutMutation(c.config, OpUpdateOne, withCattleOut(co))
+	return &CattleOutUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *CattleOutClient) UpdateOneID(id int64) *CattleOutUpdateOne {
+	mutation := newCattleOutMutation(c.config, OpUpdateOne, withCattleOutID(id))
+	return &CattleOutUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for CattleOut.
+func (c *CattleOutClient) Delete() *CattleOutDelete {
+	mutation := newCattleOutMutation(c.config, OpDelete)
+	return &CattleOutDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *CattleOutClient) DeleteOne(co *CattleOut) *CattleOutDeleteOne {
+	return c.DeleteOneID(co.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *CattleOutClient) DeleteOneID(id int64) *CattleOutDeleteOne {
+	builder := c.Delete().Where(cattleout.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &CattleOutDeleteOne{builder}
+}
+
+// Query returns a query builder for CattleOut.
+func (c *CattleOutClient) Query() *CattleOutQuery {
+	return &CattleOutQuery{config: c.config}
+}
+
+// Get returns a CattleOut entity by its id.
+func (c *CattleOutClient) Get(ctx context.Context, id int64) (*CattleOut, error) {
+	return c.Query().Where(cattleout.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *CattleOutClient) GetX(ctx context.Context, id int64) *CattleOut {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *CattleOutClient) Hooks() []Hook {
+	return c.hooks.CattleOut
 }
 
 // CattleOwnerClient is a client for the CattleOwner schema.
@@ -2238,6 +2639,94 @@ func (c *CattleTypeClient) GetX(ctx context.Context, id int64) *CattleType {
 // Hooks returns the client hooks.
 func (c *CattleTypeClient) Hooks() []Hook {
 	return c.hooks.CattleType
+}
+
+// ChangeClient is a client for the Change schema.
+type ChangeClient struct {
+	config
+}
+
+// NewChangeClient returns a client for the Change from the given config.
+func NewChangeClient(c config) *ChangeClient {
+	return &ChangeClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `change.Hooks(f(g(h())))`.
+func (c *ChangeClient) Use(hooks ...Hook) {
+	c.hooks.Change = append(c.hooks.Change, hooks...)
+}
+
+// Create returns a create builder for Change.
+func (c *ChangeClient) Create() *ChangeCreate {
+	mutation := newChangeMutation(c.config, OpCreate)
+	return &ChangeCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Change entities.
+func (c *ChangeClient) CreateBulk(builders ...*ChangeCreate) *ChangeCreateBulk {
+	return &ChangeCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Change.
+func (c *ChangeClient) Update() *ChangeUpdate {
+	mutation := newChangeMutation(c.config, OpUpdate)
+	return &ChangeUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *ChangeClient) UpdateOne(ch *Change) *ChangeUpdateOne {
+	mutation := newChangeMutation(c.config, OpUpdateOne, withChange(ch))
+	return &ChangeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *ChangeClient) UpdateOneID(id int64) *ChangeUpdateOne {
+	mutation := newChangeMutation(c.config, OpUpdateOne, withChangeID(id))
+	return &ChangeUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Change.
+func (c *ChangeClient) Delete() *ChangeDelete {
+	mutation := newChangeMutation(c.config, OpDelete)
+	return &ChangeDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *ChangeClient) DeleteOne(ch *Change) *ChangeDeleteOne {
+	return c.DeleteOneID(ch.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *ChangeClient) DeleteOneID(id int64) *ChangeDeleteOne {
+	builder := c.Delete().Where(change.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &ChangeDeleteOne{builder}
+}
+
+// Query returns a query builder for Change.
+func (c *ChangeClient) Query() *ChangeQuery {
+	return &ChangeQuery{config: c.config}
+}
+
+// Get returns a Change entity by its id.
+func (c *ChangeClient) Get(ctx context.Context, id int64) (*Change, error) {
+	return c.Query().Where(change.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *ChangeClient) GetX(ctx context.Context, id int64) *Change {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *ChangeClient) Hooks() []Hook {
+	return c.hooks.Change
 }
 
 // ConcentrateFormulaClient is a client for the ConcentrateFormula schema.
@@ -3206,6 +3695,94 @@ func (c *FarmClient) GetX(ctx context.Context, id int64) *Farm {
 // Hooks returns the client hooks.
 func (c *FarmClient) Hooks() []Hook {
 	return c.hooks.Farm
+}
+
+// FeedGroupClient is a client for the FeedGroup schema.
+type FeedGroupClient struct {
+	config
+}
+
+// NewFeedGroupClient returns a client for the FeedGroup from the given config.
+func NewFeedGroupClient(c config) *FeedGroupClient {
+	return &FeedGroupClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `feedgroup.Hooks(f(g(h())))`.
+func (c *FeedGroupClient) Use(hooks ...Hook) {
+	c.hooks.FeedGroup = append(c.hooks.FeedGroup, hooks...)
+}
+
+// Create returns a create builder for FeedGroup.
+func (c *FeedGroupClient) Create() *FeedGroupCreate {
+	mutation := newFeedGroupMutation(c.config, OpCreate)
+	return &FeedGroupCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of FeedGroup entities.
+func (c *FeedGroupClient) CreateBulk(builders ...*FeedGroupCreate) *FeedGroupCreateBulk {
+	return &FeedGroupCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for FeedGroup.
+func (c *FeedGroupClient) Update() *FeedGroupUpdate {
+	mutation := newFeedGroupMutation(c.config, OpUpdate)
+	return &FeedGroupUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *FeedGroupClient) UpdateOne(fg *FeedGroup) *FeedGroupUpdateOne {
+	mutation := newFeedGroupMutation(c.config, OpUpdateOne, withFeedGroup(fg))
+	return &FeedGroupUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *FeedGroupClient) UpdateOneID(id int64) *FeedGroupUpdateOne {
+	mutation := newFeedGroupMutation(c.config, OpUpdateOne, withFeedGroupID(id))
+	return &FeedGroupUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for FeedGroup.
+func (c *FeedGroupClient) Delete() *FeedGroupDelete {
+	mutation := newFeedGroupMutation(c.config, OpDelete)
+	return &FeedGroupDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *FeedGroupClient) DeleteOne(fg *FeedGroup) *FeedGroupDeleteOne {
+	return c.DeleteOneID(fg.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *FeedGroupClient) DeleteOneID(id int64) *FeedGroupDeleteOne {
+	builder := c.Delete().Where(feedgroup.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &FeedGroupDeleteOne{builder}
+}
+
+// Query returns a query builder for FeedGroup.
+func (c *FeedGroupClient) Query() *FeedGroupQuery {
+	return &FeedGroupQuery{config: c.config}
+}
+
+// Get returns a FeedGroup entity by its id.
+func (c *FeedGroupClient) Get(ctx context.Context, id int64) (*FeedGroup, error) {
+	return c.Query().Where(feedgroup.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *FeedGroupClient) GetX(ctx context.Context, id int64) *FeedGroup {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *FeedGroupClient) Hooks() []Hook {
+	return c.hooks.FeedGroup
 }
 
 // FeedRecordClient is a client for the FeedRecord schema.
@@ -4614,6 +5191,94 @@ func (c *ShedCategoryClient) GetX(ctx context.Context, id int64) *ShedCategory {
 // Hooks returns the client hooks.
 func (c *ShedCategoryClient) Hooks() []Hook {
 	return c.hooks.ShedCategory
+}
+
+// ShedTransClient is a client for the ShedTrans schema.
+type ShedTransClient struct {
+	config
+}
+
+// NewShedTransClient returns a client for the ShedTrans from the given config.
+func NewShedTransClient(c config) *ShedTransClient {
+	return &ShedTransClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `shedtrans.Hooks(f(g(h())))`.
+func (c *ShedTransClient) Use(hooks ...Hook) {
+	c.hooks.ShedTrans = append(c.hooks.ShedTrans, hooks...)
+}
+
+// Create returns a create builder for ShedTrans.
+func (c *ShedTransClient) Create() *ShedTransCreate {
+	mutation := newShedTransMutation(c.config, OpCreate)
+	return &ShedTransCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of ShedTrans entities.
+func (c *ShedTransClient) CreateBulk(builders ...*ShedTransCreate) *ShedTransCreateBulk {
+	return &ShedTransCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for ShedTrans.
+func (c *ShedTransClient) Update() *ShedTransUpdate {
+	mutation := newShedTransMutation(c.config, OpUpdate)
+	return &ShedTransUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *ShedTransClient) UpdateOne(st *ShedTrans) *ShedTransUpdateOne {
+	mutation := newShedTransMutation(c.config, OpUpdateOne, withShedTrans(st))
+	return &ShedTransUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *ShedTransClient) UpdateOneID(id int64) *ShedTransUpdateOne {
+	mutation := newShedTransMutation(c.config, OpUpdateOne, withShedTransID(id))
+	return &ShedTransUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for ShedTrans.
+func (c *ShedTransClient) Delete() *ShedTransDelete {
+	mutation := newShedTransMutation(c.config, OpDelete)
+	return &ShedTransDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *ShedTransClient) DeleteOne(st *ShedTrans) *ShedTransDeleteOne {
+	return c.DeleteOneID(st.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *ShedTransClient) DeleteOneID(id int64) *ShedTransDeleteOne {
+	builder := c.Delete().Where(shedtrans.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &ShedTransDeleteOne{builder}
+}
+
+// Query returns a query builder for ShedTrans.
+func (c *ShedTransClient) Query() *ShedTransQuery {
+	return &ShedTransQuery{config: c.config}
+}
+
+// Get returns a ShedTrans entity by its id.
+func (c *ShedTransClient) Get(ctx context.Context, id int64) (*ShedTrans, error) {
+	return c.Query().Where(shedtrans.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *ShedTransClient) GetX(ctx context.Context, id int64) *ShedTrans {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *ShedTransClient) Hooks() []Hook {
+	return c.hooks.ShedTrans
 }
 
 // ShedTypeClient is a client for the ShedType schema.

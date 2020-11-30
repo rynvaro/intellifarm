@@ -17,7 +17,9 @@ import (
 	"cattleai/pkg/cattlegrowsdata"
 	"cattleai/pkg/cattlegrowsrates"
 	"cattleai/pkg/cattlehaircolors"
+	"cattleai/pkg/cattleins"
 	"cattleai/pkg/cattlejoinedtypes"
+	"cattleai/pkg/cattleouts"
 	"cattleai/pkg/cattleowners"
 	"cattleai/pkg/cattles"
 	"cattleai/pkg/cattletypes"
@@ -143,4 +145,7 @@ func Register(g *gin.RouterGroup) {
 	concentrateprocesses.RegisterRoutes(g)
 	rations.RegisterRoutes(g)
 	feedrecords.RegisterRoutes(g)
+
+	cattleins.RegisterRoutes(g)
+	cattleouts.RegisterRoutes(g)
 }

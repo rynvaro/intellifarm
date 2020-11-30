@@ -36,8 +36,12 @@ type Tx struct {
 	Cattle *CattleClient
 	// CattleCate is the client for interacting with the CattleCate builders.
 	CattleCate *CattleCateClient
+	// CattleDie is the client for interacting with the CattleDie builders.
+	CattleDie *CattleDieClient
 	// CattleGender is the client for interacting with the CattleGender builders.
 	CattleGender *CattleGenderClient
+	// CattleGroup is the client for interacting with the CattleGroup builders.
+	CattleGroup *CattleGroupClient
 	// CattleGrow is the client for interacting with the CattleGrow builders.
 	CattleGrow *CattleGrowClient
 	// CattleGrowsData is the client for interacting with the CattleGrowsData builders.
@@ -46,12 +50,18 @@ type Tx struct {
 	CattleGrowsRate *CattleGrowsRateClient
 	// CattleHairColor is the client for interacting with the CattleHairColor builders.
 	CattleHairColor *CattleHairColorClient
+	// CattleIn is the client for interacting with the CattleIn builders.
+	CattleIn *CattleInClient
 	// CattleJoinedType is the client for interacting with the CattleJoinedType builders.
 	CattleJoinedType *CattleJoinedTypeClient
+	// CattleOut is the client for interacting with the CattleOut builders.
+	CattleOut *CattleOutClient
 	// CattleOwner is the client for interacting with the CattleOwner builders.
 	CattleOwner *CattleOwnerClient
 	// CattleType is the client for interacting with the CattleType builders.
 	CattleType *CattleTypeClient
+	// Change is the client for interacting with the Change builders.
+	Change *ChangeClient
 	// ConcentrateFormula is the client for interacting with the ConcentrateFormula builders.
 	ConcentrateFormula *ConcentrateFormulaClient
 	// ConcentrateProcess is the client for interacting with the ConcentrateProcess builders.
@@ -74,6 +84,8 @@ type Tx struct {
 	EstrusType *EstrusTypeClient
 	// Farm is the client for interacting with the Farm builders.
 	Farm *FarmClient
+	// FeedGroup is the client for interacting with the FeedGroup builders.
+	FeedGroup *FeedGroupClient
 	// FeedRecord is the client for interacting with the FeedRecord builders.
 	FeedRecord *FeedRecordClient
 	// HairState is the client for interacting with the HairState builders.
@@ -106,6 +118,8 @@ type Tx struct {
 	Shed *ShedClient
 	// ShedCategory is the client for interacting with the ShedCategory builders.
 	ShedCategory *ShedCategoryClient
+	// ShedTrans is the client for interacting with the ShedTrans builders.
+	ShedTrans *ShedTransClient
 	// ShedType is the client for interacting with the ShedType builders.
 	ShedType *ShedTypeClient
 	// TreatmentResult is the client for interacting with the TreatmentResult builders.
@@ -265,14 +279,19 @@ func (tx *Tx) init() {
 	tx.Category = NewCategoryClient(tx.config)
 	tx.Cattle = NewCattleClient(tx.config)
 	tx.CattleCate = NewCattleCateClient(tx.config)
+	tx.CattleDie = NewCattleDieClient(tx.config)
 	tx.CattleGender = NewCattleGenderClient(tx.config)
+	tx.CattleGroup = NewCattleGroupClient(tx.config)
 	tx.CattleGrow = NewCattleGrowClient(tx.config)
 	tx.CattleGrowsData = NewCattleGrowsDataClient(tx.config)
 	tx.CattleGrowsRate = NewCattleGrowsRateClient(tx.config)
 	tx.CattleHairColor = NewCattleHairColorClient(tx.config)
+	tx.CattleIn = NewCattleInClient(tx.config)
 	tx.CattleJoinedType = NewCattleJoinedTypeClient(tx.config)
+	tx.CattleOut = NewCattleOutClient(tx.config)
 	tx.CattleOwner = NewCattleOwnerClient(tx.config)
 	tx.CattleType = NewCattleTypeClient(tx.config)
+	tx.Change = NewChangeClient(tx.config)
 	tx.ConcentrateFormula = NewConcentrateFormulaClient(tx.config)
 	tx.ConcentrateProcess = NewConcentrateProcessClient(tx.config)
 	tx.Conf = NewConfClient(tx.config)
@@ -284,6 +303,7 @@ func (tx *Tx) init() {
 	tx.Estrus = NewEstrusClient(tx.config)
 	tx.EstrusType = NewEstrusTypeClient(tx.config)
 	tx.Farm = NewFarmClient(tx.config)
+	tx.FeedGroup = NewFeedGroupClient(tx.config)
 	tx.FeedRecord = NewFeedRecordClient(tx.config)
 	tx.HairState = NewHairStateClient(tx.config)
 	tx.Immunity = NewImmunityClient(tx.config)
@@ -300,6 +320,7 @@ func (tx *Tx) init() {
 	tx.SemenFrozenType = NewSemenFrozenTypeClient(tx.config)
 	tx.Shed = NewShedClient(tx.config)
 	tx.ShedCategory = NewShedCategoryClient(tx.config)
+	tx.ShedTrans = NewShedTransClient(tx.config)
 	tx.ShedType = NewShedTypeClient(tx.config)
 	tx.TreatmentResult = NewTreatmentResultClient(tx.config)
 	tx.TreatmentState = NewTreatmentStateClient(tx.config)

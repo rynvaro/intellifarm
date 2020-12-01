@@ -8,6 +8,19 @@ import (
 	"fmt"
 )
 
+// The APIFunc type is an adapter to allow the use of ordinary
+// function as API mutator.
+type APIFunc func(context.Context, *ent.APIMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f APIFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.APIMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.APIMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The AbortionFunc type is an adapter to allow the use of ordinary
 // function as Abortion mutator.
 type AbortionFunc func(context.Context, *ent.AbortionMutation) (ent.Value, error)

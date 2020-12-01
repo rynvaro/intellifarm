@@ -8,6 +8,31 @@ import (
 )
 
 var (
+	// ApIsColumns holds the columns for the "ap_is" table.
+	ApIsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "path", Type: field.TypeString, Unique: true},
+		{Name: "level", Type: field.TypeInt},
+		{Name: "hash", Type: field.TypeString},
+		{Name: "redirect", Type: field.TypeString, Nullable: true},
+		{Name: "component", Type: field.TypeString},
+		{Name: "is_sub", Type: field.TypeBool},
+		{Name: "has_sub", Type: field.TypeBool},
+		{Name: "single", Type: field.TypeBool},
+		{Name: "parent_id", Type: field.TypeInt64},
+		{Name: "tenant_id", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// ApIsTable holds the schema information for the "ap_is" table.
+	ApIsTable = &schema.Table{
+		Name:        "ap_is",
+		Columns:     ApIsColumns,
+		PrimaryKey:  []*schema.Column{ApIsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// AbortionsColumns holds the columns for the "abortions" table.
 	AbortionsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -1107,6 +1132,7 @@ var (
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
+		ApIsTable,
 		AbortionsTable,
 		AbortionTypesTable,
 		BirthSurroundingsTable,

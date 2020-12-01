@@ -36,4 +36,5 @@ type InitConf struct {
 	TreatmentResult          bool `json:"treatmentResult"`
 	TreatmentState           bool `json:"treatmentState"`
 	Whereablout              bool `json:"whereabout"`
+	Api                      bool `json:"api"`
 }

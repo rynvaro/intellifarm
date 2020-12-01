@@ -7,4 +7,6 @@ type ListParams struct {
 	TimeRange []int64       `json:"timeRange" form:"timeRange"`
 	UserId    int64         `json:"userId" form:"userId"`
 	Paging    paging.Paging `json:"paging" form:"paging"`
+	Level     int           `json:"level" form:"level"`
+	ParentId  int64         `json:"parentId" form:"parentId"`
 }

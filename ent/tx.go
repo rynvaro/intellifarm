@@ -12,6 +12,8 @@ import (
 // Tx is a transactional client that is created by calling Client.Tx().
 type Tx struct {
 	config
+	// API is the client for interacting with the API builders.
+	API *APIClient
 	// Abortion is the client for interacting with the Abortion builders.
 	Abortion *AbortionClient
 	// AbortionType is the client for interacting with the AbortionType builders.
@@ -267,6 +269,7 @@ func (tx *Tx) Client() *Client {
 }
 
 func (tx *Tx) init() {
+	tx.API = NewAPIClient(tx.config)
 	tx.Abortion = NewAbortionClient(tx.config)
 	tx.AbortionType = NewAbortionTypeClient(tx.config)
 	tx.BirthSurrounding = NewBirthSurroundingClient(tx.config)
@@ -336,7 +339,7 @@ func (tx *Tx) init() {
 // of them in order to commit or rollback the transaction.
 //
 // If a closed transaction is embedded in one of the generated entities, and the entity
-// applies a query, for example: Abortion.QueryXXX(), the query will be executed
+// applies a query, for example: API.QueryXXX(), the query will be executed
 // through the driver which created this transaction.
 //
 // Note that txDriver is not goroutine safe.

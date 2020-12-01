@@ -3,6 +3,7 @@ package router
 import (
 	"cattleai/pkg/abortions"
 	"cattleai/pkg/abortiontypes"
+	"cattleai/pkg/apis"
 	"cattleai/pkg/birthsurroundings"
 	"cattleai/pkg/breathrates"
 	"cattleai/pkg/breedings"
@@ -148,4 +149,6 @@ func Register(g *gin.RouterGroup) {
 
 	cattleins.RegisterRoutes(g)
 	cattleouts.RegisterRoutes(g)
+
+	apis.RegisterRoutes(g)
 }

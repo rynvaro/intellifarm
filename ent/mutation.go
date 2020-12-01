@@ -6,6 +6,7 @@ import (
 	"cattleai/confs"
 	"cattleai/ent/abortion"
 	"cattleai/ent/abortiontype"
+	"cattleai/ent/api"
 	"cattleai/ent/birthsurrounding"
 	"cattleai/ent/breathrate"
 	"cattleai/ent/breeding"
@@ -74,6 +75,7 @@ const (
 	OpUpdateOne = ent.OpUpdateOne
 
 	// Node types.
+	TypeAPI                 = "API"
 	TypeAbortion            = "Abortion"
 	TypeAbortionType        = "AbortionType"
 	TypeBirthSurrounding    = "BirthSurrounding"
@@ -135,6 +137,1210 @@ const (
 	TypeWhereabouts         = "Whereabouts"
 	TypeWindDirection       = "WindDirection"
 )
+
+// APIMutation represents an operation that mutate the APIs
+// nodes in the graph.
+type APIMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	name          *string
+	_path         *string
+	level         *int
+	addlevel      *int
+	hash          *string
+	redirect      *string
+	component     *string
+	isSub         *bool
+	hasSub        *bool
+	single        *bool
+	parentId      *int64
+	addparentId   *int64
+	tenantId      *string
+	createdAt     *int64
+	addcreatedAt  *int64
+	updatedAt     *int64
+	addupdatedAt  *int64
+	deleted       *int
+	adddeleted    *int
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*API, error)
+}
+
+var _ ent.Mutation = (*APIMutation)(nil)
+
+// apiOption allows to manage the mutation configuration using functional options.
+type apiOption func(*APIMutation)
+
+// newAPIMutation creates new mutation for $n.Name.
+func newAPIMutation(c config, op Op, opts ...apiOption) *APIMutation {
+	m := &APIMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeAPI,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withAPIID sets the id field of the mutation.
+func withAPIID(id int64) apiOption {
+	return func(m *APIMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *API
+		)
+		m.oldValue = func(ctx context.Context) (*API, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().API.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withAPI sets the old API of the mutation.
+func withAPI(node *API) apiOption {
+	return func(m *APIMutation) {
+		m.oldValue = func(context.Context) (*API, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m APIMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m APIMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// SetID sets the value of the id field. Note that, this
+// operation is accepted only on API creation.
+func (m *APIMutation) SetID(id int64) {
+	m.id = &id
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *APIMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetName sets the name field.
+func (m *APIMutation) SetName(s string) {
+	m.name = &s
+}
+
+// Name returns the name value in the mutation.
+func (m *APIMutation) Name() (r string, exists bool) {
+	v := m.name
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldName returns the old name value of the API.
+// If the API object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *APIMutation) OldName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldName: %w", err)
+	}
+	return oldValue.Name, nil
+}
+
+// ResetName reset all changes of the "name" field.
+func (m *APIMutation) ResetName() {
+	m.name = nil
+}
+
+// SetPath sets the path field.
+func (m *APIMutation) SetPath(s string) {
+	m._path = &s
+}
+
+// Path returns the path value in the mutation.
+func (m *APIMutation) Path() (r string, exists bool) {
+	v := m._path
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPath returns the old path value of the API.
+// If the API object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *APIMutation) OldPath(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldPath is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldPath requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPath: %w", err)
+	}
+	return oldValue.Path, nil
+}
+
+// ResetPath reset all changes of the "path" field.
+func (m *APIMutation) ResetPath() {
+	m._path = nil
+}
+
+// SetLevel sets the level field.
+func (m *APIMutation) SetLevel(i int) {
+	m.level = &i
+	m.addlevel = nil
+}
+
+// Level returns the level value in the mutation.
+func (m *APIMutation) Level() (r int, exists bool) {
+	v := m.level
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLevel returns the old level value of the API.
+// If the API object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *APIMutation) OldLevel(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldLevel is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldLevel requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLevel: %w", err)
+	}
+	return oldValue.Level, nil
+}
+
+// AddLevel adds i to level.
+func (m *APIMutation) AddLevel(i int) {
+	if m.addlevel != nil {
+		*m.addlevel += i
+	} else {
+		m.addlevel = &i
+	}
+}
+
+// AddedLevel returns the value that was added to the level field in this mutation.
+func (m *APIMutation) AddedLevel() (r int, exists bool) {
+	v := m.addlevel
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetLevel reset all changes of the "level" field.
+func (m *APIMutation) ResetLevel() {
+	m.level = nil
+	m.addlevel = nil
+}
+
+// SetHash sets the hash field.
+func (m *APIMutation) SetHash(s string) {
+	m.hash = &s
+}
+
+// Hash returns the hash value in the mutation.
+func (m *APIMutation) Hash() (r string, exists bool) {
+	v := m.hash
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldHash returns the old hash value of the API.
+// If the API object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *APIMutation) OldHash(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldHash is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldHash requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldHash: %w", err)
+	}
+	return oldValue.Hash, nil
+}
+
+// ResetHash reset all changes of the "hash" field.
+func (m *APIMutation) ResetHash() {
+	m.hash = nil
+}
+
+// SetRedirect sets the redirect field.
+func (m *APIMutation) SetRedirect(s string) {
+	m.redirect = &s
+}
+
+// Redirect returns the redirect value in the mutation.
+func (m *APIMutation) Redirect() (r string, exists bool) {
+	v := m.redirect
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRedirect returns the old redirect value of the API.
+// If the API object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *APIMutation) OldRedirect(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRedirect is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRedirect requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRedirect: %w", err)
+	}
+	return oldValue.Redirect, nil
+}
+
+// ClearRedirect clears the value of redirect.
+func (m *APIMutation) ClearRedirect() {
+	m.redirect = nil
+	m.clearedFields[api.FieldRedirect] = struct{}{}
+}
+
+// RedirectCleared returns if the field redirect was cleared in this mutation.
+func (m *APIMutation) RedirectCleared() bool {
+	_, ok := m.clearedFields[api.FieldRedirect]
+	return ok
+}
+
+// ResetRedirect reset all changes of the "redirect" field.
+func (m *APIMutation) ResetRedirect() {
+	m.redirect = nil
+	delete(m.clearedFields, api.FieldRedirect)
+}
+
+// SetComponent sets the component field.
+func (m *APIMutation) SetComponent(s string) {
+	m.component = &s
+}
+
+// Component returns the component value in the mutation.
+func (m *APIMutation) Component() (r string, exists bool) {
+	v := m.component
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldComponent returns the old component value of the API.
+// If the API object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *APIMutation) OldComponent(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldComponent is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldComponent requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldComponent: %w", err)
+	}
+	return oldValue.Component, nil
+}
+
+// ResetComponent reset all changes of the "component" field.
+func (m *APIMutation) ResetComponent() {
+	m.component = nil
+}
+
+// SetIsSub sets the isSub field.
+func (m *APIMutation) SetIsSub(b bool) {
+	m.isSub = &b
+}
+
+// IsSub returns the isSub value in the mutation.
+func (m *APIMutation) IsSub() (r bool, exists bool) {
+	v := m.isSub
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldIsSub returns the old isSub value of the API.
+// If the API object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *APIMutation) OldIsSub(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldIsSub is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldIsSub requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldIsSub: %w", err)
+	}
+	return oldValue.IsSub, nil
+}
+
+// ResetIsSub reset all changes of the "isSub" field.
+func (m *APIMutation) ResetIsSub() {
+	m.isSub = nil
+}
+
+// SetHasSub sets the hasSub field.
+func (m *APIMutation) SetHasSub(b bool) {
+	m.hasSub = &b
+}
+
+// HasSub returns the hasSub value in the mutation.
+func (m *APIMutation) HasSub() (r bool, exists bool) {
+	v := m.hasSub
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldHasSub returns the old hasSub value of the API.
+// If the API object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *APIMutation) OldHasSub(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldHasSub is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldHasSub requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldHasSub: %w", err)
+	}
+	return oldValue.HasSub, nil
+}
+
+// ResetHasSub reset all changes of the "hasSub" field.
+func (m *APIMutation) ResetHasSub() {
+	m.hasSub = nil
+}
+
+// SetSingle sets the single field.
+func (m *APIMutation) SetSingle(b bool) {
+	m.single = &b
+}
+
+// Single returns the single value in the mutation.
+func (m *APIMutation) Single() (r bool, exists bool) {
+	v := m.single
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSingle returns the old single value of the API.
+// If the API object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *APIMutation) OldSingle(ctx context.Context) (v bool, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldSingle is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldSingle requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSingle: %w", err)
+	}
+	return oldValue.Single, nil
+}
+
+// ResetSingle reset all changes of the "single" field.
+func (m *APIMutation) ResetSingle() {
+	m.single = nil
+}
+
+// SetParentId sets the parentId field.
+func (m *APIMutation) SetParentId(i int64) {
+	m.parentId = &i
+	m.addparentId = nil
+}
+
+// ParentId returns the parentId value in the mutation.
+func (m *APIMutation) ParentId() (r int64, exists bool) {
+	v := m.parentId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldParentId returns the old parentId value of the API.
+// If the API object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *APIMutation) OldParentId(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldParentId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldParentId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldParentId: %w", err)
+	}
+	return oldValue.ParentId, nil
+}
+
+// AddParentId adds i to parentId.
+func (m *APIMutation) AddParentId(i int64) {
+	if m.addparentId != nil {
+		*m.addparentId += i
+	} else {
+		m.addparentId = &i
+	}
+}
+
+// AddedParentId returns the value that was added to the parentId field in this mutation.
+func (m *APIMutation) AddedParentId() (r int64, exists bool) {
+	v := m.addparentId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetParentId reset all changes of the "parentId" field.
+func (m *APIMutation) ResetParentId() {
+	m.parentId = nil
+	m.addparentId = nil
+}
+
+// SetTenantId sets the tenantId field.
+func (m *APIMutation) SetTenantId(s string) {
+	m.tenantId = &s
+}
+
+// TenantId returns the tenantId value in the mutation.
+func (m *APIMutation) TenantId() (r string, exists bool) {
+	v := m.tenantId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTenantId returns the old tenantId value of the API.
+// If the API object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *APIMutation) OldTenantId(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldTenantId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldTenantId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTenantId: %w", err)
+	}
+	return oldValue.TenantId, nil
+}
+
+// ResetTenantId reset all changes of the "tenantId" field.
+func (m *APIMutation) ResetTenantId() {
+	m.tenantId = nil
+}
+
+// SetCreatedAt sets the createdAt field.
+func (m *APIMutation) SetCreatedAt(i int64) {
+	m.createdAt = &i
+	m.addcreatedAt = nil
+}
+
+// CreatedAt returns the createdAt value in the mutation.
+func (m *APIMutation) CreatedAt() (r int64, exists bool) {
+	v := m.createdAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old createdAt value of the API.
+// If the API object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *APIMutation) OldCreatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds i to createdAt.
+func (m *APIMutation) AddCreatedAt(i int64) {
+	if m.addcreatedAt != nil {
+		*m.addcreatedAt += i
+	} else {
+		m.addcreatedAt = &i
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the createdAt field in this mutation.
+func (m *APIMutation) AddedCreatedAt() (r int64, exists bool) {
+	v := m.addcreatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt reset all changes of the "createdAt" field.
+func (m *APIMutation) ResetCreatedAt() {
+	m.createdAt = nil
+	m.addcreatedAt = nil
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (m *APIMutation) SetUpdatedAt(i int64) {
+	m.updatedAt = &i
+	m.addupdatedAt = nil
+}
+
+// UpdatedAt returns the updatedAt value in the mutation.
+func (m *APIMutation) UpdatedAt() (r int64, exists bool) {
+	v := m.updatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old updatedAt value of the API.
+// If the API object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *APIMutation) OldUpdatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUpdatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (m *APIMutation) AddUpdatedAt(i int64) {
+	if m.addupdatedAt != nil {
+		*m.addupdatedAt += i
+	} else {
+		m.addupdatedAt = &i
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the updatedAt field in this mutation.
+func (m *APIMutation) AddedUpdatedAt() (r int64, exists bool) {
+	v := m.addupdatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt reset all changes of the "updatedAt" field.
+func (m *APIMutation) ResetUpdatedAt() {
+	m.updatedAt = nil
+	m.addupdatedAt = nil
+}
+
+// SetDeleted sets the deleted field.
+func (m *APIMutation) SetDeleted(i int) {
+	m.deleted = &i
+	m.adddeleted = nil
+}
+
+// Deleted returns the deleted value in the mutation.
+func (m *APIMutation) Deleted() (r int, exists bool) {
+	v := m.deleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleted returns the old deleted value of the API.
+// If the API object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *APIMutation) OldDeleted(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleted is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleted requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleted: %w", err)
+	}
+	return oldValue.Deleted, nil
+}
+
+// AddDeleted adds i to deleted.
+func (m *APIMutation) AddDeleted(i int) {
+	if m.adddeleted != nil {
+		*m.adddeleted += i
+	} else {
+		m.adddeleted = &i
+	}
+}
+
+// AddedDeleted returns the value that was added to the deleted field in this mutation.
+func (m *APIMutation) AddedDeleted() (r int, exists bool) {
+	v := m.adddeleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleted reset all changes of the "deleted" field.
+func (m *APIMutation) ResetDeleted() {
+	m.deleted = nil
+	m.adddeleted = nil
+}
+
+// Op returns the operation name.
+func (m *APIMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (API).
+func (m *APIMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *APIMutation) Fields() []string {
+	fields := make([]string, 0, 14)
+	if m.name != nil {
+		fields = append(fields, api.FieldName)
+	}
+	if m._path != nil {
+		fields = append(fields, api.FieldPath)
+	}
+	if m.level != nil {
+		fields = append(fields, api.FieldLevel)
+	}
+	if m.hash != nil {
+		fields = append(fields, api.FieldHash)
+	}
+	if m.redirect != nil {
+		fields = append(fields, api.FieldRedirect)
+	}
+	if m.component != nil {
+		fields = append(fields, api.FieldComponent)
+	}
+	if m.isSub != nil {
+		fields = append(fields, api.FieldIsSub)
+	}
+	if m.hasSub != nil {
+		fields = append(fields, api.FieldHasSub)
+	}
+	if m.single != nil {
+		fields = append(fields, api.FieldSingle)
+	}
+	if m.parentId != nil {
+		fields = append(fields, api.FieldParentId)
+	}
+	if m.tenantId != nil {
+		fields = append(fields, api.FieldTenantId)
+	}
+	if m.createdAt != nil {
+		fields = append(fields, api.FieldCreatedAt)
+	}
+	if m.updatedAt != nil {
+		fields = append(fields, api.FieldUpdatedAt)
+	}
+	if m.deleted != nil {
+		fields = append(fields, api.FieldDeleted)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *APIMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case api.FieldName:
+		return m.Name()
+	case api.FieldPath:
+		return m.Path()
+	case api.FieldLevel:
+		return m.Level()
+	case api.FieldHash:
+		return m.Hash()
+	case api.FieldRedirect:
+		return m.Redirect()
+	case api.FieldComponent:
+		return m.Component()
+	case api.FieldIsSub:
+		return m.IsSub()
+	case api.FieldHasSub:
+		return m.HasSub()
+	case api.FieldSingle:
+		return m.Single()
+	case api.FieldParentId:
+		return m.ParentId()
+	case api.FieldTenantId:
+		return m.TenantId()
+	case api.FieldCreatedAt:
+		return m.CreatedAt()
+	case api.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case api.FieldDeleted:
+		return m.Deleted()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *APIMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case api.FieldName:
+		return m.OldName(ctx)
+	case api.FieldPath:
+		return m.OldPath(ctx)
+	case api.FieldLevel:
+		return m.OldLevel(ctx)
+	case api.FieldHash:
+		return m.OldHash(ctx)
+	case api.FieldRedirect:
+		return m.OldRedirect(ctx)
+	case api.FieldComponent:
+		return m.OldComponent(ctx)
+	case api.FieldIsSub:
+		return m.OldIsSub(ctx)
+	case api.FieldHasSub:
+		return m.OldHasSub(ctx)
+	case api.FieldSingle:
+		return m.OldSingle(ctx)
+	case api.FieldParentId:
+		return m.OldParentId(ctx)
+	case api.FieldTenantId:
+		return m.OldTenantId(ctx)
+	case api.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case api.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case api.FieldDeleted:
+		return m.OldDeleted(ctx)
+	}
+	return nil, fmt.Errorf("unknown API field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *APIMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case api.FieldName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetName(v)
+		return nil
+	case api.FieldPath:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPath(v)
+		return nil
+	case api.FieldLevel:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLevel(v)
+		return nil
+	case api.FieldHash:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetHash(v)
+		return nil
+	case api.FieldRedirect:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRedirect(v)
+		return nil
+	case api.FieldComponent:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetComponent(v)
+		return nil
+	case api.FieldIsSub:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetIsSub(v)
+		return nil
+	case api.FieldHasSub:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetHasSub(v)
+		return nil
+	case api.FieldSingle:
+		v, ok := value.(bool)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSingle(v)
+		return nil
+	case api.FieldParentId:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetParentId(v)
+		return nil
+	case api.FieldTenantId:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTenantId(v)
+		return nil
+	case api.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case api.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case api.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown API field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *APIMutation) AddedFields() []string {
+	var fields []string
+	if m.addlevel != nil {
+		fields = append(fields, api.FieldLevel)
+	}
+	if m.addparentId != nil {
+		fields = append(fields, api.FieldParentId)
+	}
+	if m.addcreatedAt != nil {
+		fields = append(fields, api.FieldCreatedAt)
+	}
+	if m.addupdatedAt != nil {
+		fields = append(fields, api.FieldUpdatedAt)
+	}
+	if m.adddeleted != nil {
+		fields = append(fields, api.FieldDeleted)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *APIMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case api.FieldLevel:
+		return m.AddedLevel()
+	case api.FieldParentId:
+		return m.AddedParentId()
+	case api.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case api.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case api.FieldDeleted:
+		return m.AddedDeleted()
+	}
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *APIMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case api.FieldLevel:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddLevel(v)
+		return nil
+	case api.FieldParentId:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddParentId(v)
+		return nil
+	case api.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case api.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case api.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown API numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *APIMutation) ClearedFields() []string {
+	var fields []string
+	if m.FieldCleared(api.FieldRedirect) {
+		fields = append(fields, api.FieldRedirect)
+	}
+	return fields
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *APIMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *APIMutation) ClearField(name string) error {
+	switch name {
+	case api.FieldRedirect:
+		m.ClearRedirect()
+		return nil
+	}
+	return fmt.Errorf("unknown API nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *APIMutation) ResetField(name string) error {
+	switch name {
+	case api.FieldName:
+		m.ResetName()
+		return nil
+	case api.FieldPath:
+		m.ResetPath()
+		return nil
+	case api.FieldLevel:
+		m.ResetLevel()
+		return nil
+	case api.FieldHash:
+		m.ResetHash()
+		return nil
+	case api.FieldRedirect:
+		m.ResetRedirect()
+		return nil
+	case api.FieldComponent:
+		m.ResetComponent()
+		return nil
+	case api.FieldIsSub:
+		m.ResetIsSub()
+		return nil
+	case api.FieldHasSub:
+		m.ResetHasSub()
+		return nil
+	case api.FieldSingle:
+		m.ResetSingle()
+		return nil
+	case api.FieldParentId:
+		m.ResetParentId()
+		return nil
+	case api.FieldTenantId:
+		m.ResetTenantId()
+		return nil
+	case api.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case api.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case api.FieldDeleted:
+		m.ResetDeleted()
+		return nil
+	}
+	return fmt.Errorf("unknown API field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *APIMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *APIMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *APIMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *APIMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *APIMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *APIMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *APIMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown API unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *APIMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown API edge %s", name)
+}
 
 // AbortionMutation represents an operation that mutate the Abortions
 // nodes in the graph.

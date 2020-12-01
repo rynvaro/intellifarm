@@ -6,6 +6,9 @@ import (
 	"github.com/facebook/ent/dialect/sql"
 )
 
+// API is the predicate function for api builders.
+type API func(*sql.Selector)
+
 // Abortion is the predicate function for abortion builders.
 type Abortion func(*sql.Selector)
 

@@ -363,6 +363,23 @@ func dataInit() {
 		conf.InitConf.Whereablout = true
 	}
 
+	if !conf.InitConf.Api {
+		for _, v := range apis {
+			_, err := Client.API.Create().SetName(v.Name).SetID(v.ID).
+				SetLevel(v.Level).SetComponent(v.Component).SetCreatedAt(v.CreatedAt).
+				SetDeleted(v.Deleted).SetHasSub(v.HasSub).SetHash(v.Hash).SetIsSub(v.IsSub).
+				SetParentId(v.ParentId).SetPath(v.Path).SetRedirect(v.Redirect).SetSingle(v.Single).
+				SetTenantId(v.TenantId).SetUpdatedAt(v.UpdatedAt).
+				Save(ctx)
+			if err != nil {
+				log.Error().Msg(fmt.Sprintf("Api %s init failed with error: %s", v.Name, err.Error()))
+				continue
+			}
+			log.Info().Msg(fmt.Sprintf("Api %s initialized", v.Name))
+		}
+		conf.InitConf.Api = true
+	}
+
 	// update init config
 	if len(confs) > 0 {
 		_, err := Client.Conf.UpdateOneID(confs[0].ID).SetConfs(conf).Save(ctx)

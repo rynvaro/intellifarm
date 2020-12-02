@@ -1,12 +1,12 @@
 package sheds
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/shed"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -44,7 +44,7 @@ func ShedAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(shed))
+	c.JSON(http.StatusOK, resp.Success(shed))
 }
 
 func ShedListHandler(c *gin.Context) {
@@ -72,7 +72,7 @@ func ShedListHandler(c *gin.Context) {
 		Data:   sheds,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func ShedDeleteHandler(c *gin.Context) {
@@ -88,7 +88,7 @@ func ShedDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(shed))
+	c.JSON(http.StatusOK, resp.Success(shed))
 }
 
 func ShedUpdateHandler(c *gin.Context) {
@@ -120,5 +120,5 @@ func ShedUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(shed))
+	c.JSON(http.StatusOK, resp.Success(shed))
 }

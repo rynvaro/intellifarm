@@ -1,12 +1,12 @@
 package birthsurroundings
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/birthsurrounding"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -52,7 +52,7 @@ func BirthSurroundingAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(birthsurrounding))
+	c.JSON(http.StatusOK, resp.Success(birthsurrounding))
 }
 
 func BirthSurroundingListHandler(c *gin.Context) {
@@ -80,7 +80,7 @@ func BirthSurroundingListHandler(c *gin.Context) {
 		Data:   birthsurroundings,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func BirthSurroundingDeleteHandler(c *gin.Context) {
@@ -96,7 +96,7 @@ func BirthSurroundingDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(birthsurrounding))
+	c.JSON(http.StatusOK, resp.Success(birthsurrounding))
 }
 
 func BirthSurroundingUpdateHandler(c *gin.Context) {
@@ -136,5 +136,5 @@ func BirthSurroundingUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(birthsurrounding))
+	c.JSON(http.StatusOK, resp.Success(birthsurrounding))
 }

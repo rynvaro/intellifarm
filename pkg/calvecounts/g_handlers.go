@@ -1,8 +1,8 @@
 package calvecounts
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
+	"cattleai/resp"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,5 +16,5 @@ func CalveCounts(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(calvecounts))
+	c.JSON(http.StatusOK, resp.Success(calvecounts))
 }

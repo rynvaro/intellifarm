@@ -1,12 +1,12 @@
 package immunities
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/immunity"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -39,7 +39,7 @@ func ImmunityAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(immunity))
+	c.JSON(http.StatusOK, resp.Success(immunity))
 }
 
 func ImmunityListHandler(c *gin.Context) {
@@ -67,7 +67,7 @@ func ImmunityListHandler(c *gin.Context) {
 		Data:   immunities,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func ImmunityDeleteHandler(c *gin.Context) {
@@ -83,7 +83,7 @@ func ImmunityDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(immunity))
+	c.JSON(http.StatusOK, resp.Success(immunity))
 }
 
 func ImmunityUpdateHandler(c *gin.Context) {
@@ -110,5 +110,5 @@ func ImmunityUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(immunity))
+	c.JSON(http.StatusOK, resp.Success(immunity))
 }

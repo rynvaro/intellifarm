@@ -1,12 +1,12 @@
 package breedings
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/breeding"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -43,7 +43,7 @@ func BreedingAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(breeding))
+	c.JSON(http.StatusOK, resp.Success(breeding))
 }
 
 func BreedingListHandler(c *gin.Context) {
@@ -71,7 +71,7 @@ func BreedingListHandler(c *gin.Context) {
 		Data:   breedings,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func BreedingDeleteHandler(c *gin.Context) {
@@ -87,7 +87,7 @@ func BreedingDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(breeding))
+	c.JSON(http.StatusOK, resp.Success(breeding))
 }
 
 func BreedingUpdateHandler(c *gin.Context) {
@@ -118,5 +118,5 @@ func BreedingUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(breeding))
+	c.JSON(http.StatusOK, resp.Success(breeding))
 }

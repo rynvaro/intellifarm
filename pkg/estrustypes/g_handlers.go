@@ -1,8 +1,8 @@
 package estrustypes
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
+	"cattleai/resp"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,5 +16,5 @@ func EstrusTypes(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(estrustypes))
+	c.JSON(http.StatusOK, resp.Success(estrustypes))
 }

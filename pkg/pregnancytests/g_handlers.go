@@ -1,12 +1,12 @@
 package pregnancytests
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/pregnancytest"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -45,7 +45,7 @@ func PregnancyTestAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pregnancytest))
+	c.JSON(http.StatusOK, resp.Success(pregnancytest))
 }
 
 func PregnancyTestListHandler(c *gin.Context) {
@@ -73,7 +73,7 @@ func PregnancyTestListHandler(c *gin.Context) {
 		Data:   pregnancytests,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func PregnancyTestDeleteHandler(c *gin.Context) {
@@ -89,7 +89,7 @@ func PregnancyTestDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pregnancytest))
+	c.JSON(http.StatusOK, resp.Success(pregnancytest))
 }
 
 func PregnancyTestUpdateHandler(c *gin.Context) {
@@ -122,5 +122,5 @@ func PregnancyTestUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pregnancytest))
+	c.JSON(http.StatusOK, resp.Success(pregnancytest))
 }

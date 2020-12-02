@@ -1,8 +1,8 @@
 package shedcates
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
+	"cattleai/resp"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,5 +16,5 @@ func ShedCates(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(shedCates))
+	c.JSON(http.StatusOK, resp.Success(shedCates))
 }

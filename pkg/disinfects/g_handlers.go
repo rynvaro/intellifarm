@@ -1,12 +1,12 @@
 package disinfects
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/disinfect"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -40,7 +40,7 @@ func DisinfectAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(disinfect))
+	c.JSON(http.StatusOK, resp.Success(disinfect))
 }
 
 func DisinfectListHandler(c *gin.Context) {
@@ -68,7 +68,7 @@ func DisinfectListHandler(c *gin.Context) {
 		Data:   disinfects,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func DisinfectDeleteHandler(c *gin.Context) {
@@ -84,7 +84,7 @@ func DisinfectDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(disinfect))
+	c.JSON(http.StatusOK, resp.Success(disinfect))
 }
 
 func DisinfectUpdateHandler(c *gin.Context) {
@@ -112,5 +112,5 @@ func DisinfectUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(disinfect))
+	c.JSON(http.StatusOK, resp.Success(disinfect))
 }

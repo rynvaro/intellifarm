@@ -1,12 +1,12 @@
 package abortions
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/abortion"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -41,7 +41,7 @@ func AbortionAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(abortion))
+	c.JSON(http.StatusOK, resp.Success(abortion))
 }
 
 func AbortionListHandler(c *gin.Context) {
@@ -69,7 +69,7 @@ func AbortionListHandler(c *gin.Context) {
 		Data:   abortions,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func AbortionDeleteHandler(c *gin.Context) {
@@ -85,7 +85,7 @@ func AbortionDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(abortion))
+	c.JSON(http.StatusOK, resp.Success(abortion))
 }
 
 func AbortionUpdateHandler(c *gin.Context) {
@@ -114,5 +114,5 @@ func AbortionUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(abortion))
+	c.JSON(http.StatusOK, resp.Success(abortion))
 }

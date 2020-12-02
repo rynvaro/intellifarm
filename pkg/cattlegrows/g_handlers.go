@@ -1,12 +1,12 @@
 package cattlegrows
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/cattlegrow"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -43,7 +43,7 @@ func CattleGrowAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(cattlegrow))
+	c.JSON(http.StatusOK, resp.Success(cattlegrow))
 }
 
 func CattleGrowListHandler(c *gin.Context) {
@@ -71,7 +71,7 @@ func CattleGrowListHandler(c *gin.Context) {
 		Data:   cattlegrows,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func CattleGrowDeleteHandler(c *gin.Context) {
@@ -87,7 +87,7 @@ func CattleGrowDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(cattlegrow))
+	c.JSON(http.StatusOK, resp.Success(cattlegrow))
 }
 
 func CattleGrowUpdateHandler(c *gin.Context) {
@@ -118,5 +118,5 @@ func CattleGrowUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(cattlegrow))
+	c.JSON(http.StatusOK, resp.Success(cattlegrow))
 }

@@ -1,12 +1,12 @@
 package concentrateprocesses
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/concentrateprocess"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -38,7 +38,7 @@ func ConcentrateProcessAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(concentrateprocess))
+	c.JSON(http.StatusOK, resp.Success(concentrateprocess))
 }
 
 func ConcentrateProcessListHandler(c *gin.Context) {
@@ -66,7 +66,7 @@ func ConcentrateProcessListHandler(c *gin.Context) {
 		Data:   concentrateprocesses,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func ConcentrateProcessDeleteHandler(c *gin.Context) {
@@ -82,7 +82,7 @@ func ConcentrateProcessDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(concentrateprocess))
+	c.JSON(http.StatusOK, resp.Success(concentrateprocess))
 }
 
 func ConcentrateProcessUpdateHandler(c *gin.Context) {
@@ -108,5 +108,5 @@ func ConcentrateProcessUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(concentrateprocess))
+	c.JSON(http.StatusOK, resp.Success(concentrateprocess))
 }

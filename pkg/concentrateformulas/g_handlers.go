@@ -1,12 +1,12 @@
 package concentrateformulas
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/concentrateformula"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -38,7 +38,7 @@ func ConcentrateFormulaAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(concentrateformula))
+	c.JSON(http.StatusOK, resp.Success(concentrateformula))
 }
 
 func ConcentrateFormulaListHandler(c *gin.Context) {
@@ -66,7 +66,7 @@ func ConcentrateFormulaListHandler(c *gin.Context) {
 		Data:   concentrateformulas,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func ConcentrateFormulaDeleteHandler(c *gin.Context) {
@@ -82,7 +82,7 @@ func ConcentrateFormulaDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(concentrateformula))
+	c.JSON(http.StatusOK, resp.Success(concentrateformula))
 }
 
 func ConcentrateFormulaUpdateHandler(c *gin.Context) {
@@ -108,5 +108,5 @@ func ConcentrateFormulaUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(concentrateformula))
+	c.JSON(http.StatusOK, resp.Success(concentrateformula))
 }

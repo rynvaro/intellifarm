@@ -1,12 +1,12 @@
 package cattleouts
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/cattleout"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -41,7 +41,7 @@ func CattleOutAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(cattleout))
+	c.JSON(http.StatusOK, resp.Success(cattleout))
 }
 
 func CattleOutListHandler(c *gin.Context) {
@@ -69,7 +69,7 @@ func CattleOutListHandler(c *gin.Context) {
 		Data:   cattleouts,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func CattleOutDeleteHandler(c *gin.Context) {
@@ -85,7 +85,7 @@ func CattleOutDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(cattleout))
+	c.JSON(http.StatusOK, resp.Success(cattleout))
 }
 
 func CattleOutUpdateHandler(c *gin.Context) {
@@ -114,5 +114,5 @@ func CattleOutUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(cattleout))
+	c.JSON(http.StatusOK, resp.Success(cattleout))
 }

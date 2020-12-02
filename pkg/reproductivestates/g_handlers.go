@@ -1,8 +1,8 @@
 package reproductivestates
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
+	"cattleai/resp"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,5 +16,5 @@ func ReproductiveStates(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(reproductivestates))
+	c.JSON(http.StatusOK, resp.Success(reproductivestates))
 }

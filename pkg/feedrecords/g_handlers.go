@@ -1,12 +1,12 @@
 package feedrecords
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/feedrecord"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -39,7 +39,7 @@ func FeedRecordAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(feedrecord))
+	c.JSON(http.StatusOK, resp.Success(feedrecord))
 }
 
 func FeedRecordListHandler(c *gin.Context) {
@@ -67,7 +67,7 @@ func FeedRecordListHandler(c *gin.Context) {
 		Data:   feedrecords,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func FeedRecordDeleteHandler(c *gin.Context) {
@@ -83,7 +83,7 @@ func FeedRecordDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(feedrecord))
+	c.JSON(http.StatusOK, resp.Success(feedrecord))
 }
 
 func FeedRecordUpdateHandler(c *gin.Context) {
@@ -110,5 +110,5 @@ func FeedRecordUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(feedrecord))
+	c.JSON(http.StatusOK, resp.Success(feedrecord))
 }

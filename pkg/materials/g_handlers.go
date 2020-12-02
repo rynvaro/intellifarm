@@ -1,12 +1,12 @@
 package materials
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/material"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -41,7 +41,7 @@ func MaterialAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(material))
+	c.JSON(http.StatusOK, resp.Success(material))
 }
 
 func MaterialListHandler(c *gin.Context) {
@@ -69,7 +69,7 @@ func MaterialListHandler(c *gin.Context) {
 		Data:   materials,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func MaterialDeleteHandler(c *gin.Context) {
@@ -85,7 +85,7 @@ func MaterialDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(material))
+	c.JSON(http.StatusOK, resp.Success(material))
 }
 
 func MaterialUpdateHandler(c *gin.Context) {
@@ -114,5 +114,5 @@ func MaterialUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(material))
+	c.JSON(http.StatusOK, resp.Success(material))
 }

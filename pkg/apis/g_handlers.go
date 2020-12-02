@@ -1,12 +1,12 @@
 package apis
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/api"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -42,7 +42,7 @@ func APIAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(api))
+	c.JSON(http.StatusOK, resp.Success(api))
 }
 
 func APIListHandler(c *gin.Context) {
@@ -70,7 +70,7 @@ func APIListHandler(c *gin.Context) {
 		Data:   apis,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func APIDeleteHandler(c *gin.Context) {
@@ -86,7 +86,7 @@ func APIDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(api))
+	c.JSON(http.StatusOK, resp.Success(api))
 }
 
 func APIUpdateHandler(c *gin.Context) {
@@ -115,5 +115,5 @@ func APIUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(api))
+	c.JSON(http.StatusOK, resp.Success(api))
 }

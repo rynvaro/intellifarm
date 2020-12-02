@@ -1,12 +1,12 @@
 package materialtests
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/materialtest"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -40,7 +40,7 @@ func MaterialTestAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(materialtest))
+	c.JSON(http.StatusOK, resp.Success(materialtest))
 }
 
 func MaterialTestListHandler(c *gin.Context) {
@@ -68,7 +68,7 @@ func MaterialTestListHandler(c *gin.Context) {
 		Data:   materialtests,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func MaterialTestDeleteHandler(c *gin.Context) {
@@ -84,7 +84,7 @@ func MaterialTestDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(materialtest))
+	c.JSON(http.StatusOK, resp.Success(materialtest))
 }
 
 func MaterialTestUpdateHandler(c *gin.Context) {
@@ -112,5 +112,5 @@ func MaterialTestUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(materialtest))
+	c.JSON(http.StatusOK, resp.Success(materialtest))
 }

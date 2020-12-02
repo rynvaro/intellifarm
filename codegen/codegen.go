@@ -60,7 +60,7 @@ func Gen(model string, ins interface{}) {
 			Id("c.Status(http.StatusInternalServerError)"),
 			Id("return"),
 		),
-		Id("c.JSON(http.StatusOK, apicommon.SuccessResponse("+lowerModel+"))"),
+		Id("c.JSON(http.StatusOK, resp.Success("+lowerModel+"))"),
 	).Line()
 
 	f.Func().Id(funcList).Params(Id(param)).Block(
@@ -87,7 +87,7 @@ func Gen(model string, ins interface{}) {
 		Id("page.TotalCount").Op("=").Id("totalCount"),
 		Id("pageData").Op(":=").Id("paging.PageData{").Line().Id("Data: "+pkgName+",").Line().
 			Id("Paging: page,").Line().Id("}"),
-		Id("c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))"),
+		Id("c.JSON(http.StatusOK, resp.Success(pageData))"),
 	).Line()
 
 	f.Func().Id(funcDelete).Params(Id(param)).Block(
@@ -103,7 +103,7 @@ func Gen(model string, ins interface{}) {
 			Id("c.Status(http.StatusInternalServerError)"),
 			Id("return"),
 		),
-		Id("c.JSON(http.StatusOK, apicommon.SuccessResponse("+lowerModel+"))"),
+		Id("c.JSON(http.StatusOK, resp.Success("+lowerModel+"))"),
 	).Line()
 
 	f.Func().Id(funcUpdate).Params(Id(param)).Block(
@@ -119,7 +119,7 @@ func Gen(model string, ins interface{}) {
 			Id("c.Status(http.StatusInternalServerError)"),
 			Id("return"),
 		),
-		Id("c.JSON(http.StatusOK, apicommon.SuccessResponse("+lowerModel+"))"),
+		Id("c.JSON(http.StatusOK, resp.Success("+lowerModel+"))"),
 	).Line()
 
 	if err := os.Mkdir("../pkg/"+pkgName, 0755); err != nil {

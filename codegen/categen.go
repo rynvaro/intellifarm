@@ -40,7 +40,7 @@ func GenCates(model string) {
 	f.Func().Id(modelPlural).Params(Id(param)).Block(
 		List(Id(modelPluralLowerCase), Err()).Op(":=").Id("db.Client."+model+".Query().All(c.Request.Context())"),
 		ErrStatementWithResp,
-		Id("c.JSON(http.StatusOK, apicommon.SuccessResponse("+modelPluralLowerCase+"))"),
+		Id("c.JSON(http.StatusOK, resp.Success("+modelPluralLowerCase+"))"),
 	).Line()
 
 	if err := os.Mkdir("../pkg/"+pkgName, 0755); err != nil {

@@ -1,12 +1,12 @@
 package farms
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/farm"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -46,7 +46,7 @@ func FarmAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(farm))
+	c.JSON(http.StatusOK, resp.Success(farm))
 }
 
 func FarmListHandler(c *gin.Context) {
@@ -74,7 +74,7 @@ func FarmListHandler(c *gin.Context) {
 		Data:   farms,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func FarmDeleteHandler(c *gin.Context) {
@@ -90,7 +90,7 @@ func FarmDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(farm))
+	c.JSON(http.StatusOK, resp.Success(farm))
 }
 
 func FarmUpdateHandler(c *gin.Context) {
@@ -124,5 +124,5 @@ func FarmUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(farm))
+	c.JSON(http.StatusOK, resp.Success(farm))
 }

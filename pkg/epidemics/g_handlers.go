@@ -1,12 +1,12 @@
 package epidemics
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/epidemic"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -43,7 +43,7 @@ func EpidemicAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(epidemic))
+	c.JSON(http.StatusOK, resp.Success(epidemic))
 }
 
 func EpidemicListHandler(c *gin.Context) {
@@ -71,7 +71,7 @@ func EpidemicListHandler(c *gin.Context) {
 		Data:   epidemics,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func EpidemicDeleteHandler(c *gin.Context) {
@@ -87,7 +87,7 @@ func EpidemicDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(epidemic))
+	c.JSON(http.StatusOK, resp.Success(epidemic))
 }
 
 func EpidemicUpdateHandler(c *gin.Context) {
@@ -118,5 +118,5 @@ func EpidemicUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(epidemic))
+	c.JSON(http.StatusOK, resp.Success(epidemic))
 }

@@ -1,12 +1,12 @@
 package estruses
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/estrus"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -40,7 +40,7 @@ func EstrusAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(estrus))
+	c.JSON(http.StatusOK, resp.Success(estrus))
 }
 
 func EstrusListHandler(c *gin.Context) {
@@ -68,7 +68,7 @@ func EstrusListHandler(c *gin.Context) {
 		Data:   estruses,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func EstrusDeleteHandler(c *gin.Context) {
@@ -84,7 +84,7 @@ func EstrusDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(estrus))
+	c.JSON(http.StatusOK, resp.Success(estrus))
 }
 
 func EstrusUpdateHandler(c *gin.Context) {
@@ -112,5 +112,5 @@ func EstrusUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(estrus))
+	c.JSON(http.StatusOK, resp.Success(estrus))
 }

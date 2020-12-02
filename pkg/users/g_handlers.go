@@ -1,12 +1,12 @@
 package users
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/user"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -47,7 +47,7 @@ func UserAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(user))
+	c.JSON(http.StatusOK, resp.Success(user))
 }
 
 func UserListHandler(c *gin.Context) {
@@ -75,7 +75,7 @@ func UserListHandler(c *gin.Context) {
 		Data:   users,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func UserDeleteHandler(c *gin.Context) {
@@ -91,7 +91,7 @@ func UserDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(user))
+	c.JSON(http.StatusOK, resp.Success(user))
 }
 
 func UserUpdateHandler(c *gin.Context) {
@@ -126,5 +126,5 @@ func UserUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(user))
+	c.JSON(http.StatusOK, resp.Success(user))
 }

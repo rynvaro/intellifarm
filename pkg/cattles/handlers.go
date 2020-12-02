@@ -1,9 +1,9 @@
 package cattles
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
+	"cattleai/resp"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -87,5 +87,5 @@ func InitHandler(c *gin.Context) {
 	}
 	initData.BreedingTypes = breedingTypes
 
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(initData))
+	c.JSON(http.StatusOK, resp.Success(initData))
 }

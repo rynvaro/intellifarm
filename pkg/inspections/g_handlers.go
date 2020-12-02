@@ -1,12 +1,12 @@
 package inspections
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/inspection"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -45,7 +45,7 @@ func InspectionAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(inspection))
+	c.JSON(http.StatusOK, resp.Success(inspection))
 }
 
 func InspectionListHandler(c *gin.Context) {
@@ -73,7 +73,7 @@ func InspectionListHandler(c *gin.Context) {
 		Data:   inspections,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func InspectionDeleteHandler(c *gin.Context) {
@@ -89,7 +89,7 @@ func InspectionDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(inspection))
+	c.JSON(http.StatusOK, resp.Success(inspection))
 }
 
 func InspectionUpdateHandler(c *gin.Context) {
@@ -122,5 +122,5 @@ func InspectionUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(inspection))
+	c.JSON(http.StatusOK, resp.Success(inspection))
 }

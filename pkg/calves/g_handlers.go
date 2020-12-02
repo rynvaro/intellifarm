@@ -1,12 +1,12 @@
 package calves
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/calve"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -53,7 +53,7 @@ func CalveAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(calve))
+	c.JSON(http.StatusOK, resp.Success(calve))
 }
 
 func CalveListHandler(c *gin.Context) {
@@ -81,7 +81,7 @@ func CalveListHandler(c *gin.Context) {
 		Data:   calves,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func CalveDeleteHandler(c *gin.Context) {
@@ -97,7 +97,7 @@ func CalveDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(calve))
+	c.JSON(http.StatusOK, resp.Success(calve))
 }
 
 func CalveUpdateHandler(c *gin.Context) {
@@ -138,5 +138,5 @@ func CalveUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(calve))
+	c.JSON(http.StatusOK, resp.Success(calve))
 }

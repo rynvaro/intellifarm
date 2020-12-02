@@ -1,12 +1,12 @@
 package rations
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/ration"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
+	"cattleai/resp"
 	"fmt"
 	"net/http"
 	"time"
@@ -38,7 +38,7 @@ func RationAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(ration))
+	c.JSON(http.StatusOK, resp.Success(ration))
 }
 
 func RationListHandler(c *gin.Context) {
@@ -66,7 +66,7 @@ func RationListHandler(c *gin.Context) {
 		Data:   rations,
 		Paging: page,
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pageData))
+	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func RationDeleteHandler(c *gin.Context) {
@@ -82,7 +82,7 @@ func RationDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(ration))
+	c.JSON(http.StatusOK, resp.Success(ration))
 }
 
 func RationUpdateHandler(c *gin.Context) {
@@ -108,5 +108,5 @@ func RationUpdateHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(ration))
+	c.JSON(http.StatusOK, resp.Success(ration))
 }

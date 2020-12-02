@@ -1,8 +1,8 @@
 package pregnancytestmethods
 
 import (
-	"cattleai/apicommon"
 	"cattleai/db"
+	"cattleai/resp"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,5 +16,5 @@ func PregnancyTestMethods(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, apicommon.SuccessResponse(pregnancytestmethods))
+	c.JSON(http.StatusOK, resp.Success(pregnancytestmethods))
 }

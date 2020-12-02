@@ -123,6 +123,18 @@ func (uc *UserCreate) SetJoinedAt(i int64) *UserCreate {
 	return uc
 }
 
+// SetTenantId sets the tenantId field.
+func (uc *UserCreate) SetTenantId(s string) *UserCreate {
+	uc.mutation.SetTenantId(s)
+	return uc
+}
+
+// SetPassword sets the password field.
+func (uc *UserCreate) SetPassword(s string) *UserCreate {
+	uc.mutation.SetPassword(s)
+	return uc
+}
+
 // SetRemarks sets the remarks field.
 func (uc *UserCreate) SetRemarks(s string) *UserCreate {
 	uc.mutation.SetRemarks(s)
@@ -274,6 +286,17 @@ func (uc *UserCreate) check() error {
 	}
 	if _, ok := uc.mutation.JoinedAt(); !ok {
 		return &ValidationError{Name: "joinedAt", err: errors.New("ent: missing required field \"joinedAt\"")}
+	}
+	if _, ok := uc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if v, ok := uc.mutation.TenantId(); ok {
+		if err := user.TenantIdValidator(v); err != nil {
+			return &ValidationError{Name: "tenantId", err: fmt.Errorf("ent: validator failed for field \"tenantId\": %w", err)}
+		}
+	}
+	if _, ok := uc.mutation.Password(); !ok {
+		return &ValidationError{Name: "password", err: errors.New("ent: missing required field \"password\"")}
 	}
 	if _, ok := uc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -441,6 +464,22 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Column: user.FieldJoinedAt,
 		})
 		_node.JoinedAt = value
+	}
+	if value, ok := uc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := uc.mutation.Password(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldPassword,
+		})
+		_node.Password = value
 	}
 	if value, ok := uc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

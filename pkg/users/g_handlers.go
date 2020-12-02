@@ -40,6 +40,8 @@ func UserAddHandler(c *gin.Context) {
 		SetPositionId(form.PositionId).
 		SetPositionName(form.PositionName).
 		SetRemarks(form.Remarks).
+		SetPassword(form.Password).
+		SetTenantId(form.TenantId).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -119,6 +121,8 @@ func UserUpdateHandler(c *gin.Context) {
 		SetPositionId(form.PositionId).
 		SetPositionName(form.PositionName).
 		SetRemarks(form.Remarks).
+		SetPassword(form.Password).
+		SetTenantId(form.TenantId).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())
 	if err != nil {

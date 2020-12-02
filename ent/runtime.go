@@ -275,6 +275,10 @@ func init() {
 	userDescOnJobState := userFields[14].Descriptor()
 	// user.DefaultOnJobState holds the default value on creation for the onJobState field.
 	user.DefaultOnJobState = userDescOnJobState.Default.(int)
+	// userDescTenantId is the schema descriptor for tenantId field.
+	userDescTenantId := userFields[16].Descriptor()
+	// user.TenantIdValidator is a validator for the "tenantId" field. It is called by the builders before save.
+	user.TenantIdValidator = userDescTenantId.Validators[0].(func(string) error)
 	whereaboutsFields := schema.Whereabouts{}.Fields()
 	_ = whereaboutsFields
 	// whereaboutsDescName is the schema descriptor for name field.

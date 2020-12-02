@@ -45200,6 +45200,8 @@ type UserMutation struct {
 	addonJobState *int
 	joinedAt      *int64
 	addjoinedAt   *int64
+	tenantId      *string
+	password      *string
 	remarks       *string
 	createdAt     *int64
 	addcreatedAt  *int64
@@ -46003,6 +46005,80 @@ func (m *UserMutation) ResetJoinedAt() {
 	m.addjoinedAt = nil
 }
 
+// SetTenantId sets the tenantId field.
+func (m *UserMutation) SetTenantId(s string) {
+	m.tenantId = &s
+}
+
+// TenantId returns the tenantId value in the mutation.
+func (m *UserMutation) TenantId() (r string, exists bool) {
+	v := m.tenantId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTenantId returns the old tenantId value of the User.
+// If the User object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *UserMutation) OldTenantId(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldTenantId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldTenantId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTenantId: %w", err)
+	}
+	return oldValue.TenantId, nil
+}
+
+// ResetTenantId reset all changes of the "tenantId" field.
+func (m *UserMutation) ResetTenantId() {
+	m.tenantId = nil
+}
+
+// SetPassword sets the password field.
+func (m *UserMutation) SetPassword(s string) {
+	m.password = &s
+}
+
+// Password returns the password value in the mutation.
+func (m *UserMutation) Password() (r string, exists bool) {
+	v := m.password
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldPassword returns the old password value of the User.
+// If the User object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *UserMutation) OldPassword(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldPassword is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldPassword requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldPassword: %w", err)
+	}
+	return oldValue.Password, nil
+}
+
+// ResetPassword reset all changes of the "password" field.
+func (m *UserMutation) ResetPassword() {
+	m.password = nil
+}
+
 // SetRemarks sets the remarks field.
 func (m *UserMutation) SetRemarks(s string) {
 	m.remarks = &s
@@ -46225,7 +46301,7 @@ func (m *UserMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *UserMutation) Fields() []string {
-	fields := make([]string, 0, 20)
+	fields := make([]string, 0, 22)
 	if m.farmId != nil {
 		fields = append(fields, user.FieldFarmId)
 	}
@@ -46273,6 +46349,12 @@ func (m *UserMutation) Fields() []string {
 	}
 	if m.joinedAt != nil {
 		fields = append(fields, user.FieldJoinedAt)
+	}
+	if m.tenantId != nil {
+		fields = append(fields, user.FieldTenantId)
+	}
+	if m.password != nil {
+		fields = append(fields, user.FieldPassword)
 	}
 	if m.remarks != nil {
 		fields = append(fields, user.FieldRemarks)
@@ -46326,6 +46408,10 @@ func (m *UserMutation) Field(name string) (ent.Value, bool) {
 		return m.OnJobState()
 	case user.FieldJoinedAt:
 		return m.JoinedAt()
+	case user.FieldTenantId:
+		return m.TenantId()
+	case user.FieldPassword:
+		return m.Password()
 	case user.FieldRemarks:
 		return m.Remarks()
 	case user.FieldCreatedAt:
@@ -46375,6 +46461,10 @@ func (m *UserMutation) OldField(ctx context.Context, name string) (ent.Value, er
 		return m.OldOnJobState(ctx)
 	case user.FieldJoinedAt:
 		return m.OldJoinedAt(ctx)
+	case user.FieldTenantId:
+		return m.OldTenantId(ctx)
+	case user.FieldPassword:
+		return m.OldPassword(ctx)
 	case user.FieldRemarks:
 		return m.OldRemarks(ctx)
 	case user.FieldCreatedAt:
@@ -46503,6 +46593,20 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetJoinedAt(v)
+		return nil
+	case user.FieldTenantId:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTenantId(v)
+		return nil
+	case user.FieldPassword:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetPassword(v)
 		return nil
 	case user.FieldRemarks:
 		v, ok := value.(string)
@@ -46740,6 +46844,12 @@ func (m *UserMutation) ResetField(name string) error {
 		return nil
 	case user.FieldJoinedAt:
 		m.ResetJoinedAt()
+		return nil
+	case user.FieldTenantId:
+		m.ResetTenantId()
+		return nil
+	case user.FieldPassword:
+		m.ResetPassword()
 		return nil
 	case user.FieldRemarks:
 		m.ResetRemarks()

@@ -173,6 +173,18 @@ func (uu *UserUpdate) AddJoinedAt(i int64) *UserUpdate {
 	return uu
 }
 
+// SetTenantId sets the tenantId field.
+func (uu *UserUpdate) SetTenantId(s string) *UserUpdate {
+	uu.mutation.SetTenantId(s)
+	return uu
+}
+
+// SetPassword sets the password field.
+func (uu *UserUpdate) SetPassword(s string) *UserUpdate {
+	uu.mutation.SetPassword(s)
+	return uu
+}
+
 // SetRemarks sets the remarks field.
 func (uu *UserUpdate) SetRemarks(s string) *UserUpdate {
 	uu.mutation.SetRemarks(s)
@@ -300,6 +312,11 @@ func (uu *UserUpdate) check() error {
 	if v, ok := uu.mutation.Name(); ok {
 		if err := user.NameValidator(v); err != nil {
 			return &ValidationError{Name: "name", err: fmt.Errorf("ent: validator failed for field \"name\": %w", err)}
+		}
+	}
+	if v, ok := uu.mutation.TenantId(); ok {
+		if err := user.TenantIdValidator(v); err != nil {
+			return &ValidationError{Name: "tenantId", err: fmt.Errorf("ent: validator failed for field \"tenantId\": %w", err)}
 		}
 	}
 	return nil
@@ -475,6 +492,20 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeInt64,
 			Value:  value,
 			Column: user.FieldJoinedAt,
+		})
+	}
+	if value, ok := uu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldTenantId,
+		})
+	}
+	if value, ok := uu.mutation.Password(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldPassword,
 		})
 	}
 	if value, ok := uu.mutation.Remarks(); ok {
@@ -690,6 +721,18 @@ func (uuo *UserUpdateOne) AddJoinedAt(i int64) *UserUpdateOne {
 	return uuo
 }
 
+// SetTenantId sets the tenantId field.
+func (uuo *UserUpdateOne) SetTenantId(s string) *UserUpdateOne {
+	uuo.mutation.SetTenantId(s)
+	return uuo
+}
+
+// SetPassword sets the password field.
+func (uuo *UserUpdateOne) SetPassword(s string) *UserUpdateOne {
+	uuo.mutation.SetPassword(s)
+	return uuo
+}
+
 // SetRemarks sets the remarks field.
 func (uuo *UserUpdateOne) SetRemarks(s string) *UserUpdateOne {
 	uuo.mutation.SetRemarks(s)
@@ -817,6 +860,11 @@ func (uuo *UserUpdateOne) check() error {
 	if v, ok := uuo.mutation.Name(); ok {
 		if err := user.NameValidator(v); err != nil {
 			return &ValidationError{Name: "name", err: fmt.Errorf("ent: validator failed for field \"name\": %w", err)}
+		}
+	}
+	if v, ok := uuo.mutation.TenantId(); ok {
+		if err := user.TenantIdValidator(v); err != nil {
+			return &ValidationError{Name: "tenantId", err: fmt.Errorf("ent: validator failed for field \"tenantId\": %w", err)}
 		}
 	}
 	return nil
@@ -990,6 +1038,20 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Type:   field.TypeInt64,
 			Value:  value,
 			Column: user.FieldJoinedAt,
+		})
+	}
+	if value, ok := uuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldTenantId,
+		})
+	}
+	if value, ok := uuo.mutation.Password(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldPassword,
 		})
 	}
 	if value, ok := uuo.mutation.Remarks(); ok {

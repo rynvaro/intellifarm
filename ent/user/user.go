@@ -39,6 +39,10 @@ const (
 	FieldOnJobState = "on_job_state"
 	// FieldJoinedAt holds the string denoting the joinedat field in the database.
 	FieldJoinedAt = "joined_at"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldPassword holds the string denoting the password field in the database.
+	FieldPassword = "password"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -71,6 +75,8 @@ var Columns = []string{
 	FieldAddress,
 	FieldOnJobState,
 	FieldJoinedAt,
+	FieldTenantId,
+	FieldPassword,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -98,4 +104,6 @@ var (
 	NameValidator func(string) error
 	// DefaultOnJobState holds the default value on creation for the onJobState field.
 	DefaultOnJobState int
+	// TenantIdValidator is a validator for the "tenantId" field. It is called by the builders before save.
+	TenantIdValidator func(string) error
 )

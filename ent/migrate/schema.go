@@ -1094,6 +1094,8 @@ var (
 		{Name: "address", Type: field.TypeString},
 		{Name: "on_job_state", Type: field.TypeInt, Default: 1},
 		{Name: "joined_at", Type: field.TypeInt64},
+		{Name: "tenant_id", Type: field.TypeString},
+		{Name: "password", Type: field.TypeString},
 		{Name: "remarks", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeInt64},
 		{Name: "updated_at", Type: field.TypeInt64},

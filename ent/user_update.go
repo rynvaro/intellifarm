@@ -174,8 +174,15 @@ func (uu *UserUpdate) AddJoinedAt(i int64) *UserUpdate {
 }
 
 // SetTenantId sets the tenantId field.
-func (uu *UserUpdate) SetTenantId(s string) *UserUpdate {
-	uu.mutation.SetTenantId(s)
+func (uu *UserUpdate) SetTenantId(i int64) *UserUpdate {
+	uu.mutation.ResetTenantId()
+	uu.mutation.SetTenantId(i)
+	return uu
+}
+
+// AddTenantId adds i to tenantId.
+func (uu *UserUpdate) AddTenantId(i int64) *UserUpdate {
+	uu.mutation.AddTenantId(i)
 	return uu
 }
 
@@ -312,11 +319,6 @@ func (uu *UserUpdate) check() error {
 	if v, ok := uu.mutation.Name(); ok {
 		if err := user.NameValidator(v); err != nil {
 			return &ValidationError{Name: "name", err: fmt.Errorf("ent: validator failed for field \"name\": %w", err)}
-		}
-	}
-	if v, ok := uu.mutation.TenantId(); ok {
-		if err := user.TenantIdValidator(v); err != nil {
-			return &ValidationError{Name: "tenantId", err: fmt.Errorf("ent: validator failed for field \"tenantId\": %w", err)}
 		}
 	}
 	return nil
@@ -496,7 +498,14 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := uu.mutation.TenantId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: user.FieldTenantId,
+		})
+	}
+	if value, ok := uu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: user.FieldTenantId,
 		})
@@ -722,8 +731,15 @@ func (uuo *UserUpdateOne) AddJoinedAt(i int64) *UserUpdateOne {
 }
 
 // SetTenantId sets the tenantId field.
-func (uuo *UserUpdateOne) SetTenantId(s string) *UserUpdateOne {
-	uuo.mutation.SetTenantId(s)
+func (uuo *UserUpdateOne) SetTenantId(i int64) *UserUpdateOne {
+	uuo.mutation.ResetTenantId()
+	uuo.mutation.SetTenantId(i)
+	return uuo
+}
+
+// AddTenantId adds i to tenantId.
+func (uuo *UserUpdateOne) AddTenantId(i int64) *UserUpdateOne {
+	uuo.mutation.AddTenantId(i)
 	return uuo
 }
 
@@ -860,11 +876,6 @@ func (uuo *UserUpdateOne) check() error {
 	if v, ok := uuo.mutation.Name(); ok {
 		if err := user.NameValidator(v); err != nil {
 			return &ValidationError{Name: "name", err: fmt.Errorf("ent: validator failed for field \"name\": %w", err)}
-		}
-	}
-	if v, ok := uuo.mutation.TenantId(); ok {
-		if err := user.TenantIdValidator(v); err != nil {
-			return &ValidationError{Name: "tenantId", err: fmt.Errorf("ent: validator failed for field \"tenantId\": %w", err)}
 		}
 	}
 	return nil
@@ -1042,7 +1053,14 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 	}
 	if value, ok := uuo.mutation.TenantId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: user.FieldTenantId,
+		})
+	}
+	if value, ok := uuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: user.FieldTenantId,
 		})

@@ -65,6 +65,7 @@ import (
 	"cattleai/ent/shedcategory"
 	"cattleai/ent/shedtrans"
 	"cattleai/ent/shedtype"
+	"cattleai/ent/tenant"
 	"cattleai/ent/treatmentresult"
 	"cattleai/ent/treatmentstate"
 	"cattleai/ent/user"
@@ -192,6 +193,8 @@ type Client struct {
 	ShedTrans *ShedTransClient
 	// ShedType is the client for interacting with the ShedType builders.
 	ShedType *ShedTypeClient
+	// Tenant is the client for interacting with the Tenant builders.
+	Tenant *TenantClient
 	// TreatmentResult is the client for interacting with the TreatmentResult builders.
 	TreatmentResult *TreatmentResultClient
 	// TreatmentState is the client for interacting with the TreatmentState builders.
@@ -271,6 +274,7 @@ func (c *Client) init() {
 	c.ShedCategory = NewShedCategoryClient(c.config)
 	c.ShedTrans = NewShedTransClient(c.config)
 	c.ShedType = NewShedTypeClient(c.config)
+	c.Tenant = NewTenantClient(c.config)
 	c.TreatmentResult = NewTreatmentResultClient(c.config)
 	c.TreatmentState = NewTreatmentStateClient(c.config)
 	c.User = NewUserClient(c.config)
@@ -364,6 +368,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		ShedCategory:        NewShedCategoryClient(cfg),
 		ShedTrans:           NewShedTransClient(cfg),
 		ShedType:            NewShedTypeClient(cfg),
+		Tenant:              NewTenantClient(cfg),
 		TreatmentResult:     NewTreatmentResultClient(cfg),
 		TreatmentState:      NewTreatmentStateClient(cfg),
 		User:                NewUserClient(cfg),
@@ -440,6 +445,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		ShedCategory:        NewShedCategoryClient(cfg),
 		ShedTrans:           NewShedTransClient(cfg),
 		ShedType:            NewShedTypeClient(cfg),
+		Tenant:              NewTenantClient(cfg),
 		TreatmentResult:     NewTreatmentResultClient(cfg),
 		TreatmentState:      NewTreatmentStateClient(cfg),
 		User:                NewUserClient(cfg),
@@ -529,6 +535,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.ShedCategory.Use(hooks...)
 	c.ShedTrans.Use(hooks...)
 	c.ShedType.Use(hooks...)
+	c.Tenant.Use(hooks...)
 	c.TreatmentResult.Use(hooks...)
 	c.TreatmentState.Use(hooks...)
 	c.User.Use(hooks...)
@@ -5462,6 +5469,94 @@ func (c *ShedTypeClient) GetX(ctx context.Context, id int64) *ShedType {
 // Hooks returns the client hooks.
 func (c *ShedTypeClient) Hooks() []Hook {
 	return c.hooks.ShedType
+}
+
+// TenantClient is a client for the Tenant schema.
+type TenantClient struct {
+	config
+}
+
+// NewTenantClient returns a client for the Tenant from the given config.
+func NewTenantClient(c config) *TenantClient {
+	return &TenantClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `tenant.Hooks(f(g(h())))`.
+func (c *TenantClient) Use(hooks ...Hook) {
+	c.hooks.Tenant = append(c.hooks.Tenant, hooks...)
+}
+
+// Create returns a create builder for Tenant.
+func (c *TenantClient) Create() *TenantCreate {
+	mutation := newTenantMutation(c.config, OpCreate)
+	return &TenantCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Tenant entities.
+func (c *TenantClient) CreateBulk(builders ...*TenantCreate) *TenantCreateBulk {
+	return &TenantCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Tenant.
+func (c *TenantClient) Update() *TenantUpdate {
+	mutation := newTenantMutation(c.config, OpUpdate)
+	return &TenantUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *TenantClient) UpdateOne(t *Tenant) *TenantUpdateOne {
+	mutation := newTenantMutation(c.config, OpUpdateOne, withTenant(t))
+	return &TenantUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *TenantClient) UpdateOneID(id int64) *TenantUpdateOne {
+	mutation := newTenantMutation(c.config, OpUpdateOne, withTenantID(id))
+	return &TenantUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Tenant.
+func (c *TenantClient) Delete() *TenantDelete {
+	mutation := newTenantMutation(c.config, OpDelete)
+	return &TenantDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *TenantClient) DeleteOne(t *Tenant) *TenantDeleteOne {
+	return c.DeleteOneID(t.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *TenantClient) DeleteOneID(id int64) *TenantDeleteOne {
+	builder := c.Delete().Where(tenant.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &TenantDeleteOne{builder}
+}
+
+// Query returns a query builder for Tenant.
+func (c *TenantClient) Query() *TenantQuery {
+	return &TenantQuery{config: c.config}
+}
+
+// Get returns a Tenant entity by its id.
+func (c *TenantClient) Get(ctx context.Context, id int64) (*Tenant, error) {
+	return c.Query().Where(tenant.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *TenantClient) GetX(ctx context.Context, id int64) *Tenant {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *TenantClient) Hooks() []Hook {
+	return c.hooks.Tenant
 }
 
 // TreatmentResultClient is a client for the TreatmentResult schema.

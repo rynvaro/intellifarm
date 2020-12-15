@@ -1051,6 +1051,23 @@ var (
 		PrimaryKey:  []*schema.Column{ShedTypesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// TenantsColumns holds the columns for the "tenants" table.
+	TenantsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "enabled", Type: field.TypeInt},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "deleted", Type: field.TypeInt},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+	}
+	// TenantsTable holds the schema information for the "tenants" table.
+	TenantsTable = &schema.Table{
+		Name:        "tenants",
+		Columns:     TenantsColumns,
+		PrimaryKey:  []*schema.Column{TenantsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// TreatmentResultsColumns holds the columns for the "treatment_results" table.
 	TreatmentResultsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -1094,7 +1111,7 @@ var (
 		{Name: "address", Type: field.TypeString},
 		{Name: "on_job_state", Type: field.TypeInt, Default: 1},
 		{Name: "joined_at", Type: field.TypeInt64},
-		{Name: "tenant_id", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
 		{Name: "password", Type: field.TypeString},
 		{Name: "remarks", Type: field.TypeString},
 		{Name: "created_at", Type: field.TypeInt64},
@@ -1190,6 +1207,7 @@ var (
 		ShedCategoriesTable,
 		ShedTransTable,
 		ShedTypesTable,
+		TenantsTable,
 		TreatmentResultsTable,
 		TreatmentStatesTable,
 		UsersTable,

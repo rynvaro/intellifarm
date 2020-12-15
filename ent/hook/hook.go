@@ -736,6 +736,19 @@ func (f ShedTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, er
 	return f(ctx, mv)
 }
 
+// The TenantFunc type is an adapter to allow the use of ordinary
+// function as Tenant mutator.
+type TenantFunc func(context.Context, *ent.TenantMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f TenantFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.TenantMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.TenantMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The TreatmentResultFunc type is an adapter to allow the use of ordinary
 // function as TreatmentResult mutator.
 type TreatmentResultFunc func(context.Context, *ent.TreatmentResultMutation) (ent.Value, error)

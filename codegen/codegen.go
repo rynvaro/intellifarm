@@ -47,6 +47,20 @@ func Gen(model string, ins interface{}) {
 
 	f := NewFile(pkgName)
 
+	//  Id("import (").Line().
+	// 	Id("cattleai/db").Line().
+	// 	Id("cattleai/ent").Line().
+	// 	Id("cattleai/ent/tenant").Line().
+	// 	Id("cattleai/pkg/paging").Line().
+	// 	Id("cattleai/pkg/params").Line().
+	// 	Id("cattleai/resp").Line().
+	// 	Id("fmt").Line().
+	// 	Id("net/http").Line().
+	// 	Id("time").Line().
+	// 	Id("github.com/gin-gonic/gin").Line().
+	// 	Id("github.com/rs/zerolog/log").Line().
+	// 	Id(")")
+
 	f.Func().Id(funcAdd).Params(Id(param)).Block(
 		Id("form").Op(":=").Id("&ent."+model+"{}"),
 		If(Err().Op(":=").Id("c.Bind(form)"), Err().Op("!=").Id("nil")).Block(

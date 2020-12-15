@@ -30,6 +30,7 @@ import (
 	"cattleai/ent/reproductivestate"
 	"cattleai/ent/schema"
 	"cattleai/ent/shed"
+	"cattleai/ent/tenant"
 	"cattleai/ent/treatmentresult"
 	"cattleai/ent/treatmentstate"
 	"cattleai/ent/user"
@@ -241,6 +242,12 @@ func init() {
 	shedDescShedTypeName := shedFields[6].Descriptor()
 	// shed.ShedTypeNameValidator is a validator for the "shedTypeName" field. It is called by the builders before save.
 	shed.ShedTypeNameValidator = shedDescShedTypeName.Validators[0].(func(string) error)
+	tenantFields := schema.Tenant{}.Fields()
+	_ = tenantFields
+	// tenantDescDeleted is the schema descriptor for deleted field.
+	tenantDescDeleted := tenantFields[3].Descriptor()
+	// tenant.DefaultDeleted holds the default value on creation for the deleted field.
+	tenant.DefaultDeleted = tenantDescDeleted.Default.(int)
 	treatmentresultFields := schema.TreatmentResult{}.Fields()
 	_ = treatmentresultFields
 	// treatmentresultDescName is the schema descriptor for name field.
@@ -275,10 +282,6 @@ func init() {
 	userDescOnJobState := userFields[14].Descriptor()
 	// user.DefaultOnJobState holds the default value on creation for the onJobState field.
 	user.DefaultOnJobState = userDescOnJobState.Default.(int)
-	// userDescTenantId is the schema descriptor for tenantId field.
-	userDescTenantId := userFields[16].Descriptor()
-	// user.TenantIdValidator is a validator for the "tenantId" field. It is called by the builders before save.
-	user.TenantIdValidator = userDescTenantId.Validators[0].(func(string) error)
 	whereaboutsFields := schema.Whereabouts{}.Fields()
 	_ = whereaboutsFields
 	// whereaboutsDescName is the schema descriptor for name field.

@@ -204,7 +204,7 @@ func JoinedAt(v int64) predicate.User {
 }
 
 // TenantId applies equality check predicate on the "tenantId" field. It's identical to TenantIdEQ.
-func TenantId(v string) predicate.User {
+func TenantId(v int64) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldTenantId), v))
 	})
@@ -1812,21 +1812,21 @@ func JoinedAtLTE(v int64) predicate.User {
 }
 
 // TenantIdEQ applies the EQ predicate on the "tenantId" field.
-func TenantIdEQ(v string) predicate.User {
+func TenantIdEQ(v int64) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldTenantId), v))
 	})
 }
 
 // TenantIdNEQ applies the NEQ predicate on the "tenantId" field.
-func TenantIdNEQ(v string) predicate.User {
+func TenantIdNEQ(v int64) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldTenantId), v))
 	})
 }
 
 // TenantIdIn applies the In predicate on the "tenantId" field.
-func TenantIdIn(vs ...string) predicate.User {
+func TenantIdIn(vs ...int64) predicate.User {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -1843,7 +1843,7 @@ func TenantIdIn(vs ...string) predicate.User {
 }
 
 // TenantIdNotIn applies the NotIn predicate on the "tenantId" field.
-func TenantIdNotIn(vs ...string) predicate.User {
+func TenantIdNotIn(vs ...int64) predicate.User {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -1860,65 +1860,30 @@ func TenantIdNotIn(vs ...string) predicate.User {
 }
 
 // TenantIdGT applies the GT predicate on the "tenantId" field.
-func TenantIdGT(v string) predicate.User {
+func TenantIdGT(v int64) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldTenantId), v))
 	})
 }
 
 // TenantIdGTE applies the GTE predicate on the "tenantId" field.
-func TenantIdGTE(v string) predicate.User {
+func TenantIdGTE(v int64) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldTenantId), v))
 	})
 }
 
 // TenantIdLT applies the LT predicate on the "tenantId" field.
-func TenantIdLT(v string) predicate.User {
+func TenantIdLT(v int64) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldTenantId), v))
 	})
 }
 
 // TenantIdLTE applies the LTE predicate on the "tenantId" field.
-func TenantIdLTE(v string) predicate.User {
+func TenantIdLTE(v int64) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldTenantId), v))
-	})
-}
-
-// TenantIdContains applies the Contains predicate on the "tenantId" field.
-func TenantIdContains(v string) predicate.User {
-	return predicate.User(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldTenantId), v))
-	})
-}
-
-// TenantIdHasPrefix applies the HasPrefix predicate on the "tenantId" field.
-func TenantIdHasPrefix(v string) predicate.User {
-	return predicate.User(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldTenantId), v))
-	})
-}
-
-// TenantIdHasSuffix applies the HasSuffix predicate on the "tenantId" field.
-func TenantIdHasSuffix(v string) predicate.User {
-	return predicate.User(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldTenantId), v))
-	})
-}
-
-// TenantIdEqualFold applies the EqualFold predicate on the "tenantId" field.
-func TenantIdEqualFold(v string) predicate.User {
-	return predicate.User(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldTenantId), v))
-	})
-}
-
-// TenantIdContainsFold applies the ContainsFold predicate on the "tenantId" field.
-func TenantIdContainsFold(v string) predicate.User {
-	return predicate.User(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldTenantId), v))
 	})
 }
 

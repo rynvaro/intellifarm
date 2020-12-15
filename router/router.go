@@ -50,6 +50,7 @@ import (
 	"cattleai/pkg/shedcates"
 	"cattleai/pkg/sheds"
 	"cattleai/pkg/shedtypes"
+	"cattleai/pkg/tenants"
 	"cattleai/pkg/treatmentresults"
 	"cattleai/pkg/treatmentstates"
 	"cattleai/pkg/users"
@@ -62,6 +63,7 @@ import (
 func Register(g *gin.RouterGroup) {
 	// users routes
 	users.RegisterRoutes(g)
+	users.RegisterRoutes1(g)
 	// farms routes
 	farms.RegisterRoutes(g)
 	// categories routes
@@ -151,4 +153,6 @@ func Register(g *gin.RouterGroup) {
 	cattleouts.RegisterRoutes(g)
 
 	apis.RegisterRoutes(g)
+
+	tenants.RegisterRoutes(g)
 }

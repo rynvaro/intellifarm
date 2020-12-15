@@ -2,12 +2,16 @@ package resp
 
 type Resp struct {
 	Code int         `json:"code"`
-	Msg  string      `json:"msg"`
+	Msg  string      `json:"message"`
 	Data interface{} `json:"data"`
 }
 
 func Success(data interface{}) *Resp {
 	return Response(200, "OK", data)
+}
+
+func Error(data interface{}) *Resp {
+	return Response(500, "Error", data)
 }
 
 func Default() *Resp {

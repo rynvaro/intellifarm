@@ -4,5 +4,5 @@ import "cattleai/ent"
 
 func main() {
 	// GenCates("EpidemicType")
-	Gen("API", &ent.APICreate{})
+	Gen("Tenant", &ent.TenantCreate{})
 }

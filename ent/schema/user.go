@@ -29,7 +29,7 @@ func (User) Fields() []ent.Field {
 		field.String("address").Comment("联系地址"),
 		field.Int("onJobState").Comment("在职状态： 1： 在职， 0: 已离职").Default(1),
 		field.Int64("joinedAt").Comment("入职时间"),
-		field.String("tenantId").Comment("租户ID").NotEmpty(),
+		field.Int64("tenantId").Comment("租户ID"),
 		field.String("password").Comment("用户密码"),
 		field.String("remarks").Comment("备注"),
 		field.Int64("createdAt").Comment("创建时间"),

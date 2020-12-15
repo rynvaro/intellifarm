@@ -7,7 +7,4 @@ func RegisterRoutes(g *gin.RouterGroup) {
 	g.GET("/users", UserListHandler)
 	g.DELETE("/users/:id", UserDeleteHandler)
 	g.PUT("/users/:id", UserUpdateHandler)
-
-	g.POST("/user/login", UserLogin)
-	g.GET("/user/info", UserInfo)
 }

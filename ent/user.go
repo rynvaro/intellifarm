@@ -48,7 +48,7 @@ type User struct {
 	// JoinedAt holds the value of the "joinedAt" field.
 	JoinedAt int64 `json:"joinedAt,omitempty"`
 	// TenantId holds the value of the "tenantId" field.
-	TenantId string `json:"tenantId,omitempty"`
+	TenantId int64 `json:"tenantId,omitempty"`
 	// Password holds the value of the "password" field.
 	Password string `json:"password,omitempty"`
 	// Remarks holds the value of the "remarks" field.
@@ -81,7 +81,7 @@ func (*User) scanValues() []interface{} {
 		&sql.NullString{}, // address
 		&sql.NullInt64{},  // onJobState
 		&sql.NullInt64{},  // joinedAt
-		&sql.NullString{}, // tenantId
+		&sql.NullInt64{},  // tenantId
 		&sql.NullString{}, // password
 		&sql.NullString{}, // remarks
 		&sql.NullInt64{},  // createdAt
@@ -182,10 +182,10 @@ func (u *User) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		u.JoinedAt = value.Int64
 	}
-	if value, ok := values[16].(*sql.NullString); !ok {
+	if value, ok := values[16].(*sql.NullInt64); !ok {
 		return fmt.Errorf("unexpected type %T for field tenantId", values[16])
 	} else if value.Valid {
-		u.TenantId = value.String
+		u.TenantId = value.Int64
 	}
 	if value, ok := values[17].(*sql.NullString); !ok {
 		return fmt.Errorf("unexpected type %T for field password", values[17])
@@ -271,7 +271,7 @@ func (u *User) String() string {
 	builder.WriteString(", joinedAt=")
 	builder.WriteString(fmt.Sprintf("%v", u.JoinedAt))
 	builder.WriteString(", tenantId=")
-	builder.WriteString(u.TenantId)
+	builder.WriteString(fmt.Sprintf("%v", u.TenantId))
 	builder.WriteString(", password=")
 	builder.WriteString(u.Password)
 	builder.WriteString(", remarks=")

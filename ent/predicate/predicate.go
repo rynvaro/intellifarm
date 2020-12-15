@@ -174,6 +174,9 @@ type ShedTrans func(*sql.Selector)
 // ShedType is the predicate function for shedtype builders.
 type ShedType func(*sql.Selector)
 
+// Tenant is the predicate function for tenant builders.
+type Tenant func(*sql.Selector)
+
 // TreatmentResult is the predicate function for treatmentresult builders.
 type TreatmentResult func(*sql.Selector)
 

@@ -104,6 +104,4 @@ var (
 	NameValidator func(string) error
 	// DefaultOnJobState holds the default value on creation for the onJobState field.
 	DefaultOnJobState int
-	// TenantIdValidator is a validator for the "tenantId" field. It is called by the builders before save.
-	TenantIdValidator func(string) error
 )

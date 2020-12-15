@@ -124,6 +124,8 @@ type Tx struct {
 	ShedTrans *ShedTransClient
 	// ShedType is the client for interacting with the ShedType builders.
 	ShedType *ShedTypeClient
+	// Tenant is the client for interacting with the Tenant builders.
+	Tenant *TenantClient
 	// TreatmentResult is the client for interacting with the TreatmentResult builders.
 	TreatmentResult *TreatmentResultClient
 	// TreatmentState is the client for interacting with the TreatmentState builders.
@@ -325,6 +327,7 @@ func (tx *Tx) init() {
 	tx.ShedCategory = NewShedCategoryClient(tx.config)
 	tx.ShedTrans = NewShedTransClient(tx.config)
 	tx.ShedType = NewShedTypeClient(tx.config)
+	tx.Tenant = NewTenantClient(tx.config)
 	tx.TreatmentResult = NewTreatmentResultClient(tx.config)
 	tx.TreatmentState = NewTreatmentStateClient(tx.config)
 	tx.User = NewUserClient(tx.config)

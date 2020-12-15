@@ -80,6 +80,7 @@ type hooks struct {
 	ShedCategory        []ent.Hook
 	ShedTrans           []ent.Hook
 	ShedType            []ent.Hook
+	Tenant              []ent.Hook
 	TreatmentResult     []ent.Hook
 	TreatmentState      []ent.Hook
 	User                []ent.Hook

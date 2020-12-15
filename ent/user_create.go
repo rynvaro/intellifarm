@@ -124,8 +124,8 @@ func (uc *UserCreate) SetJoinedAt(i int64) *UserCreate {
 }
 
 // SetTenantId sets the tenantId field.
-func (uc *UserCreate) SetTenantId(s string) *UserCreate {
-	uc.mutation.SetTenantId(s)
+func (uc *UserCreate) SetTenantId(i int64) *UserCreate {
+	uc.mutation.SetTenantId(i)
 	return uc
 }
 
@@ -289,11 +289,6 @@ func (uc *UserCreate) check() error {
 	}
 	if _, ok := uc.mutation.TenantId(); !ok {
 		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if v, ok := uc.mutation.TenantId(); ok {
-		if err := user.TenantIdValidator(v); err != nil {
-			return &ValidationError{Name: "tenantId", err: fmt.Errorf("ent: validator failed for field \"tenantId\": %w", err)}
-		}
 	}
 	if _, ok := uc.mutation.Password(); !ok {
 		return &ValidationError{Name: "password", err: errors.New("ent: missing required field \"password\"")}
@@ -467,7 +462,7 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := uc.mutation.TenantId(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: user.FieldTenantId,
 		})

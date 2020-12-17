@@ -29,6 +29,10 @@ const (
 	FieldWidth = "width"
 	// FieldHeight holds the string denoting the height field in the database.
 	FieldHeight = "height"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldUserId holds the string denoting the userid field in the database.
@@ -60,6 +64,8 @@ var Columns = []string{
 	FieldLength,
 	FieldWidth,
 	FieldHeight,
+	FieldTenantId,
+	FieldTenantName,
 	FieldRemarks,
 	FieldUserId,
 	FieldUserName,

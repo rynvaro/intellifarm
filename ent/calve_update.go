@@ -271,6 +271,25 @@ func (cu *CalveUpdate) SetBabyShedName(s string) *CalveUpdate {
 	return cu
 }
 
+// SetTenantId sets the tenantId field.
+func (cu *CalveUpdate) SetTenantId(i int64) *CalveUpdate {
+	cu.mutation.ResetTenantId()
+	cu.mutation.SetTenantId(i)
+	return cu
+}
+
+// AddTenantId adds i to tenantId.
+func (cu *CalveUpdate) AddTenantId(i int64) *CalveUpdate {
+	cu.mutation.AddTenantId(i)
+	return cu
+}
+
+// SetTenantName sets the tenantName field.
+func (cu *CalveUpdate) SetTenantName(s string) *CalveUpdate {
+	cu.mutation.SetTenantName(s)
+	return cu
+}
+
 // SetRemarks sets the remarks field.
 func (cu *CalveUpdate) SetRemarks(s string) *CalveUpdate {
 	cu.mutation.SetRemarks(s)
@@ -648,6 +667,27 @@ func (cu *CalveUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: calve.FieldBabyShedName,
 		})
 	}
+	if value, ok := cu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldTenantId,
+		})
+	}
+	if value, ok := cu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldTenantId,
+		})
+	}
+	if value, ok := cu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: calve.FieldTenantName,
+		})
+	}
 	if value, ok := cu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -956,6 +996,25 @@ func (cuo *CalveUpdateOne) AddBabyShedId(i int) *CalveUpdateOne {
 // SetBabyShedName sets the babyShedName field.
 func (cuo *CalveUpdateOne) SetBabyShedName(s string) *CalveUpdateOne {
 	cuo.mutation.SetBabyShedName(s)
+	return cuo
+}
+
+// SetTenantId sets the tenantId field.
+func (cuo *CalveUpdateOne) SetTenantId(i int64) *CalveUpdateOne {
+	cuo.mutation.ResetTenantId()
+	cuo.mutation.SetTenantId(i)
+	return cuo
+}
+
+// AddTenantId adds i to tenantId.
+func (cuo *CalveUpdateOne) AddTenantId(i int64) *CalveUpdateOne {
+	cuo.mutation.AddTenantId(i)
+	return cuo
+}
+
+// SetTenantName sets the tenantName field.
+func (cuo *CalveUpdateOne) SetTenantName(s string) *CalveUpdateOne {
+	cuo.mutation.SetTenantName(s)
 	return cuo
 }
 
@@ -1332,6 +1391,27 @@ func (cuo *CalveUpdateOne) sqlSave(ctx context.Context) (_node *Calve, err error
 			Type:   field.TypeString,
 			Value:  value,
 			Column: calve.FieldBabyShedName,
+		})
+	}
+	if value, ok := cuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldTenantId,
+		})
+	}
+	if value, ok := cuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldTenantId,
+		})
+	}
+	if value, ok := cuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: calve.FieldTenantName,
 		})
 	}
 	if value, ok := cuo.mutation.Remarks(); ok {

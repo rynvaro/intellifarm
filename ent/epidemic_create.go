@@ -91,6 +91,18 @@ func (ec *EpidemicCreate) SetWhereabout(s string) *EpidemicCreate {
 	return ec
 }
 
+// SetTenantId sets the tenantId field.
+func (ec *EpidemicCreate) SetTenantId(i int64) *EpidemicCreate {
+	ec.mutation.SetTenantId(i)
+	return ec
+}
+
+// SetTenantName sets the tenantName field.
+func (ec *EpidemicCreate) SetTenantName(s string) *EpidemicCreate {
+	ec.mutation.SetTenantName(s)
+	return ec
+}
+
 // SetRemarks sets the remarks field.
 func (ec *EpidemicCreate) SetRemarks(s string) *EpidemicCreate {
 	ec.mutation.SetRemarks(s)
@@ -201,6 +213,12 @@ func (ec *EpidemicCreate) check() error {
 	}
 	if _, ok := ec.mutation.Whereabout(); !ok {
 		return &ValidationError{Name: "whereabout", err: errors.New("ent: missing required field \"whereabout\"")}
+	}
+	if _, ok := ec.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := ec.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := ec.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -336,6 +354,22 @@ func (ec *EpidemicCreate) createSpec() (*Epidemic, *sqlgraph.CreateSpec) {
 			Column: epidemic.FieldWhereabout,
 		})
 		_node.Whereabout = value
+	}
+	if value, ok := ec.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := ec.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: epidemic.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := ec.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

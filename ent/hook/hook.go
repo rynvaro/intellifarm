@@ -593,6 +593,19 @@ func (f PositionFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, er
 	return f(ctx, mv)
 }
 
+// The PositionApiFunc type is an adapter to allow the use of ordinary
+// function as PositionApi mutator.
+type PositionApiFunc func(context.Context, *ent.PositionApiMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f PositionApiFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.PositionApiMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.PositionApiMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The PregnancyTestFunc type is an adapter to allow the use of ordinary
 // function as PregnancyTest mutator.
 type PregnancyTestFunc func(context.Context, *ent.PregnancyTestMutation) (ent.Value, error)

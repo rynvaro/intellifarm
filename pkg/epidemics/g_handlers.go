@@ -36,6 +36,8 @@ func EpidemicAddHandler(c *gin.Context) {
 		SetTreatmentResultId(form.TreatmentResultId).
 		SetTreatmentResultName(form.TreatmentResultName).
 		SetWhereabout(form.Whereabout).
+		SetTenantId(c.MustGet("tenantId").(int64)).
+		SetTenantName(c.MustGet("tenantName").(string)).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -53,6 +55,7 @@ func EpidemicListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
+	listParams.TenantId = c.MustGet("tenantId").(int64)
 	where := Where(listParams)
 	totalCount, err := db.Client.Epidemic.Query().Where(where).Count(c.Request.Context())
 	if err != nil {

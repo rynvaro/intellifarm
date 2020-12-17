@@ -261,6 +261,18 @@ func (cc *CattleCreate) SetPregnancyCheckAt(i int64) *CattleCreate {
 	return cc
 }
 
+// SetTenantId sets the tenantId field.
+func (cc *CattleCreate) SetTenantId(i int64) *CattleCreate {
+	cc.mutation.SetTenantId(i)
+	return cc
+}
+
+// SetTenantName sets the tenantName field.
+func (cc *CattleCreate) SetTenantName(s string) *CattleCreate {
+	cc.mutation.SetTenantName(s)
+	return cc
+}
+
 // SetCreatedAt sets the createdAt field.
 func (cc *CattleCreate) SetCreatedAt(i int64) *CattleCreate {
 	cc.mutation.SetCreatedAt(i)
@@ -463,6 +475,12 @@ func (cc *CattleCreate) check() error {
 	}
 	if _, ok := cc.mutation.PregnancyCheckAt(); !ok {
 		return &ValidationError{Name: "pregnancyCheckAt", err: errors.New("ent: missing required field \"pregnancyCheckAt\"")}
+	}
+	if _, ok := cc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := cc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := cc.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "createdAt", err: errors.New("ent: missing required field \"createdAt\"")}
@@ -811,6 +829,22 @@ func (cc *CattleCreate) createSpec() (*Cattle, *sqlgraph.CreateSpec) {
 			Column: cattle.FieldPregnancyCheckAt,
 		})
 		_node.PregnancyCheckAt = value
+	}
+	if value, ok := cc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattle.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := cc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattle.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := cc.mutation.CreatedAt(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

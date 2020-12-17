@@ -33,6 +33,8 @@ func EstrusAddHandler(c *gin.Context) {
 		SetShedName(form.ShedName).
 		SetTimes(form.Times).
 		SetUserName(form.UserName).
+		SetTenantId(c.MustGet("tenantId").(int64)).
+		SetTenantName(c.MustGet("tenantName").(string)).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -50,6 +52,7 @@ func EstrusListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
+	listParams.TenantId = c.MustGet("tenantId").(int64)
 	where := Where(listParams)
 	totalCount, err := db.Client.Estrus.Query().Where(where).Count(c.Request.Context())
 	if err != nil {

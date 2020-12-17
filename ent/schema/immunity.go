@@ -21,6 +21,8 @@ func (Immunity) Fields() []ent.Field {
 		field.String("itemName").Comment("检疫项目"),
 		field.String("userName").Comment("责任兽医"),
 		field.String("drug").Comment("免疫用药"),
+		field.Int64("tenantId").Comment("租户ID"),
+		field.String("tenantName").Comment("租户组织名称"),
 		field.String("remarks").Comment("备注"),
 		field.Int64("createdAt").Comment("创建时间"),
 		field.Int64("updatedAt").Comment("更新时间"),

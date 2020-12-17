@@ -117,6 +117,25 @@ func (cgdu *CattleGrowsDataUpdate) AddHeight(i int) *CattleGrowsDataUpdate {
 	return cgdu
 }
 
+// SetTenantId sets the tenantId field.
+func (cgdu *CattleGrowsDataUpdate) SetTenantId(i int64) *CattleGrowsDataUpdate {
+	cgdu.mutation.ResetTenantId()
+	cgdu.mutation.SetTenantId(i)
+	return cgdu
+}
+
+// AddTenantId adds i to tenantId.
+func (cgdu *CattleGrowsDataUpdate) AddTenantId(i int64) *CattleGrowsDataUpdate {
+	cgdu.mutation.AddTenantId(i)
+	return cgdu
+}
+
+// SetTenantName sets the tenantName field.
+func (cgdu *CattleGrowsDataUpdate) SetTenantName(s string) *CattleGrowsDataUpdate {
+	cgdu.mutation.SetTenantName(s)
+	return cgdu
+}
+
 // SetRemarks sets the remarks field.
 func (cgdu *CattleGrowsDataUpdate) SetRemarks(s string) *CattleGrowsDataUpdate {
 	cgdu.mutation.SetRemarks(s)
@@ -326,6 +345,27 @@ func (cgdu *CattleGrowsDataUpdate) sqlSave(ctx context.Context) (n int, err erro
 			Column: cattlegrowsdata.FieldHeight,
 		})
 	}
+	if value, ok := cgdu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegrowsdata.FieldTenantId,
+		})
+	}
+	if value, ok := cgdu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegrowsdata.FieldTenantId,
+		})
+	}
+	if value, ok := cgdu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegrowsdata.FieldTenantName,
+		})
+	}
 	if value, ok := cgdu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -480,6 +520,25 @@ func (cgduo *CattleGrowsDataUpdateOne) SetHeight(i int) *CattleGrowsDataUpdateOn
 // AddHeight adds i to height.
 func (cgduo *CattleGrowsDataUpdateOne) AddHeight(i int) *CattleGrowsDataUpdateOne {
 	cgduo.mutation.AddHeight(i)
+	return cgduo
+}
+
+// SetTenantId sets the tenantId field.
+func (cgduo *CattleGrowsDataUpdateOne) SetTenantId(i int64) *CattleGrowsDataUpdateOne {
+	cgduo.mutation.ResetTenantId()
+	cgduo.mutation.SetTenantId(i)
+	return cgduo
+}
+
+// AddTenantId adds i to tenantId.
+func (cgduo *CattleGrowsDataUpdateOne) AddTenantId(i int64) *CattleGrowsDataUpdateOne {
+	cgduo.mutation.AddTenantId(i)
+	return cgduo
+}
+
+// SetTenantName sets the tenantName field.
+func (cgduo *CattleGrowsDataUpdateOne) SetTenantName(s string) *CattleGrowsDataUpdateOne {
+	cgduo.mutation.SetTenantName(s)
 	return cgduo
 }
 
@@ -688,6 +747,27 @@ func (cgduo *CattleGrowsDataUpdateOne) sqlSave(ctx context.Context) (_node *Catt
 			Type:   field.TypeInt,
 			Value:  value,
 			Column: cattlegrowsdata.FieldHeight,
+		})
+	}
+	if value, ok := cgduo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegrowsdata.FieldTenantId,
+		})
+	}
+	if value, ok := cgduo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegrowsdata.FieldTenantId,
+		})
+	}
+	if value, ok := cgduo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegrowsdata.FieldTenantName,
 		})
 	}
 	if value, ok := cgduo.mutation.Remarks(); ok {

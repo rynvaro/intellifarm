@@ -30,6 +30,7 @@ func (User) Fields() []ent.Field {
 		field.Int("onJobState").Comment("在职状态： 1： 在职， 0: 已离职").Default(1),
 		field.Int64("joinedAt").Comment("入职时间"),
 		field.Int64("tenantId").Comment("租户ID"),
+		field.String("tenantName").Comment("租户组织名称"),
 		field.String("password").Comment("用户密码"),
 		field.String("remarks").Comment("备注"),
 		field.Int64("createdAt").Comment("创建时间"),

@@ -161,6 +161,20 @@ func UserName(v string) predicate.Abortion {
 	})
 }
 
+// TenantId applies equality check predicate on the "tenantId" field. It's identical to TenantIdEQ.
+func TenantId(v int64) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantName applies equality check predicate on the "tenantName" field. It's identical to TenantNameEQ.
+func TenantName(v string) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTenantName), v))
+	})
+}
+
 // Remarks applies equality check predicate on the "remarks" field. It's identical to RemarksEQ.
 func Remarks(v string) predicate.Abortion {
 	return predicate.Abortion(func(s *sql.Selector) {
@@ -1170,6 +1184,193 @@ func UserNameEqualFold(v string) predicate.Abortion {
 func UserNameContainsFold(v string) predicate.Abortion {
 	return predicate.Abortion(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldUserName), v))
+	})
+}
+
+// TenantIdEQ applies the EQ predicate on the "tenantId" field.
+func TenantIdEQ(v int64) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantIdNEQ applies the NEQ predicate on the "tenantId" field.
+func TenantIdNEQ(v int64) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantIdIn applies the In predicate on the "tenantId" field.
+func TenantIdIn(vs ...int64) predicate.Abortion {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Abortion(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldTenantId), v...))
+	})
+}
+
+// TenantIdNotIn applies the NotIn predicate on the "tenantId" field.
+func TenantIdNotIn(vs ...int64) predicate.Abortion {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Abortion(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldTenantId), v...))
+	})
+}
+
+// TenantIdGT applies the GT predicate on the "tenantId" field.
+func TenantIdGT(v int64) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantIdGTE applies the GTE predicate on the "tenantId" field.
+func TenantIdGTE(v int64) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantIdLT applies the LT predicate on the "tenantId" field.
+func TenantIdLT(v int64) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantIdLTE applies the LTE predicate on the "tenantId" field.
+func TenantIdLTE(v int64) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantNameEQ applies the EQ predicate on the "tenantName" field.
+func TenantNameEQ(v string) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameNEQ applies the NEQ predicate on the "tenantName" field.
+func TenantNameNEQ(v string) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameIn applies the In predicate on the "tenantName" field.
+func TenantNameIn(vs ...string) predicate.Abortion {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Abortion(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldTenantName), v...))
+	})
+}
+
+// TenantNameNotIn applies the NotIn predicate on the "tenantName" field.
+func TenantNameNotIn(vs ...string) predicate.Abortion {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Abortion(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldTenantName), v...))
+	})
+}
+
+// TenantNameGT applies the GT predicate on the "tenantName" field.
+func TenantNameGT(v string) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameGTE applies the GTE predicate on the "tenantName" field.
+func TenantNameGTE(v string) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameLT applies the LT predicate on the "tenantName" field.
+func TenantNameLT(v string) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameLTE applies the LTE predicate on the "tenantName" field.
+func TenantNameLTE(v string) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameContains applies the Contains predicate on the "tenantName" field.
+func TenantNameContains(v string) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameHasPrefix applies the HasPrefix predicate on the "tenantName" field.
+func TenantNameHasPrefix(v string) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameHasSuffix applies the HasSuffix predicate on the "tenantName" field.
+func TenantNameHasSuffix(v string) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameEqualFold applies the EqualFold predicate on the "tenantName" field.
+func TenantNameEqualFold(v string) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameContainsFold applies the ContainsFold predicate on the "tenantName" field.
+func TenantNameContainsFold(v string) predicate.Abortion {
+	return predicate.Abortion(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldTenantName), v))
 	})
 }
 

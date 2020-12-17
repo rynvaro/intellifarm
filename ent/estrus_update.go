@@ -116,6 +116,25 @@ func (eu *EstrusUpdate) SetUserName(s string) *EstrusUpdate {
 	return eu
 }
 
+// SetTenantId sets the tenantId field.
+func (eu *EstrusUpdate) SetTenantId(i int64) *EstrusUpdate {
+	eu.mutation.ResetTenantId()
+	eu.mutation.SetTenantId(i)
+	return eu
+}
+
+// AddTenantId adds i to tenantId.
+func (eu *EstrusUpdate) AddTenantId(i int64) *EstrusUpdate {
+	eu.mutation.AddTenantId(i)
+	return eu
+}
+
+// SetTenantName sets the tenantName field.
+func (eu *EstrusUpdate) SetTenantName(s string) *EstrusUpdate {
+	eu.mutation.SetTenantName(s)
+	return eu
+}
+
 // SetRemarks sets the remarks field.
 func (eu *EstrusUpdate) SetRemarks(s string) *EstrusUpdate {
 	eu.mutation.SetRemarks(s)
@@ -325,6 +344,27 @@ func (eu *EstrusUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: estrus.FieldUserName,
 		})
 	}
+	if value, ok := eu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldTenantId,
+		})
+	}
+	if value, ok := eu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldTenantId,
+		})
+	}
+	if value, ok := eu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: estrus.FieldTenantName,
+		})
+	}
 	if value, ok := eu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -478,6 +518,25 @@ func (euo *EstrusUpdateOne) SetEstrusTypeName(s string) *EstrusUpdateOne {
 // SetUserName sets the userName field.
 func (euo *EstrusUpdateOne) SetUserName(s string) *EstrusUpdateOne {
 	euo.mutation.SetUserName(s)
+	return euo
+}
+
+// SetTenantId sets the tenantId field.
+func (euo *EstrusUpdateOne) SetTenantId(i int64) *EstrusUpdateOne {
+	euo.mutation.ResetTenantId()
+	euo.mutation.SetTenantId(i)
+	return euo
+}
+
+// AddTenantId adds i to tenantId.
+func (euo *EstrusUpdateOne) AddTenantId(i int64) *EstrusUpdateOne {
+	euo.mutation.AddTenantId(i)
+	return euo
+}
+
+// SetTenantName sets the tenantName field.
+func (euo *EstrusUpdateOne) SetTenantName(s string) *EstrusUpdateOne {
+	euo.mutation.SetTenantName(s)
 	return euo
 }
 
@@ -686,6 +745,27 @@ func (euo *EstrusUpdateOne) sqlSave(ctx context.Context) (_node *Estrus, err err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: estrus.FieldUserName,
+		})
+	}
+	if value, ok := euo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldTenantId,
+		})
+	}
+	if value, ok := euo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldTenantId,
+		})
+	}
+	if value, ok := euo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: estrus.FieldTenantName,
 		})
 	}
 	if value, ok := euo.mutation.Remarks(); ok {

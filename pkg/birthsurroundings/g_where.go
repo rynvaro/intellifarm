@@ -18,5 +18,6 @@ func Where(listParams *params.ListParams) predicate.BirthSurrounding {
 	if listParams.UserId > 0 {
 		wheres = append(wheres, birthsurrounding.UserIdEQ(listParams.UserId))
 	}
+	wheres = append(wheres, birthsurrounding.TenantId(listParams.TenantId))
 	return birthsurrounding.And(wheres...)
 }

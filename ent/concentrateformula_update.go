@@ -104,6 +104,25 @@ func (cfu *ConcentrateFormulaUpdate) AddCost(i int64) *ConcentrateFormulaUpdate 
 	return cfu
 }
 
+// SetTenantId sets the tenantId field.
+func (cfu *ConcentrateFormulaUpdate) SetTenantId(i int64) *ConcentrateFormulaUpdate {
+	cfu.mutation.ResetTenantId()
+	cfu.mutation.SetTenantId(i)
+	return cfu
+}
+
+// AddTenantId adds i to tenantId.
+func (cfu *ConcentrateFormulaUpdate) AddTenantId(i int64) *ConcentrateFormulaUpdate {
+	cfu.mutation.AddTenantId(i)
+	return cfu
+}
+
+// SetTenantName sets the tenantName field.
+func (cfu *ConcentrateFormulaUpdate) SetTenantName(s string) *ConcentrateFormulaUpdate {
+	cfu.mutation.SetTenantName(s)
+	return cfu
+}
+
 // SetRemarks sets the remarks field.
 func (cfu *ConcentrateFormulaUpdate) SetRemarks(s string) *ConcentrateFormulaUpdate {
 	cfu.mutation.SetRemarks(s)
@@ -307,6 +326,27 @@ func (cfu *ConcentrateFormulaUpdate) sqlSave(ctx context.Context) (n int, err er
 			Column: concentrateformula.FieldCost,
 		})
 	}
+	if value, ok := cfu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateformula.FieldTenantId,
+		})
+	}
+	if value, ok := cfu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateformula.FieldTenantId,
+		})
+	}
+	if value, ok := cfu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: concentrateformula.FieldTenantName,
+		})
+	}
 	if value, ok := cfu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -448,6 +488,25 @@ func (cfuo *ConcentrateFormulaUpdateOne) SetCost(i int64) *ConcentrateFormulaUpd
 // AddCost adds i to cost.
 func (cfuo *ConcentrateFormulaUpdateOne) AddCost(i int64) *ConcentrateFormulaUpdateOne {
 	cfuo.mutation.AddCost(i)
+	return cfuo
+}
+
+// SetTenantId sets the tenantId field.
+func (cfuo *ConcentrateFormulaUpdateOne) SetTenantId(i int64) *ConcentrateFormulaUpdateOne {
+	cfuo.mutation.ResetTenantId()
+	cfuo.mutation.SetTenantId(i)
+	return cfuo
+}
+
+// AddTenantId adds i to tenantId.
+func (cfuo *ConcentrateFormulaUpdateOne) AddTenantId(i int64) *ConcentrateFormulaUpdateOne {
+	cfuo.mutation.AddTenantId(i)
+	return cfuo
+}
+
+// SetTenantName sets the tenantName field.
+func (cfuo *ConcentrateFormulaUpdateOne) SetTenantName(s string) *ConcentrateFormulaUpdateOne {
+	cfuo.mutation.SetTenantName(s)
 	return cfuo
 }
 
@@ -650,6 +709,27 @@ func (cfuo *ConcentrateFormulaUpdateOne) sqlSave(ctx context.Context) (_node *Co
 			Type:   field.TypeInt64,
 			Value:  value,
 			Column: concentrateformula.FieldCost,
+		})
+	}
+	if value, ok := cfuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateformula.FieldTenantId,
+		})
+	}
+	if value, ok := cfuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateformula.FieldTenantId,
+		})
+	}
+	if value, ok := cfuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: concentrateformula.FieldTenantName,
 		})
 	}
 	if value, ok := cfuo.mutation.Remarks(); ok {

@@ -79,6 +79,18 @@ func (coc *CattleOutCreate) SetTestCertificateNumber(s string) *CattleOutCreate 
 	return coc
 }
 
+// SetTenantId sets the tenantId field.
+func (coc *CattleOutCreate) SetTenantId(i int64) *CattleOutCreate {
+	coc.mutation.SetTenantId(i)
+	return coc
+}
+
+// SetTenantName sets the tenantName field.
+func (coc *CattleOutCreate) SetTenantName(s string) *CattleOutCreate {
+	coc.mutation.SetTenantName(s)
+	return coc
+}
+
 // SetRemarks sets the remarks field.
 func (coc *CattleOutCreate) SetRemarks(s string) *CattleOutCreate {
 	coc.mutation.SetRemarks(s)
@@ -183,6 +195,12 @@ func (coc *CattleOutCreate) check() error {
 	}
 	if _, ok := coc.mutation.TestCertificateNumber(); !ok {
 		return &ValidationError{Name: "testCertificateNumber", err: errors.New("ent: missing required field \"testCertificateNumber\"")}
+	}
+	if _, ok := coc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := coc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := coc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -302,6 +320,22 @@ func (coc *CattleOutCreate) createSpec() (*CattleOut, *sqlgraph.CreateSpec) {
 			Column: cattleout.FieldTestCertificateNumber,
 		})
 		_node.TestCertificateNumber = value
+	}
+	if value, ok := coc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattleout.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := coc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattleout.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := coc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

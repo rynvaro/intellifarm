@@ -99,6 +99,18 @@ func (bc *BreedingCreate) SetUserName(s string) *BreedingCreate {
 	return bc
 }
 
+// SetTenantId sets the tenantId field.
+func (bc *BreedingCreate) SetTenantId(i int64) *BreedingCreate {
+	bc.mutation.SetTenantId(i)
+	return bc
+}
+
+// SetTenantName sets the tenantName field.
+func (bc *BreedingCreate) SetTenantName(s string) *BreedingCreate {
+	bc.mutation.SetTenantName(s)
+	return bc
+}
+
 // SetRemarks sets the remarks field.
 func (bc *BreedingCreate) SetRemarks(s string) *BreedingCreate {
 	bc.mutation.SetRemarks(s)
@@ -206,6 +218,12 @@ func (bc *BreedingCreate) check() error {
 	}
 	if _, ok := bc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
+	}
+	if _, ok := bc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := bc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := bc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -341,6 +359,22 @@ func (bc *BreedingCreate) createSpec() (*Breeding, *sqlgraph.CreateSpec) {
 			Column: breeding.FieldUserName,
 		})
 		_node.UserName = value
+	}
+	if value, ok := bc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: breeding.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := bc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: breeding.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := bc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

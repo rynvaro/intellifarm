@@ -81,6 +81,18 @@ func (ec *EstrusCreate) SetUserName(s string) *EstrusCreate {
 	return ec
 }
 
+// SetTenantId sets the tenantId field.
+func (ec *EstrusCreate) SetTenantId(i int64) *EstrusCreate {
+	ec.mutation.SetTenantId(i)
+	return ec
+}
+
+// SetTenantName sets the tenantName field.
+func (ec *EstrusCreate) SetTenantName(s string) *EstrusCreate {
+	ec.mutation.SetTenantName(s)
+	return ec
+}
+
 // SetRemarks sets the remarks field.
 func (ec *EstrusCreate) SetRemarks(s string) *EstrusCreate {
 	ec.mutation.SetRemarks(s)
@@ -179,6 +191,12 @@ func (ec *EstrusCreate) check() error {
 	}
 	if _, ok := ec.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
+	}
+	if _, ok := ec.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := ec.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := ec.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -290,6 +308,22 @@ func (ec *EstrusCreate) createSpec() (*Estrus, *sqlgraph.CreateSpec) {
 			Column: estrus.FieldUserName,
 		})
 		_node.UserName = value
+	}
+	if value, ok := ec.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := ec.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: estrus.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := ec.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

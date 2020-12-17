@@ -11,5 +11,6 @@ func Where(listParams *params.ListParams) predicate.ConcentrateFormula {
 	if listParams.Q != "" {
 		wheres = append(wheres, concentrateformula.NameContains(listParams.Q))
 	}
+	wheres = append(wheres, concentrateformula.TenantId(listParams.TenantId))
 	return concentrateformula.And(wheres...)
 }

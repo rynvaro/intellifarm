@@ -3,9 +3,9 @@ package users
 import (
 	"cattleai/cache"
 	"cattleai/db"
-	"cattleai/ent"
 	"cattleai/ent/api"
 	"cattleai/ent/user"
+	"cattleai/pkg/positionapis"
 	"cattleai/resp"
 	"encoding/json"
 	"net/http"
@@ -66,19 +66,23 @@ func UserLogout(c *gin.Context) {
 
 func UserInfo(c *gin.Context) {
 	token := c.Request.Header.Get("X-Token")
-	obj, ok := cache.L1Cache.Get(token)
-	if !ok {
+	currentUser, err := cache.GetUserByToken(token)
+	if err != nil {
 		c.JSON(http.StatusInternalServerError, resp.Response(10401, "请重新登陆", nil))
 		return
 	}
-	currentUser := &ent.User{}
-	json.Unmarshal([]byte(obj.(string)), currentUser)
+
+	apids, err := positionapis.GetApisByPosition(currentUser.PositionId)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, resp.Response(10402, "内部错误", nil))
+		return
+	}
 
 	apis, err := db.Client.API.Query().Where(
-		api.LevelEQ(1),
+		api.And(api.LevelEQ(1), api.IDIn(apids...)),
 	).All(c.Request.Context())
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, resp.Response(10401, "内部错误", nil))
+		c.JSON(http.StatusInternalServerError, resp.Response(10402, "内部错误", nil))
 		return
 	}
 

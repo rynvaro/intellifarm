@@ -73,6 +73,18 @@ func (mtc *MaterialTestCreate) SetUserName(s string) *MaterialTestCreate {
 	return mtc
 }
 
+// SetTenantId sets the tenantId field.
+func (mtc *MaterialTestCreate) SetTenantId(i int64) *MaterialTestCreate {
+	mtc.mutation.SetTenantId(i)
+	return mtc
+}
+
+// SetTenantName sets the tenantName field.
+func (mtc *MaterialTestCreate) SetTenantName(s string) *MaterialTestCreate {
+	mtc.mutation.SetTenantName(s)
+	return mtc
+}
+
 // SetRemarks sets the remarks field.
 func (mtc *MaterialTestCreate) SetRemarks(s string) *MaterialTestCreate {
 	mtc.mutation.SetRemarks(s)
@@ -174,6 +186,12 @@ func (mtc *MaterialTestCreate) check() error {
 	}
 	if _, ok := mtc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
+	}
+	if _, ok := mtc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := mtc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := mtc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -285,6 +303,22 @@ func (mtc *MaterialTestCreate) createSpec() (*MaterialTest, *sqlgraph.CreateSpec
 			Column: materialtest.FieldUserName,
 		})
 		_node.UserName = value
+	}
+	if value, ok := mtc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: materialtest.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := mtc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: materialtest.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := mtc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

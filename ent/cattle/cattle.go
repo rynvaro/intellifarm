@@ -85,6 +85,10 @@ const (
 	FieldBullId = "bull_id"
 	// FieldPregnancyCheckAt holds the string denoting the pregnancycheckat field in the database.
 	FieldPregnancyCheckAt = "pregnancy_check_at"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
 	FieldCreatedAt = "created_at"
 	// FieldUpdatedAt holds the string denoting the updatedat field in the database.
@@ -138,6 +142,8 @@ var Columns = []string{
 	FieldBreedingTypeName,
 	FieldBullId,
 	FieldPregnancyCheckAt,
+	FieldTenantId,
+	FieldTenantName,
 	FieldCreatedAt,
 	FieldUpdatedAt,
 	FieldDeleted,

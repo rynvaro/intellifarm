@@ -79,6 +79,18 @@ func (mc *MaterialCreate) SetPayAt(i int64) *MaterialCreate {
 	return mc
 }
 
+// SetTenantId sets the tenantId field.
+func (mc *MaterialCreate) SetTenantId(i int64) *MaterialCreate {
+	mc.mutation.SetTenantId(i)
+	return mc
+}
+
+// SetTenantName sets the tenantName field.
+func (mc *MaterialCreate) SetTenantName(s string) *MaterialCreate {
+	mc.mutation.SetTenantName(s)
+	return mc
+}
+
 // SetRemarks sets the remarks field.
 func (mc *MaterialCreate) SetRemarks(s string) *MaterialCreate {
 	mc.mutation.SetRemarks(s)
@@ -183,6 +195,12 @@ func (mc *MaterialCreate) check() error {
 	}
 	if _, ok := mc.mutation.PayAt(); !ok {
 		return &ValidationError{Name: "payAt", err: errors.New("ent: missing required field \"payAt\"")}
+	}
+	if _, ok := mc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := mc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := mc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -302,6 +320,22 @@ func (mc *MaterialCreate) createSpec() (*Material, *sqlgraph.CreateSpec) {
 			Column: material.FieldPayAt,
 		})
 		_node.PayAt = value
+	}
+	if value, ok := mc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: material.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := mc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: material.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := mc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

@@ -59,6 +59,10 @@ type Calve struct {
 	BabyShedId int `json:"babyShedId,omitempty"`
 	// BabyShedName holds the value of the "babyShedName" field.
 	BabyShedName string `json:"babyShedName,omitempty"`
+	// TenantId holds the value of the "tenantId" field.
+	TenantId int64 `json:"tenantId,omitempty"`
+	// TenantName holds the value of the "tenantName" field.
+	TenantName string `json:"tenantName,omitempty"`
 	// Remarks holds the value of the "remarks" field.
 	Remarks string `json:"remarks,omitempty"`
 	// CreatedAt holds the value of the "createdAt" field.
@@ -95,6 +99,8 @@ func (*Calve) scanValues() []interface{} {
 		&sql.NullFloat64{}, // babyWeight
 		&sql.NullInt64{},   // babyShedId
 		&sql.NullString{},  // babyShedName
+		&sql.NullInt64{},   // tenantId
+		&sql.NullString{},  // tenantName
 		&sql.NullString{},  // remarks
 		&sql.NullInt64{},   // createdAt
 		&sql.NullInt64{},   // updatedAt
@@ -224,23 +230,33 @@ func (c *Calve) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		c.BabyShedName = value.String
 	}
-	if value, ok := values[22].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[22])
+	if value, ok := values[22].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[22])
+	} else if value.Valid {
+		c.TenantId = value.Int64
+	}
+	if value, ok := values[23].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[23])
+	} else if value.Valid {
+		c.TenantName = value.String
+	}
+	if value, ok := values[24].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[24])
 	} else if value.Valid {
 		c.Remarks = value.String
 	}
-	if value, ok := values[23].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[23])
+	if value, ok := values[25].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[25])
 	} else if value.Valid {
 		c.CreatedAt = value.Int64
 	}
-	if value, ok := values[24].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[24])
+	if value, ok := values[26].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[26])
 	} else if value.Valid {
 		c.UpdatedAt = value.Int64
 	}
-	if value, ok := values[25].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[25])
+	if value, ok := values[27].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[27])
 	} else if value.Valid {
 		c.Deleted = int(value.Int64)
 	}
@@ -314,6 +330,10 @@ func (c *Calve) String() string {
 	builder.WriteString(fmt.Sprintf("%v", c.BabyShedId))
 	builder.WriteString(", babyShedName=")
 	builder.WriteString(c.BabyShedName)
+	builder.WriteString(", tenantId=")
+	builder.WriteString(fmt.Sprintf("%v", c.TenantId))
+	builder.WriteString(", tenantName=")
+	builder.WriteString(c.TenantName)
 	builder.WriteString(", remarks=")
 	builder.WriteString(c.Remarks)
 	builder.WriteString(", createdAt=")

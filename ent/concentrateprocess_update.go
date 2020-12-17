@@ -97,6 +97,25 @@ func (cpu *ConcentrateProcessUpdate) SetUserName(s string) *ConcentrateProcessUp
 	return cpu
 }
 
+// SetTenantId sets the tenantId field.
+func (cpu *ConcentrateProcessUpdate) SetTenantId(i int64) *ConcentrateProcessUpdate {
+	cpu.mutation.ResetTenantId()
+	cpu.mutation.SetTenantId(i)
+	return cpu
+}
+
+// AddTenantId adds i to tenantId.
+func (cpu *ConcentrateProcessUpdate) AddTenantId(i int64) *ConcentrateProcessUpdate {
+	cpu.mutation.AddTenantId(i)
+	return cpu
+}
+
+// SetTenantName sets the tenantName field.
+func (cpu *ConcentrateProcessUpdate) SetTenantName(s string) *ConcentrateProcessUpdate {
+	cpu.mutation.SetTenantName(s)
+	return cpu
+}
+
 // SetRemarks sets the remarks field.
 func (cpu *ConcentrateProcessUpdate) SetRemarks(s string) *ConcentrateProcessUpdate {
 	cpu.mutation.SetRemarks(s)
@@ -293,6 +312,27 @@ func (cpu *ConcentrateProcessUpdate) sqlSave(ctx context.Context) (n int, err er
 			Column: concentrateprocess.FieldUserName,
 		})
 	}
+	if value, ok := cpu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateprocess.FieldTenantId,
+		})
+	}
+	if value, ok := cpu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateprocess.FieldTenantId,
+		})
+	}
+	if value, ok := cpu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: concentrateprocess.FieldTenantName,
+		})
+	}
 	if value, ok := cpu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -427,6 +467,25 @@ func (cpuo *ConcentrateProcessUpdateOne) AddInventory(i int64) *ConcentrateProce
 // SetUserName sets the userName field.
 func (cpuo *ConcentrateProcessUpdateOne) SetUserName(s string) *ConcentrateProcessUpdateOne {
 	cpuo.mutation.SetUserName(s)
+	return cpuo
+}
+
+// SetTenantId sets the tenantId field.
+func (cpuo *ConcentrateProcessUpdateOne) SetTenantId(i int64) *ConcentrateProcessUpdateOne {
+	cpuo.mutation.ResetTenantId()
+	cpuo.mutation.SetTenantId(i)
+	return cpuo
+}
+
+// AddTenantId adds i to tenantId.
+func (cpuo *ConcentrateProcessUpdateOne) AddTenantId(i int64) *ConcentrateProcessUpdateOne {
+	cpuo.mutation.AddTenantId(i)
+	return cpuo
+}
+
+// SetTenantName sets the tenantName field.
+func (cpuo *ConcentrateProcessUpdateOne) SetTenantName(s string) *ConcentrateProcessUpdateOne {
+	cpuo.mutation.SetTenantName(s)
 	return cpuo
 }
 
@@ -622,6 +681,27 @@ func (cpuo *ConcentrateProcessUpdateOne) sqlSave(ctx context.Context) (_node *Co
 			Type:   field.TypeString,
 			Value:  value,
 			Column: concentrateprocess.FieldUserName,
+		})
+	}
+	if value, ok := cpuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateprocess.FieldTenantId,
+		})
+	}
+	if value, ok := cpuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateprocess.FieldTenantId,
+		})
+	}
+	if value, ok := cpuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: concentrateprocess.FieldTenantName,
 		})
 	}
 	if value, ok := cpuo.mutation.Remarks(); ok {

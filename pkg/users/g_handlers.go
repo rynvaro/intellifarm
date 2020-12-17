@@ -41,7 +41,8 @@ func UserAddHandler(c *gin.Context) {
 		SetPositionName(form.PositionName).
 		SetRemarks(form.Remarks).
 		SetPassword(form.Password).
-		SetTenantId(form.TenantId).
+		SetTenantId(c.MustGet("tenantId").(int64)).
+		SetTenantName(c.MustGet("tenantName").(string)).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -59,6 +60,7 @@ func UserListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
+	listParams.TenantId = c.MustGet("tenantId").(int64)
 	where := Where(listParams)
 	totalCount, err := db.Client.User.Query().Where(where).Count(c.Request.Context())
 	if err != nil {

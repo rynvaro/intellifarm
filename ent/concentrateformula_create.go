@@ -61,6 +61,18 @@ func (cfc *ConcentrateFormulaCreate) SetCost(i int64) *ConcentrateFormulaCreate 
 	return cfc
 }
 
+// SetTenantId sets the tenantId field.
+func (cfc *ConcentrateFormulaCreate) SetTenantId(i int64) *ConcentrateFormulaCreate {
+	cfc.mutation.SetTenantId(i)
+	return cfc
+}
+
+// SetTenantName sets the tenantName field.
+func (cfc *ConcentrateFormulaCreate) SetTenantName(s string) *ConcentrateFormulaCreate {
+	cfc.mutation.SetTenantName(s)
+	return cfc
+}
+
 // SetRemarks sets the remarks field.
 func (cfc *ConcentrateFormulaCreate) SetRemarks(s string) *ConcentrateFormulaCreate {
 	cfc.mutation.SetRemarks(s)
@@ -157,6 +169,12 @@ func (cfc *ConcentrateFormulaCreate) check() error {
 	if _, ok := cfc.mutation.Cost(); !ok {
 		return &ValidationError{Name: "cost", err: errors.New("ent: missing required field \"cost\"")}
 	}
+	if _, ok := cfc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := cfc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
 	if _, ok := cfc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
 	}
@@ -251,6 +269,22 @@ func (cfc *ConcentrateFormulaCreate) createSpec() (*ConcentrateFormula, *sqlgrap
 			Column: concentrateformula.FieldCost,
 		})
 		_node.Cost = value
+	}
+	if value, ok := cfc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateformula.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := cfc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: concentrateformula.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := cfc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

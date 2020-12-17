@@ -109,6 +109,18 @@ func (fc *FarmCreate) SetDistrictName(s string) *FarmCreate {
 	return fc
 }
 
+// SetTenantId sets the tenantId field.
+func (fc *FarmCreate) SetTenantId(i int64) *FarmCreate {
+	fc.mutation.SetTenantId(i)
+	return fc
+}
+
+// SetTenantName sets the tenantName field.
+func (fc *FarmCreate) SetTenantName(s string) *FarmCreate {
+	fc.mutation.SetTenantName(s)
+	return fc
+}
+
 // SetRemarks sets the remarks field.
 func (fc *FarmCreate) SetRemarks(s string) *FarmCreate {
 	fc.mutation.SetRemarks(s)
@@ -255,6 +267,12 @@ func (fc *FarmCreate) check() error {
 	}
 	if _, ok := fc.mutation.DistrictName(); !ok {
 		return &ValidationError{Name: "districtName", err: errors.New("ent: missing required field \"districtName\"")}
+	}
+	if _, ok := fc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := fc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := fc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -414,6 +432,22 @@ func (fc *FarmCreate) createSpec() (*Farm, *sqlgraph.CreateSpec) {
 			Column: farm.FieldDistrictName,
 		})
 		_node.DistrictName = value
+	}
+	if value, ok := fc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: farm.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := fc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: farm.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := fc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

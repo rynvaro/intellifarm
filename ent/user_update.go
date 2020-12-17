@@ -186,6 +186,12 @@ func (uu *UserUpdate) AddTenantId(i int64) *UserUpdate {
 	return uu
 }
 
+// SetTenantName sets the tenantName field.
+func (uu *UserUpdate) SetTenantName(s string) *UserUpdate {
+	uu.mutation.SetTenantName(s)
+	return uu
+}
+
 // SetPassword sets the password field.
 func (uu *UserUpdate) SetPassword(s string) *UserUpdate {
 	uu.mutation.SetPassword(s)
@@ -510,6 +516,13 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: user.FieldTenantId,
 		})
 	}
+	if value, ok := uu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldTenantName,
+		})
+	}
 	if value, ok := uu.mutation.Password(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -740,6 +753,12 @@ func (uuo *UserUpdateOne) SetTenantId(i int64) *UserUpdateOne {
 // AddTenantId adds i to tenantId.
 func (uuo *UserUpdateOne) AddTenantId(i int64) *UserUpdateOne {
 	uuo.mutation.AddTenantId(i)
+	return uuo
+}
+
+// SetTenantName sets the tenantName field.
+func (uuo *UserUpdateOne) SetTenantName(s string) *UserUpdateOne {
+	uuo.mutation.SetTenantName(s)
 	return uuo
 }
 
@@ -1063,6 +1082,13 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Type:   field.TypeInt64,
 			Value:  value,
 			Column: user.FieldTenantId,
+		})
+	}
+	if value, ok := uuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldTenantName,
 		})
 	}
 	if value, ok := uuo.mutation.Password(); ok {

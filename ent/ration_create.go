@@ -61,6 +61,18 @@ func (rc *RationCreate) SetCost(i int64) *RationCreate {
 	return rc
 }
 
+// SetTenantId sets the tenantId field.
+func (rc *RationCreate) SetTenantId(i int64) *RationCreate {
+	rc.mutation.SetTenantId(i)
+	return rc
+}
+
+// SetTenantName sets the tenantName field.
+func (rc *RationCreate) SetTenantName(s string) *RationCreate {
+	rc.mutation.SetTenantName(s)
+	return rc
+}
+
 // SetRemarks sets the remarks field.
 func (rc *RationCreate) SetRemarks(s string) *RationCreate {
 	rc.mutation.SetRemarks(s)
@@ -157,6 +169,12 @@ func (rc *RationCreate) check() error {
 	if _, ok := rc.mutation.Cost(); !ok {
 		return &ValidationError{Name: "cost", err: errors.New("ent: missing required field \"cost\"")}
 	}
+	if _, ok := rc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := rc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
 	if _, ok := rc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
 	}
@@ -251,6 +269,22 @@ func (rc *RationCreate) createSpec() (*Ration, *sqlgraph.CreateSpec) {
 			Column: ration.FieldCost,
 		})
 		_node.Cost = value
+	}
+	if value, ok := rc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: ration.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := rc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: ration.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := rc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

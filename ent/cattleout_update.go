@@ -122,6 +122,25 @@ func (cou *CattleOutUpdate) SetTestCertificateNumber(s string) *CattleOutUpdate 
 	return cou
 }
 
+// SetTenantId sets the tenantId field.
+func (cou *CattleOutUpdate) SetTenantId(i int64) *CattleOutUpdate {
+	cou.mutation.ResetTenantId()
+	cou.mutation.SetTenantId(i)
+	return cou
+}
+
+// AddTenantId adds i to tenantId.
+func (cou *CattleOutUpdate) AddTenantId(i int64) *CattleOutUpdate {
+	cou.mutation.AddTenantId(i)
+	return cou
+}
+
+// SetTenantName sets the tenantName field.
+func (cou *CattleOutUpdate) SetTenantName(s string) *CattleOutUpdate {
+	cou.mutation.SetTenantName(s)
+	return cou
+}
+
 // SetRemarks sets the remarks field.
 func (cou *CattleOutUpdate) SetRemarks(s string) *CattleOutUpdate {
 	cou.mutation.SetRemarks(s)
@@ -346,6 +365,27 @@ func (cou *CattleOutUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: cattleout.FieldTestCertificateNumber,
 		})
 	}
+	if value, ok := cou.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattleout.FieldTenantId,
+		})
+	}
+	if value, ok := cou.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattleout.FieldTenantId,
+		})
+	}
+	if value, ok := cou.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattleout.FieldTenantName,
+		})
+	}
 	if value, ok := cou.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -505,6 +545,25 @@ func (couo *CattleOutUpdateOne) SetUserName(s string) *CattleOutUpdateOne {
 // SetTestCertificateNumber sets the testCertificateNumber field.
 func (couo *CattleOutUpdateOne) SetTestCertificateNumber(s string) *CattleOutUpdateOne {
 	couo.mutation.SetTestCertificateNumber(s)
+	return couo
+}
+
+// SetTenantId sets the tenantId field.
+func (couo *CattleOutUpdateOne) SetTenantId(i int64) *CattleOutUpdateOne {
+	couo.mutation.ResetTenantId()
+	couo.mutation.SetTenantId(i)
+	return couo
+}
+
+// AddTenantId adds i to tenantId.
+func (couo *CattleOutUpdateOne) AddTenantId(i int64) *CattleOutUpdateOne {
+	couo.mutation.AddTenantId(i)
+	return couo
+}
+
+// SetTenantName sets the tenantName field.
+func (couo *CattleOutUpdateOne) SetTenantName(s string) *CattleOutUpdateOne {
+	couo.mutation.SetTenantName(s)
 	return couo
 }
 
@@ -728,6 +787,27 @@ func (couo *CattleOutUpdateOne) sqlSave(ctx context.Context) (_node *CattleOut, 
 			Type:   field.TypeString,
 			Value:  value,
 			Column: cattleout.FieldTestCertificateNumber,
+		})
+	}
+	if value, ok := couo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattleout.FieldTenantId,
+		})
+	}
+	if value, ok := couo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattleout.FieldTenantId,
+		})
+	}
+	if value, ok := couo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattleout.FieldTenantName,
 		})
 	}
 	if value, ok := couo.mutation.Remarks(); ok {

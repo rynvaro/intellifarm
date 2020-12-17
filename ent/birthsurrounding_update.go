@@ -266,6 +266,25 @@ func (bsu *BirthSurroundingUpdate) AddThIndex(f float32) *BirthSurroundingUpdate
 	return bsu
 }
 
+// SetTenantId sets the tenantId field.
+func (bsu *BirthSurroundingUpdate) SetTenantId(i int64) *BirthSurroundingUpdate {
+	bsu.mutation.ResetTenantId()
+	bsu.mutation.SetTenantId(i)
+	return bsu
+}
+
+// AddTenantId adds i to tenantId.
+func (bsu *BirthSurroundingUpdate) AddTenantId(i int64) *BirthSurroundingUpdate {
+	bsu.mutation.AddTenantId(i)
+	return bsu
+}
+
+// SetTenantName sets the tenantName field.
+func (bsu *BirthSurroundingUpdate) SetTenantName(s string) *BirthSurroundingUpdate {
+	bsu.mutation.SetTenantName(s)
+	return bsu
+}
+
 // SetRemarks sets the remarks field.
 func (bsu *BirthSurroundingUpdate) SetRemarks(s string) *BirthSurroundingUpdate {
 	bsu.mutation.SetRemarks(s)
@@ -653,6 +672,27 @@ func (bsu *BirthSurroundingUpdate) sqlSave(ctx context.Context) (n int, err erro
 			Column: birthsurrounding.FieldThIndex,
 		})
 	}
+	if value, ok := bsu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: birthsurrounding.FieldTenantId,
+		})
+	}
+	if value, ok := bsu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: birthsurrounding.FieldTenantId,
+		})
+	}
+	if value, ok := bsu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: birthsurrounding.FieldTenantName,
+		})
+	}
 	if value, ok := bsu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -956,6 +996,25 @@ func (bsuo *BirthSurroundingUpdateOne) SetThIndex(f float32) *BirthSurroundingUp
 // AddThIndex adds f to thIndex.
 func (bsuo *BirthSurroundingUpdateOne) AddThIndex(f float32) *BirthSurroundingUpdateOne {
 	bsuo.mutation.AddThIndex(f)
+	return bsuo
+}
+
+// SetTenantId sets the tenantId field.
+func (bsuo *BirthSurroundingUpdateOne) SetTenantId(i int64) *BirthSurroundingUpdateOne {
+	bsuo.mutation.ResetTenantId()
+	bsuo.mutation.SetTenantId(i)
+	return bsuo
+}
+
+// AddTenantId adds i to tenantId.
+func (bsuo *BirthSurroundingUpdateOne) AddTenantId(i int64) *BirthSurroundingUpdateOne {
+	bsuo.mutation.AddTenantId(i)
+	return bsuo
+}
+
+// SetTenantName sets the tenantName field.
+func (bsuo *BirthSurroundingUpdateOne) SetTenantName(s string) *BirthSurroundingUpdateOne {
+	bsuo.mutation.SetTenantName(s)
 	return bsuo
 }
 
@@ -1342,6 +1401,27 @@ func (bsuo *BirthSurroundingUpdateOne) sqlSave(ctx context.Context) (_node *Birt
 			Type:   field.TypeFloat32,
 			Value:  value,
 			Column: birthsurrounding.FieldThIndex,
+		})
+	}
+	if value, ok := bsuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: birthsurrounding.FieldTenantId,
+		})
+	}
+	if value, ok := bsuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: birthsurrounding.FieldTenantId,
+		})
+	}
+	if value, ok := bsuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: birthsurrounding.FieldTenantName,
 		})
 	}
 	if value, ok := bsuo.mutation.Remarks(); ok {

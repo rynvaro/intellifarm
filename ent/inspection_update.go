@@ -153,6 +153,25 @@ func (iu *InspectionUpdate) SetHandleName(s string) *InspectionUpdate {
 	return iu
 }
 
+// SetTenantId sets the tenantId field.
+func (iu *InspectionUpdate) SetTenantId(i int64) *InspectionUpdate {
+	iu.mutation.ResetTenantId()
+	iu.mutation.SetTenantId(i)
+	return iu
+}
+
+// AddTenantId adds i to tenantId.
+func (iu *InspectionUpdate) AddTenantId(i int64) *InspectionUpdate {
+	iu.mutation.AddTenantId(i)
+	return iu
+}
+
+// SetTenantName sets the tenantName field.
+func (iu *InspectionUpdate) SetTenantName(s string) *InspectionUpdate {
+	iu.mutation.SetTenantName(s)
+	return iu
+}
+
 // SetRemarks sets the remarks field.
 func (iu *InspectionUpdate) SetRemarks(s string) *InspectionUpdate {
 	iu.mutation.SetRemarks(s)
@@ -412,6 +431,27 @@ func (iu *InspectionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: inspection.FieldHandleName,
 		})
 	}
+	if value, ok := iu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldTenantId,
+		})
+	}
+	if value, ok := iu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldTenantId,
+		})
+	}
+	if value, ok := iu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inspection.FieldTenantName,
+		})
+	}
 	if value, ok := iu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -602,6 +642,25 @@ func (iuo *InspectionUpdateOne) AddHandleId(i int) *InspectionUpdateOne {
 // SetHandleName sets the handleName field.
 func (iuo *InspectionUpdateOne) SetHandleName(s string) *InspectionUpdateOne {
 	iuo.mutation.SetHandleName(s)
+	return iuo
+}
+
+// SetTenantId sets the tenantId field.
+func (iuo *InspectionUpdateOne) SetTenantId(i int64) *InspectionUpdateOne {
+	iuo.mutation.ResetTenantId()
+	iuo.mutation.SetTenantId(i)
+	return iuo
+}
+
+// AddTenantId adds i to tenantId.
+func (iuo *InspectionUpdateOne) AddTenantId(i int64) *InspectionUpdateOne {
+	iuo.mutation.AddTenantId(i)
+	return iuo
+}
+
+// SetTenantName sets the tenantName field.
+func (iuo *InspectionUpdateOne) SetTenantName(s string) *InspectionUpdateOne {
+	iuo.mutation.SetTenantName(s)
 	return iuo
 }
 
@@ -860,6 +919,27 @@ func (iuo *InspectionUpdateOne) sqlSave(ctx context.Context) (_node *Inspection,
 			Type:   field.TypeString,
 			Value:  value,
 			Column: inspection.FieldHandleName,
+		})
+	}
+	if value, ok := iuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldTenantId,
+		})
+	}
+	if value, ok := iuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldTenantId,
+		})
+	}
+	if value, ok := iuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inspection.FieldTenantName,
 		})
 	}
 	if value, ok := iuo.mutation.Remarks(); ok {

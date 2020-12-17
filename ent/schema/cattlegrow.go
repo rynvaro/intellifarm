@@ -25,6 +25,8 @@ func (CattleGrow) Fields() []ent.Field {
 		field.Float32("dailyFeedWeight").Comment("平均日耗料量(kg)"),
 		field.Float32("conversionRate").Comment("饲料转化效率"),
 		field.String("userName").Comment("记录人"),
+		field.Int64("tenantId").Comment("租户ID"),
+		field.String("tenantName").Comment("租户组织名称"),
 		field.String("remarks").Comment("备注"),
 		field.Int64("createdAt").Comment("创建时间"),
 		field.Int64("updatedAt").Comment("更新时间"),

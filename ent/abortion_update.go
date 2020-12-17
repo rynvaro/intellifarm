@@ -129,6 +129,25 @@ func (au *AbortionUpdate) SetUserName(s string) *AbortionUpdate {
 	return au
 }
 
+// SetTenantId sets the tenantId field.
+func (au *AbortionUpdate) SetTenantId(i int64) *AbortionUpdate {
+	au.mutation.ResetTenantId()
+	au.mutation.SetTenantId(i)
+	return au
+}
+
+// AddTenantId adds i to tenantId.
+func (au *AbortionUpdate) AddTenantId(i int64) *AbortionUpdate {
+	au.mutation.AddTenantId(i)
+	return au
+}
+
+// SetTenantName sets the tenantName field.
+func (au *AbortionUpdate) SetTenantName(s string) *AbortionUpdate {
+	au.mutation.SetTenantName(s)
+	return au
+}
+
 // SetRemarks sets the remarks field.
 func (au *AbortionUpdate) SetRemarks(s string) *AbortionUpdate {
 	au.mutation.SetRemarks(s)
@@ -352,6 +371,27 @@ func (au *AbortionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: abortion.FieldUserName,
 		})
 	}
+	if value, ok := au.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldTenantId,
+		})
+	}
+	if value, ok := au.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldTenantId,
+		})
+	}
+	if value, ok := au.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: abortion.FieldTenantName,
+		})
+	}
 	if value, ok := au.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -518,6 +558,25 @@ func (auo *AbortionUpdateOne) SetAbortionTypeName(s string) *AbortionUpdateOne {
 // SetUserName sets the userName field.
 func (auo *AbortionUpdateOne) SetUserName(s string) *AbortionUpdateOne {
 	auo.mutation.SetUserName(s)
+	return auo
+}
+
+// SetTenantId sets the tenantId field.
+func (auo *AbortionUpdateOne) SetTenantId(i int64) *AbortionUpdateOne {
+	auo.mutation.ResetTenantId()
+	auo.mutation.SetTenantId(i)
+	return auo
+}
+
+// AddTenantId adds i to tenantId.
+func (auo *AbortionUpdateOne) AddTenantId(i int64) *AbortionUpdateOne {
+	auo.mutation.AddTenantId(i)
+	return auo
+}
+
+// SetTenantName sets the tenantName field.
+func (auo *AbortionUpdateOne) SetTenantName(s string) *AbortionUpdateOne {
+	auo.mutation.SetTenantName(s)
 	return auo
 }
 
@@ -740,6 +799,27 @@ func (auo *AbortionUpdateOne) sqlSave(ctx context.Context) (_node *Abortion, err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: abortion.FieldUserName,
+		})
+	}
+	if value, ok := auo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldTenantId,
+		})
+	}
+	if value, ok := auo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldTenantId,
+		})
+	}
+	if value, ok := auo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: abortion.FieldTenantName,
 		})
 	}
 	if value, ok := auo.mutation.Remarks(); ok {

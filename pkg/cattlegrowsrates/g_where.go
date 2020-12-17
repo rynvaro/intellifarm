@@ -11,5 +11,6 @@ func Where(listParams *params.ListParams) predicate.CattleGrowsRate {
 	if listParams.Q != "" {
 		wheres = append(wheres, cattlegrowsrate.NameContains(listParams.Q))
 	}
+	wheres = append(wheres, cattlegrowsrate.TenantId(listParams.TenantId))
 	return cattlegrowsrate.And(wheres...)
 }

@@ -28,6 +28,8 @@ func (Farm) Fields() []ent.Field {
 		field.String("varietyName").Comment("生产品种").StructTag(`form:"varietyName" required:"true"`),
 		field.String("districtCode").Comment("地区编码").StructTag(`form:"districtCode" required:"true"`),
 		field.String("districtName").Comment("地区").StructTag(`form:"districtName" required:"true"`),
+		field.Int64("tenantId").Comment("租户ID"),
+		field.String("tenantName").Comment("租户组织名称"),
 		field.String("remarks").Comment("备注信息").StructTag(`form:"remarks"`),
 		field.Int64("createdAt").Comment("插入时间"),
 		field.Int64("updatedAt").Comment("更新时间"),

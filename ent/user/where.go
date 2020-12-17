@@ -210,6 +210,13 @@ func TenantId(v int64) predicate.User {
 	})
 }
 
+// TenantName applies equality check predicate on the "tenantName" field. It's identical to TenantNameEQ.
+func TenantName(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTenantName), v))
+	})
+}
+
 // Password applies equality check predicate on the "password" field. It's identical to PasswordEQ.
 func Password(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
@@ -1884,6 +1891,117 @@ func TenantIdLT(v int64) predicate.User {
 func TenantIdLTE(v int64) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantNameEQ applies the EQ predicate on the "tenantName" field.
+func TenantNameEQ(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameNEQ applies the NEQ predicate on the "tenantName" field.
+func TenantNameNEQ(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameIn applies the In predicate on the "tenantName" field.
+func TenantNameIn(vs ...string) predicate.User {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.User(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldTenantName), v...))
+	})
+}
+
+// TenantNameNotIn applies the NotIn predicate on the "tenantName" field.
+func TenantNameNotIn(vs ...string) predicate.User {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.User(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldTenantName), v...))
+	})
+}
+
+// TenantNameGT applies the GT predicate on the "tenantName" field.
+func TenantNameGT(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameGTE applies the GTE predicate on the "tenantName" field.
+func TenantNameGTE(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameLT applies the LT predicate on the "tenantName" field.
+func TenantNameLT(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameLTE applies the LTE predicate on the "tenantName" field.
+func TenantNameLTE(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameContains applies the Contains predicate on the "tenantName" field.
+func TenantNameContains(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameHasPrefix applies the HasPrefix predicate on the "tenantName" field.
+func TenantNameHasPrefix(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameHasSuffix applies the HasSuffix predicate on the "tenantName" field.
+func TenantNameHasSuffix(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameEqualFold applies the EqualFold predicate on the "tenantName" field.
+func TenantNameEqualFold(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameContainsFold applies the ContainsFold predicate on the "tenantName" field.
+func TenantNameContainsFold(v string) predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldTenantName), v))
 	})
 }
 

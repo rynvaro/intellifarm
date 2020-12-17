@@ -75,6 +75,18 @@ func (frc *FeedRecordCreate) SetUserName(s string) *FeedRecordCreate {
 	return frc
 }
 
+// SetTenantId sets the tenantId field.
+func (frc *FeedRecordCreate) SetTenantId(i int64) *FeedRecordCreate {
+	frc.mutation.SetTenantId(i)
+	return frc
+}
+
+// SetTenantName sets the tenantName field.
+func (frc *FeedRecordCreate) SetTenantName(s string) *FeedRecordCreate {
+	frc.mutation.SetTenantName(s)
+	return frc
+}
+
 // SetRemarks sets the remarks field.
 func (frc *FeedRecordCreate) SetRemarks(s string) *FeedRecordCreate {
 	frc.mutation.SetRemarks(s)
@@ -170,6 +182,12 @@ func (frc *FeedRecordCreate) check() error {
 	}
 	if _, ok := frc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
+	}
+	if _, ok := frc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := frc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := frc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -273,6 +291,22 @@ func (frc *FeedRecordCreate) createSpec() (*FeedRecord, *sqlgraph.CreateSpec) {
 			Column: feedrecord.FieldUserName,
 		})
 		_node.UserName = value
+	}
+	if value, ok := frc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: feedrecord.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := frc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: feedrecord.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := frc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

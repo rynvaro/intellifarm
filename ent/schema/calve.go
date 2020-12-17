@@ -35,6 +35,8 @@ func (Calve) Fields() []ent.Field {
 		field.Float32("babyWeight"),
 		field.Int("babyShedId"),
 		field.String("babyShedName"),
+		field.Int64("tenantId").Comment("租户ID"),
+		field.String("tenantName").Comment("租户组织名称"),
 		field.String("remarks"),
 		field.Int64("createdAt").Comment("创建时间"),
 		field.Int64("updatedAt").Comment("更新时间"),

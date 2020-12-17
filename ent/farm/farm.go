@@ -37,6 +37,10 @@ const (
 	FieldDistrictCode = "district_code"
 	// FieldDistrictName holds the string denoting the districtname field in the database.
 	FieldDistrictName = "district_name"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -68,6 +72,8 @@ var Columns = []string{
 	FieldVarietyName,
 	FieldDistrictCode,
 	FieldDistrictName,
+	FieldTenantId,
+	FieldTenantName,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,

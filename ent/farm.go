@@ -45,6 +45,10 @@ type Farm struct {
 	DistrictCode string `json:"districtCode,omitempty" form:"districtCode" required:"true"`
 	// DistrictName holds the value of the "districtName" field.
 	DistrictName string `json:"districtName,omitempty" form:"districtName" required:"true"`
+	// TenantId holds the value of the "tenantId" field.
+	TenantId int64 `json:"tenantId,omitempty"`
+	// TenantName holds the value of the "tenantName" field.
+	TenantName string `json:"tenantName,omitempty"`
 	// Remarks holds the value of the "remarks" field.
 	Remarks string `json:"remarks,omitempty" form:"remarks"`
 	// CreatedAt holds the value of the "createdAt" field.
@@ -74,6 +78,8 @@ func (*Farm) scanValues() []interface{} {
 		&sql.NullString{}, // varietyName
 		&sql.NullString{}, // districtCode
 		&sql.NullString{}, // districtName
+		&sql.NullInt64{},  // tenantId
+		&sql.NullString{}, // tenantName
 		&sql.NullString{}, // remarks
 		&sql.NullInt64{},  // createdAt
 		&sql.NullInt64{},  // updatedAt
@@ -168,23 +174,33 @@ func (f *Farm) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		f.DistrictName = value.String
 	}
-	if value, ok := values[15].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[15])
+	if value, ok := values[15].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[15])
+	} else if value.Valid {
+		f.TenantId = value.Int64
+	}
+	if value, ok := values[16].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[16])
+	} else if value.Valid {
+		f.TenantName = value.String
+	}
+	if value, ok := values[17].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[17])
 	} else if value.Valid {
 		f.Remarks = value.String
 	}
-	if value, ok := values[16].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[16])
+	if value, ok := values[18].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[18])
 	} else if value.Valid {
 		f.CreatedAt = value.Int64
 	}
-	if value, ok := values[17].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[17])
+	if value, ok := values[19].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[19])
 	} else if value.Valid {
 		f.UpdatedAt = value.Int64
 	}
-	if value, ok := values[18].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[18])
+	if value, ok := values[20].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[20])
 	} else if value.Valid {
 		f.Deleted = int(value.Int64)
 	}
@@ -244,6 +260,10 @@ func (f *Farm) String() string {
 	builder.WriteString(f.DistrictCode)
 	builder.WriteString(", districtName=")
 	builder.WriteString(f.DistrictName)
+	builder.WriteString(", tenantId=")
+	builder.WriteString(fmt.Sprintf("%v", f.TenantId))
+	builder.WriteString(", tenantName=")
+	builder.WriteString(f.TenantName)
 	builder.WriteString(", remarks=")
 	builder.WriteString(f.Remarks)
 	builder.WriteString(", createdAt=")

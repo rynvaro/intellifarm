@@ -21,6 +21,8 @@ func (CattleGrowsData) Fields() []ent.Field {
 		field.Int("weight").Comment("体重(kg)"),
 		field.Int("bust").Comment("胸围(cm)"),
 		field.Int("height").Comment("体高(cm)"),
+		field.Int64("tenantId").Comment("租户ID"),
+		field.String("tenantName").Comment("租户组织名称"),
 		field.String("remarks").Comment("备注"),
 		field.Int64("createdAt").Comment("创建时间"),
 		field.Int64("updatedAt").Comment("更新时间"),

@@ -29,6 +29,10 @@ type ConcentrateFormula struct {
 	DisableDate int64 `json:"disableDate,omitempty"`
 	// Cost holds the value of the "cost" field.
 	Cost int64 `json:"cost,omitempty"`
+	// TenantId holds the value of the "tenantId" field.
+	TenantId int64 `json:"tenantId,omitempty"`
+	// TenantName holds the value of the "tenantName" field.
+	TenantName string `json:"tenantName,omitempty"`
 	// Remarks holds the value of the "remarks" field.
 	Remarks string `json:"remarks,omitempty"`
 	// CreatedAt holds the value of the "createdAt" field.
@@ -50,6 +54,8 @@ func (*ConcentrateFormula) scanValues() []interface{} {
 		&sql.NullInt64{},  // adjustDate
 		&sql.NullInt64{},  // disableDate
 		&sql.NullInt64{},  // cost
+		&sql.NullInt64{},  // tenantId
+		&sql.NullString{}, // tenantName
 		&sql.NullString{}, // remarks
 		&sql.NullInt64{},  // createdAt
 		&sql.NullInt64{},  // updatedAt
@@ -104,23 +110,33 @@ func (cf *ConcentrateFormula) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		cf.Cost = value.Int64
 	}
-	if value, ok := values[7].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[7])
+	if value, ok := values[7].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[7])
+	} else if value.Valid {
+		cf.TenantId = value.Int64
+	}
+	if value, ok := values[8].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[8])
+	} else if value.Valid {
+		cf.TenantName = value.String
+	}
+	if value, ok := values[9].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[9])
 	} else if value.Valid {
 		cf.Remarks = value.String
 	}
-	if value, ok := values[8].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[8])
+	if value, ok := values[10].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[10])
 	} else if value.Valid {
 		cf.CreatedAt = value.Int64
 	}
-	if value, ok := values[9].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[9])
+	if value, ok := values[11].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[11])
 	} else if value.Valid {
 		cf.UpdatedAt = value.Int64
 	}
-	if value, ok := values[10].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[10])
+	if value, ok := values[12].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[12])
 	} else if value.Valid {
 		cf.Deleted = int(value.Int64)
 	}
@@ -164,6 +180,10 @@ func (cf *ConcentrateFormula) String() string {
 	builder.WriteString(fmt.Sprintf("%v", cf.DisableDate))
 	builder.WriteString(", cost=")
 	builder.WriteString(fmt.Sprintf("%v", cf.Cost))
+	builder.WriteString(", tenantId=")
+	builder.WriteString(fmt.Sprintf("%v", cf.TenantId))
+	builder.WriteString(", tenantName=")
+	builder.WriteString(cf.TenantName)
 	builder.WriteString(", remarks=")
 	builder.WriteString(cf.Remarks)
 	builder.WriteString(", createdAt=")

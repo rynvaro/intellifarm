@@ -109,6 +109,25 @@ func (mtu *MaterialTestUpdate) SetUserName(s string) *MaterialTestUpdate {
 	return mtu
 }
 
+// SetTenantId sets the tenantId field.
+func (mtu *MaterialTestUpdate) SetTenantId(i int64) *MaterialTestUpdate {
+	mtu.mutation.ResetTenantId()
+	mtu.mutation.SetTenantId(i)
+	return mtu
+}
+
+// AddTenantId adds i to tenantId.
+func (mtu *MaterialTestUpdate) AddTenantId(i int64) *MaterialTestUpdate {
+	mtu.mutation.AddTenantId(i)
+	return mtu
+}
+
+// SetTenantName sets the tenantName field.
+func (mtu *MaterialTestUpdate) SetTenantName(s string) *MaterialTestUpdate {
+	mtu.mutation.SetTenantName(s)
+	return mtu
+}
+
 // SetRemarks sets the remarks field.
 func (mtu *MaterialTestUpdate) SetRemarks(s string) *MaterialTestUpdate {
 	mtu.mutation.SetRemarks(s)
@@ -319,6 +338,27 @@ func (mtu *MaterialTestUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: materialtest.FieldUserName,
 		})
 	}
+	if value, ok := mtu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: materialtest.FieldTenantId,
+		})
+	}
+	if value, ok := mtu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: materialtest.FieldTenantId,
+		})
+	}
+	if value, ok := mtu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: materialtest.FieldTenantName,
+		})
+	}
 	if value, ok := mtu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -465,6 +505,25 @@ func (mtuo *MaterialTestUpdateOne) AddMaterialCategory(i int) *MaterialTestUpdat
 // SetUserName sets the userName field.
 func (mtuo *MaterialTestUpdateOne) SetUserName(s string) *MaterialTestUpdateOne {
 	mtuo.mutation.SetUserName(s)
+	return mtuo
+}
+
+// SetTenantId sets the tenantId field.
+func (mtuo *MaterialTestUpdateOne) SetTenantId(i int64) *MaterialTestUpdateOne {
+	mtuo.mutation.ResetTenantId()
+	mtuo.mutation.SetTenantId(i)
+	return mtuo
+}
+
+// AddTenantId adds i to tenantId.
+func (mtuo *MaterialTestUpdateOne) AddTenantId(i int64) *MaterialTestUpdateOne {
+	mtuo.mutation.AddTenantId(i)
+	return mtuo
+}
+
+// SetTenantName sets the tenantName field.
+func (mtuo *MaterialTestUpdateOne) SetTenantName(s string) *MaterialTestUpdateOne {
+	mtuo.mutation.SetTenantName(s)
 	return mtuo
 }
 
@@ -674,6 +733,27 @@ func (mtuo *MaterialTestUpdateOne) sqlSave(ctx context.Context) (_node *Material
 			Type:   field.TypeString,
 			Value:  value,
 			Column: materialtest.FieldUserName,
+		})
+	}
+	if value, ok := mtuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: materialtest.FieldTenantId,
+		})
+	}
+	if value, ok := mtuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: materialtest.FieldTenantId,
+		})
+	}
+	if value, ok := mtuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: materialtest.FieldTenantName,
 		})
 	}
 	if value, ok := mtuo.mutation.Remarks(); ok {

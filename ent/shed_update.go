@@ -142,6 +142,25 @@ func (su *ShedUpdate) AddHeight(i int64) *ShedUpdate {
 	return su
 }
 
+// SetTenantId sets the tenantId field.
+func (su *ShedUpdate) SetTenantId(i int64) *ShedUpdate {
+	su.mutation.ResetTenantId()
+	su.mutation.SetTenantId(i)
+	return su
+}
+
+// AddTenantId adds i to tenantId.
+func (su *ShedUpdate) AddTenantId(i int64) *ShedUpdate {
+	su.mutation.AddTenantId(i)
+	return su
+}
+
+// SetTenantName sets the tenantName field.
+func (su *ShedUpdate) SetTenantName(s string) *ShedUpdate {
+	su.mutation.SetTenantName(s)
+	return su
+}
+
 // SetRemarks sets the remarks field.
 func (su *ShedUpdate) SetRemarks(s string) *ShedUpdate {
 	su.mutation.SetRemarks(s)
@@ -437,6 +456,27 @@ func (su *ShedUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: shed.FieldHeight,
 		})
 	}
+	if value, ok := su.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shed.FieldTenantId,
+		})
+	}
+	if value, ok := su.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shed.FieldTenantId,
+		})
+	}
+	if value, ok := su.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: shed.FieldTenantName,
+		})
+	}
 	if value, ok := su.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -637,6 +677,25 @@ func (suo *ShedUpdateOne) SetHeight(i int64) *ShedUpdateOne {
 // AddHeight adds i to height.
 func (suo *ShedUpdateOne) AddHeight(i int64) *ShedUpdateOne {
 	suo.mutation.AddHeight(i)
+	return suo
+}
+
+// SetTenantId sets the tenantId field.
+func (suo *ShedUpdateOne) SetTenantId(i int64) *ShedUpdateOne {
+	suo.mutation.ResetTenantId()
+	suo.mutation.SetTenantId(i)
+	return suo
+}
+
+// AddTenantId adds i to tenantId.
+func (suo *ShedUpdateOne) AddTenantId(i int64) *ShedUpdateOne {
+	suo.mutation.AddTenantId(i)
+	return suo
+}
+
+// SetTenantName sets the tenantName field.
+func (suo *ShedUpdateOne) SetTenantName(s string) *ShedUpdateOne {
+	suo.mutation.SetTenantName(s)
 	return suo
 }
 
@@ -931,6 +990,27 @@ func (suo *ShedUpdateOne) sqlSave(ctx context.Context) (_node *Shed, err error) 
 			Type:   field.TypeInt64,
 			Value:  value,
 			Column: shed.FieldHeight,
+		})
+	}
+	if value, ok := suo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shed.FieldTenantId,
+		})
+	}
+	if value, ok := suo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shed.FieldTenantId,
+		})
+	}
+	if value, ok := suo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: shed.FieldTenantName,
 		})
 	}
 	if value, ok := suo.mutation.Remarks(); ok {

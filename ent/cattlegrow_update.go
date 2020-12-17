@@ -169,6 +169,25 @@ func (cgu *CattleGrowUpdate) SetUserName(s string) *CattleGrowUpdate {
 	return cgu
 }
 
+// SetTenantId sets the tenantId field.
+func (cgu *CattleGrowUpdate) SetTenantId(i int64) *CattleGrowUpdate {
+	cgu.mutation.ResetTenantId()
+	cgu.mutation.SetTenantId(i)
+	return cgu
+}
+
+// AddTenantId adds i to tenantId.
+func (cgu *CattleGrowUpdate) AddTenantId(i int64) *CattleGrowUpdate {
+	cgu.mutation.AddTenantId(i)
+	return cgu
+}
+
+// SetTenantName sets the tenantName field.
+func (cgu *CattleGrowUpdate) SetTenantName(s string) *CattleGrowUpdate {
+	cgu.mutation.SetTenantName(s)
+	return cgu
+}
+
 // SetRemarks sets the remarks field.
 func (cgu *CattleGrowUpdate) SetRemarks(s string) *CattleGrowUpdate {
 	cgu.mutation.SetRemarks(s)
@@ -455,6 +474,27 @@ func (cgu *CattleGrowUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: cattlegrow.FieldUserName,
 		})
 	}
+	if value, ok := cgu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegrow.FieldTenantId,
+		})
+	}
+	if value, ok := cgu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegrow.FieldTenantId,
+		})
+	}
+	if value, ok := cgu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegrow.FieldTenantName,
+		})
+	}
 	if value, ok := cgu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -661,6 +701,25 @@ func (cguo *CattleGrowUpdateOne) AddConversionRate(f float32) *CattleGrowUpdateO
 // SetUserName sets the userName field.
 func (cguo *CattleGrowUpdateOne) SetUserName(s string) *CattleGrowUpdateOne {
 	cguo.mutation.SetUserName(s)
+	return cguo
+}
+
+// SetTenantId sets the tenantId field.
+func (cguo *CattleGrowUpdateOne) SetTenantId(i int64) *CattleGrowUpdateOne {
+	cguo.mutation.ResetTenantId()
+	cguo.mutation.SetTenantId(i)
+	return cguo
+}
+
+// AddTenantId adds i to tenantId.
+func (cguo *CattleGrowUpdateOne) AddTenantId(i int64) *CattleGrowUpdateOne {
+	cguo.mutation.AddTenantId(i)
+	return cguo
+}
+
+// SetTenantName sets the tenantName field.
+func (cguo *CattleGrowUpdateOne) SetTenantName(s string) *CattleGrowUpdateOne {
+	cguo.mutation.SetTenantName(s)
 	return cguo
 }
 
@@ -946,6 +1005,27 @@ func (cguo *CattleGrowUpdateOne) sqlSave(ctx context.Context) (_node *CattleGrow
 			Type:   field.TypeString,
 			Value:  value,
 			Column: cattlegrow.FieldUserName,
+		})
+	}
+	if value, ok := cguo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegrow.FieldTenantId,
+		})
+	}
+	if value, ok := cguo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegrow.FieldTenantId,
+		})
+	}
+	if value, ok := cguo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegrow.FieldTenantName,
 		})
 	}
 	if value, ok := cguo.mutation.Remarks(); ok {

@@ -36,6 +36,8 @@ func CattleGrowAddHandler(c *gin.Context) {
 		SetUserName(form.UserName).
 		SetWeightEnd(form.WeightEnd).
 		SetWeightStart(form.WeightStart).
+		SetTenantId(c.MustGet("tenantId").(int64)).
+		SetTenantName(c.MustGet("tenantName").(string)).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -53,6 +55,7 @@ func CattleGrowListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
+	listParams.TenantId = c.MustGet("tenantId").(int64)
 	where := Where(listParams)
 	totalCount, err := db.Client.CattleGrow.Query().Where(where).Count(c.Request.Context())
 	if err != nil {

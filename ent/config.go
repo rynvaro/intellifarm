@@ -69,6 +69,7 @@ type hooks struct {
 	Material            []ent.Hook
 	MaterialTest        []ent.Hook
 	Position            []ent.Hook
+	PositionApi         []ent.Hook
 	PregnancyTest       []ent.Hook
 	PregnancyTestMethod []ent.Hook
 	PregnancyTestResult []ent.Hook

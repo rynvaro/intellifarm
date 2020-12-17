@@ -85,6 +85,18 @@ func (sc *ShedCreate) SetHeight(i int64) *ShedCreate {
 	return sc
 }
 
+// SetTenantId sets the tenantId field.
+func (sc *ShedCreate) SetTenantId(i int64) *ShedCreate {
+	sc.mutation.SetTenantId(i)
+	return sc
+}
+
+// SetTenantName sets the tenantName field.
+func (sc *ShedCreate) SetTenantName(s string) *ShedCreate {
+	sc.mutation.SetTenantName(s)
+	return sc
+}
+
 // SetRemarks sets the remarks field.
 func (sc *ShedCreate) SetRemarks(s string) *ShedCreate {
 	sc.mutation.SetRemarks(s)
@@ -225,6 +237,12 @@ func (sc *ShedCreate) check() error {
 	if _, ok := sc.mutation.Height(); !ok {
 		return &ValidationError{Name: "height", err: errors.New("ent: missing required field \"height\"")}
 	}
+	if _, ok := sc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := sc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
 	if _, ok := sc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
 	}
@@ -357,6 +375,22 @@ func (sc *ShedCreate) createSpec() (*Shed, *sqlgraph.CreateSpec) {
 			Column: shed.FieldHeight,
 		})
 		_node.Height = value
+	}
+	if value, ok := sc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shed.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := sc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: shed.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := sc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

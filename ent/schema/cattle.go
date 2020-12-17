@@ -52,6 +52,8 @@ func (Cattle) Fields() []ent.Field {
 		field.String("breedingTypeName").Comment("配种类型"),
 		field.Int64("bullId").Comment("公牛号"),
 		field.Int64("pregnancyCheckAt").Comment("妊检日期"),
+		field.Int64("tenantId").Comment("租户ID"),
+		field.String("tenantName").Comment("租户组织名称"),
 		field.Int64("createdAt").Comment("创建时间"),
 		field.Int64("updatedAt").Comment("更新时间"),
 		field.Int("deleted").Comment("是否已删除"),

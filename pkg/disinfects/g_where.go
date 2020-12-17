@@ -11,5 +11,6 @@ func Where(listParams *params.ListParams) predicate.Disinfect {
 	if listParams.Q != "" {
 		wheres = append(wheres, disinfect.NameContains(listParams.Q))
 	}
+	wheres = append(wheres, disinfect.TenantId(listParams.TenantId))
 	return disinfect.And(wheres...)
 }

@@ -25,6 +25,8 @@ func (Epidemic) Fields() []ent.Field {
 		field.String("treatmentResultName"),
 		field.Int64("treatmentAt").Comment("治疗结束日期"),
 		field.String("whereabout").Comment("去向"),
+		field.Int64("tenantId").Comment("租户ID"),
+		field.String("tenantName").Comment("租户组织名称"),
 		field.String("remarks").Comment("备注"),
 		field.Int64("createdAt").Comment("创建时间"),
 		field.Int64("updatedAt").Comment("更新时间"),

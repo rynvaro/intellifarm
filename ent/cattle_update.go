@@ -408,6 +408,25 @@ func (cu *CattleUpdate) AddPregnancyCheckAt(i int64) *CattleUpdate {
 	return cu
 }
 
+// SetTenantId sets the tenantId field.
+func (cu *CattleUpdate) SetTenantId(i int64) *CattleUpdate {
+	cu.mutation.ResetTenantId()
+	cu.mutation.SetTenantId(i)
+	return cu
+}
+
+// AddTenantId adds i to tenantId.
+func (cu *CattleUpdate) AddTenantId(i int64) *CattleUpdate {
+	cu.mutation.AddTenantId(i)
+	return cu
+}
+
+// SetTenantName sets the tenantName field.
+func (cu *CattleUpdate) SetTenantName(s string) *CattleUpdate {
+	cu.mutation.SetTenantName(s)
+	return cu
+}
+
 // SetCreatedAt sets the createdAt field.
 func (cu *CattleUpdate) SetCreatedAt(i int64) *CattleUpdate {
 	cu.mutation.ResetCreatedAt()
@@ -964,6 +983,27 @@ func (cu *CattleUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: cattle.FieldPregnancyCheckAt,
 		})
 	}
+	if value, ok := cu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattle.FieldTenantId,
+		})
+	}
+	if value, ok := cu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattle.FieldTenantId,
+		})
+	}
+	if value, ok := cu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattle.FieldTenantName,
+		})
+	}
 	if value, ok := cu.mutation.CreatedAt(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -1402,6 +1442,25 @@ func (cuo *CattleUpdateOne) SetPregnancyCheckAt(i int64) *CattleUpdateOne {
 // AddPregnancyCheckAt adds i to pregnancyCheckAt.
 func (cuo *CattleUpdateOne) AddPregnancyCheckAt(i int64) *CattleUpdateOne {
 	cuo.mutation.AddPregnancyCheckAt(i)
+	return cuo
+}
+
+// SetTenantId sets the tenantId field.
+func (cuo *CattleUpdateOne) SetTenantId(i int64) *CattleUpdateOne {
+	cuo.mutation.ResetTenantId()
+	cuo.mutation.SetTenantId(i)
+	return cuo
+}
+
+// AddTenantId adds i to tenantId.
+func (cuo *CattleUpdateOne) AddTenantId(i int64) *CattleUpdateOne {
+	cuo.mutation.AddTenantId(i)
+	return cuo
+}
+
+// SetTenantName sets the tenantName field.
+func (cuo *CattleUpdateOne) SetTenantName(s string) *CattleUpdateOne {
+	cuo.mutation.SetTenantName(s)
 	return cuo
 }
 
@@ -1957,6 +2016,27 @@ func (cuo *CattleUpdateOne) sqlSave(ctx context.Context) (_node *Cattle, err err
 			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattle.FieldPregnancyCheckAt,
+		})
+	}
+	if value, ok := cuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattle.FieldTenantId,
+		})
+	}
+	if value, ok := cuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattle.FieldTenantId,
+		})
+	}
+	if value, ok := cuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattle.FieldTenantName,
 		})
 	}
 	if value, ok := cuo.mutation.CreatedAt(); ok {

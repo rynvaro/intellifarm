@@ -27,6 +27,8 @@ func (Inspection) Fields() []ent.Field {
 		field.String("resultName").Comment("检疫结果"),
 		field.Int("handleId"),
 		field.String("handleName"),
+		field.Int64("tenantId").Comment("租户ID"),
+		field.String("tenantName").Comment("租户组织名称"),
 		field.String("remarks").Comment("备注"),
 		field.Int64("createdAt").Comment("创建时间"),
 		field.Int64("updatedAt").Comment("更新时间"),

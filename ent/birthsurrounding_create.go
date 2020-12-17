@@ -153,6 +153,18 @@ func (bsc *BirthSurroundingCreate) SetThIndex(f float32) *BirthSurroundingCreate
 	return bsc
 }
 
+// SetTenantId sets the tenantId field.
+func (bsc *BirthSurroundingCreate) SetTenantId(i int64) *BirthSurroundingCreate {
+	bsc.mutation.SetTenantId(i)
+	return bsc
+}
+
+// SetTenantName sets the tenantName field.
+func (bsc *BirthSurroundingCreate) SetTenantName(s string) *BirthSurroundingCreate {
+	bsc.mutation.SetTenantName(s)
+	return bsc
+}
+
 // SetRemarks sets the remarks field.
 func (bsc *BirthSurroundingCreate) SetRemarks(s string) *BirthSurroundingCreate {
 	bsc.mutation.SetRemarks(s)
@@ -304,6 +316,12 @@ func (bsc *BirthSurroundingCreate) check() error {
 	}
 	if _, ok := bsc.mutation.ThIndex(); !ok {
 		return &ValidationError{Name: "thIndex", err: errors.New("ent: missing required field \"thIndex\"")}
+	}
+	if _, ok := bsc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := bsc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := bsc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -511,6 +529,22 @@ func (bsc *BirthSurroundingCreate) createSpec() (*BirthSurrounding, *sqlgraph.Cr
 			Column: birthsurrounding.FieldThIndex,
 		})
 		_node.ThIndex = value
+	}
+	if value, ok := bsc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: birthsurrounding.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := bsc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: birthsurrounding.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := bsc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

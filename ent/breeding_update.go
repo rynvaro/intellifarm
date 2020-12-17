@@ -148,6 +148,25 @@ func (bu *BreedingUpdate) SetUserName(s string) *BreedingUpdate {
 	return bu
 }
 
+// SetTenantId sets the tenantId field.
+func (bu *BreedingUpdate) SetTenantId(i int64) *BreedingUpdate {
+	bu.mutation.ResetTenantId()
+	bu.mutation.SetTenantId(i)
+	return bu
+}
+
+// AddTenantId adds i to tenantId.
+func (bu *BreedingUpdate) AddTenantId(i int64) *BreedingUpdate {
+	bu.mutation.AddTenantId(i)
+	return bu
+}
+
+// SetTenantName sets the tenantName field.
+func (bu *BreedingUpdate) SetTenantName(s string) *BreedingUpdate {
+	bu.mutation.SetTenantName(s)
+	return bu
+}
+
 // SetRemarks sets the remarks field.
 func (bu *BreedingUpdate) SetRemarks(s string) *BreedingUpdate {
 	bu.mutation.SetRemarks(s)
@@ -392,6 +411,27 @@ func (bu *BreedingUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: breeding.FieldUserName,
 		})
 	}
+	if value, ok := bu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: breeding.FieldTenantId,
+		})
+	}
+	if value, ok := bu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: breeding.FieldTenantId,
+		})
+	}
+	if value, ok := bu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: breeding.FieldTenantName,
+		})
+	}
 	if value, ok := bu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -577,6 +617,25 @@ func (buo *BreedingUpdateOne) AddCount(i int) *BreedingUpdateOne {
 // SetUserName sets the userName field.
 func (buo *BreedingUpdateOne) SetUserName(s string) *BreedingUpdateOne {
 	buo.mutation.SetUserName(s)
+	return buo
+}
+
+// SetTenantId sets the tenantId field.
+func (buo *BreedingUpdateOne) SetTenantId(i int64) *BreedingUpdateOne {
+	buo.mutation.ResetTenantId()
+	buo.mutation.SetTenantId(i)
+	return buo
+}
+
+// AddTenantId adds i to tenantId.
+func (buo *BreedingUpdateOne) AddTenantId(i int64) *BreedingUpdateOne {
+	buo.mutation.AddTenantId(i)
+	return buo
+}
+
+// SetTenantName sets the tenantName field.
+func (buo *BreedingUpdateOne) SetTenantName(s string) *BreedingUpdateOne {
+	buo.mutation.SetTenantName(s)
 	return buo
 }
 
@@ -820,6 +879,27 @@ func (buo *BreedingUpdateOne) sqlSave(ctx context.Context) (_node *Breeding, err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: breeding.FieldUserName,
+		})
+	}
+	if value, ok := buo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: breeding.FieldTenantId,
+		})
+	}
+	if value, ok := buo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: breeding.FieldTenantId,
+		})
+	}
+	if value, ok := buo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: breeding.FieldTenantName,
 		})
 	}
 	if value, ok := buo.mutation.Remarks(); ok {

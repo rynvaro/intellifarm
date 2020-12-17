@@ -35,6 +35,10 @@ type Material struct {
 	UserName string `json:"userName,omitempty"`
 	// PayAt holds the value of the "payAt" field.
 	PayAt int64 `json:"payAt,omitempty"`
+	// TenantId holds the value of the "tenantId" field.
+	TenantId int64 `json:"tenantId,omitempty"`
+	// TenantName holds the value of the "tenantName" field.
+	TenantName string `json:"tenantName,omitempty"`
 	// Remarks holds the value of the "remarks" field.
 	Remarks string `json:"remarks,omitempty"`
 	// CreatedAt holds the value of the "createdAt" field.
@@ -59,6 +63,8 @@ func (*Material) scanValues() []interface{} {
 		&sql.NullInt64{},  // status
 		&sql.NullString{}, // userName
 		&sql.NullInt64{},  // payAt
+		&sql.NullInt64{},  // tenantId
+		&sql.NullString{}, // tenantName
 		&sql.NullString{}, // remarks
 		&sql.NullInt64{},  // createdAt
 		&sql.NullInt64{},  // updatedAt
@@ -128,23 +134,33 @@ func (m *Material) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		m.PayAt = value.Int64
 	}
-	if value, ok := values[10].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[10])
+	if value, ok := values[10].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[10])
+	} else if value.Valid {
+		m.TenantId = value.Int64
+	}
+	if value, ok := values[11].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[11])
+	} else if value.Valid {
+		m.TenantName = value.String
+	}
+	if value, ok := values[12].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[12])
 	} else if value.Valid {
 		m.Remarks = value.String
 	}
-	if value, ok := values[11].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[11])
+	if value, ok := values[13].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[13])
 	} else if value.Valid {
 		m.CreatedAt = value.Int64
 	}
-	if value, ok := values[12].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[12])
+	if value, ok := values[14].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[14])
 	} else if value.Valid {
 		m.UpdatedAt = value.Int64
 	}
-	if value, ok := values[13].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[13])
+	if value, ok := values[15].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[15])
 	} else if value.Valid {
 		m.Deleted = int(value.Int64)
 	}
@@ -194,6 +210,10 @@ func (m *Material) String() string {
 	builder.WriteString(m.UserName)
 	builder.WriteString(", payAt=")
 	builder.WriteString(fmt.Sprintf("%v", m.PayAt))
+	builder.WriteString(", tenantId=")
+	builder.WriteString(fmt.Sprintf("%v", m.TenantId))
+	builder.WriteString(", tenantName=")
+	builder.WriteString(m.TenantName)
 	builder.WriteString(", remarks=")
 	builder.WriteString(m.Remarks)
 	builder.WriteString(", createdAt=")

@@ -103,6 +103,18 @@ func (ic *InspectionCreate) SetHandleName(s string) *InspectionCreate {
 	return ic
 }
 
+// SetTenantId sets the tenantId field.
+func (ic *InspectionCreate) SetTenantId(i int64) *InspectionCreate {
+	ic.mutation.SetTenantId(i)
+	return ic
+}
+
+// SetTenantName sets the tenantName field.
+func (ic *InspectionCreate) SetTenantName(s string) *InspectionCreate {
+	ic.mutation.SetTenantName(s)
+	return ic
+}
+
 // SetRemarks sets the remarks field.
 func (ic *InspectionCreate) SetRemarks(s string) *InspectionCreate {
 	ic.mutation.SetRemarks(s)
@@ -219,6 +231,12 @@ func (ic *InspectionCreate) check() error {
 	}
 	if _, ok := ic.mutation.HandleName(); !ok {
 		return &ValidationError{Name: "handleName", err: errors.New("ent: missing required field \"handleName\"")}
+	}
+	if _, ok := ic.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := ic.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := ic.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -370,6 +388,22 @@ func (ic *InspectionCreate) createSpec() (*Inspection, *sqlgraph.CreateSpec) {
 			Column: inspection.FieldHandleName,
 		})
 		_node.HandleName = value
+	}
+	if value, ok := ic.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := ic.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inspection.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := ic.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

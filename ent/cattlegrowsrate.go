@@ -27,6 +27,10 @@ type CattleGrowsRate struct {
 	RatedBy string `json:"ratedBy,omitempty"`
 	// Rate holds the value of the "rate" field.
 	Rate int `json:"rate,omitempty"`
+	// TenantId holds the value of the "tenantId" field.
+	TenantId int64 `json:"tenantId,omitempty"`
+	// TenantName holds the value of the "tenantName" field.
+	TenantName string `json:"tenantName,omitempty"`
 	// Remarks holds the value of the "remarks" field.
 	Remarks string `json:"remarks,omitempty"`
 	// CreatedAt holds the value of the "createdAt" field.
@@ -47,6 +51,8 @@ func (*CattleGrowsRate) scanValues() []interface{} {
 		&sql.NullInt64{},  // ratedAt
 		&sql.NullString{}, // ratedBy
 		&sql.NullInt64{},  // rate
+		&sql.NullInt64{},  // tenantId
+		&sql.NullString{}, // tenantName
 		&sql.NullString{}, // remarks
 		&sql.NullInt64{},  // createdAt
 		&sql.NullInt64{},  // updatedAt
@@ -96,23 +102,33 @@ func (cgr *CattleGrowsRate) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		cgr.Rate = int(value.Int64)
 	}
-	if value, ok := values[6].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[6])
+	if value, ok := values[6].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[6])
+	} else if value.Valid {
+		cgr.TenantId = value.Int64
+	}
+	if value, ok := values[7].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[7])
+	} else if value.Valid {
+		cgr.TenantName = value.String
+	}
+	if value, ok := values[8].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[8])
 	} else if value.Valid {
 		cgr.Remarks = value.String
 	}
-	if value, ok := values[7].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[7])
+	if value, ok := values[9].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[9])
 	} else if value.Valid {
 		cgr.CreatedAt = value.Int64
 	}
-	if value, ok := values[8].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[8])
+	if value, ok := values[10].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[10])
 	} else if value.Valid {
 		cgr.UpdatedAt = value.Int64
 	}
-	if value, ok := values[9].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[9])
+	if value, ok := values[11].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[11])
 	} else if value.Valid {
 		cgr.Deleted = int(value.Int64)
 	}
@@ -154,6 +170,10 @@ func (cgr *CattleGrowsRate) String() string {
 	builder.WriteString(cgr.RatedBy)
 	builder.WriteString(", rate=")
 	builder.WriteString(fmt.Sprintf("%v", cgr.Rate))
+	builder.WriteString(", tenantId=")
+	builder.WriteString(fmt.Sprintf("%v", cgr.TenantId))
+	builder.WriteString(", tenantName=")
+	builder.WriteString(cgr.TenantName)
 	builder.WriteString(", remarks=")
 	builder.WriteString(cgr.Remarks)
 	builder.WriteString(", createdAt=")

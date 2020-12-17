@@ -43,6 +43,7 @@ func TenantListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
+	listParams.TenantId = c.MustGet("tenantId").(int64)
 	where := Where(listParams)
 	totalCount, err := db.Client.Tenant.Query().Where(where).Count(c.Request.Context())
 	if err != nil {

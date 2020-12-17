@@ -38,6 +38,8 @@ func InspectionAddHandler(c *gin.Context) {
 		SetResultId(form.ResultId).
 		SetResultName(form.ResultName).
 		SetShedName(form.ShedName).
+		SetTenantId(c.MustGet("tenantId").(int64)).
+		SetTenantName(c.MustGet("tenantName").(string)).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -55,6 +57,7 @@ func InspectionListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
+	listParams.TenantId = c.MustGet("tenantId").(int64)
 	where := Where(listParams)
 	totalCount, err := db.Client.Inspection.Query().Where(where).Count(c.Request.Context())
 	if err != nil {

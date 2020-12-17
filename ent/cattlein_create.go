@@ -79,6 +79,18 @@ func (cic *CattleInCreate) SetTestCertificateNumber(s string) *CattleInCreate {
 	return cic
 }
 
+// SetTenantId sets the tenantId field.
+func (cic *CattleInCreate) SetTenantId(i int64) *CattleInCreate {
+	cic.mutation.SetTenantId(i)
+	return cic
+}
+
+// SetTenantName sets the tenantName field.
+func (cic *CattleInCreate) SetTenantName(s string) *CattleInCreate {
+	cic.mutation.SetTenantName(s)
+	return cic
+}
+
 // SetRemarks sets the remarks field.
 func (cic *CattleInCreate) SetRemarks(s string) *CattleInCreate {
 	cic.mutation.SetRemarks(s)
@@ -183,6 +195,12 @@ func (cic *CattleInCreate) check() error {
 	}
 	if _, ok := cic.mutation.TestCertificateNumber(); !ok {
 		return &ValidationError{Name: "testCertificateNumber", err: errors.New("ent: missing required field \"testCertificateNumber\"")}
+	}
+	if _, ok := cic.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := cic.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := cic.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -302,6 +320,22 @@ func (cic *CattleInCreate) createSpec() (*CattleIn, *sqlgraph.CreateSpec) {
 			Column: cattlein.FieldTestCertificateNumber,
 		})
 		_node.TestCertificateNumber = value
+	}
+	if value, ok := cic.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlein.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := cic.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlein.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := cic.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

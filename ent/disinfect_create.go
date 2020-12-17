@@ -73,6 +73,18 @@ func (dc *DisinfectCreate) SetDrug(s string) *DisinfectCreate {
 	return dc
 }
 
+// SetTenantId sets the tenantId field.
+func (dc *DisinfectCreate) SetTenantId(i int64) *DisinfectCreate {
+	dc.mutation.SetTenantId(i)
+	return dc
+}
+
+// SetTenantName sets the tenantName field.
+func (dc *DisinfectCreate) SetTenantName(s string) *DisinfectCreate {
+	dc.mutation.SetTenantName(s)
+	return dc
+}
+
 // SetRemarks sets the remarks field.
 func (dc *DisinfectCreate) SetRemarks(s string) *DisinfectCreate {
 	dc.mutation.SetRemarks(s)
@@ -174,6 +186,12 @@ func (dc *DisinfectCreate) check() error {
 	}
 	if _, ok := dc.mutation.Drug(); !ok {
 		return &ValidationError{Name: "drug", err: errors.New("ent: missing required field \"drug\"")}
+	}
+	if _, ok := dc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := dc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := dc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -285,6 +303,22 @@ func (dc *DisinfectCreate) createSpec() (*Disinfect, *sqlgraph.CreateSpec) {
 			Column: disinfect.FieldDrug,
 		})
 		_node.Drug = value
+	}
+	if value, ok := dc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := dc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: disinfect.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := dc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

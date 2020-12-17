@@ -99,6 +99,18 @@ func (cgc *CattleGrowCreate) SetUserName(s string) *CattleGrowCreate {
 	return cgc
 }
 
+// SetTenantId sets the tenantId field.
+func (cgc *CattleGrowCreate) SetTenantId(i int64) *CattleGrowCreate {
+	cgc.mutation.SetTenantId(i)
+	return cgc
+}
+
+// SetTenantName sets the tenantName field.
+func (cgc *CattleGrowCreate) SetTenantName(s string) *CattleGrowCreate {
+	cgc.mutation.SetTenantName(s)
+	return cgc
+}
+
 // SetRemarks sets the remarks field.
 func (cgc *CattleGrowCreate) SetRemarks(s string) *CattleGrowCreate {
 	cgc.mutation.SetRemarks(s)
@@ -216,6 +228,12 @@ func (cgc *CattleGrowCreate) check() error {
 	}
 	if _, ok := cgc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
+	}
+	if _, ok := cgc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := cgc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := cgc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -351,6 +369,22 @@ func (cgc *CattleGrowCreate) createSpec() (*CattleGrow, *sqlgraph.CreateSpec) {
 			Column: cattlegrow.FieldUserName,
 		})
 		_node.UserName = value
+	}
+	if value, ok := cgc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegrow.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := cgc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegrow.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := cgc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

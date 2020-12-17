@@ -67,6 +67,18 @@ func (ic *ImmunityCreate) SetDrug(s string) *ImmunityCreate {
 	return ic
 }
 
+// SetTenantId sets the tenantId field.
+func (ic *ImmunityCreate) SetTenantId(i int64) *ImmunityCreate {
+	ic.mutation.SetTenantId(i)
+	return ic
+}
+
+// SetTenantName sets the tenantName field.
+func (ic *ImmunityCreate) SetTenantName(s string) *ImmunityCreate {
+	ic.mutation.SetTenantName(s)
+	return ic
+}
+
 // SetRemarks sets the remarks field.
 func (ic *ImmunityCreate) SetRemarks(s string) *ImmunityCreate {
 	ic.mutation.SetRemarks(s)
@@ -165,6 +177,12 @@ func (ic *ImmunityCreate) check() error {
 	}
 	if _, ok := ic.mutation.Drug(); !ok {
 		return &ValidationError{Name: "drug", err: errors.New("ent: missing required field \"drug\"")}
+	}
+	if _, ok := ic.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := ic.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := ic.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -268,6 +286,22 @@ func (ic *ImmunityCreate) createSpec() (*Immunity, *sqlgraph.CreateSpec) {
 			Column: immunity.FieldDrug,
 		})
 		_node.Drug = value
+	}
+	if value, ok := ic.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := ic.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: immunity.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := ic.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

@@ -54,6 +54,7 @@ import (
 	"cattleai/ent/material"
 	"cattleai/ent/materialtest"
 	"cattleai/ent/position"
+	"cattleai/ent/positionapi"
 	"cattleai/ent/pregnancytest"
 	"cattleai/ent/pregnancytestmethod"
 	"cattleai/ent/pregnancytestresult"
@@ -171,6 +172,8 @@ type Client struct {
 	MaterialTest *MaterialTestClient
 	// Position is the client for interacting with the Position builders.
 	Position *PositionClient
+	// PositionApi is the client for interacting with the PositionApi builders.
+	PositionApi *PositionApiClient
 	// PregnancyTest is the client for interacting with the PregnancyTest builders.
 	PregnancyTest *PregnancyTestClient
 	// PregnancyTestMethod is the client for interacting with the PregnancyTestMethod builders.
@@ -263,6 +266,7 @@ func (c *Client) init() {
 	c.Material = NewMaterialClient(c.config)
 	c.MaterialTest = NewMaterialTestClient(c.config)
 	c.Position = NewPositionClient(c.config)
+	c.PositionApi = NewPositionApiClient(c.config)
 	c.PregnancyTest = NewPregnancyTestClient(c.config)
 	c.PregnancyTestMethod = NewPregnancyTestMethodClient(c.config)
 	c.PregnancyTestResult = NewPregnancyTestResultClient(c.config)
@@ -357,6 +361,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Material:            NewMaterialClient(cfg),
 		MaterialTest:        NewMaterialTestClient(cfg),
 		Position:            NewPositionClient(cfg),
+		PositionApi:         NewPositionApiClient(cfg),
 		PregnancyTest:       NewPregnancyTestClient(cfg),
 		PregnancyTestMethod: NewPregnancyTestMethodClient(cfg),
 		PregnancyTestResult: NewPregnancyTestResultClient(cfg),
@@ -434,6 +439,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Material:            NewMaterialClient(cfg),
 		MaterialTest:        NewMaterialTestClient(cfg),
 		Position:            NewPositionClient(cfg),
+		PositionApi:         NewPositionApiClient(cfg),
 		PregnancyTest:       NewPregnancyTestClient(cfg),
 		PregnancyTestMethod: NewPregnancyTestMethodClient(cfg),
 		PregnancyTestResult: NewPregnancyTestResultClient(cfg),
@@ -524,6 +530,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.Material.Use(hooks...)
 	c.MaterialTest.Use(hooks...)
 	c.Position.Use(hooks...)
+	c.PositionApi.Use(hooks...)
 	c.PregnancyTest.Use(hooks...)
 	c.PregnancyTestMethod.Use(hooks...)
 	c.PregnancyTestResult.Use(hooks...)
@@ -4501,6 +4508,94 @@ func (c *PositionClient) GetX(ctx context.Context, id int64) *Position {
 // Hooks returns the client hooks.
 func (c *PositionClient) Hooks() []Hook {
 	return c.hooks.Position
+}
+
+// PositionApiClient is a client for the PositionApi schema.
+type PositionApiClient struct {
+	config
+}
+
+// NewPositionApiClient returns a client for the PositionApi from the given config.
+func NewPositionApiClient(c config) *PositionApiClient {
+	return &PositionApiClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `positionapi.Hooks(f(g(h())))`.
+func (c *PositionApiClient) Use(hooks ...Hook) {
+	c.hooks.PositionApi = append(c.hooks.PositionApi, hooks...)
+}
+
+// Create returns a create builder for PositionApi.
+func (c *PositionApiClient) Create() *PositionApiCreate {
+	mutation := newPositionApiMutation(c.config, OpCreate)
+	return &PositionApiCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of PositionApi entities.
+func (c *PositionApiClient) CreateBulk(builders ...*PositionApiCreate) *PositionApiCreateBulk {
+	return &PositionApiCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for PositionApi.
+func (c *PositionApiClient) Update() *PositionApiUpdate {
+	mutation := newPositionApiMutation(c.config, OpUpdate)
+	return &PositionApiUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *PositionApiClient) UpdateOne(pa *PositionApi) *PositionApiUpdateOne {
+	mutation := newPositionApiMutation(c.config, OpUpdateOne, withPositionApi(pa))
+	return &PositionApiUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *PositionApiClient) UpdateOneID(id int64) *PositionApiUpdateOne {
+	mutation := newPositionApiMutation(c.config, OpUpdateOne, withPositionApiID(id))
+	return &PositionApiUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for PositionApi.
+func (c *PositionApiClient) Delete() *PositionApiDelete {
+	mutation := newPositionApiMutation(c.config, OpDelete)
+	return &PositionApiDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *PositionApiClient) DeleteOne(pa *PositionApi) *PositionApiDeleteOne {
+	return c.DeleteOneID(pa.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *PositionApiClient) DeleteOneID(id int64) *PositionApiDeleteOne {
+	builder := c.Delete().Where(positionapi.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &PositionApiDeleteOne{builder}
+}
+
+// Query returns a query builder for PositionApi.
+func (c *PositionApiClient) Query() *PositionApiQuery {
+	return &PositionApiQuery{config: c.config}
+}
+
+// Get returns a PositionApi entity by its id.
+func (c *PositionApiClient) Get(ctx context.Context, id int64) (*PositionApi, error) {
+	return c.Query().Where(positionapi.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *PositionApiClient) GetX(ctx context.Context, id int64) *PositionApi {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *PositionApiClient) Hooks() []Hook {
+	return c.hooks.PositionApi
 }
 
 // PregnancyTestClient is a client for the PregnancyTest schema.

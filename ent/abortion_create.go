@@ -87,6 +87,18 @@ func (ac *AbortionCreate) SetUserName(s string) *AbortionCreate {
 	return ac
 }
 
+// SetTenantId sets the tenantId field.
+func (ac *AbortionCreate) SetTenantId(i int64) *AbortionCreate {
+	ac.mutation.SetTenantId(i)
+	return ac
+}
+
+// SetTenantName sets the tenantName field.
+func (ac *AbortionCreate) SetTenantName(s string) *AbortionCreate {
+	ac.mutation.SetTenantName(s)
+	return ac
+}
+
 // SetRemarks sets the remarks field.
 func (ac *AbortionCreate) SetRemarks(s string) *AbortionCreate {
 	ac.mutation.SetRemarks(s)
@@ -188,6 +200,12 @@ func (ac *AbortionCreate) check() error {
 	}
 	if _, ok := ac.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
+	}
+	if _, ok := ac.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := ac.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := ac.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -307,6 +325,22 @@ func (ac *AbortionCreate) createSpec() (*Abortion, *sqlgraph.CreateSpec) {
 			Column: abortion.FieldUserName,
 		})
 		_node.UserName = value
+	}
+	if value, ok := ac.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := ac.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: abortion.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := ac.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

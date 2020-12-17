@@ -111,6 +111,18 @@ func (ptc *PregnancyTestCreate) SetUserName(s string) *PregnancyTestCreate {
 	return ptc
 }
 
+// SetTenantId sets the tenantId field.
+func (ptc *PregnancyTestCreate) SetTenantId(i int64) *PregnancyTestCreate {
+	ptc.mutation.SetTenantId(i)
+	return ptc
+}
+
+// SetTenantName sets the tenantName field.
+func (ptc *PregnancyTestCreate) SetTenantName(s string) *PregnancyTestCreate {
+	ptc.mutation.SetTenantName(s)
+	return ptc
+}
+
 // SetRemarks sets the remarks field.
 func (ptc *PregnancyTestCreate) SetRemarks(s string) *PregnancyTestCreate {
 	ptc.mutation.SetRemarks(s)
@@ -224,6 +236,12 @@ func (ptc *PregnancyTestCreate) check() error {
 	}
 	if _, ok := ptc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
+	}
+	if _, ok := ptc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := ptc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := ptc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -375,6 +393,22 @@ func (ptc *PregnancyTestCreate) createSpec() (*PregnancyTest, *sqlgraph.CreateSp
 			Column: pregnancytest.FieldUserName,
 		})
 		_node.UserName = value
+	}
+	if value, ok := ptc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: pregnancytest.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := ptc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: pregnancytest.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := ptc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

@@ -129,6 +129,12 @@ func (uc *UserCreate) SetTenantId(i int64) *UserCreate {
 	return uc
 }
 
+// SetTenantName sets the tenantName field.
+func (uc *UserCreate) SetTenantName(s string) *UserCreate {
+	uc.mutation.SetTenantName(s)
+	return uc
+}
+
 // SetPassword sets the password field.
 func (uc *UserCreate) SetPassword(s string) *UserCreate {
 	uc.mutation.SetPassword(s)
@@ -289,6 +295,9 @@ func (uc *UserCreate) check() error {
 	}
 	if _, ok := uc.mutation.TenantId(); !ok {
 		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := uc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := uc.mutation.Password(); !ok {
 		return &ValidationError{Name: "password", err: errors.New("ent: missing required field \"password\"")}
@@ -467,6 +476,14 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			Column: user.FieldTenantId,
 		})
 		_node.TenantId = value
+	}
+	if value, ok := uc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: user.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := uc.mutation.Password(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

@@ -152,6 +152,25 @@ func (fu *FarmUpdate) SetDistrictName(s string) *FarmUpdate {
 	return fu
 }
 
+// SetTenantId sets the tenantId field.
+func (fu *FarmUpdate) SetTenantId(i int64) *FarmUpdate {
+	fu.mutation.ResetTenantId()
+	fu.mutation.SetTenantId(i)
+	return fu
+}
+
+// AddTenantId adds i to tenantId.
+func (fu *FarmUpdate) AddTenantId(i int64) *FarmUpdate {
+	fu.mutation.AddTenantId(i)
+	return fu
+}
+
+// SetTenantName sets the tenantName field.
+func (fu *FarmUpdate) SetTenantName(s string) *FarmUpdate {
+	fu.mutation.SetTenantName(s)
+	return fu
+}
+
 // SetRemarks sets the remarks field.
 func (fu *FarmUpdate) SetRemarks(s string) *FarmUpdate {
 	fu.mutation.SetRemarks(s)
@@ -440,6 +459,27 @@ func (fu *FarmUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: farm.FieldDistrictName,
 		})
 	}
+	if value, ok := fu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: farm.FieldTenantId,
+		})
+	}
+	if value, ok := fu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: farm.FieldTenantId,
+		})
+	}
+	if value, ok := fu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: farm.FieldTenantName,
+		})
+	}
 	if value, ok := fu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -629,6 +669,25 @@ func (fuo *FarmUpdateOne) SetDistrictCode(s string) *FarmUpdateOne {
 // SetDistrictName sets the districtName field.
 func (fuo *FarmUpdateOne) SetDistrictName(s string) *FarmUpdateOne {
 	fuo.mutation.SetDistrictName(s)
+	return fuo
+}
+
+// SetTenantId sets the tenantId field.
+func (fuo *FarmUpdateOne) SetTenantId(i int64) *FarmUpdateOne {
+	fuo.mutation.ResetTenantId()
+	fuo.mutation.SetTenantId(i)
+	return fuo
+}
+
+// AddTenantId adds i to tenantId.
+func (fuo *FarmUpdateOne) AddTenantId(i int64) *FarmUpdateOne {
+	fuo.mutation.AddTenantId(i)
+	return fuo
+}
+
+// SetTenantName sets the tenantName field.
+func (fuo *FarmUpdateOne) SetTenantName(s string) *FarmUpdateOne {
+	fuo.mutation.SetTenantName(s)
 	return fuo
 }
 
@@ -916,6 +975,27 @@ func (fuo *FarmUpdateOne) sqlSave(ctx context.Context) (_node *Farm, err error) 
 			Type:   field.TypeString,
 			Value:  value,
 			Column: farm.FieldDistrictName,
+		})
+	}
+	if value, ok := fuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: farm.FieldTenantId,
+		})
+	}
+	if value, ok := fuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: farm.FieldTenantId,
+		})
+	}
+	if value, ok := fuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: farm.FieldTenantName,
 		})
 	}
 	if value, ok := fuo.mutation.Remarks(); ok {

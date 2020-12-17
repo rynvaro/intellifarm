@@ -63,6 +63,18 @@ func (cgrc *CattleGrowsRateCreate) SetRate(i int) *CattleGrowsRateCreate {
 	return cgrc
 }
 
+// SetTenantId sets the tenantId field.
+func (cgrc *CattleGrowsRateCreate) SetTenantId(i int64) *CattleGrowsRateCreate {
+	cgrc.mutation.SetTenantId(i)
+	return cgrc
+}
+
+// SetTenantName sets the tenantName field.
+func (cgrc *CattleGrowsRateCreate) SetTenantName(s string) *CattleGrowsRateCreate {
+	cgrc.mutation.SetTenantName(s)
+	return cgrc
+}
+
 // SetRemarks sets the remarks field.
 func (cgrc *CattleGrowsRateCreate) SetRemarks(s string) *CattleGrowsRateCreate {
 	cgrc.mutation.SetRemarks(s)
@@ -153,6 +165,12 @@ func (cgrc *CattleGrowsRateCreate) check() error {
 	if _, ok := cgrc.mutation.Rate(); !ok {
 		return &ValidationError{Name: "rate", err: errors.New("ent: missing required field \"rate\"")}
 	}
+	if _, ok := cgrc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := cgrc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
 	if _, ok := cgrc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
 	}
@@ -239,6 +257,22 @@ func (cgrc *CattleGrowsRateCreate) createSpec() (*CattleGrowsRate, *sqlgraph.Cre
 			Column: cattlegrowsrate.FieldRate,
 		})
 		_node.Rate = value
+	}
+	if value, ok := cgrc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegrowsrate.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := cgrc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegrowsrate.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := cgrc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

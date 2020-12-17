@@ -23,6 +23,10 @@ const (
 	FieldUserName = "user_name"
 	// FieldDrug holds the string denoting the drug field in the database.
 	FieldDrug = "drug"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -47,6 +51,8 @@ var Columns = []string{
 	FieldItemName,
 	FieldUserName,
 	FieldDrug,
+	FieldTenantId,
+	FieldTenantName,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,

@@ -89,6 +89,25 @@ func (iu *ImmunityUpdate) SetDrug(s string) *ImmunityUpdate {
 	return iu
 }
 
+// SetTenantId sets the tenantId field.
+func (iu *ImmunityUpdate) SetTenantId(i int64) *ImmunityUpdate {
+	iu.mutation.ResetTenantId()
+	iu.mutation.SetTenantId(i)
+	return iu
+}
+
+// AddTenantId adds i to tenantId.
+func (iu *ImmunityUpdate) AddTenantId(i int64) *ImmunityUpdate {
+	iu.mutation.AddTenantId(i)
+	return iu
+}
+
+// SetTenantName sets the tenantName field.
+func (iu *ImmunityUpdate) SetTenantName(s string) *ImmunityUpdate {
+	iu.mutation.SetTenantName(s)
+	return iu
+}
+
 // SetRemarks sets the remarks field.
 func (iu *ImmunityUpdate) SetRemarks(s string) *ImmunityUpdate {
 	iu.mutation.SetRemarks(s)
@@ -278,6 +297,27 @@ func (iu *ImmunityUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: immunity.FieldDrug,
 		})
 	}
+	if value, ok := iu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldTenantId,
+		})
+	}
+	if value, ok := iu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldTenantId,
+		})
+	}
+	if value, ok := iu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: immunity.FieldTenantName,
+		})
+	}
 	if value, ok := iu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -404,6 +444,25 @@ func (iuo *ImmunityUpdateOne) SetUserName(s string) *ImmunityUpdateOne {
 // SetDrug sets the drug field.
 func (iuo *ImmunityUpdateOne) SetDrug(s string) *ImmunityUpdateOne {
 	iuo.mutation.SetDrug(s)
+	return iuo
+}
+
+// SetTenantId sets the tenantId field.
+func (iuo *ImmunityUpdateOne) SetTenantId(i int64) *ImmunityUpdateOne {
+	iuo.mutation.ResetTenantId()
+	iuo.mutation.SetTenantId(i)
+	return iuo
+}
+
+// AddTenantId adds i to tenantId.
+func (iuo *ImmunityUpdateOne) AddTenantId(i int64) *ImmunityUpdateOne {
+	iuo.mutation.AddTenantId(i)
+	return iuo
+}
+
+// SetTenantName sets the tenantName field.
+func (iuo *ImmunityUpdateOne) SetTenantName(s string) *ImmunityUpdateOne {
+	iuo.mutation.SetTenantName(s)
 	return iuo
 }
 
@@ -592,6 +651,27 @@ func (iuo *ImmunityUpdateOne) sqlSave(ctx context.Context) (_node *Immunity, err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: immunity.FieldDrug,
+		})
+	}
+	if value, ok := iuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldTenantId,
+		})
+	}
+	if value, ok := iuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldTenantId,
+		})
+	}
+	if value, ok := iuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: immunity.FieldTenantName,
 		})
 	}
 	if value, ok := iuo.mutation.Remarks(); ok {

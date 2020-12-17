@@ -9,4 +9,5 @@ type ListParams struct {
 	Paging    paging.Paging `json:"paging" form:"paging"`
 	Level     int           `json:"level" form:"level"`
 	ParentId  int64         `json:"parentId" form:"parentId"`
+	TenantId  int64         `json:"tenantId" form:"tenantId"`
 }

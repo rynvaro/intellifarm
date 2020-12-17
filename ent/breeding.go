@@ -39,6 +39,10 @@ type Breeding struct {
 	Count int `json:"count,omitempty"`
 	// UserName holds the value of the "userName" field.
 	UserName string `json:"userName,omitempty"`
+	// TenantId holds the value of the "tenantId" field.
+	TenantId int64 `json:"tenantId,omitempty"`
+	// TenantName holds the value of the "tenantName" field.
+	TenantName string `json:"tenantName,omitempty"`
 	// Remarks holds the value of the "remarks" field.
 	Remarks string `json:"remarks,omitempty"`
 	// CreatedAt holds the value of the "createdAt" field.
@@ -65,6 +69,8 @@ func (*Breeding) scanValues() []interface{} {
 		&sql.NullString{}, // shedName
 		&sql.NullInt64{},  // count
 		&sql.NullString{}, // userName
+		&sql.NullInt64{},  // tenantId
+		&sql.NullString{}, // tenantName
 		&sql.NullString{}, // remarks
 		&sql.NullInt64{},  // createdAt
 		&sql.NullInt64{},  // updatedAt
@@ -144,23 +150,33 @@ func (b *Breeding) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		b.UserName = value.String
 	}
-	if value, ok := values[12].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[12])
+	if value, ok := values[12].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[12])
+	} else if value.Valid {
+		b.TenantId = value.Int64
+	}
+	if value, ok := values[13].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[13])
+	} else if value.Valid {
+		b.TenantName = value.String
+	}
+	if value, ok := values[14].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[14])
 	} else if value.Valid {
 		b.Remarks = value.String
 	}
-	if value, ok := values[13].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[13])
+	if value, ok := values[15].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[15])
 	} else if value.Valid {
 		b.CreatedAt = value.Int64
 	}
-	if value, ok := values[14].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[14])
+	if value, ok := values[16].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[16])
 	} else if value.Valid {
 		b.UpdatedAt = value.Int64
 	}
-	if value, ok := values[15].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[15])
+	if value, ok := values[17].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[17])
 	} else if value.Valid {
 		b.Deleted = int(value.Int64)
 	}
@@ -214,6 +230,10 @@ func (b *Breeding) String() string {
 	builder.WriteString(fmt.Sprintf("%v", b.Count))
 	builder.WriteString(", userName=")
 	builder.WriteString(b.UserName)
+	builder.WriteString(", tenantId=")
+	builder.WriteString(fmt.Sprintf("%v", b.TenantId))
+	builder.WriteString(", tenantName=")
+	builder.WriteString(b.TenantName)
 	builder.WriteString(", remarks=")
 	builder.WriteString(b.Remarks)
 	builder.WriteString(", createdAt=")

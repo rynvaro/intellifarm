@@ -31,6 +31,10 @@ const (
 	FieldTreatmentAt = "treatment_at"
 	// FieldWhereabout holds the string denoting the whereabout field in the database.
 	FieldWhereabout = "whereabout"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -59,6 +63,8 @@ var Columns = []string{
 	FieldTreatmentResultName,
 	FieldTreatmentAt,
 	FieldWhereabout,
+	FieldTenantId,
+	FieldTenantName,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,

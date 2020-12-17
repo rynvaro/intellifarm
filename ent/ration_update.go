@@ -104,6 +104,25 @@ func (ru *RationUpdate) AddCost(i int64) *RationUpdate {
 	return ru
 }
 
+// SetTenantId sets the tenantId field.
+func (ru *RationUpdate) SetTenantId(i int64) *RationUpdate {
+	ru.mutation.ResetTenantId()
+	ru.mutation.SetTenantId(i)
+	return ru
+}
+
+// AddTenantId adds i to tenantId.
+func (ru *RationUpdate) AddTenantId(i int64) *RationUpdate {
+	ru.mutation.AddTenantId(i)
+	return ru
+}
+
+// SetTenantName sets the tenantName field.
+func (ru *RationUpdate) SetTenantName(s string) *RationUpdate {
+	ru.mutation.SetTenantName(s)
+	return ru
+}
+
 // SetRemarks sets the remarks field.
 func (ru *RationUpdate) SetRemarks(s string) *RationUpdate {
 	ru.mutation.SetRemarks(s)
@@ -307,6 +326,27 @@ func (ru *RationUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: ration.FieldCost,
 		})
 	}
+	if value, ok := ru.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: ration.FieldTenantId,
+		})
+	}
+	if value, ok := ru.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: ration.FieldTenantId,
+		})
+	}
+	if value, ok := ru.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: ration.FieldTenantName,
+		})
+	}
 	if value, ok := ru.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -448,6 +488,25 @@ func (ruo *RationUpdateOne) SetCost(i int64) *RationUpdateOne {
 // AddCost adds i to cost.
 func (ruo *RationUpdateOne) AddCost(i int64) *RationUpdateOne {
 	ruo.mutation.AddCost(i)
+	return ruo
+}
+
+// SetTenantId sets the tenantId field.
+func (ruo *RationUpdateOne) SetTenantId(i int64) *RationUpdateOne {
+	ruo.mutation.ResetTenantId()
+	ruo.mutation.SetTenantId(i)
+	return ruo
+}
+
+// AddTenantId adds i to tenantId.
+func (ruo *RationUpdateOne) AddTenantId(i int64) *RationUpdateOne {
+	ruo.mutation.AddTenantId(i)
+	return ruo
+}
+
+// SetTenantName sets the tenantName field.
+func (ruo *RationUpdateOne) SetTenantName(s string) *RationUpdateOne {
+	ruo.mutation.SetTenantName(s)
 	return ruo
 }
 
@@ -650,6 +709,27 @@ func (ruo *RationUpdateOne) sqlSave(ctx context.Context) (_node *Ration, err err
 			Type:   field.TypeInt64,
 			Value:  value,
 			Column: ration.FieldCost,
+		})
+	}
+	if value, ok := ruo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: ration.FieldTenantId,
+		})
+	}
+	if value, ok := ruo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: ration.FieldTenantId,
+		})
+	}
+	if value, ok := ruo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: ration.FieldTenantName,
 		})
 	}
 	if value, ok := ruo.mutation.Remarks(); ok {

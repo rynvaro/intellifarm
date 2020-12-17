@@ -185,7 +185,7 @@ func init() {
 	// farm.CodeValidator is a validator for the "code" field. It is called by the builders before save.
 	farm.CodeValidator = farmDescCode.Validators[0].(func(string) error)
 	// farmDescDeleted is the schema descriptor for deleted field.
-	farmDescDeleted := farmFields[18].Descriptor()
+	farmDescDeleted := farmFields[20].Descriptor()
 	// farm.DefaultDeleted holds the default value on creation for the deleted field.
 	farm.DefaultDeleted = farmDescDeleted.Default.(int)
 	hairstateFields := schema.HairState{}.Fields()

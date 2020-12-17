@@ -141,6 +141,9 @@ type MaterialTest func(*sql.Selector)
 // Position is the predicate function for position builders.
 type Position func(*sql.Selector)
 
+// PositionApi is the predicate function for positionapi builders.
+type PositionApi func(*sql.Selector)
+
 // PregnancyTest is the predicate function for pregnancytest builders.
 type PregnancyTest func(*sql.Selector)
 

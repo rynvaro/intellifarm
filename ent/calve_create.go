@@ -159,6 +159,18 @@ func (cc *CalveCreate) SetBabyShedName(s string) *CalveCreate {
 	return cc
 }
 
+// SetTenantId sets the tenantId field.
+func (cc *CalveCreate) SetTenantId(i int64) *CalveCreate {
+	cc.mutation.SetTenantId(i)
+	return cc
+}
+
+// SetTenantName sets the tenantName field.
+func (cc *CalveCreate) SetTenantName(s string) *CalveCreate {
+	cc.mutation.SetTenantName(s)
+	return cc
+}
+
 // SetRemarks sets the remarks field.
 func (cc *CalveCreate) SetRemarks(s string) *CalveCreate {
 	cc.mutation.SetRemarks(s)
@@ -296,6 +308,12 @@ func (cc *CalveCreate) check() error {
 	}
 	if _, ok := cc.mutation.BabyShedName(); !ok {
 		return &ValidationError{Name: "babyShedName", err: errors.New("ent: missing required field \"babyShedName\"")}
+	}
+	if _, ok := cc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := cc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := cc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -511,6 +529,22 @@ func (cc *CalveCreate) createSpec() (*Calve, *sqlgraph.CreateSpec) {
 			Column: calve.FieldBabyShedName,
 		})
 		_node.BabyShedName = value
+	}
+	if value, ok := cc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := cc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: calve.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := cc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

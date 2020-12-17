@@ -34,6 +34,8 @@ func (BirthSurrounding) Fields() []ent.Field {
 		field.Int("walkDistance").Comment("行走距离（m）"),
 		field.Int("rained").Comment("是否淋雨，1: 是，0: 否").Default(0),
 		field.Float32("thIndex").Comment("温湿指数(temperature and humidity index)"),
+		field.Int64("tenantId").Comment("租户ID"),
+		field.String("tenantName").Comment("租户组织名称"),
 		field.String("remarks").Comment("备注"),
 		field.Int64("createdAt").Comment("创建时间"),
 		field.Int64("updatedAt").Comment("更新时间"),

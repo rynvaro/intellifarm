@@ -167,6 +167,25 @@ func (ptu *PregnancyTestUpdate) SetUserName(s string) *PregnancyTestUpdate {
 	return ptu
 }
 
+// SetTenantId sets the tenantId field.
+func (ptu *PregnancyTestUpdate) SetTenantId(i int64) *PregnancyTestUpdate {
+	ptu.mutation.ResetTenantId()
+	ptu.mutation.SetTenantId(i)
+	return ptu
+}
+
+// AddTenantId adds i to tenantId.
+func (ptu *PregnancyTestUpdate) AddTenantId(i int64) *PregnancyTestUpdate {
+	ptu.mutation.AddTenantId(i)
+	return ptu
+}
+
+// SetTenantName sets the tenantName field.
+func (ptu *PregnancyTestUpdate) SetTenantName(s string) *PregnancyTestUpdate {
+	ptu.mutation.SetTenantName(s)
+	return ptu
+}
+
 // SetRemarks sets the remarks field.
 func (ptu *PregnancyTestUpdate) SetRemarks(s string) *PregnancyTestUpdate {
 	ptu.mutation.SetRemarks(s)
@@ -432,6 +451,27 @@ func (ptu *PregnancyTestUpdate) sqlSave(ctx context.Context) (n int, err error) 
 			Column: pregnancytest.FieldUserName,
 		})
 	}
+	if value, ok := ptu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: pregnancytest.FieldTenantId,
+		})
+	}
+	if value, ok := ptu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: pregnancytest.FieldTenantId,
+		})
+	}
+	if value, ok := ptu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: pregnancytest.FieldTenantName,
+		})
+	}
 	if value, ok := ptu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -636,6 +676,25 @@ func (ptuo *PregnancyTestUpdateOne) SetPregnancyTestResultName(s string) *Pregna
 // SetUserName sets the userName field.
 func (ptuo *PregnancyTestUpdateOne) SetUserName(s string) *PregnancyTestUpdateOne {
 	ptuo.mutation.SetUserName(s)
+	return ptuo
+}
+
+// SetTenantId sets the tenantId field.
+func (ptuo *PregnancyTestUpdateOne) SetTenantId(i int64) *PregnancyTestUpdateOne {
+	ptuo.mutation.ResetTenantId()
+	ptuo.mutation.SetTenantId(i)
+	return ptuo
+}
+
+// AddTenantId adds i to tenantId.
+func (ptuo *PregnancyTestUpdateOne) AddTenantId(i int64) *PregnancyTestUpdateOne {
+	ptuo.mutation.AddTenantId(i)
+	return ptuo
+}
+
+// SetTenantName sets the tenantName field.
+func (ptuo *PregnancyTestUpdateOne) SetTenantName(s string) *PregnancyTestUpdateOne {
+	ptuo.mutation.SetTenantName(s)
 	return ptuo
 }
 
@@ -900,6 +959,27 @@ func (ptuo *PregnancyTestUpdateOne) sqlSave(ctx context.Context) (_node *Pregnan
 			Type:   field.TypeString,
 			Value:  value,
 			Column: pregnancytest.FieldUserName,
+		})
+	}
+	if value, ok := ptuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: pregnancytest.FieldTenantId,
+		})
+	}
+	if value, ok := ptuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: pregnancytest.FieldTenantId,
+		})
+	}
+	if value, ok := ptuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: pregnancytest.FieldTenantName,
 		})
 	}
 	if value, ok := ptuo.mutation.Remarks(); ok {

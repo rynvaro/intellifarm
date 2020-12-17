@@ -35,6 +35,10 @@ const (
 	FieldPregnancyTestResultName = "pregnancy_test_result_name"
 	// FieldUserName holds the string denoting the username field in the database.
 	FieldUserName = "user_name"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -65,6 +69,8 @@ var Columns = []string{
 	FieldPregnancyTestResultId,
 	FieldPregnancyTestResultName,
 	FieldUserName,
+	FieldTenantId,
+	FieldTenantName,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,

@@ -3,6 +3,7 @@ package main
 import (
 	"cattleai/db"
 	"cattleai/logsys"
+	"cattleai/middleware"
 	"cattleai/router"
 	"time"
 
@@ -24,6 +25,7 @@ func main() {
 	}))
 
 	v1 := r.Group("/api/v1")
+	v1.Use(middleware.ParseTenant())
 
 	router.Register(v1)
 

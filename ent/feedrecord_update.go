@@ -110,6 +110,25 @@ func (fru *FeedRecordUpdate) SetUserName(s string) *FeedRecordUpdate {
 	return fru
 }
 
+// SetTenantId sets the tenantId field.
+func (fru *FeedRecordUpdate) SetTenantId(i int64) *FeedRecordUpdate {
+	fru.mutation.ResetTenantId()
+	fru.mutation.SetTenantId(i)
+	return fru
+}
+
+// AddTenantId adds i to tenantId.
+func (fru *FeedRecordUpdate) AddTenantId(i int64) *FeedRecordUpdate {
+	fru.mutation.AddTenantId(i)
+	return fru
+}
+
+// SetTenantName sets the tenantName field.
+func (fru *FeedRecordUpdate) SetTenantName(s string) *FeedRecordUpdate {
+	fru.mutation.SetTenantName(s)
+	return fru
+}
+
 // SetRemarks sets the remarks field.
 func (fru *FeedRecordUpdate) SetRemarks(s string) *FeedRecordUpdate {
 	fru.mutation.SetRemarks(s)
@@ -312,6 +331,27 @@ func (fru *FeedRecordUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: feedrecord.FieldUserName,
 		})
 	}
+	if value, ok := fru.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: feedrecord.FieldTenantId,
+		})
+	}
+	if value, ok := fru.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: feedrecord.FieldTenantId,
+		})
+	}
+	if value, ok := fru.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: feedrecord.FieldTenantName,
+		})
+	}
 	if value, ok := fru.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -459,6 +499,25 @@ func (fruo *FeedRecordUpdateOne) AddCount(i int64) *FeedRecordUpdateOne {
 // SetUserName sets the userName field.
 func (fruo *FeedRecordUpdateOne) SetUserName(s string) *FeedRecordUpdateOne {
 	fruo.mutation.SetUserName(s)
+	return fruo
+}
+
+// SetTenantId sets the tenantId field.
+func (fruo *FeedRecordUpdateOne) SetTenantId(i int64) *FeedRecordUpdateOne {
+	fruo.mutation.ResetTenantId()
+	fruo.mutation.SetTenantId(i)
+	return fruo
+}
+
+// AddTenantId adds i to tenantId.
+func (fruo *FeedRecordUpdateOne) AddTenantId(i int64) *FeedRecordUpdateOne {
+	fruo.mutation.AddTenantId(i)
+	return fruo
+}
+
+// SetTenantName sets the tenantName field.
+func (fruo *FeedRecordUpdateOne) SetTenantName(s string) *FeedRecordUpdateOne {
+	fruo.mutation.SetTenantName(s)
 	return fruo
 }
 
@@ -660,6 +719,27 @@ func (fruo *FeedRecordUpdateOne) sqlSave(ctx context.Context) (_node *FeedRecord
 			Type:   field.TypeString,
 			Value:  value,
 			Column: feedrecord.FieldUserName,
+		})
+	}
+	if value, ok := fruo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: feedrecord.FieldTenantId,
+		})
+	}
+	if value, ok := fruo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: feedrecord.FieldTenantId,
+		})
+	}
+	if value, ok := fruo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: feedrecord.FieldTenantName,
 		})
 	}
 	if value, ok := fruo.mutation.Remarks(); ok {

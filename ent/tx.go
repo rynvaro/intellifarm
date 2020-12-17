@@ -102,6 +102,8 @@ type Tx struct {
 	MaterialTest *MaterialTestClient
 	// Position is the client for interacting with the Position builders.
 	Position *PositionClient
+	// PositionApi is the client for interacting with the PositionApi builders.
+	PositionApi *PositionApiClient
 	// PregnancyTest is the client for interacting with the PregnancyTest builders.
 	PregnancyTest *PregnancyTestClient
 	// PregnancyTestMethod is the client for interacting with the PregnancyTestMethod builders.
@@ -316,6 +318,7 @@ func (tx *Tx) init() {
 	tx.Material = NewMaterialClient(tx.config)
 	tx.MaterialTest = NewMaterialTestClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)
+	tx.PositionApi = NewPositionApiClient(tx.config)
 	tx.PregnancyTest = NewPregnancyTestClient(tx.config)
 	tx.PregnancyTestMethod = NewPregnancyTestMethodClient(tx.config)
 	tx.PregnancyTestResult = NewPregnancyTestResultClient(tx.config)

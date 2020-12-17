@@ -75,6 +75,18 @@ func (cgdc *CattleGrowsDataCreate) SetHeight(i int) *CattleGrowsDataCreate {
 	return cgdc
 }
 
+// SetTenantId sets the tenantId field.
+func (cgdc *CattleGrowsDataCreate) SetTenantId(i int64) *CattleGrowsDataCreate {
+	cgdc.mutation.SetTenantId(i)
+	return cgdc
+}
+
+// SetTenantName sets the tenantName field.
+func (cgdc *CattleGrowsDataCreate) SetTenantName(s string) *CattleGrowsDataCreate {
+	cgdc.mutation.SetTenantName(s)
+	return cgdc
+}
+
 // SetRemarks sets the remarks field.
 func (cgdc *CattleGrowsDataCreate) SetRemarks(s string) *CattleGrowsDataCreate {
 	cgdc.mutation.SetRemarks(s)
@@ -170,6 +182,12 @@ func (cgdc *CattleGrowsDataCreate) check() error {
 	}
 	if _, ok := cgdc.mutation.Height(); !ok {
 		return &ValidationError{Name: "height", err: errors.New("ent: missing required field \"height\"")}
+	}
+	if _, ok := cgdc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := cgdc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := cgdc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -273,6 +291,22 @@ func (cgdc *CattleGrowsDataCreate) createSpec() (*CattleGrowsData, *sqlgraph.Cre
 			Column: cattlegrowsdata.FieldHeight,
 		})
 		_node.Height = value
+	}
+	if value, ok := cgdc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegrowsdata.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := cgdc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegrowsdata.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := cgdc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

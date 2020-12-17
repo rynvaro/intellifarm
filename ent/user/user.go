@@ -41,6 +41,8 @@ const (
 	FieldJoinedAt = "joined_at"
 	// FieldTenantId holds the string denoting the tenantid field in the database.
 	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
 	// FieldPassword holds the string denoting the password field in the database.
 	FieldPassword = "password"
 	// FieldRemarks holds the string denoting the remarks field in the database.
@@ -76,6 +78,7 @@ var Columns = []string{
 	FieldOnJobState,
 	FieldJoinedAt,
 	FieldTenantId,
+	FieldTenantName,
 	FieldPassword,
 	FieldRemarks,
 	FieldCreatedAt,

@@ -51,6 +51,10 @@ const (
 	FieldBabyShedId = "baby_shed_id"
 	// FieldBabyShedName holds the string denoting the babyshedname field in the database.
 	FieldBabyShedName = "baby_shed_name"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -89,6 +93,8 @@ var Columns = []string{
 	FieldBabyWeight,
 	FieldBabyShedId,
 	FieldBabyShedName,
+	FieldTenantId,
+	FieldTenantName,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,

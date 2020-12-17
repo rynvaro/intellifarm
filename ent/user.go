@@ -49,6 +49,8 @@ type User struct {
 	JoinedAt int64 `json:"joinedAt,omitempty"`
 	// TenantId holds the value of the "tenantId" field.
 	TenantId int64 `json:"tenantId,omitempty"`
+	// TenantName holds the value of the "tenantName" field.
+	TenantName string `json:"tenantName,omitempty"`
 	// Password holds the value of the "password" field.
 	Password string `json:"password,omitempty"`
 	// Remarks holds the value of the "remarks" field.
@@ -82,6 +84,7 @@ func (*User) scanValues() []interface{} {
 		&sql.NullInt64{},  // onJobState
 		&sql.NullInt64{},  // joinedAt
 		&sql.NullInt64{},  // tenantId
+		&sql.NullString{}, // tenantName
 		&sql.NullString{}, // password
 		&sql.NullString{}, // remarks
 		&sql.NullInt64{},  // createdAt
@@ -188,27 +191,32 @@ func (u *User) assignValues(values ...interface{}) error {
 		u.TenantId = value.Int64
 	}
 	if value, ok := values[17].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field password", values[17])
+		return fmt.Errorf("unexpected type %T for field tenantName", values[17])
+	} else if value.Valid {
+		u.TenantName = value.String
+	}
+	if value, ok := values[18].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field password", values[18])
 	} else if value.Valid {
 		u.Password = value.String
 	}
-	if value, ok := values[18].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[18])
+	if value, ok := values[19].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[19])
 	} else if value.Valid {
 		u.Remarks = value.String
 	}
-	if value, ok := values[19].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[19])
+	if value, ok := values[20].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[20])
 	} else if value.Valid {
 		u.CreatedAt = value.Int64
 	}
-	if value, ok := values[20].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[20])
+	if value, ok := values[21].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[21])
 	} else if value.Valid {
 		u.UpdatedAt = value.Int64
 	}
-	if value, ok := values[21].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[21])
+	if value, ok := values[22].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[22])
 	} else if value.Valid {
 		u.Deleted = int(value.Int64)
 	}
@@ -272,6 +280,8 @@ func (u *User) String() string {
 	builder.WriteString(fmt.Sprintf("%v", u.JoinedAt))
 	builder.WriteString(", tenantId=")
 	builder.WriteString(fmt.Sprintf("%v", u.TenantId))
+	builder.WriteString(", tenantName=")
+	builder.WriteString(u.TenantName)
 	builder.WriteString(", password=")
 	builder.WriteString(u.Password)
 	builder.WriteString(", remarks=")

@@ -24,6 +24,8 @@ func (Shed) Fields() []ent.Field {
 		field.Int64("length").Comment("长（m）"),
 		field.Int64("width").Comment("宽（m）"),
 		field.Int64("height").Comment("高（m）"),
+		field.Int64("tenantId").Comment("租户ID"),
+		field.String("tenantName").Comment("租户组织名称"),
 		field.String("remarks").Comment("备注"),
 		field.Int("userId").Comment("负责人ID"),
 		field.String("userName").Comment("负责人"),

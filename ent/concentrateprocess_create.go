@@ -61,6 +61,18 @@ func (cpc *ConcentrateProcessCreate) SetUserName(s string) *ConcentrateProcessCr
 	return cpc
 }
 
+// SetTenantId sets the tenantId field.
+func (cpc *ConcentrateProcessCreate) SetTenantId(i int64) *ConcentrateProcessCreate {
+	cpc.mutation.SetTenantId(i)
+	return cpc
+}
+
+// SetTenantName sets the tenantName field.
+func (cpc *ConcentrateProcessCreate) SetTenantName(s string) *ConcentrateProcessCreate {
+	cpc.mutation.SetTenantName(s)
+	return cpc
+}
+
 // SetRemarks sets the remarks field.
 func (cpc *ConcentrateProcessCreate) SetRemarks(s string) *ConcentrateProcessCreate {
 	cpc.mutation.SetRemarks(s)
@@ -157,6 +169,12 @@ func (cpc *ConcentrateProcessCreate) check() error {
 	if _, ok := cpc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
 	}
+	if _, ok := cpc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := cpc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
 	if _, ok := cpc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
 	}
@@ -251,6 +269,22 @@ func (cpc *ConcentrateProcessCreate) createSpec() (*ConcentrateProcess, *sqlgrap
 			Column: concentrateprocess.FieldUserName,
 		})
 		_node.UserName = value
+	}
+	if value, ok := cpc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateprocess.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := cpc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: concentrateprocess.FieldTenantName,
+		})
+		_node.TenantName = value
 	}
 	if value, ok := cpc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

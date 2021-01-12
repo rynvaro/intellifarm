@@ -476,6 +476,19 @@ func (f EstrusTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, 
 	return f(ctx, mv)
 }
 
+// The EventFunc type is an adapter to allow the use of ordinary
+// function as Event mutator.
+type EventFunc func(context.Context, *ent.EventMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f EventFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.EventMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.EventMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The FarmFunc type is an adapter to allow the use of ordinary
 // function as Farm mutator.
 type FarmFunc func(context.Context, *ent.FarmMutation) (ent.Value, error)
@@ -576,6 +589,19 @@ func (f MaterialTestFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value
 	mv, ok := m.(*ent.MaterialTestMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MaterialTestMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The OperationFunc type is an adapter to allow the use of ordinary
+// function as Operation mutator.
+type OperationFunc func(context.Context, *ent.OperationMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f OperationFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.OperationMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.OperationMutation", m)
 	}
 	return f(ctx, mv)
 }

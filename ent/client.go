@@ -45,6 +45,7 @@ import (
 	"cattleai/ent/epidemictype"
 	"cattleai/ent/estrus"
 	"cattleai/ent/estrustype"
+	"cattleai/ent/event"
 	"cattleai/ent/farm"
 	"cattleai/ent/feedgroup"
 	"cattleai/ent/feedrecord"
@@ -53,6 +54,7 @@ import (
 	"cattleai/ent/inspection"
 	"cattleai/ent/material"
 	"cattleai/ent/materialtest"
+	"cattleai/ent/operation"
 	"cattleai/ent/position"
 	"cattleai/ent/positionapi"
 	"cattleai/ent/pregnancytest"
@@ -154,6 +156,8 @@ type Client struct {
 	Estrus *EstrusClient
 	// EstrusType is the client for interacting with the EstrusType builders.
 	EstrusType *EstrusTypeClient
+	// Event is the client for interacting with the Event builders.
+	Event *EventClient
 	// Farm is the client for interacting with the Farm builders.
 	Farm *FarmClient
 	// FeedGroup is the client for interacting with the FeedGroup builders.
@@ -170,6 +174,8 @@ type Client struct {
 	Material *MaterialClient
 	// MaterialTest is the client for interacting with the MaterialTest builders.
 	MaterialTest *MaterialTestClient
+	// Operation is the client for interacting with the Operation builders.
+	Operation *OperationClient
 	// Position is the client for interacting with the Position builders.
 	Position *PositionClient
 	// PositionApi is the client for interacting with the PositionApi builders.
@@ -257,6 +263,7 @@ func (c *Client) init() {
 	c.EpidemicType = NewEpidemicTypeClient(c.config)
 	c.Estrus = NewEstrusClient(c.config)
 	c.EstrusType = NewEstrusTypeClient(c.config)
+	c.Event = NewEventClient(c.config)
 	c.Farm = NewFarmClient(c.config)
 	c.FeedGroup = NewFeedGroupClient(c.config)
 	c.FeedRecord = NewFeedRecordClient(c.config)
@@ -265,6 +272,7 @@ func (c *Client) init() {
 	c.Inspection = NewInspectionClient(c.config)
 	c.Material = NewMaterialClient(c.config)
 	c.MaterialTest = NewMaterialTestClient(c.config)
+	c.Operation = NewOperationClient(c.config)
 	c.Position = NewPositionClient(c.config)
 	c.PositionApi = NewPositionApiClient(c.config)
 	c.PregnancyTest = NewPregnancyTestClient(c.config)
@@ -352,6 +360,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		EpidemicType:        NewEpidemicTypeClient(cfg),
 		Estrus:              NewEstrusClient(cfg),
 		EstrusType:          NewEstrusTypeClient(cfg),
+		Event:               NewEventClient(cfg),
 		Farm:                NewFarmClient(cfg),
 		FeedGroup:           NewFeedGroupClient(cfg),
 		FeedRecord:          NewFeedRecordClient(cfg),
@@ -360,6 +369,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		Inspection:          NewInspectionClient(cfg),
 		Material:            NewMaterialClient(cfg),
 		MaterialTest:        NewMaterialTestClient(cfg),
+		Operation:           NewOperationClient(cfg),
 		Position:            NewPositionClient(cfg),
 		PositionApi:         NewPositionApiClient(cfg),
 		PregnancyTest:       NewPregnancyTestClient(cfg),
@@ -430,6 +440,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		EpidemicType:        NewEpidemicTypeClient(cfg),
 		Estrus:              NewEstrusClient(cfg),
 		EstrusType:          NewEstrusTypeClient(cfg),
+		Event:               NewEventClient(cfg),
 		Farm:                NewFarmClient(cfg),
 		FeedGroup:           NewFeedGroupClient(cfg),
 		FeedRecord:          NewFeedRecordClient(cfg),
@@ -438,6 +449,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		Inspection:          NewInspectionClient(cfg),
 		Material:            NewMaterialClient(cfg),
 		MaterialTest:        NewMaterialTestClient(cfg),
+		Operation:           NewOperationClient(cfg),
 		Position:            NewPositionClient(cfg),
 		PositionApi:         NewPositionApiClient(cfg),
 		PregnancyTest:       NewPregnancyTestClient(cfg),
@@ -521,6 +533,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.EpidemicType.Use(hooks...)
 	c.Estrus.Use(hooks...)
 	c.EstrusType.Use(hooks...)
+	c.Event.Use(hooks...)
 	c.Farm.Use(hooks...)
 	c.FeedGroup.Use(hooks...)
 	c.FeedRecord.Use(hooks...)
@@ -529,6 +542,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.Inspection.Use(hooks...)
 	c.Material.Use(hooks...)
 	c.MaterialTest.Use(hooks...)
+	c.Operation.Use(hooks...)
 	c.Position.Use(hooks...)
 	c.PositionApi.Use(hooks...)
 	c.PregnancyTest.Use(hooks...)
@@ -3718,6 +3732,94 @@ func (c *EstrusTypeClient) Hooks() []Hook {
 	return c.hooks.EstrusType
 }
 
+// EventClient is a client for the Event schema.
+type EventClient struct {
+	config
+}
+
+// NewEventClient returns a client for the Event from the given config.
+func NewEventClient(c config) *EventClient {
+	return &EventClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `event.Hooks(f(g(h())))`.
+func (c *EventClient) Use(hooks ...Hook) {
+	c.hooks.Event = append(c.hooks.Event, hooks...)
+}
+
+// Create returns a create builder for Event.
+func (c *EventClient) Create() *EventCreate {
+	mutation := newEventMutation(c.config, OpCreate)
+	return &EventCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Event entities.
+func (c *EventClient) CreateBulk(builders ...*EventCreate) *EventCreateBulk {
+	return &EventCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Event.
+func (c *EventClient) Update() *EventUpdate {
+	mutation := newEventMutation(c.config, OpUpdate)
+	return &EventUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *EventClient) UpdateOne(e *Event) *EventUpdateOne {
+	mutation := newEventMutation(c.config, OpUpdateOne, withEvent(e))
+	return &EventUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *EventClient) UpdateOneID(id int64) *EventUpdateOne {
+	mutation := newEventMutation(c.config, OpUpdateOne, withEventID(id))
+	return &EventUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Event.
+func (c *EventClient) Delete() *EventDelete {
+	mutation := newEventMutation(c.config, OpDelete)
+	return &EventDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *EventClient) DeleteOne(e *Event) *EventDeleteOne {
+	return c.DeleteOneID(e.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *EventClient) DeleteOneID(id int64) *EventDeleteOne {
+	builder := c.Delete().Where(event.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &EventDeleteOne{builder}
+}
+
+// Query returns a query builder for Event.
+func (c *EventClient) Query() *EventQuery {
+	return &EventQuery{config: c.config}
+}
+
+// Get returns a Event entity by its id.
+func (c *EventClient) Get(ctx context.Context, id int64) (*Event, error) {
+	return c.Query().Where(event.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *EventClient) GetX(ctx context.Context, id int64) *Event {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *EventClient) Hooks() []Hook {
+	return c.hooks.Event
+}
+
 // FarmClient is a client for the Farm schema.
 type FarmClient struct {
 	config
@@ -4420,6 +4522,94 @@ func (c *MaterialTestClient) GetX(ctx context.Context, id int64) *MaterialTest {
 // Hooks returns the client hooks.
 func (c *MaterialTestClient) Hooks() []Hook {
 	return c.hooks.MaterialTest
+}
+
+// OperationClient is a client for the Operation schema.
+type OperationClient struct {
+	config
+}
+
+// NewOperationClient returns a client for the Operation from the given config.
+func NewOperationClient(c config) *OperationClient {
+	return &OperationClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `operation.Hooks(f(g(h())))`.
+func (c *OperationClient) Use(hooks ...Hook) {
+	c.hooks.Operation = append(c.hooks.Operation, hooks...)
+}
+
+// Create returns a create builder for Operation.
+func (c *OperationClient) Create() *OperationCreate {
+	mutation := newOperationMutation(c.config, OpCreate)
+	return &OperationCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Operation entities.
+func (c *OperationClient) CreateBulk(builders ...*OperationCreate) *OperationCreateBulk {
+	return &OperationCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Operation.
+func (c *OperationClient) Update() *OperationUpdate {
+	mutation := newOperationMutation(c.config, OpUpdate)
+	return &OperationUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *OperationClient) UpdateOne(o *Operation) *OperationUpdateOne {
+	mutation := newOperationMutation(c.config, OpUpdateOne, withOperation(o))
+	return &OperationUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *OperationClient) UpdateOneID(id int64) *OperationUpdateOne {
+	mutation := newOperationMutation(c.config, OpUpdateOne, withOperationID(id))
+	return &OperationUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Operation.
+func (c *OperationClient) Delete() *OperationDelete {
+	mutation := newOperationMutation(c.config, OpDelete)
+	return &OperationDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *OperationClient) DeleteOne(o *Operation) *OperationDeleteOne {
+	return c.DeleteOneID(o.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *OperationClient) DeleteOneID(id int64) *OperationDeleteOne {
+	builder := c.Delete().Where(operation.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &OperationDeleteOne{builder}
+}
+
+// Query returns a query builder for Operation.
+func (c *OperationClient) Query() *OperationQuery {
+	return &OperationQuery{config: c.config}
+}
+
+// Get returns a Operation entity by its id.
+func (c *OperationClient) Get(ctx context.Context, id int64) (*Operation, error) {
+	return c.Query().Where(operation.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *OperationClient) GetX(ctx context.Context, id int64) *Operation {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *OperationClient) Hooks() []Hook {
+	return c.hooks.Operation
 }
 
 // PositionClient is a client for the Position schema.

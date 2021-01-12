@@ -60,6 +60,7 @@ type hooks struct {
 	EpidemicType        []ent.Hook
 	Estrus              []ent.Hook
 	EstrusType          []ent.Hook
+	Event               []ent.Hook
 	Farm                []ent.Hook
 	FeedGroup           []ent.Hook
 	FeedRecord          []ent.Hook
@@ -68,6 +69,7 @@ type hooks struct {
 	Inspection          []ent.Hook
 	Material            []ent.Hook
 	MaterialTest        []ent.Hook
+	Operation           []ent.Hook
 	Position            []ent.Hook
 	PositionApi         []ent.Hook
 	PregnancyTest       []ent.Hook

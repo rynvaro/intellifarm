@@ -15,7 +15,7 @@ func (API) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int64("id"),
 		field.String("name"),
-		field.String("path").Unique(),
+		field.String("path"),
 		field.Int("level"),
 		field.String("hash"),
 		field.String("redirect").Optional(),

@@ -114,6 +114,9 @@ type Estrus func(*sql.Selector)
 // EstrusType is the predicate function for estrustype builders.
 type EstrusType func(*sql.Selector)
 
+// Event is the predicate function for event builders.
+type Event func(*sql.Selector)
+
 // Farm is the predicate function for farm builders.
 type Farm func(*sql.Selector)
 
@@ -137,6 +140,9 @@ type Material func(*sql.Selector)
 
 // MaterialTest is the predicate function for materialtest builders.
 type MaterialTest func(*sql.Selector)
+
+// Operation is the predicate function for operation builders.
+type Operation func(*sql.Selector)
 
 // Position is the predicate function for position builders.
 type Position func(*sql.Selector)

@@ -12,7 +12,7 @@ var (
 	ApIsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
-		{Name: "path", Type: field.TypeString, Unique: true},
+		{Name: "path", Type: field.TypeString},
 		{Name: "level", Type: field.TypeInt},
 		{Name: "hash", Type: field.TypeString},
 		{Name: "redirect", Type: field.TypeString, Nullable: true},
@@ -718,6 +718,24 @@ var (
 		PrimaryKey:  []*schema.Column{EstrusTypesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// EventsColumns holds the columns for the "events" table.
+	EventsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "ear_number", Type: field.TypeInt64},
+		{Name: "event_type", Type: field.TypeString},
+		{Name: "event_name", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// EventsTable holds the schema information for the "events" table.
+	EventsTable = &schema.Table{
+		Name:        "events",
+		Columns:     EventsColumns,
+		PrimaryKey:  []*schema.Column{EventsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// FarmsColumns holds the columns for the "farms" table.
 	FarmsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -905,6 +923,26 @@ var (
 		Name:        "material_tests",
 		Columns:     MaterialTestsColumns,
 		PrimaryKey:  []*schema.Column{MaterialTestsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// OperationsColumns holds the columns for the "operations" table.
+	OperationsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "user_id", Type: field.TypeInt64},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "api", Type: field.TypeString},
+		{Name: "ip", Type: field.TypeString},
+		{Name: "method", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// OperationsTable holds the schema information for the "operations" table.
+	OperationsTable = &schema.Table{
+		Name:        "operations",
+		Columns:     OperationsColumns,
+		PrimaryKey:  []*schema.Column{OperationsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// PositionsColumns holds the columns for the "positions" table.
@@ -1249,6 +1287,7 @@ var (
 		EpidemicTypesTable,
 		EstrusTable,
 		EstrusTypesTable,
+		EventsTable,
 		FarmsTable,
 		FeedGroupsTable,
 		FeedRecordsTable,
@@ -1257,6 +1296,7 @@ var (
 		InspectionsTable,
 		MaterialsTable,
 		MaterialTestsTable,
+		OperationsTable,
 		PositionsTable,
 		PositionApisTable,
 		PregnancyTestsTable,

@@ -84,6 +84,8 @@ type Tx struct {
 	Estrus *EstrusClient
 	// EstrusType is the client for interacting with the EstrusType builders.
 	EstrusType *EstrusTypeClient
+	// Event is the client for interacting with the Event builders.
+	Event *EventClient
 	// Farm is the client for interacting with the Farm builders.
 	Farm *FarmClient
 	// FeedGroup is the client for interacting with the FeedGroup builders.
@@ -100,6 +102,8 @@ type Tx struct {
 	Material *MaterialClient
 	// MaterialTest is the client for interacting with the MaterialTest builders.
 	MaterialTest *MaterialTestClient
+	// Operation is the client for interacting with the Operation builders.
+	Operation *OperationClient
 	// Position is the client for interacting with the Position builders.
 	Position *PositionClient
 	// PositionApi is the client for interacting with the PositionApi builders.
@@ -309,6 +313,7 @@ func (tx *Tx) init() {
 	tx.EpidemicType = NewEpidemicTypeClient(tx.config)
 	tx.Estrus = NewEstrusClient(tx.config)
 	tx.EstrusType = NewEstrusTypeClient(tx.config)
+	tx.Event = NewEventClient(tx.config)
 	tx.Farm = NewFarmClient(tx.config)
 	tx.FeedGroup = NewFeedGroupClient(tx.config)
 	tx.FeedRecord = NewFeedRecordClient(tx.config)
@@ -317,6 +322,7 @@ func (tx *Tx) init() {
 	tx.Inspection = NewInspectionClient(tx.config)
 	tx.Material = NewMaterialClient(tx.config)
 	tx.MaterialTest = NewMaterialTestClient(tx.config)
+	tx.Operation = NewOperationClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)
 	tx.PositionApi = NewPositionApiClient(tx.config)
 	tx.PregnancyTest = NewPregnancyTestClient(tx.config)

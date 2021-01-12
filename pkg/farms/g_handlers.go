@@ -22,6 +22,7 @@ func FarmAddHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(form.String())
+
 	farm, err := db.Client.Farm.Create().
 		SetCategoryId(form.CategoryId).
 		SetCategoryName(form.CategoryName).

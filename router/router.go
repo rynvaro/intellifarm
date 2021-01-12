@@ -32,6 +32,7 @@ import (
 	"cattleai/pkg/epidemictypes"
 	"cattleai/pkg/estruses"
 	"cattleai/pkg/estrustypes"
+	"cattleai/pkg/events"
 	"cattleai/pkg/farms"
 	"cattleai/pkg/feedrecords"
 	"cattleai/pkg/hairstates"
@@ -39,6 +40,7 @@ import (
 	"cattleai/pkg/inspections"
 	"cattleai/pkg/materials"
 	"cattleai/pkg/materialtests"
+	"cattleai/pkg/operations"
 	"cattleai/pkg/positions"
 	"cattleai/pkg/pregnancytestmethods"
 	"cattleai/pkg/pregnancytestresults"
@@ -155,4 +157,7 @@ func Register(g *gin.RouterGroup) {
 	apis.RegisterRoutes(g)
 
 	tenants.RegisterRoutes(g)
+
+	events.RegisterRoutes(g)
+	operations.RegisterRoutes(g)
 }

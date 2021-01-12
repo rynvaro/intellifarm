@@ -55,6 +55,20 @@ func UserLogin(c *gin.Context) {
 	userJsonData, _ := json.Marshal(currentUser)
 	cache.L1Cache.Add(token, string(userJsonData), time.Hour*24)
 
+	if _, err := db.Client.Operation.Create().
+		SetUserId(currentUser.ID).
+		SetUserName(currentUser.Name).
+		SetTenantId(currentUser.TenantId).
+		SetTenantName(currentUser.TenantName).
+		SetDeleted(0).
+		SetMethod(c.Request.Method).
+		SetIP(c.ClientIP()).
+		SetAPI(c.Request.URL.String()).
+		SetCreatedAt(time.Now().Unix()).
+		Save(c.Request.Context()); err != nil {
+		log.Error().Msg(err.Error())
+	}
+
 	c.JSON(http.StatusOK, resp.Success(token))
 }
 

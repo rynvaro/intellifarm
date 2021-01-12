@@ -26,6 +26,7 @@ func main() {
 
 	v1 := r.Group("/api/v1")
 	v1.Use(middleware.ParseTenant())
+	v1.Use(middleware.SaveOperation())
 
 	router.Register(v1)
 

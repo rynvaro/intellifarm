@@ -36,10 +36,12 @@ import (
 	"cattleai/pkg/farms"
 	"cattleai/pkg/feedrecords"
 	"cattleai/pkg/hairstates"
+	"cattleai/pkg/healthcares"
 	"cattleai/pkg/immunities"
 	"cattleai/pkg/inspections"
 	"cattleai/pkg/materials"
 	"cattleai/pkg/materialtests"
+	"cattleai/pkg/medicines"
 	"cattleai/pkg/operations"
 	"cattleai/pkg/positions"
 	"cattleai/pkg/pregnancytestmethods"
@@ -160,4 +162,8 @@ func Register(g *gin.RouterGroup) {
 
 	events.RegisterRoutes(g)
 	operations.RegisterRoutes(g)
+
+	medicines.RegisterRoutes(g)
+
+	healthcares.RegisterRoutes(g)
 }

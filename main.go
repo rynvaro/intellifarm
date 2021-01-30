@@ -34,5 +34,5 @@ func main() {
 	db.Init()
 	defer db.Close()
 
-	r.Run(":9090")
+	r.Run(":8090")
 }

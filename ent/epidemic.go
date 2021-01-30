@@ -35,6 +35,8 @@ type Epidemic struct {
 	TreatmentResultId int `json:"treatmentResultId,omitempty"`
 	// TreatmentResultName holds the value of the "treatmentResultName" field.
 	TreatmentResultName string `json:"treatmentResultName,omitempty"`
+	// TreatmentState holds the value of the "treatmentState" field.
+	TreatmentState string `json:"treatmentState,omitempty"`
 	// TreatmentAt holds the value of the "treatmentAt" field.
 	TreatmentAt int64 `json:"treatmentAt,omitempty"`
 	// Whereabout holds the value of the "whereabout" field.
@@ -67,6 +69,7 @@ func (*Epidemic) scanValues() []interface{} {
 		&sql.NullString{}, // diagedBy
 		&sql.NullInt64{},  // treatmentResultId
 		&sql.NullString{}, // treatmentResultName
+		&sql.NullString{}, // treatmentState
 		&sql.NullInt64{},  // treatmentAt
 		&sql.NullString{}, // whereabout
 		&sql.NullInt64{},  // tenantId
@@ -140,43 +143,48 @@ func (e *Epidemic) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		e.TreatmentResultName = value.String
 	}
-	if value, ok := values[10].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field treatmentAt", values[10])
+	if value, ok := values[10].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field treatmentState", values[10])
+	} else if value.Valid {
+		e.TreatmentState = value.String
+	}
+	if value, ok := values[11].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field treatmentAt", values[11])
 	} else if value.Valid {
 		e.TreatmentAt = value.Int64
 	}
-	if value, ok := values[11].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field whereabout", values[11])
+	if value, ok := values[12].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field whereabout", values[12])
 	} else if value.Valid {
 		e.Whereabout = value.String
 	}
-	if value, ok := values[12].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantId", values[12])
+	if value, ok := values[13].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[13])
 	} else if value.Valid {
 		e.TenantId = value.Int64
 	}
-	if value, ok := values[13].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantName", values[13])
+	if value, ok := values[14].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[14])
 	} else if value.Valid {
 		e.TenantName = value.String
 	}
-	if value, ok := values[14].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[14])
+	if value, ok := values[15].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[15])
 	} else if value.Valid {
 		e.Remarks = value.String
 	}
-	if value, ok := values[15].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[15])
+	if value, ok := values[16].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[16])
 	} else if value.Valid {
 		e.CreatedAt = value.Int64
 	}
-	if value, ok := values[16].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[16])
+	if value, ok := values[17].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[17])
 	} else if value.Valid {
 		e.UpdatedAt = value.Int64
 	}
-	if value, ok := values[17].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[17])
+	if value, ok := values[18].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[18])
 	} else if value.Valid {
 		e.Deleted = int(value.Int64)
 	}
@@ -226,6 +234,8 @@ func (e *Epidemic) String() string {
 	builder.WriteString(fmt.Sprintf("%v", e.TreatmentResultId))
 	builder.WriteString(", treatmentResultName=")
 	builder.WriteString(e.TreatmentResultName)
+	builder.WriteString(", treatmentState=")
+	builder.WriteString(e.TreatmentState)
 	builder.WriteString(", treatmentAt=")
 	builder.WriteString(fmt.Sprintf("%v", e.TreatmentAt))
 	builder.WriteString(", whereabout=")

@@ -94,6 +94,8 @@ type Tx struct {
 	FeedRecord *FeedRecordClient
 	// HairState is the client for interacting with the HairState builders.
 	HairState *HairStateClient
+	// HealthCare is the client for interacting with the HealthCare builders.
+	HealthCare *HealthCareClient
 	// Immunity is the client for interacting with the Immunity builders.
 	Immunity *ImmunityClient
 	// Inspection is the client for interacting with the Inspection builders.
@@ -102,6 +104,8 @@ type Tx struct {
 	Material *MaterialClient
 	// MaterialTest is the client for interacting with the MaterialTest builders.
 	MaterialTest *MaterialTestClient
+	// Medicine is the client for interacting with the Medicine builders.
+	Medicine *MedicineClient
 	// Operation is the client for interacting with the Operation builders.
 	Operation *OperationClient
 	// Position is the client for interacting with the Position builders.
@@ -318,10 +322,12 @@ func (tx *Tx) init() {
 	tx.FeedGroup = NewFeedGroupClient(tx.config)
 	tx.FeedRecord = NewFeedRecordClient(tx.config)
 	tx.HairState = NewHairStateClient(tx.config)
+	tx.HealthCare = NewHealthCareClient(tx.config)
 	tx.Immunity = NewImmunityClient(tx.config)
 	tx.Inspection = NewInspectionClient(tx.config)
 	tx.Material = NewMaterialClient(tx.config)
 	tx.MaterialTest = NewMaterialTestClient(tx.config)
+	tx.Medicine = NewMedicineClient(tx.config)
 	tx.Operation = NewOperationClient(tx.config)
 	tx.Position = NewPositionClient(tx.config)
 	tx.PositionApi = NewPositionApiClient(tx.config)

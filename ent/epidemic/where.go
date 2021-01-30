@@ -161,6 +161,13 @@ func TreatmentResultName(v string) predicate.Epidemic {
 	})
 }
 
+// TreatmentState applies equality check predicate on the "treatmentState" field. It's identical to TreatmentStateEQ.
+func TreatmentState(v string) predicate.Epidemic {
+	return predicate.Epidemic(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTreatmentState), v))
+	})
+}
+
 // TreatmentAt applies equality check predicate on the "treatmentAt" field. It's identical to TreatmentAtEQ.
 func TreatmentAt(v int64) predicate.Epidemic {
 	return predicate.Epidemic(func(s *sql.Selector) {
@@ -1219,6 +1226,117 @@ func TreatmentResultNameEqualFold(v string) predicate.Epidemic {
 func TreatmentResultNameContainsFold(v string) predicate.Epidemic {
 	return predicate.Epidemic(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldTreatmentResultName), v))
+	})
+}
+
+// TreatmentStateEQ applies the EQ predicate on the "treatmentState" field.
+func TreatmentStateEQ(v string) predicate.Epidemic {
+	return predicate.Epidemic(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTreatmentState), v))
+	})
+}
+
+// TreatmentStateNEQ applies the NEQ predicate on the "treatmentState" field.
+func TreatmentStateNEQ(v string) predicate.Epidemic {
+	return predicate.Epidemic(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldTreatmentState), v))
+	})
+}
+
+// TreatmentStateIn applies the In predicate on the "treatmentState" field.
+func TreatmentStateIn(vs ...string) predicate.Epidemic {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Epidemic(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldTreatmentState), v...))
+	})
+}
+
+// TreatmentStateNotIn applies the NotIn predicate on the "treatmentState" field.
+func TreatmentStateNotIn(vs ...string) predicate.Epidemic {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Epidemic(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldTreatmentState), v...))
+	})
+}
+
+// TreatmentStateGT applies the GT predicate on the "treatmentState" field.
+func TreatmentStateGT(v string) predicate.Epidemic {
+	return predicate.Epidemic(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldTreatmentState), v))
+	})
+}
+
+// TreatmentStateGTE applies the GTE predicate on the "treatmentState" field.
+func TreatmentStateGTE(v string) predicate.Epidemic {
+	return predicate.Epidemic(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldTreatmentState), v))
+	})
+}
+
+// TreatmentStateLT applies the LT predicate on the "treatmentState" field.
+func TreatmentStateLT(v string) predicate.Epidemic {
+	return predicate.Epidemic(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldTreatmentState), v))
+	})
+}
+
+// TreatmentStateLTE applies the LTE predicate on the "treatmentState" field.
+func TreatmentStateLTE(v string) predicate.Epidemic {
+	return predicate.Epidemic(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldTreatmentState), v))
+	})
+}
+
+// TreatmentStateContains applies the Contains predicate on the "treatmentState" field.
+func TreatmentStateContains(v string) predicate.Epidemic {
+	return predicate.Epidemic(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldTreatmentState), v))
+	})
+}
+
+// TreatmentStateHasPrefix applies the HasPrefix predicate on the "treatmentState" field.
+func TreatmentStateHasPrefix(v string) predicate.Epidemic {
+	return predicate.Epidemic(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldTreatmentState), v))
+	})
+}
+
+// TreatmentStateHasSuffix applies the HasSuffix predicate on the "treatmentState" field.
+func TreatmentStateHasSuffix(v string) predicate.Epidemic {
+	return predicate.Epidemic(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldTreatmentState), v))
+	})
+}
+
+// TreatmentStateEqualFold applies the EqualFold predicate on the "treatmentState" field.
+func TreatmentStateEqualFold(v string) predicate.Epidemic {
+	return predicate.Epidemic(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldTreatmentState), v))
+	})
+}
+
+// TreatmentStateContainsFold applies the ContainsFold predicate on the "treatmentState" field.
+func TreatmentStateContainsFold(v string) predicate.Epidemic {
+	return predicate.Epidemic(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldTreatmentState), v))
 	})
 }
 

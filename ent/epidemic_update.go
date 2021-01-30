@@ -108,6 +108,12 @@ func (eu *EpidemicUpdate) SetTreatmentResultName(s string) *EpidemicUpdate {
 	return eu
 }
 
+// SetTreatmentState sets the treatmentState field.
+func (eu *EpidemicUpdate) SetTreatmentState(s string) *EpidemicUpdate {
+	eu.mutation.SetTreatmentState(s)
+	return eu
+}
+
 // SetTreatmentAt sets the treatmentAt field.
 func (eu *EpidemicUpdate) SetTreatmentAt(i int64) *EpidemicUpdate {
 	eu.mutation.ResetTreatmentAt()
@@ -356,6 +362,13 @@ func (eu *EpidemicUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: epidemic.FieldTreatmentResultName,
 		})
 	}
+	if value, ok := eu.mutation.TreatmentState(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: epidemic.FieldTreatmentState,
+		})
+	}
 	if value, ok := eu.mutation.TreatmentAt(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -543,6 +556,12 @@ func (euo *EpidemicUpdateOne) AddTreatmentResultId(i int) *EpidemicUpdateOne {
 // SetTreatmentResultName sets the treatmentResultName field.
 func (euo *EpidemicUpdateOne) SetTreatmentResultName(s string) *EpidemicUpdateOne {
 	euo.mutation.SetTreatmentResultName(s)
+	return euo
+}
+
+// SetTreatmentState sets the treatmentState field.
+func (euo *EpidemicUpdateOne) SetTreatmentState(s string) *EpidemicUpdateOne {
+	euo.mutation.SetTreatmentState(s)
 	return euo
 }
 
@@ -790,6 +809,13 @@ func (euo *EpidemicUpdateOne) sqlSave(ctx context.Context) (_node *Epidemic, err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: epidemic.FieldTreatmentResultName,
+		})
+	}
+	if value, ok := euo.mutation.TreatmentState(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: epidemic.FieldTreatmentState,
 		})
 	}
 	if value, ok := euo.mutation.TreatmentAt(); ok {

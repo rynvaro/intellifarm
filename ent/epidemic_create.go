@@ -79,6 +79,12 @@ func (ec *EpidemicCreate) SetTreatmentResultName(s string) *EpidemicCreate {
 	return ec
 }
 
+// SetTreatmentState sets the treatmentState field.
+func (ec *EpidemicCreate) SetTreatmentState(s string) *EpidemicCreate {
+	ec.mutation.SetTreatmentState(s)
+	return ec
+}
+
 // SetTreatmentAt sets the treatmentAt field.
 func (ec *EpidemicCreate) SetTreatmentAt(i int64) *EpidemicCreate {
 	ec.mutation.SetTreatmentAt(i)
@@ -207,6 +213,9 @@ func (ec *EpidemicCreate) check() error {
 	}
 	if _, ok := ec.mutation.TreatmentResultName(); !ok {
 		return &ValidationError{Name: "treatmentResultName", err: errors.New("ent: missing required field \"treatmentResultName\"")}
+	}
+	if _, ok := ec.mutation.TreatmentState(); !ok {
+		return &ValidationError{Name: "treatmentState", err: errors.New("ent: missing required field \"treatmentState\"")}
 	}
 	if _, ok := ec.mutation.TreatmentAt(); !ok {
 		return &ValidationError{Name: "treatmentAt", err: errors.New("ent: missing required field \"treatmentAt\"")}
@@ -338,6 +347,14 @@ func (ec *EpidemicCreate) createSpec() (*Epidemic, *sqlgraph.CreateSpec) {
 			Column: epidemic.FieldTreatmentResultName,
 		})
 		_node.TreatmentResultName = value
+	}
+	if value, ok := ec.mutation.TreatmentState(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: epidemic.FieldTreatmentState,
+		})
+		_node.TreatmentState = value
 	}
 	if value, ok := ec.mutation.TreatmentAt(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

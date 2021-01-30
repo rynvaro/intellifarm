@@ -652,6 +652,7 @@ var (
 		{Name: "diaged_by", Type: field.TypeString},
 		{Name: "treatment_result_id", Type: field.TypeInt},
 		{Name: "treatment_result_name", Type: field.TypeString},
+		{Name: "treatment_state", Type: field.TypeString},
 		{Name: "treatment_at", Type: field.TypeInt64},
 		{Name: "whereabout", Type: field.TypeString},
 		{Name: "tenant_id", Type: field.TypeInt64},
@@ -816,6 +817,31 @@ var (
 		PrimaryKey:  []*schema.Column{HairStatesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// HealthCaresColumns holds the columns for the "health_cares" table.
+	HealthCaresColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "ear_number", Type: field.TypeString},
+		{Name: "shed_name", Type: field.TypeString},
+		{Name: "date", Type: field.TypeInt64},
+		{Name: "reason", Type: field.TypeString},
+		{Name: "method", Type: field.TypeString},
+		{Name: "vet_name", Type: field.TypeString},
+		{Name: "hoof_area", Type: field.TypeString},
+		{Name: "horn_method", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+	}
+	// HealthCaresTable holds the schema information for the "health_cares" table.
+	HealthCaresTable = &schema.Table{
+		Name:        "health_cares",
+		Columns:     HealthCaresColumns,
+		PrimaryKey:  []*schema.Column{HealthCaresColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// ImmunitiesColumns holds the columns for the "immunities" table.
 	ImmunitiesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -923,6 +949,30 @@ var (
 		Name:        "material_tests",
 		Columns:     MaterialTestsColumns,
 		PrimaryKey:  []*schema.Column{MaterialTestsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// MedicinesColumns holds the columns for the "medicines" table.
+	MedicinesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "epid", Type: field.TypeInt64},
+		{Name: "ear_number", Type: field.TypeString},
+		{Name: "medicine_name", Type: field.TypeString},
+		{Name: "dose", Type: field.TypeInt64},
+		{Name: "unit", Type: field.TypeString},
+		{Name: "date_start", Type: field.TypeInt64},
+		{Name: "date_end", Type: field.TypeInt64},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+	}
+	// MedicinesTable holds the schema information for the "medicines" table.
+	MedicinesTable = &schema.Table{
+		Name:        "medicines",
+		Columns:     MedicinesColumns,
+		PrimaryKey:  []*schema.Column{MedicinesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// OperationsColumns holds the columns for the "operations" table.
@@ -1292,10 +1342,12 @@ var (
 		FeedGroupsTable,
 		FeedRecordsTable,
 		HairStatesTable,
+		HealthCaresTable,
 		ImmunitiesTable,
 		InspectionsTable,
 		MaterialsTable,
 		MaterialTestsTable,
+		MedicinesTable,
 		OperationsTable,
 		PositionsTable,
 		PositionApisTable,

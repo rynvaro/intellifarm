@@ -26,8 +26,8 @@ func EventAddHandler(c *gin.Context) {
 		SetEarNumber(form.EarNumber).
 		SetEventName(form.EventName).
 		SetEventType(form.EventType).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
+		SetTenantId(c.MustGet("tenantId").(int64)).
+		SetTenantName(c.MustGet("tenantName").(string)).
 		SetCreatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -93,8 +93,8 @@ func EventUpdateHandler(c *gin.Context) {
 		SetEarNumber(form.EarNumber).
 		SetEventName(form.EventName).
 		SetEventType(form.EventType).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
+		SetTenantId(c.MustGet("tenantId").(int64)).
+		SetTenantName(c.MustGet("tenantName").(string)).
 		Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())

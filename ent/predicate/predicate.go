@@ -129,6 +129,9 @@ type FeedRecord func(*sql.Selector)
 // HairState is the predicate function for hairstate builders.
 type HairState func(*sql.Selector)
 
+// HealthCare is the predicate function for healthcare builders.
+type HealthCare func(*sql.Selector)
+
 // Immunity is the predicate function for immunity builders.
 type Immunity func(*sql.Selector)
 
@@ -140,6 +143,9 @@ type Material func(*sql.Selector)
 
 // MaterialTest is the predicate function for materialtest builders.
 type MaterialTest func(*sql.Selector)
+
+// Medicine is the predicate function for medicine builders.
+type Medicine func(*sql.Selector)
 
 // Operation is the predicate function for operation builders.
 type Operation func(*sql.Selector)

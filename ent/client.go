@@ -50,10 +50,12 @@ import (
 	"cattleai/ent/feedgroup"
 	"cattleai/ent/feedrecord"
 	"cattleai/ent/hairstate"
+	"cattleai/ent/healthcare"
 	"cattleai/ent/immunity"
 	"cattleai/ent/inspection"
 	"cattleai/ent/material"
 	"cattleai/ent/materialtest"
+	"cattleai/ent/medicine"
 	"cattleai/ent/operation"
 	"cattleai/ent/position"
 	"cattleai/ent/positionapi"
@@ -166,6 +168,8 @@ type Client struct {
 	FeedRecord *FeedRecordClient
 	// HairState is the client for interacting with the HairState builders.
 	HairState *HairStateClient
+	// HealthCare is the client for interacting with the HealthCare builders.
+	HealthCare *HealthCareClient
 	// Immunity is the client for interacting with the Immunity builders.
 	Immunity *ImmunityClient
 	// Inspection is the client for interacting with the Inspection builders.
@@ -174,6 +178,8 @@ type Client struct {
 	Material *MaterialClient
 	// MaterialTest is the client for interacting with the MaterialTest builders.
 	MaterialTest *MaterialTestClient
+	// Medicine is the client for interacting with the Medicine builders.
+	Medicine *MedicineClient
 	// Operation is the client for interacting with the Operation builders.
 	Operation *OperationClient
 	// Position is the client for interacting with the Position builders.
@@ -268,10 +274,12 @@ func (c *Client) init() {
 	c.FeedGroup = NewFeedGroupClient(c.config)
 	c.FeedRecord = NewFeedRecordClient(c.config)
 	c.HairState = NewHairStateClient(c.config)
+	c.HealthCare = NewHealthCareClient(c.config)
 	c.Immunity = NewImmunityClient(c.config)
 	c.Inspection = NewInspectionClient(c.config)
 	c.Material = NewMaterialClient(c.config)
 	c.MaterialTest = NewMaterialTestClient(c.config)
+	c.Medicine = NewMedicineClient(c.config)
 	c.Operation = NewOperationClient(c.config)
 	c.Position = NewPositionClient(c.config)
 	c.PositionApi = NewPositionApiClient(c.config)
@@ -365,10 +373,12 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		FeedGroup:           NewFeedGroupClient(cfg),
 		FeedRecord:          NewFeedRecordClient(cfg),
 		HairState:           NewHairStateClient(cfg),
+		HealthCare:          NewHealthCareClient(cfg),
 		Immunity:            NewImmunityClient(cfg),
 		Inspection:          NewInspectionClient(cfg),
 		Material:            NewMaterialClient(cfg),
 		MaterialTest:        NewMaterialTestClient(cfg),
+		Medicine:            NewMedicineClient(cfg),
 		Operation:           NewOperationClient(cfg),
 		Position:            NewPositionClient(cfg),
 		PositionApi:         NewPositionApiClient(cfg),
@@ -445,10 +455,12 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		FeedGroup:           NewFeedGroupClient(cfg),
 		FeedRecord:          NewFeedRecordClient(cfg),
 		HairState:           NewHairStateClient(cfg),
+		HealthCare:          NewHealthCareClient(cfg),
 		Immunity:            NewImmunityClient(cfg),
 		Inspection:          NewInspectionClient(cfg),
 		Material:            NewMaterialClient(cfg),
 		MaterialTest:        NewMaterialTestClient(cfg),
+		Medicine:            NewMedicineClient(cfg),
 		Operation:           NewOperationClient(cfg),
 		Position:            NewPositionClient(cfg),
 		PositionApi:         NewPositionApiClient(cfg),
@@ -538,10 +550,12 @@ func (c *Client) Use(hooks ...Hook) {
 	c.FeedGroup.Use(hooks...)
 	c.FeedRecord.Use(hooks...)
 	c.HairState.Use(hooks...)
+	c.HealthCare.Use(hooks...)
 	c.Immunity.Use(hooks...)
 	c.Inspection.Use(hooks...)
 	c.Material.Use(hooks...)
 	c.MaterialTest.Use(hooks...)
+	c.Medicine.Use(hooks...)
 	c.Operation.Use(hooks...)
 	c.Position.Use(hooks...)
 	c.PositionApi.Use(hooks...)
@@ -4172,6 +4186,94 @@ func (c *HairStateClient) Hooks() []Hook {
 	return c.hooks.HairState
 }
 
+// HealthCareClient is a client for the HealthCare schema.
+type HealthCareClient struct {
+	config
+}
+
+// NewHealthCareClient returns a client for the HealthCare from the given config.
+func NewHealthCareClient(c config) *HealthCareClient {
+	return &HealthCareClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `healthcare.Hooks(f(g(h())))`.
+func (c *HealthCareClient) Use(hooks ...Hook) {
+	c.hooks.HealthCare = append(c.hooks.HealthCare, hooks...)
+}
+
+// Create returns a create builder for HealthCare.
+func (c *HealthCareClient) Create() *HealthCareCreate {
+	mutation := newHealthCareMutation(c.config, OpCreate)
+	return &HealthCareCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of HealthCare entities.
+func (c *HealthCareClient) CreateBulk(builders ...*HealthCareCreate) *HealthCareCreateBulk {
+	return &HealthCareCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for HealthCare.
+func (c *HealthCareClient) Update() *HealthCareUpdate {
+	mutation := newHealthCareMutation(c.config, OpUpdate)
+	return &HealthCareUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *HealthCareClient) UpdateOne(hc *HealthCare) *HealthCareUpdateOne {
+	mutation := newHealthCareMutation(c.config, OpUpdateOne, withHealthCare(hc))
+	return &HealthCareUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *HealthCareClient) UpdateOneID(id int64) *HealthCareUpdateOne {
+	mutation := newHealthCareMutation(c.config, OpUpdateOne, withHealthCareID(id))
+	return &HealthCareUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for HealthCare.
+func (c *HealthCareClient) Delete() *HealthCareDelete {
+	mutation := newHealthCareMutation(c.config, OpDelete)
+	return &HealthCareDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *HealthCareClient) DeleteOne(hc *HealthCare) *HealthCareDeleteOne {
+	return c.DeleteOneID(hc.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *HealthCareClient) DeleteOneID(id int64) *HealthCareDeleteOne {
+	builder := c.Delete().Where(healthcare.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &HealthCareDeleteOne{builder}
+}
+
+// Query returns a query builder for HealthCare.
+func (c *HealthCareClient) Query() *HealthCareQuery {
+	return &HealthCareQuery{config: c.config}
+}
+
+// Get returns a HealthCare entity by its id.
+func (c *HealthCareClient) Get(ctx context.Context, id int64) (*HealthCare, error) {
+	return c.Query().Where(healthcare.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *HealthCareClient) GetX(ctx context.Context, id int64) *HealthCare {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *HealthCareClient) Hooks() []Hook {
+	return c.hooks.HealthCare
+}
+
 // ImmunityClient is a client for the Immunity schema.
 type ImmunityClient struct {
 	config
@@ -4522,6 +4624,94 @@ func (c *MaterialTestClient) GetX(ctx context.Context, id int64) *MaterialTest {
 // Hooks returns the client hooks.
 func (c *MaterialTestClient) Hooks() []Hook {
 	return c.hooks.MaterialTest
+}
+
+// MedicineClient is a client for the Medicine schema.
+type MedicineClient struct {
+	config
+}
+
+// NewMedicineClient returns a client for the Medicine from the given config.
+func NewMedicineClient(c config) *MedicineClient {
+	return &MedicineClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `medicine.Hooks(f(g(h())))`.
+func (c *MedicineClient) Use(hooks ...Hook) {
+	c.hooks.Medicine = append(c.hooks.Medicine, hooks...)
+}
+
+// Create returns a create builder for Medicine.
+func (c *MedicineClient) Create() *MedicineCreate {
+	mutation := newMedicineMutation(c.config, OpCreate)
+	return &MedicineCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of Medicine entities.
+func (c *MedicineClient) CreateBulk(builders ...*MedicineCreate) *MedicineCreateBulk {
+	return &MedicineCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for Medicine.
+func (c *MedicineClient) Update() *MedicineUpdate {
+	mutation := newMedicineMutation(c.config, OpUpdate)
+	return &MedicineUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *MedicineClient) UpdateOne(m *Medicine) *MedicineUpdateOne {
+	mutation := newMedicineMutation(c.config, OpUpdateOne, withMedicine(m))
+	return &MedicineUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *MedicineClient) UpdateOneID(id int64) *MedicineUpdateOne {
+	mutation := newMedicineMutation(c.config, OpUpdateOne, withMedicineID(id))
+	return &MedicineUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for Medicine.
+func (c *MedicineClient) Delete() *MedicineDelete {
+	mutation := newMedicineMutation(c.config, OpDelete)
+	return &MedicineDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *MedicineClient) DeleteOne(m *Medicine) *MedicineDeleteOne {
+	return c.DeleteOneID(m.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *MedicineClient) DeleteOneID(id int64) *MedicineDeleteOne {
+	builder := c.Delete().Where(medicine.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &MedicineDeleteOne{builder}
+}
+
+// Query returns a query builder for Medicine.
+func (c *MedicineClient) Query() *MedicineQuery {
+	return &MedicineQuery{config: c.config}
+}
+
+// Get returns a Medicine entity by its id.
+func (c *MedicineClient) Get(ctx context.Context, id int64) (*Medicine, error) {
+	return c.Query().Where(medicine.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *MedicineClient) GetX(ctx context.Context, id int64) *Medicine {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *MedicineClient) Hooks() []Hook {
+	return c.hooks.Medicine
 }
 
 // OperationClient is a client for the Operation schema.

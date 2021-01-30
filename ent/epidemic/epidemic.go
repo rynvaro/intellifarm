@@ -27,6 +27,8 @@ const (
 	FieldTreatmentResultId = "treatment_result_id"
 	// FieldTreatmentResultName holds the string denoting the treatmentresultname field in the database.
 	FieldTreatmentResultName = "treatment_result_name"
+	// FieldTreatmentState holds the string denoting the treatmentstate field in the database.
+	FieldTreatmentState = "treatment_state"
 	// FieldTreatmentAt holds the string denoting the treatmentat field in the database.
 	FieldTreatmentAt = "treatment_at"
 	// FieldWhereabout holds the string denoting the whereabout field in the database.
@@ -61,6 +63,7 @@ var Columns = []string{
 	FieldDiagedBy,
 	FieldTreatmentResultId,
 	FieldTreatmentResultName,
+	FieldTreatmentState,
 	FieldTreatmentAt,
 	FieldWhereabout,
 	FieldTenantId,

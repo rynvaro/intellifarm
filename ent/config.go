@@ -65,10 +65,12 @@ type hooks struct {
 	FeedGroup           []ent.Hook
 	FeedRecord          []ent.Hook
 	HairState           []ent.Hook
+	HealthCare          []ent.Hook
 	Immunity            []ent.Hook
 	Inspection          []ent.Hook
 	Material            []ent.Hook
 	MaterialTest        []ent.Hook
+	Medicine            []ent.Hook
 	Operation           []ent.Hook
 	Position            []ent.Hook
 	PositionApi         []ent.Hook

@@ -541,6 +541,19 @@ func (f HairStateFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, e
 	return f(ctx, mv)
 }
 
+// The HealthCareFunc type is an adapter to allow the use of ordinary
+// function as HealthCare mutator.
+type HealthCareFunc func(context.Context, *ent.HealthCareMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f HealthCareFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.HealthCareMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.HealthCareMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The ImmunityFunc type is an adapter to allow the use of ordinary
 // function as Immunity mutator.
 type ImmunityFunc func(context.Context, *ent.ImmunityMutation) (ent.Value, error)
@@ -589,6 +602,19 @@ func (f MaterialTestFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value
 	mv, ok := m.(*ent.MaterialTestMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MaterialTestMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The MedicineFunc type is an adapter to allow the use of ordinary
+// function as Medicine mutator.
+type MedicineFunc func(context.Context, *ent.MedicineMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f MedicineFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.MedicineMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.MedicineMutation", m)
 	}
 	return f(ctx, mv)
 }

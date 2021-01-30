@@ -40,10 +40,12 @@ import (
 	"cattleai/ent/farm"
 	"cattleai/ent/feedrecord"
 	"cattleai/ent/hairstate"
+	"cattleai/ent/healthcare"
 	"cattleai/ent/immunity"
 	"cattleai/ent/inspection"
 	"cattleai/ent/material"
 	"cattleai/ent/materialtest"
+	"cattleai/ent/medicine"
 	"cattleai/ent/operation"
 	"cattleai/ent/position"
 	"cattleai/ent/positionapi"
@@ -120,10 +122,12 @@ const (
 	TypeFeedGroup           = "FeedGroup"
 	TypeFeedRecord          = "FeedRecord"
 	TypeHairState           = "HairState"
+	TypeHealthCare          = "HealthCare"
 	TypeImmunity            = "Immunity"
 	TypeInspection          = "Inspection"
 	TypeMaterial            = "Material"
 	TypeMaterialTest        = "MaterialTest"
+	TypeMedicine            = "Medicine"
 	TypeOperation           = "Operation"
 	TypePosition            = "Position"
 	TypePositionApi         = "PositionApi"
@@ -28302,6 +28306,7 @@ type EpidemicMutation struct {
 	treatmentResultId    *int
 	addtreatmentResultId *int
 	treatmentResultName  *string
+	treatmentState       *string
 	treatmentAt          *int64
 	addtreatmentAt       *int64
 	whereabout           *string
@@ -28829,6 +28834,43 @@ func (m *EpidemicMutation) ResetTreatmentResultName() {
 	m.treatmentResultName = nil
 }
 
+// SetTreatmentState sets the treatmentState field.
+func (m *EpidemicMutation) SetTreatmentState(s string) {
+	m.treatmentState = &s
+}
+
+// TreatmentState returns the treatmentState value in the mutation.
+func (m *EpidemicMutation) TreatmentState() (r string, exists bool) {
+	v := m.treatmentState
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTreatmentState returns the old treatmentState value of the Epidemic.
+// If the Epidemic object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *EpidemicMutation) OldTreatmentState(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldTreatmentState is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldTreatmentState requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTreatmentState: %w", err)
+	}
+	return oldValue.TreatmentState, nil
+}
+
+// ResetTreatmentState reset all changes of the "treatmentState" field.
+func (m *EpidemicMutation) ResetTreatmentState() {
+	m.treatmentState = nil
+}
+
 // SetTreatmentAt sets the treatmentAt field.
 func (m *EpidemicMutation) SetTreatmentAt(i int64) {
 	m.treatmentAt = &i
@@ -29239,7 +29281,7 @@ func (m *EpidemicMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *EpidemicMutation) Fields() []string {
-	fields := make([]string, 0, 18)
+	fields := make([]string, 0, 19)
 	if m.name != nil {
 		fields = append(fields, epidemic.FieldName)
 	}
@@ -29269,6 +29311,9 @@ func (m *EpidemicMutation) Fields() []string {
 	}
 	if m.treatmentResultName != nil {
 		fields = append(fields, epidemic.FieldTreatmentResultName)
+	}
+	if m.treatmentState != nil {
+		fields = append(fields, epidemic.FieldTreatmentState)
 	}
 	if m.treatmentAt != nil {
 		fields = append(fields, epidemic.FieldTreatmentAt)
@@ -29322,6 +29367,8 @@ func (m *EpidemicMutation) Field(name string) (ent.Value, bool) {
 		return m.TreatmentResultId()
 	case epidemic.FieldTreatmentResultName:
 		return m.TreatmentResultName()
+	case epidemic.FieldTreatmentState:
+		return m.TreatmentState()
 	case epidemic.FieldTreatmentAt:
 		return m.TreatmentAt()
 	case epidemic.FieldWhereabout:
@@ -29367,6 +29414,8 @@ func (m *EpidemicMutation) OldField(ctx context.Context, name string) (ent.Value
 		return m.OldTreatmentResultId(ctx)
 	case epidemic.FieldTreatmentResultName:
 		return m.OldTreatmentResultName(ctx)
+	case epidemic.FieldTreatmentState:
+		return m.OldTreatmentState(ctx)
 	case epidemic.FieldTreatmentAt:
 		return m.OldTreatmentAt(ctx)
 	case epidemic.FieldWhereabout:
@@ -29461,6 +29510,13 @@ func (m *EpidemicMutation) SetField(name string, value ent.Value) error {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetTreatmentResultName(v)
+		return nil
+	case epidemic.FieldTreatmentState:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTreatmentState(v)
 		return nil
 	case epidemic.FieldTreatmentAt:
 		v, ok := value.(int64)
@@ -29696,6 +29752,9 @@ func (m *EpidemicMutation) ResetField(name string) error {
 		return nil
 	case epidemic.FieldTreatmentResultName:
 		m.ResetTreatmentResultName()
+		return nil
+	case epidemic.FieldTreatmentState:
+		m.ResetTreatmentState()
 		return nil
 	case epidemic.FieldTreatmentAt:
 		m.ResetTreatmentAt()
@@ -35920,6 +35979,1182 @@ func (m *HairStateMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown HairState edge %s", name)
 }
 
+// HealthCareMutation represents an operation that mutate the HealthCares
+// nodes in the graph.
+type HealthCareMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	earNumber     *string
+	shedName      *string
+	date          *int64
+	adddate       *int64
+	reason        *string
+	method        *string
+	vetName       *string
+	hoofArea      *string
+	hornMethod    *string
+	createdAt     *int64
+	addcreatedAt  *int64
+	updatedAt     *int64
+	addupdatedAt  *int64
+	deleted       *int
+	adddeleted    *int
+	remarks       *string
+	tenantId      *int64
+	addtenantId   *int64
+	tenantName    *string
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*HealthCare, error)
+}
+
+var _ ent.Mutation = (*HealthCareMutation)(nil)
+
+// healthcareOption allows to manage the mutation configuration using functional options.
+type healthcareOption func(*HealthCareMutation)
+
+// newHealthCareMutation creates new mutation for $n.Name.
+func newHealthCareMutation(c config, op Op, opts ...healthcareOption) *HealthCareMutation {
+	m := &HealthCareMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeHealthCare,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withHealthCareID sets the id field of the mutation.
+func withHealthCareID(id int64) healthcareOption {
+	return func(m *HealthCareMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *HealthCare
+		)
+		m.oldValue = func(ctx context.Context) (*HealthCare, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().HealthCare.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withHealthCare sets the old HealthCare of the mutation.
+func withHealthCare(node *HealthCare) healthcareOption {
+	return func(m *HealthCareMutation) {
+		m.oldValue = func(context.Context) (*HealthCare, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m HealthCareMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m HealthCareMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *HealthCareMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetEarNumber sets the earNumber field.
+func (m *HealthCareMutation) SetEarNumber(s string) {
+	m.earNumber = &s
+}
+
+// EarNumber returns the earNumber value in the mutation.
+func (m *HealthCareMutation) EarNumber() (r string, exists bool) {
+	v := m.earNumber
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEarNumber returns the old earNumber value of the HealthCare.
+// If the HealthCare object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *HealthCareMutation) OldEarNumber(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldEarNumber is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldEarNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEarNumber: %w", err)
+	}
+	return oldValue.EarNumber, nil
+}
+
+// ResetEarNumber reset all changes of the "earNumber" field.
+func (m *HealthCareMutation) ResetEarNumber() {
+	m.earNumber = nil
+}
+
+// SetShedName sets the shedName field.
+func (m *HealthCareMutation) SetShedName(s string) {
+	m.shedName = &s
+}
+
+// ShedName returns the shedName value in the mutation.
+func (m *HealthCareMutation) ShedName() (r string, exists bool) {
+	v := m.shedName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldShedName returns the old shedName value of the HealthCare.
+// If the HealthCare object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *HealthCareMutation) OldShedName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldShedName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldShedName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldShedName: %w", err)
+	}
+	return oldValue.ShedName, nil
+}
+
+// ResetShedName reset all changes of the "shedName" field.
+func (m *HealthCareMutation) ResetShedName() {
+	m.shedName = nil
+}
+
+// SetDate sets the date field.
+func (m *HealthCareMutation) SetDate(i int64) {
+	m.date = &i
+	m.adddate = nil
+}
+
+// Date returns the date value in the mutation.
+func (m *HealthCareMutation) Date() (r int64, exists bool) {
+	v := m.date
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDate returns the old date value of the HealthCare.
+// If the HealthCare object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *HealthCareMutation) OldDate(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDate is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDate requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDate: %w", err)
+	}
+	return oldValue.Date, nil
+}
+
+// AddDate adds i to date.
+func (m *HealthCareMutation) AddDate(i int64) {
+	if m.adddate != nil {
+		*m.adddate += i
+	} else {
+		m.adddate = &i
+	}
+}
+
+// AddedDate returns the value that was added to the date field in this mutation.
+func (m *HealthCareMutation) AddedDate() (r int64, exists bool) {
+	v := m.adddate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDate reset all changes of the "date" field.
+func (m *HealthCareMutation) ResetDate() {
+	m.date = nil
+	m.adddate = nil
+}
+
+// SetReason sets the reason field.
+func (m *HealthCareMutation) SetReason(s string) {
+	m.reason = &s
+}
+
+// Reason returns the reason value in the mutation.
+func (m *HealthCareMutation) Reason() (r string, exists bool) {
+	v := m.reason
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldReason returns the old reason value of the HealthCare.
+// If the HealthCare object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *HealthCareMutation) OldReason(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldReason is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldReason requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldReason: %w", err)
+	}
+	return oldValue.Reason, nil
+}
+
+// ResetReason reset all changes of the "reason" field.
+func (m *HealthCareMutation) ResetReason() {
+	m.reason = nil
+}
+
+// SetMethod sets the method field.
+func (m *HealthCareMutation) SetMethod(s string) {
+	m.method = &s
+}
+
+// Method returns the method value in the mutation.
+func (m *HealthCareMutation) Method() (r string, exists bool) {
+	v := m.method
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldMethod returns the old method value of the HealthCare.
+// If the HealthCare object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *HealthCareMutation) OldMethod(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldMethod is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldMethod requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldMethod: %w", err)
+	}
+	return oldValue.Method, nil
+}
+
+// ResetMethod reset all changes of the "method" field.
+func (m *HealthCareMutation) ResetMethod() {
+	m.method = nil
+}
+
+// SetVetName sets the vetName field.
+func (m *HealthCareMutation) SetVetName(s string) {
+	m.vetName = &s
+}
+
+// VetName returns the vetName value in the mutation.
+func (m *HealthCareMutation) VetName() (r string, exists bool) {
+	v := m.vetName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldVetName returns the old vetName value of the HealthCare.
+// If the HealthCare object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *HealthCareMutation) OldVetName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldVetName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldVetName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldVetName: %w", err)
+	}
+	return oldValue.VetName, nil
+}
+
+// ResetVetName reset all changes of the "vetName" field.
+func (m *HealthCareMutation) ResetVetName() {
+	m.vetName = nil
+}
+
+// SetHoofArea sets the hoofArea field.
+func (m *HealthCareMutation) SetHoofArea(s string) {
+	m.hoofArea = &s
+}
+
+// HoofArea returns the hoofArea value in the mutation.
+func (m *HealthCareMutation) HoofArea() (r string, exists bool) {
+	v := m.hoofArea
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldHoofArea returns the old hoofArea value of the HealthCare.
+// If the HealthCare object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *HealthCareMutation) OldHoofArea(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldHoofArea is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldHoofArea requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldHoofArea: %w", err)
+	}
+	return oldValue.HoofArea, nil
+}
+
+// ResetHoofArea reset all changes of the "hoofArea" field.
+func (m *HealthCareMutation) ResetHoofArea() {
+	m.hoofArea = nil
+}
+
+// SetHornMethod sets the hornMethod field.
+func (m *HealthCareMutation) SetHornMethod(s string) {
+	m.hornMethod = &s
+}
+
+// HornMethod returns the hornMethod value in the mutation.
+func (m *HealthCareMutation) HornMethod() (r string, exists bool) {
+	v := m.hornMethod
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldHornMethod returns the old hornMethod value of the HealthCare.
+// If the HealthCare object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *HealthCareMutation) OldHornMethod(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldHornMethod is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldHornMethod requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldHornMethod: %w", err)
+	}
+	return oldValue.HornMethod, nil
+}
+
+// ResetHornMethod reset all changes of the "hornMethod" field.
+func (m *HealthCareMutation) ResetHornMethod() {
+	m.hornMethod = nil
+}
+
+// SetCreatedAt sets the createdAt field.
+func (m *HealthCareMutation) SetCreatedAt(i int64) {
+	m.createdAt = &i
+	m.addcreatedAt = nil
+}
+
+// CreatedAt returns the createdAt value in the mutation.
+func (m *HealthCareMutation) CreatedAt() (r int64, exists bool) {
+	v := m.createdAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old createdAt value of the HealthCare.
+// If the HealthCare object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *HealthCareMutation) OldCreatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds i to createdAt.
+func (m *HealthCareMutation) AddCreatedAt(i int64) {
+	if m.addcreatedAt != nil {
+		*m.addcreatedAt += i
+	} else {
+		m.addcreatedAt = &i
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the createdAt field in this mutation.
+func (m *HealthCareMutation) AddedCreatedAt() (r int64, exists bool) {
+	v := m.addcreatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt reset all changes of the "createdAt" field.
+func (m *HealthCareMutation) ResetCreatedAt() {
+	m.createdAt = nil
+	m.addcreatedAt = nil
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (m *HealthCareMutation) SetUpdatedAt(i int64) {
+	m.updatedAt = &i
+	m.addupdatedAt = nil
+}
+
+// UpdatedAt returns the updatedAt value in the mutation.
+func (m *HealthCareMutation) UpdatedAt() (r int64, exists bool) {
+	v := m.updatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old updatedAt value of the HealthCare.
+// If the HealthCare object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *HealthCareMutation) OldUpdatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUpdatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (m *HealthCareMutation) AddUpdatedAt(i int64) {
+	if m.addupdatedAt != nil {
+		*m.addupdatedAt += i
+	} else {
+		m.addupdatedAt = &i
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the updatedAt field in this mutation.
+func (m *HealthCareMutation) AddedUpdatedAt() (r int64, exists bool) {
+	v := m.addupdatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt reset all changes of the "updatedAt" field.
+func (m *HealthCareMutation) ResetUpdatedAt() {
+	m.updatedAt = nil
+	m.addupdatedAt = nil
+}
+
+// SetDeleted sets the deleted field.
+func (m *HealthCareMutation) SetDeleted(i int) {
+	m.deleted = &i
+	m.adddeleted = nil
+}
+
+// Deleted returns the deleted value in the mutation.
+func (m *HealthCareMutation) Deleted() (r int, exists bool) {
+	v := m.deleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleted returns the old deleted value of the HealthCare.
+// If the HealthCare object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *HealthCareMutation) OldDeleted(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleted is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleted requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleted: %w", err)
+	}
+	return oldValue.Deleted, nil
+}
+
+// AddDeleted adds i to deleted.
+func (m *HealthCareMutation) AddDeleted(i int) {
+	if m.adddeleted != nil {
+		*m.adddeleted += i
+	} else {
+		m.adddeleted = &i
+	}
+}
+
+// AddedDeleted returns the value that was added to the deleted field in this mutation.
+func (m *HealthCareMutation) AddedDeleted() (r int, exists bool) {
+	v := m.adddeleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleted reset all changes of the "deleted" field.
+func (m *HealthCareMutation) ResetDeleted() {
+	m.deleted = nil
+	m.adddeleted = nil
+}
+
+// SetRemarks sets the remarks field.
+func (m *HealthCareMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the remarks value in the mutation.
+func (m *HealthCareMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old remarks value of the HealthCare.
+// If the HealthCare object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *HealthCareMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRemarks is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ResetRemarks reset all changes of the "remarks" field.
+func (m *HealthCareMutation) ResetRemarks() {
+	m.remarks = nil
+}
+
+// SetTenantId sets the tenantId field.
+func (m *HealthCareMutation) SetTenantId(i int64) {
+	m.tenantId = &i
+	m.addtenantId = nil
+}
+
+// TenantId returns the tenantId value in the mutation.
+func (m *HealthCareMutation) TenantId() (r int64, exists bool) {
+	v := m.tenantId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTenantId returns the old tenantId value of the HealthCare.
+// If the HealthCare object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *HealthCareMutation) OldTenantId(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldTenantId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldTenantId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTenantId: %w", err)
+	}
+	return oldValue.TenantId, nil
+}
+
+// AddTenantId adds i to tenantId.
+func (m *HealthCareMutation) AddTenantId(i int64) {
+	if m.addtenantId != nil {
+		*m.addtenantId += i
+	} else {
+		m.addtenantId = &i
+	}
+}
+
+// AddedTenantId returns the value that was added to the tenantId field in this mutation.
+func (m *HealthCareMutation) AddedTenantId() (r int64, exists bool) {
+	v := m.addtenantId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetTenantId reset all changes of the "tenantId" field.
+func (m *HealthCareMutation) ResetTenantId() {
+	m.tenantId = nil
+	m.addtenantId = nil
+}
+
+// SetTenantName sets the tenantName field.
+func (m *HealthCareMutation) SetTenantName(s string) {
+	m.tenantName = &s
+}
+
+// TenantName returns the tenantName value in the mutation.
+func (m *HealthCareMutation) TenantName() (r string, exists bool) {
+	v := m.tenantName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTenantName returns the old tenantName value of the HealthCare.
+// If the HealthCare object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *HealthCareMutation) OldTenantName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldTenantName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldTenantName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTenantName: %w", err)
+	}
+	return oldValue.TenantName, nil
+}
+
+// ResetTenantName reset all changes of the "tenantName" field.
+func (m *HealthCareMutation) ResetTenantName() {
+	m.tenantName = nil
+}
+
+// Op returns the operation name.
+func (m *HealthCareMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (HealthCare).
+func (m *HealthCareMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *HealthCareMutation) Fields() []string {
+	fields := make([]string, 0, 14)
+	if m.earNumber != nil {
+		fields = append(fields, healthcare.FieldEarNumber)
+	}
+	if m.shedName != nil {
+		fields = append(fields, healthcare.FieldShedName)
+	}
+	if m.date != nil {
+		fields = append(fields, healthcare.FieldDate)
+	}
+	if m.reason != nil {
+		fields = append(fields, healthcare.FieldReason)
+	}
+	if m.method != nil {
+		fields = append(fields, healthcare.FieldMethod)
+	}
+	if m.vetName != nil {
+		fields = append(fields, healthcare.FieldVetName)
+	}
+	if m.hoofArea != nil {
+		fields = append(fields, healthcare.FieldHoofArea)
+	}
+	if m.hornMethod != nil {
+		fields = append(fields, healthcare.FieldHornMethod)
+	}
+	if m.createdAt != nil {
+		fields = append(fields, healthcare.FieldCreatedAt)
+	}
+	if m.updatedAt != nil {
+		fields = append(fields, healthcare.FieldUpdatedAt)
+	}
+	if m.deleted != nil {
+		fields = append(fields, healthcare.FieldDeleted)
+	}
+	if m.remarks != nil {
+		fields = append(fields, healthcare.FieldRemarks)
+	}
+	if m.tenantId != nil {
+		fields = append(fields, healthcare.FieldTenantId)
+	}
+	if m.tenantName != nil {
+		fields = append(fields, healthcare.FieldTenantName)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *HealthCareMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case healthcare.FieldEarNumber:
+		return m.EarNumber()
+	case healthcare.FieldShedName:
+		return m.ShedName()
+	case healthcare.FieldDate:
+		return m.Date()
+	case healthcare.FieldReason:
+		return m.Reason()
+	case healthcare.FieldMethod:
+		return m.Method()
+	case healthcare.FieldVetName:
+		return m.VetName()
+	case healthcare.FieldHoofArea:
+		return m.HoofArea()
+	case healthcare.FieldHornMethod:
+		return m.HornMethod()
+	case healthcare.FieldCreatedAt:
+		return m.CreatedAt()
+	case healthcare.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case healthcare.FieldDeleted:
+		return m.Deleted()
+	case healthcare.FieldRemarks:
+		return m.Remarks()
+	case healthcare.FieldTenantId:
+		return m.TenantId()
+	case healthcare.FieldTenantName:
+		return m.TenantName()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *HealthCareMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case healthcare.FieldEarNumber:
+		return m.OldEarNumber(ctx)
+	case healthcare.FieldShedName:
+		return m.OldShedName(ctx)
+	case healthcare.FieldDate:
+		return m.OldDate(ctx)
+	case healthcare.FieldReason:
+		return m.OldReason(ctx)
+	case healthcare.FieldMethod:
+		return m.OldMethod(ctx)
+	case healthcare.FieldVetName:
+		return m.OldVetName(ctx)
+	case healthcare.FieldHoofArea:
+		return m.OldHoofArea(ctx)
+	case healthcare.FieldHornMethod:
+		return m.OldHornMethod(ctx)
+	case healthcare.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case healthcare.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case healthcare.FieldDeleted:
+		return m.OldDeleted(ctx)
+	case healthcare.FieldRemarks:
+		return m.OldRemarks(ctx)
+	case healthcare.FieldTenantId:
+		return m.OldTenantId(ctx)
+	case healthcare.FieldTenantName:
+		return m.OldTenantName(ctx)
+	}
+	return nil, fmt.Errorf("unknown HealthCare field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *HealthCareMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case healthcare.FieldEarNumber:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEarNumber(v)
+		return nil
+	case healthcare.FieldShedName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetShedName(v)
+		return nil
+	case healthcare.FieldDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDate(v)
+		return nil
+	case healthcare.FieldReason:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetReason(v)
+		return nil
+	case healthcare.FieldMethod:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetMethod(v)
+		return nil
+	case healthcare.FieldVetName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetVetName(v)
+		return nil
+	case healthcare.FieldHoofArea:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetHoofArea(v)
+		return nil
+	case healthcare.FieldHornMethod:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetHornMethod(v)
+		return nil
+	case healthcare.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case healthcare.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case healthcare.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleted(v)
+		return nil
+	case healthcare.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	case healthcare.FieldTenantId:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTenantId(v)
+		return nil
+	case healthcare.FieldTenantName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTenantName(v)
+		return nil
+	}
+	return fmt.Errorf("unknown HealthCare field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *HealthCareMutation) AddedFields() []string {
+	var fields []string
+	if m.adddate != nil {
+		fields = append(fields, healthcare.FieldDate)
+	}
+	if m.addcreatedAt != nil {
+		fields = append(fields, healthcare.FieldCreatedAt)
+	}
+	if m.addupdatedAt != nil {
+		fields = append(fields, healthcare.FieldUpdatedAt)
+	}
+	if m.adddeleted != nil {
+		fields = append(fields, healthcare.FieldDeleted)
+	}
+	if m.addtenantId != nil {
+		fields = append(fields, healthcare.FieldTenantId)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *HealthCareMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case healthcare.FieldDate:
+		return m.AddedDate()
+	case healthcare.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case healthcare.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case healthcare.FieldDeleted:
+		return m.AddedDeleted()
+	case healthcare.FieldTenantId:
+		return m.AddedTenantId()
+	}
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *HealthCareMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case healthcare.FieldDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDate(v)
+		return nil
+	case healthcare.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case healthcare.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case healthcare.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleted(v)
+		return nil
+	case healthcare.FieldTenantId:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTenantId(v)
+		return nil
+	}
+	return fmt.Errorf("unknown HealthCare numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *HealthCareMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *HealthCareMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *HealthCareMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown HealthCare nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *HealthCareMutation) ResetField(name string) error {
+	switch name {
+	case healthcare.FieldEarNumber:
+		m.ResetEarNumber()
+		return nil
+	case healthcare.FieldShedName:
+		m.ResetShedName()
+		return nil
+	case healthcare.FieldDate:
+		m.ResetDate()
+		return nil
+	case healthcare.FieldReason:
+		m.ResetReason()
+		return nil
+	case healthcare.FieldMethod:
+		m.ResetMethod()
+		return nil
+	case healthcare.FieldVetName:
+		m.ResetVetName()
+		return nil
+	case healthcare.FieldHoofArea:
+		m.ResetHoofArea()
+		return nil
+	case healthcare.FieldHornMethod:
+		m.ResetHornMethod()
+		return nil
+	case healthcare.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case healthcare.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case healthcare.FieldDeleted:
+		m.ResetDeleted()
+		return nil
+	case healthcare.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	case healthcare.FieldTenantId:
+		m.ResetTenantId()
+		return nil
+	case healthcare.FieldTenantName:
+		m.ResetTenantName()
+		return nil
+	}
+	return fmt.Errorf("unknown HealthCare field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *HealthCareMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *HealthCareMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *HealthCareMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *HealthCareMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *HealthCareMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *HealthCareMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *HealthCareMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown HealthCare unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *HealthCareMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown HealthCare edge %s", name)
+}
+
 // ImmunityMutation represents an operation that mutate the Immunities
 // nodes in the graph.
 type ImmunityMutation struct {
@@ -41579,6 +42814,1226 @@ func (m *MaterialTestMutation) ClearEdge(name string) error {
 // defined in the schema.
 func (m *MaterialTestMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown MaterialTest edge %s", name)
+}
+
+// MedicineMutation represents an operation that mutate the Medicines
+// nodes in the graph.
+type MedicineMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	epid          *int64
+	addepid       *int64
+	earNumber     *string
+	medicineName  *string
+	dose          *int64
+	adddose       *int64
+	unit          *string
+	dateStart     *int64
+	adddateStart  *int64
+	dateEnd       *int64
+	adddateEnd    *int64
+	createdAt     *int64
+	addcreatedAt  *int64
+	updatedAt     *int64
+	addupdatedAt  *int64
+	deleted       *int
+	adddeleted    *int
+	remarks       *string
+	tenantId      *int64
+	addtenantId   *int64
+	tenantName    *string
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*Medicine, error)
+}
+
+var _ ent.Mutation = (*MedicineMutation)(nil)
+
+// medicineOption allows to manage the mutation configuration using functional options.
+type medicineOption func(*MedicineMutation)
+
+// newMedicineMutation creates new mutation for $n.Name.
+func newMedicineMutation(c config, op Op, opts ...medicineOption) *MedicineMutation {
+	m := &MedicineMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeMedicine,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withMedicineID sets the id field of the mutation.
+func withMedicineID(id int64) medicineOption {
+	return func(m *MedicineMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *Medicine
+		)
+		m.oldValue = func(ctx context.Context) (*Medicine, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().Medicine.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withMedicine sets the old Medicine of the mutation.
+func withMedicine(node *Medicine) medicineOption {
+	return func(m *MedicineMutation) {
+		m.oldValue = func(context.Context) (*Medicine, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m MedicineMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m MedicineMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *MedicineMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetEpid sets the epid field.
+func (m *MedicineMutation) SetEpid(i int64) {
+	m.epid = &i
+	m.addepid = nil
+}
+
+// Epid returns the epid value in the mutation.
+func (m *MedicineMutation) Epid() (r int64, exists bool) {
+	v := m.epid
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEpid returns the old epid value of the Medicine.
+// If the Medicine object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MedicineMutation) OldEpid(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldEpid is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldEpid requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEpid: %w", err)
+	}
+	return oldValue.Epid, nil
+}
+
+// AddEpid adds i to epid.
+func (m *MedicineMutation) AddEpid(i int64) {
+	if m.addepid != nil {
+		*m.addepid += i
+	} else {
+		m.addepid = &i
+	}
+}
+
+// AddedEpid returns the value that was added to the epid field in this mutation.
+func (m *MedicineMutation) AddedEpid() (r int64, exists bool) {
+	v := m.addepid
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetEpid reset all changes of the "epid" field.
+func (m *MedicineMutation) ResetEpid() {
+	m.epid = nil
+	m.addepid = nil
+}
+
+// SetEarNumber sets the earNumber field.
+func (m *MedicineMutation) SetEarNumber(s string) {
+	m.earNumber = &s
+}
+
+// EarNumber returns the earNumber value in the mutation.
+func (m *MedicineMutation) EarNumber() (r string, exists bool) {
+	v := m.earNumber
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldEarNumber returns the old earNumber value of the Medicine.
+// If the Medicine object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MedicineMutation) OldEarNumber(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldEarNumber is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldEarNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldEarNumber: %w", err)
+	}
+	return oldValue.EarNumber, nil
+}
+
+// ResetEarNumber reset all changes of the "earNumber" field.
+func (m *MedicineMutation) ResetEarNumber() {
+	m.earNumber = nil
+}
+
+// SetMedicineName sets the medicineName field.
+func (m *MedicineMutation) SetMedicineName(s string) {
+	m.medicineName = &s
+}
+
+// MedicineName returns the medicineName value in the mutation.
+func (m *MedicineMutation) MedicineName() (r string, exists bool) {
+	v := m.medicineName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldMedicineName returns the old medicineName value of the Medicine.
+// If the Medicine object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MedicineMutation) OldMedicineName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldMedicineName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldMedicineName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldMedicineName: %w", err)
+	}
+	return oldValue.MedicineName, nil
+}
+
+// ResetMedicineName reset all changes of the "medicineName" field.
+func (m *MedicineMutation) ResetMedicineName() {
+	m.medicineName = nil
+}
+
+// SetDose sets the dose field.
+func (m *MedicineMutation) SetDose(i int64) {
+	m.dose = &i
+	m.adddose = nil
+}
+
+// Dose returns the dose value in the mutation.
+func (m *MedicineMutation) Dose() (r int64, exists bool) {
+	v := m.dose
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDose returns the old dose value of the Medicine.
+// If the Medicine object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MedicineMutation) OldDose(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDose is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDose requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDose: %w", err)
+	}
+	return oldValue.Dose, nil
+}
+
+// AddDose adds i to dose.
+func (m *MedicineMutation) AddDose(i int64) {
+	if m.adddose != nil {
+		*m.adddose += i
+	} else {
+		m.adddose = &i
+	}
+}
+
+// AddedDose returns the value that was added to the dose field in this mutation.
+func (m *MedicineMutation) AddedDose() (r int64, exists bool) {
+	v := m.adddose
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDose reset all changes of the "dose" field.
+func (m *MedicineMutation) ResetDose() {
+	m.dose = nil
+	m.adddose = nil
+}
+
+// SetUnit sets the unit field.
+func (m *MedicineMutation) SetUnit(s string) {
+	m.unit = &s
+}
+
+// Unit returns the unit value in the mutation.
+func (m *MedicineMutation) Unit() (r string, exists bool) {
+	v := m.unit
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUnit returns the old unit value of the Medicine.
+// If the Medicine object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MedicineMutation) OldUnit(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUnit is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUnit requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUnit: %w", err)
+	}
+	return oldValue.Unit, nil
+}
+
+// ResetUnit reset all changes of the "unit" field.
+func (m *MedicineMutation) ResetUnit() {
+	m.unit = nil
+}
+
+// SetDateStart sets the dateStart field.
+func (m *MedicineMutation) SetDateStart(i int64) {
+	m.dateStart = &i
+	m.adddateStart = nil
+}
+
+// DateStart returns the dateStart value in the mutation.
+func (m *MedicineMutation) DateStart() (r int64, exists bool) {
+	v := m.dateStart
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDateStart returns the old dateStart value of the Medicine.
+// If the Medicine object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MedicineMutation) OldDateStart(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDateStart is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDateStart requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDateStart: %w", err)
+	}
+	return oldValue.DateStart, nil
+}
+
+// AddDateStart adds i to dateStart.
+func (m *MedicineMutation) AddDateStart(i int64) {
+	if m.adddateStart != nil {
+		*m.adddateStart += i
+	} else {
+		m.adddateStart = &i
+	}
+}
+
+// AddedDateStart returns the value that was added to the dateStart field in this mutation.
+func (m *MedicineMutation) AddedDateStart() (r int64, exists bool) {
+	v := m.adddateStart
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDateStart reset all changes of the "dateStart" field.
+func (m *MedicineMutation) ResetDateStart() {
+	m.dateStart = nil
+	m.adddateStart = nil
+}
+
+// SetDateEnd sets the dateEnd field.
+func (m *MedicineMutation) SetDateEnd(i int64) {
+	m.dateEnd = &i
+	m.adddateEnd = nil
+}
+
+// DateEnd returns the dateEnd value in the mutation.
+func (m *MedicineMutation) DateEnd() (r int64, exists bool) {
+	v := m.dateEnd
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDateEnd returns the old dateEnd value of the Medicine.
+// If the Medicine object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MedicineMutation) OldDateEnd(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDateEnd is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDateEnd requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDateEnd: %w", err)
+	}
+	return oldValue.DateEnd, nil
+}
+
+// AddDateEnd adds i to dateEnd.
+func (m *MedicineMutation) AddDateEnd(i int64) {
+	if m.adddateEnd != nil {
+		*m.adddateEnd += i
+	} else {
+		m.adddateEnd = &i
+	}
+}
+
+// AddedDateEnd returns the value that was added to the dateEnd field in this mutation.
+func (m *MedicineMutation) AddedDateEnd() (r int64, exists bool) {
+	v := m.adddateEnd
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDateEnd reset all changes of the "dateEnd" field.
+func (m *MedicineMutation) ResetDateEnd() {
+	m.dateEnd = nil
+	m.adddateEnd = nil
+}
+
+// SetCreatedAt sets the createdAt field.
+func (m *MedicineMutation) SetCreatedAt(i int64) {
+	m.createdAt = &i
+	m.addcreatedAt = nil
+}
+
+// CreatedAt returns the createdAt value in the mutation.
+func (m *MedicineMutation) CreatedAt() (r int64, exists bool) {
+	v := m.createdAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old createdAt value of the Medicine.
+// If the Medicine object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MedicineMutation) OldCreatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds i to createdAt.
+func (m *MedicineMutation) AddCreatedAt(i int64) {
+	if m.addcreatedAt != nil {
+		*m.addcreatedAt += i
+	} else {
+		m.addcreatedAt = &i
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the createdAt field in this mutation.
+func (m *MedicineMutation) AddedCreatedAt() (r int64, exists bool) {
+	v := m.addcreatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt reset all changes of the "createdAt" field.
+func (m *MedicineMutation) ResetCreatedAt() {
+	m.createdAt = nil
+	m.addcreatedAt = nil
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (m *MedicineMutation) SetUpdatedAt(i int64) {
+	m.updatedAt = &i
+	m.addupdatedAt = nil
+}
+
+// UpdatedAt returns the updatedAt value in the mutation.
+func (m *MedicineMutation) UpdatedAt() (r int64, exists bool) {
+	v := m.updatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old updatedAt value of the Medicine.
+// If the Medicine object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MedicineMutation) OldUpdatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUpdatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (m *MedicineMutation) AddUpdatedAt(i int64) {
+	if m.addupdatedAt != nil {
+		*m.addupdatedAt += i
+	} else {
+		m.addupdatedAt = &i
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the updatedAt field in this mutation.
+func (m *MedicineMutation) AddedUpdatedAt() (r int64, exists bool) {
+	v := m.addupdatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt reset all changes of the "updatedAt" field.
+func (m *MedicineMutation) ResetUpdatedAt() {
+	m.updatedAt = nil
+	m.addupdatedAt = nil
+}
+
+// SetDeleted sets the deleted field.
+func (m *MedicineMutation) SetDeleted(i int) {
+	m.deleted = &i
+	m.adddeleted = nil
+}
+
+// Deleted returns the deleted value in the mutation.
+func (m *MedicineMutation) Deleted() (r int, exists bool) {
+	v := m.deleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleted returns the old deleted value of the Medicine.
+// If the Medicine object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MedicineMutation) OldDeleted(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleted is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleted requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleted: %w", err)
+	}
+	return oldValue.Deleted, nil
+}
+
+// AddDeleted adds i to deleted.
+func (m *MedicineMutation) AddDeleted(i int) {
+	if m.adddeleted != nil {
+		*m.adddeleted += i
+	} else {
+		m.adddeleted = &i
+	}
+}
+
+// AddedDeleted returns the value that was added to the deleted field in this mutation.
+func (m *MedicineMutation) AddedDeleted() (r int, exists bool) {
+	v := m.adddeleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleted reset all changes of the "deleted" field.
+func (m *MedicineMutation) ResetDeleted() {
+	m.deleted = nil
+	m.adddeleted = nil
+}
+
+// SetRemarks sets the remarks field.
+func (m *MedicineMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the remarks value in the mutation.
+func (m *MedicineMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old remarks value of the Medicine.
+// If the Medicine object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MedicineMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRemarks is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ResetRemarks reset all changes of the "remarks" field.
+func (m *MedicineMutation) ResetRemarks() {
+	m.remarks = nil
+}
+
+// SetTenantId sets the tenantId field.
+func (m *MedicineMutation) SetTenantId(i int64) {
+	m.tenantId = &i
+	m.addtenantId = nil
+}
+
+// TenantId returns the tenantId value in the mutation.
+func (m *MedicineMutation) TenantId() (r int64, exists bool) {
+	v := m.tenantId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTenantId returns the old tenantId value of the Medicine.
+// If the Medicine object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MedicineMutation) OldTenantId(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldTenantId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldTenantId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTenantId: %w", err)
+	}
+	return oldValue.TenantId, nil
+}
+
+// AddTenantId adds i to tenantId.
+func (m *MedicineMutation) AddTenantId(i int64) {
+	if m.addtenantId != nil {
+		*m.addtenantId += i
+	} else {
+		m.addtenantId = &i
+	}
+}
+
+// AddedTenantId returns the value that was added to the tenantId field in this mutation.
+func (m *MedicineMutation) AddedTenantId() (r int64, exists bool) {
+	v := m.addtenantId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetTenantId reset all changes of the "tenantId" field.
+func (m *MedicineMutation) ResetTenantId() {
+	m.tenantId = nil
+	m.addtenantId = nil
+}
+
+// SetTenantName sets the tenantName field.
+func (m *MedicineMutation) SetTenantName(s string) {
+	m.tenantName = &s
+}
+
+// TenantName returns the tenantName value in the mutation.
+func (m *MedicineMutation) TenantName() (r string, exists bool) {
+	v := m.tenantName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTenantName returns the old tenantName value of the Medicine.
+// If the Medicine object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *MedicineMutation) OldTenantName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldTenantName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldTenantName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTenantName: %w", err)
+	}
+	return oldValue.TenantName, nil
+}
+
+// ResetTenantName reset all changes of the "tenantName" field.
+func (m *MedicineMutation) ResetTenantName() {
+	m.tenantName = nil
+}
+
+// Op returns the operation name.
+func (m *MedicineMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (Medicine).
+func (m *MedicineMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *MedicineMutation) Fields() []string {
+	fields := make([]string, 0, 13)
+	if m.epid != nil {
+		fields = append(fields, medicine.FieldEpid)
+	}
+	if m.earNumber != nil {
+		fields = append(fields, medicine.FieldEarNumber)
+	}
+	if m.medicineName != nil {
+		fields = append(fields, medicine.FieldMedicineName)
+	}
+	if m.dose != nil {
+		fields = append(fields, medicine.FieldDose)
+	}
+	if m.unit != nil {
+		fields = append(fields, medicine.FieldUnit)
+	}
+	if m.dateStart != nil {
+		fields = append(fields, medicine.FieldDateStart)
+	}
+	if m.dateEnd != nil {
+		fields = append(fields, medicine.FieldDateEnd)
+	}
+	if m.createdAt != nil {
+		fields = append(fields, medicine.FieldCreatedAt)
+	}
+	if m.updatedAt != nil {
+		fields = append(fields, medicine.FieldUpdatedAt)
+	}
+	if m.deleted != nil {
+		fields = append(fields, medicine.FieldDeleted)
+	}
+	if m.remarks != nil {
+		fields = append(fields, medicine.FieldRemarks)
+	}
+	if m.tenantId != nil {
+		fields = append(fields, medicine.FieldTenantId)
+	}
+	if m.tenantName != nil {
+		fields = append(fields, medicine.FieldTenantName)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *MedicineMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case medicine.FieldEpid:
+		return m.Epid()
+	case medicine.FieldEarNumber:
+		return m.EarNumber()
+	case medicine.FieldMedicineName:
+		return m.MedicineName()
+	case medicine.FieldDose:
+		return m.Dose()
+	case medicine.FieldUnit:
+		return m.Unit()
+	case medicine.FieldDateStart:
+		return m.DateStart()
+	case medicine.FieldDateEnd:
+		return m.DateEnd()
+	case medicine.FieldCreatedAt:
+		return m.CreatedAt()
+	case medicine.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case medicine.FieldDeleted:
+		return m.Deleted()
+	case medicine.FieldRemarks:
+		return m.Remarks()
+	case medicine.FieldTenantId:
+		return m.TenantId()
+	case medicine.FieldTenantName:
+		return m.TenantName()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *MedicineMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case medicine.FieldEpid:
+		return m.OldEpid(ctx)
+	case medicine.FieldEarNumber:
+		return m.OldEarNumber(ctx)
+	case medicine.FieldMedicineName:
+		return m.OldMedicineName(ctx)
+	case medicine.FieldDose:
+		return m.OldDose(ctx)
+	case medicine.FieldUnit:
+		return m.OldUnit(ctx)
+	case medicine.FieldDateStart:
+		return m.OldDateStart(ctx)
+	case medicine.FieldDateEnd:
+		return m.OldDateEnd(ctx)
+	case medicine.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case medicine.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case medicine.FieldDeleted:
+		return m.OldDeleted(ctx)
+	case medicine.FieldRemarks:
+		return m.OldRemarks(ctx)
+	case medicine.FieldTenantId:
+		return m.OldTenantId(ctx)
+	case medicine.FieldTenantName:
+		return m.OldTenantName(ctx)
+	}
+	return nil, fmt.Errorf("unknown Medicine field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *MedicineMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case medicine.FieldEpid:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEpid(v)
+		return nil
+	case medicine.FieldEarNumber:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetEarNumber(v)
+		return nil
+	case medicine.FieldMedicineName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetMedicineName(v)
+		return nil
+	case medicine.FieldDose:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDose(v)
+		return nil
+	case medicine.FieldUnit:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUnit(v)
+		return nil
+	case medicine.FieldDateStart:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDateStart(v)
+		return nil
+	case medicine.FieldDateEnd:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDateEnd(v)
+		return nil
+	case medicine.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case medicine.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case medicine.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleted(v)
+		return nil
+	case medicine.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	case medicine.FieldTenantId:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTenantId(v)
+		return nil
+	case medicine.FieldTenantName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTenantName(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Medicine field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *MedicineMutation) AddedFields() []string {
+	var fields []string
+	if m.addepid != nil {
+		fields = append(fields, medicine.FieldEpid)
+	}
+	if m.adddose != nil {
+		fields = append(fields, medicine.FieldDose)
+	}
+	if m.adddateStart != nil {
+		fields = append(fields, medicine.FieldDateStart)
+	}
+	if m.adddateEnd != nil {
+		fields = append(fields, medicine.FieldDateEnd)
+	}
+	if m.addcreatedAt != nil {
+		fields = append(fields, medicine.FieldCreatedAt)
+	}
+	if m.addupdatedAt != nil {
+		fields = append(fields, medicine.FieldUpdatedAt)
+	}
+	if m.adddeleted != nil {
+		fields = append(fields, medicine.FieldDeleted)
+	}
+	if m.addtenantId != nil {
+		fields = append(fields, medicine.FieldTenantId)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *MedicineMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case medicine.FieldEpid:
+		return m.AddedEpid()
+	case medicine.FieldDose:
+		return m.AddedDose()
+	case medicine.FieldDateStart:
+		return m.AddedDateStart()
+	case medicine.FieldDateEnd:
+		return m.AddedDateEnd()
+	case medicine.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case medicine.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case medicine.FieldDeleted:
+		return m.AddedDeleted()
+	case medicine.FieldTenantId:
+		return m.AddedTenantId()
+	}
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *MedicineMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case medicine.FieldEpid:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddEpid(v)
+		return nil
+	case medicine.FieldDose:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDose(v)
+		return nil
+	case medicine.FieldDateStart:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDateStart(v)
+		return nil
+	case medicine.FieldDateEnd:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDateEnd(v)
+		return nil
+	case medicine.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case medicine.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case medicine.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleted(v)
+		return nil
+	case medicine.FieldTenantId:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTenantId(v)
+		return nil
+	}
+	return fmt.Errorf("unknown Medicine numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *MedicineMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *MedicineMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *MedicineMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown Medicine nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *MedicineMutation) ResetField(name string) error {
+	switch name {
+	case medicine.FieldEpid:
+		m.ResetEpid()
+		return nil
+	case medicine.FieldEarNumber:
+		m.ResetEarNumber()
+		return nil
+	case medicine.FieldMedicineName:
+		m.ResetMedicineName()
+		return nil
+	case medicine.FieldDose:
+		m.ResetDose()
+		return nil
+	case medicine.FieldUnit:
+		m.ResetUnit()
+		return nil
+	case medicine.FieldDateStart:
+		m.ResetDateStart()
+		return nil
+	case medicine.FieldDateEnd:
+		m.ResetDateEnd()
+		return nil
+	case medicine.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case medicine.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case medicine.FieldDeleted:
+		m.ResetDeleted()
+		return nil
+	case medicine.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	case medicine.FieldTenantId:
+		m.ResetTenantId()
+		return nil
+	case medicine.FieldTenantName:
+		m.ResetTenantName()
+		return nil
+	}
+	return fmt.Errorf("unknown Medicine field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *MedicineMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *MedicineMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *MedicineMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *MedicineMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *MedicineMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *MedicineMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *MedicineMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown Medicine unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *MedicineMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown Medicine edge %s", name)
 }
 
 // OperationMutation represents an operation that mutate the Operations

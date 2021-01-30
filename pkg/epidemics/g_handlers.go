@@ -29,6 +29,7 @@ func EpidemicAddHandler(c *gin.Context) {
 		SetEpidemicTypeName(form.EpidemicTypeName).
 		SetIsolatedShedName(form.IsolatedShedName).
 		SetName(form.Name).
+		SetTreatmentState(form.TreatmentState).
 		SetOnset(form.Onset).
 		SetRemarks(form.Remarks).
 		SetShedName(form.ShedName).
@@ -107,6 +108,7 @@ func EpidemicUpdateHandler(c *gin.Context) {
 		SetEpidemicTypeName(form.EpidemicTypeName).
 		SetIsolatedShedName(form.IsolatedShedName).
 		SetName(form.Name).
+		SetTreatmentState(form.TreatmentState).
 		SetOnset(form.Onset).
 		SetRemarks(form.Remarks).
 		SetShedName(form.ShedName).

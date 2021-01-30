@@ -10,4 +10,5 @@ type ListParams struct {
 	Level     int           `json:"level" form:"level"`
 	ParentId  int64         `json:"parentId" form:"parentId"`
 	TenantId  int64         `json:"tenantId" form:"tenantId"`
+	Epid      int64         `json:"epid" form:"epid"` // 发病ID
 }

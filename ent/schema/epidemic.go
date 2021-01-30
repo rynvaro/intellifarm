@@ -23,6 +23,7 @@ func (Epidemic) Fields() []ent.Field {
 		field.String("diagedBy").Comment("诊断兽医"),
 		field.Int("treatmentResultId"),
 		field.String("treatmentResultName"),
+		field.String("treatmentState"),
 		field.Int64("treatmentAt").Comment("治疗结束日期"),
 		field.String("whereabout").Comment("去向"),
 		field.Int64("tenantId").Comment("租户ID"),

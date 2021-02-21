@@ -27,6 +27,19 @@ func (cpu *ConcentrateProcessUpdate) Where(ps ...predicate.ConcentrateProcess) *
 	return cpu
 }
 
+// SetFormulaID sets the formulaID field.
+func (cpu *ConcentrateProcessUpdate) SetFormulaID(i int64) *ConcentrateProcessUpdate {
+	cpu.mutation.ResetFormulaID()
+	cpu.mutation.SetFormulaID(i)
+	return cpu
+}
+
+// AddFormulaID adds i to formulaID.
+func (cpu *ConcentrateProcessUpdate) AddFormulaID(i int64) *ConcentrateProcessUpdate {
+	cpu.mutation.AddFormulaID(i)
+	return cpu
+}
+
 // SetName sets the name field.
 func (cpu *ConcentrateProcessUpdate) SetName(s string) *ConcentrateProcessUpdate {
 	cpu.mutation.SetName(s)
@@ -235,6 +248,20 @@ func (cpu *ConcentrateProcessUpdate) sqlSave(ctx context.Context) (n int, err er
 			}
 		}
 	}
+	if value, ok := cpu.mutation.FormulaID(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateprocess.FieldFormulaID,
+		})
+	}
+	if value, ok := cpu.mutation.AddedFormulaID(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateprocess.FieldFormulaID,
+		})
+	}
 	if value, ok := cpu.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -398,6 +425,19 @@ type ConcentrateProcessUpdateOne struct {
 	config
 	hooks    []Hook
 	mutation *ConcentrateProcessMutation
+}
+
+// SetFormulaID sets the formulaID field.
+func (cpuo *ConcentrateProcessUpdateOne) SetFormulaID(i int64) *ConcentrateProcessUpdateOne {
+	cpuo.mutation.ResetFormulaID()
+	cpuo.mutation.SetFormulaID(i)
+	return cpuo
+}
+
+// AddFormulaID adds i to formulaID.
+func (cpuo *ConcentrateProcessUpdateOne) AddFormulaID(i int64) *ConcentrateProcessUpdateOne {
+	cpuo.mutation.AddFormulaID(i)
+	return cpuo
 }
 
 // SetName sets the name field.
@@ -606,6 +646,20 @@ func (cpuo *ConcentrateProcessUpdateOne) sqlSave(ctx context.Context) (_node *Co
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing ConcentrateProcess.ID for update")}
 	}
 	_spec.Node.ID.Value = id
+	if value, ok := cpuo.mutation.FormulaID(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateprocess.FieldFormulaID,
+		})
+	}
+	if value, ok := cpuo.mutation.AddedFormulaID(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateprocess.FieldFormulaID,
+		})
+	}
 	if value, ok := cpuo.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,

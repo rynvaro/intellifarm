@@ -13,6 +13,7 @@ type ConcentrateProcess struct {
 // Fields of the ConcentrateProcess.
 func (ConcentrateProcess) Fields() []ent.Field {
 	return []ent.Field{
+		field.Int64("formulaID").Comment("配方ID"),
 		field.String("name"),
 		field.String("code"),
 		field.Int64("date"),

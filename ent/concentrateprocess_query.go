@@ -237,12 +237,12 @@ func (cpq *ConcentrateProcessQuery) Clone() *ConcentrateProcessQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		FormulaID int64 `json:"formulaID,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.ConcentrateProcess.Query().
-//		GroupBy(concentrateprocess.FieldName).
+//		GroupBy(concentrateprocess.FieldFormulaID).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (cpq *ConcentrateProcessQuery) GroupBy(field string, fields ...string) *Con
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		FormulaID int64 `json:"formulaID,omitempty"`
 //	}
 //
 //	client.ConcentrateProcess.Query().
-//		Select(concentrateprocess.FieldName).
+//		Select(concentrateprocess.FieldFormulaID).
 //		Scan(ctx, &v)
 //
 func (cpq *ConcentrateProcessQuery) Select(field string, fields ...string) *ConcentrateProcessSelect {

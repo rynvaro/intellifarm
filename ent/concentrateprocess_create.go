@@ -19,6 +19,12 @@ type ConcentrateProcessCreate struct {
 	hooks    []Hook
 }
 
+// SetFormulaID sets the formulaID field.
+func (cpc *ConcentrateProcessCreate) SetFormulaID(i int64) *ConcentrateProcessCreate {
+	cpc.mutation.SetFormulaID(i)
+	return cpc
+}
+
 // SetName sets the name field.
 func (cpc *ConcentrateProcessCreate) SetName(s string) *ConcentrateProcessCreate {
 	cpc.mutation.SetName(s)
@@ -148,6 +154,9 @@ func (cpc *ConcentrateProcessCreate) SaveX(ctx context.Context) *ConcentrateProc
 
 // check runs all checks and user-defined validators on the builder.
 func (cpc *ConcentrateProcessCreate) check() error {
+	if _, ok := cpc.mutation.FormulaID(); !ok {
+		return &ValidationError{Name: "formulaID", err: errors.New("ent: missing required field \"formulaID\"")}
+	}
 	if _, ok := cpc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
 	}
@@ -214,6 +223,14 @@ func (cpc *ConcentrateProcessCreate) createSpec() (*ConcentrateProcess, *sqlgrap
 			},
 		}
 	)
+	if value, ok := cpc.mutation.FormulaID(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateprocess.FieldFormulaID,
+		})
+		_node.FormulaID = value
+	}
 	if value, ok := cpc.mutation.Name(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,

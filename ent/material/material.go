@@ -11,22 +11,12 @@ const (
 	FieldName = "name"
 	// FieldCode holds the string denoting the code field in the database.
 	FieldCode = "code"
-	// FieldSeqNumber holds the string denoting the seqnumber field in the database.
-	FieldSeqNumber = "seq_number"
-	// FieldDate holds the string denoting the date field in the database.
-	FieldDate = "date"
-	// FieldType holds the string denoting the type field in the database.
-	FieldType = "type"
-	// FieldCount holds the string denoting the count field in the database.
-	FieldCount = "count"
 	// FieldCategory holds the string denoting the category field in the database.
 	FieldCategory = "category"
-	// FieldStatus holds the string denoting the status field in the database.
-	FieldStatus = "status"
 	// FieldUserName holds the string denoting the username field in the database.
 	FieldUserName = "user_name"
-	// FieldPayAt holds the string denoting the payat field in the database.
-	FieldPayAt = "pay_at"
+	// FieldInventory holds the string denoting the inventory field in the database.
+	FieldInventory = "inventory"
 	// FieldTenantId holds the string denoting the tenantid field in the database.
 	FieldTenantId = "tenant_id"
 	// FieldTenantName holds the string denoting the tenantname field in the database.
@@ -49,14 +39,9 @@ var Columns = []string{
 	FieldID,
 	FieldName,
 	FieldCode,
-	FieldSeqNumber,
-	FieldDate,
-	FieldType,
-	FieldCount,
 	FieldCategory,
-	FieldStatus,
 	FieldUserName,
-	FieldPayAt,
+	FieldInventory,
 	FieldTenantId,
 	FieldTenantName,
 	FieldRemarks,

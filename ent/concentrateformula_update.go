@@ -104,6 +104,12 @@ func (cfu *ConcentrateFormulaUpdate) AddCost(i int64) *ConcentrateFormulaUpdate 
 	return cfu
 }
 
+// SetData sets the data field.
+func (cfu *ConcentrateFormulaUpdate) SetData(s string) *ConcentrateFormulaUpdate {
+	cfu.mutation.SetData(s)
+	return cfu
+}
+
 // SetTenantId sets the tenantId field.
 func (cfu *ConcentrateFormulaUpdate) SetTenantId(i int64) *ConcentrateFormulaUpdate {
 	cfu.mutation.ResetTenantId()
@@ -326,6 +332,13 @@ func (cfu *ConcentrateFormulaUpdate) sqlSave(ctx context.Context) (n int, err er
 			Column: concentrateformula.FieldCost,
 		})
 	}
+	if value, ok := cfu.mutation.Data(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: concentrateformula.FieldData,
+		})
+	}
 	if value, ok := cfu.mutation.TenantId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -488,6 +501,12 @@ func (cfuo *ConcentrateFormulaUpdateOne) SetCost(i int64) *ConcentrateFormulaUpd
 // AddCost adds i to cost.
 func (cfuo *ConcentrateFormulaUpdateOne) AddCost(i int64) *ConcentrateFormulaUpdateOne {
 	cfuo.mutation.AddCost(i)
+	return cfuo
+}
+
+// SetData sets the data field.
+func (cfuo *ConcentrateFormulaUpdateOne) SetData(s string) *ConcentrateFormulaUpdateOne {
+	cfuo.mutation.SetData(s)
 	return cfuo
 }
 
@@ -709,6 +728,13 @@ func (cfuo *ConcentrateFormulaUpdateOne) sqlSave(ctx context.Context) (_node *Co
 			Type:   field.TypeInt64,
 			Value:  value,
 			Column: concentrateformula.FieldCost,
+		})
+	}
+	if value, ok := cfuo.mutation.Data(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: concentrateformula.FieldData,
 		})
 	}
 	if value, ok := cfuo.mutation.TenantId(); ok {

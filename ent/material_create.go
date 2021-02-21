@@ -31,39 +31,9 @@ func (mc *MaterialCreate) SetCode(s string) *MaterialCreate {
 	return mc
 }
 
-// SetSeqNumber sets the seqNumber field.
-func (mc *MaterialCreate) SetSeqNumber(s string) *MaterialCreate {
-	mc.mutation.SetSeqNumber(s)
-	return mc
-}
-
-// SetDate sets the date field.
-func (mc *MaterialCreate) SetDate(i int64) *MaterialCreate {
-	mc.mutation.SetDate(i)
-	return mc
-}
-
-// SetType sets the type field.
-func (mc *MaterialCreate) SetType(i int) *MaterialCreate {
-	mc.mutation.SetType(i)
-	return mc
-}
-
-// SetCount sets the count field.
-func (mc *MaterialCreate) SetCount(i int) *MaterialCreate {
-	mc.mutation.SetCount(i)
-	return mc
-}
-
 // SetCategory sets the category field.
 func (mc *MaterialCreate) SetCategory(i int) *MaterialCreate {
 	mc.mutation.SetCategory(i)
-	return mc
-}
-
-// SetStatus sets the status field.
-func (mc *MaterialCreate) SetStatus(i int) *MaterialCreate {
-	mc.mutation.SetStatus(i)
 	return mc
 }
 
@@ -73,9 +43,9 @@ func (mc *MaterialCreate) SetUserName(s string) *MaterialCreate {
 	return mc
 }
 
-// SetPayAt sets the payAt field.
-func (mc *MaterialCreate) SetPayAt(i int64) *MaterialCreate {
-	mc.mutation.SetPayAt(i)
+// SetInventory sets the inventory field.
+func (mc *MaterialCreate) SetInventory(i int64) *MaterialCreate {
+	mc.mutation.SetInventory(i)
 	return mc
 }
 
@@ -172,29 +142,14 @@ func (mc *MaterialCreate) check() error {
 	if _, ok := mc.mutation.Code(); !ok {
 		return &ValidationError{Name: "code", err: errors.New("ent: missing required field \"code\"")}
 	}
-	if _, ok := mc.mutation.SeqNumber(); !ok {
-		return &ValidationError{Name: "seqNumber", err: errors.New("ent: missing required field \"seqNumber\"")}
-	}
-	if _, ok := mc.mutation.Date(); !ok {
-		return &ValidationError{Name: "date", err: errors.New("ent: missing required field \"date\"")}
-	}
-	if _, ok := mc.mutation.GetType(); !ok {
-		return &ValidationError{Name: "type", err: errors.New("ent: missing required field \"type\"")}
-	}
-	if _, ok := mc.mutation.Count(); !ok {
-		return &ValidationError{Name: "count", err: errors.New("ent: missing required field \"count\"")}
-	}
 	if _, ok := mc.mutation.Category(); !ok {
 		return &ValidationError{Name: "category", err: errors.New("ent: missing required field \"category\"")}
-	}
-	if _, ok := mc.mutation.Status(); !ok {
-		return &ValidationError{Name: "status", err: errors.New("ent: missing required field \"status\"")}
 	}
 	if _, ok := mc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
 	}
-	if _, ok := mc.mutation.PayAt(); !ok {
-		return &ValidationError{Name: "payAt", err: errors.New("ent: missing required field \"payAt\"")}
+	if _, ok := mc.mutation.Inventory(); !ok {
+		return &ValidationError{Name: "inventory", err: errors.New("ent: missing required field \"inventory\"")}
 	}
 	if _, ok := mc.mutation.TenantId(); !ok {
 		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
@@ -257,38 +212,6 @@ func (mc *MaterialCreate) createSpec() (*Material, *sqlgraph.CreateSpec) {
 		})
 		_node.Code = value
 	}
-	if value, ok := mc.mutation.SeqNumber(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: material.FieldSeqNumber,
-		})
-		_node.SeqNumber = value
-	}
-	if value, ok := mc.mutation.Date(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: material.FieldDate,
-		})
-		_node.Date = value
-	}
-	if value, ok := mc.mutation.GetType(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: material.FieldType,
-		})
-		_node.Type = value
-	}
-	if value, ok := mc.mutation.Count(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: material.FieldCount,
-		})
-		_node.Count = value
-	}
 	if value, ok := mc.mutation.Category(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
@@ -296,14 +219,6 @@ func (mc *MaterialCreate) createSpec() (*Material, *sqlgraph.CreateSpec) {
 			Column: material.FieldCategory,
 		})
 		_node.Category = value
-	}
-	if value, ok := mc.mutation.Status(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: material.FieldStatus,
-		})
-		_node.Status = value
 	}
 	if value, ok := mc.mutation.UserName(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -313,13 +228,13 @@ func (mc *MaterialCreate) createSpec() (*Material, *sqlgraph.CreateSpec) {
 		})
 		_node.UserName = value
 	}
-	if value, ok := mc.mutation.PayAt(); ok {
+	if value, ok := mc.mutation.Inventory(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: material.FieldPayAt,
+			Column: material.FieldInventory,
 		})
-		_node.PayAt = value
+		_node.Inventory = value
 	}
 	if value, ok := mc.mutation.TenantId(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

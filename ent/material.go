@@ -19,22 +19,12 @@ type Material struct {
 	Name string `json:"name,omitempty"`
 	// Code holds the value of the "code" field.
 	Code string `json:"code,omitempty"`
-	// SeqNumber holds the value of the "seqNumber" field.
-	SeqNumber string `json:"seqNumber,omitempty"`
-	// Date holds the value of the "date" field.
-	Date int64 `json:"date,omitempty"`
-	// Type holds the value of the "type" field.
-	Type int `json:"type,omitempty"`
-	// Count holds the value of the "count" field.
-	Count int `json:"count,omitempty"`
 	// Category holds the value of the "category" field.
 	Category int `json:"category,omitempty"`
-	// Status holds the value of the "status" field.
-	Status int `json:"status,omitempty"`
 	// UserName holds the value of the "userName" field.
 	UserName string `json:"userName,omitempty"`
-	// PayAt holds the value of the "payAt" field.
-	PayAt int64 `json:"payAt,omitempty"`
+	// Inventory holds the value of the "inventory" field.
+	Inventory int64 `json:"inventory,omitempty"`
 	// TenantId holds the value of the "tenantId" field.
 	TenantId int64 `json:"tenantId,omitempty"`
 	// TenantName holds the value of the "tenantName" field.
@@ -55,14 +45,9 @@ func (*Material) scanValues() []interface{} {
 		&sql.NullInt64{},  // id
 		&sql.NullString{}, // name
 		&sql.NullString{}, // code
-		&sql.NullString{}, // seqNumber
-		&sql.NullInt64{},  // date
-		&sql.NullInt64{},  // type
-		&sql.NullInt64{},  // count
 		&sql.NullInt64{},  // category
-		&sql.NullInt64{},  // status
 		&sql.NullString{}, // userName
-		&sql.NullInt64{},  // payAt
+		&sql.NullInt64{},  // inventory
 		&sql.NullInt64{},  // tenantId
 		&sql.NullString{}, // tenantName
 		&sql.NullString{}, // remarks
@@ -94,73 +79,48 @@ func (m *Material) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		m.Code = value.String
 	}
-	if value, ok := values[2].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field seqNumber", values[2])
-	} else if value.Valid {
-		m.SeqNumber = value.String
-	}
-	if value, ok := values[3].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field date", values[3])
-	} else if value.Valid {
-		m.Date = value.Int64
-	}
-	if value, ok := values[4].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field type", values[4])
-	} else if value.Valid {
-		m.Type = int(value.Int64)
-	}
-	if value, ok := values[5].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field count", values[5])
-	} else if value.Valid {
-		m.Count = int(value.Int64)
-	}
-	if value, ok := values[6].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field category", values[6])
+	if value, ok := values[2].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field category", values[2])
 	} else if value.Valid {
 		m.Category = int(value.Int64)
 	}
-	if value, ok := values[7].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field status", values[7])
-	} else if value.Valid {
-		m.Status = int(value.Int64)
-	}
-	if value, ok := values[8].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field userName", values[8])
+	if value, ok := values[3].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field userName", values[3])
 	} else if value.Valid {
 		m.UserName = value.String
 	}
-	if value, ok := values[9].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field payAt", values[9])
+	if value, ok := values[4].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field inventory", values[4])
 	} else if value.Valid {
-		m.PayAt = value.Int64
+		m.Inventory = value.Int64
 	}
-	if value, ok := values[10].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantId", values[10])
+	if value, ok := values[5].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[5])
 	} else if value.Valid {
 		m.TenantId = value.Int64
 	}
-	if value, ok := values[11].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantName", values[11])
+	if value, ok := values[6].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[6])
 	} else if value.Valid {
 		m.TenantName = value.String
 	}
-	if value, ok := values[12].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[12])
+	if value, ok := values[7].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[7])
 	} else if value.Valid {
 		m.Remarks = value.String
 	}
-	if value, ok := values[13].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[13])
+	if value, ok := values[8].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[8])
 	} else if value.Valid {
 		m.CreatedAt = value.Int64
 	}
-	if value, ok := values[14].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[14])
+	if value, ok := values[9].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[9])
 	} else if value.Valid {
 		m.UpdatedAt = value.Int64
 	}
-	if value, ok := values[15].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[15])
+	if value, ok := values[10].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[10])
 	} else if value.Valid {
 		m.Deleted = int(value.Int64)
 	}
@@ -194,22 +154,12 @@ func (m *Material) String() string {
 	builder.WriteString(m.Name)
 	builder.WriteString(", code=")
 	builder.WriteString(m.Code)
-	builder.WriteString(", seqNumber=")
-	builder.WriteString(m.SeqNumber)
-	builder.WriteString(", date=")
-	builder.WriteString(fmt.Sprintf("%v", m.Date))
-	builder.WriteString(", type=")
-	builder.WriteString(fmt.Sprintf("%v", m.Type))
-	builder.WriteString(", count=")
-	builder.WriteString(fmt.Sprintf("%v", m.Count))
 	builder.WriteString(", category=")
 	builder.WriteString(fmt.Sprintf("%v", m.Category))
-	builder.WriteString(", status=")
-	builder.WriteString(fmt.Sprintf("%v", m.Status))
 	builder.WriteString(", userName=")
 	builder.WriteString(m.UserName)
-	builder.WriteString(", payAt=")
-	builder.WriteString(fmt.Sprintf("%v", m.PayAt))
+	builder.WriteString(", inventory=")
+	builder.WriteString(fmt.Sprintf("%v", m.Inventory))
 	builder.WriteString(", tenantId=")
 	builder.WriteString(fmt.Sprintf("%v", m.TenantId))
 	builder.WriteString(", tenantName=")

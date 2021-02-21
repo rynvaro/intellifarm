@@ -40,6 +40,8 @@ func Gen(model string, ins interface{}) {
 		assignments = assignments.Id(v + "(form." + strings.TrimPrefix(v, "Set") + ").").Line()
 		assignmentsForUpdate = assignmentsForUpdate.Id(v + "(form." + strings.TrimPrefix(v, "Set") + ").").Line()
 	}
+	assignments = assignments.Id(`SetTenantId(c.MustGet("tenantId").(int64)).
+	SetTenantName(c.MustGet("tenantName").(string)).`)
 	assignments = assignments.Id("SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).").Line().
 		Id("Save(c.Request.Context())")
 	assignmentsForUpdate = assignmentsForUpdate.Id("SetUpdatedAt(time.Now().Unix()).").Line().
@@ -84,6 +86,7 @@ func Gen(model string, ins interface{}) {
 			Id("return"),
 		),
 		Id("page").Op(":=").Id("listParams.Paging"),
+		Id(`listParams.TenantId = c.MustGet("tenantId").(int64)`),
 		Id("where").Op(":=").Id("Where(listParams)"),
 		List(Id("totalCount"), Err()).Op(":=").Id("db.Client."+model+".Query().Where(where).Count(c.Request.Context())"),
 		If(Err().Op("!=").Id("nil")).Block(
@@ -153,6 +156,7 @@ func Gen(model string, ins interface{}) {
 		If(Id("listParams.Q")).Op("!=").Id(`""`).Block(
 			Id("wheres").Op("=").Id("append(wheres, "+lowerModel+".NameContains(listParams.Q))"),
 		),
+		Id("wheres").Op("=").Id("append(wheres, "+lowerModel+".TenantId(listParams.TenantId))"),
 		Id("return "+lowerModel+".And(wheres...)"),
 	)
 	err = whereF.Save("../pkg/" + pkgName + "/g_where.go")

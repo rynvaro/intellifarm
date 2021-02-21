@@ -91,6 +91,13 @@ func IDLTE(id int64) predicate.ConcentrateProcess {
 	})
 }
 
+// FormulaID applies equality check predicate on the "formulaID" field. It's identical to FormulaIDEQ.
+func FormulaID(v int64) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFormulaID), v))
+	})
+}
+
 // Name applies equality check predicate on the "name" field. It's identical to NameEQ.
 func Name(v string) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
@@ -179,6 +186,82 @@ func UpdatedAt(v int64) predicate.ConcentrateProcess {
 func Deleted(v int) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldDeleted), v))
+	})
+}
+
+// FormulaIDEQ applies the EQ predicate on the "formulaID" field.
+func FormulaIDEQ(v int64) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFormulaID), v))
+	})
+}
+
+// FormulaIDNEQ applies the NEQ predicate on the "formulaID" field.
+func FormulaIDNEQ(v int64) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFormulaID), v))
+	})
+}
+
+// FormulaIDIn applies the In predicate on the "formulaID" field.
+func FormulaIDIn(vs ...int64) predicate.ConcentrateProcess {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFormulaID), v...))
+	})
+}
+
+// FormulaIDNotIn applies the NotIn predicate on the "formulaID" field.
+func FormulaIDNotIn(vs ...int64) predicate.ConcentrateProcess {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFormulaID), v...))
+	})
+}
+
+// FormulaIDGT applies the GT predicate on the "formulaID" field.
+func FormulaIDGT(v int64) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFormulaID), v))
+	})
+}
+
+// FormulaIDGTE applies the GTE predicate on the "formulaID" field.
+func FormulaIDGTE(v int64) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFormulaID), v))
+	})
+}
+
+// FormulaIDLT applies the LT predicate on the "formulaID" field.
+func FormulaIDLT(v int64) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFormulaID), v))
+	})
+}
+
+// FormulaIDLTE applies the LTE predicate on the "formulaID" field.
+func FormulaIDLTE(v int64) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFormulaID), v))
 	})
 }
 

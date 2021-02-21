@@ -26,6 +26,7 @@ func ConcentrateFormulaAddHandler(c *gin.Context) {
 		SetAdjustDate(form.AdjustDate).
 		SetCode(form.Code).
 		SetCost(form.Cost).
+		SetData(form.Data).
 		SetCreateDate(form.CreateDate).
 		SetDisableDate(form.DisableDate).
 		SetName(form.Name).
@@ -98,6 +99,7 @@ func ConcentrateFormulaUpdateHandler(c *gin.Context) {
 	concentrateformula, err := db.Client.ConcentrateFormula.UpdateOneID(form.ID).
 		SetAdjustDate(form.AdjustDate).
 		SetCode(form.Code).
+		SetData(form.Data).
 		SetCost(form.Cost).
 		SetCreateDate(form.CreateDate).
 		SetDisableDate(form.DisableDate).

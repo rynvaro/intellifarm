@@ -580,6 +580,19 @@ func (f InspectionFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, 
 	return f(ctx, mv)
 }
 
+// The InventoryFlowFunc type is an adapter to allow the use of ordinary
+// function as InventoryFlow mutator.
+type InventoryFlowFunc func(context.Context, *ent.InventoryFlowMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f InventoryFlowFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.InventoryFlowMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.InventoryFlowMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The MaterialFunc type is an adapter to allow the use of ordinary
 // function as Material mutator.
 type MaterialFunc func(context.Context, *ent.MaterialMutation) (ent.Value, error)

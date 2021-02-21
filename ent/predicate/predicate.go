@@ -138,6 +138,9 @@ type Immunity func(*sql.Selector)
 // Inspection is the predicate function for inspection builders.
 type Inspection func(*sql.Selector)
 
+// InventoryFlow is the predicate function for inventoryflow builders.
+type InventoryFlow func(*sql.Selector)
+
 // Material is the predicate function for material builders.
 type Material func(*sql.Selector)
 

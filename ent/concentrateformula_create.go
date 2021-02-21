@@ -61,6 +61,12 @@ func (cfc *ConcentrateFormulaCreate) SetCost(i int64) *ConcentrateFormulaCreate 
 	return cfc
 }
 
+// SetData sets the data field.
+func (cfc *ConcentrateFormulaCreate) SetData(s string) *ConcentrateFormulaCreate {
+	cfc.mutation.SetData(s)
+	return cfc
+}
+
 // SetTenantId sets the tenantId field.
 func (cfc *ConcentrateFormulaCreate) SetTenantId(i int64) *ConcentrateFormulaCreate {
 	cfc.mutation.SetTenantId(i)
@@ -169,6 +175,9 @@ func (cfc *ConcentrateFormulaCreate) check() error {
 	if _, ok := cfc.mutation.Cost(); !ok {
 		return &ValidationError{Name: "cost", err: errors.New("ent: missing required field \"cost\"")}
 	}
+	if _, ok := cfc.mutation.Data(); !ok {
+		return &ValidationError{Name: "data", err: errors.New("ent: missing required field \"data\"")}
+	}
 	if _, ok := cfc.mutation.TenantId(); !ok {
 		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
 	}
@@ -269,6 +278,14 @@ func (cfc *ConcentrateFormulaCreate) createSpec() (*ConcentrateFormula, *sqlgrap
 			Column: concentrateformula.FieldCost,
 		})
 		_node.Cost = value
+	}
+	if value, ok := cfc.mutation.Data(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: concentrateformula.FieldData,
+		})
+		_node.Data = value
 	}
 	if value, ok := cfc.mutation.TenantId(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

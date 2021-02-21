@@ -68,6 +68,7 @@ type hooks struct {
 	HealthCare          []ent.Hook
 	Immunity            []ent.Hook
 	Inspection          []ent.Hook
+	InventoryFlow       []ent.Hook
 	Material            []ent.Hook
 	MaterialTest        []ent.Hook
 	Medicine            []ent.Hook

@@ -540,6 +540,7 @@ var (
 		{Name: "adjust_date", Type: field.TypeInt64},
 		{Name: "disable_date", Type: field.TypeInt64},
 		{Name: "cost", Type: field.TypeInt64},
+		{Name: "data", Type: field.TypeString},
 		{Name: "tenant_id", Type: field.TypeInt64},
 		{Name: "tenant_name", Type: field.TypeString},
 		{Name: "remarks", Type: field.TypeString},
@@ -557,6 +558,7 @@ var (
 	// ConcentrateProcessesColumns holds the columns for the "concentrate_processes" table.
 	ConcentrateProcessesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "formula_id", Type: field.TypeInt64},
 		{Name: "name", Type: field.TypeString},
 		{Name: "code", Type: field.TypeString},
 		{Name: "date", Type: field.TypeInt64},
@@ -898,19 +900,41 @@ var (
 		PrimaryKey:  []*schema.Column{InspectionsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// InventoryFlowsColumns holds the columns for the "inventory_flows" table.
+	InventoryFlowsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "material_id", Type: field.TypeInt64},
+		{Name: "material_name", Type: field.TypeString},
+		{Name: "material_code", Type: field.TypeString},
+		{Name: "seq_number", Type: field.TypeString},
+		{Name: "date", Type: field.TypeInt64},
+		{Name: "type", Type: field.TypeInt},
+		{Name: "status", Type: field.TypeInt},
+		{Name: "count", Type: field.TypeInt},
+		{Name: "unit", Type: field.TypeString},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// InventoryFlowsTable holds the schema information for the "inventory_flows" table.
+	InventoryFlowsTable = &schema.Table{
+		Name:        "inventory_flows",
+		Columns:     InventoryFlowsColumns,
+		PrimaryKey:  []*schema.Column{InventoryFlowsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// MaterialsColumns holds the columns for the "materials" table.
 	MaterialsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
 		{Name: "code", Type: field.TypeString},
-		{Name: "seq_number", Type: field.TypeString},
-		{Name: "date", Type: field.TypeInt64},
-		{Name: "type", Type: field.TypeInt},
-		{Name: "count", Type: field.TypeInt},
 		{Name: "category", Type: field.TypeInt},
-		{Name: "status", Type: field.TypeInt},
 		{Name: "user_name", Type: field.TypeString},
-		{Name: "pay_at", Type: field.TypeInt64},
+		{Name: "inventory", Type: field.TypeInt64},
 		{Name: "tenant_id", Type: field.TypeInt64},
 		{Name: "tenant_name", Type: field.TypeString},
 		{Name: "remarks", Type: field.TypeString},
@@ -1345,6 +1369,7 @@ var (
 		HealthCaresTable,
 		ImmunitiesTable,
 		InspectionsTable,
+		InventoryFlowsTable,
 		MaterialsTable,
 		MaterialTestsTable,
 		MedicinesTable,

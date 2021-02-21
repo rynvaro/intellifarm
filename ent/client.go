@@ -53,6 +53,7 @@ import (
 	"cattleai/ent/healthcare"
 	"cattleai/ent/immunity"
 	"cattleai/ent/inspection"
+	"cattleai/ent/inventoryflow"
 	"cattleai/ent/material"
 	"cattleai/ent/materialtest"
 	"cattleai/ent/medicine"
@@ -174,6 +175,8 @@ type Client struct {
 	Immunity *ImmunityClient
 	// Inspection is the client for interacting with the Inspection builders.
 	Inspection *InspectionClient
+	// InventoryFlow is the client for interacting with the InventoryFlow builders.
+	InventoryFlow *InventoryFlowClient
 	// Material is the client for interacting with the Material builders.
 	Material *MaterialClient
 	// MaterialTest is the client for interacting with the MaterialTest builders.
@@ -277,6 +280,7 @@ func (c *Client) init() {
 	c.HealthCare = NewHealthCareClient(c.config)
 	c.Immunity = NewImmunityClient(c.config)
 	c.Inspection = NewInspectionClient(c.config)
+	c.InventoryFlow = NewInventoryFlowClient(c.config)
 	c.Material = NewMaterialClient(c.config)
 	c.MaterialTest = NewMaterialTestClient(c.config)
 	c.Medicine = NewMedicineClient(c.config)
@@ -376,6 +380,7 @@ func (c *Client) Tx(ctx context.Context) (*Tx, error) {
 		HealthCare:          NewHealthCareClient(cfg),
 		Immunity:            NewImmunityClient(cfg),
 		Inspection:          NewInspectionClient(cfg),
+		InventoryFlow:       NewInventoryFlowClient(cfg),
 		Material:            NewMaterialClient(cfg),
 		MaterialTest:        NewMaterialTestClient(cfg),
 		Medicine:            NewMedicineClient(cfg),
@@ -458,6 +463,7 @@ func (c *Client) BeginTx(ctx context.Context, opts *sql.TxOptions) (*Tx, error) 
 		HealthCare:          NewHealthCareClient(cfg),
 		Immunity:            NewImmunityClient(cfg),
 		Inspection:          NewInspectionClient(cfg),
+		InventoryFlow:       NewInventoryFlowClient(cfg),
 		Material:            NewMaterialClient(cfg),
 		MaterialTest:        NewMaterialTestClient(cfg),
 		Medicine:            NewMedicineClient(cfg),
@@ -553,6 +559,7 @@ func (c *Client) Use(hooks ...Hook) {
 	c.HealthCare.Use(hooks...)
 	c.Immunity.Use(hooks...)
 	c.Inspection.Use(hooks...)
+	c.InventoryFlow.Use(hooks...)
 	c.Material.Use(hooks...)
 	c.MaterialTest.Use(hooks...)
 	c.Medicine.Use(hooks...)
@@ -4448,6 +4455,94 @@ func (c *InspectionClient) GetX(ctx context.Context, id int64) *Inspection {
 // Hooks returns the client hooks.
 func (c *InspectionClient) Hooks() []Hook {
 	return c.hooks.Inspection
+}
+
+// InventoryFlowClient is a client for the InventoryFlow schema.
+type InventoryFlowClient struct {
+	config
+}
+
+// NewInventoryFlowClient returns a client for the InventoryFlow from the given config.
+func NewInventoryFlowClient(c config) *InventoryFlowClient {
+	return &InventoryFlowClient{config: c}
+}
+
+// Use adds a list of mutation hooks to the hooks stack.
+// A call to `Use(f, g, h)` equals to `inventoryflow.Hooks(f(g(h())))`.
+func (c *InventoryFlowClient) Use(hooks ...Hook) {
+	c.hooks.InventoryFlow = append(c.hooks.InventoryFlow, hooks...)
+}
+
+// Create returns a create builder for InventoryFlow.
+func (c *InventoryFlowClient) Create() *InventoryFlowCreate {
+	mutation := newInventoryFlowMutation(c.config, OpCreate)
+	return &InventoryFlowCreate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// BulkCreate returns a builder for creating a bulk of InventoryFlow entities.
+func (c *InventoryFlowClient) CreateBulk(builders ...*InventoryFlowCreate) *InventoryFlowCreateBulk {
+	return &InventoryFlowCreateBulk{config: c.config, builders: builders}
+}
+
+// Update returns an update builder for InventoryFlow.
+func (c *InventoryFlowClient) Update() *InventoryFlowUpdate {
+	mutation := newInventoryFlowMutation(c.config, OpUpdate)
+	return &InventoryFlowUpdate{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOne returns an update builder for the given entity.
+func (c *InventoryFlowClient) UpdateOne(_if *InventoryFlow) *InventoryFlowUpdateOne {
+	mutation := newInventoryFlowMutation(c.config, OpUpdateOne, withInventoryFlow(_if))
+	return &InventoryFlowUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// UpdateOneID returns an update builder for the given id.
+func (c *InventoryFlowClient) UpdateOneID(id int64) *InventoryFlowUpdateOne {
+	mutation := newInventoryFlowMutation(c.config, OpUpdateOne, withInventoryFlowID(id))
+	return &InventoryFlowUpdateOne{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// Delete returns a delete builder for InventoryFlow.
+func (c *InventoryFlowClient) Delete() *InventoryFlowDelete {
+	mutation := newInventoryFlowMutation(c.config, OpDelete)
+	return &InventoryFlowDelete{config: c.config, hooks: c.Hooks(), mutation: mutation}
+}
+
+// DeleteOne returns a delete builder for the given entity.
+func (c *InventoryFlowClient) DeleteOne(_if *InventoryFlow) *InventoryFlowDeleteOne {
+	return c.DeleteOneID(_if.ID)
+}
+
+// DeleteOneID returns a delete builder for the given id.
+func (c *InventoryFlowClient) DeleteOneID(id int64) *InventoryFlowDeleteOne {
+	builder := c.Delete().Where(inventoryflow.ID(id))
+	builder.mutation.id = &id
+	builder.mutation.op = OpDeleteOne
+	return &InventoryFlowDeleteOne{builder}
+}
+
+// Query returns a query builder for InventoryFlow.
+func (c *InventoryFlowClient) Query() *InventoryFlowQuery {
+	return &InventoryFlowQuery{config: c.config}
+}
+
+// Get returns a InventoryFlow entity by its id.
+func (c *InventoryFlowClient) Get(ctx context.Context, id int64) (*InventoryFlow, error) {
+	return c.Query().Where(inventoryflow.ID(id)).Only(ctx)
+}
+
+// GetX is like Get, but panics if an error occurs.
+func (c *InventoryFlowClient) GetX(ctx context.Context, id int64) *InventoryFlow {
+	obj, err := c.Get(ctx, id)
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// Hooks returns the client hooks.
+func (c *InventoryFlowClient) Hooks() []Hook {
+	return c.hooks.InventoryFlow
 }
 
 // MaterialClient is a client for the Material schema.

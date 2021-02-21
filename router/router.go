@@ -39,6 +39,7 @@ import (
 	"cattleai/pkg/healthcares"
 	"cattleai/pkg/immunities"
 	"cattleai/pkg/inspections"
+	"cattleai/pkg/inventoryflows"
 	"cattleai/pkg/materials"
 	"cattleai/pkg/materialtests"
 	"cattleai/pkg/medicines"
@@ -147,6 +148,7 @@ func Register(g *gin.RouterGroup) {
 
 	materials.RegisterRoutes(g)
 	materialtests.RegisterRoutes(g)
+	inventoryflows.RegisterRoutes(g)
 
 	concentrateformulas.RegisterRoutes(g)
 	concentrateprocesses.RegisterRoutes(g)

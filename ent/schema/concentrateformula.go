@@ -20,6 +20,7 @@ func (ConcentrateFormula) Fields() []ent.Field {
 		field.Int64("adjustDate"),
 		field.Int64("disableDate"),
 		field.Int64("cost").Comment("成本"),
+		field.String("data").Comment("JSON格式的配比数据"),
 		field.Int64("tenantId").Comment("租户ID"),
 		field.String("tenantName").Comment("租户组织名称"),
 		field.String("remarks").Comment("备注"),

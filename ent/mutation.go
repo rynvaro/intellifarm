@@ -43,6 +43,7 @@ import (
 	"cattleai/ent/healthcare"
 	"cattleai/ent/immunity"
 	"cattleai/ent/inspection"
+	"cattleai/ent/inventoryflow"
 	"cattleai/ent/material"
 	"cattleai/ent/materialtest"
 	"cattleai/ent/medicine"
@@ -125,6 +126,7 @@ const (
 	TypeHealthCare          = "HealthCare"
 	TypeImmunity            = "Immunity"
 	TypeInspection          = "Inspection"
+	TypeInventoryFlow       = "InventoryFlow"
 	TypeMaterial            = "Material"
 	TypeMaterialTest        = "MaterialTest"
 	TypeMedicine            = "Medicine"
@@ -23686,6 +23688,7 @@ type ConcentrateFormulaMutation struct {
 	adddisableDate *int64
 	cost           *int64
 	addcost        *int64
+	data           *string
 	tenantId       *int64
 	addtenantId    *int64
 	tenantName     *string
@@ -24139,6 +24142,43 @@ func (m *ConcentrateFormulaMutation) ResetCost() {
 	m.addcost = nil
 }
 
+// SetData sets the data field.
+func (m *ConcentrateFormulaMutation) SetData(s string) {
+	m.data = &s
+}
+
+// Data returns the data value in the mutation.
+func (m *ConcentrateFormulaMutation) Data() (r string, exists bool) {
+	v := m.data
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldData returns the old data value of the ConcentrateFormula.
+// If the ConcentrateFormula object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateFormulaMutation) OldData(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldData is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldData requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldData: %w", err)
+	}
+	return oldValue.Data, nil
+}
+
+// ResetData reset all changes of the "data" field.
+func (m *ConcentrateFormulaMutation) ResetData() {
+	m.data = nil
+}
+
 // SetTenantId sets the tenantId field.
 func (m *ConcentrateFormulaMutation) SetTenantId(i int64) {
 	m.tenantId = &i
@@ -24455,7 +24495,7 @@ func (m *ConcentrateFormulaMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *ConcentrateFormulaMutation) Fields() []string {
-	fields := make([]string, 0, 13)
+	fields := make([]string, 0, 14)
 	if m.name != nil {
 		fields = append(fields, concentrateformula.FieldName)
 	}
@@ -24476,6 +24516,9 @@ func (m *ConcentrateFormulaMutation) Fields() []string {
 	}
 	if m.cost != nil {
 		fields = append(fields, concentrateformula.FieldCost)
+	}
+	if m.data != nil {
+		fields = append(fields, concentrateformula.FieldData)
 	}
 	if m.tenantId != nil {
 		fields = append(fields, concentrateformula.FieldTenantId)
@@ -24517,6 +24560,8 @@ func (m *ConcentrateFormulaMutation) Field(name string) (ent.Value, bool) {
 		return m.DisableDate()
 	case concentrateformula.FieldCost:
 		return m.Cost()
+	case concentrateformula.FieldData:
+		return m.Data()
 	case concentrateformula.FieldTenantId:
 		return m.TenantId()
 	case concentrateformula.FieldTenantName:
@@ -24552,6 +24597,8 @@ func (m *ConcentrateFormulaMutation) OldField(ctx context.Context, name string) 
 		return m.OldDisableDate(ctx)
 	case concentrateformula.FieldCost:
 		return m.OldCost(ctx)
+	case concentrateformula.FieldData:
+		return m.OldData(ctx)
 	case concentrateformula.FieldTenantId:
 		return m.OldTenantId(ctx)
 	case concentrateformula.FieldTenantName:
@@ -24621,6 +24668,13 @@ func (m *ConcentrateFormulaMutation) SetField(name string, value ent.Value) erro
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetCost(v)
+		return nil
+	case concentrateformula.FieldData:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetData(v)
 		return nil
 	case concentrateformula.FieldTenantId:
 		v, ok := value.(int64)
@@ -24846,6 +24900,9 @@ func (m *ConcentrateFormulaMutation) ResetField(name string) error {
 	case concentrateformula.FieldCost:
 		m.ResetCost()
 		return nil
+	case concentrateformula.FieldData:
+		m.ResetData()
+		return nil
 	case concentrateformula.FieldTenantId:
 		m.ResetTenantId()
 		return nil
@@ -24927,6 +24984,8 @@ type ConcentrateProcessMutation struct {
 	op            Op
 	typ           string
 	id            *int64
+	formulaID     *int64
+	addformulaID  *int64
 	name          *string
 	code          *string
 	date          *int64
@@ -25030,6 +25089,63 @@ func (m *ConcentrateProcessMutation) ID() (id int64, exists bool) {
 		return
 	}
 	return *m.id, true
+}
+
+// SetFormulaID sets the formulaID field.
+func (m *ConcentrateProcessMutation) SetFormulaID(i int64) {
+	m.formulaID = &i
+	m.addformulaID = nil
+}
+
+// FormulaID returns the formulaID value in the mutation.
+func (m *ConcentrateProcessMutation) FormulaID() (r int64, exists bool) {
+	v := m.formulaID
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldFormulaID returns the old formulaID value of the ConcentrateProcess.
+// If the ConcentrateProcess object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *ConcentrateProcessMutation) OldFormulaID(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldFormulaID is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldFormulaID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldFormulaID: %w", err)
+	}
+	return oldValue.FormulaID, nil
+}
+
+// AddFormulaID adds i to formulaID.
+func (m *ConcentrateProcessMutation) AddFormulaID(i int64) {
+	if m.addformulaID != nil {
+		*m.addformulaID += i
+	} else {
+		m.addformulaID = &i
+	}
+}
+
+// AddedFormulaID returns the value that was added to the formulaID field in this mutation.
+func (m *ConcentrateProcessMutation) AddedFormulaID() (r int64, exists bool) {
+	v := m.addformulaID
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetFormulaID reset all changes of the "formulaID" field.
+func (m *ConcentrateProcessMutation) ResetFormulaID() {
+	m.formulaID = nil
+	m.addformulaID = nil
 }
 
 // SetName sets the name field.
@@ -25687,7 +25803,10 @@ func (m *ConcentrateProcessMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *ConcentrateProcessMutation) Fields() []string {
-	fields := make([]string, 0, 13)
+	fields := make([]string, 0, 14)
+	if m.formulaID != nil {
+		fields = append(fields, concentrateprocess.FieldFormulaID)
+	}
 	if m.name != nil {
 		fields = append(fields, concentrateprocess.FieldName)
 	}
@@ -25735,6 +25854,8 @@ func (m *ConcentrateProcessMutation) Fields() []string {
 // not set, or was not define in the schema.
 func (m *ConcentrateProcessMutation) Field(name string) (ent.Value, bool) {
 	switch name {
+	case concentrateprocess.FieldFormulaID:
+		return m.FormulaID()
 	case concentrateprocess.FieldName:
 		return m.Name()
 	case concentrateprocess.FieldCode:
@@ -25770,6 +25891,8 @@ func (m *ConcentrateProcessMutation) Field(name string) (ent.Value, bool) {
 // or the query to the database was failed.
 func (m *ConcentrateProcessMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
 	switch name {
+	case concentrateprocess.FieldFormulaID:
+		return m.OldFormulaID(ctx)
 	case concentrateprocess.FieldName:
 		return m.OldName(ctx)
 	case concentrateprocess.FieldCode:
@@ -25805,6 +25928,13 @@ func (m *ConcentrateProcessMutation) OldField(ctx context.Context, name string) 
 // type mismatch the field type.
 func (m *ConcentrateProcessMutation) SetField(name string, value ent.Value) error {
 	switch name {
+	case concentrateprocess.FieldFormulaID:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetFormulaID(v)
+		return nil
 	case concentrateprocess.FieldName:
 		v, ok := value.(string)
 		if !ok {
@@ -25904,6 +26034,9 @@ func (m *ConcentrateProcessMutation) SetField(name string, value ent.Value) erro
 // or decremented during this mutation.
 func (m *ConcentrateProcessMutation) AddedFields() []string {
 	var fields []string
+	if m.addformulaID != nil {
+		fields = append(fields, concentrateprocess.FieldFormulaID)
+	}
 	if m.adddate != nil {
 		fields = append(fields, concentrateprocess.FieldDate)
 	}
@@ -25936,6 +26069,8 @@ func (m *ConcentrateProcessMutation) AddedFields() []string {
 // that this field was not set, or was not define in the schema.
 func (m *ConcentrateProcessMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case concentrateprocess.FieldFormulaID:
+		return m.AddedFormulaID()
 	case concentrateprocess.FieldDate:
 		return m.AddedDate()
 	case concentrateprocess.FieldCount:
@@ -25961,6 +26096,13 @@ func (m *ConcentrateProcessMutation) AddedField(name string) (ent.Value, bool) {
 // type mismatch the field type.
 func (m *ConcentrateProcessMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case concentrateprocess.FieldFormulaID:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddFormulaID(v)
+		return nil
 	case concentrateprocess.FieldDate:
 		v, ok := value.(int64)
 		if !ok {
@@ -26045,6 +26187,9 @@ func (m *ConcentrateProcessMutation) ClearField(name string) error {
 // defined in the schema.
 func (m *ConcentrateProcessMutation) ResetField(name string) error {
 	switch name {
+	case concentrateprocess.FieldFormulaID:
+		m.ResetFormulaID()
+		return nil
 	case concentrateprocess.FieldName:
 		m.ResetName()
 		return nil
@@ -40035,6 +40180,1424 @@ func (m *InspectionMutation) ResetEdge(name string) error {
 	return fmt.Errorf("unknown Inspection edge %s", name)
 }
 
+// InventoryFlowMutation represents an operation that mutate the InventoryFlows
+// nodes in the graph.
+type InventoryFlowMutation struct {
+	config
+	op            Op
+	typ           string
+	id            *int64
+	materialID    *int64
+	addmaterialID *int64
+	materialName  *string
+	materialCode  *string
+	seqNumber     *string
+	date          *int64
+	adddate       *int64
+	_type         *int
+	add_type      *int
+	status        *int
+	addstatus     *int
+	count         *int
+	addcount      *int
+	unit          *string
+	userName      *string
+	tenantId      *int64
+	addtenantId   *int64
+	tenantName    *string
+	remarks       *string
+	createdAt     *int64
+	addcreatedAt  *int64
+	updatedAt     *int64
+	addupdatedAt  *int64
+	deleted       *int
+	adddeleted    *int
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*InventoryFlow, error)
+}
+
+var _ ent.Mutation = (*InventoryFlowMutation)(nil)
+
+// inventoryflowOption allows to manage the mutation configuration using functional options.
+type inventoryflowOption func(*InventoryFlowMutation)
+
+// newInventoryFlowMutation creates new mutation for $n.Name.
+func newInventoryFlowMutation(c config, op Op, opts ...inventoryflowOption) *InventoryFlowMutation {
+	m := &InventoryFlowMutation{
+		config:        c,
+		op:            op,
+		typ:           TypeInventoryFlow,
+		clearedFields: make(map[string]struct{}),
+	}
+	for _, opt := range opts {
+		opt(m)
+	}
+	return m
+}
+
+// withInventoryFlowID sets the id field of the mutation.
+func withInventoryFlowID(id int64) inventoryflowOption {
+	return func(m *InventoryFlowMutation) {
+		var (
+			err   error
+			once  sync.Once
+			value *InventoryFlow
+		)
+		m.oldValue = func(ctx context.Context) (*InventoryFlow, error) {
+			once.Do(func() {
+				if m.done {
+					err = fmt.Errorf("querying old values post mutation is not allowed")
+				} else {
+					value, err = m.Client().InventoryFlow.Get(ctx, id)
+				}
+			})
+			return value, err
+		}
+		m.id = &id
+	}
+}
+
+// withInventoryFlow sets the old InventoryFlow of the mutation.
+func withInventoryFlow(node *InventoryFlow) inventoryflowOption {
+	return func(m *InventoryFlowMutation) {
+		m.oldValue = func(context.Context) (*InventoryFlow, error) {
+			return node, nil
+		}
+		m.id = &node.ID
+	}
+}
+
+// Client returns a new `ent.Client` from the mutation. If the mutation was
+// executed in a transaction (ent.Tx), a transactional client is returned.
+func (m InventoryFlowMutation) Client() *Client {
+	client := &Client{config: m.config}
+	client.init()
+	return client
+}
+
+// Tx returns an `ent.Tx` for mutations that were executed in transactions;
+// it returns an error otherwise.
+func (m InventoryFlowMutation) Tx() (*Tx, error) {
+	if _, ok := m.driver.(*txDriver); !ok {
+		return nil, fmt.Errorf("ent: mutation is not running in a transaction")
+	}
+	tx := &Tx{config: m.config}
+	tx.init()
+	return tx, nil
+}
+
+// ID returns the id value in the mutation. Note that, the id
+// is available only if it was provided to the builder.
+func (m *InventoryFlowMutation) ID() (id int64, exists bool) {
+	if m.id == nil {
+		return
+	}
+	return *m.id, true
+}
+
+// SetMaterialID sets the materialID field.
+func (m *InventoryFlowMutation) SetMaterialID(i int64) {
+	m.materialID = &i
+	m.addmaterialID = nil
+}
+
+// MaterialID returns the materialID value in the mutation.
+func (m *InventoryFlowMutation) MaterialID() (r int64, exists bool) {
+	v := m.materialID
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldMaterialID returns the old materialID value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldMaterialID(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldMaterialID is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldMaterialID requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldMaterialID: %w", err)
+	}
+	return oldValue.MaterialID, nil
+}
+
+// AddMaterialID adds i to materialID.
+func (m *InventoryFlowMutation) AddMaterialID(i int64) {
+	if m.addmaterialID != nil {
+		*m.addmaterialID += i
+	} else {
+		m.addmaterialID = &i
+	}
+}
+
+// AddedMaterialID returns the value that was added to the materialID field in this mutation.
+func (m *InventoryFlowMutation) AddedMaterialID() (r int64, exists bool) {
+	v := m.addmaterialID
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetMaterialID reset all changes of the "materialID" field.
+func (m *InventoryFlowMutation) ResetMaterialID() {
+	m.materialID = nil
+	m.addmaterialID = nil
+}
+
+// SetMaterialName sets the materialName field.
+func (m *InventoryFlowMutation) SetMaterialName(s string) {
+	m.materialName = &s
+}
+
+// MaterialName returns the materialName value in the mutation.
+func (m *InventoryFlowMutation) MaterialName() (r string, exists bool) {
+	v := m.materialName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldMaterialName returns the old materialName value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldMaterialName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldMaterialName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldMaterialName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldMaterialName: %w", err)
+	}
+	return oldValue.MaterialName, nil
+}
+
+// ResetMaterialName reset all changes of the "materialName" field.
+func (m *InventoryFlowMutation) ResetMaterialName() {
+	m.materialName = nil
+}
+
+// SetMaterialCode sets the materialCode field.
+func (m *InventoryFlowMutation) SetMaterialCode(s string) {
+	m.materialCode = &s
+}
+
+// MaterialCode returns the materialCode value in the mutation.
+func (m *InventoryFlowMutation) MaterialCode() (r string, exists bool) {
+	v := m.materialCode
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldMaterialCode returns the old materialCode value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldMaterialCode(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldMaterialCode is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldMaterialCode requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldMaterialCode: %w", err)
+	}
+	return oldValue.MaterialCode, nil
+}
+
+// ResetMaterialCode reset all changes of the "materialCode" field.
+func (m *InventoryFlowMutation) ResetMaterialCode() {
+	m.materialCode = nil
+}
+
+// SetSeqNumber sets the seqNumber field.
+func (m *InventoryFlowMutation) SetSeqNumber(s string) {
+	m.seqNumber = &s
+}
+
+// SeqNumber returns the seqNumber value in the mutation.
+func (m *InventoryFlowMutation) SeqNumber() (r string, exists bool) {
+	v := m.seqNumber
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSeqNumber returns the old seqNumber value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldSeqNumber(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldSeqNumber is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldSeqNumber requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSeqNumber: %w", err)
+	}
+	return oldValue.SeqNumber, nil
+}
+
+// ResetSeqNumber reset all changes of the "seqNumber" field.
+func (m *InventoryFlowMutation) ResetSeqNumber() {
+	m.seqNumber = nil
+}
+
+// SetDate sets the date field.
+func (m *InventoryFlowMutation) SetDate(i int64) {
+	m.date = &i
+	m.adddate = nil
+}
+
+// Date returns the date value in the mutation.
+func (m *InventoryFlowMutation) Date() (r int64, exists bool) {
+	v := m.date
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDate returns the old date value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldDate(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDate is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDate requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDate: %w", err)
+	}
+	return oldValue.Date, nil
+}
+
+// AddDate adds i to date.
+func (m *InventoryFlowMutation) AddDate(i int64) {
+	if m.adddate != nil {
+		*m.adddate += i
+	} else {
+		m.adddate = &i
+	}
+}
+
+// AddedDate returns the value that was added to the date field in this mutation.
+func (m *InventoryFlowMutation) AddedDate() (r int64, exists bool) {
+	v := m.adddate
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDate reset all changes of the "date" field.
+func (m *InventoryFlowMutation) ResetDate() {
+	m.date = nil
+	m.adddate = nil
+}
+
+// SetType sets the type field.
+func (m *InventoryFlowMutation) SetType(i int) {
+	m._type = &i
+	m.add_type = nil
+}
+
+// GetType returns the type value in the mutation.
+func (m *InventoryFlowMutation) GetType() (r int, exists bool) {
+	v := m._type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldType returns the old type value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldType(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldType is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldType requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldType: %w", err)
+	}
+	return oldValue.Type, nil
+}
+
+// AddType adds i to type.
+func (m *InventoryFlowMutation) AddType(i int) {
+	if m.add_type != nil {
+		*m.add_type += i
+	} else {
+		m.add_type = &i
+	}
+}
+
+// AddedType returns the value that was added to the type field in this mutation.
+func (m *InventoryFlowMutation) AddedType() (r int, exists bool) {
+	v := m.add_type
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetType reset all changes of the "type" field.
+func (m *InventoryFlowMutation) ResetType() {
+	m._type = nil
+	m.add_type = nil
+}
+
+// SetStatus sets the status field.
+func (m *InventoryFlowMutation) SetStatus(i int) {
+	m.status = &i
+	m.addstatus = nil
+}
+
+// Status returns the status value in the mutation.
+func (m *InventoryFlowMutation) Status() (r int, exists bool) {
+	v := m.status
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldStatus returns the old status value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldStatus(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldStatus is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldStatus requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldStatus: %w", err)
+	}
+	return oldValue.Status, nil
+}
+
+// AddStatus adds i to status.
+func (m *InventoryFlowMutation) AddStatus(i int) {
+	if m.addstatus != nil {
+		*m.addstatus += i
+	} else {
+		m.addstatus = &i
+	}
+}
+
+// AddedStatus returns the value that was added to the status field in this mutation.
+func (m *InventoryFlowMutation) AddedStatus() (r int, exists bool) {
+	v := m.addstatus
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetStatus reset all changes of the "status" field.
+func (m *InventoryFlowMutation) ResetStatus() {
+	m.status = nil
+	m.addstatus = nil
+}
+
+// SetCount sets the count field.
+func (m *InventoryFlowMutation) SetCount(i int) {
+	m.count = &i
+	m.addcount = nil
+}
+
+// Count returns the count value in the mutation.
+func (m *InventoryFlowMutation) Count() (r int, exists bool) {
+	v := m.count
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCount returns the old count value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldCount(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCount is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCount requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCount: %w", err)
+	}
+	return oldValue.Count, nil
+}
+
+// AddCount adds i to count.
+func (m *InventoryFlowMutation) AddCount(i int) {
+	if m.addcount != nil {
+		*m.addcount += i
+	} else {
+		m.addcount = &i
+	}
+}
+
+// AddedCount returns the value that was added to the count field in this mutation.
+func (m *InventoryFlowMutation) AddedCount() (r int, exists bool) {
+	v := m.addcount
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCount reset all changes of the "count" field.
+func (m *InventoryFlowMutation) ResetCount() {
+	m.count = nil
+	m.addcount = nil
+}
+
+// SetUnit sets the unit field.
+func (m *InventoryFlowMutation) SetUnit(s string) {
+	m.unit = &s
+}
+
+// Unit returns the unit value in the mutation.
+func (m *InventoryFlowMutation) Unit() (r string, exists bool) {
+	v := m.unit
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUnit returns the old unit value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldUnit(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUnit is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUnit requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUnit: %w", err)
+	}
+	return oldValue.Unit, nil
+}
+
+// ResetUnit reset all changes of the "unit" field.
+func (m *InventoryFlowMutation) ResetUnit() {
+	m.unit = nil
+}
+
+// SetUserName sets the userName field.
+func (m *InventoryFlowMutation) SetUserName(s string) {
+	m.userName = &s
+}
+
+// UserName returns the userName value in the mutation.
+func (m *InventoryFlowMutation) UserName() (r string, exists bool) {
+	v := m.userName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUserName returns the old userName value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldUserName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUserName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUserName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUserName: %w", err)
+	}
+	return oldValue.UserName, nil
+}
+
+// ResetUserName reset all changes of the "userName" field.
+func (m *InventoryFlowMutation) ResetUserName() {
+	m.userName = nil
+}
+
+// SetTenantId sets the tenantId field.
+func (m *InventoryFlowMutation) SetTenantId(i int64) {
+	m.tenantId = &i
+	m.addtenantId = nil
+}
+
+// TenantId returns the tenantId value in the mutation.
+func (m *InventoryFlowMutation) TenantId() (r int64, exists bool) {
+	v := m.tenantId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTenantId returns the old tenantId value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldTenantId(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldTenantId is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldTenantId requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTenantId: %w", err)
+	}
+	return oldValue.TenantId, nil
+}
+
+// AddTenantId adds i to tenantId.
+func (m *InventoryFlowMutation) AddTenantId(i int64) {
+	if m.addtenantId != nil {
+		*m.addtenantId += i
+	} else {
+		m.addtenantId = &i
+	}
+}
+
+// AddedTenantId returns the value that was added to the tenantId field in this mutation.
+func (m *InventoryFlowMutation) AddedTenantId() (r int64, exists bool) {
+	v := m.addtenantId
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetTenantId reset all changes of the "tenantId" field.
+func (m *InventoryFlowMutation) ResetTenantId() {
+	m.tenantId = nil
+	m.addtenantId = nil
+}
+
+// SetTenantName sets the tenantName field.
+func (m *InventoryFlowMutation) SetTenantName(s string) {
+	m.tenantName = &s
+}
+
+// TenantName returns the tenantName value in the mutation.
+func (m *InventoryFlowMutation) TenantName() (r string, exists bool) {
+	v := m.tenantName
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldTenantName returns the old tenantName value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldTenantName(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldTenantName is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldTenantName requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldTenantName: %w", err)
+	}
+	return oldValue.TenantName, nil
+}
+
+// ResetTenantName reset all changes of the "tenantName" field.
+func (m *InventoryFlowMutation) ResetTenantName() {
+	m.tenantName = nil
+}
+
+// SetRemarks sets the remarks field.
+func (m *InventoryFlowMutation) SetRemarks(s string) {
+	m.remarks = &s
+}
+
+// Remarks returns the remarks value in the mutation.
+func (m *InventoryFlowMutation) Remarks() (r string, exists bool) {
+	v := m.remarks
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldRemarks returns the old remarks value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldRemarks(ctx context.Context) (v string, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldRemarks is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldRemarks requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldRemarks: %w", err)
+	}
+	return oldValue.Remarks, nil
+}
+
+// ResetRemarks reset all changes of the "remarks" field.
+func (m *InventoryFlowMutation) ResetRemarks() {
+	m.remarks = nil
+}
+
+// SetCreatedAt sets the createdAt field.
+func (m *InventoryFlowMutation) SetCreatedAt(i int64) {
+	m.createdAt = &i
+	m.addcreatedAt = nil
+}
+
+// CreatedAt returns the createdAt value in the mutation.
+func (m *InventoryFlowMutation) CreatedAt() (r int64, exists bool) {
+	v := m.createdAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old createdAt value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldCreatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldCreatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// AddCreatedAt adds i to createdAt.
+func (m *InventoryFlowMutation) AddCreatedAt(i int64) {
+	if m.addcreatedAt != nil {
+		*m.addcreatedAt += i
+	} else {
+		m.addcreatedAt = &i
+	}
+}
+
+// AddedCreatedAt returns the value that was added to the createdAt field in this mutation.
+func (m *InventoryFlowMutation) AddedCreatedAt() (r int64, exists bool) {
+	v := m.addcreatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetCreatedAt reset all changes of the "createdAt" field.
+func (m *InventoryFlowMutation) ResetCreatedAt() {
+	m.createdAt = nil
+	m.addcreatedAt = nil
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (m *InventoryFlowMutation) SetUpdatedAt(i int64) {
+	m.updatedAt = &i
+	m.addupdatedAt = nil
+}
+
+// UpdatedAt returns the updatedAt value in the mutation.
+func (m *InventoryFlowMutation) UpdatedAt() (r int64, exists bool) {
+	v := m.updatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdatedAt returns the old updatedAt value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldUpdatedAt(ctx context.Context) (v int64, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldUpdatedAt is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldUpdatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdatedAt: %w", err)
+	}
+	return oldValue.UpdatedAt, nil
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (m *InventoryFlowMutation) AddUpdatedAt(i int64) {
+	if m.addupdatedAt != nil {
+		*m.addupdatedAt += i
+	} else {
+		m.addupdatedAt = &i
+	}
+}
+
+// AddedUpdatedAt returns the value that was added to the updatedAt field in this mutation.
+func (m *InventoryFlowMutation) AddedUpdatedAt() (r int64, exists bool) {
+	v := m.addupdatedAt
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetUpdatedAt reset all changes of the "updatedAt" field.
+func (m *InventoryFlowMutation) ResetUpdatedAt() {
+	m.updatedAt = nil
+	m.addupdatedAt = nil
+}
+
+// SetDeleted sets the deleted field.
+func (m *InventoryFlowMutation) SetDeleted(i int) {
+	m.deleted = &i
+	m.adddeleted = nil
+}
+
+// Deleted returns the deleted value in the mutation.
+func (m *InventoryFlowMutation) Deleted() (r int, exists bool) {
+	v := m.deleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldDeleted returns the old deleted value of the InventoryFlow.
+// If the InventoryFlow object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *InventoryFlowMutation) OldDeleted(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldDeleted is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldDeleted requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldDeleted: %w", err)
+	}
+	return oldValue.Deleted, nil
+}
+
+// AddDeleted adds i to deleted.
+func (m *InventoryFlowMutation) AddDeleted(i int) {
+	if m.adddeleted != nil {
+		*m.adddeleted += i
+	} else {
+		m.adddeleted = &i
+	}
+}
+
+// AddedDeleted returns the value that was added to the deleted field in this mutation.
+func (m *InventoryFlowMutation) AddedDeleted() (r int, exists bool) {
+	v := m.adddeleted
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetDeleted reset all changes of the "deleted" field.
+func (m *InventoryFlowMutation) ResetDeleted() {
+	m.deleted = nil
+	m.adddeleted = nil
+}
+
+// Op returns the operation name.
+func (m *InventoryFlowMutation) Op() Op {
+	return m.op
+}
+
+// Type returns the node type of this mutation (InventoryFlow).
+func (m *InventoryFlowMutation) Type() string {
+	return m.typ
+}
+
+// Fields returns all fields that were changed during
+// this mutation. Note that, in order to get all numeric
+// fields that were in/decremented, call AddedFields().
+func (m *InventoryFlowMutation) Fields() []string {
+	fields := make([]string, 0, 16)
+	if m.materialID != nil {
+		fields = append(fields, inventoryflow.FieldMaterialID)
+	}
+	if m.materialName != nil {
+		fields = append(fields, inventoryflow.FieldMaterialName)
+	}
+	if m.materialCode != nil {
+		fields = append(fields, inventoryflow.FieldMaterialCode)
+	}
+	if m.seqNumber != nil {
+		fields = append(fields, inventoryflow.FieldSeqNumber)
+	}
+	if m.date != nil {
+		fields = append(fields, inventoryflow.FieldDate)
+	}
+	if m._type != nil {
+		fields = append(fields, inventoryflow.FieldType)
+	}
+	if m.status != nil {
+		fields = append(fields, inventoryflow.FieldStatus)
+	}
+	if m.count != nil {
+		fields = append(fields, inventoryflow.FieldCount)
+	}
+	if m.unit != nil {
+		fields = append(fields, inventoryflow.FieldUnit)
+	}
+	if m.userName != nil {
+		fields = append(fields, inventoryflow.FieldUserName)
+	}
+	if m.tenantId != nil {
+		fields = append(fields, inventoryflow.FieldTenantId)
+	}
+	if m.tenantName != nil {
+		fields = append(fields, inventoryflow.FieldTenantName)
+	}
+	if m.remarks != nil {
+		fields = append(fields, inventoryflow.FieldRemarks)
+	}
+	if m.createdAt != nil {
+		fields = append(fields, inventoryflow.FieldCreatedAt)
+	}
+	if m.updatedAt != nil {
+		fields = append(fields, inventoryflow.FieldUpdatedAt)
+	}
+	if m.deleted != nil {
+		fields = append(fields, inventoryflow.FieldDeleted)
+	}
+	return fields
+}
+
+// Field returns the value of a field with the given name.
+// The second boolean value indicates that this field was
+// not set, or was not define in the schema.
+func (m *InventoryFlowMutation) Field(name string) (ent.Value, bool) {
+	switch name {
+	case inventoryflow.FieldMaterialID:
+		return m.MaterialID()
+	case inventoryflow.FieldMaterialName:
+		return m.MaterialName()
+	case inventoryflow.FieldMaterialCode:
+		return m.MaterialCode()
+	case inventoryflow.FieldSeqNumber:
+		return m.SeqNumber()
+	case inventoryflow.FieldDate:
+		return m.Date()
+	case inventoryflow.FieldType:
+		return m.GetType()
+	case inventoryflow.FieldStatus:
+		return m.Status()
+	case inventoryflow.FieldCount:
+		return m.Count()
+	case inventoryflow.FieldUnit:
+		return m.Unit()
+	case inventoryflow.FieldUserName:
+		return m.UserName()
+	case inventoryflow.FieldTenantId:
+		return m.TenantId()
+	case inventoryflow.FieldTenantName:
+		return m.TenantName()
+	case inventoryflow.FieldRemarks:
+		return m.Remarks()
+	case inventoryflow.FieldCreatedAt:
+		return m.CreatedAt()
+	case inventoryflow.FieldUpdatedAt:
+		return m.UpdatedAt()
+	case inventoryflow.FieldDeleted:
+		return m.Deleted()
+	}
+	return nil, false
+}
+
+// OldField returns the old value of the field from the database.
+// An error is returned if the mutation operation is not UpdateOne,
+// or the query to the database was failed.
+func (m *InventoryFlowMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
+	switch name {
+	case inventoryflow.FieldMaterialID:
+		return m.OldMaterialID(ctx)
+	case inventoryflow.FieldMaterialName:
+		return m.OldMaterialName(ctx)
+	case inventoryflow.FieldMaterialCode:
+		return m.OldMaterialCode(ctx)
+	case inventoryflow.FieldSeqNumber:
+		return m.OldSeqNumber(ctx)
+	case inventoryflow.FieldDate:
+		return m.OldDate(ctx)
+	case inventoryflow.FieldType:
+		return m.OldType(ctx)
+	case inventoryflow.FieldStatus:
+		return m.OldStatus(ctx)
+	case inventoryflow.FieldCount:
+		return m.OldCount(ctx)
+	case inventoryflow.FieldUnit:
+		return m.OldUnit(ctx)
+	case inventoryflow.FieldUserName:
+		return m.OldUserName(ctx)
+	case inventoryflow.FieldTenantId:
+		return m.OldTenantId(ctx)
+	case inventoryflow.FieldTenantName:
+		return m.OldTenantName(ctx)
+	case inventoryflow.FieldRemarks:
+		return m.OldRemarks(ctx)
+	case inventoryflow.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case inventoryflow.FieldUpdatedAt:
+		return m.OldUpdatedAt(ctx)
+	case inventoryflow.FieldDeleted:
+		return m.OldDeleted(ctx)
+	}
+	return nil, fmt.Errorf("unknown InventoryFlow field %s", name)
+}
+
+// SetField sets the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *InventoryFlowMutation) SetField(name string, value ent.Value) error {
+	switch name {
+	case inventoryflow.FieldMaterialID:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetMaterialID(v)
+		return nil
+	case inventoryflow.FieldMaterialName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetMaterialName(v)
+		return nil
+	case inventoryflow.FieldMaterialCode:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetMaterialCode(v)
+		return nil
+	case inventoryflow.FieldSeqNumber:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSeqNumber(v)
+		return nil
+	case inventoryflow.FieldDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDate(v)
+		return nil
+	case inventoryflow.FieldType:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetType(v)
+		return nil
+	case inventoryflow.FieldStatus:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetStatus(v)
+		return nil
+	case inventoryflow.FieldCount:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCount(v)
+		return nil
+	case inventoryflow.FieldUnit:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUnit(v)
+		return nil
+	case inventoryflow.FieldUserName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUserName(v)
+		return nil
+	case inventoryflow.FieldTenantId:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTenantId(v)
+		return nil
+	case inventoryflow.FieldTenantName:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetTenantName(v)
+		return nil
+	case inventoryflow.FieldRemarks:
+		v, ok := value.(string)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetRemarks(v)
+		return nil
+	case inventoryflow.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case inventoryflow.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdatedAt(v)
+		return nil
+	case inventoryflow.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown InventoryFlow field %s", name)
+}
+
+// AddedFields returns all numeric fields that were incremented
+// or decremented during this mutation.
+func (m *InventoryFlowMutation) AddedFields() []string {
+	var fields []string
+	if m.addmaterialID != nil {
+		fields = append(fields, inventoryflow.FieldMaterialID)
+	}
+	if m.adddate != nil {
+		fields = append(fields, inventoryflow.FieldDate)
+	}
+	if m.add_type != nil {
+		fields = append(fields, inventoryflow.FieldType)
+	}
+	if m.addstatus != nil {
+		fields = append(fields, inventoryflow.FieldStatus)
+	}
+	if m.addcount != nil {
+		fields = append(fields, inventoryflow.FieldCount)
+	}
+	if m.addtenantId != nil {
+		fields = append(fields, inventoryflow.FieldTenantId)
+	}
+	if m.addcreatedAt != nil {
+		fields = append(fields, inventoryflow.FieldCreatedAt)
+	}
+	if m.addupdatedAt != nil {
+		fields = append(fields, inventoryflow.FieldUpdatedAt)
+	}
+	if m.adddeleted != nil {
+		fields = append(fields, inventoryflow.FieldDeleted)
+	}
+	return fields
+}
+
+// AddedField returns the numeric value that was in/decremented
+// from a field with the given name. The second value indicates
+// that this field was not set, or was not define in the schema.
+func (m *InventoryFlowMutation) AddedField(name string) (ent.Value, bool) {
+	switch name {
+	case inventoryflow.FieldMaterialID:
+		return m.AddedMaterialID()
+	case inventoryflow.FieldDate:
+		return m.AddedDate()
+	case inventoryflow.FieldType:
+		return m.AddedType()
+	case inventoryflow.FieldStatus:
+		return m.AddedStatus()
+	case inventoryflow.FieldCount:
+		return m.AddedCount()
+	case inventoryflow.FieldTenantId:
+		return m.AddedTenantId()
+	case inventoryflow.FieldCreatedAt:
+		return m.AddedCreatedAt()
+	case inventoryflow.FieldUpdatedAt:
+		return m.AddedUpdatedAt()
+	case inventoryflow.FieldDeleted:
+		return m.AddedDeleted()
+	}
+	return nil, false
+}
+
+// AddField adds the value for the given name. It returns an
+// error if the field is not defined in the schema, or if the
+// type mismatch the field type.
+func (m *InventoryFlowMutation) AddField(name string, value ent.Value) error {
+	switch name {
+	case inventoryflow.FieldMaterialID:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddMaterialID(v)
+		return nil
+	case inventoryflow.FieldDate:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDate(v)
+		return nil
+	case inventoryflow.FieldType:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddType(v)
+		return nil
+	case inventoryflow.FieldStatus:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddStatus(v)
+		return nil
+	case inventoryflow.FieldCount:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCount(v)
+		return nil
+	case inventoryflow.FieldTenantId:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddTenantId(v)
+		return nil
+	case inventoryflow.FieldCreatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddCreatedAt(v)
+		return nil
+	case inventoryflow.FieldUpdatedAt:
+		v, ok := value.(int64)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddUpdatedAt(v)
+		return nil
+	case inventoryflow.FieldDeleted:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddDeleted(v)
+		return nil
+	}
+	return fmt.Errorf("unknown InventoryFlow numeric field %s", name)
+}
+
+// ClearedFields returns all nullable fields that were cleared
+// during this mutation.
+func (m *InventoryFlowMutation) ClearedFields() []string {
+	return nil
+}
+
+// FieldCleared returns a boolean indicates if this field was
+// cleared in this mutation.
+func (m *InventoryFlowMutation) FieldCleared(name string) bool {
+	_, ok := m.clearedFields[name]
+	return ok
+}
+
+// ClearField clears the value for the given name. It returns an
+// error if the field is not defined in the schema.
+func (m *InventoryFlowMutation) ClearField(name string) error {
+	return fmt.Errorf("unknown InventoryFlow nullable field %s", name)
+}
+
+// ResetField resets all changes in the mutation regarding the
+// given field name. It returns an error if the field is not
+// defined in the schema.
+func (m *InventoryFlowMutation) ResetField(name string) error {
+	switch name {
+	case inventoryflow.FieldMaterialID:
+		m.ResetMaterialID()
+		return nil
+	case inventoryflow.FieldMaterialName:
+		m.ResetMaterialName()
+		return nil
+	case inventoryflow.FieldMaterialCode:
+		m.ResetMaterialCode()
+		return nil
+	case inventoryflow.FieldSeqNumber:
+		m.ResetSeqNumber()
+		return nil
+	case inventoryflow.FieldDate:
+		m.ResetDate()
+		return nil
+	case inventoryflow.FieldType:
+		m.ResetType()
+		return nil
+	case inventoryflow.FieldStatus:
+		m.ResetStatus()
+		return nil
+	case inventoryflow.FieldCount:
+		m.ResetCount()
+		return nil
+	case inventoryflow.FieldUnit:
+		m.ResetUnit()
+		return nil
+	case inventoryflow.FieldUserName:
+		m.ResetUserName()
+		return nil
+	case inventoryflow.FieldTenantId:
+		m.ResetTenantId()
+		return nil
+	case inventoryflow.FieldTenantName:
+		m.ResetTenantName()
+		return nil
+	case inventoryflow.FieldRemarks:
+		m.ResetRemarks()
+		return nil
+	case inventoryflow.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case inventoryflow.FieldUpdatedAt:
+		m.ResetUpdatedAt()
+		return nil
+	case inventoryflow.FieldDeleted:
+		m.ResetDeleted()
+		return nil
+	}
+	return fmt.Errorf("unknown InventoryFlow field %s", name)
+}
+
+// AddedEdges returns all edge names that were set/added in this
+// mutation.
+func (m *InventoryFlowMutation) AddedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// AddedIDs returns all ids (to other nodes) that were added for
+// the given edge name.
+func (m *InventoryFlowMutation) AddedIDs(name string) []ent.Value {
+	return nil
+}
+
+// RemovedEdges returns all edge names that were removed in this
+// mutation.
+func (m *InventoryFlowMutation) RemovedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// RemovedIDs returns all ids (to other nodes) that were removed for
+// the given edge name.
+func (m *InventoryFlowMutation) RemovedIDs(name string) []ent.Value {
+	return nil
+}
+
+// ClearedEdges returns all edge names that were cleared in this
+// mutation.
+func (m *InventoryFlowMutation) ClearedEdges() []string {
+	edges := make([]string, 0, 0)
+	return edges
+}
+
+// EdgeCleared returns a boolean indicates if this edge was
+// cleared in this mutation.
+func (m *InventoryFlowMutation) EdgeCleared(name string) bool {
+	return false
+}
+
+// ClearEdge clears the value for the given name. It returns an
+// error if the edge name is not defined in the schema.
+func (m *InventoryFlowMutation) ClearEdge(name string) error {
+	return fmt.Errorf("unknown InventoryFlow unique edge %s", name)
+}
+
+// ResetEdge resets all changes in the mutation regarding the
+// given edge name. It returns an error if the edge is not
+// defined in the schema.
+func (m *InventoryFlowMutation) ResetEdge(name string) error {
+	return fmt.Errorf("unknown InventoryFlow edge %s", name)
+}
+
 // MaterialMutation represents an operation that mutate the Materials
 // nodes in the graph.
 type MaterialMutation struct {
@@ -40044,20 +41607,11 @@ type MaterialMutation struct {
 	id            *int64
 	name          *string
 	code          *string
-	seqNumber     *string
-	date          *int64
-	adddate       *int64
-	_type         *int
-	add_type      *int
-	count         *int
-	addcount      *int
 	category      *int
 	addcategory   *int
-	status        *int
-	addstatus     *int
 	userName      *string
-	payAt         *int64
-	addpayAt      *int64
+	inventory     *int64
+	addinventory  *int64
 	tenantId      *int64
 	addtenantId   *int64
 	tenantName    *string
@@ -40226,214 +41780,6 @@ func (m *MaterialMutation) ResetCode() {
 	m.code = nil
 }
 
-// SetSeqNumber sets the seqNumber field.
-func (m *MaterialMutation) SetSeqNumber(s string) {
-	m.seqNumber = &s
-}
-
-// SeqNumber returns the seqNumber value in the mutation.
-func (m *MaterialMutation) SeqNumber() (r string, exists bool) {
-	v := m.seqNumber
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldSeqNumber returns the old seqNumber value of the Material.
-// If the Material object wasn't provided to the builder, the object is fetched
-// from the database.
-// An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *MaterialMutation) OldSeqNumber(ctx context.Context) (v string, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldSeqNumber is allowed only on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldSeqNumber requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldSeqNumber: %w", err)
-	}
-	return oldValue.SeqNumber, nil
-}
-
-// ResetSeqNumber reset all changes of the "seqNumber" field.
-func (m *MaterialMutation) ResetSeqNumber() {
-	m.seqNumber = nil
-}
-
-// SetDate sets the date field.
-func (m *MaterialMutation) SetDate(i int64) {
-	m.date = &i
-	m.adddate = nil
-}
-
-// Date returns the date value in the mutation.
-func (m *MaterialMutation) Date() (r int64, exists bool) {
-	v := m.date
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldDate returns the old date value of the Material.
-// If the Material object wasn't provided to the builder, the object is fetched
-// from the database.
-// An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *MaterialMutation) OldDate(ctx context.Context) (v int64, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldDate is allowed only on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldDate requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldDate: %w", err)
-	}
-	return oldValue.Date, nil
-}
-
-// AddDate adds i to date.
-func (m *MaterialMutation) AddDate(i int64) {
-	if m.adddate != nil {
-		*m.adddate += i
-	} else {
-		m.adddate = &i
-	}
-}
-
-// AddedDate returns the value that was added to the date field in this mutation.
-func (m *MaterialMutation) AddedDate() (r int64, exists bool) {
-	v := m.adddate
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// ResetDate reset all changes of the "date" field.
-func (m *MaterialMutation) ResetDate() {
-	m.date = nil
-	m.adddate = nil
-}
-
-// SetType sets the type field.
-func (m *MaterialMutation) SetType(i int) {
-	m._type = &i
-	m.add_type = nil
-}
-
-// GetType returns the type value in the mutation.
-func (m *MaterialMutation) GetType() (r int, exists bool) {
-	v := m._type
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldType returns the old type value of the Material.
-// If the Material object wasn't provided to the builder, the object is fetched
-// from the database.
-// An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *MaterialMutation) OldType(ctx context.Context) (v int, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldType is allowed only on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldType requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldType: %w", err)
-	}
-	return oldValue.Type, nil
-}
-
-// AddType adds i to type.
-func (m *MaterialMutation) AddType(i int) {
-	if m.add_type != nil {
-		*m.add_type += i
-	} else {
-		m.add_type = &i
-	}
-}
-
-// AddedType returns the value that was added to the type field in this mutation.
-func (m *MaterialMutation) AddedType() (r int, exists bool) {
-	v := m.add_type
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// ResetType reset all changes of the "type" field.
-func (m *MaterialMutation) ResetType() {
-	m._type = nil
-	m.add_type = nil
-}
-
-// SetCount sets the count field.
-func (m *MaterialMutation) SetCount(i int) {
-	m.count = &i
-	m.addcount = nil
-}
-
-// Count returns the count value in the mutation.
-func (m *MaterialMutation) Count() (r int, exists bool) {
-	v := m.count
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldCount returns the old count value of the Material.
-// If the Material object wasn't provided to the builder, the object is fetched
-// from the database.
-// An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *MaterialMutation) OldCount(ctx context.Context) (v int, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldCount is allowed only on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldCount requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldCount: %w", err)
-	}
-	return oldValue.Count, nil
-}
-
-// AddCount adds i to count.
-func (m *MaterialMutation) AddCount(i int) {
-	if m.addcount != nil {
-		*m.addcount += i
-	} else {
-		m.addcount = &i
-	}
-}
-
-// AddedCount returns the value that was added to the count field in this mutation.
-func (m *MaterialMutation) AddedCount() (r int, exists bool) {
-	v := m.addcount
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// ResetCount reset all changes of the "count" field.
-func (m *MaterialMutation) ResetCount() {
-	m.count = nil
-	m.addcount = nil
-}
-
 // SetCategory sets the category field.
 func (m *MaterialMutation) SetCategory(i int) {
 	m.category = &i
@@ -40491,63 +41837,6 @@ func (m *MaterialMutation) ResetCategory() {
 	m.addcategory = nil
 }
 
-// SetStatus sets the status field.
-func (m *MaterialMutation) SetStatus(i int) {
-	m.status = &i
-	m.addstatus = nil
-}
-
-// Status returns the status value in the mutation.
-func (m *MaterialMutation) Status() (r int, exists bool) {
-	v := m.status
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldStatus returns the old status value of the Material.
-// If the Material object wasn't provided to the builder, the object is fetched
-// from the database.
-// An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *MaterialMutation) OldStatus(ctx context.Context) (v int, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldStatus is allowed only on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldStatus requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldStatus: %w", err)
-	}
-	return oldValue.Status, nil
-}
-
-// AddStatus adds i to status.
-func (m *MaterialMutation) AddStatus(i int) {
-	if m.addstatus != nil {
-		*m.addstatus += i
-	} else {
-		m.addstatus = &i
-	}
-}
-
-// AddedStatus returns the value that was added to the status field in this mutation.
-func (m *MaterialMutation) AddedStatus() (r int, exists bool) {
-	v := m.addstatus
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// ResetStatus reset all changes of the "status" field.
-func (m *MaterialMutation) ResetStatus() {
-	m.status = nil
-	m.addstatus = nil
-}
-
 // SetUserName sets the userName field.
 func (m *MaterialMutation) SetUserName(s string) {
 	m.userName = &s
@@ -40585,61 +41874,61 @@ func (m *MaterialMutation) ResetUserName() {
 	m.userName = nil
 }
 
-// SetPayAt sets the payAt field.
-func (m *MaterialMutation) SetPayAt(i int64) {
-	m.payAt = &i
-	m.addpayAt = nil
+// SetInventory sets the inventory field.
+func (m *MaterialMutation) SetInventory(i int64) {
+	m.inventory = &i
+	m.addinventory = nil
 }
 
-// PayAt returns the payAt value in the mutation.
-func (m *MaterialMutation) PayAt() (r int64, exists bool) {
-	v := m.payAt
+// Inventory returns the inventory value in the mutation.
+func (m *MaterialMutation) Inventory() (r int64, exists bool) {
+	v := m.inventory
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldPayAt returns the old payAt value of the Material.
+// OldInventory returns the old inventory value of the Material.
 // If the Material object wasn't provided to the builder, the object is fetched
 // from the database.
 // An error is returned if the mutation operation is not UpdateOne, or database query fails.
-func (m *MaterialMutation) OldPayAt(ctx context.Context) (v int64, err error) {
+func (m *MaterialMutation) OldInventory(ctx context.Context) (v int64, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, fmt.Errorf("OldPayAt is allowed only on UpdateOne operations")
+		return v, fmt.Errorf("OldInventory is allowed only on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, fmt.Errorf("OldPayAt requires an ID field in the mutation")
+		return v, fmt.Errorf("OldInventory requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldPayAt: %w", err)
+		return v, fmt.Errorf("querying old value for OldInventory: %w", err)
 	}
-	return oldValue.PayAt, nil
+	return oldValue.Inventory, nil
 }
 
-// AddPayAt adds i to payAt.
-func (m *MaterialMutation) AddPayAt(i int64) {
-	if m.addpayAt != nil {
-		*m.addpayAt += i
+// AddInventory adds i to inventory.
+func (m *MaterialMutation) AddInventory(i int64) {
+	if m.addinventory != nil {
+		*m.addinventory += i
 	} else {
-		m.addpayAt = &i
+		m.addinventory = &i
 	}
 }
 
-// AddedPayAt returns the value that was added to the payAt field in this mutation.
-func (m *MaterialMutation) AddedPayAt() (r int64, exists bool) {
-	v := m.addpayAt
+// AddedInventory returns the value that was added to the inventory field in this mutation.
+func (m *MaterialMutation) AddedInventory() (r int64, exists bool) {
+	v := m.addinventory
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// ResetPayAt reset all changes of the "payAt" field.
-func (m *MaterialMutation) ResetPayAt() {
-	m.payAt = nil
-	m.addpayAt = nil
+// ResetInventory reset all changes of the "inventory" field.
+func (m *MaterialMutation) ResetInventory() {
+	m.inventory = nil
+	m.addinventory = nil
 }
 
 // SetTenantId sets the tenantId field.
@@ -40958,36 +42247,21 @@ func (m *MaterialMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *MaterialMutation) Fields() []string {
-	fields := make([]string, 0, 16)
+	fields := make([]string, 0, 11)
 	if m.name != nil {
 		fields = append(fields, material.FieldName)
 	}
 	if m.code != nil {
 		fields = append(fields, material.FieldCode)
 	}
-	if m.seqNumber != nil {
-		fields = append(fields, material.FieldSeqNumber)
-	}
-	if m.date != nil {
-		fields = append(fields, material.FieldDate)
-	}
-	if m._type != nil {
-		fields = append(fields, material.FieldType)
-	}
-	if m.count != nil {
-		fields = append(fields, material.FieldCount)
-	}
 	if m.category != nil {
 		fields = append(fields, material.FieldCategory)
-	}
-	if m.status != nil {
-		fields = append(fields, material.FieldStatus)
 	}
 	if m.userName != nil {
 		fields = append(fields, material.FieldUserName)
 	}
-	if m.payAt != nil {
-		fields = append(fields, material.FieldPayAt)
+	if m.inventory != nil {
+		fields = append(fields, material.FieldInventory)
 	}
 	if m.tenantId != nil {
 		fields = append(fields, material.FieldTenantId)
@@ -41019,22 +42293,12 @@ func (m *MaterialMutation) Field(name string) (ent.Value, bool) {
 		return m.Name()
 	case material.FieldCode:
 		return m.Code()
-	case material.FieldSeqNumber:
-		return m.SeqNumber()
-	case material.FieldDate:
-		return m.Date()
-	case material.FieldType:
-		return m.GetType()
-	case material.FieldCount:
-		return m.Count()
 	case material.FieldCategory:
 		return m.Category()
-	case material.FieldStatus:
-		return m.Status()
 	case material.FieldUserName:
 		return m.UserName()
-	case material.FieldPayAt:
-		return m.PayAt()
+	case material.FieldInventory:
+		return m.Inventory()
 	case material.FieldTenantId:
 		return m.TenantId()
 	case material.FieldTenantName:
@@ -41060,22 +42324,12 @@ func (m *MaterialMutation) OldField(ctx context.Context, name string) (ent.Value
 		return m.OldName(ctx)
 	case material.FieldCode:
 		return m.OldCode(ctx)
-	case material.FieldSeqNumber:
-		return m.OldSeqNumber(ctx)
-	case material.FieldDate:
-		return m.OldDate(ctx)
-	case material.FieldType:
-		return m.OldType(ctx)
-	case material.FieldCount:
-		return m.OldCount(ctx)
 	case material.FieldCategory:
 		return m.OldCategory(ctx)
-	case material.FieldStatus:
-		return m.OldStatus(ctx)
 	case material.FieldUserName:
 		return m.OldUserName(ctx)
-	case material.FieldPayAt:
-		return m.OldPayAt(ctx)
+	case material.FieldInventory:
+		return m.OldInventory(ctx)
 	case material.FieldTenantId:
 		return m.OldTenantId(ctx)
 	case material.FieldTenantName:
@@ -41111,47 +42365,12 @@ func (m *MaterialMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetCode(v)
 		return nil
-	case material.FieldSeqNumber:
-		v, ok := value.(string)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetSeqNumber(v)
-		return nil
-	case material.FieldDate:
-		v, ok := value.(int64)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetDate(v)
-		return nil
-	case material.FieldType:
-		v, ok := value.(int)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetType(v)
-		return nil
-	case material.FieldCount:
-		v, ok := value.(int)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetCount(v)
-		return nil
 	case material.FieldCategory:
 		v, ok := value.(int)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetCategory(v)
-		return nil
-	case material.FieldStatus:
-		v, ok := value.(int)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetStatus(v)
 		return nil
 	case material.FieldUserName:
 		v, ok := value.(string)
@@ -41160,12 +42379,12 @@ func (m *MaterialMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetUserName(v)
 		return nil
-	case material.FieldPayAt:
+	case material.FieldInventory:
 		v, ok := value.(int64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetPayAt(v)
+		m.SetInventory(v)
 		return nil
 	case material.FieldTenantId:
 		v, ok := value.(int64)
@@ -41217,23 +42436,11 @@ func (m *MaterialMutation) SetField(name string, value ent.Value) error {
 // or decremented during this mutation.
 func (m *MaterialMutation) AddedFields() []string {
 	var fields []string
-	if m.adddate != nil {
-		fields = append(fields, material.FieldDate)
-	}
-	if m.add_type != nil {
-		fields = append(fields, material.FieldType)
-	}
-	if m.addcount != nil {
-		fields = append(fields, material.FieldCount)
-	}
 	if m.addcategory != nil {
 		fields = append(fields, material.FieldCategory)
 	}
-	if m.addstatus != nil {
-		fields = append(fields, material.FieldStatus)
-	}
-	if m.addpayAt != nil {
-		fields = append(fields, material.FieldPayAt)
+	if m.addinventory != nil {
+		fields = append(fields, material.FieldInventory)
 	}
 	if m.addtenantId != nil {
 		fields = append(fields, material.FieldTenantId)
@@ -41255,18 +42462,10 @@ func (m *MaterialMutation) AddedFields() []string {
 // that this field was not set, or was not define in the schema.
 func (m *MaterialMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
-	case material.FieldDate:
-		return m.AddedDate()
-	case material.FieldType:
-		return m.AddedType()
-	case material.FieldCount:
-		return m.AddedCount()
 	case material.FieldCategory:
 		return m.AddedCategory()
-	case material.FieldStatus:
-		return m.AddedStatus()
-	case material.FieldPayAt:
-		return m.AddedPayAt()
+	case material.FieldInventory:
+		return m.AddedInventory()
 	case material.FieldTenantId:
 		return m.AddedTenantId()
 	case material.FieldCreatedAt:
@@ -41284,27 +42483,6 @@ func (m *MaterialMutation) AddedField(name string) (ent.Value, bool) {
 // type mismatch the field type.
 func (m *MaterialMutation) AddField(name string, value ent.Value) error {
 	switch name {
-	case material.FieldDate:
-		v, ok := value.(int64)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddDate(v)
-		return nil
-	case material.FieldType:
-		v, ok := value.(int)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddType(v)
-		return nil
-	case material.FieldCount:
-		v, ok := value.(int)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddCount(v)
-		return nil
 	case material.FieldCategory:
 		v, ok := value.(int)
 		if !ok {
@@ -41312,19 +42490,12 @@ func (m *MaterialMutation) AddField(name string, value ent.Value) error {
 		}
 		m.AddCategory(v)
 		return nil
-	case material.FieldStatus:
-		v, ok := value.(int)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddStatus(v)
-		return nil
-	case material.FieldPayAt:
+	case material.FieldInventory:
 		v, ok := value.(int64)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.AddPayAt(v)
+		m.AddInventory(v)
 		return nil
 	case material.FieldTenantId:
 		v, ok := value.(int64)
@@ -41388,29 +42559,14 @@ func (m *MaterialMutation) ResetField(name string) error {
 	case material.FieldCode:
 		m.ResetCode()
 		return nil
-	case material.FieldSeqNumber:
-		m.ResetSeqNumber()
-		return nil
-	case material.FieldDate:
-		m.ResetDate()
-		return nil
-	case material.FieldType:
-		m.ResetType()
-		return nil
-	case material.FieldCount:
-		m.ResetCount()
-		return nil
 	case material.FieldCategory:
 		m.ResetCategory()
-		return nil
-	case material.FieldStatus:
-		m.ResetStatus()
 		return nil
 	case material.FieldUserName:
 		m.ResetUserName()
 		return nil
-	case material.FieldPayAt:
-		m.ResetPayAt()
+	case material.FieldInventory:
+		m.ResetInventory()
 		return nil
 	case material.FieldTenantId:
 		m.ResetTenantId()

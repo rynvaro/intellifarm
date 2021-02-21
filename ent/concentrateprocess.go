@@ -15,6 +15,8 @@ type ConcentrateProcess struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int64 `json:"id,omitempty"`
+	// FormulaID holds the value of the "formulaID" field.
+	FormulaID int64 `json:"formulaID,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
 	// Code holds the value of the "code" field.
@@ -47,6 +49,7 @@ type ConcentrateProcess struct {
 func (*ConcentrateProcess) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
+		&sql.NullInt64{},  // formulaID
 		&sql.NullString{}, // name
 		&sql.NullString{}, // code
 		&sql.NullInt64{},  // date
@@ -75,68 +78,73 @@ func (cp *ConcentrateProcess) assignValues(values ...interface{}) error {
 	}
 	cp.ID = int64(value.Int64)
 	values = values[1:]
-	if value, ok := values[0].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field name", values[0])
+	if value, ok := values[0].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field formulaID", values[0])
+	} else if value.Valid {
+		cp.FormulaID = value.Int64
+	}
+	if value, ok := values[1].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field name", values[1])
 	} else if value.Valid {
 		cp.Name = value.String
 	}
-	if value, ok := values[1].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field code", values[1])
+	if value, ok := values[2].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field code", values[2])
 	} else if value.Valid {
 		cp.Code = value.String
 	}
-	if value, ok := values[2].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field date", values[2])
+	if value, ok := values[3].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field date", values[3])
 	} else if value.Valid {
 		cp.Date = value.Int64
 	}
-	if value, ok := values[3].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field count", values[3])
+	if value, ok := values[4].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field count", values[4])
 	} else if value.Valid {
 		cp.Count = value.Int64
 	}
-	if value, ok := values[4].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field in", values[4])
+	if value, ok := values[5].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field in", values[5])
 	} else if value.Valid {
 		cp.In = value.Int64
 	}
-	if value, ok := values[5].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field inventory", values[5])
+	if value, ok := values[6].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field inventory", values[6])
 	} else if value.Valid {
 		cp.Inventory = value.Int64
 	}
-	if value, ok := values[6].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field userName", values[6])
+	if value, ok := values[7].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field userName", values[7])
 	} else if value.Valid {
 		cp.UserName = value.String
 	}
-	if value, ok := values[7].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantId", values[7])
+	if value, ok := values[8].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[8])
 	} else if value.Valid {
 		cp.TenantId = value.Int64
 	}
-	if value, ok := values[8].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantName", values[8])
+	if value, ok := values[9].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[9])
 	} else if value.Valid {
 		cp.TenantName = value.String
 	}
-	if value, ok := values[9].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[9])
+	if value, ok := values[10].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[10])
 	} else if value.Valid {
 		cp.Remarks = value.String
 	}
-	if value, ok := values[10].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[10])
+	if value, ok := values[11].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[11])
 	} else if value.Valid {
 		cp.CreatedAt = value.Int64
 	}
-	if value, ok := values[11].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[11])
+	if value, ok := values[12].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[12])
 	} else if value.Valid {
 		cp.UpdatedAt = value.Int64
 	}
-	if value, ok := values[12].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[12])
+	if value, ok := values[13].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[13])
 	} else if value.Valid {
 		cp.Deleted = int(value.Int64)
 	}
@@ -166,6 +174,8 @@ func (cp *ConcentrateProcess) String() string {
 	var builder strings.Builder
 	builder.WriteString("ConcentrateProcess(")
 	builder.WriteString(fmt.Sprintf("id=%v", cp.ID))
+	builder.WriteString(", formulaID=")
+	builder.WriteString(fmt.Sprintf("%v", cp.FormulaID))
 	builder.WriteString(", name=")
 	builder.WriteString(cp.Name)
 	builder.WriteString(", code=")

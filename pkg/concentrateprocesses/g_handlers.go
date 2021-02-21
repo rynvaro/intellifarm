@@ -24,6 +24,7 @@ func ConcentrateProcessAddHandler(c *gin.Context) {
 	log.Debug().Msg(form.String())
 	concentrateprocess, err := db.Client.ConcentrateProcess.Create().
 		SetCode(form.Code).
+		SetFormulaID(form.FormulaID).
 		SetCount(form.Count).
 		SetDate(form.Date).
 		SetIn(form.In).
@@ -98,6 +99,7 @@ func ConcentrateProcessUpdateHandler(c *gin.Context) {
 	concentrateprocess, err := db.Client.ConcentrateProcess.UpdateOneID(form.ID).
 		SetCode(form.Code).
 		SetCount(form.Count).
+		SetFormulaID(form.FormulaID).
 		SetDate(form.Date).
 		SetIn(form.In).
 		SetInventory(form.Inventory).

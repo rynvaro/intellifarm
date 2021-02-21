@@ -21,6 +21,8 @@ const (
 	FieldDisableDate = "disable_date"
 	// FieldCost holds the string denoting the cost field in the database.
 	FieldCost = "cost"
+	// FieldData holds the string denoting the data field in the database.
+	FieldData = "data"
 	// FieldTenantId holds the string denoting the tenantid field in the database.
 	FieldTenantId = "tenant_id"
 	// FieldTenantName holds the string denoting the tenantname field in the database.
@@ -48,6 +50,7 @@ var Columns = []string{
 	FieldAdjustDate,
 	FieldDisableDate,
 	FieldCost,
+	FieldData,
 	FieldTenantId,
 	FieldTenantName,
 	FieldRemarks,

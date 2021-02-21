@@ -140,6 +140,13 @@ func Cost(v int64) predicate.ConcentrateFormula {
 	})
 }
 
+// Data applies equality check predicate on the "data" field. It's identical to DataEQ.
+func Data(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldData), v))
+	})
+}
+
 // TenantId applies equality check predicate on the "tenantId" field. It's identical to TenantIdEQ.
 func TenantId(v int64) predicate.ConcentrateFormula {
 	return predicate.ConcentrateFormula(func(s *sql.Selector) {
@@ -781,6 +788,117 @@ func CostLT(v int64) predicate.ConcentrateFormula {
 func CostLTE(v int64) predicate.ConcentrateFormula {
 	return predicate.ConcentrateFormula(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldCost), v))
+	})
+}
+
+// DataEQ applies the EQ predicate on the "data" field.
+func DataEQ(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldData), v))
+	})
+}
+
+// DataNEQ applies the NEQ predicate on the "data" field.
+func DataNEQ(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldData), v))
+	})
+}
+
+// DataIn applies the In predicate on the "data" field.
+func DataIn(vs ...string) predicate.ConcentrateFormula {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldData), v...))
+	})
+}
+
+// DataNotIn applies the NotIn predicate on the "data" field.
+func DataNotIn(vs ...string) predicate.ConcentrateFormula {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldData), v...))
+	})
+}
+
+// DataGT applies the GT predicate on the "data" field.
+func DataGT(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldData), v))
+	})
+}
+
+// DataGTE applies the GTE predicate on the "data" field.
+func DataGTE(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldData), v))
+	})
+}
+
+// DataLT applies the LT predicate on the "data" field.
+func DataLT(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldData), v))
+	})
+}
+
+// DataLTE applies the LTE predicate on the "data" field.
+func DataLTE(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldData), v))
+	})
+}
+
+// DataContains applies the Contains predicate on the "data" field.
+func DataContains(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldData), v))
+	})
+}
+
+// DataHasPrefix applies the HasPrefix predicate on the "data" field.
+func DataHasPrefix(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldData), v))
+	})
+}
+
+// DataHasSuffix applies the HasSuffix predicate on the "data" field.
+func DataHasSuffix(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldData), v))
+	})
+}
+
+// DataEqualFold applies the EqualFold predicate on the "data" field.
+func DataEqualFold(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldData), v))
+	})
+}
+
+// DataContainsFold applies the ContainsFold predicate on the "data" field.
+func DataContainsFold(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldData), v))
 	})
 }
 

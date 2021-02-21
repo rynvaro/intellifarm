@@ -7,5 +7,5 @@ func main() {
 	// Gen("Event", &ent.EventCreate{})
 	// Gen("Operation", &ent.OperationCreate{})
 	// Gen("Medicine", &ent.MedicineCreate{})
-	Gen("HealthCare", &ent.HealthCareCreate{})
+	Gen("InventoryFlow", &ent.InventoryFlowCreate{})
 }

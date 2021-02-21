@@ -100,6 +100,8 @@ type Tx struct {
 	Immunity *ImmunityClient
 	// Inspection is the client for interacting with the Inspection builders.
 	Inspection *InspectionClient
+	// InventoryFlow is the client for interacting with the InventoryFlow builders.
+	InventoryFlow *InventoryFlowClient
 	// Material is the client for interacting with the Material builders.
 	Material *MaterialClient
 	// MaterialTest is the client for interacting with the MaterialTest builders.
@@ -325,6 +327,7 @@ func (tx *Tx) init() {
 	tx.HealthCare = NewHealthCareClient(tx.config)
 	tx.Immunity = NewImmunityClient(tx.config)
 	tx.Inspection = NewInspectionClient(tx.config)
+	tx.InventoryFlow = NewInventoryFlowClient(tx.config)
 	tx.Material = NewMaterialClient(tx.config)
 	tx.MaterialTest = NewMaterialTestClient(tx.config)
 	tx.Medicine = NewMedicineClient(tx.config)

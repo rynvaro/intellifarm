@@ -39,51 +39,6 @@ func (mu *MaterialUpdate) SetCode(s string) *MaterialUpdate {
 	return mu
 }
 
-// SetSeqNumber sets the seqNumber field.
-func (mu *MaterialUpdate) SetSeqNumber(s string) *MaterialUpdate {
-	mu.mutation.SetSeqNumber(s)
-	return mu
-}
-
-// SetDate sets the date field.
-func (mu *MaterialUpdate) SetDate(i int64) *MaterialUpdate {
-	mu.mutation.ResetDate()
-	mu.mutation.SetDate(i)
-	return mu
-}
-
-// AddDate adds i to date.
-func (mu *MaterialUpdate) AddDate(i int64) *MaterialUpdate {
-	mu.mutation.AddDate(i)
-	return mu
-}
-
-// SetType sets the type field.
-func (mu *MaterialUpdate) SetType(i int) *MaterialUpdate {
-	mu.mutation.ResetType()
-	mu.mutation.SetType(i)
-	return mu
-}
-
-// AddType adds i to type.
-func (mu *MaterialUpdate) AddType(i int) *MaterialUpdate {
-	mu.mutation.AddType(i)
-	return mu
-}
-
-// SetCount sets the count field.
-func (mu *MaterialUpdate) SetCount(i int) *MaterialUpdate {
-	mu.mutation.ResetCount()
-	mu.mutation.SetCount(i)
-	return mu
-}
-
-// AddCount adds i to count.
-func (mu *MaterialUpdate) AddCount(i int) *MaterialUpdate {
-	mu.mutation.AddCount(i)
-	return mu
-}
-
 // SetCategory sets the category field.
 func (mu *MaterialUpdate) SetCategory(i int) *MaterialUpdate {
 	mu.mutation.ResetCategory()
@@ -97,35 +52,22 @@ func (mu *MaterialUpdate) AddCategory(i int) *MaterialUpdate {
 	return mu
 }
 
-// SetStatus sets the status field.
-func (mu *MaterialUpdate) SetStatus(i int) *MaterialUpdate {
-	mu.mutation.ResetStatus()
-	mu.mutation.SetStatus(i)
-	return mu
-}
-
-// AddStatus adds i to status.
-func (mu *MaterialUpdate) AddStatus(i int) *MaterialUpdate {
-	mu.mutation.AddStatus(i)
-	return mu
-}
-
 // SetUserName sets the userName field.
 func (mu *MaterialUpdate) SetUserName(s string) *MaterialUpdate {
 	mu.mutation.SetUserName(s)
 	return mu
 }
 
-// SetPayAt sets the payAt field.
-func (mu *MaterialUpdate) SetPayAt(i int64) *MaterialUpdate {
-	mu.mutation.ResetPayAt()
-	mu.mutation.SetPayAt(i)
+// SetInventory sets the inventory field.
+func (mu *MaterialUpdate) SetInventory(i int64) *MaterialUpdate {
+	mu.mutation.ResetInventory()
+	mu.mutation.SetInventory(i)
 	return mu
 }
 
-// AddPayAt adds i to payAt.
-func (mu *MaterialUpdate) AddPayAt(i int64) *MaterialUpdate {
-	mu.mutation.AddPayAt(i)
+// AddInventory adds i to inventory.
+func (mu *MaterialUpdate) AddInventory(i int64) *MaterialUpdate {
+	mu.mutation.AddInventory(i)
 	return mu
 }
 
@@ -281,55 +223,6 @@ func (mu *MaterialUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: material.FieldCode,
 		})
 	}
-	if value, ok := mu.mutation.SeqNumber(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: material.FieldSeqNumber,
-		})
-	}
-	if value, ok := mu.mutation.Date(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: material.FieldDate,
-		})
-	}
-	if value, ok := mu.mutation.AddedDate(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: material.FieldDate,
-		})
-	}
-	if value, ok := mu.mutation.GetType(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: material.FieldType,
-		})
-	}
-	if value, ok := mu.mutation.AddedType(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: material.FieldType,
-		})
-	}
-	if value, ok := mu.mutation.Count(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: material.FieldCount,
-		})
-	}
-	if value, ok := mu.mutation.AddedCount(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: material.FieldCount,
-		})
-	}
 	if value, ok := mu.mutation.Category(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
@@ -344,20 +237,6 @@ func (mu *MaterialUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: material.FieldCategory,
 		})
 	}
-	if value, ok := mu.mutation.Status(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: material.FieldStatus,
-		})
-	}
-	if value, ok := mu.mutation.AddedStatus(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: material.FieldStatus,
-		})
-	}
 	if value, ok := mu.mutation.UserName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -365,18 +244,18 @@ func (mu *MaterialUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: material.FieldUserName,
 		})
 	}
-	if value, ok := mu.mutation.PayAt(); ok {
+	if value, ok := mu.mutation.Inventory(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: material.FieldPayAt,
+			Column: material.FieldInventory,
 		})
 	}
-	if value, ok := mu.mutation.AddedPayAt(); ok {
+	if value, ok := mu.mutation.AddedInventory(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: material.FieldPayAt,
+			Column: material.FieldInventory,
 		})
 	}
 	if value, ok := mu.mutation.TenantId(); ok {
@@ -479,51 +358,6 @@ func (muo *MaterialUpdateOne) SetCode(s string) *MaterialUpdateOne {
 	return muo
 }
 
-// SetSeqNumber sets the seqNumber field.
-func (muo *MaterialUpdateOne) SetSeqNumber(s string) *MaterialUpdateOne {
-	muo.mutation.SetSeqNumber(s)
-	return muo
-}
-
-// SetDate sets the date field.
-func (muo *MaterialUpdateOne) SetDate(i int64) *MaterialUpdateOne {
-	muo.mutation.ResetDate()
-	muo.mutation.SetDate(i)
-	return muo
-}
-
-// AddDate adds i to date.
-func (muo *MaterialUpdateOne) AddDate(i int64) *MaterialUpdateOne {
-	muo.mutation.AddDate(i)
-	return muo
-}
-
-// SetType sets the type field.
-func (muo *MaterialUpdateOne) SetType(i int) *MaterialUpdateOne {
-	muo.mutation.ResetType()
-	muo.mutation.SetType(i)
-	return muo
-}
-
-// AddType adds i to type.
-func (muo *MaterialUpdateOne) AddType(i int) *MaterialUpdateOne {
-	muo.mutation.AddType(i)
-	return muo
-}
-
-// SetCount sets the count field.
-func (muo *MaterialUpdateOne) SetCount(i int) *MaterialUpdateOne {
-	muo.mutation.ResetCount()
-	muo.mutation.SetCount(i)
-	return muo
-}
-
-// AddCount adds i to count.
-func (muo *MaterialUpdateOne) AddCount(i int) *MaterialUpdateOne {
-	muo.mutation.AddCount(i)
-	return muo
-}
-
 // SetCategory sets the category field.
 func (muo *MaterialUpdateOne) SetCategory(i int) *MaterialUpdateOne {
 	muo.mutation.ResetCategory()
@@ -537,35 +371,22 @@ func (muo *MaterialUpdateOne) AddCategory(i int) *MaterialUpdateOne {
 	return muo
 }
 
-// SetStatus sets the status field.
-func (muo *MaterialUpdateOne) SetStatus(i int) *MaterialUpdateOne {
-	muo.mutation.ResetStatus()
-	muo.mutation.SetStatus(i)
-	return muo
-}
-
-// AddStatus adds i to status.
-func (muo *MaterialUpdateOne) AddStatus(i int) *MaterialUpdateOne {
-	muo.mutation.AddStatus(i)
-	return muo
-}
-
 // SetUserName sets the userName field.
 func (muo *MaterialUpdateOne) SetUserName(s string) *MaterialUpdateOne {
 	muo.mutation.SetUserName(s)
 	return muo
 }
 
-// SetPayAt sets the payAt field.
-func (muo *MaterialUpdateOne) SetPayAt(i int64) *MaterialUpdateOne {
-	muo.mutation.ResetPayAt()
-	muo.mutation.SetPayAt(i)
+// SetInventory sets the inventory field.
+func (muo *MaterialUpdateOne) SetInventory(i int64) *MaterialUpdateOne {
+	muo.mutation.ResetInventory()
+	muo.mutation.SetInventory(i)
 	return muo
 }
 
-// AddPayAt adds i to payAt.
-func (muo *MaterialUpdateOne) AddPayAt(i int64) *MaterialUpdateOne {
-	muo.mutation.AddPayAt(i)
+// AddInventory adds i to inventory.
+func (muo *MaterialUpdateOne) AddInventory(i int64) *MaterialUpdateOne {
+	muo.mutation.AddInventory(i)
 	return muo
 }
 
@@ -719,55 +540,6 @@ func (muo *MaterialUpdateOne) sqlSave(ctx context.Context) (_node *Material, err
 			Column: material.FieldCode,
 		})
 	}
-	if value, ok := muo.mutation.SeqNumber(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: material.FieldSeqNumber,
-		})
-	}
-	if value, ok := muo.mutation.Date(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: material.FieldDate,
-		})
-	}
-	if value, ok := muo.mutation.AddedDate(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: material.FieldDate,
-		})
-	}
-	if value, ok := muo.mutation.GetType(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: material.FieldType,
-		})
-	}
-	if value, ok := muo.mutation.AddedType(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: material.FieldType,
-		})
-	}
-	if value, ok := muo.mutation.Count(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: material.FieldCount,
-		})
-	}
-	if value, ok := muo.mutation.AddedCount(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: material.FieldCount,
-		})
-	}
 	if value, ok := muo.mutation.Category(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
@@ -782,20 +554,6 @@ func (muo *MaterialUpdateOne) sqlSave(ctx context.Context) (_node *Material, err
 			Column: material.FieldCategory,
 		})
 	}
-	if value, ok := muo.mutation.Status(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: material.FieldStatus,
-		})
-	}
-	if value, ok := muo.mutation.AddedStatus(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: material.FieldStatus,
-		})
-	}
 	if value, ok := muo.mutation.UserName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -803,18 +561,18 @@ func (muo *MaterialUpdateOne) sqlSave(ctx context.Context) (_node *Material, err
 			Column: material.FieldUserName,
 		})
 	}
-	if value, ok := muo.mutation.PayAt(); ok {
+	if value, ok := muo.mutation.Inventory(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: material.FieldPayAt,
+			Column: material.FieldInventory,
 		})
 	}
-	if value, ok := muo.mutation.AddedPayAt(); ok {
+	if value, ok := muo.mutation.AddedInventory(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: material.FieldPayAt,
+			Column: material.FieldInventory,
 		})
 	}
 	if value, ok := muo.mutation.TenantId(); ok {

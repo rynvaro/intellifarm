@@ -309,6 +309,23 @@ var (
 	// CattleDiesColumns holds the columns for the "cattle_dies" table.
 	CattleDiesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "ear_number", Type: field.TypeString},
+		{Name: "date", Type: field.TypeInt64},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "reason", Type: field.TypeInt},
+		{Name: "insured", Type: field.TypeInt},
+		{Name: "insured_code", Type: field.TypeString},
+		{Name: "insured_company", Type: field.TypeString},
+		{Name: "weight", Type: field.TypeInt64},
+		{Name: "handle_method", Type: field.TypeInt},
+		{Name: "declared", Type: field.TypeInt},
+		{Name: "d_user_name", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
 	}
 	// CattleDiesTable holds the schema information for the "cattle_dies" table.
 	CattleDiesTable = &schema.Table{
@@ -332,6 +349,15 @@ var (
 	// CattleGroupsColumns holds the columns for the "cattle_groups" table.
 	CattleGroupsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "ear_number", Type: field.TypeString},
+		{Name: "date", Type: field.TypeInt64},
+		{Name: "to_shed", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
 	}
 	// CattleGroupsTable holds the schema information for the "cattle_groups" table.
 	CattleGroupsTable = &schema.Table{
@@ -432,16 +458,15 @@ var (
 	// CattleInsColumns holds the columns for the "cattle_ins" table.
 	CattleInsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "name", Type: field.TypeString},
-		{Name: "type", Type: field.TypeInt},
+		{Name: "join_type", Type: field.TypeInt64},
 		{Name: "date", Type: field.TypeInt64},
 		{Name: "from", Type: field.TypeString},
-		{Name: "weight", Type: field.TypeFloat32},
-		{Name: "cost", Type: field.TypeFloat32},
-		{Name: "shipping_fee", Type: field.TypeFloat32},
-		{Name: "transport_certificate_number", Type: field.TypeString},
+		{Name: "weight", Type: field.TypeInt64},
+		{Name: "cost", Type: field.TypeInt64},
+		{Name: "shipping_fee", Type: field.TypeInt64},
+		{Name: "shipping_code", Type: field.TypeString},
 		{Name: "user_name", Type: field.TypeString},
-		{Name: "test_certificate_number", Type: field.TypeString},
+		{Name: "check_code", Type: field.TypeString},
 		{Name: "tenant_id", Type: field.TypeInt64},
 		{Name: "tenant_name", Type: field.TypeString},
 		{Name: "remarks", Type: field.TypeString},
@@ -468,19 +493,40 @@ var (
 		PrimaryKey:  []*schema.Column{CattleJoinedTypesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// CattleMovesColumns holds the columns for the "cattle_moves" table.
+	CattleMovesColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "ear_number", Type: field.TypeString},
+		{Name: "date", Type: field.TypeInt64},
+		{Name: "to_shed", Type: field.TypeString},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "reason", Type: field.TypeInt64},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// CattleMovesTable holds the schema information for the "cattle_moves" table.
+	CattleMovesTable = &schema.Table{
+		Name:        "cattle_moves",
+		Columns:     CattleMovesColumns,
+		PrimaryKey:  []*schema.Column{CattleMovesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// CattleOutsColumns holds the columns for the "cattle_outs" table.
 	CattleOutsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "name", Type: field.TypeString},
-		{Name: "type", Type: field.TypeInt},
+		{Name: "out_type", Type: field.TypeInt64},
 		{Name: "date", Type: field.TypeInt64},
 		{Name: "to", Type: field.TypeString},
-		{Name: "weight", Type: field.TypeFloat32},
-		{Name: "cost", Type: field.TypeFloat32},
-		{Name: "shipping_fee", Type: field.TypeFloat32},
-		{Name: "transport_certificate_number", Type: field.TypeString},
+		{Name: "weight", Type: field.TypeInt64},
+		{Name: "cost", Type: field.TypeInt64},
+		{Name: "shipping_fee", Type: field.TypeInt64},
+		{Name: "shipping_code", Type: field.TypeString},
 		{Name: "user_name", Type: field.TypeString},
-		{Name: "test_certificate_number", Type: field.TypeString},
+		{Name: "check_code", Type: field.TypeString},
 		{Name: "tenant_id", Type: field.TypeInt64},
 		{Name: "tenant_name", Type: field.TypeString},
 		{Name: "remarks", Type: field.TypeString},
@@ -724,7 +770,7 @@ var (
 	// EventsColumns holds the columns for the "events" table.
 	EventsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
-		{Name: "ear_number", Type: field.TypeInt64},
+		{Name: "ear_number", Type: field.TypeString},
 		{Name: "event_type", Type: field.TypeString},
 		{Name: "event_name", Type: field.TypeString},
 		{Name: "tenant_id", Type: field.TypeInt64},
@@ -1347,6 +1393,7 @@ var (
 		CattleHairColorsTable,
 		CattleInsTable,
 		CattleJoinedTypesTable,
+		CattleMovesTable,
 		CattleOutsTable,
 		CattleOwnersTable,
 		CattleTypesTable,

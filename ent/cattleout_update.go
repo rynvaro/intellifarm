@@ -27,22 +27,16 @@ func (cou *CattleOutUpdate) Where(ps ...predicate.CattleOut) *CattleOutUpdate {
 	return cou
 }
 
-// SetName sets the name field.
-func (cou *CattleOutUpdate) SetName(s string) *CattleOutUpdate {
-	cou.mutation.SetName(s)
+// SetOutType sets the outType field.
+func (cou *CattleOutUpdate) SetOutType(i int64) *CattleOutUpdate {
+	cou.mutation.ResetOutType()
+	cou.mutation.SetOutType(i)
 	return cou
 }
 
-// SetType sets the type field.
-func (cou *CattleOutUpdate) SetType(i int) *CattleOutUpdate {
-	cou.mutation.ResetType()
-	cou.mutation.SetType(i)
-	return cou
-}
-
-// AddType adds i to type.
-func (cou *CattleOutUpdate) AddType(i int) *CattleOutUpdate {
-	cou.mutation.AddType(i)
+// AddOutType adds i to outType.
+func (cou *CattleOutUpdate) AddOutType(i int64) *CattleOutUpdate {
+	cou.mutation.AddOutType(i)
 	return cou
 }
 
@@ -66,47 +60,47 @@ func (cou *CattleOutUpdate) SetTo(s string) *CattleOutUpdate {
 }
 
 // SetWeight sets the weight field.
-func (cou *CattleOutUpdate) SetWeight(f float32) *CattleOutUpdate {
+func (cou *CattleOutUpdate) SetWeight(i int64) *CattleOutUpdate {
 	cou.mutation.ResetWeight()
-	cou.mutation.SetWeight(f)
+	cou.mutation.SetWeight(i)
 	return cou
 }
 
-// AddWeight adds f to weight.
-func (cou *CattleOutUpdate) AddWeight(f float32) *CattleOutUpdate {
-	cou.mutation.AddWeight(f)
+// AddWeight adds i to weight.
+func (cou *CattleOutUpdate) AddWeight(i int64) *CattleOutUpdate {
+	cou.mutation.AddWeight(i)
 	return cou
 }
 
 // SetCost sets the cost field.
-func (cou *CattleOutUpdate) SetCost(f float32) *CattleOutUpdate {
+func (cou *CattleOutUpdate) SetCost(i int64) *CattleOutUpdate {
 	cou.mutation.ResetCost()
-	cou.mutation.SetCost(f)
+	cou.mutation.SetCost(i)
 	return cou
 }
 
-// AddCost adds f to cost.
-func (cou *CattleOutUpdate) AddCost(f float32) *CattleOutUpdate {
-	cou.mutation.AddCost(f)
+// AddCost adds i to cost.
+func (cou *CattleOutUpdate) AddCost(i int64) *CattleOutUpdate {
+	cou.mutation.AddCost(i)
 	return cou
 }
 
 // SetShippingFee sets the shippingFee field.
-func (cou *CattleOutUpdate) SetShippingFee(f float32) *CattleOutUpdate {
+func (cou *CattleOutUpdate) SetShippingFee(i int64) *CattleOutUpdate {
 	cou.mutation.ResetShippingFee()
-	cou.mutation.SetShippingFee(f)
+	cou.mutation.SetShippingFee(i)
 	return cou
 }
 
-// AddShippingFee adds f to shippingFee.
-func (cou *CattleOutUpdate) AddShippingFee(f float32) *CattleOutUpdate {
-	cou.mutation.AddShippingFee(f)
+// AddShippingFee adds i to shippingFee.
+func (cou *CattleOutUpdate) AddShippingFee(i int64) *CattleOutUpdate {
+	cou.mutation.AddShippingFee(i)
 	return cou
 }
 
-// SetTransportCertificateNumber sets the transportCertificateNumber field.
-func (cou *CattleOutUpdate) SetTransportCertificateNumber(s string) *CattleOutUpdate {
-	cou.mutation.SetTransportCertificateNumber(s)
+// SetShippingCode sets the shippingCode field.
+func (cou *CattleOutUpdate) SetShippingCode(s string) *CattleOutUpdate {
+	cou.mutation.SetShippingCode(s)
 	return cou
 }
 
@@ -116,9 +110,9 @@ func (cou *CattleOutUpdate) SetUserName(s string) *CattleOutUpdate {
 	return cou
 }
 
-// SetTestCertificateNumber sets the testCertificateNumber field.
-func (cou *CattleOutUpdate) SetTestCertificateNumber(s string) *CattleOutUpdate {
-	cou.mutation.SetTestCertificateNumber(s)
+// SetCheckCode sets the checkCode field.
+func (cou *CattleOutUpdate) SetCheckCode(s string) *CattleOutUpdate {
+	cou.mutation.SetCheckCode(s)
 	return cou
 }
 
@@ -260,25 +254,18 @@ func (cou *CattleOutUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
-	if value, ok := cou.mutation.Name(); ok {
+	if value, ok := cou.mutation.OutType(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt64,
 			Value:  value,
-			Column: cattleout.FieldName,
+			Column: cattleout.FieldOutType,
 		})
 	}
-	if value, ok := cou.mutation.GetType(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: cattleout.FieldType,
-		})
-	}
-	if value, ok := cou.mutation.AddedType(); ok {
+	if value, ok := cou.mutation.AddedOutType(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeInt64,
 			Value:  value,
-			Column: cattleout.FieldType,
+			Column: cattleout.FieldOutType,
 		})
 	}
 	if value, ok := cou.mutation.Date(); ok {
@@ -304,51 +291,51 @@ func (cou *CattleOutUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := cou.mutation.Weight(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattleout.FieldWeight,
 		})
 	}
 	if value, ok := cou.mutation.AddedWeight(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattleout.FieldWeight,
 		})
 	}
 	if value, ok := cou.mutation.Cost(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattleout.FieldCost,
 		})
 	}
 	if value, ok := cou.mutation.AddedCost(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattleout.FieldCost,
 		})
 	}
 	if value, ok := cou.mutation.ShippingFee(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattleout.FieldShippingFee,
 		})
 	}
 	if value, ok := cou.mutation.AddedShippingFee(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattleout.FieldShippingFee,
 		})
 	}
-	if value, ok := cou.mutation.TransportCertificateNumber(); ok {
+	if value, ok := cou.mutation.ShippingCode(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: cattleout.FieldTransportCertificateNumber,
+			Column: cattleout.FieldShippingCode,
 		})
 	}
 	if value, ok := cou.mutation.UserName(); ok {
@@ -358,11 +345,11 @@ func (cou *CattleOutUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: cattleout.FieldUserName,
 		})
 	}
-	if value, ok := cou.mutation.TestCertificateNumber(); ok {
+	if value, ok := cou.mutation.CheckCode(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: cattleout.FieldTestCertificateNumber,
+			Column: cattleout.FieldCheckCode,
 		})
 	}
 	if value, ok := cou.mutation.TenantId(); ok {
@@ -453,22 +440,16 @@ type CattleOutUpdateOne struct {
 	mutation *CattleOutMutation
 }
 
-// SetName sets the name field.
-func (couo *CattleOutUpdateOne) SetName(s string) *CattleOutUpdateOne {
-	couo.mutation.SetName(s)
+// SetOutType sets the outType field.
+func (couo *CattleOutUpdateOne) SetOutType(i int64) *CattleOutUpdateOne {
+	couo.mutation.ResetOutType()
+	couo.mutation.SetOutType(i)
 	return couo
 }
 
-// SetType sets the type field.
-func (couo *CattleOutUpdateOne) SetType(i int) *CattleOutUpdateOne {
-	couo.mutation.ResetType()
-	couo.mutation.SetType(i)
-	return couo
-}
-
-// AddType adds i to type.
-func (couo *CattleOutUpdateOne) AddType(i int) *CattleOutUpdateOne {
-	couo.mutation.AddType(i)
+// AddOutType adds i to outType.
+func (couo *CattleOutUpdateOne) AddOutType(i int64) *CattleOutUpdateOne {
+	couo.mutation.AddOutType(i)
 	return couo
 }
 
@@ -492,47 +473,47 @@ func (couo *CattleOutUpdateOne) SetTo(s string) *CattleOutUpdateOne {
 }
 
 // SetWeight sets the weight field.
-func (couo *CattleOutUpdateOne) SetWeight(f float32) *CattleOutUpdateOne {
+func (couo *CattleOutUpdateOne) SetWeight(i int64) *CattleOutUpdateOne {
 	couo.mutation.ResetWeight()
-	couo.mutation.SetWeight(f)
+	couo.mutation.SetWeight(i)
 	return couo
 }
 
-// AddWeight adds f to weight.
-func (couo *CattleOutUpdateOne) AddWeight(f float32) *CattleOutUpdateOne {
-	couo.mutation.AddWeight(f)
+// AddWeight adds i to weight.
+func (couo *CattleOutUpdateOne) AddWeight(i int64) *CattleOutUpdateOne {
+	couo.mutation.AddWeight(i)
 	return couo
 }
 
 // SetCost sets the cost field.
-func (couo *CattleOutUpdateOne) SetCost(f float32) *CattleOutUpdateOne {
+func (couo *CattleOutUpdateOne) SetCost(i int64) *CattleOutUpdateOne {
 	couo.mutation.ResetCost()
-	couo.mutation.SetCost(f)
+	couo.mutation.SetCost(i)
 	return couo
 }
 
-// AddCost adds f to cost.
-func (couo *CattleOutUpdateOne) AddCost(f float32) *CattleOutUpdateOne {
-	couo.mutation.AddCost(f)
+// AddCost adds i to cost.
+func (couo *CattleOutUpdateOne) AddCost(i int64) *CattleOutUpdateOne {
+	couo.mutation.AddCost(i)
 	return couo
 }
 
 // SetShippingFee sets the shippingFee field.
-func (couo *CattleOutUpdateOne) SetShippingFee(f float32) *CattleOutUpdateOne {
+func (couo *CattleOutUpdateOne) SetShippingFee(i int64) *CattleOutUpdateOne {
 	couo.mutation.ResetShippingFee()
-	couo.mutation.SetShippingFee(f)
+	couo.mutation.SetShippingFee(i)
 	return couo
 }
 
-// AddShippingFee adds f to shippingFee.
-func (couo *CattleOutUpdateOne) AddShippingFee(f float32) *CattleOutUpdateOne {
-	couo.mutation.AddShippingFee(f)
+// AddShippingFee adds i to shippingFee.
+func (couo *CattleOutUpdateOne) AddShippingFee(i int64) *CattleOutUpdateOne {
+	couo.mutation.AddShippingFee(i)
 	return couo
 }
 
-// SetTransportCertificateNumber sets the transportCertificateNumber field.
-func (couo *CattleOutUpdateOne) SetTransportCertificateNumber(s string) *CattleOutUpdateOne {
-	couo.mutation.SetTransportCertificateNumber(s)
+// SetShippingCode sets the shippingCode field.
+func (couo *CattleOutUpdateOne) SetShippingCode(s string) *CattleOutUpdateOne {
+	couo.mutation.SetShippingCode(s)
 	return couo
 }
 
@@ -542,9 +523,9 @@ func (couo *CattleOutUpdateOne) SetUserName(s string) *CattleOutUpdateOne {
 	return couo
 }
 
-// SetTestCertificateNumber sets the testCertificateNumber field.
-func (couo *CattleOutUpdateOne) SetTestCertificateNumber(s string) *CattleOutUpdateOne {
-	couo.mutation.SetTestCertificateNumber(s)
+// SetCheckCode sets the checkCode field.
+func (couo *CattleOutUpdateOne) SetCheckCode(s string) *CattleOutUpdateOne {
+	couo.mutation.SetCheckCode(s)
 	return couo
 }
 
@@ -684,25 +665,18 @@ func (couo *CattleOutUpdateOne) sqlSave(ctx context.Context) (_node *CattleOut, 
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing CattleOut.ID for update")}
 	}
 	_spec.Node.ID.Value = id
-	if value, ok := couo.mutation.Name(); ok {
+	if value, ok := couo.mutation.OutType(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt64,
 			Value:  value,
-			Column: cattleout.FieldName,
+			Column: cattleout.FieldOutType,
 		})
 	}
-	if value, ok := couo.mutation.GetType(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: cattleout.FieldType,
-		})
-	}
-	if value, ok := couo.mutation.AddedType(); ok {
+	if value, ok := couo.mutation.AddedOutType(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeInt64,
 			Value:  value,
-			Column: cattleout.FieldType,
+			Column: cattleout.FieldOutType,
 		})
 	}
 	if value, ok := couo.mutation.Date(); ok {
@@ -728,51 +702,51 @@ func (couo *CattleOutUpdateOne) sqlSave(ctx context.Context) (_node *CattleOut, 
 	}
 	if value, ok := couo.mutation.Weight(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattleout.FieldWeight,
 		})
 	}
 	if value, ok := couo.mutation.AddedWeight(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattleout.FieldWeight,
 		})
 	}
 	if value, ok := couo.mutation.Cost(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattleout.FieldCost,
 		})
 	}
 	if value, ok := couo.mutation.AddedCost(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattleout.FieldCost,
 		})
 	}
 	if value, ok := couo.mutation.ShippingFee(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattleout.FieldShippingFee,
 		})
 	}
 	if value, ok := couo.mutation.AddedShippingFee(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattleout.FieldShippingFee,
 		})
 	}
-	if value, ok := couo.mutation.TransportCertificateNumber(); ok {
+	if value, ok := couo.mutation.ShippingCode(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: cattleout.FieldTransportCertificateNumber,
+			Column: cattleout.FieldShippingCode,
 		})
 	}
 	if value, ok := couo.mutation.UserName(); ok {
@@ -782,11 +756,11 @@ func (couo *CattleOutUpdateOne) sqlSave(ctx context.Context) (_node *CattleOut, 
 			Column: cattleout.FieldUserName,
 		})
 	}
-	if value, ok := couo.mutation.TestCertificateNumber(); ok {
+	if value, ok := couo.mutation.CheckCode(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: cattleout.FieldTestCertificateNumber,
+			Column: cattleout.FieldCheckCode,
 		})
 	}
 	if value, ok := couo.mutation.TenantId(); ok {

@@ -12,15 +12,66 @@ import (
 
 // CattleDie is the model entity for the CattleDie schema.
 type CattleDie struct {
-	config
+	config `json:"-"`
 	// ID of the ent.
 	ID int64 `json:"id,omitempty"`
+	// EarNumber holds the value of the "earNumber" field.
+	EarNumber string `json:"earNumber,omitempty"`
+	// Date holds the value of the "date" field.
+	Date int64 `json:"date,omitempty"`
+	// UserName holds the value of the "userName" field.
+	UserName string `json:"userName,omitempty"`
+	// Reason holds the value of the "reason" field.
+	Reason int `json:"reason,omitempty"`
+	// Insured holds the value of the "Insured" field.
+	Insured int `json:"Insured,omitempty"`
+	// InsuredCode holds the value of the "InsuredCode" field.
+	InsuredCode string `json:"InsuredCode,omitempty"`
+	// InsuredCompany holds the value of the "InsuredCompany" field.
+	InsuredCompany string `json:"InsuredCompany,omitempty"`
+	// Weight holds the value of the "weight" field.
+	Weight int64 `json:"weight,omitempty"`
+	// HandleMethod holds the value of the "handleMethod" field.
+	HandleMethod int `json:"handleMethod,omitempty"`
+	// Declared holds the value of the "declared" field.
+	Declared int `json:"declared,omitempty"`
+	// DUserName holds the value of the "dUserName" field.
+	DUserName string `json:"dUserName,omitempty"`
+	// TenantId holds the value of the "tenantId" field.
+	TenantId int64 `json:"tenantId,omitempty"`
+	// TenantName holds the value of the "tenantName" field.
+	TenantName string `json:"tenantName,omitempty"`
+	// Remarks holds the value of the "remarks" field.
+	Remarks string `json:"remarks,omitempty"`
+	// CreatedAt holds the value of the "createdAt" field.
+	CreatedAt int64 `json:"createdAt,omitempty"`
+	// UpdatedAt holds the value of the "updatedAt" field.
+	UpdatedAt int64 `json:"updatedAt,omitempty"`
+	// Deleted holds the value of the "deleted" field.
+	Deleted int `json:"deleted,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
 func (*CattleDie) scanValues() []interface{} {
 	return []interface{}{
-		&sql.NullInt64{}, // id
+		&sql.NullInt64{},  // id
+		&sql.NullString{}, // earNumber
+		&sql.NullInt64{},  // date
+		&sql.NullString{}, // userName
+		&sql.NullInt64{},  // reason
+		&sql.NullInt64{},  // Insured
+		&sql.NullString{}, // InsuredCode
+		&sql.NullString{}, // InsuredCompany
+		&sql.NullInt64{},  // weight
+		&sql.NullInt64{},  // handleMethod
+		&sql.NullInt64{},  // declared
+		&sql.NullString{}, // dUserName
+		&sql.NullInt64{},  // tenantId
+		&sql.NullString{}, // tenantName
+		&sql.NullString{}, // remarks
+		&sql.NullInt64{},  // createdAt
+		&sql.NullInt64{},  // updatedAt
+		&sql.NullInt64{},  // deleted
 	}
 }
 
@@ -36,6 +87,91 @@ func (cd *CattleDie) assignValues(values ...interface{}) error {
 	}
 	cd.ID = int64(value.Int64)
 	values = values[1:]
+	if value, ok := values[0].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field earNumber", values[0])
+	} else if value.Valid {
+		cd.EarNumber = value.String
+	}
+	if value, ok := values[1].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field date", values[1])
+	} else if value.Valid {
+		cd.Date = value.Int64
+	}
+	if value, ok := values[2].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field userName", values[2])
+	} else if value.Valid {
+		cd.UserName = value.String
+	}
+	if value, ok := values[3].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field reason", values[3])
+	} else if value.Valid {
+		cd.Reason = int(value.Int64)
+	}
+	if value, ok := values[4].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field Insured", values[4])
+	} else if value.Valid {
+		cd.Insured = int(value.Int64)
+	}
+	if value, ok := values[5].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field InsuredCode", values[5])
+	} else if value.Valid {
+		cd.InsuredCode = value.String
+	}
+	if value, ok := values[6].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field InsuredCompany", values[6])
+	} else if value.Valid {
+		cd.InsuredCompany = value.String
+	}
+	if value, ok := values[7].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field weight", values[7])
+	} else if value.Valid {
+		cd.Weight = value.Int64
+	}
+	if value, ok := values[8].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field handleMethod", values[8])
+	} else if value.Valid {
+		cd.HandleMethod = int(value.Int64)
+	}
+	if value, ok := values[9].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field declared", values[9])
+	} else if value.Valid {
+		cd.Declared = int(value.Int64)
+	}
+	if value, ok := values[10].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field dUserName", values[10])
+	} else if value.Valid {
+		cd.DUserName = value.String
+	}
+	if value, ok := values[11].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[11])
+	} else if value.Valid {
+		cd.TenantId = value.Int64
+	}
+	if value, ok := values[12].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[12])
+	} else if value.Valid {
+		cd.TenantName = value.String
+	}
+	if value, ok := values[13].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[13])
+	} else if value.Valid {
+		cd.Remarks = value.String
+	}
+	if value, ok := values[14].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[14])
+	} else if value.Valid {
+		cd.CreatedAt = value.Int64
+	}
+	if value, ok := values[15].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[15])
+	} else if value.Valid {
+		cd.UpdatedAt = value.Int64
+	}
+	if value, ok := values[16].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[16])
+	} else if value.Valid {
+		cd.Deleted = int(value.Int64)
+	}
 	return nil
 }
 
@@ -62,6 +198,40 @@ func (cd *CattleDie) String() string {
 	var builder strings.Builder
 	builder.WriteString("CattleDie(")
 	builder.WriteString(fmt.Sprintf("id=%v", cd.ID))
+	builder.WriteString(", earNumber=")
+	builder.WriteString(cd.EarNumber)
+	builder.WriteString(", date=")
+	builder.WriteString(fmt.Sprintf("%v", cd.Date))
+	builder.WriteString(", userName=")
+	builder.WriteString(cd.UserName)
+	builder.WriteString(", reason=")
+	builder.WriteString(fmt.Sprintf("%v", cd.Reason))
+	builder.WriteString(", Insured=")
+	builder.WriteString(fmt.Sprintf("%v", cd.Insured))
+	builder.WriteString(", InsuredCode=")
+	builder.WriteString(cd.InsuredCode)
+	builder.WriteString(", InsuredCompany=")
+	builder.WriteString(cd.InsuredCompany)
+	builder.WriteString(", weight=")
+	builder.WriteString(fmt.Sprintf("%v", cd.Weight))
+	builder.WriteString(", handleMethod=")
+	builder.WriteString(fmt.Sprintf("%v", cd.HandleMethod))
+	builder.WriteString(", declared=")
+	builder.WriteString(fmt.Sprintf("%v", cd.Declared))
+	builder.WriteString(", dUserName=")
+	builder.WriteString(cd.DUserName)
+	builder.WriteString(", tenantId=")
+	builder.WriteString(fmt.Sprintf("%v", cd.TenantId))
+	builder.WriteString(", tenantName=")
+	builder.WriteString(cd.TenantName)
+	builder.WriteString(", remarks=")
+	builder.WriteString(cd.Remarks)
+	builder.WriteString(", createdAt=")
+	builder.WriteString(fmt.Sprintf("%v", cd.CreatedAt))
+	builder.WriteString(", updatedAt=")
+	builder.WriteString(fmt.Sprintf("%v", cd.UpdatedAt))
+	builder.WriteString(", deleted=")
+	builder.WriteString(fmt.Sprintf("%v", cd.Deleted))
 	builder.WriteByte(')')
 	return builder.String()
 }

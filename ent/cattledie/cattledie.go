@@ -7,6 +7,40 @@ const (
 	Label = "cattle_die"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldEarNumber holds the string denoting the earnumber field in the database.
+	FieldEarNumber = "ear_number"
+	// FieldDate holds the string denoting the date field in the database.
+	FieldDate = "date"
+	// FieldUserName holds the string denoting the username field in the database.
+	FieldUserName = "user_name"
+	// FieldReason holds the string denoting the reason field in the database.
+	FieldReason = "reason"
+	// FieldInsured holds the string denoting the insured field in the database.
+	FieldInsured = "insured"
+	// FieldInsuredCode holds the string denoting the insuredcode field in the database.
+	FieldInsuredCode = "insured_code"
+	// FieldInsuredCompany holds the string denoting the insuredcompany field in the database.
+	FieldInsuredCompany = "insured_company"
+	// FieldWeight holds the string denoting the weight field in the database.
+	FieldWeight = "weight"
+	// FieldHandleMethod holds the string denoting the handlemethod field in the database.
+	FieldHandleMethod = "handle_method"
+	// FieldDeclared holds the string denoting the declared field in the database.
+	FieldDeclared = "declared"
+	// FieldDUserName holds the string denoting the dusername field in the database.
+	FieldDUserName = "d_user_name"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
+	// FieldRemarks holds the string denoting the remarks field in the database.
+	FieldRemarks = "remarks"
+	// FieldCreatedAt holds the string denoting the createdat field in the database.
+	FieldCreatedAt = "created_at"
+	// FieldUpdatedAt holds the string denoting the updatedat field in the database.
+	FieldUpdatedAt = "updated_at"
+	// FieldDeleted holds the string denoting the deleted field in the database.
+	FieldDeleted = "deleted"
 
 	// Table holds the table name of the cattledie in the database.
 	Table = "cattle_dies"
@@ -15,6 +49,23 @@ const (
 // Columns holds all SQL columns for cattledie fields.
 var Columns = []string{
 	FieldID,
+	FieldEarNumber,
+	FieldDate,
+	FieldUserName,
+	FieldReason,
+	FieldInsured,
+	FieldInsuredCode,
+	FieldInsuredCompany,
+	FieldWeight,
+	FieldHandleMethod,
+	FieldDeclared,
+	FieldDUserName,
+	FieldTenantId,
+	FieldTenantName,
+	FieldRemarks,
+	FieldCreatedAt,
+	FieldUpdatedAt,
+	FieldDeleted,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).

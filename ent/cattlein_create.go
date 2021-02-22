@@ -19,15 +19,9 @@ type CattleInCreate struct {
 	hooks    []Hook
 }
 
-// SetName sets the name field.
-func (cic *CattleInCreate) SetName(s string) *CattleInCreate {
-	cic.mutation.SetName(s)
-	return cic
-}
-
-// SetType sets the type field.
-func (cic *CattleInCreate) SetType(i int) *CattleInCreate {
-	cic.mutation.SetType(i)
+// SetJoinType sets the joinType field.
+func (cic *CattleInCreate) SetJoinType(i int64) *CattleInCreate {
+	cic.mutation.SetJoinType(i)
 	return cic
 }
 
@@ -44,26 +38,26 @@ func (cic *CattleInCreate) SetFrom(s string) *CattleInCreate {
 }
 
 // SetWeight sets the weight field.
-func (cic *CattleInCreate) SetWeight(f float32) *CattleInCreate {
-	cic.mutation.SetWeight(f)
+func (cic *CattleInCreate) SetWeight(i int64) *CattleInCreate {
+	cic.mutation.SetWeight(i)
 	return cic
 }
 
 // SetCost sets the cost field.
-func (cic *CattleInCreate) SetCost(f float32) *CattleInCreate {
-	cic.mutation.SetCost(f)
+func (cic *CattleInCreate) SetCost(i int64) *CattleInCreate {
+	cic.mutation.SetCost(i)
 	return cic
 }
 
 // SetShippingFee sets the shippingFee field.
-func (cic *CattleInCreate) SetShippingFee(f float32) *CattleInCreate {
-	cic.mutation.SetShippingFee(f)
+func (cic *CattleInCreate) SetShippingFee(i int64) *CattleInCreate {
+	cic.mutation.SetShippingFee(i)
 	return cic
 }
 
-// SetTransportCertificateNumber sets the transportCertificateNumber field.
-func (cic *CattleInCreate) SetTransportCertificateNumber(s string) *CattleInCreate {
-	cic.mutation.SetTransportCertificateNumber(s)
+// SetShippingCode sets the shippingCode field.
+func (cic *CattleInCreate) SetShippingCode(s string) *CattleInCreate {
+	cic.mutation.SetShippingCode(s)
 	return cic
 }
 
@@ -73,9 +67,9 @@ func (cic *CattleInCreate) SetUserName(s string) *CattleInCreate {
 	return cic
 }
 
-// SetTestCertificateNumber sets the testCertificateNumber field.
-func (cic *CattleInCreate) SetTestCertificateNumber(s string) *CattleInCreate {
-	cic.mutation.SetTestCertificateNumber(s)
+// SetCheckCode sets the checkCode field.
+func (cic *CattleInCreate) SetCheckCode(s string) *CattleInCreate {
+	cic.mutation.SetCheckCode(s)
 	return cic
 }
 
@@ -166,11 +160,8 @@ func (cic *CattleInCreate) SaveX(ctx context.Context) *CattleIn {
 
 // check runs all checks and user-defined validators on the builder.
 func (cic *CattleInCreate) check() error {
-	if _, ok := cic.mutation.Name(); !ok {
-		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
-	}
-	if _, ok := cic.mutation.GetType(); !ok {
-		return &ValidationError{Name: "type", err: errors.New("ent: missing required field \"type\"")}
+	if _, ok := cic.mutation.JoinType(); !ok {
+		return &ValidationError{Name: "joinType", err: errors.New("ent: missing required field \"joinType\"")}
 	}
 	if _, ok := cic.mutation.Date(); !ok {
 		return &ValidationError{Name: "date", err: errors.New("ent: missing required field \"date\"")}
@@ -187,14 +178,14 @@ func (cic *CattleInCreate) check() error {
 	if _, ok := cic.mutation.ShippingFee(); !ok {
 		return &ValidationError{Name: "shippingFee", err: errors.New("ent: missing required field \"shippingFee\"")}
 	}
-	if _, ok := cic.mutation.TransportCertificateNumber(); !ok {
-		return &ValidationError{Name: "transportCertificateNumber", err: errors.New("ent: missing required field \"transportCertificateNumber\"")}
+	if _, ok := cic.mutation.ShippingCode(); !ok {
+		return &ValidationError{Name: "shippingCode", err: errors.New("ent: missing required field \"shippingCode\"")}
 	}
 	if _, ok := cic.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
 	}
-	if _, ok := cic.mutation.TestCertificateNumber(); !ok {
-		return &ValidationError{Name: "testCertificateNumber", err: errors.New("ent: missing required field \"testCertificateNumber\"")}
+	if _, ok := cic.mutation.CheckCode(); !ok {
+		return &ValidationError{Name: "checkCode", err: errors.New("ent: missing required field \"checkCode\"")}
 	}
 	if _, ok := cic.mutation.TenantId(); !ok {
 		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
@@ -241,21 +232,13 @@ func (cic *CattleInCreate) createSpec() (*CattleIn, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
-	if value, ok := cic.mutation.Name(); ok {
+	if value, ok := cic.mutation.JoinType(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt64,
 			Value:  value,
-			Column: cattlein.FieldName,
+			Column: cattlein.FieldJoinType,
 		})
-		_node.Name = value
-	}
-	if value, ok := cic.mutation.GetType(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: cattlein.FieldType,
-		})
-		_node.Type = value
+		_node.JoinType = value
 	}
 	if value, ok := cic.mutation.Date(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -275,7 +258,7 @@ func (cic *CattleInCreate) createSpec() (*CattleIn, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := cic.mutation.Weight(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattlein.FieldWeight,
 		})
@@ -283,7 +266,7 @@ func (cic *CattleInCreate) createSpec() (*CattleIn, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := cic.mutation.Cost(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattlein.FieldCost,
 		})
@@ -291,19 +274,19 @@ func (cic *CattleInCreate) createSpec() (*CattleIn, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := cic.mutation.ShippingFee(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattlein.FieldShippingFee,
 		})
 		_node.ShippingFee = value
 	}
-	if value, ok := cic.mutation.TransportCertificateNumber(); ok {
+	if value, ok := cic.mutation.ShippingCode(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: cattlein.FieldTransportCertificateNumber,
+			Column: cattlein.FieldShippingCode,
 		})
-		_node.TransportCertificateNumber = value
+		_node.ShippingCode = value
 	}
 	if value, ok := cic.mutation.UserName(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -313,13 +296,13 @@ func (cic *CattleInCreate) createSpec() (*CattleIn, *sqlgraph.CreateSpec) {
 		})
 		_node.UserName = value
 	}
-	if value, ok := cic.mutation.TestCertificateNumber(); ok {
+	if value, ok := cic.mutation.CheckCode(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: cattlein.FieldTestCertificateNumber,
+			Column: cattlein.FieldCheckCode,
 		})
-		_node.TestCertificateNumber = value
+		_node.CheckCode = value
 	}
 	if value, ok := cic.mutation.TenantId(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

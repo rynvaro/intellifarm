@@ -294,6 +294,19 @@ func (f CattleJoinedTypeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.V
 	return f(ctx, mv)
 }
 
+// The CattleMoveFunc type is an adapter to allow the use of ordinary
+// function as CattleMove mutator.
+type CattleMoveFunc func(context.Context, *ent.CattleMoveMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CattleMoveFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.CattleMoveMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CattleMoveMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The CattleOutFunc type is an adapter to allow the use of ordinary
 // function as CattleOut mutator.
 type CattleOutFunc func(context.Context, *ent.CattleOutMutation) (ent.Value, error)

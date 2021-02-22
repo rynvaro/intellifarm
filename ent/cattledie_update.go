@@ -27,6 +27,178 @@ func (cdu *CattleDieUpdate) Where(ps ...predicate.CattleDie) *CattleDieUpdate {
 	return cdu
 }
 
+// SetEarNumber sets the earNumber field.
+func (cdu *CattleDieUpdate) SetEarNumber(s string) *CattleDieUpdate {
+	cdu.mutation.SetEarNumber(s)
+	return cdu
+}
+
+// SetDate sets the date field.
+func (cdu *CattleDieUpdate) SetDate(i int64) *CattleDieUpdate {
+	cdu.mutation.ResetDate()
+	cdu.mutation.SetDate(i)
+	return cdu
+}
+
+// AddDate adds i to date.
+func (cdu *CattleDieUpdate) AddDate(i int64) *CattleDieUpdate {
+	cdu.mutation.AddDate(i)
+	return cdu
+}
+
+// SetUserName sets the userName field.
+func (cdu *CattleDieUpdate) SetUserName(s string) *CattleDieUpdate {
+	cdu.mutation.SetUserName(s)
+	return cdu
+}
+
+// SetReason sets the reason field.
+func (cdu *CattleDieUpdate) SetReason(i int) *CattleDieUpdate {
+	cdu.mutation.ResetReason()
+	cdu.mutation.SetReason(i)
+	return cdu
+}
+
+// AddReason adds i to reason.
+func (cdu *CattleDieUpdate) AddReason(i int) *CattleDieUpdate {
+	cdu.mutation.AddReason(i)
+	return cdu
+}
+
+// SetInsured sets the Insured field.
+func (cdu *CattleDieUpdate) SetInsured(i int) *CattleDieUpdate {
+	cdu.mutation.ResetInsured()
+	cdu.mutation.SetInsured(i)
+	return cdu
+}
+
+// AddInsured adds i to Insured.
+func (cdu *CattleDieUpdate) AddInsured(i int) *CattleDieUpdate {
+	cdu.mutation.AddInsured(i)
+	return cdu
+}
+
+// SetInsuredCode sets the InsuredCode field.
+func (cdu *CattleDieUpdate) SetInsuredCode(s string) *CattleDieUpdate {
+	cdu.mutation.SetInsuredCode(s)
+	return cdu
+}
+
+// SetInsuredCompany sets the InsuredCompany field.
+func (cdu *CattleDieUpdate) SetInsuredCompany(s string) *CattleDieUpdate {
+	cdu.mutation.SetInsuredCompany(s)
+	return cdu
+}
+
+// SetWeight sets the weight field.
+func (cdu *CattleDieUpdate) SetWeight(i int64) *CattleDieUpdate {
+	cdu.mutation.ResetWeight()
+	cdu.mutation.SetWeight(i)
+	return cdu
+}
+
+// AddWeight adds i to weight.
+func (cdu *CattleDieUpdate) AddWeight(i int64) *CattleDieUpdate {
+	cdu.mutation.AddWeight(i)
+	return cdu
+}
+
+// SetHandleMethod sets the handleMethod field.
+func (cdu *CattleDieUpdate) SetHandleMethod(i int) *CattleDieUpdate {
+	cdu.mutation.ResetHandleMethod()
+	cdu.mutation.SetHandleMethod(i)
+	return cdu
+}
+
+// AddHandleMethod adds i to handleMethod.
+func (cdu *CattleDieUpdate) AddHandleMethod(i int) *CattleDieUpdate {
+	cdu.mutation.AddHandleMethod(i)
+	return cdu
+}
+
+// SetDeclared sets the declared field.
+func (cdu *CattleDieUpdate) SetDeclared(i int) *CattleDieUpdate {
+	cdu.mutation.ResetDeclared()
+	cdu.mutation.SetDeclared(i)
+	return cdu
+}
+
+// AddDeclared adds i to declared.
+func (cdu *CattleDieUpdate) AddDeclared(i int) *CattleDieUpdate {
+	cdu.mutation.AddDeclared(i)
+	return cdu
+}
+
+// SetDUserName sets the dUserName field.
+func (cdu *CattleDieUpdate) SetDUserName(s string) *CattleDieUpdate {
+	cdu.mutation.SetDUserName(s)
+	return cdu
+}
+
+// SetTenantId sets the tenantId field.
+func (cdu *CattleDieUpdate) SetTenantId(i int64) *CattleDieUpdate {
+	cdu.mutation.ResetTenantId()
+	cdu.mutation.SetTenantId(i)
+	return cdu
+}
+
+// AddTenantId adds i to tenantId.
+func (cdu *CattleDieUpdate) AddTenantId(i int64) *CattleDieUpdate {
+	cdu.mutation.AddTenantId(i)
+	return cdu
+}
+
+// SetTenantName sets the tenantName field.
+func (cdu *CattleDieUpdate) SetTenantName(s string) *CattleDieUpdate {
+	cdu.mutation.SetTenantName(s)
+	return cdu
+}
+
+// SetRemarks sets the remarks field.
+func (cdu *CattleDieUpdate) SetRemarks(s string) *CattleDieUpdate {
+	cdu.mutation.SetRemarks(s)
+	return cdu
+}
+
+// SetCreatedAt sets the createdAt field.
+func (cdu *CattleDieUpdate) SetCreatedAt(i int64) *CattleDieUpdate {
+	cdu.mutation.ResetCreatedAt()
+	cdu.mutation.SetCreatedAt(i)
+	return cdu
+}
+
+// AddCreatedAt adds i to createdAt.
+func (cdu *CattleDieUpdate) AddCreatedAt(i int64) *CattleDieUpdate {
+	cdu.mutation.AddCreatedAt(i)
+	return cdu
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (cdu *CattleDieUpdate) SetUpdatedAt(i int64) *CattleDieUpdate {
+	cdu.mutation.ResetUpdatedAt()
+	cdu.mutation.SetUpdatedAt(i)
+	return cdu
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (cdu *CattleDieUpdate) AddUpdatedAt(i int64) *CattleDieUpdate {
+	cdu.mutation.AddUpdatedAt(i)
+	return cdu
+}
+
+// SetDeleted sets the deleted field.
+func (cdu *CattleDieUpdate) SetDeleted(i int) *CattleDieUpdate {
+	cdu.mutation.ResetDeleted()
+	cdu.mutation.SetDeleted(i)
+	return cdu
+}
+
+// AddDeleted adds i to deleted.
+func (cdu *CattleDieUpdate) AddDeleted(i int) *CattleDieUpdate {
+	cdu.mutation.AddDeleted(i)
+	return cdu
+}
+
 // Mutation returns the CattleDieMutation object of the builder.
 func (cdu *CattleDieUpdate) Mutation() *CattleDieMutation {
 	return cdu.mutation
@@ -101,6 +273,195 @@ func (cdu *CattleDieUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := cdu.mutation.EarNumber(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldEarNumber,
+		})
+	}
+	if value, ok := cdu.mutation.Date(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldDate,
+		})
+	}
+	if value, ok := cdu.mutation.AddedDate(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldDate,
+		})
+	}
+	if value, ok := cdu.mutation.UserName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldUserName,
+		})
+	}
+	if value, ok := cdu.mutation.Reason(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldReason,
+		})
+	}
+	if value, ok := cdu.mutation.AddedReason(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldReason,
+		})
+	}
+	if value, ok := cdu.mutation.Insured(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldInsured,
+		})
+	}
+	if value, ok := cdu.mutation.AddedInsured(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldInsured,
+		})
+	}
+	if value, ok := cdu.mutation.InsuredCode(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldInsuredCode,
+		})
+	}
+	if value, ok := cdu.mutation.InsuredCompany(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldInsuredCompany,
+		})
+	}
+	if value, ok := cdu.mutation.Weight(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldWeight,
+		})
+	}
+	if value, ok := cdu.mutation.AddedWeight(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldWeight,
+		})
+	}
+	if value, ok := cdu.mutation.HandleMethod(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldHandleMethod,
+		})
+	}
+	if value, ok := cdu.mutation.AddedHandleMethod(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldHandleMethod,
+		})
+	}
+	if value, ok := cdu.mutation.Declared(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldDeclared,
+		})
+	}
+	if value, ok := cdu.mutation.AddedDeclared(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldDeclared,
+		})
+	}
+	if value, ok := cdu.mutation.DUserName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldDUserName,
+		})
+	}
+	if value, ok := cdu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldTenantId,
+		})
+	}
+	if value, ok := cdu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldTenantId,
+		})
+	}
+	if value, ok := cdu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldTenantName,
+		})
+	}
+	if value, ok := cdu.mutation.Remarks(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldRemarks,
+		})
+	}
+	if value, ok := cdu.mutation.CreatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldCreatedAt,
+		})
+	}
+	if value, ok := cdu.mutation.AddedCreatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldCreatedAt,
+		})
+	}
+	if value, ok := cdu.mutation.UpdatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldUpdatedAt,
+		})
+	}
+	if value, ok := cdu.mutation.AddedUpdatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldUpdatedAt,
+		})
+	}
+	if value, ok := cdu.mutation.Deleted(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldDeleted,
+		})
+	}
+	if value, ok := cdu.mutation.AddedDeleted(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldDeleted,
+		})
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, cdu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{cattledie.Label}
@@ -117,6 +478,178 @@ type CattleDieUpdateOne struct {
 	config
 	hooks    []Hook
 	mutation *CattleDieMutation
+}
+
+// SetEarNumber sets the earNumber field.
+func (cduo *CattleDieUpdateOne) SetEarNumber(s string) *CattleDieUpdateOne {
+	cduo.mutation.SetEarNumber(s)
+	return cduo
+}
+
+// SetDate sets the date field.
+func (cduo *CattleDieUpdateOne) SetDate(i int64) *CattleDieUpdateOne {
+	cduo.mutation.ResetDate()
+	cduo.mutation.SetDate(i)
+	return cduo
+}
+
+// AddDate adds i to date.
+func (cduo *CattleDieUpdateOne) AddDate(i int64) *CattleDieUpdateOne {
+	cduo.mutation.AddDate(i)
+	return cduo
+}
+
+// SetUserName sets the userName field.
+func (cduo *CattleDieUpdateOne) SetUserName(s string) *CattleDieUpdateOne {
+	cduo.mutation.SetUserName(s)
+	return cduo
+}
+
+// SetReason sets the reason field.
+func (cduo *CattleDieUpdateOne) SetReason(i int) *CattleDieUpdateOne {
+	cduo.mutation.ResetReason()
+	cduo.mutation.SetReason(i)
+	return cduo
+}
+
+// AddReason adds i to reason.
+func (cduo *CattleDieUpdateOne) AddReason(i int) *CattleDieUpdateOne {
+	cduo.mutation.AddReason(i)
+	return cduo
+}
+
+// SetInsured sets the Insured field.
+func (cduo *CattleDieUpdateOne) SetInsured(i int) *CattleDieUpdateOne {
+	cduo.mutation.ResetInsured()
+	cduo.mutation.SetInsured(i)
+	return cduo
+}
+
+// AddInsured adds i to Insured.
+func (cduo *CattleDieUpdateOne) AddInsured(i int) *CattleDieUpdateOne {
+	cduo.mutation.AddInsured(i)
+	return cduo
+}
+
+// SetInsuredCode sets the InsuredCode field.
+func (cduo *CattleDieUpdateOne) SetInsuredCode(s string) *CattleDieUpdateOne {
+	cduo.mutation.SetInsuredCode(s)
+	return cduo
+}
+
+// SetInsuredCompany sets the InsuredCompany field.
+func (cduo *CattleDieUpdateOne) SetInsuredCompany(s string) *CattleDieUpdateOne {
+	cduo.mutation.SetInsuredCompany(s)
+	return cduo
+}
+
+// SetWeight sets the weight field.
+func (cduo *CattleDieUpdateOne) SetWeight(i int64) *CattleDieUpdateOne {
+	cduo.mutation.ResetWeight()
+	cduo.mutation.SetWeight(i)
+	return cduo
+}
+
+// AddWeight adds i to weight.
+func (cduo *CattleDieUpdateOne) AddWeight(i int64) *CattleDieUpdateOne {
+	cduo.mutation.AddWeight(i)
+	return cduo
+}
+
+// SetHandleMethod sets the handleMethod field.
+func (cduo *CattleDieUpdateOne) SetHandleMethod(i int) *CattleDieUpdateOne {
+	cduo.mutation.ResetHandleMethod()
+	cduo.mutation.SetHandleMethod(i)
+	return cduo
+}
+
+// AddHandleMethod adds i to handleMethod.
+func (cduo *CattleDieUpdateOne) AddHandleMethod(i int) *CattleDieUpdateOne {
+	cduo.mutation.AddHandleMethod(i)
+	return cduo
+}
+
+// SetDeclared sets the declared field.
+func (cduo *CattleDieUpdateOne) SetDeclared(i int) *CattleDieUpdateOne {
+	cduo.mutation.ResetDeclared()
+	cduo.mutation.SetDeclared(i)
+	return cduo
+}
+
+// AddDeclared adds i to declared.
+func (cduo *CattleDieUpdateOne) AddDeclared(i int) *CattleDieUpdateOne {
+	cduo.mutation.AddDeclared(i)
+	return cduo
+}
+
+// SetDUserName sets the dUserName field.
+func (cduo *CattleDieUpdateOne) SetDUserName(s string) *CattleDieUpdateOne {
+	cduo.mutation.SetDUserName(s)
+	return cduo
+}
+
+// SetTenantId sets the tenantId field.
+func (cduo *CattleDieUpdateOne) SetTenantId(i int64) *CattleDieUpdateOne {
+	cduo.mutation.ResetTenantId()
+	cduo.mutation.SetTenantId(i)
+	return cduo
+}
+
+// AddTenantId adds i to tenantId.
+func (cduo *CattleDieUpdateOne) AddTenantId(i int64) *CattleDieUpdateOne {
+	cduo.mutation.AddTenantId(i)
+	return cduo
+}
+
+// SetTenantName sets the tenantName field.
+func (cduo *CattleDieUpdateOne) SetTenantName(s string) *CattleDieUpdateOne {
+	cduo.mutation.SetTenantName(s)
+	return cduo
+}
+
+// SetRemarks sets the remarks field.
+func (cduo *CattleDieUpdateOne) SetRemarks(s string) *CattleDieUpdateOne {
+	cduo.mutation.SetRemarks(s)
+	return cduo
+}
+
+// SetCreatedAt sets the createdAt field.
+func (cduo *CattleDieUpdateOne) SetCreatedAt(i int64) *CattleDieUpdateOne {
+	cduo.mutation.ResetCreatedAt()
+	cduo.mutation.SetCreatedAt(i)
+	return cduo
+}
+
+// AddCreatedAt adds i to createdAt.
+func (cduo *CattleDieUpdateOne) AddCreatedAt(i int64) *CattleDieUpdateOne {
+	cduo.mutation.AddCreatedAt(i)
+	return cduo
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (cduo *CattleDieUpdateOne) SetUpdatedAt(i int64) *CattleDieUpdateOne {
+	cduo.mutation.ResetUpdatedAt()
+	cduo.mutation.SetUpdatedAt(i)
+	return cduo
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (cduo *CattleDieUpdateOne) AddUpdatedAt(i int64) *CattleDieUpdateOne {
+	cduo.mutation.AddUpdatedAt(i)
+	return cduo
+}
+
+// SetDeleted sets the deleted field.
+func (cduo *CattleDieUpdateOne) SetDeleted(i int) *CattleDieUpdateOne {
+	cduo.mutation.ResetDeleted()
+	cduo.mutation.SetDeleted(i)
+	return cduo
+}
+
+// AddDeleted adds i to deleted.
+func (cduo *CattleDieUpdateOne) AddDeleted(i int) *CattleDieUpdateOne {
+	cduo.mutation.AddDeleted(i)
+	return cduo
 }
 
 // Mutation returns the CattleDieMutation object of the builder.
@@ -191,6 +724,195 @@ func (cduo *CattleDieUpdateOne) sqlSave(ctx context.Context) (_node *CattleDie, 
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing CattleDie.ID for update")}
 	}
 	_spec.Node.ID.Value = id
+	if value, ok := cduo.mutation.EarNumber(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldEarNumber,
+		})
+	}
+	if value, ok := cduo.mutation.Date(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldDate,
+		})
+	}
+	if value, ok := cduo.mutation.AddedDate(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldDate,
+		})
+	}
+	if value, ok := cduo.mutation.UserName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldUserName,
+		})
+	}
+	if value, ok := cduo.mutation.Reason(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldReason,
+		})
+	}
+	if value, ok := cduo.mutation.AddedReason(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldReason,
+		})
+	}
+	if value, ok := cduo.mutation.Insured(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldInsured,
+		})
+	}
+	if value, ok := cduo.mutation.AddedInsured(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldInsured,
+		})
+	}
+	if value, ok := cduo.mutation.InsuredCode(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldInsuredCode,
+		})
+	}
+	if value, ok := cduo.mutation.InsuredCompany(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldInsuredCompany,
+		})
+	}
+	if value, ok := cduo.mutation.Weight(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldWeight,
+		})
+	}
+	if value, ok := cduo.mutation.AddedWeight(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldWeight,
+		})
+	}
+	if value, ok := cduo.mutation.HandleMethod(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldHandleMethod,
+		})
+	}
+	if value, ok := cduo.mutation.AddedHandleMethod(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldHandleMethod,
+		})
+	}
+	if value, ok := cduo.mutation.Declared(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldDeclared,
+		})
+	}
+	if value, ok := cduo.mutation.AddedDeclared(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldDeclared,
+		})
+	}
+	if value, ok := cduo.mutation.DUserName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldDUserName,
+		})
+	}
+	if value, ok := cduo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldTenantId,
+		})
+	}
+	if value, ok := cduo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldTenantId,
+		})
+	}
+	if value, ok := cduo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldTenantName,
+		})
+	}
+	if value, ok := cduo.mutation.Remarks(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldRemarks,
+		})
+	}
+	if value, ok := cduo.mutation.CreatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldCreatedAt,
+		})
+	}
+	if value, ok := cduo.mutation.AddedCreatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldCreatedAt,
+		})
+	}
+	if value, ok := cduo.mutation.UpdatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldUpdatedAt,
+		})
+	}
+	if value, ok := cduo.mutation.AddedUpdatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldUpdatedAt,
+		})
+	}
+	if value, ok := cduo.mutation.Deleted(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldDeleted,
+		})
+	}
+	if value, ok := cduo.mutation.AddedDeleted(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattledie.FieldDeleted,
+		})
+	}
 	_node = &CattleDie{config: cduo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues()

@@ -20,8 +20,8 @@ type EventCreate struct {
 }
 
 // SetEarNumber sets the earNumber field.
-func (ec *EventCreate) SetEarNumber(i int64) *EventCreate {
-	ec.mutation.SetEarNumber(i)
+func (ec *EventCreate) SetEarNumber(s string) *EventCreate {
+	ec.mutation.SetEarNumber(s)
 	return ec
 }
 
@@ -162,7 +162,7 @@ func (ec *EventCreate) createSpec() (*Event, *sqlgraph.CreateSpec) {
 	)
 	if value, ok := ec.mutation.EarNumber(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: event.FieldEarNumber,
 		})

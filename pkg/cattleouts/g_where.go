@@ -8,9 +8,9 @@ import (
 
 func Where(listParams *params.ListParams) predicate.CattleOut {
 	wheres := []predicate.CattleOut{cattleout.Deleted(0)}
-	if listParams.Q != "" {
-		wheres = append(wheres, cattleout.NameContains(listParams.Q))
-	}
+	// if listParams.Q != "" {
+	// 	wheres = append(wheres, cattleout.NameContains(listParams.Q))
+	// }
 	wheres = append(wheres, cattleout.TenantId(listParams.TenantId))
 	return cattleout.And(wheres...)
 }

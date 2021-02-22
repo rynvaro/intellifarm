@@ -13,7 +13,7 @@ type Event struct {
 // Fields of the Event.
 func (Event) Fields() []ent.Field {
 	return []ent.Field{
-		field.Int64("earNumber"),
+		field.String("earNumber"),
 		field.String("eventType"),
 		field.String("eventName"),
 		field.Int64("tenantId"),

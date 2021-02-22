@@ -27,22 +27,16 @@ func (ciu *CattleInUpdate) Where(ps ...predicate.CattleIn) *CattleInUpdate {
 	return ciu
 }
 
-// SetName sets the name field.
-func (ciu *CattleInUpdate) SetName(s string) *CattleInUpdate {
-	ciu.mutation.SetName(s)
+// SetJoinType sets the joinType field.
+func (ciu *CattleInUpdate) SetJoinType(i int64) *CattleInUpdate {
+	ciu.mutation.ResetJoinType()
+	ciu.mutation.SetJoinType(i)
 	return ciu
 }
 
-// SetType sets the type field.
-func (ciu *CattleInUpdate) SetType(i int) *CattleInUpdate {
-	ciu.mutation.ResetType()
-	ciu.mutation.SetType(i)
-	return ciu
-}
-
-// AddType adds i to type.
-func (ciu *CattleInUpdate) AddType(i int) *CattleInUpdate {
-	ciu.mutation.AddType(i)
+// AddJoinType adds i to joinType.
+func (ciu *CattleInUpdate) AddJoinType(i int64) *CattleInUpdate {
+	ciu.mutation.AddJoinType(i)
 	return ciu
 }
 
@@ -66,47 +60,47 @@ func (ciu *CattleInUpdate) SetFrom(s string) *CattleInUpdate {
 }
 
 // SetWeight sets the weight field.
-func (ciu *CattleInUpdate) SetWeight(f float32) *CattleInUpdate {
+func (ciu *CattleInUpdate) SetWeight(i int64) *CattleInUpdate {
 	ciu.mutation.ResetWeight()
-	ciu.mutation.SetWeight(f)
+	ciu.mutation.SetWeight(i)
 	return ciu
 }
 
-// AddWeight adds f to weight.
-func (ciu *CattleInUpdate) AddWeight(f float32) *CattleInUpdate {
-	ciu.mutation.AddWeight(f)
+// AddWeight adds i to weight.
+func (ciu *CattleInUpdate) AddWeight(i int64) *CattleInUpdate {
+	ciu.mutation.AddWeight(i)
 	return ciu
 }
 
 // SetCost sets the cost field.
-func (ciu *CattleInUpdate) SetCost(f float32) *CattleInUpdate {
+func (ciu *CattleInUpdate) SetCost(i int64) *CattleInUpdate {
 	ciu.mutation.ResetCost()
-	ciu.mutation.SetCost(f)
+	ciu.mutation.SetCost(i)
 	return ciu
 }
 
-// AddCost adds f to cost.
-func (ciu *CattleInUpdate) AddCost(f float32) *CattleInUpdate {
-	ciu.mutation.AddCost(f)
+// AddCost adds i to cost.
+func (ciu *CattleInUpdate) AddCost(i int64) *CattleInUpdate {
+	ciu.mutation.AddCost(i)
 	return ciu
 }
 
 // SetShippingFee sets the shippingFee field.
-func (ciu *CattleInUpdate) SetShippingFee(f float32) *CattleInUpdate {
+func (ciu *CattleInUpdate) SetShippingFee(i int64) *CattleInUpdate {
 	ciu.mutation.ResetShippingFee()
-	ciu.mutation.SetShippingFee(f)
+	ciu.mutation.SetShippingFee(i)
 	return ciu
 }
 
-// AddShippingFee adds f to shippingFee.
-func (ciu *CattleInUpdate) AddShippingFee(f float32) *CattleInUpdate {
-	ciu.mutation.AddShippingFee(f)
+// AddShippingFee adds i to shippingFee.
+func (ciu *CattleInUpdate) AddShippingFee(i int64) *CattleInUpdate {
+	ciu.mutation.AddShippingFee(i)
 	return ciu
 }
 
-// SetTransportCertificateNumber sets the transportCertificateNumber field.
-func (ciu *CattleInUpdate) SetTransportCertificateNumber(s string) *CattleInUpdate {
-	ciu.mutation.SetTransportCertificateNumber(s)
+// SetShippingCode sets the shippingCode field.
+func (ciu *CattleInUpdate) SetShippingCode(s string) *CattleInUpdate {
+	ciu.mutation.SetShippingCode(s)
 	return ciu
 }
 
@@ -116,9 +110,9 @@ func (ciu *CattleInUpdate) SetUserName(s string) *CattleInUpdate {
 	return ciu
 }
 
-// SetTestCertificateNumber sets the testCertificateNumber field.
-func (ciu *CattleInUpdate) SetTestCertificateNumber(s string) *CattleInUpdate {
-	ciu.mutation.SetTestCertificateNumber(s)
+// SetCheckCode sets the checkCode field.
+func (ciu *CattleInUpdate) SetCheckCode(s string) *CattleInUpdate {
+	ciu.mutation.SetCheckCode(s)
 	return ciu
 }
 
@@ -260,25 +254,18 @@ func (ciu *CattleInUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
-	if value, ok := ciu.mutation.Name(); ok {
+	if value, ok := ciu.mutation.JoinType(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt64,
 			Value:  value,
-			Column: cattlein.FieldName,
+			Column: cattlein.FieldJoinType,
 		})
 	}
-	if value, ok := ciu.mutation.GetType(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: cattlein.FieldType,
-		})
-	}
-	if value, ok := ciu.mutation.AddedType(); ok {
+	if value, ok := ciu.mutation.AddedJoinType(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeInt64,
 			Value:  value,
-			Column: cattlein.FieldType,
+			Column: cattlein.FieldJoinType,
 		})
 	}
 	if value, ok := ciu.mutation.Date(); ok {
@@ -304,51 +291,51 @@ func (ciu *CattleInUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := ciu.mutation.Weight(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattlein.FieldWeight,
 		})
 	}
 	if value, ok := ciu.mutation.AddedWeight(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattlein.FieldWeight,
 		})
 	}
 	if value, ok := ciu.mutation.Cost(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattlein.FieldCost,
 		})
 	}
 	if value, ok := ciu.mutation.AddedCost(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattlein.FieldCost,
 		})
 	}
 	if value, ok := ciu.mutation.ShippingFee(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattlein.FieldShippingFee,
 		})
 	}
 	if value, ok := ciu.mutation.AddedShippingFee(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattlein.FieldShippingFee,
 		})
 	}
-	if value, ok := ciu.mutation.TransportCertificateNumber(); ok {
+	if value, ok := ciu.mutation.ShippingCode(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: cattlein.FieldTransportCertificateNumber,
+			Column: cattlein.FieldShippingCode,
 		})
 	}
 	if value, ok := ciu.mutation.UserName(); ok {
@@ -358,11 +345,11 @@ func (ciu *CattleInUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: cattlein.FieldUserName,
 		})
 	}
-	if value, ok := ciu.mutation.TestCertificateNumber(); ok {
+	if value, ok := ciu.mutation.CheckCode(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: cattlein.FieldTestCertificateNumber,
+			Column: cattlein.FieldCheckCode,
 		})
 	}
 	if value, ok := ciu.mutation.TenantId(); ok {
@@ -453,22 +440,16 @@ type CattleInUpdateOne struct {
 	mutation *CattleInMutation
 }
 
-// SetName sets the name field.
-func (ciuo *CattleInUpdateOne) SetName(s string) *CattleInUpdateOne {
-	ciuo.mutation.SetName(s)
+// SetJoinType sets the joinType field.
+func (ciuo *CattleInUpdateOne) SetJoinType(i int64) *CattleInUpdateOne {
+	ciuo.mutation.ResetJoinType()
+	ciuo.mutation.SetJoinType(i)
 	return ciuo
 }
 
-// SetType sets the type field.
-func (ciuo *CattleInUpdateOne) SetType(i int) *CattleInUpdateOne {
-	ciuo.mutation.ResetType()
-	ciuo.mutation.SetType(i)
-	return ciuo
-}
-
-// AddType adds i to type.
-func (ciuo *CattleInUpdateOne) AddType(i int) *CattleInUpdateOne {
-	ciuo.mutation.AddType(i)
+// AddJoinType adds i to joinType.
+func (ciuo *CattleInUpdateOne) AddJoinType(i int64) *CattleInUpdateOne {
+	ciuo.mutation.AddJoinType(i)
 	return ciuo
 }
 
@@ -492,47 +473,47 @@ func (ciuo *CattleInUpdateOne) SetFrom(s string) *CattleInUpdateOne {
 }
 
 // SetWeight sets the weight field.
-func (ciuo *CattleInUpdateOne) SetWeight(f float32) *CattleInUpdateOne {
+func (ciuo *CattleInUpdateOne) SetWeight(i int64) *CattleInUpdateOne {
 	ciuo.mutation.ResetWeight()
-	ciuo.mutation.SetWeight(f)
+	ciuo.mutation.SetWeight(i)
 	return ciuo
 }
 
-// AddWeight adds f to weight.
-func (ciuo *CattleInUpdateOne) AddWeight(f float32) *CattleInUpdateOne {
-	ciuo.mutation.AddWeight(f)
+// AddWeight adds i to weight.
+func (ciuo *CattleInUpdateOne) AddWeight(i int64) *CattleInUpdateOne {
+	ciuo.mutation.AddWeight(i)
 	return ciuo
 }
 
 // SetCost sets the cost field.
-func (ciuo *CattleInUpdateOne) SetCost(f float32) *CattleInUpdateOne {
+func (ciuo *CattleInUpdateOne) SetCost(i int64) *CattleInUpdateOne {
 	ciuo.mutation.ResetCost()
-	ciuo.mutation.SetCost(f)
+	ciuo.mutation.SetCost(i)
 	return ciuo
 }
 
-// AddCost adds f to cost.
-func (ciuo *CattleInUpdateOne) AddCost(f float32) *CattleInUpdateOne {
-	ciuo.mutation.AddCost(f)
+// AddCost adds i to cost.
+func (ciuo *CattleInUpdateOne) AddCost(i int64) *CattleInUpdateOne {
+	ciuo.mutation.AddCost(i)
 	return ciuo
 }
 
 // SetShippingFee sets the shippingFee field.
-func (ciuo *CattleInUpdateOne) SetShippingFee(f float32) *CattleInUpdateOne {
+func (ciuo *CattleInUpdateOne) SetShippingFee(i int64) *CattleInUpdateOne {
 	ciuo.mutation.ResetShippingFee()
-	ciuo.mutation.SetShippingFee(f)
+	ciuo.mutation.SetShippingFee(i)
 	return ciuo
 }
 
-// AddShippingFee adds f to shippingFee.
-func (ciuo *CattleInUpdateOne) AddShippingFee(f float32) *CattleInUpdateOne {
-	ciuo.mutation.AddShippingFee(f)
+// AddShippingFee adds i to shippingFee.
+func (ciuo *CattleInUpdateOne) AddShippingFee(i int64) *CattleInUpdateOne {
+	ciuo.mutation.AddShippingFee(i)
 	return ciuo
 }
 
-// SetTransportCertificateNumber sets the transportCertificateNumber field.
-func (ciuo *CattleInUpdateOne) SetTransportCertificateNumber(s string) *CattleInUpdateOne {
-	ciuo.mutation.SetTransportCertificateNumber(s)
+// SetShippingCode sets the shippingCode field.
+func (ciuo *CattleInUpdateOne) SetShippingCode(s string) *CattleInUpdateOne {
+	ciuo.mutation.SetShippingCode(s)
 	return ciuo
 }
 
@@ -542,9 +523,9 @@ func (ciuo *CattleInUpdateOne) SetUserName(s string) *CattleInUpdateOne {
 	return ciuo
 }
 
-// SetTestCertificateNumber sets the testCertificateNumber field.
-func (ciuo *CattleInUpdateOne) SetTestCertificateNumber(s string) *CattleInUpdateOne {
-	ciuo.mutation.SetTestCertificateNumber(s)
+// SetCheckCode sets the checkCode field.
+func (ciuo *CattleInUpdateOne) SetCheckCode(s string) *CattleInUpdateOne {
+	ciuo.mutation.SetCheckCode(s)
 	return ciuo
 }
 
@@ -684,25 +665,18 @@ func (ciuo *CattleInUpdateOne) sqlSave(ctx context.Context) (_node *CattleIn, er
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing CattleIn.ID for update")}
 	}
 	_spec.Node.ID.Value = id
-	if value, ok := ciuo.mutation.Name(); ok {
+	if value, ok := ciuo.mutation.JoinType(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt64,
 			Value:  value,
-			Column: cattlein.FieldName,
+			Column: cattlein.FieldJoinType,
 		})
 	}
-	if value, ok := ciuo.mutation.GetType(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: cattlein.FieldType,
-		})
-	}
-	if value, ok := ciuo.mutation.AddedType(); ok {
+	if value, ok := ciuo.mutation.AddedJoinType(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeInt64,
 			Value:  value,
-			Column: cattlein.FieldType,
+			Column: cattlein.FieldJoinType,
 		})
 	}
 	if value, ok := ciuo.mutation.Date(); ok {
@@ -728,51 +702,51 @@ func (ciuo *CattleInUpdateOne) sqlSave(ctx context.Context) (_node *CattleIn, er
 	}
 	if value, ok := ciuo.mutation.Weight(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattlein.FieldWeight,
 		})
 	}
 	if value, ok := ciuo.mutation.AddedWeight(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattlein.FieldWeight,
 		})
 	}
 	if value, ok := ciuo.mutation.Cost(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattlein.FieldCost,
 		})
 	}
 	if value, ok := ciuo.mutation.AddedCost(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattlein.FieldCost,
 		})
 	}
 	if value, ok := ciuo.mutation.ShippingFee(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattlein.FieldShippingFee,
 		})
 	}
 	if value, ok := ciuo.mutation.AddedShippingFee(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattlein.FieldShippingFee,
 		})
 	}
-	if value, ok := ciuo.mutation.TransportCertificateNumber(); ok {
+	if value, ok := ciuo.mutation.ShippingCode(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: cattlein.FieldTransportCertificateNumber,
+			Column: cattlein.FieldShippingCode,
 		})
 	}
 	if value, ok := ciuo.mutation.UserName(); ok {
@@ -782,11 +756,11 @@ func (ciuo *CattleInUpdateOne) sqlSave(ctx context.Context) (_node *CattleIn, er
 			Column: cattlein.FieldUserName,
 		})
 	}
-	if value, ok := ciuo.mutation.TestCertificateNumber(); ok {
+	if value, ok := ciuo.mutation.CheckCode(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: cattlein.FieldTestCertificateNumber,
+			Column: cattlein.FieldCheckCode,
 		})
 	}
 	if value, ok := ciuo.mutation.TenantId(); ok {

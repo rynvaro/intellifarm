@@ -233,6 +233,19 @@ func (cdq *CattleDieQuery) Clone() *CattleDieQuery {
 
 // GroupBy used to group vertices by one or more fields/columns.
 // It is often used with aggregate functions, like: count, max, mean, min, sum.
+//
+// Example:
+//
+//	var v []struct {
+//		EarNumber string `json:"earNumber,omitempty"`
+//		Count int `json:"count,omitempty"`
+//	}
+//
+//	client.CattleDie.Query().
+//		GroupBy(cattledie.FieldEarNumber).
+//		Aggregate(ent.Count()).
+//		Scan(ctx, &v)
+//
 func (cdq *CattleDieQuery) GroupBy(field string, fields ...string) *CattleDieGroupBy {
 	group := &CattleDieGroupBy{config: cdq.config}
 	group.fields = append([]string{field}, fields...)
@@ -246,6 +259,17 @@ func (cdq *CattleDieQuery) GroupBy(field string, fields ...string) *CattleDieGro
 }
 
 // Select one or more fields from the given query.
+//
+// Example:
+//
+//	var v []struct {
+//		EarNumber string `json:"earNumber,omitempty"`
+//	}
+//
+//	client.CattleDie.Query().
+//		Select(cattledie.FieldEarNumber).
+//		Scan(ctx, &v)
+//
 func (cdq *CattleDieQuery) Select(field string, fields ...string) *CattleDieSelect {
 	selector := &CattleDieSelect{config: cdq.config}
 	selector.fields = append([]string{field}, fields...)

@@ -15,26 +15,24 @@ type CattleIn struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int64 `json:"id,omitempty"`
-	// Name holds the value of the "name" field.
-	Name string `json:"name,omitempty"`
-	// Type holds the value of the "type" field.
-	Type int `json:"type,omitempty"`
+	// JoinType holds the value of the "joinType" field.
+	JoinType int64 `json:"joinType,omitempty"`
 	// Date holds the value of the "date" field.
 	Date int64 `json:"date,omitempty"`
 	// From holds the value of the "from" field.
 	From string `json:"from,omitempty"`
 	// Weight holds the value of the "weight" field.
-	Weight float32 `json:"weight,omitempty"`
+	Weight int64 `json:"weight,omitempty"`
 	// Cost holds the value of the "cost" field.
-	Cost float32 `json:"cost,omitempty"`
+	Cost int64 `json:"cost,omitempty"`
 	// ShippingFee holds the value of the "shippingFee" field.
-	ShippingFee float32 `json:"shippingFee,omitempty"`
-	// TransportCertificateNumber holds the value of the "transportCertificateNumber" field.
-	TransportCertificateNumber string `json:"transportCertificateNumber,omitempty"`
+	ShippingFee int64 `json:"shippingFee,omitempty"`
+	// ShippingCode holds the value of the "shippingCode" field.
+	ShippingCode string `json:"shippingCode,omitempty"`
 	// UserName holds the value of the "userName" field.
 	UserName string `json:"userName,omitempty"`
-	// TestCertificateNumber holds the value of the "testCertificateNumber" field.
-	TestCertificateNumber string `json:"testCertificateNumber,omitempty"`
+	// CheckCode holds the value of the "checkCode" field.
+	CheckCode string `json:"checkCode,omitempty"`
 	// TenantId holds the value of the "tenantId" field.
 	TenantId int64 `json:"tenantId,omitempty"`
 	// TenantName holds the value of the "tenantName" field.
@@ -52,23 +50,22 @@ type CattleIn struct {
 // scanValues returns the types for scanning values from sql.Rows.
 func (*CattleIn) scanValues() []interface{} {
 	return []interface{}{
-		&sql.NullInt64{},   // id
-		&sql.NullString{},  // name
-		&sql.NullInt64{},   // type
-		&sql.NullInt64{},   // date
-		&sql.NullString{},  // from
-		&sql.NullFloat64{}, // weight
-		&sql.NullFloat64{}, // cost
-		&sql.NullFloat64{}, // shippingFee
-		&sql.NullString{},  // transportCertificateNumber
-		&sql.NullString{},  // userName
-		&sql.NullString{},  // testCertificateNumber
-		&sql.NullInt64{},   // tenantId
-		&sql.NullString{},  // tenantName
-		&sql.NullString{},  // remarks
-		&sql.NullInt64{},   // createdAt
-		&sql.NullInt64{},   // updatedAt
-		&sql.NullInt64{},   // deleted
+		&sql.NullInt64{},  // id
+		&sql.NullInt64{},  // joinType
+		&sql.NullInt64{},  // date
+		&sql.NullString{}, // from
+		&sql.NullInt64{},  // weight
+		&sql.NullInt64{},  // cost
+		&sql.NullInt64{},  // shippingFee
+		&sql.NullString{}, // shippingCode
+		&sql.NullString{}, // userName
+		&sql.NullString{}, // checkCode
+		&sql.NullInt64{},  // tenantId
+		&sql.NullString{}, // tenantName
+		&sql.NullString{}, // remarks
+		&sql.NullInt64{},  // createdAt
+		&sql.NullInt64{},  // updatedAt
+		&sql.NullInt64{},  // deleted
 	}
 }
 
@@ -84,83 +81,78 @@ func (ci *CattleIn) assignValues(values ...interface{}) error {
 	}
 	ci.ID = int64(value.Int64)
 	values = values[1:]
-	if value, ok := values[0].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field name", values[0])
+	if value, ok := values[0].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field joinType", values[0])
 	} else if value.Valid {
-		ci.Name = value.String
+		ci.JoinType = value.Int64
 	}
 	if value, ok := values[1].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field type", values[1])
-	} else if value.Valid {
-		ci.Type = int(value.Int64)
-	}
-	if value, ok := values[2].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field date", values[2])
+		return fmt.Errorf("unexpected type %T for field date", values[1])
 	} else if value.Valid {
 		ci.Date = value.Int64
 	}
-	if value, ok := values[3].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field from", values[3])
+	if value, ok := values[2].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field from", values[2])
 	} else if value.Valid {
 		ci.From = value.String
 	}
-	if value, ok := values[4].(*sql.NullFloat64); !ok {
-		return fmt.Errorf("unexpected type %T for field weight", values[4])
+	if value, ok := values[3].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field weight", values[3])
 	} else if value.Valid {
-		ci.Weight = float32(value.Float64)
+		ci.Weight = value.Int64
 	}
-	if value, ok := values[5].(*sql.NullFloat64); !ok {
-		return fmt.Errorf("unexpected type %T for field cost", values[5])
+	if value, ok := values[4].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field cost", values[4])
 	} else if value.Valid {
-		ci.Cost = float32(value.Float64)
+		ci.Cost = value.Int64
 	}
-	if value, ok := values[6].(*sql.NullFloat64); !ok {
-		return fmt.Errorf("unexpected type %T for field shippingFee", values[6])
+	if value, ok := values[5].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field shippingFee", values[5])
 	} else if value.Valid {
-		ci.ShippingFee = float32(value.Float64)
+		ci.ShippingFee = value.Int64
+	}
+	if value, ok := values[6].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field shippingCode", values[6])
+	} else if value.Valid {
+		ci.ShippingCode = value.String
 	}
 	if value, ok := values[7].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field transportCertificateNumber", values[7])
-	} else if value.Valid {
-		ci.TransportCertificateNumber = value.String
-	}
-	if value, ok := values[8].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field userName", values[8])
+		return fmt.Errorf("unexpected type %T for field userName", values[7])
 	} else if value.Valid {
 		ci.UserName = value.String
 	}
-	if value, ok := values[9].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field testCertificateNumber", values[9])
+	if value, ok := values[8].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field checkCode", values[8])
 	} else if value.Valid {
-		ci.TestCertificateNumber = value.String
+		ci.CheckCode = value.String
 	}
-	if value, ok := values[10].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantId", values[10])
+	if value, ok := values[9].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[9])
 	} else if value.Valid {
 		ci.TenantId = value.Int64
 	}
-	if value, ok := values[11].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantName", values[11])
+	if value, ok := values[10].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[10])
 	} else if value.Valid {
 		ci.TenantName = value.String
 	}
-	if value, ok := values[12].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[12])
+	if value, ok := values[11].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[11])
 	} else if value.Valid {
 		ci.Remarks = value.String
 	}
-	if value, ok := values[13].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[13])
+	if value, ok := values[12].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[12])
 	} else if value.Valid {
 		ci.CreatedAt = value.Int64
 	}
-	if value, ok := values[14].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[14])
+	if value, ok := values[13].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[13])
 	} else if value.Valid {
 		ci.UpdatedAt = value.Int64
 	}
-	if value, ok := values[15].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[15])
+	if value, ok := values[14].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[14])
 	} else if value.Valid {
 		ci.Deleted = int(value.Int64)
 	}
@@ -190,10 +182,8 @@ func (ci *CattleIn) String() string {
 	var builder strings.Builder
 	builder.WriteString("CattleIn(")
 	builder.WriteString(fmt.Sprintf("id=%v", ci.ID))
-	builder.WriteString(", name=")
-	builder.WriteString(ci.Name)
-	builder.WriteString(", type=")
-	builder.WriteString(fmt.Sprintf("%v", ci.Type))
+	builder.WriteString(", joinType=")
+	builder.WriteString(fmt.Sprintf("%v", ci.JoinType))
 	builder.WriteString(", date=")
 	builder.WriteString(fmt.Sprintf("%v", ci.Date))
 	builder.WriteString(", from=")
@@ -204,12 +194,12 @@ func (ci *CattleIn) String() string {
 	builder.WriteString(fmt.Sprintf("%v", ci.Cost))
 	builder.WriteString(", shippingFee=")
 	builder.WriteString(fmt.Sprintf("%v", ci.ShippingFee))
-	builder.WriteString(", transportCertificateNumber=")
-	builder.WriteString(ci.TransportCertificateNumber)
+	builder.WriteString(", shippingCode=")
+	builder.WriteString(ci.ShippingCode)
 	builder.WriteString(", userName=")
 	builder.WriteString(ci.UserName)
-	builder.WriteString(", testCertificateNumber=")
-	builder.WriteString(ci.TestCertificateNumber)
+	builder.WriteString(", checkCode=")
+	builder.WriteString(ci.CheckCode)
 	builder.WriteString(", tenantId=")
 	builder.WriteString(fmt.Sprintf("%v", ci.TenantId))
 	builder.WriteString(", tenantName=")

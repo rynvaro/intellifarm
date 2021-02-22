@@ -233,6 +233,19 @@ func (cgq *CattleGroupQuery) Clone() *CattleGroupQuery {
 
 // GroupBy used to group vertices by one or more fields/columns.
 // It is often used with aggregate functions, like: count, max, mean, min, sum.
+//
+// Example:
+//
+//	var v []struct {
+//		EarNumber string `json:"earNumber,omitempty"`
+//		Count int `json:"count,omitempty"`
+//	}
+//
+//	client.CattleGroup.Query().
+//		GroupBy(cattlegroup.FieldEarNumber).
+//		Aggregate(ent.Count()).
+//		Scan(ctx, &v)
+//
 func (cgq *CattleGroupQuery) GroupBy(field string, fields ...string) *CattleGroupGroupBy {
 	group := &CattleGroupGroupBy{config: cgq.config}
 	group.fields = append([]string{field}, fields...)
@@ -246,6 +259,17 @@ func (cgq *CattleGroupQuery) GroupBy(field string, fields ...string) *CattleGrou
 }
 
 // Select one or more fields from the given query.
+//
+// Example:
+//
+//	var v []struct {
+//		EarNumber string `json:"earNumber,omitempty"`
+//	}
+//
+//	client.CattleGroup.Query().
+//		Select(cattlegroup.FieldEarNumber).
+//		Scan(ctx, &v)
+//
 func (cgq *CattleGroupQuery) Select(field string, fields ...string) *CattleGroupSelect {
 	selector := &CattleGroupSelect{config: cgq.config}
 	selector.fields = append([]string{field}, fields...)

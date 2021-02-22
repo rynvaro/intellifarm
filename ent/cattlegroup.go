@@ -12,15 +12,42 @@ import (
 
 // CattleGroup is the model entity for the CattleGroup schema.
 type CattleGroup struct {
-	config
+	config `json:"-"`
 	// ID of the ent.
 	ID int64 `json:"id,omitempty"`
+	// EarNumber holds the value of the "earNumber" field.
+	EarNumber string `json:"earNumber,omitempty"`
+	// Date holds the value of the "date" field.
+	Date int64 `json:"date,omitempty"`
+	// ToShed holds the value of the "toShed" field.
+	ToShed string `json:"toShed,omitempty"`
+	// TenantId holds the value of the "tenantId" field.
+	TenantId int64 `json:"tenantId,omitempty"`
+	// TenantName holds the value of the "tenantName" field.
+	TenantName string `json:"tenantName,omitempty"`
+	// Remarks holds the value of the "remarks" field.
+	Remarks string `json:"remarks,omitempty"`
+	// CreatedAt holds the value of the "createdAt" field.
+	CreatedAt int64 `json:"createdAt,omitempty"`
+	// UpdatedAt holds the value of the "updatedAt" field.
+	UpdatedAt int64 `json:"updatedAt,omitempty"`
+	// Deleted holds the value of the "deleted" field.
+	Deleted int `json:"deleted,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
 func (*CattleGroup) scanValues() []interface{} {
 	return []interface{}{
-		&sql.NullInt64{}, // id
+		&sql.NullInt64{},  // id
+		&sql.NullString{}, // earNumber
+		&sql.NullInt64{},  // date
+		&sql.NullString{}, // toShed
+		&sql.NullInt64{},  // tenantId
+		&sql.NullString{}, // tenantName
+		&sql.NullString{}, // remarks
+		&sql.NullInt64{},  // createdAt
+		&sql.NullInt64{},  // updatedAt
+		&sql.NullInt64{},  // deleted
 	}
 }
 
@@ -36,6 +63,51 @@ func (cg *CattleGroup) assignValues(values ...interface{}) error {
 	}
 	cg.ID = int64(value.Int64)
 	values = values[1:]
+	if value, ok := values[0].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field earNumber", values[0])
+	} else if value.Valid {
+		cg.EarNumber = value.String
+	}
+	if value, ok := values[1].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field date", values[1])
+	} else if value.Valid {
+		cg.Date = value.Int64
+	}
+	if value, ok := values[2].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field toShed", values[2])
+	} else if value.Valid {
+		cg.ToShed = value.String
+	}
+	if value, ok := values[3].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[3])
+	} else if value.Valid {
+		cg.TenantId = value.Int64
+	}
+	if value, ok := values[4].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[4])
+	} else if value.Valid {
+		cg.TenantName = value.String
+	}
+	if value, ok := values[5].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[5])
+	} else if value.Valid {
+		cg.Remarks = value.String
+	}
+	if value, ok := values[6].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[6])
+	} else if value.Valid {
+		cg.CreatedAt = value.Int64
+	}
+	if value, ok := values[7].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[7])
+	} else if value.Valid {
+		cg.UpdatedAt = value.Int64
+	}
+	if value, ok := values[8].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[8])
+	} else if value.Valid {
+		cg.Deleted = int(value.Int64)
+	}
 	return nil
 }
 
@@ -62,6 +134,24 @@ func (cg *CattleGroup) String() string {
 	var builder strings.Builder
 	builder.WriteString("CattleGroup(")
 	builder.WriteString(fmt.Sprintf("id=%v", cg.ID))
+	builder.WriteString(", earNumber=")
+	builder.WriteString(cg.EarNumber)
+	builder.WriteString(", date=")
+	builder.WriteString(fmt.Sprintf("%v", cg.Date))
+	builder.WriteString(", toShed=")
+	builder.WriteString(cg.ToShed)
+	builder.WriteString(", tenantId=")
+	builder.WriteString(fmt.Sprintf("%v", cg.TenantId))
+	builder.WriteString(", tenantName=")
+	builder.WriteString(cg.TenantName)
+	builder.WriteString(", remarks=")
+	builder.WriteString(cg.Remarks)
+	builder.WriteString(", createdAt=")
+	builder.WriteString(fmt.Sprintf("%v", cg.CreatedAt))
+	builder.WriteString(", updatedAt=")
+	builder.WriteString(fmt.Sprintf("%v", cg.UpdatedAt))
+	builder.WriteString(", deleted=")
+	builder.WriteString(fmt.Sprintf("%v", cg.Deleted))
 	builder.WriteByte(')')
 	return builder.String()
 }

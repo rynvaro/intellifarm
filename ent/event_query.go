@@ -237,7 +237,7 @@ func (eq *EventQuery) Clone() *EventQuery {
 // Example:
 //
 //	var v []struct {
-//		EarNumber int64 `json:"earNumber,omitempty"`
+//		EarNumber string `json:"earNumber,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
@@ -263,7 +263,7 @@ func (eq *EventQuery) GroupBy(field string, fields ...string) *EventGroupBy {
 // Example:
 //
 //	var v []struct {
-//		EarNumber int64 `json:"earNumber,omitempty"`
+//		EarNumber string `json:"earNumber,omitempty"`
 //	}
 //
 //	client.Event.Query().

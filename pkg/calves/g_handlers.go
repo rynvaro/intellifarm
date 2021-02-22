@@ -55,6 +55,16 @@ func CalveAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
+
+	if _, err := db.Client.Event.Create().SetCreatedAt(time.Now().UnixNano()).
+		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventName("产犊").
+		SetEventType("繁殖事件").SetTenantId(c.MustGet("tenantId").(int64)).
+		SetTenantName(c.MustGet("tenantName").(string)).Save(c.Request.Context()); err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+
 	c.JSON(http.StatusOK, resp.Success(calve))
 }
 

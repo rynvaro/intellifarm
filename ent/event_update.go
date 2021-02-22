@@ -28,15 +28,8 @@ func (eu *EventUpdate) Where(ps ...predicate.Event) *EventUpdate {
 }
 
 // SetEarNumber sets the earNumber field.
-func (eu *EventUpdate) SetEarNumber(i int64) *EventUpdate {
-	eu.mutation.ResetEarNumber()
-	eu.mutation.SetEarNumber(i)
-	return eu
-}
-
-// AddEarNumber adds i to earNumber.
-func (eu *EventUpdate) AddEarNumber(i int64) *EventUpdate {
-	eu.mutation.AddEarNumber(i)
+func (eu *EventUpdate) SetEarNumber(s string) *EventUpdate {
+	eu.mutation.SetEarNumber(s)
 	return eu
 }
 
@@ -173,14 +166,7 @@ func (eu *EventUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if value, ok := eu.mutation.EarNumber(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: event.FieldEarNumber,
-		})
-	}
-	if value, ok := eu.mutation.AddedEarNumber(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: event.FieldEarNumber,
 		})
@@ -267,15 +253,8 @@ type EventUpdateOne struct {
 }
 
 // SetEarNumber sets the earNumber field.
-func (euo *EventUpdateOne) SetEarNumber(i int64) *EventUpdateOne {
-	euo.mutation.ResetEarNumber()
-	euo.mutation.SetEarNumber(i)
-	return euo
-}
-
-// AddEarNumber adds i to earNumber.
-func (euo *EventUpdateOne) AddEarNumber(i int64) *EventUpdateOne {
-	euo.mutation.AddEarNumber(i)
+func (euo *EventUpdateOne) SetEarNumber(s string) *EventUpdateOne {
+	euo.mutation.SetEarNumber(s)
 	return euo
 }
 
@@ -410,14 +389,7 @@ func (euo *EventUpdateOne) sqlSave(ctx context.Context) (_node *Event, err error
 	_spec.Node.ID.Value = id
 	if value, ok := euo.mutation.EarNumber(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: event.FieldEarNumber,
-		})
-	}
-	if value, ok := euo.mutation.AddedEarNumber(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: event.FieldEarNumber,
 		})

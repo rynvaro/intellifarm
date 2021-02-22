@@ -7,10 +7,8 @@ const (
 	Label = "cattle_in"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
-	// FieldName holds the string denoting the name field in the database.
-	FieldName = "name"
-	// FieldType holds the string denoting the type field in the database.
-	FieldType = "type"
+	// FieldJoinType holds the string denoting the jointype field in the database.
+	FieldJoinType = "join_type"
 	// FieldDate holds the string denoting the date field in the database.
 	FieldDate = "date"
 	// FieldFrom holds the string denoting the from field in the database.
@@ -21,12 +19,12 @@ const (
 	FieldCost = "cost"
 	// FieldShippingFee holds the string denoting the shippingfee field in the database.
 	FieldShippingFee = "shipping_fee"
-	// FieldTransportCertificateNumber holds the string denoting the transportcertificatenumber field in the database.
-	FieldTransportCertificateNumber = "transport_certificate_number"
+	// FieldShippingCode holds the string denoting the shippingcode field in the database.
+	FieldShippingCode = "shipping_code"
 	// FieldUserName holds the string denoting the username field in the database.
 	FieldUserName = "user_name"
-	// FieldTestCertificateNumber holds the string denoting the testcertificatenumber field in the database.
-	FieldTestCertificateNumber = "test_certificate_number"
+	// FieldCheckCode holds the string denoting the checkcode field in the database.
+	FieldCheckCode = "check_code"
 	// FieldTenantId holds the string denoting the tenantid field in the database.
 	FieldTenantId = "tenant_id"
 	// FieldTenantName holds the string denoting the tenantname field in the database.
@@ -47,16 +45,15 @@ const (
 // Columns holds all SQL columns for cattlein fields.
 var Columns = []string{
 	FieldID,
-	FieldName,
-	FieldType,
+	FieldJoinType,
 	FieldDate,
 	FieldFrom,
 	FieldWeight,
 	FieldCost,
 	FieldShippingFee,
-	FieldTransportCertificateNumber,
+	FieldShippingCode,
 	FieldUserName,
-	FieldTestCertificateNumber,
+	FieldCheckCode,
 	FieldTenantId,
 	FieldTenantName,
 	FieldRemarks,

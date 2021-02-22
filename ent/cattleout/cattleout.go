@@ -7,10 +7,8 @@ const (
 	Label = "cattle_out"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
-	// FieldName holds the string denoting the name field in the database.
-	FieldName = "name"
-	// FieldType holds the string denoting the type field in the database.
-	FieldType = "type"
+	// FieldOutType holds the string denoting the outtype field in the database.
+	FieldOutType = "out_type"
 	// FieldDate holds the string denoting the date field in the database.
 	FieldDate = "date"
 	// FieldTo holds the string denoting the to field in the database.
@@ -21,12 +19,12 @@ const (
 	FieldCost = "cost"
 	// FieldShippingFee holds the string denoting the shippingfee field in the database.
 	FieldShippingFee = "shipping_fee"
-	// FieldTransportCertificateNumber holds the string denoting the transportcertificatenumber field in the database.
-	FieldTransportCertificateNumber = "transport_certificate_number"
+	// FieldShippingCode holds the string denoting the shippingcode field in the database.
+	FieldShippingCode = "shipping_code"
 	// FieldUserName holds the string denoting the username field in the database.
 	FieldUserName = "user_name"
-	// FieldTestCertificateNumber holds the string denoting the testcertificatenumber field in the database.
-	FieldTestCertificateNumber = "test_certificate_number"
+	// FieldCheckCode holds the string denoting the checkcode field in the database.
+	FieldCheckCode = "check_code"
 	// FieldTenantId holds the string denoting the tenantid field in the database.
 	FieldTenantId = "tenant_id"
 	// FieldTenantName holds the string denoting the tenantname field in the database.
@@ -47,16 +45,15 @@ const (
 // Columns holds all SQL columns for cattleout fields.
 var Columns = []string{
 	FieldID,
-	FieldName,
-	FieldType,
+	FieldOutType,
 	FieldDate,
 	FieldTo,
 	FieldWeight,
 	FieldCost,
 	FieldShippingFee,
-	FieldTransportCertificateNumber,
+	FieldShippingCode,
 	FieldUserName,
-	FieldTestCertificateNumber,
+	FieldCheckCode,
 	FieldTenantId,
 	FieldTenantName,
 	FieldRemarks,

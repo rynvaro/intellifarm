@@ -92,7 +92,7 @@ func IDLTE(id int64) predicate.Event {
 }
 
 // EarNumber applies equality check predicate on the "earNumber" field. It's identical to EarNumberEQ.
-func EarNumber(v int64) predicate.Event {
+func EarNumber(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldEarNumber), v))
 	})
@@ -141,21 +141,21 @@ func Deleted(v int) predicate.Event {
 }
 
 // EarNumberEQ applies the EQ predicate on the "earNumber" field.
-func EarNumberEQ(v int64) predicate.Event {
+func EarNumberEQ(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldEarNumber), v))
 	})
 }
 
 // EarNumberNEQ applies the NEQ predicate on the "earNumber" field.
-func EarNumberNEQ(v int64) predicate.Event {
+func EarNumberNEQ(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldEarNumber), v))
 	})
 }
 
 // EarNumberIn applies the In predicate on the "earNumber" field.
-func EarNumberIn(vs ...int64) predicate.Event {
+func EarNumberIn(vs ...string) predicate.Event {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -172,7 +172,7 @@ func EarNumberIn(vs ...int64) predicate.Event {
 }
 
 // EarNumberNotIn applies the NotIn predicate on the "earNumber" field.
-func EarNumberNotIn(vs ...int64) predicate.Event {
+func EarNumberNotIn(vs ...string) predicate.Event {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -189,30 +189,65 @@ func EarNumberNotIn(vs ...int64) predicate.Event {
 }
 
 // EarNumberGT applies the GT predicate on the "earNumber" field.
-func EarNumberGT(v int64) predicate.Event {
+func EarNumberGT(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldEarNumber), v))
 	})
 }
 
 // EarNumberGTE applies the GTE predicate on the "earNumber" field.
-func EarNumberGTE(v int64) predicate.Event {
+func EarNumberGTE(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldEarNumber), v))
 	})
 }
 
 // EarNumberLT applies the LT predicate on the "earNumber" field.
-func EarNumberLT(v int64) predicate.Event {
+func EarNumberLT(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldEarNumber), v))
 	})
 }
 
 // EarNumberLTE applies the LTE predicate on the "earNumber" field.
-func EarNumberLTE(v int64) predicate.Event {
+func EarNumberLTE(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldEarNumber), v))
+	})
+}
+
+// EarNumberContains applies the Contains predicate on the "earNumber" field.
+func EarNumberContains(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldEarNumber), v))
+	})
+}
+
+// EarNumberHasPrefix applies the HasPrefix predicate on the "earNumber" field.
+func EarNumberHasPrefix(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldEarNumber), v))
+	})
+}
+
+// EarNumberHasSuffix applies the HasSuffix predicate on the "earNumber" field.
+func EarNumberHasSuffix(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldEarNumber), v))
+	})
+}
+
+// EarNumberEqualFold applies the EqualFold predicate on the "earNumber" field.
+func EarNumberEqualFold(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldEarNumber), v))
+	})
+}
+
+// EarNumberContainsFold applies the ContainsFold predicate on the "earNumber" field.
+func EarNumberContainsFold(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldEarNumber), v))
 	})
 }
 

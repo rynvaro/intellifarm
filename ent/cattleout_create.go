@@ -19,15 +19,9 @@ type CattleOutCreate struct {
 	hooks    []Hook
 }
 
-// SetName sets the name field.
-func (coc *CattleOutCreate) SetName(s string) *CattleOutCreate {
-	coc.mutation.SetName(s)
-	return coc
-}
-
-// SetType sets the type field.
-func (coc *CattleOutCreate) SetType(i int) *CattleOutCreate {
-	coc.mutation.SetType(i)
+// SetOutType sets the outType field.
+func (coc *CattleOutCreate) SetOutType(i int64) *CattleOutCreate {
+	coc.mutation.SetOutType(i)
 	return coc
 }
 
@@ -44,26 +38,26 @@ func (coc *CattleOutCreate) SetTo(s string) *CattleOutCreate {
 }
 
 // SetWeight sets the weight field.
-func (coc *CattleOutCreate) SetWeight(f float32) *CattleOutCreate {
-	coc.mutation.SetWeight(f)
+func (coc *CattleOutCreate) SetWeight(i int64) *CattleOutCreate {
+	coc.mutation.SetWeight(i)
 	return coc
 }
 
 // SetCost sets the cost field.
-func (coc *CattleOutCreate) SetCost(f float32) *CattleOutCreate {
-	coc.mutation.SetCost(f)
+func (coc *CattleOutCreate) SetCost(i int64) *CattleOutCreate {
+	coc.mutation.SetCost(i)
 	return coc
 }
 
 // SetShippingFee sets the shippingFee field.
-func (coc *CattleOutCreate) SetShippingFee(f float32) *CattleOutCreate {
-	coc.mutation.SetShippingFee(f)
+func (coc *CattleOutCreate) SetShippingFee(i int64) *CattleOutCreate {
+	coc.mutation.SetShippingFee(i)
 	return coc
 }
 
-// SetTransportCertificateNumber sets the transportCertificateNumber field.
-func (coc *CattleOutCreate) SetTransportCertificateNumber(s string) *CattleOutCreate {
-	coc.mutation.SetTransportCertificateNumber(s)
+// SetShippingCode sets the shippingCode field.
+func (coc *CattleOutCreate) SetShippingCode(s string) *CattleOutCreate {
+	coc.mutation.SetShippingCode(s)
 	return coc
 }
 
@@ -73,9 +67,9 @@ func (coc *CattleOutCreate) SetUserName(s string) *CattleOutCreate {
 	return coc
 }
 
-// SetTestCertificateNumber sets the testCertificateNumber field.
-func (coc *CattleOutCreate) SetTestCertificateNumber(s string) *CattleOutCreate {
-	coc.mutation.SetTestCertificateNumber(s)
+// SetCheckCode sets the checkCode field.
+func (coc *CattleOutCreate) SetCheckCode(s string) *CattleOutCreate {
+	coc.mutation.SetCheckCode(s)
 	return coc
 }
 
@@ -166,11 +160,8 @@ func (coc *CattleOutCreate) SaveX(ctx context.Context) *CattleOut {
 
 // check runs all checks and user-defined validators on the builder.
 func (coc *CattleOutCreate) check() error {
-	if _, ok := coc.mutation.Name(); !ok {
-		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
-	}
-	if _, ok := coc.mutation.GetType(); !ok {
-		return &ValidationError{Name: "type", err: errors.New("ent: missing required field \"type\"")}
+	if _, ok := coc.mutation.OutType(); !ok {
+		return &ValidationError{Name: "outType", err: errors.New("ent: missing required field \"outType\"")}
 	}
 	if _, ok := coc.mutation.Date(); !ok {
 		return &ValidationError{Name: "date", err: errors.New("ent: missing required field \"date\"")}
@@ -187,14 +178,14 @@ func (coc *CattleOutCreate) check() error {
 	if _, ok := coc.mutation.ShippingFee(); !ok {
 		return &ValidationError{Name: "shippingFee", err: errors.New("ent: missing required field \"shippingFee\"")}
 	}
-	if _, ok := coc.mutation.TransportCertificateNumber(); !ok {
-		return &ValidationError{Name: "transportCertificateNumber", err: errors.New("ent: missing required field \"transportCertificateNumber\"")}
+	if _, ok := coc.mutation.ShippingCode(); !ok {
+		return &ValidationError{Name: "shippingCode", err: errors.New("ent: missing required field \"shippingCode\"")}
 	}
 	if _, ok := coc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
 	}
-	if _, ok := coc.mutation.TestCertificateNumber(); !ok {
-		return &ValidationError{Name: "testCertificateNumber", err: errors.New("ent: missing required field \"testCertificateNumber\"")}
+	if _, ok := coc.mutation.CheckCode(); !ok {
+		return &ValidationError{Name: "checkCode", err: errors.New("ent: missing required field \"checkCode\"")}
 	}
 	if _, ok := coc.mutation.TenantId(); !ok {
 		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
@@ -241,21 +232,13 @@ func (coc *CattleOutCreate) createSpec() (*CattleOut, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
-	if value, ok := coc.mutation.Name(); ok {
+	if value, ok := coc.mutation.OutType(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt64,
 			Value:  value,
-			Column: cattleout.FieldName,
+			Column: cattleout.FieldOutType,
 		})
-		_node.Name = value
-	}
-	if value, ok := coc.mutation.GetType(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: cattleout.FieldType,
-		})
-		_node.Type = value
+		_node.OutType = value
 	}
 	if value, ok := coc.mutation.Date(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -275,7 +258,7 @@ func (coc *CattleOutCreate) createSpec() (*CattleOut, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := coc.mutation.Weight(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattleout.FieldWeight,
 		})
@@ -283,7 +266,7 @@ func (coc *CattleOutCreate) createSpec() (*CattleOut, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := coc.mutation.Cost(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattleout.FieldCost,
 		})
@@ -291,19 +274,19 @@ func (coc *CattleOutCreate) createSpec() (*CattleOut, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := coc.mutation.ShippingFee(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeFloat32,
+			Type:   field.TypeInt64,
 			Value:  value,
 			Column: cattleout.FieldShippingFee,
 		})
 		_node.ShippingFee = value
 	}
-	if value, ok := coc.mutation.TransportCertificateNumber(); ok {
+	if value, ok := coc.mutation.ShippingCode(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: cattleout.FieldTransportCertificateNumber,
+			Column: cattleout.FieldShippingCode,
 		})
-		_node.TransportCertificateNumber = value
+		_node.ShippingCode = value
 	}
 	if value, ok := coc.mutation.UserName(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -313,13 +296,13 @@ func (coc *CattleOutCreate) createSpec() (*CattleOut, *sqlgraph.CreateSpec) {
 		})
 		_node.UserName = value
 	}
-	if value, ok := coc.mutation.TestCertificateNumber(); ok {
+	if value, ok := coc.mutation.CheckCode(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: cattleout.FieldTestCertificateNumber,
+			Column: cattleout.FieldCheckCode,
 		})
-		_node.TestCertificateNumber = value
+		_node.CheckCode = value
 	}
 	if value, ok := coc.mutation.TenantId(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

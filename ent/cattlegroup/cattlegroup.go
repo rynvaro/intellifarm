@@ -7,6 +7,24 @@ const (
 	Label = "cattle_group"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldEarNumber holds the string denoting the earnumber field in the database.
+	FieldEarNumber = "ear_number"
+	// FieldDate holds the string denoting the date field in the database.
+	FieldDate = "date"
+	// FieldToShed holds the string denoting the toshed field in the database.
+	FieldToShed = "to_shed"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
+	// FieldRemarks holds the string denoting the remarks field in the database.
+	FieldRemarks = "remarks"
+	// FieldCreatedAt holds the string denoting the createdat field in the database.
+	FieldCreatedAt = "created_at"
+	// FieldUpdatedAt holds the string denoting the updatedat field in the database.
+	FieldUpdatedAt = "updated_at"
+	// FieldDeleted holds the string denoting the deleted field in the database.
+	FieldDeleted = "deleted"
 
 	// Table holds the table name of the cattlegroup in the database.
 	Table = "cattle_groups"
@@ -15,6 +33,15 @@ const (
 // Columns holds all SQL columns for cattlegroup fields.
 var Columns = []string{
 	FieldID,
+	FieldEarNumber,
+	FieldDate,
+	FieldToShed,
+	FieldTenantId,
+	FieldTenantName,
+	FieldRemarks,
+	FieldCreatedAt,
+	FieldUpdatedAt,
+	FieldDeleted,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).

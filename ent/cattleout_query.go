@@ -237,12 +237,12 @@ func (coq *CattleOutQuery) Clone() *CattleOutQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		OutType int64 `json:"outType,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.CattleOut.Query().
-//		GroupBy(cattleout.FieldName).
+//		GroupBy(cattleout.FieldOutType).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (coq *CattleOutQuery) GroupBy(field string, fields ...string) *CattleOutGro
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		OutType int64 `json:"outType,omitempty"`
 //	}
 //
 //	client.CattleOut.Query().
-//		Select(cattleout.FieldName).
+//		Select(cattleout.FieldOutType).
 //		Scan(ctx, &v)
 //
 func (coq *CattleOutQuery) Select(field string, fields ...string) *CattleOutSelect {

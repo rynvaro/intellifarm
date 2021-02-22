@@ -23,20 +23,20 @@ func CattleOutAddHandler(c *gin.Context) {
 	}
 	log.Debug().Msg(form.String())
 	cattleout, err := db.Client.CattleOut.Create().
+		SetCheckCode(form.CheckCode).
 		SetCost(form.Cost).
 		SetDate(form.Date).
-		SetName(form.Name).
+		SetOutType(form.OutType).
 		SetRemarks(form.Remarks).
+		SetShippingCode(form.ShippingCode).
 		SetShippingFee(form.ShippingFee).
-		SetTestCertificateNumber(form.TestCertificateNumber).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetTo(form.To).
-		SetTransportCertificateNumber(form.TransportCertificateNumber).
-		SetType(form.Type).
 		SetUserName(form.UserName).
 		SetWeight(form.Weight).
 		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
-		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
+		SetTenantName(c.MustGet("tenantName").(string)).SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
@@ -99,15 +99,16 @@ func CattleOutUpdateHandler(c *gin.Context) {
 	}
 	log.Debug().Msg(form.String())
 	cattleout, err := db.Client.CattleOut.UpdateOneID(form.ID).
+		SetCheckCode(form.CheckCode).
 		SetCost(form.Cost).
 		SetDate(form.Date).
-		SetName(form.Name).
+		SetOutType(form.OutType).
 		SetRemarks(form.Remarks).
+		SetShippingCode(form.ShippingCode).
 		SetShippingFee(form.ShippingFee).
-		SetTestCertificateNumber(form.TestCertificateNumber).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetTo(form.To).
-		SetTransportCertificateNumber(form.TransportCertificateNumber).
-		SetType(form.Type).
 		SetUserName(form.UserName).
 		SetWeight(form.Weight).
 		SetUpdatedAt(time.Now().Unix()).

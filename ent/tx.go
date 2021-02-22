@@ -56,6 +56,8 @@ type Tx struct {
 	CattleIn *CattleInClient
 	// CattleJoinedType is the client for interacting with the CattleJoinedType builders.
 	CattleJoinedType *CattleJoinedTypeClient
+	// CattleMove is the client for interacting with the CattleMove builders.
+	CattleMove *CattleMoveClient
 	// CattleOut is the client for interacting with the CattleOut builders.
 	CattleOut *CattleOutClient
 	// CattleOwner is the client for interacting with the CattleOwner builders.
@@ -305,6 +307,7 @@ func (tx *Tx) init() {
 	tx.CattleHairColor = NewCattleHairColorClient(tx.config)
 	tx.CattleIn = NewCattleInClient(tx.config)
 	tx.CattleJoinedType = NewCattleJoinedTypeClient(tx.config)
+	tx.CattleMove = NewCattleMoveClient(tx.config)
 	tx.CattleOut = NewCattleOutClient(tx.config)
 	tx.CattleOwner = NewCattleOwnerClient(tx.config)
 	tx.CattleType = NewCattleTypeClient(tx.config)

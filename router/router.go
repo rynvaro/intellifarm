@@ -13,13 +13,16 @@ import (
 	"cattleai/pkg/calvetypes"
 	"cattleai/pkg/categories"
 	"cattleai/pkg/cattlecates"
+	"cattleai/pkg/cattledies"
 	"cattleai/pkg/cattlegenders"
+	"cattleai/pkg/cattlegroups"
 	"cattleai/pkg/cattlegrows"
 	"cattleai/pkg/cattlegrowsdata"
 	"cattleai/pkg/cattlegrowsrates"
 	"cattleai/pkg/cattlehaircolors"
 	"cattleai/pkg/cattleins"
 	"cattleai/pkg/cattlejoinedtypes"
+	"cattleai/pkg/cattlemoves"
 	"cattleai/pkg/cattleouts"
 	"cattleai/pkg/cattleowners"
 	"cattleai/pkg/cattles"
@@ -157,6 +160,9 @@ func Register(g *gin.RouterGroup) {
 
 	cattleins.RegisterRoutes(g)
 	cattleouts.RegisterRoutes(g)
+	cattlegroups.RegisterRoutes(g)
+	cattlemoves.RegisterRoutes(g)
+	cattledies.RegisterRoutes(g)
 
 	apis.RegisterRoutes(g)
 

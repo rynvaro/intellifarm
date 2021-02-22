@@ -72,6 +72,9 @@ type CattleIn func(*sql.Selector)
 // CattleJoinedType is the predicate function for cattlejoinedtype builders.
 type CattleJoinedType func(*sql.Selector)
 
+// CattleMove is the predicate function for cattlemove builders.
+type CattleMove func(*sql.Selector)
+
 // CattleOut is the predicate function for cattleout builders.
 type CattleOut func(*sql.Selector)
 

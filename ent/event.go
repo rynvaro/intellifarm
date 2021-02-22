@@ -16,7 +16,7 @@ type Event struct {
 	// ID of the ent.
 	ID int64 `json:"id,omitempty"`
 	// EarNumber holds the value of the "earNumber" field.
-	EarNumber int64 `json:"earNumber,omitempty"`
+	EarNumber string `json:"earNumber,omitempty"`
 	// EventType holds the value of the "eventType" field.
 	EventType string `json:"eventType,omitempty"`
 	// EventName holds the value of the "eventName" field.
@@ -35,7 +35,7 @@ type Event struct {
 func (*Event) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
-		&sql.NullInt64{},  // earNumber
+		&sql.NullString{}, // earNumber
 		&sql.NullString{}, // eventType
 		&sql.NullString{}, // eventName
 		&sql.NullInt64{},  // tenantId
@@ -57,10 +57,10 @@ func (e *Event) assignValues(values ...interface{}) error {
 	}
 	e.ID = int64(value.Int64)
 	values = values[1:]
-	if value, ok := values[0].(*sql.NullInt64); !ok {
+	if value, ok := values[0].(*sql.NullString); !ok {
 		return fmt.Errorf("unexpected type %T for field earNumber", values[0])
 	} else if value.Valid {
-		e.EarNumber = value.Int64
+		e.EarNumber = value.String
 	}
 	if value, ok := values[1].(*sql.NullString); !ok {
 		return fmt.Errorf("unexpected type %T for field eventType", values[1])
@@ -119,7 +119,7 @@ func (e *Event) String() string {
 	builder.WriteString("Event(")
 	builder.WriteString(fmt.Sprintf("id=%v", e.ID))
 	builder.WriteString(", earNumber=")
-	builder.WriteString(fmt.Sprintf("%v", e.EarNumber))
+	builder.WriteString(e.EarNumber)
 	builder.WriteString(", eventType=")
 	builder.WriteString(e.EventType)
 	builder.WriteString(", eventName=")

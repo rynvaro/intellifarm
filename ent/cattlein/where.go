@@ -91,17 +91,10 @@ func IDLTE(id int64) predicate.CattleIn {
 	})
 }
 
-// Name applies equality check predicate on the "name" field. It's identical to NameEQ.
-func Name(v string) predicate.CattleIn {
+// JoinType applies equality check predicate on the "joinType" field. It's identical to JoinTypeEQ.
+func JoinType(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldName), v))
-	})
-}
-
-// Type applies equality check predicate on the "type" field. It's identical to TypeEQ.
-func Type(v int) predicate.CattleIn {
-	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldType), v))
+		s.Where(sql.EQ(s.C(FieldJoinType), v))
 	})
 }
 
@@ -120,30 +113,30 @@ func From(v string) predicate.CattleIn {
 }
 
 // Weight applies equality check predicate on the "weight" field. It's identical to WeightEQ.
-func Weight(v float32) predicate.CattleIn {
+func Weight(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldWeight), v))
 	})
 }
 
 // Cost applies equality check predicate on the "cost" field. It's identical to CostEQ.
-func Cost(v float32) predicate.CattleIn {
+func Cost(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldCost), v))
 	})
 }
 
 // ShippingFee applies equality check predicate on the "shippingFee" field. It's identical to ShippingFeeEQ.
-func ShippingFee(v float32) predicate.CattleIn {
+func ShippingFee(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldShippingFee), v))
 	})
 }
 
-// TransportCertificateNumber applies equality check predicate on the "transportCertificateNumber" field. It's identical to TransportCertificateNumberEQ.
-func TransportCertificateNumber(v string) predicate.CattleIn {
+// ShippingCode applies equality check predicate on the "shippingCode" field. It's identical to ShippingCodeEQ.
+func ShippingCode(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldTransportCertificateNumber), v))
+		s.Where(sql.EQ(s.C(FieldShippingCode), v))
 	})
 }
 
@@ -154,10 +147,10 @@ func UserName(v string) predicate.CattleIn {
 	})
 }
 
-// TestCertificateNumber applies equality check predicate on the "testCertificateNumber" field. It's identical to TestCertificateNumberEQ.
-func TestCertificateNumber(v string) predicate.CattleIn {
+// CheckCode applies equality check predicate on the "checkCode" field. It's identical to CheckCodeEQ.
+func CheckCode(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldTestCertificateNumber), v))
+		s.Where(sql.EQ(s.C(FieldCheckCode), v))
 	})
 }
 
@@ -203,22 +196,22 @@ func Deleted(v int) predicate.CattleIn {
 	})
 }
 
-// NameEQ applies the EQ predicate on the "name" field.
-func NameEQ(v string) predicate.CattleIn {
+// JoinTypeEQ applies the EQ predicate on the "joinType" field.
+func JoinTypeEQ(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldName), v))
+		s.Where(sql.EQ(s.C(FieldJoinType), v))
 	})
 }
 
-// NameNEQ applies the NEQ predicate on the "name" field.
-func NameNEQ(v string) predicate.CattleIn {
+// JoinTypeNEQ applies the NEQ predicate on the "joinType" field.
+func JoinTypeNEQ(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldName), v))
+		s.Where(sql.NEQ(s.C(FieldJoinType), v))
 	})
 }
 
-// NameIn applies the In predicate on the "name" field.
-func NameIn(vs ...string) predicate.CattleIn {
+// JoinTypeIn applies the In predicate on the "joinType" field.
+func JoinTypeIn(vs ...int64) predicate.CattleIn {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -230,12 +223,12 @@ func NameIn(vs ...string) predicate.CattleIn {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldName), v...))
+		s.Where(sql.In(s.C(FieldJoinType), v...))
 	})
 }
 
-// NameNotIn applies the NotIn predicate on the "name" field.
-func NameNotIn(vs ...string) predicate.CattleIn {
+// JoinTypeNotIn applies the NotIn predicate on the "joinType" field.
+func JoinTypeNotIn(vs ...int64) predicate.CattleIn {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -247,146 +240,35 @@ func NameNotIn(vs ...string) predicate.CattleIn {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldName), v...))
+		s.Where(sql.NotIn(s.C(FieldJoinType), v...))
 	})
 }
 
-// NameGT applies the GT predicate on the "name" field.
-func NameGT(v string) predicate.CattleIn {
+// JoinTypeGT applies the GT predicate on the "joinType" field.
+func JoinTypeGT(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldName), v))
+		s.Where(sql.GT(s.C(FieldJoinType), v))
 	})
 }
 
-// NameGTE applies the GTE predicate on the "name" field.
-func NameGTE(v string) predicate.CattleIn {
+// JoinTypeGTE applies the GTE predicate on the "joinType" field.
+func JoinTypeGTE(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldName), v))
+		s.Where(sql.GTE(s.C(FieldJoinType), v))
 	})
 }
 
-// NameLT applies the LT predicate on the "name" field.
-func NameLT(v string) predicate.CattleIn {
+// JoinTypeLT applies the LT predicate on the "joinType" field.
+func JoinTypeLT(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldName), v))
+		s.Where(sql.LT(s.C(FieldJoinType), v))
 	})
 }
 
-// NameLTE applies the LTE predicate on the "name" field.
-func NameLTE(v string) predicate.CattleIn {
+// JoinTypeLTE applies the LTE predicate on the "joinType" field.
+func JoinTypeLTE(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldName), v))
-	})
-}
-
-// NameContains applies the Contains predicate on the "name" field.
-func NameContains(v string) predicate.CattleIn {
-	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldName), v))
-	})
-}
-
-// NameHasPrefix applies the HasPrefix predicate on the "name" field.
-func NameHasPrefix(v string) predicate.CattleIn {
-	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldName), v))
-	})
-}
-
-// NameHasSuffix applies the HasSuffix predicate on the "name" field.
-func NameHasSuffix(v string) predicate.CattleIn {
-	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldName), v))
-	})
-}
-
-// NameEqualFold applies the EqualFold predicate on the "name" field.
-func NameEqualFold(v string) predicate.CattleIn {
-	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldName), v))
-	})
-}
-
-// NameContainsFold applies the ContainsFold predicate on the "name" field.
-func NameContainsFold(v string) predicate.CattleIn {
-	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldName), v))
-	})
-}
-
-// TypeEQ applies the EQ predicate on the "type" field.
-func TypeEQ(v int) predicate.CattleIn {
-	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldType), v))
-	})
-}
-
-// TypeNEQ applies the NEQ predicate on the "type" field.
-func TypeNEQ(v int) predicate.CattleIn {
-	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldType), v))
-	})
-}
-
-// TypeIn applies the In predicate on the "type" field.
-func TypeIn(vs ...int) predicate.CattleIn {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.CattleIn(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.In(s.C(FieldType), v...))
-	})
-}
-
-// TypeNotIn applies the NotIn predicate on the "type" field.
-func TypeNotIn(vs ...int) predicate.CattleIn {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.CattleIn(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.NotIn(s.C(FieldType), v...))
-	})
-}
-
-// TypeGT applies the GT predicate on the "type" field.
-func TypeGT(v int) predicate.CattleIn {
-	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldType), v))
-	})
-}
-
-// TypeGTE applies the GTE predicate on the "type" field.
-func TypeGTE(v int) predicate.CattleIn {
-	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldType), v))
-	})
-}
-
-// TypeLT applies the LT predicate on the "type" field.
-func TypeLT(v int) predicate.CattleIn {
-	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldType), v))
-	})
-}
-
-// TypeLTE applies the LTE predicate on the "type" field.
-func TypeLTE(v int) predicate.CattleIn {
-	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldType), v))
+		s.Where(sql.LTE(s.C(FieldJoinType), v))
 	})
 }
 
@@ -578,21 +460,21 @@ func FromContainsFold(v string) predicate.CattleIn {
 }
 
 // WeightEQ applies the EQ predicate on the "weight" field.
-func WeightEQ(v float32) predicate.CattleIn {
+func WeightEQ(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldWeight), v))
 	})
 }
 
 // WeightNEQ applies the NEQ predicate on the "weight" field.
-func WeightNEQ(v float32) predicate.CattleIn {
+func WeightNEQ(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldWeight), v))
 	})
 }
 
 // WeightIn applies the In predicate on the "weight" field.
-func WeightIn(vs ...float32) predicate.CattleIn {
+func WeightIn(vs ...int64) predicate.CattleIn {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -609,7 +491,7 @@ func WeightIn(vs ...float32) predicate.CattleIn {
 }
 
 // WeightNotIn applies the NotIn predicate on the "weight" field.
-func WeightNotIn(vs ...float32) predicate.CattleIn {
+func WeightNotIn(vs ...int64) predicate.CattleIn {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -626,49 +508,49 @@ func WeightNotIn(vs ...float32) predicate.CattleIn {
 }
 
 // WeightGT applies the GT predicate on the "weight" field.
-func WeightGT(v float32) predicate.CattleIn {
+func WeightGT(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldWeight), v))
 	})
 }
 
 // WeightGTE applies the GTE predicate on the "weight" field.
-func WeightGTE(v float32) predicate.CattleIn {
+func WeightGTE(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldWeight), v))
 	})
 }
 
 // WeightLT applies the LT predicate on the "weight" field.
-func WeightLT(v float32) predicate.CattleIn {
+func WeightLT(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldWeight), v))
 	})
 }
 
 // WeightLTE applies the LTE predicate on the "weight" field.
-func WeightLTE(v float32) predicate.CattleIn {
+func WeightLTE(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldWeight), v))
 	})
 }
 
 // CostEQ applies the EQ predicate on the "cost" field.
-func CostEQ(v float32) predicate.CattleIn {
+func CostEQ(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldCost), v))
 	})
 }
 
 // CostNEQ applies the NEQ predicate on the "cost" field.
-func CostNEQ(v float32) predicate.CattleIn {
+func CostNEQ(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldCost), v))
 	})
 }
 
 // CostIn applies the In predicate on the "cost" field.
-func CostIn(vs ...float32) predicate.CattleIn {
+func CostIn(vs ...int64) predicate.CattleIn {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -685,7 +567,7 @@ func CostIn(vs ...float32) predicate.CattleIn {
 }
 
 // CostNotIn applies the NotIn predicate on the "cost" field.
-func CostNotIn(vs ...float32) predicate.CattleIn {
+func CostNotIn(vs ...int64) predicate.CattleIn {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -702,49 +584,49 @@ func CostNotIn(vs ...float32) predicate.CattleIn {
 }
 
 // CostGT applies the GT predicate on the "cost" field.
-func CostGT(v float32) predicate.CattleIn {
+func CostGT(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldCost), v))
 	})
 }
 
 // CostGTE applies the GTE predicate on the "cost" field.
-func CostGTE(v float32) predicate.CattleIn {
+func CostGTE(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldCost), v))
 	})
 }
 
 // CostLT applies the LT predicate on the "cost" field.
-func CostLT(v float32) predicate.CattleIn {
+func CostLT(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldCost), v))
 	})
 }
 
 // CostLTE applies the LTE predicate on the "cost" field.
-func CostLTE(v float32) predicate.CattleIn {
+func CostLTE(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldCost), v))
 	})
 }
 
 // ShippingFeeEQ applies the EQ predicate on the "shippingFee" field.
-func ShippingFeeEQ(v float32) predicate.CattleIn {
+func ShippingFeeEQ(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldShippingFee), v))
 	})
 }
 
 // ShippingFeeNEQ applies the NEQ predicate on the "shippingFee" field.
-func ShippingFeeNEQ(v float32) predicate.CattleIn {
+func ShippingFeeNEQ(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldShippingFee), v))
 	})
 }
 
 // ShippingFeeIn applies the In predicate on the "shippingFee" field.
-func ShippingFeeIn(vs ...float32) predicate.CattleIn {
+func ShippingFeeIn(vs ...int64) predicate.CattleIn {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -761,7 +643,7 @@ func ShippingFeeIn(vs ...float32) predicate.CattleIn {
 }
 
 // ShippingFeeNotIn applies the NotIn predicate on the "shippingFee" field.
-func ShippingFeeNotIn(vs ...float32) predicate.CattleIn {
+func ShippingFeeNotIn(vs ...int64) predicate.CattleIn {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -778,49 +660,49 @@ func ShippingFeeNotIn(vs ...float32) predicate.CattleIn {
 }
 
 // ShippingFeeGT applies the GT predicate on the "shippingFee" field.
-func ShippingFeeGT(v float32) predicate.CattleIn {
+func ShippingFeeGT(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldShippingFee), v))
 	})
 }
 
 // ShippingFeeGTE applies the GTE predicate on the "shippingFee" field.
-func ShippingFeeGTE(v float32) predicate.CattleIn {
+func ShippingFeeGTE(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldShippingFee), v))
 	})
 }
 
 // ShippingFeeLT applies the LT predicate on the "shippingFee" field.
-func ShippingFeeLT(v float32) predicate.CattleIn {
+func ShippingFeeLT(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldShippingFee), v))
 	})
 }
 
 // ShippingFeeLTE applies the LTE predicate on the "shippingFee" field.
-func ShippingFeeLTE(v float32) predicate.CattleIn {
+func ShippingFeeLTE(v int64) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldShippingFee), v))
 	})
 }
 
-// TransportCertificateNumberEQ applies the EQ predicate on the "transportCertificateNumber" field.
-func TransportCertificateNumberEQ(v string) predicate.CattleIn {
+// ShippingCodeEQ applies the EQ predicate on the "shippingCode" field.
+func ShippingCodeEQ(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldTransportCertificateNumber), v))
+		s.Where(sql.EQ(s.C(FieldShippingCode), v))
 	})
 }
 
-// TransportCertificateNumberNEQ applies the NEQ predicate on the "transportCertificateNumber" field.
-func TransportCertificateNumberNEQ(v string) predicate.CattleIn {
+// ShippingCodeNEQ applies the NEQ predicate on the "shippingCode" field.
+func ShippingCodeNEQ(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldTransportCertificateNumber), v))
+		s.Where(sql.NEQ(s.C(FieldShippingCode), v))
 	})
 }
 
-// TransportCertificateNumberIn applies the In predicate on the "transportCertificateNumber" field.
-func TransportCertificateNumberIn(vs ...string) predicate.CattleIn {
+// ShippingCodeIn applies the In predicate on the "shippingCode" field.
+func ShippingCodeIn(vs ...string) predicate.CattleIn {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -832,12 +714,12 @@ func TransportCertificateNumberIn(vs ...string) predicate.CattleIn {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldTransportCertificateNumber), v...))
+		s.Where(sql.In(s.C(FieldShippingCode), v...))
 	})
 }
 
-// TransportCertificateNumberNotIn applies the NotIn predicate on the "transportCertificateNumber" field.
-func TransportCertificateNumberNotIn(vs ...string) predicate.CattleIn {
+// ShippingCodeNotIn applies the NotIn predicate on the "shippingCode" field.
+func ShippingCodeNotIn(vs ...string) predicate.CattleIn {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -849,70 +731,70 @@ func TransportCertificateNumberNotIn(vs ...string) predicate.CattleIn {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldTransportCertificateNumber), v...))
+		s.Where(sql.NotIn(s.C(FieldShippingCode), v...))
 	})
 }
 
-// TransportCertificateNumberGT applies the GT predicate on the "transportCertificateNumber" field.
-func TransportCertificateNumberGT(v string) predicate.CattleIn {
+// ShippingCodeGT applies the GT predicate on the "shippingCode" field.
+func ShippingCodeGT(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldTransportCertificateNumber), v))
+		s.Where(sql.GT(s.C(FieldShippingCode), v))
 	})
 }
 
-// TransportCertificateNumberGTE applies the GTE predicate on the "transportCertificateNumber" field.
-func TransportCertificateNumberGTE(v string) predicate.CattleIn {
+// ShippingCodeGTE applies the GTE predicate on the "shippingCode" field.
+func ShippingCodeGTE(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldTransportCertificateNumber), v))
+		s.Where(sql.GTE(s.C(FieldShippingCode), v))
 	})
 }
 
-// TransportCertificateNumberLT applies the LT predicate on the "transportCertificateNumber" field.
-func TransportCertificateNumberLT(v string) predicate.CattleIn {
+// ShippingCodeLT applies the LT predicate on the "shippingCode" field.
+func ShippingCodeLT(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldTransportCertificateNumber), v))
+		s.Where(sql.LT(s.C(FieldShippingCode), v))
 	})
 }
 
-// TransportCertificateNumberLTE applies the LTE predicate on the "transportCertificateNumber" field.
-func TransportCertificateNumberLTE(v string) predicate.CattleIn {
+// ShippingCodeLTE applies the LTE predicate on the "shippingCode" field.
+func ShippingCodeLTE(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldTransportCertificateNumber), v))
+		s.Where(sql.LTE(s.C(FieldShippingCode), v))
 	})
 }
 
-// TransportCertificateNumberContains applies the Contains predicate on the "transportCertificateNumber" field.
-func TransportCertificateNumberContains(v string) predicate.CattleIn {
+// ShippingCodeContains applies the Contains predicate on the "shippingCode" field.
+func ShippingCodeContains(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldTransportCertificateNumber), v))
+		s.Where(sql.Contains(s.C(FieldShippingCode), v))
 	})
 }
 
-// TransportCertificateNumberHasPrefix applies the HasPrefix predicate on the "transportCertificateNumber" field.
-func TransportCertificateNumberHasPrefix(v string) predicate.CattleIn {
+// ShippingCodeHasPrefix applies the HasPrefix predicate on the "shippingCode" field.
+func ShippingCodeHasPrefix(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldTransportCertificateNumber), v))
+		s.Where(sql.HasPrefix(s.C(FieldShippingCode), v))
 	})
 }
 
-// TransportCertificateNumberHasSuffix applies the HasSuffix predicate on the "transportCertificateNumber" field.
-func TransportCertificateNumberHasSuffix(v string) predicate.CattleIn {
+// ShippingCodeHasSuffix applies the HasSuffix predicate on the "shippingCode" field.
+func ShippingCodeHasSuffix(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldTransportCertificateNumber), v))
+		s.Where(sql.HasSuffix(s.C(FieldShippingCode), v))
 	})
 }
 
-// TransportCertificateNumberEqualFold applies the EqualFold predicate on the "transportCertificateNumber" field.
-func TransportCertificateNumberEqualFold(v string) predicate.CattleIn {
+// ShippingCodeEqualFold applies the EqualFold predicate on the "shippingCode" field.
+func ShippingCodeEqualFold(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldTransportCertificateNumber), v))
+		s.Where(sql.EqualFold(s.C(FieldShippingCode), v))
 	})
 }
 
-// TransportCertificateNumberContainsFold applies the ContainsFold predicate on the "transportCertificateNumber" field.
-func TransportCertificateNumberContainsFold(v string) predicate.CattleIn {
+// ShippingCodeContainsFold applies the ContainsFold predicate on the "shippingCode" field.
+func ShippingCodeContainsFold(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldTransportCertificateNumber), v))
+		s.Where(sql.ContainsFold(s.C(FieldShippingCode), v))
 	})
 }
 
@@ -1027,22 +909,22 @@ func UserNameContainsFold(v string) predicate.CattleIn {
 	})
 }
 
-// TestCertificateNumberEQ applies the EQ predicate on the "testCertificateNumber" field.
-func TestCertificateNumberEQ(v string) predicate.CattleIn {
+// CheckCodeEQ applies the EQ predicate on the "checkCode" field.
+func CheckCodeEQ(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldTestCertificateNumber), v))
+		s.Where(sql.EQ(s.C(FieldCheckCode), v))
 	})
 }
 
-// TestCertificateNumberNEQ applies the NEQ predicate on the "testCertificateNumber" field.
-func TestCertificateNumberNEQ(v string) predicate.CattleIn {
+// CheckCodeNEQ applies the NEQ predicate on the "checkCode" field.
+func CheckCodeNEQ(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldTestCertificateNumber), v))
+		s.Where(sql.NEQ(s.C(FieldCheckCode), v))
 	})
 }
 
-// TestCertificateNumberIn applies the In predicate on the "testCertificateNumber" field.
-func TestCertificateNumberIn(vs ...string) predicate.CattleIn {
+// CheckCodeIn applies the In predicate on the "checkCode" field.
+func CheckCodeIn(vs ...string) predicate.CattleIn {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -1054,12 +936,12 @@ func TestCertificateNumberIn(vs ...string) predicate.CattleIn {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldTestCertificateNumber), v...))
+		s.Where(sql.In(s.C(FieldCheckCode), v...))
 	})
 }
 
-// TestCertificateNumberNotIn applies the NotIn predicate on the "testCertificateNumber" field.
-func TestCertificateNumberNotIn(vs ...string) predicate.CattleIn {
+// CheckCodeNotIn applies the NotIn predicate on the "checkCode" field.
+func CheckCodeNotIn(vs ...string) predicate.CattleIn {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -1071,70 +953,70 @@ func TestCertificateNumberNotIn(vs ...string) predicate.CattleIn {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldTestCertificateNumber), v...))
+		s.Where(sql.NotIn(s.C(FieldCheckCode), v...))
 	})
 }
 
-// TestCertificateNumberGT applies the GT predicate on the "testCertificateNumber" field.
-func TestCertificateNumberGT(v string) predicate.CattleIn {
+// CheckCodeGT applies the GT predicate on the "checkCode" field.
+func CheckCodeGT(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldTestCertificateNumber), v))
+		s.Where(sql.GT(s.C(FieldCheckCode), v))
 	})
 }
 
-// TestCertificateNumberGTE applies the GTE predicate on the "testCertificateNumber" field.
-func TestCertificateNumberGTE(v string) predicate.CattleIn {
+// CheckCodeGTE applies the GTE predicate on the "checkCode" field.
+func CheckCodeGTE(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldTestCertificateNumber), v))
+		s.Where(sql.GTE(s.C(FieldCheckCode), v))
 	})
 }
 
-// TestCertificateNumberLT applies the LT predicate on the "testCertificateNumber" field.
-func TestCertificateNumberLT(v string) predicate.CattleIn {
+// CheckCodeLT applies the LT predicate on the "checkCode" field.
+func CheckCodeLT(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldTestCertificateNumber), v))
+		s.Where(sql.LT(s.C(FieldCheckCode), v))
 	})
 }
 
-// TestCertificateNumberLTE applies the LTE predicate on the "testCertificateNumber" field.
-func TestCertificateNumberLTE(v string) predicate.CattleIn {
+// CheckCodeLTE applies the LTE predicate on the "checkCode" field.
+func CheckCodeLTE(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldTestCertificateNumber), v))
+		s.Where(sql.LTE(s.C(FieldCheckCode), v))
 	})
 }
 
-// TestCertificateNumberContains applies the Contains predicate on the "testCertificateNumber" field.
-func TestCertificateNumberContains(v string) predicate.CattleIn {
+// CheckCodeContains applies the Contains predicate on the "checkCode" field.
+func CheckCodeContains(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldTestCertificateNumber), v))
+		s.Where(sql.Contains(s.C(FieldCheckCode), v))
 	})
 }
 
-// TestCertificateNumberHasPrefix applies the HasPrefix predicate on the "testCertificateNumber" field.
-func TestCertificateNumberHasPrefix(v string) predicate.CattleIn {
+// CheckCodeHasPrefix applies the HasPrefix predicate on the "checkCode" field.
+func CheckCodeHasPrefix(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldTestCertificateNumber), v))
+		s.Where(sql.HasPrefix(s.C(FieldCheckCode), v))
 	})
 }
 
-// TestCertificateNumberHasSuffix applies the HasSuffix predicate on the "testCertificateNumber" field.
-func TestCertificateNumberHasSuffix(v string) predicate.CattleIn {
+// CheckCodeHasSuffix applies the HasSuffix predicate on the "checkCode" field.
+func CheckCodeHasSuffix(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldTestCertificateNumber), v))
+		s.Where(sql.HasSuffix(s.C(FieldCheckCode), v))
 	})
 }
 
-// TestCertificateNumberEqualFold applies the EqualFold predicate on the "testCertificateNumber" field.
-func TestCertificateNumberEqualFold(v string) predicate.CattleIn {
+// CheckCodeEqualFold applies the EqualFold predicate on the "checkCode" field.
+func CheckCodeEqualFold(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldTestCertificateNumber), v))
+		s.Where(sql.EqualFold(s.C(FieldCheckCode), v))
 	})
 }
 
-// TestCertificateNumberContainsFold applies the ContainsFold predicate on the "testCertificateNumber" field.
-func TestCertificateNumberContainsFold(v string) predicate.CattleIn {
+// CheckCodeContainsFold applies the ContainsFold predicate on the "checkCode" field.
+func CheckCodeContainsFold(v string) predicate.CattleIn {
 	return predicate.CattleIn(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldTestCertificateNumber), v))
+		s.Where(sql.ContainsFold(s.C(FieldCheckCode), v))
 	})
 }
 

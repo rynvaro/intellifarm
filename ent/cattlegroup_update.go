@@ -27,6 +27,95 @@ func (cgu *CattleGroupUpdate) Where(ps ...predicate.CattleGroup) *CattleGroupUpd
 	return cgu
 }
 
+// SetEarNumber sets the earNumber field.
+func (cgu *CattleGroupUpdate) SetEarNumber(s string) *CattleGroupUpdate {
+	cgu.mutation.SetEarNumber(s)
+	return cgu
+}
+
+// SetDate sets the date field.
+func (cgu *CattleGroupUpdate) SetDate(i int64) *CattleGroupUpdate {
+	cgu.mutation.ResetDate()
+	cgu.mutation.SetDate(i)
+	return cgu
+}
+
+// AddDate adds i to date.
+func (cgu *CattleGroupUpdate) AddDate(i int64) *CattleGroupUpdate {
+	cgu.mutation.AddDate(i)
+	return cgu
+}
+
+// SetToShed sets the toShed field.
+func (cgu *CattleGroupUpdate) SetToShed(s string) *CattleGroupUpdate {
+	cgu.mutation.SetToShed(s)
+	return cgu
+}
+
+// SetTenantId sets the tenantId field.
+func (cgu *CattleGroupUpdate) SetTenantId(i int64) *CattleGroupUpdate {
+	cgu.mutation.ResetTenantId()
+	cgu.mutation.SetTenantId(i)
+	return cgu
+}
+
+// AddTenantId adds i to tenantId.
+func (cgu *CattleGroupUpdate) AddTenantId(i int64) *CattleGroupUpdate {
+	cgu.mutation.AddTenantId(i)
+	return cgu
+}
+
+// SetTenantName sets the tenantName field.
+func (cgu *CattleGroupUpdate) SetTenantName(s string) *CattleGroupUpdate {
+	cgu.mutation.SetTenantName(s)
+	return cgu
+}
+
+// SetRemarks sets the remarks field.
+func (cgu *CattleGroupUpdate) SetRemarks(s string) *CattleGroupUpdate {
+	cgu.mutation.SetRemarks(s)
+	return cgu
+}
+
+// SetCreatedAt sets the createdAt field.
+func (cgu *CattleGroupUpdate) SetCreatedAt(i int64) *CattleGroupUpdate {
+	cgu.mutation.ResetCreatedAt()
+	cgu.mutation.SetCreatedAt(i)
+	return cgu
+}
+
+// AddCreatedAt adds i to createdAt.
+func (cgu *CattleGroupUpdate) AddCreatedAt(i int64) *CattleGroupUpdate {
+	cgu.mutation.AddCreatedAt(i)
+	return cgu
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (cgu *CattleGroupUpdate) SetUpdatedAt(i int64) *CattleGroupUpdate {
+	cgu.mutation.ResetUpdatedAt()
+	cgu.mutation.SetUpdatedAt(i)
+	return cgu
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (cgu *CattleGroupUpdate) AddUpdatedAt(i int64) *CattleGroupUpdate {
+	cgu.mutation.AddUpdatedAt(i)
+	return cgu
+}
+
+// SetDeleted sets the deleted field.
+func (cgu *CattleGroupUpdate) SetDeleted(i int) *CattleGroupUpdate {
+	cgu.mutation.ResetDeleted()
+	cgu.mutation.SetDeleted(i)
+	return cgu
+}
+
+// AddDeleted adds i to deleted.
+func (cgu *CattleGroupUpdate) AddDeleted(i int) *CattleGroupUpdate {
+	cgu.mutation.AddDeleted(i)
+	return cgu
+}
+
 // Mutation returns the CattleGroupMutation object of the builder.
 func (cgu *CattleGroupUpdate) Mutation() *CattleGroupMutation {
 	return cgu.mutation
@@ -101,6 +190,104 @@ func (cgu *CattleGroupUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := cgu.mutation.EarNumber(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegroup.FieldEarNumber,
+		})
+	}
+	if value, ok := cgu.mutation.Date(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldDate,
+		})
+	}
+	if value, ok := cgu.mutation.AddedDate(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldDate,
+		})
+	}
+	if value, ok := cgu.mutation.ToShed(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegroup.FieldToShed,
+		})
+	}
+	if value, ok := cgu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldTenantId,
+		})
+	}
+	if value, ok := cgu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldTenantId,
+		})
+	}
+	if value, ok := cgu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegroup.FieldTenantName,
+		})
+	}
+	if value, ok := cgu.mutation.Remarks(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegroup.FieldRemarks,
+		})
+	}
+	if value, ok := cgu.mutation.CreatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldCreatedAt,
+		})
+	}
+	if value, ok := cgu.mutation.AddedCreatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldCreatedAt,
+		})
+	}
+	if value, ok := cgu.mutation.UpdatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldUpdatedAt,
+		})
+	}
+	if value, ok := cgu.mutation.AddedUpdatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldUpdatedAt,
+		})
+	}
+	if value, ok := cgu.mutation.Deleted(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattlegroup.FieldDeleted,
+		})
+	}
+	if value, ok := cgu.mutation.AddedDeleted(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattlegroup.FieldDeleted,
+		})
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, cgu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{cattlegroup.Label}
@@ -117,6 +304,95 @@ type CattleGroupUpdateOne struct {
 	config
 	hooks    []Hook
 	mutation *CattleGroupMutation
+}
+
+// SetEarNumber sets the earNumber field.
+func (cguo *CattleGroupUpdateOne) SetEarNumber(s string) *CattleGroupUpdateOne {
+	cguo.mutation.SetEarNumber(s)
+	return cguo
+}
+
+// SetDate sets the date field.
+func (cguo *CattleGroupUpdateOne) SetDate(i int64) *CattleGroupUpdateOne {
+	cguo.mutation.ResetDate()
+	cguo.mutation.SetDate(i)
+	return cguo
+}
+
+// AddDate adds i to date.
+func (cguo *CattleGroupUpdateOne) AddDate(i int64) *CattleGroupUpdateOne {
+	cguo.mutation.AddDate(i)
+	return cguo
+}
+
+// SetToShed sets the toShed field.
+func (cguo *CattleGroupUpdateOne) SetToShed(s string) *CattleGroupUpdateOne {
+	cguo.mutation.SetToShed(s)
+	return cguo
+}
+
+// SetTenantId sets the tenantId field.
+func (cguo *CattleGroupUpdateOne) SetTenantId(i int64) *CattleGroupUpdateOne {
+	cguo.mutation.ResetTenantId()
+	cguo.mutation.SetTenantId(i)
+	return cguo
+}
+
+// AddTenantId adds i to tenantId.
+func (cguo *CattleGroupUpdateOne) AddTenantId(i int64) *CattleGroupUpdateOne {
+	cguo.mutation.AddTenantId(i)
+	return cguo
+}
+
+// SetTenantName sets the tenantName field.
+func (cguo *CattleGroupUpdateOne) SetTenantName(s string) *CattleGroupUpdateOne {
+	cguo.mutation.SetTenantName(s)
+	return cguo
+}
+
+// SetRemarks sets the remarks field.
+func (cguo *CattleGroupUpdateOne) SetRemarks(s string) *CattleGroupUpdateOne {
+	cguo.mutation.SetRemarks(s)
+	return cguo
+}
+
+// SetCreatedAt sets the createdAt field.
+func (cguo *CattleGroupUpdateOne) SetCreatedAt(i int64) *CattleGroupUpdateOne {
+	cguo.mutation.ResetCreatedAt()
+	cguo.mutation.SetCreatedAt(i)
+	return cguo
+}
+
+// AddCreatedAt adds i to createdAt.
+func (cguo *CattleGroupUpdateOne) AddCreatedAt(i int64) *CattleGroupUpdateOne {
+	cguo.mutation.AddCreatedAt(i)
+	return cguo
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (cguo *CattleGroupUpdateOne) SetUpdatedAt(i int64) *CattleGroupUpdateOne {
+	cguo.mutation.ResetUpdatedAt()
+	cguo.mutation.SetUpdatedAt(i)
+	return cguo
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (cguo *CattleGroupUpdateOne) AddUpdatedAt(i int64) *CattleGroupUpdateOne {
+	cguo.mutation.AddUpdatedAt(i)
+	return cguo
+}
+
+// SetDeleted sets the deleted field.
+func (cguo *CattleGroupUpdateOne) SetDeleted(i int) *CattleGroupUpdateOne {
+	cguo.mutation.ResetDeleted()
+	cguo.mutation.SetDeleted(i)
+	return cguo
+}
+
+// AddDeleted adds i to deleted.
+func (cguo *CattleGroupUpdateOne) AddDeleted(i int) *CattleGroupUpdateOne {
+	cguo.mutation.AddDeleted(i)
+	return cguo
 }
 
 // Mutation returns the CattleGroupMutation object of the builder.
@@ -191,6 +467,104 @@ func (cguo *CattleGroupUpdateOne) sqlSave(ctx context.Context) (_node *CattleGro
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing CattleGroup.ID for update")}
 	}
 	_spec.Node.ID.Value = id
+	if value, ok := cguo.mutation.EarNumber(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegroup.FieldEarNumber,
+		})
+	}
+	if value, ok := cguo.mutation.Date(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldDate,
+		})
+	}
+	if value, ok := cguo.mutation.AddedDate(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldDate,
+		})
+	}
+	if value, ok := cguo.mutation.ToShed(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegroup.FieldToShed,
+		})
+	}
+	if value, ok := cguo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldTenantId,
+		})
+	}
+	if value, ok := cguo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldTenantId,
+		})
+	}
+	if value, ok := cguo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegroup.FieldTenantName,
+		})
+	}
+	if value, ok := cguo.mutation.Remarks(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegroup.FieldRemarks,
+		})
+	}
+	if value, ok := cguo.mutation.CreatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldCreatedAt,
+		})
+	}
+	if value, ok := cguo.mutation.AddedCreatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldCreatedAt,
+		})
+	}
+	if value, ok := cguo.mutation.UpdatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldUpdatedAt,
+		})
+	}
+	if value, ok := cguo.mutation.AddedUpdatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldUpdatedAt,
+		})
+	}
+	if value, ok := cguo.mutation.Deleted(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattlegroup.FieldDeleted,
+		})
+	}
+	if value, ok := cguo.mutation.AddedDeleted(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattlegroup.FieldDeleted,
+		})
+	}
 	_node = &CattleGroup{config: cguo.config}
 	_spec.Assign = _node.assignValues
 	_spec.ScanValues = _node.scanValues()

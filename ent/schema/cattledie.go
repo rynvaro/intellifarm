@@ -1,6 +1,9 @@
 package schema
 
-import "github.com/facebook/ent"
+import (
+	"github.com/facebook/ent"
+	"github.com/facebook/ent/schema/field"
+)
 
 // CattleDie holds the schema definition for the CattleDie entity.
 type CattleDie struct {
@@ -9,7 +12,25 @@ type CattleDie struct {
 
 // Fields of the CattleDie.
 func (CattleDie) Fields() []ent.Field {
-	return nil
+	return []ent.Field{
+		field.String("earNumber"),
+		field.Int64("date").Comment("日期"),
+		field.String("userName"),
+		field.Int("reason"),
+		field.Int("Insured").Comment("是否参保"),
+		field.String("InsuredCode").Comment("参保单号"),
+		field.String("InsuredCompany").Comment("投保公司"),
+		field.Int64("weight"),
+		field.Int("handleMethod"),
+		field.Int("declared").Comment("是否申报"),
+		field.String("dUserName").Comment("诊断兽医"),
+		field.Int64("tenantId").Comment("租户ID"),
+		field.String("tenantName").Comment("租户组织名称"),
+		field.String("remarks").Comment("备注"),
+		field.Int64("createdAt").Comment("创建时间"),
+		field.Int64("updatedAt").Comment("更新时间"),
+		field.Int("deleted").Comment("是否已删除"),
+	}
 }
 
 // Edges of the CattleDie.

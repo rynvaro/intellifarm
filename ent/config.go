@@ -46,6 +46,7 @@ type hooks struct {
 	CattleHairColor     []ent.Hook
 	CattleIn            []ent.Hook
 	CattleJoinedType    []ent.Hook
+	CattleMove          []ent.Hook
 	CattleOut           []ent.Hook
 	CattleOwner         []ent.Hook
 	CattleType          []ent.Hook

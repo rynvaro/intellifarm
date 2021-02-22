@@ -237,12 +237,12 @@ func (ciq *CattleInQuery) Clone() *CattleInQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		JoinType int64 `json:"joinType,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.CattleIn.Query().
-//		GroupBy(cattlein.FieldName).
+//		GroupBy(cattlein.FieldJoinType).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (ciq *CattleInQuery) GroupBy(field string, fields ...string) *CattleInGroup
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		JoinType int64 `json:"joinType,omitempty"`
 //	}
 //
 //	client.CattleIn.Query().
-//		Select(cattlein.FieldName).
+//		Select(cattlein.FieldJoinType).
 //		Scan(ctx, &v)
 //
 func (ciq *CattleInQuery) Select(field string, fields ...string) *CattleInSelect {

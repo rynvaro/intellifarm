@@ -5,6 +5,7 @@ package ent
 import (
 	"cattleai/ent/cattlegroup"
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/facebook/ent/dialect/sql/sqlgraph"
@@ -16,6 +17,60 @@ type CattleGroupCreate struct {
 	config
 	mutation *CattleGroupMutation
 	hooks    []Hook
+}
+
+// SetEarNumber sets the earNumber field.
+func (cgc *CattleGroupCreate) SetEarNumber(s string) *CattleGroupCreate {
+	cgc.mutation.SetEarNumber(s)
+	return cgc
+}
+
+// SetDate sets the date field.
+func (cgc *CattleGroupCreate) SetDate(i int64) *CattleGroupCreate {
+	cgc.mutation.SetDate(i)
+	return cgc
+}
+
+// SetToShed sets the toShed field.
+func (cgc *CattleGroupCreate) SetToShed(s string) *CattleGroupCreate {
+	cgc.mutation.SetToShed(s)
+	return cgc
+}
+
+// SetTenantId sets the tenantId field.
+func (cgc *CattleGroupCreate) SetTenantId(i int64) *CattleGroupCreate {
+	cgc.mutation.SetTenantId(i)
+	return cgc
+}
+
+// SetTenantName sets the tenantName field.
+func (cgc *CattleGroupCreate) SetTenantName(s string) *CattleGroupCreate {
+	cgc.mutation.SetTenantName(s)
+	return cgc
+}
+
+// SetRemarks sets the remarks field.
+func (cgc *CattleGroupCreate) SetRemarks(s string) *CattleGroupCreate {
+	cgc.mutation.SetRemarks(s)
+	return cgc
+}
+
+// SetCreatedAt sets the createdAt field.
+func (cgc *CattleGroupCreate) SetCreatedAt(i int64) *CattleGroupCreate {
+	cgc.mutation.SetCreatedAt(i)
+	return cgc
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (cgc *CattleGroupCreate) SetUpdatedAt(i int64) *CattleGroupCreate {
+	cgc.mutation.SetUpdatedAt(i)
+	return cgc
+}
+
+// SetDeleted sets the deleted field.
+func (cgc *CattleGroupCreate) SetDeleted(i int) *CattleGroupCreate {
+	cgc.mutation.SetDeleted(i)
+	return cgc
 }
 
 // Mutation returns the CattleGroupMutation object of the builder.
@@ -69,6 +124,33 @@ func (cgc *CattleGroupCreate) SaveX(ctx context.Context) *CattleGroup {
 
 // check runs all checks and user-defined validators on the builder.
 func (cgc *CattleGroupCreate) check() error {
+	if _, ok := cgc.mutation.EarNumber(); !ok {
+		return &ValidationError{Name: "earNumber", err: errors.New("ent: missing required field \"earNumber\"")}
+	}
+	if _, ok := cgc.mutation.Date(); !ok {
+		return &ValidationError{Name: "date", err: errors.New("ent: missing required field \"date\"")}
+	}
+	if _, ok := cgc.mutation.ToShed(); !ok {
+		return &ValidationError{Name: "toShed", err: errors.New("ent: missing required field \"toShed\"")}
+	}
+	if _, ok := cgc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := cgc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := cgc.mutation.Remarks(); !ok {
+		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
+	}
+	if _, ok := cgc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "createdAt", err: errors.New("ent: missing required field \"createdAt\"")}
+	}
+	if _, ok := cgc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updatedAt", err: errors.New("ent: missing required field \"updatedAt\"")}
+	}
+	if _, ok := cgc.mutation.Deleted(); !ok {
+		return &ValidationError{Name: "deleted", err: errors.New("ent: missing required field \"deleted\"")}
+	}
 	return nil
 }
 
@@ -96,6 +178,78 @@ func (cgc *CattleGroupCreate) createSpec() (*CattleGroup, *sqlgraph.CreateSpec) 
 			},
 		}
 	)
+	if value, ok := cgc.mutation.EarNumber(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegroup.FieldEarNumber,
+		})
+		_node.EarNumber = value
+	}
+	if value, ok := cgc.mutation.Date(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldDate,
+		})
+		_node.Date = value
+	}
+	if value, ok := cgc.mutation.ToShed(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegroup.FieldToShed,
+		})
+		_node.ToShed = value
+	}
+	if value, ok := cgc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := cgc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegroup.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := cgc.mutation.Remarks(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegroup.FieldRemarks,
+		})
+		_node.Remarks = value
+	}
+	if value, ok := cgc.mutation.CreatedAt(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldCreatedAt,
+		})
+		_node.CreatedAt = value
+	}
+	if value, ok := cgc.mutation.UpdatedAt(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegroup.FieldUpdatedAt,
+		})
+		_node.UpdatedAt = value
+	}
+	if value, ok := cgc.mutation.Deleted(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattlegroup.FieldDeleted,
+		})
+		_node.Deleted = value
+	}
 	return _node, _spec
 }
 

@@ -16,6 +16,7 @@ import (
 	"cattleai/ent/cattlegrow"
 	"cattleai/ent/cattlehaircolor"
 	"cattleai/ent/cattlejoinedtype"
+	"cattleai/ent/cattlemovereason"
 	"cattleai/ent/cattleowner"
 	"cattleai/ent/cattletype"
 	"cattleai/ent/duty"
@@ -144,6 +145,12 @@ func init() {
 	cattlejoinedtypeDescName := cattlejoinedtypeFields[0].Descriptor()
 	// cattlejoinedtype.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	cattlejoinedtype.NameValidator = cattlejoinedtypeDescName.Validators[0].(func(string) error)
+	cattlemovereasonFields := schema.CattleMoveReason{}.Fields()
+	_ = cattlemovereasonFields
+	// cattlemovereasonDescName is the schema descriptor for name field.
+	cattlemovereasonDescName := cattlemovereasonFields[0].Descriptor()
+	// cattlemovereason.NameValidator is a validator for the "name" field. It is called by the builders before save.
+	cattlemovereason.NameValidator = cattlemovereasonDescName.Validators[0].(func(string) error)
 	cattleownerFields := schema.CattleOwner{}.Fields()
 	_ = cattleownerFields
 	// cattleownerDescName is the schema descriptor for name field.
@@ -200,6 +207,14 @@ func init() {
 	positionDescName := positionFields[0].Descriptor()
 	// position.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	position.NameValidator = positionDescName.Validators[0].(func(string) error)
+	// positionDescTenantId is the schema descriptor for tenantId field.
+	positionDescTenantId := positionFields[2].Descriptor()
+	// position.DefaultTenantId holds the default value on creation for the tenantId field.
+	position.DefaultTenantId = positionDescTenantId.Default.(int64)
+	// positionDescTenantName is the schema descriptor for tenantName field.
+	positionDescTenantName := positionFields[3].Descriptor()
+	// position.DefaultTenantName holds the default value on creation for the tenantName field.
+	position.DefaultTenantName = positionDescTenantName.Default.(string)
 	pregnancytestmethodFields := schema.PregnancyTestMethod{}.Fields()
 	_ = pregnancytestmethodFields
 	// pregnancytestmethodDescName is the schema descriptor for name field.
@@ -245,7 +260,7 @@ func init() {
 	tenantFields := schema.Tenant{}.Fields()
 	_ = tenantFields
 	// tenantDescDeleted is the schema descriptor for deleted field.
-	tenantDescDeleted := tenantFields[3].Descriptor()
+	tenantDescDeleted := tenantFields[9].Descriptor()
 	// tenant.DefaultDeleted holds the default value on creation for the deleted field.
 	tenant.DefaultDeleted = tenantDescDeleted.Default.(int)
 	treatmentresultFields := schema.TreatmentResult{}.Fields()

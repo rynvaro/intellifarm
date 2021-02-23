@@ -12,6 +12,9 @@ type API func(*sql.Selector)
 // Abortion is the predicate function for abortion builders.
 type Abortion func(*sql.Selector)
 
+// AbortionReason is the predicate function for abortionreason builders.
+type AbortionReason func(*sql.Selector)
+
 // AbortionType is the predicate function for abortiontype builders.
 type AbortionType func(*sql.Selector)
 
@@ -41,6 +44,9 @@ type Category func(*sql.Selector)
 
 // Cattle is the predicate function for cattle builders.
 type Cattle func(*sql.Selector)
+
+// CattleBreed is the predicate function for cattlebreed builders.
+type CattleBreed func(*sql.Selector)
 
 // CattleCate is the predicate function for cattlecate builders.
 type CattleCate func(*sql.Selector)
@@ -75,6 +81,9 @@ type CattleJoinedType func(*sql.Selector)
 // CattleMove is the predicate function for cattlemove builders.
 type CattleMove func(*sql.Selector)
 
+// CattleMoveReason is the predicate function for cattlemovereason builders.
+type CattleMoveReason func(*sql.Selector)
+
 // CattleOut is the predicate function for cattleout builders.
 type CattleOut func(*sql.Selector)
 
@@ -95,6 +104,12 @@ type ConcentrateProcess func(*sql.Selector)
 
 // Conf is the predicate function for conf builders.
 type Conf func(*sql.Selector)
+
+// Customer is the predicate function for customer builders.
+type Customer func(*sql.Selector)
+
+// DiseaseInfo is the predicate function for diseaseinfo builders.
+type DiseaseInfo func(*sql.Selector)
 
 // Disinfect is the predicate function for disinfect builders.
 type Disinfect func(*sql.Selector)
@@ -126,8 +141,14 @@ type Farm func(*sql.Selector)
 // FeedGroup is the predicate function for feedgroup builders.
 type FeedGroup func(*sql.Selector)
 
+// FeedInfo is the predicate function for feedinfo builders.
+type FeedInfo func(*sql.Selector)
+
 // FeedRecord is the predicate function for feedrecord builders.
 type FeedRecord func(*sql.Selector)
+
+// FrozenSemenInfo is the predicate function for frozensemeninfo builders.
+type FrozenSemenInfo func(*sql.Selector)
 
 // HairState is the predicate function for hairstate builders.
 type HairState func(*sql.Selector)
@@ -177,6 +198,9 @@ type PregnancyTestType func(*sql.Selector)
 // Ration is the predicate function for ration builders.
 type Ration func(*sql.Selector)
 
+// ReproductionParameters is the predicate function for reproductionparameters builders.
+type ReproductionParameters func(*sql.Selector)
+
 // ReproductiveState is the predicate function for reproductivestate builders.
 type ReproductiveState func(*sql.Selector)
 
@@ -188,6 +212,9 @@ type Shed func(*sql.Selector)
 
 // ShedCategory is the predicate function for shedcategory builders.
 type ShedCategory func(*sql.Selector)
+
+// ShedSetting is the predicate function for shedsetting builders.
+type ShedSetting func(*sql.Selector)
 
 // ShedTrans is the predicate function for shedtrans builders.
 type ShedTrans func(*sql.Selector)
@@ -206,6 +233,12 @@ type TreatmentState func(*sql.Selector)
 
 // User is the predicate function for user builders.
 type User func(*sql.Selector)
+
+// VeterinaryDrugsInfo is the predicate function for veterinarydrugsinfo builders.
+type VeterinaryDrugsInfo func(*sql.Selector)
+
+// WarehouseSetting is the predicate function for warehousesetting builders.
+type WarehouseSetting func(*sql.Selector)
 
 // Whereabouts is the predicate function for whereabouts builders.
 type Whereabouts func(*sql.Selector)

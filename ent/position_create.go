@@ -25,6 +25,70 @@ func (pc *PositionCreate) SetName(s string) *PositionCreate {
 	return pc
 }
 
+// SetCode sets the code field.
+func (pc *PositionCreate) SetCode(s string) *PositionCreate {
+	pc.mutation.SetCode(s)
+	return pc
+}
+
+// SetTenantId sets the tenantId field.
+func (pc *PositionCreate) SetTenantId(i int64) *PositionCreate {
+	pc.mutation.SetTenantId(i)
+	return pc
+}
+
+// SetNillableTenantId sets the tenantId field if the given value is not nil.
+func (pc *PositionCreate) SetNillableTenantId(i *int64) *PositionCreate {
+	if i != nil {
+		pc.SetTenantId(*i)
+	}
+	return pc
+}
+
+// SetTenantName sets the tenantName field.
+func (pc *PositionCreate) SetTenantName(s string) *PositionCreate {
+	pc.mutation.SetTenantName(s)
+	return pc
+}
+
+// SetNillableTenantName sets the tenantName field if the given value is not nil.
+func (pc *PositionCreate) SetNillableTenantName(s *string) *PositionCreate {
+	if s != nil {
+		pc.SetTenantName(*s)
+	}
+	return pc
+}
+
+// SetOrder sets the order field.
+func (pc *PositionCreate) SetOrder(i int) *PositionCreate {
+	pc.mutation.SetOrder(i)
+	return pc
+}
+
+// SetRemarks sets the remarks field.
+func (pc *PositionCreate) SetRemarks(s string) *PositionCreate {
+	pc.mutation.SetRemarks(s)
+	return pc
+}
+
+// SetCreatedAt sets the createdAt field.
+func (pc *PositionCreate) SetCreatedAt(i int64) *PositionCreate {
+	pc.mutation.SetCreatedAt(i)
+	return pc
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (pc *PositionCreate) SetUpdatedAt(i int64) *PositionCreate {
+	pc.mutation.SetUpdatedAt(i)
+	return pc
+}
+
+// SetDeleted sets the deleted field.
+func (pc *PositionCreate) SetDeleted(i int) *PositionCreate {
+	pc.mutation.SetDeleted(i)
+	return pc
+}
+
 // Mutation returns the PositionMutation object of the builder.
 func (pc *PositionCreate) Mutation() *PositionMutation {
 	return pc.mutation
@@ -36,6 +100,7 @@ func (pc *PositionCreate) Save(ctx context.Context) (*Position, error) {
 		err  error
 		node *Position
 	)
+	pc.defaults()
 	if len(pc.hooks) == 0 {
 		if err = pc.check(); err != nil {
 			return nil, err
@@ -74,6 +139,18 @@ func (pc *PositionCreate) SaveX(ctx context.Context) *Position {
 	return v
 }
 
+// defaults sets the default values of the builder before save.
+func (pc *PositionCreate) defaults() {
+	if _, ok := pc.mutation.TenantId(); !ok {
+		v := position.DefaultTenantId
+		pc.mutation.SetTenantId(v)
+	}
+	if _, ok := pc.mutation.TenantName(); !ok {
+		v := position.DefaultTenantName
+		pc.mutation.SetTenantName(v)
+	}
+}
+
 // check runs all checks and user-defined validators on the builder.
 func (pc *PositionCreate) check() error {
 	if _, ok := pc.mutation.Name(); !ok {
@@ -83,6 +160,30 @@ func (pc *PositionCreate) check() error {
 		if err := position.NameValidator(v); err != nil {
 			return &ValidationError{Name: "name", err: fmt.Errorf("ent: validator failed for field \"name\": %w", err)}
 		}
+	}
+	if _, ok := pc.mutation.Code(); !ok {
+		return &ValidationError{Name: "code", err: errors.New("ent: missing required field \"code\"")}
+	}
+	if _, ok := pc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := pc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := pc.mutation.Order(); !ok {
+		return &ValidationError{Name: "order", err: errors.New("ent: missing required field \"order\"")}
+	}
+	if _, ok := pc.mutation.Remarks(); !ok {
+		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
+	}
+	if _, ok := pc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "createdAt", err: errors.New("ent: missing required field \"createdAt\"")}
+	}
+	if _, ok := pc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updatedAt", err: errors.New("ent: missing required field \"updatedAt\"")}
+	}
+	if _, ok := pc.mutation.Deleted(); !ok {
+		return &ValidationError{Name: "deleted", err: errors.New("ent: missing required field \"deleted\"")}
 	}
 	return nil
 }
@@ -119,6 +220,70 @@ func (pc *PositionCreate) createSpec() (*Position, *sqlgraph.CreateSpec) {
 		})
 		_node.Name = value
 	}
+	if value, ok := pc.mutation.Code(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: position.FieldCode,
+		})
+		_node.Code = value
+	}
+	if value, ok := pc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: position.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := pc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: position.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := pc.mutation.Order(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: position.FieldOrder,
+		})
+		_node.Order = value
+	}
+	if value, ok := pc.mutation.Remarks(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: position.FieldRemarks,
+		})
+		_node.Remarks = value
+	}
+	if value, ok := pc.mutation.CreatedAt(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: position.FieldCreatedAt,
+		})
+		_node.CreatedAt = value
+	}
+	if value, ok := pc.mutation.UpdatedAt(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: position.FieldUpdatedAt,
+		})
+		_node.UpdatedAt = value
+	}
+	if value, ok := pc.mutation.Deleted(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: position.FieldDeleted,
+		})
+		_node.Deleted = value
+	}
 	return _node, _spec
 }
 
@@ -136,6 +301,7 @@ func (pcb *PositionCreateBulk) Save(ctx context.Context) ([]*Position, error) {
 	for i := range pcb.builders {
 		func(i int, root context.Context) {
 			builder := pcb.builders[i]
+			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*PositionMutation)
 				if !ok {

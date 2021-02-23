@@ -25,6 +25,54 @@ func (chcc *CattleHairColorCreate) SetName(s string) *CattleHairColorCreate {
 	return chcc
 }
 
+// SetCode sets the code field.
+func (chcc *CattleHairColorCreate) SetCode(s string) *CattleHairColorCreate {
+	chcc.mutation.SetCode(s)
+	return chcc
+}
+
+// SetTenantId sets the tenantId field.
+func (chcc *CattleHairColorCreate) SetTenantId(i int64) *CattleHairColorCreate {
+	chcc.mutation.SetTenantId(i)
+	return chcc
+}
+
+// SetTenantName sets the tenantName field.
+func (chcc *CattleHairColorCreate) SetTenantName(s string) *CattleHairColorCreate {
+	chcc.mutation.SetTenantName(s)
+	return chcc
+}
+
+// SetOrder sets the order field.
+func (chcc *CattleHairColorCreate) SetOrder(i int) *CattleHairColorCreate {
+	chcc.mutation.SetOrder(i)
+	return chcc
+}
+
+// SetRemarks sets the remarks field.
+func (chcc *CattleHairColorCreate) SetRemarks(s string) *CattleHairColorCreate {
+	chcc.mutation.SetRemarks(s)
+	return chcc
+}
+
+// SetCreatedAt sets the createdAt field.
+func (chcc *CattleHairColorCreate) SetCreatedAt(i int64) *CattleHairColorCreate {
+	chcc.mutation.SetCreatedAt(i)
+	return chcc
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (chcc *CattleHairColorCreate) SetUpdatedAt(i int64) *CattleHairColorCreate {
+	chcc.mutation.SetUpdatedAt(i)
+	return chcc
+}
+
+// SetDeleted sets the deleted field.
+func (chcc *CattleHairColorCreate) SetDeleted(i int) *CattleHairColorCreate {
+	chcc.mutation.SetDeleted(i)
+	return chcc
+}
+
 // Mutation returns the CattleHairColorMutation object of the builder.
 func (chcc *CattleHairColorCreate) Mutation() *CattleHairColorMutation {
 	return chcc.mutation
@@ -84,6 +132,30 @@ func (chcc *CattleHairColorCreate) check() error {
 			return &ValidationError{Name: "name", err: fmt.Errorf("ent: validator failed for field \"name\": %w", err)}
 		}
 	}
+	if _, ok := chcc.mutation.Code(); !ok {
+		return &ValidationError{Name: "code", err: errors.New("ent: missing required field \"code\"")}
+	}
+	if _, ok := chcc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := chcc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := chcc.mutation.Order(); !ok {
+		return &ValidationError{Name: "order", err: errors.New("ent: missing required field \"order\"")}
+	}
+	if _, ok := chcc.mutation.Remarks(); !ok {
+		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
+	}
+	if _, ok := chcc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "createdAt", err: errors.New("ent: missing required field \"createdAt\"")}
+	}
+	if _, ok := chcc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updatedAt", err: errors.New("ent: missing required field \"updatedAt\"")}
+	}
+	if _, ok := chcc.mutation.Deleted(); !ok {
+		return &ValidationError{Name: "deleted", err: errors.New("ent: missing required field \"deleted\"")}
+	}
 	return nil
 }
 
@@ -118,6 +190,70 @@ func (chcc *CattleHairColorCreate) createSpec() (*CattleHairColor, *sqlgraph.Cre
 			Column: cattlehaircolor.FieldName,
 		})
 		_node.Name = value
+	}
+	if value, ok := chcc.mutation.Code(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlehaircolor.FieldCode,
+		})
+		_node.Code = value
+	}
+	if value, ok := chcc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlehaircolor.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := chcc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlehaircolor.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := chcc.mutation.Order(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattlehaircolor.FieldOrder,
+		})
+		_node.Order = value
+	}
+	if value, ok := chcc.mutation.Remarks(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlehaircolor.FieldRemarks,
+		})
+		_node.Remarks = value
+	}
+	if value, ok := chcc.mutation.CreatedAt(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlehaircolor.FieldCreatedAt,
+		})
+		_node.CreatedAt = value
+	}
+	if value, ok := chcc.mutation.UpdatedAt(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlehaircolor.FieldUpdatedAt,
+		})
+		_node.UpdatedAt = value
+	}
+	if value, ok := chcc.mutation.Deleted(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattlehaircolor.FieldDeleted,
+		})
+		_node.Deleted = value
 	}
 	return _node, _spec
 }

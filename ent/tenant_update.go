@@ -27,9 +27,21 @@ func (tu *TenantUpdate) Where(ps ...predicate.Tenant) *TenantUpdate {
 	return tu
 }
 
+// SetCompany sets the company field.
+func (tu *TenantUpdate) SetCompany(s string) *TenantUpdate {
+	tu.mutation.SetCompany(s)
+	return tu
+}
+
 // SetName sets the name field.
 func (tu *TenantUpdate) SetName(s string) *TenantUpdate {
 	tu.mutation.SetName(s)
+	return tu
+}
+
+// SetCode sets the code field.
+func (tu *TenantUpdate) SetCode(s string) *TenantUpdate {
+	tu.mutation.SetCode(s)
 	return tu
 }
 
@@ -43,6 +55,30 @@ func (tu *TenantUpdate) SetEnabled(i int) *TenantUpdate {
 // AddEnabled adds i to enabled.
 func (tu *TenantUpdate) AddEnabled(i int) *TenantUpdate {
 	tu.mutation.AddEnabled(i)
+	return tu
+}
+
+// SetRegion sets the region field.
+func (tu *TenantUpdate) SetRegion(s string) *TenantUpdate {
+	tu.mutation.SetRegion(s)
+	return tu
+}
+
+// SetAddress sets the address field.
+func (tu *TenantUpdate) SetAddress(s string) *TenantUpdate {
+	tu.mutation.SetAddress(s)
+	return tu
+}
+
+// SetUserName sets the userName field.
+func (tu *TenantUpdate) SetUserName(s string) *TenantUpdate {
+	tu.mutation.SetUserName(s)
+	return tu
+}
+
+// SetPhone sets the phone field.
+func (tu *TenantUpdate) SetPhone(s string) *TenantUpdate {
+	tu.mutation.SetPhone(s)
 	return tu
 }
 
@@ -173,11 +209,25 @@ func (tu *TenantUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := tu.mutation.Company(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldCompany,
+		})
+	}
 	if value, ok := tu.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
 			Column: tenant.FieldName,
+		})
+	}
+	if value, ok := tu.mutation.Code(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldCode,
 		})
 	}
 	if value, ok := tu.mutation.Enabled(); ok {
@@ -192,6 +242,34 @@ func (tu *TenantUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeInt,
 			Value:  value,
 			Column: tenant.FieldEnabled,
+		})
+	}
+	if value, ok := tu.mutation.Region(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldRegion,
+		})
+	}
+	if value, ok := tu.mutation.Address(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldAddress,
+		})
+	}
+	if value, ok := tu.mutation.UserName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldUserName,
+		})
+	}
+	if value, ok := tu.mutation.Phone(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldPhone,
 		})
 	}
 	if value, ok := tu.mutation.Remarks(); ok {
@@ -261,9 +339,21 @@ type TenantUpdateOne struct {
 	mutation *TenantMutation
 }
 
+// SetCompany sets the company field.
+func (tuo *TenantUpdateOne) SetCompany(s string) *TenantUpdateOne {
+	tuo.mutation.SetCompany(s)
+	return tuo
+}
+
 // SetName sets the name field.
 func (tuo *TenantUpdateOne) SetName(s string) *TenantUpdateOne {
 	tuo.mutation.SetName(s)
+	return tuo
+}
+
+// SetCode sets the code field.
+func (tuo *TenantUpdateOne) SetCode(s string) *TenantUpdateOne {
+	tuo.mutation.SetCode(s)
 	return tuo
 }
 
@@ -277,6 +367,30 @@ func (tuo *TenantUpdateOne) SetEnabled(i int) *TenantUpdateOne {
 // AddEnabled adds i to enabled.
 func (tuo *TenantUpdateOne) AddEnabled(i int) *TenantUpdateOne {
 	tuo.mutation.AddEnabled(i)
+	return tuo
+}
+
+// SetRegion sets the region field.
+func (tuo *TenantUpdateOne) SetRegion(s string) *TenantUpdateOne {
+	tuo.mutation.SetRegion(s)
+	return tuo
+}
+
+// SetAddress sets the address field.
+func (tuo *TenantUpdateOne) SetAddress(s string) *TenantUpdateOne {
+	tuo.mutation.SetAddress(s)
+	return tuo
+}
+
+// SetUserName sets the userName field.
+func (tuo *TenantUpdateOne) SetUserName(s string) *TenantUpdateOne {
+	tuo.mutation.SetUserName(s)
+	return tuo
+}
+
+// SetPhone sets the phone field.
+func (tuo *TenantUpdateOne) SetPhone(s string) *TenantUpdateOne {
+	tuo.mutation.SetPhone(s)
 	return tuo
 }
 
@@ -405,11 +519,25 @@ func (tuo *TenantUpdateOne) sqlSave(ctx context.Context) (_node *Tenant, err err
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing Tenant.ID for update")}
 	}
 	_spec.Node.ID.Value = id
+	if value, ok := tuo.mutation.Company(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldCompany,
+		})
+	}
 	if value, ok := tuo.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
 			Column: tenant.FieldName,
+		})
+	}
+	if value, ok := tuo.mutation.Code(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldCode,
 		})
 	}
 	if value, ok := tuo.mutation.Enabled(); ok {
@@ -424,6 +552,34 @@ func (tuo *TenantUpdateOne) sqlSave(ctx context.Context) (_node *Tenant, err err
 			Type:   field.TypeInt,
 			Value:  value,
 			Column: tenant.FieldEnabled,
+		})
+	}
+	if value, ok := tuo.mutation.Region(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldRegion,
+		})
+	}
+	if value, ok := tuo.mutation.Address(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldAddress,
+		})
+	}
+	if value, ok := tuo.mutation.UserName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldUserName,
+		})
+	}
+	if value, ok := tuo.mutation.Phone(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldPhone,
 		})
 	}
 	if value, ok := tuo.mutation.Remarks(); ok {

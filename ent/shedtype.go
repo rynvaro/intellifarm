@@ -17,6 +17,22 @@ type ShedType struct {
 	ID int64 `json:"id,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
+	// Code holds the value of the "code" field.
+	Code string `json:"code,omitempty"`
+	// TenantId holds the value of the "tenantId" field.
+	TenantId int64 `json:"tenantId,omitempty"`
+	// TenantName holds the value of the "tenantName" field.
+	TenantName string `json:"tenantName,omitempty"`
+	// Order holds the value of the "order" field.
+	Order int `json:"order,omitempty"`
+	// Remarks holds the value of the "remarks" field.
+	Remarks string `json:"remarks,omitempty"`
+	// CreatedAt holds the value of the "createdAt" field.
+	CreatedAt int64 `json:"createdAt,omitempty"`
+	// UpdatedAt holds the value of the "updatedAt" field.
+	UpdatedAt int64 `json:"updatedAt,omitempty"`
+	// Deleted holds the value of the "deleted" field.
+	Deleted int `json:"deleted,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -24,6 +40,14 @@ func (*ShedType) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
 		&sql.NullString{}, // name
+		&sql.NullString{}, // code
+		&sql.NullInt64{},  // tenantId
+		&sql.NullString{}, // tenantName
+		&sql.NullInt64{},  // order
+		&sql.NullString{}, // remarks
+		&sql.NullInt64{},  // createdAt
+		&sql.NullInt64{},  // updatedAt
+		&sql.NullInt64{},  // deleted
 	}
 }
 
@@ -43,6 +67,46 @@ func (st *ShedType) assignValues(values ...interface{}) error {
 		return fmt.Errorf("unexpected type %T for field name", values[0])
 	} else if value.Valid {
 		st.Name = value.String
+	}
+	if value, ok := values[1].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field code", values[1])
+	} else if value.Valid {
+		st.Code = value.String
+	}
+	if value, ok := values[2].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[2])
+	} else if value.Valid {
+		st.TenantId = value.Int64
+	}
+	if value, ok := values[3].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[3])
+	} else if value.Valid {
+		st.TenantName = value.String
+	}
+	if value, ok := values[4].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field order", values[4])
+	} else if value.Valid {
+		st.Order = int(value.Int64)
+	}
+	if value, ok := values[5].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[5])
+	} else if value.Valid {
+		st.Remarks = value.String
+	}
+	if value, ok := values[6].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[6])
+	} else if value.Valid {
+		st.CreatedAt = value.Int64
+	}
+	if value, ok := values[7].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[7])
+	} else if value.Valid {
+		st.UpdatedAt = value.Int64
+	}
+	if value, ok := values[8].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[8])
+	} else if value.Valid {
+		st.Deleted = int(value.Int64)
 	}
 	return nil
 }
@@ -72,6 +136,22 @@ func (st *ShedType) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v", st.ID))
 	builder.WriteString(", name=")
 	builder.WriteString(st.Name)
+	builder.WriteString(", code=")
+	builder.WriteString(st.Code)
+	builder.WriteString(", tenantId=")
+	builder.WriteString(fmt.Sprintf("%v", st.TenantId))
+	builder.WriteString(", tenantName=")
+	builder.WriteString(st.TenantName)
+	builder.WriteString(", order=")
+	builder.WriteString(fmt.Sprintf("%v", st.Order))
+	builder.WriteString(", remarks=")
+	builder.WriteString(st.Remarks)
+	builder.WriteString(", createdAt=")
+	builder.WriteString(fmt.Sprintf("%v", st.CreatedAt))
+	builder.WriteString(", updatedAt=")
+	builder.WriteString(fmt.Sprintf("%v", st.UpdatedAt))
+	builder.WriteString(", deleted=")
+	builder.WriteString(fmt.Sprintf("%v", st.Deleted))
 	builder.WriteByte(')')
 	return builder.String()
 }

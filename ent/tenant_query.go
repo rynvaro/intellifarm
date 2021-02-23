@@ -237,12 +237,12 @@ func (tq *TenantQuery) Clone() *TenantQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		Company string `json:"company,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Tenant.Query().
-//		GroupBy(tenant.FieldName).
+//		GroupBy(tenant.FieldCompany).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (tq *TenantQuery) GroupBy(field string, fields ...string) *TenantGroupBy {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		Company string `json:"company,omitempty"`
 //	}
 //
 //	client.Tenant.Query().
-//		Select(tenant.FieldName).
+//		Select(tenant.FieldCompany).
 //		Scan(ctx, &v)
 //
 func (tq *TenantQuery) Select(field string, fields ...string) *TenantSelect {

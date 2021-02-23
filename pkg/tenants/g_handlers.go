@@ -23,9 +23,15 @@ func TenantAddHandler(c *gin.Context) {
 	}
 	log.Debug().Msg(form.String())
 	tenant, err := db.Client.Tenant.Create().
+		SetAddress(form.Address).
+		SetCode(form.Code).
+		SetCompany(form.Company).
 		SetEnabled(form.Enabled).
 		SetName(form.Name).
+		SetPhone(form.Phone).
+		SetRegion(form.Region).
 		SetRemarks(form.Remarks).
+		SetUserName(form.UserName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -89,9 +95,15 @@ func TenantUpdateHandler(c *gin.Context) {
 	}
 	log.Debug().Msg(form.String())
 	tenant, err := db.Client.Tenant.UpdateOneID(form.ID).
+		SetAddress(form.Address).
+		SetCode(form.Code).
+		SetCompany(form.Company).
 		SetEnabled(form.Enabled).
 		SetName(form.Name).
+		SetPhone(form.Phone).
+		SetRegion(form.Region).
 		SetRemarks(form.Remarks).
+		SetUserName(form.UserName).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())
 	if err != nil {

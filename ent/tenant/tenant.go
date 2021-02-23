@@ -7,10 +7,22 @@ const (
 	Label = "tenant"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldCompany holds the string denoting the company field in the database.
+	FieldCompany = "company"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
+	// FieldCode holds the string denoting the code field in the database.
+	FieldCode = "code"
 	// FieldEnabled holds the string denoting the enabled field in the database.
 	FieldEnabled = "enabled"
+	// FieldRegion holds the string denoting the region field in the database.
+	FieldRegion = "region"
+	// FieldAddress holds the string denoting the address field in the database.
+	FieldAddress = "address"
+	// FieldUserName holds the string denoting the username field in the database.
+	FieldUserName = "user_name"
+	// FieldPhone holds the string denoting the phone field in the database.
+	FieldPhone = "phone"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldDeleted holds the string denoting the deleted field in the database.
@@ -27,8 +39,14 @@ const (
 // Columns holds all SQL columns for tenant fields.
 var Columns = []string{
 	FieldID,
+	FieldCompany,
 	FieldName,
+	FieldCode,
 	FieldEnabled,
+	FieldRegion,
+	FieldAddress,
+	FieldUserName,
+	FieldPhone,
 	FieldRemarks,
 	FieldDeleted,
 	FieldCreatedAt,

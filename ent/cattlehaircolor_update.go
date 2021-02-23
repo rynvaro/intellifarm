@@ -33,6 +33,89 @@ func (chcu *CattleHairColorUpdate) SetName(s string) *CattleHairColorUpdate {
 	return chcu
 }
 
+// SetCode sets the code field.
+func (chcu *CattleHairColorUpdate) SetCode(s string) *CattleHairColorUpdate {
+	chcu.mutation.SetCode(s)
+	return chcu
+}
+
+// SetTenantId sets the tenantId field.
+func (chcu *CattleHairColorUpdate) SetTenantId(i int64) *CattleHairColorUpdate {
+	chcu.mutation.ResetTenantId()
+	chcu.mutation.SetTenantId(i)
+	return chcu
+}
+
+// AddTenantId adds i to tenantId.
+func (chcu *CattleHairColorUpdate) AddTenantId(i int64) *CattleHairColorUpdate {
+	chcu.mutation.AddTenantId(i)
+	return chcu
+}
+
+// SetTenantName sets the tenantName field.
+func (chcu *CattleHairColorUpdate) SetTenantName(s string) *CattleHairColorUpdate {
+	chcu.mutation.SetTenantName(s)
+	return chcu
+}
+
+// SetOrder sets the order field.
+func (chcu *CattleHairColorUpdate) SetOrder(i int) *CattleHairColorUpdate {
+	chcu.mutation.ResetOrder()
+	chcu.mutation.SetOrder(i)
+	return chcu
+}
+
+// AddOrder adds i to order.
+func (chcu *CattleHairColorUpdate) AddOrder(i int) *CattleHairColorUpdate {
+	chcu.mutation.AddOrder(i)
+	return chcu
+}
+
+// SetRemarks sets the remarks field.
+func (chcu *CattleHairColorUpdate) SetRemarks(s string) *CattleHairColorUpdate {
+	chcu.mutation.SetRemarks(s)
+	return chcu
+}
+
+// SetCreatedAt sets the createdAt field.
+func (chcu *CattleHairColorUpdate) SetCreatedAt(i int64) *CattleHairColorUpdate {
+	chcu.mutation.ResetCreatedAt()
+	chcu.mutation.SetCreatedAt(i)
+	return chcu
+}
+
+// AddCreatedAt adds i to createdAt.
+func (chcu *CattleHairColorUpdate) AddCreatedAt(i int64) *CattleHairColorUpdate {
+	chcu.mutation.AddCreatedAt(i)
+	return chcu
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (chcu *CattleHairColorUpdate) SetUpdatedAt(i int64) *CattleHairColorUpdate {
+	chcu.mutation.ResetUpdatedAt()
+	chcu.mutation.SetUpdatedAt(i)
+	return chcu
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (chcu *CattleHairColorUpdate) AddUpdatedAt(i int64) *CattleHairColorUpdate {
+	chcu.mutation.AddUpdatedAt(i)
+	return chcu
+}
+
+// SetDeleted sets the deleted field.
+func (chcu *CattleHairColorUpdate) SetDeleted(i int) *CattleHairColorUpdate {
+	chcu.mutation.ResetDeleted()
+	chcu.mutation.SetDeleted(i)
+	return chcu
+}
+
+// AddDeleted adds i to deleted.
+func (chcu *CattleHairColorUpdate) AddDeleted(i int) *CattleHairColorUpdate {
+	chcu.mutation.AddDeleted(i)
+	return chcu
+}
+
 // Mutation returns the CattleHairColorMutation object of the builder.
 func (chcu *CattleHairColorUpdate) Mutation() *CattleHairColorMutation {
 	return chcu.mutation
@@ -130,6 +213,97 @@ func (chcu *CattleHairColorUpdate) sqlSave(ctx context.Context) (n int, err erro
 			Column: cattlehaircolor.FieldName,
 		})
 	}
+	if value, ok := chcu.mutation.Code(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlehaircolor.FieldCode,
+		})
+	}
+	if value, ok := chcu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlehaircolor.FieldTenantId,
+		})
+	}
+	if value, ok := chcu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlehaircolor.FieldTenantId,
+		})
+	}
+	if value, ok := chcu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlehaircolor.FieldTenantName,
+		})
+	}
+	if value, ok := chcu.mutation.Order(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattlehaircolor.FieldOrder,
+		})
+	}
+	if value, ok := chcu.mutation.AddedOrder(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattlehaircolor.FieldOrder,
+		})
+	}
+	if value, ok := chcu.mutation.Remarks(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlehaircolor.FieldRemarks,
+		})
+	}
+	if value, ok := chcu.mutation.CreatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlehaircolor.FieldCreatedAt,
+		})
+	}
+	if value, ok := chcu.mutation.AddedCreatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlehaircolor.FieldCreatedAt,
+		})
+	}
+	if value, ok := chcu.mutation.UpdatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlehaircolor.FieldUpdatedAt,
+		})
+	}
+	if value, ok := chcu.mutation.AddedUpdatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlehaircolor.FieldUpdatedAt,
+		})
+	}
+	if value, ok := chcu.mutation.Deleted(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattlehaircolor.FieldDeleted,
+		})
+	}
+	if value, ok := chcu.mutation.AddedDeleted(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattlehaircolor.FieldDeleted,
+		})
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, chcu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{cattlehaircolor.Label}
@@ -151,6 +325,89 @@ type CattleHairColorUpdateOne struct {
 // SetName sets the name field.
 func (chcuo *CattleHairColorUpdateOne) SetName(s string) *CattleHairColorUpdateOne {
 	chcuo.mutation.SetName(s)
+	return chcuo
+}
+
+// SetCode sets the code field.
+func (chcuo *CattleHairColorUpdateOne) SetCode(s string) *CattleHairColorUpdateOne {
+	chcuo.mutation.SetCode(s)
+	return chcuo
+}
+
+// SetTenantId sets the tenantId field.
+func (chcuo *CattleHairColorUpdateOne) SetTenantId(i int64) *CattleHairColorUpdateOne {
+	chcuo.mutation.ResetTenantId()
+	chcuo.mutation.SetTenantId(i)
+	return chcuo
+}
+
+// AddTenantId adds i to tenantId.
+func (chcuo *CattleHairColorUpdateOne) AddTenantId(i int64) *CattleHairColorUpdateOne {
+	chcuo.mutation.AddTenantId(i)
+	return chcuo
+}
+
+// SetTenantName sets the tenantName field.
+func (chcuo *CattleHairColorUpdateOne) SetTenantName(s string) *CattleHairColorUpdateOne {
+	chcuo.mutation.SetTenantName(s)
+	return chcuo
+}
+
+// SetOrder sets the order field.
+func (chcuo *CattleHairColorUpdateOne) SetOrder(i int) *CattleHairColorUpdateOne {
+	chcuo.mutation.ResetOrder()
+	chcuo.mutation.SetOrder(i)
+	return chcuo
+}
+
+// AddOrder adds i to order.
+func (chcuo *CattleHairColorUpdateOne) AddOrder(i int) *CattleHairColorUpdateOne {
+	chcuo.mutation.AddOrder(i)
+	return chcuo
+}
+
+// SetRemarks sets the remarks field.
+func (chcuo *CattleHairColorUpdateOne) SetRemarks(s string) *CattleHairColorUpdateOne {
+	chcuo.mutation.SetRemarks(s)
+	return chcuo
+}
+
+// SetCreatedAt sets the createdAt field.
+func (chcuo *CattleHairColorUpdateOne) SetCreatedAt(i int64) *CattleHairColorUpdateOne {
+	chcuo.mutation.ResetCreatedAt()
+	chcuo.mutation.SetCreatedAt(i)
+	return chcuo
+}
+
+// AddCreatedAt adds i to createdAt.
+func (chcuo *CattleHairColorUpdateOne) AddCreatedAt(i int64) *CattleHairColorUpdateOne {
+	chcuo.mutation.AddCreatedAt(i)
+	return chcuo
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (chcuo *CattleHairColorUpdateOne) SetUpdatedAt(i int64) *CattleHairColorUpdateOne {
+	chcuo.mutation.ResetUpdatedAt()
+	chcuo.mutation.SetUpdatedAt(i)
+	return chcuo
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (chcuo *CattleHairColorUpdateOne) AddUpdatedAt(i int64) *CattleHairColorUpdateOne {
+	chcuo.mutation.AddUpdatedAt(i)
+	return chcuo
+}
+
+// SetDeleted sets the deleted field.
+func (chcuo *CattleHairColorUpdateOne) SetDeleted(i int) *CattleHairColorUpdateOne {
+	chcuo.mutation.ResetDeleted()
+	chcuo.mutation.SetDeleted(i)
+	return chcuo
+}
+
+// AddDeleted adds i to deleted.
+func (chcuo *CattleHairColorUpdateOne) AddDeleted(i int) *CattleHairColorUpdateOne {
+	chcuo.mutation.AddDeleted(i)
 	return chcuo
 }
 
@@ -247,6 +504,97 @@ func (chcuo *CattleHairColorUpdateOne) sqlSave(ctx context.Context) (_node *Catt
 			Type:   field.TypeString,
 			Value:  value,
 			Column: cattlehaircolor.FieldName,
+		})
+	}
+	if value, ok := chcuo.mutation.Code(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlehaircolor.FieldCode,
+		})
+	}
+	if value, ok := chcuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlehaircolor.FieldTenantId,
+		})
+	}
+	if value, ok := chcuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlehaircolor.FieldTenantId,
+		})
+	}
+	if value, ok := chcuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlehaircolor.FieldTenantName,
+		})
+	}
+	if value, ok := chcuo.mutation.Order(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattlehaircolor.FieldOrder,
+		})
+	}
+	if value, ok := chcuo.mutation.AddedOrder(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattlehaircolor.FieldOrder,
+		})
+	}
+	if value, ok := chcuo.mutation.Remarks(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlehaircolor.FieldRemarks,
+		})
+	}
+	if value, ok := chcuo.mutation.CreatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlehaircolor.FieldCreatedAt,
+		})
+	}
+	if value, ok := chcuo.mutation.AddedCreatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlehaircolor.FieldCreatedAt,
+		})
+	}
+	if value, ok := chcuo.mutation.UpdatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlehaircolor.FieldUpdatedAt,
+		})
+	}
+	if value, ok := chcuo.mutation.AddedUpdatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlehaircolor.FieldUpdatedAt,
+		})
+	}
+	if value, ok := chcuo.mutation.Deleted(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattlehaircolor.FieldDeleted,
+		})
+	}
+	if value, ok := chcuo.mutation.AddedDeleted(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattlehaircolor.FieldDeleted,
 		})
 	}
 	_node = &CattleHairColor{config: chcuo.config}

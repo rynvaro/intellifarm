@@ -17,6 +17,22 @@ type CattleHairColor struct {
 	ID int64 `json:"id,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
+	// Code holds the value of the "code" field.
+	Code string `json:"code,omitempty"`
+	// TenantId holds the value of the "tenantId" field.
+	TenantId int64 `json:"tenantId,omitempty"`
+	// TenantName holds the value of the "tenantName" field.
+	TenantName string `json:"tenantName,omitempty"`
+	// Order holds the value of the "order" field.
+	Order int `json:"order,omitempty"`
+	// Remarks holds the value of the "remarks" field.
+	Remarks string `json:"remarks,omitempty"`
+	// CreatedAt holds the value of the "createdAt" field.
+	CreatedAt int64 `json:"createdAt,omitempty"`
+	// UpdatedAt holds the value of the "updatedAt" field.
+	UpdatedAt int64 `json:"updatedAt,omitempty"`
+	// Deleted holds the value of the "deleted" field.
+	Deleted int `json:"deleted,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -24,6 +40,14 @@ func (*CattleHairColor) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
 		&sql.NullString{}, // name
+		&sql.NullString{}, // code
+		&sql.NullInt64{},  // tenantId
+		&sql.NullString{}, // tenantName
+		&sql.NullInt64{},  // order
+		&sql.NullString{}, // remarks
+		&sql.NullInt64{},  // createdAt
+		&sql.NullInt64{},  // updatedAt
+		&sql.NullInt64{},  // deleted
 	}
 }
 
@@ -43,6 +67,46 @@ func (chc *CattleHairColor) assignValues(values ...interface{}) error {
 		return fmt.Errorf("unexpected type %T for field name", values[0])
 	} else if value.Valid {
 		chc.Name = value.String
+	}
+	if value, ok := values[1].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field code", values[1])
+	} else if value.Valid {
+		chc.Code = value.String
+	}
+	if value, ok := values[2].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[2])
+	} else if value.Valid {
+		chc.TenantId = value.Int64
+	}
+	if value, ok := values[3].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[3])
+	} else if value.Valid {
+		chc.TenantName = value.String
+	}
+	if value, ok := values[4].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field order", values[4])
+	} else if value.Valid {
+		chc.Order = int(value.Int64)
+	}
+	if value, ok := values[5].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[5])
+	} else if value.Valid {
+		chc.Remarks = value.String
+	}
+	if value, ok := values[6].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[6])
+	} else if value.Valid {
+		chc.CreatedAt = value.Int64
+	}
+	if value, ok := values[7].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[7])
+	} else if value.Valid {
+		chc.UpdatedAt = value.Int64
+	}
+	if value, ok := values[8].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[8])
+	} else if value.Valid {
+		chc.Deleted = int(value.Int64)
 	}
 	return nil
 }
@@ -72,6 +136,22 @@ func (chc *CattleHairColor) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v", chc.ID))
 	builder.WriteString(", name=")
 	builder.WriteString(chc.Name)
+	builder.WriteString(", code=")
+	builder.WriteString(chc.Code)
+	builder.WriteString(", tenantId=")
+	builder.WriteString(fmt.Sprintf("%v", chc.TenantId))
+	builder.WriteString(", tenantName=")
+	builder.WriteString(chc.TenantName)
+	builder.WriteString(", order=")
+	builder.WriteString(fmt.Sprintf("%v", chc.Order))
+	builder.WriteString(", remarks=")
+	builder.WriteString(chc.Remarks)
+	builder.WriteString(", createdAt=")
+	builder.WriteString(fmt.Sprintf("%v", chc.CreatedAt))
+	builder.WriteString(", updatedAt=")
+	builder.WriteString(fmt.Sprintf("%v", chc.UpdatedAt))
+	builder.WriteString(", deleted=")
+	builder.WriteString(fmt.Sprintf("%v", chc.Deleted))
 	builder.WriteByte(')')
 	return builder.String()
 }

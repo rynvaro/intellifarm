@@ -91,6 +91,13 @@ func IDLTE(id int64) predicate.Tenant {
 	})
 }
 
+// Company applies equality check predicate on the "company" field. It's identical to CompanyEQ.
+func Company(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCompany), v))
+	})
+}
+
 // Name applies equality check predicate on the "name" field. It's identical to NameEQ.
 func Name(v string) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
@@ -98,10 +105,45 @@ func Name(v string) predicate.Tenant {
 	})
 }
 
+// Code applies equality check predicate on the "code" field. It's identical to CodeEQ.
+func Code(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCode), v))
+	})
+}
+
 // Enabled applies equality check predicate on the "enabled" field. It's identical to EnabledEQ.
 func Enabled(v int) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldEnabled), v))
+	})
+}
+
+// Region applies equality check predicate on the "region" field. It's identical to RegionEQ.
+func Region(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldRegion), v))
+	})
+}
+
+// Address applies equality check predicate on the "address" field. It's identical to AddressEQ.
+func Address(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldAddress), v))
+	})
+}
+
+// UserName applies equality check predicate on the "userName" field. It's identical to UserNameEQ.
+func UserName(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldUserName), v))
+	})
+}
+
+// Phone applies equality check predicate on the "phone" field. It's identical to PhoneEQ.
+func Phone(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldPhone), v))
 	})
 }
 
@@ -130,6 +172,117 @@ func CreatedAt(v int64) predicate.Tenant {
 func UpdatedAt(v int64) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldUpdatedAt), v))
+	})
+}
+
+// CompanyEQ applies the EQ predicate on the "company" field.
+func CompanyEQ(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCompany), v))
+	})
+}
+
+// CompanyNEQ applies the NEQ predicate on the "company" field.
+func CompanyNEQ(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCompany), v))
+	})
+}
+
+// CompanyIn applies the In predicate on the "company" field.
+func CompanyIn(vs ...string) predicate.Tenant {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Tenant(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldCompany), v...))
+	})
+}
+
+// CompanyNotIn applies the NotIn predicate on the "company" field.
+func CompanyNotIn(vs ...string) predicate.Tenant {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Tenant(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldCompany), v...))
+	})
+}
+
+// CompanyGT applies the GT predicate on the "company" field.
+func CompanyGT(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCompany), v))
+	})
+}
+
+// CompanyGTE applies the GTE predicate on the "company" field.
+func CompanyGTE(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCompany), v))
+	})
+}
+
+// CompanyLT applies the LT predicate on the "company" field.
+func CompanyLT(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCompany), v))
+	})
+}
+
+// CompanyLTE applies the LTE predicate on the "company" field.
+func CompanyLTE(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCompany), v))
+	})
+}
+
+// CompanyContains applies the Contains predicate on the "company" field.
+func CompanyContains(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldCompany), v))
+	})
+}
+
+// CompanyHasPrefix applies the HasPrefix predicate on the "company" field.
+func CompanyHasPrefix(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldCompany), v))
+	})
+}
+
+// CompanyHasSuffix applies the HasSuffix predicate on the "company" field.
+func CompanyHasSuffix(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldCompany), v))
+	})
+}
+
+// CompanyEqualFold applies the EqualFold predicate on the "company" field.
+func CompanyEqualFold(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldCompany), v))
+	})
+}
+
+// CompanyContainsFold applies the ContainsFold predicate on the "company" field.
+func CompanyContainsFold(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldCompany), v))
 	})
 }
 
@@ -244,6 +397,117 @@ func NameContainsFold(v string) predicate.Tenant {
 	})
 }
 
+// CodeEQ applies the EQ predicate on the "code" field.
+func CodeEQ(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCode), v))
+	})
+}
+
+// CodeNEQ applies the NEQ predicate on the "code" field.
+func CodeNEQ(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCode), v))
+	})
+}
+
+// CodeIn applies the In predicate on the "code" field.
+func CodeIn(vs ...string) predicate.Tenant {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Tenant(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldCode), v...))
+	})
+}
+
+// CodeNotIn applies the NotIn predicate on the "code" field.
+func CodeNotIn(vs ...string) predicate.Tenant {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Tenant(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldCode), v...))
+	})
+}
+
+// CodeGT applies the GT predicate on the "code" field.
+func CodeGT(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCode), v))
+	})
+}
+
+// CodeGTE applies the GTE predicate on the "code" field.
+func CodeGTE(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCode), v))
+	})
+}
+
+// CodeLT applies the LT predicate on the "code" field.
+func CodeLT(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCode), v))
+	})
+}
+
+// CodeLTE applies the LTE predicate on the "code" field.
+func CodeLTE(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCode), v))
+	})
+}
+
+// CodeContains applies the Contains predicate on the "code" field.
+func CodeContains(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldCode), v))
+	})
+}
+
+// CodeHasPrefix applies the HasPrefix predicate on the "code" field.
+func CodeHasPrefix(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldCode), v))
+	})
+}
+
+// CodeHasSuffix applies the HasSuffix predicate on the "code" field.
+func CodeHasSuffix(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldCode), v))
+	})
+}
+
+// CodeEqualFold applies the EqualFold predicate on the "code" field.
+func CodeEqualFold(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldCode), v))
+	})
+}
+
+// CodeContainsFold applies the ContainsFold predicate on the "code" field.
+func CodeContainsFold(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldCode), v))
+	})
+}
+
 // EnabledEQ applies the EQ predicate on the "enabled" field.
 func EnabledEQ(v int) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
@@ -317,6 +581,450 @@ func EnabledLT(v int) predicate.Tenant {
 func EnabledLTE(v int) predicate.Tenant {
 	return predicate.Tenant(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldEnabled), v))
+	})
+}
+
+// RegionEQ applies the EQ predicate on the "region" field.
+func RegionEQ(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldRegion), v))
+	})
+}
+
+// RegionNEQ applies the NEQ predicate on the "region" field.
+func RegionNEQ(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldRegion), v))
+	})
+}
+
+// RegionIn applies the In predicate on the "region" field.
+func RegionIn(vs ...string) predicate.Tenant {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Tenant(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldRegion), v...))
+	})
+}
+
+// RegionNotIn applies the NotIn predicate on the "region" field.
+func RegionNotIn(vs ...string) predicate.Tenant {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Tenant(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldRegion), v...))
+	})
+}
+
+// RegionGT applies the GT predicate on the "region" field.
+func RegionGT(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldRegion), v))
+	})
+}
+
+// RegionGTE applies the GTE predicate on the "region" field.
+func RegionGTE(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldRegion), v))
+	})
+}
+
+// RegionLT applies the LT predicate on the "region" field.
+func RegionLT(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldRegion), v))
+	})
+}
+
+// RegionLTE applies the LTE predicate on the "region" field.
+func RegionLTE(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldRegion), v))
+	})
+}
+
+// RegionContains applies the Contains predicate on the "region" field.
+func RegionContains(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldRegion), v))
+	})
+}
+
+// RegionHasPrefix applies the HasPrefix predicate on the "region" field.
+func RegionHasPrefix(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldRegion), v))
+	})
+}
+
+// RegionHasSuffix applies the HasSuffix predicate on the "region" field.
+func RegionHasSuffix(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldRegion), v))
+	})
+}
+
+// RegionEqualFold applies the EqualFold predicate on the "region" field.
+func RegionEqualFold(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldRegion), v))
+	})
+}
+
+// RegionContainsFold applies the ContainsFold predicate on the "region" field.
+func RegionContainsFold(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldRegion), v))
+	})
+}
+
+// AddressEQ applies the EQ predicate on the "address" field.
+func AddressEQ(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldAddress), v))
+	})
+}
+
+// AddressNEQ applies the NEQ predicate on the "address" field.
+func AddressNEQ(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldAddress), v))
+	})
+}
+
+// AddressIn applies the In predicate on the "address" field.
+func AddressIn(vs ...string) predicate.Tenant {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Tenant(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldAddress), v...))
+	})
+}
+
+// AddressNotIn applies the NotIn predicate on the "address" field.
+func AddressNotIn(vs ...string) predicate.Tenant {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Tenant(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldAddress), v...))
+	})
+}
+
+// AddressGT applies the GT predicate on the "address" field.
+func AddressGT(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldAddress), v))
+	})
+}
+
+// AddressGTE applies the GTE predicate on the "address" field.
+func AddressGTE(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldAddress), v))
+	})
+}
+
+// AddressLT applies the LT predicate on the "address" field.
+func AddressLT(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldAddress), v))
+	})
+}
+
+// AddressLTE applies the LTE predicate on the "address" field.
+func AddressLTE(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldAddress), v))
+	})
+}
+
+// AddressContains applies the Contains predicate on the "address" field.
+func AddressContains(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldAddress), v))
+	})
+}
+
+// AddressHasPrefix applies the HasPrefix predicate on the "address" field.
+func AddressHasPrefix(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldAddress), v))
+	})
+}
+
+// AddressHasSuffix applies the HasSuffix predicate on the "address" field.
+func AddressHasSuffix(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldAddress), v))
+	})
+}
+
+// AddressEqualFold applies the EqualFold predicate on the "address" field.
+func AddressEqualFold(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldAddress), v))
+	})
+}
+
+// AddressContainsFold applies the ContainsFold predicate on the "address" field.
+func AddressContainsFold(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldAddress), v))
+	})
+}
+
+// UserNameEQ applies the EQ predicate on the "userName" field.
+func UserNameEQ(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldUserName), v))
+	})
+}
+
+// UserNameNEQ applies the NEQ predicate on the "userName" field.
+func UserNameNEQ(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldUserName), v))
+	})
+}
+
+// UserNameIn applies the In predicate on the "userName" field.
+func UserNameIn(vs ...string) predicate.Tenant {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Tenant(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldUserName), v...))
+	})
+}
+
+// UserNameNotIn applies the NotIn predicate on the "userName" field.
+func UserNameNotIn(vs ...string) predicate.Tenant {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Tenant(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldUserName), v...))
+	})
+}
+
+// UserNameGT applies the GT predicate on the "userName" field.
+func UserNameGT(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldUserName), v))
+	})
+}
+
+// UserNameGTE applies the GTE predicate on the "userName" field.
+func UserNameGTE(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldUserName), v))
+	})
+}
+
+// UserNameLT applies the LT predicate on the "userName" field.
+func UserNameLT(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldUserName), v))
+	})
+}
+
+// UserNameLTE applies the LTE predicate on the "userName" field.
+func UserNameLTE(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldUserName), v))
+	})
+}
+
+// UserNameContains applies the Contains predicate on the "userName" field.
+func UserNameContains(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldUserName), v))
+	})
+}
+
+// UserNameHasPrefix applies the HasPrefix predicate on the "userName" field.
+func UserNameHasPrefix(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldUserName), v))
+	})
+}
+
+// UserNameHasSuffix applies the HasSuffix predicate on the "userName" field.
+func UserNameHasSuffix(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldUserName), v))
+	})
+}
+
+// UserNameEqualFold applies the EqualFold predicate on the "userName" field.
+func UserNameEqualFold(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldUserName), v))
+	})
+}
+
+// UserNameContainsFold applies the ContainsFold predicate on the "userName" field.
+func UserNameContainsFold(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldUserName), v))
+	})
+}
+
+// PhoneEQ applies the EQ predicate on the "phone" field.
+func PhoneEQ(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldPhone), v))
+	})
+}
+
+// PhoneNEQ applies the NEQ predicate on the "phone" field.
+func PhoneNEQ(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldPhone), v))
+	})
+}
+
+// PhoneIn applies the In predicate on the "phone" field.
+func PhoneIn(vs ...string) predicate.Tenant {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Tenant(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldPhone), v...))
+	})
+}
+
+// PhoneNotIn applies the NotIn predicate on the "phone" field.
+func PhoneNotIn(vs ...string) predicate.Tenant {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Tenant(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldPhone), v...))
+	})
+}
+
+// PhoneGT applies the GT predicate on the "phone" field.
+func PhoneGT(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldPhone), v))
+	})
+}
+
+// PhoneGTE applies the GTE predicate on the "phone" field.
+func PhoneGTE(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldPhone), v))
+	})
+}
+
+// PhoneLT applies the LT predicate on the "phone" field.
+func PhoneLT(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldPhone), v))
+	})
+}
+
+// PhoneLTE applies the LTE predicate on the "phone" field.
+func PhoneLTE(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldPhone), v))
+	})
+}
+
+// PhoneContains applies the Contains predicate on the "phone" field.
+func PhoneContains(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldPhone), v))
+	})
+}
+
+// PhoneHasPrefix applies the HasPrefix predicate on the "phone" field.
+func PhoneHasPrefix(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldPhone), v))
+	})
+}
+
+// PhoneHasSuffix applies the HasSuffix predicate on the "phone" field.
+func PhoneHasSuffix(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldPhone), v))
+	})
+}
+
+// PhoneEqualFold applies the EqualFold predicate on the "phone" field.
+func PhoneEqualFold(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldPhone), v))
+	})
+}
+
+// PhoneContainsFold applies the ContainsFold predicate on the "phone" field.
+func PhoneContainsFold(v string) predicate.Tenant {
+	return predicate.Tenant(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldPhone), v))
 	})
 }
 

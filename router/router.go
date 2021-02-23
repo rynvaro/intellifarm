@@ -1,6 +1,7 @@
 package router
 
 import (
+	"cattleai/pkg/abortionreasons"
 	"cattleai/pkg/abortions"
 	"cattleai/pkg/abortiontypes"
 	"cattleai/pkg/apis"
@@ -12,6 +13,7 @@ import (
 	"cattleai/pkg/calves"
 	"cattleai/pkg/calvetypes"
 	"cattleai/pkg/categories"
+	"cattleai/pkg/cattlebreeds"
 	"cattleai/pkg/cattlecates"
 	"cattleai/pkg/cattledies"
 	"cattleai/pkg/cattlegenders"
@@ -22,6 +24,7 @@ import (
 	"cattleai/pkg/cattlehaircolors"
 	"cattleai/pkg/cattleins"
 	"cattleai/pkg/cattlejoinedtypes"
+	"cattleai/pkg/cattlemovereasons"
 	"cattleai/pkg/cattlemoves"
 	"cattleai/pkg/cattleouts"
 	"cattleai/pkg/cattleowners"
@@ -29,6 +32,8 @@ import (
 	"cattleai/pkg/cattletypes"
 	"cattleai/pkg/concentrateformulas"
 	"cattleai/pkg/concentrateprocesses"
+	"cattleai/pkg/customers"
+	"cattleai/pkg/diseaseinfos"
 	"cattleai/pkg/disinfects"
 	"cattleai/pkg/duties"
 	"cattleai/pkg/epidemics"
@@ -37,7 +42,9 @@ import (
 	"cattleai/pkg/estrustypes"
 	"cattleai/pkg/events"
 	"cattleai/pkg/farms"
+	"cattleai/pkg/feedinfos"
 	"cattleai/pkg/feedrecords"
+	"cattleai/pkg/frozensemeninfos"
 	"cattleai/pkg/hairstates"
 	"cattleai/pkg/healthcares"
 	"cattleai/pkg/immunities"
@@ -53,15 +60,19 @@ import (
 	"cattleai/pkg/pregnancytests"
 	"cattleai/pkg/pregnancytesttypes"
 	"cattleai/pkg/rations"
+	"cattleai/pkg/reproductionparameters"
 	"cattleai/pkg/reproductivestates"
 	"cattleai/pkg/semenfrozentypes"
 	"cattleai/pkg/shedcates"
 	"cattleai/pkg/sheds"
+	"cattleai/pkg/shedsettings"
 	"cattleai/pkg/shedtypes"
 	"cattleai/pkg/tenants"
 	"cattleai/pkg/treatmentresults"
 	"cattleai/pkg/treatmentstates"
 	"cattleai/pkg/users"
+	"cattleai/pkg/veterinarydrugsinfos"
+	"cattleai/pkg/warehousesettings"
 	"cattleai/pkg/whereabouts"
 	"cattleai/pkg/winddirections"
 
@@ -82,6 +93,7 @@ func Register(g *gin.RouterGroup) {
 	shedcates.RegisterRoutes(g)
 	// shed types
 	shedtypes.RegisterRoutes(g)
+	shedtypes.RegisterRoutes1(g)
 	// breath rate
 	breathrates.RegisterRoutes(g)
 	// hair state
@@ -92,6 +104,7 @@ func Register(g *gin.RouterGroup) {
 	birthsurroundings.RegisterRoutes(g)
 	// positions
 	positions.RegisterRoutes(g)
+	positions.RegisterRoutes1(g)
 	// duties
 	duties.RegisterRoutes(g)
 	// breeding types
@@ -102,6 +115,7 @@ func Register(g *gin.RouterGroup) {
 	cattlegenders.RegisterRoutes(g)
 	// cattle hair colors
 	cattlehaircolors.RegisterRoutes(g)
+	cattlehaircolors.RegisterRoutes1(g)
 	// cattle joined type
 	cattlejoinedtypes.RegisterRoutes(g)
 	// cattle owners
@@ -174,4 +188,18 @@ func Register(g *gin.RouterGroup) {
 	medicines.RegisterRoutes(g)
 
 	healthcares.RegisterRoutes(g)
+
+	cattlebreeds.RegisterRoutes(g)
+	cattlemovereasons.RegisterRoutes(g)
+	abortionreasons.RegisterRoutes(g)
+
+	diseaseinfos.RegisterRoutes(g)
+	feedinfos.RegisterRoutes(g)
+	frozensemeninfos.RegisterRoutes(g)
+	reproductionparameters.RegisterRoutes(g)
+	veterinarydrugsinfos.RegisterRoutes(g)
+
+	customers.RegisterRoutes(g)
+	shedsettings.RegisterRoutes(g)
+	warehousesettings.RegisterRoutes(g)
 }

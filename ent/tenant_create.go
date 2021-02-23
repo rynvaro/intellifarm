@@ -19,15 +19,51 @@ type TenantCreate struct {
 	hooks    []Hook
 }
 
+// SetCompany sets the company field.
+func (tc *TenantCreate) SetCompany(s string) *TenantCreate {
+	tc.mutation.SetCompany(s)
+	return tc
+}
+
 // SetName sets the name field.
 func (tc *TenantCreate) SetName(s string) *TenantCreate {
 	tc.mutation.SetName(s)
 	return tc
 }
 
+// SetCode sets the code field.
+func (tc *TenantCreate) SetCode(s string) *TenantCreate {
+	tc.mutation.SetCode(s)
+	return tc
+}
+
 // SetEnabled sets the enabled field.
 func (tc *TenantCreate) SetEnabled(i int) *TenantCreate {
 	tc.mutation.SetEnabled(i)
+	return tc
+}
+
+// SetRegion sets the region field.
+func (tc *TenantCreate) SetRegion(s string) *TenantCreate {
+	tc.mutation.SetRegion(s)
+	return tc
+}
+
+// SetAddress sets the address field.
+func (tc *TenantCreate) SetAddress(s string) *TenantCreate {
+	tc.mutation.SetAddress(s)
+	return tc
+}
+
+// SetUserName sets the userName field.
+func (tc *TenantCreate) SetUserName(s string) *TenantCreate {
+	tc.mutation.SetUserName(s)
+	return tc
+}
+
+// SetPhone sets the phone field.
+func (tc *TenantCreate) SetPhone(s string) *TenantCreate {
+	tc.mutation.SetPhone(s)
 	return tc
 }
 
@@ -123,11 +159,29 @@ func (tc *TenantCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (tc *TenantCreate) check() error {
+	if _, ok := tc.mutation.Company(); !ok {
+		return &ValidationError{Name: "company", err: errors.New("ent: missing required field \"company\"")}
+	}
 	if _, ok := tc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
 	}
+	if _, ok := tc.mutation.Code(); !ok {
+		return &ValidationError{Name: "code", err: errors.New("ent: missing required field \"code\"")}
+	}
 	if _, ok := tc.mutation.Enabled(); !ok {
 		return &ValidationError{Name: "enabled", err: errors.New("ent: missing required field \"enabled\"")}
+	}
+	if _, ok := tc.mutation.Region(); !ok {
+		return &ValidationError{Name: "region", err: errors.New("ent: missing required field \"region\"")}
+	}
+	if _, ok := tc.mutation.Address(); !ok {
+		return &ValidationError{Name: "address", err: errors.New("ent: missing required field \"address\"")}
+	}
+	if _, ok := tc.mutation.UserName(); !ok {
+		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
+	}
+	if _, ok := tc.mutation.Phone(); !ok {
+		return &ValidationError{Name: "phone", err: errors.New("ent: missing required field \"phone\"")}
 	}
 	if _, ok := tc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -168,6 +222,14 @@ func (tc *TenantCreate) createSpec() (*Tenant, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := tc.mutation.Company(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldCompany,
+		})
+		_node.Company = value
+	}
 	if value, ok := tc.mutation.Name(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -176,6 +238,14 @@ func (tc *TenantCreate) createSpec() (*Tenant, *sqlgraph.CreateSpec) {
 		})
 		_node.Name = value
 	}
+	if value, ok := tc.mutation.Code(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldCode,
+		})
+		_node.Code = value
+	}
 	if value, ok := tc.mutation.Enabled(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
@@ -183,6 +253,38 @@ func (tc *TenantCreate) createSpec() (*Tenant, *sqlgraph.CreateSpec) {
 			Column: tenant.FieldEnabled,
 		})
 		_node.Enabled = value
+	}
+	if value, ok := tc.mutation.Region(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldRegion,
+		})
+		_node.Region = value
+	}
+	if value, ok := tc.mutation.Address(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldAddress,
+		})
+		_node.Address = value
+	}
+	if value, ok := tc.mutation.UserName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldUserName,
+		})
+		_node.UserName = value
+	}
+	if value, ok := tc.mutation.Phone(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: tenant.FieldPhone,
+		})
+		_node.Phone = value
 	}
 	if value, ok := tc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

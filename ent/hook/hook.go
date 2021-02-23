@@ -34,6 +34,19 @@ func (f AbortionFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, er
 	return f(ctx, mv)
 }
 
+// The AbortionReasonFunc type is an adapter to allow the use of ordinary
+// function as AbortionReason mutator.
+type AbortionReasonFunc func(context.Context, *ent.AbortionReasonMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f AbortionReasonFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.AbortionReasonMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.AbortionReasonMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The AbortionTypeFunc type is an adapter to allow the use of ordinary
 // function as AbortionType mutator.
 type AbortionTypeFunc func(context.Context, *ent.AbortionTypeMutation) (ent.Value, error)
@@ -160,6 +173,19 @@ func (f CattleFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, erro
 	mv, ok := m.(*ent.CattleMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CattleMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The CattleBreedFunc type is an adapter to allow the use of ordinary
+// function as CattleBreed mutator.
+type CattleBreedFunc func(context.Context, *ent.CattleBreedMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CattleBreedFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.CattleBreedMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CattleBreedMutation", m)
 	}
 	return f(ctx, mv)
 }
@@ -307,6 +333,19 @@ func (f CattleMoveFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, 
 	return f(ctx, mv)
 }
 
+// The CattleMoveReasonFunc type is an adapter to allow the use of ordinary
+// function as CattleMoveReason mutator.
+type CattleMoveReasonFunc func(context.Context, *ent.CattleMoveReasonMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CattleMoveReasonFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.CattleMoveReasonMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CattleMoveReasonMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The CattleOutFunc type is an adapter to allow the use of ordinary
 // function as CattleOut mutator.
 type CattleOutFunc func(context.Context, *ent.CattleOutMutation) (ent.Value, error)
@@ -394,6 +433,32 @@ func (f ConfFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error)
 	mv, ok := m.(*ent.ConfMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ConfMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The CustomerFunc type is an adapter to allow the use of ordinary
+// function as Customer mutator.
+type CustomerFunc func(context.Context, *ent.CustomerMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f CustomerFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.CustomerMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.CustomerMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The DiseaseInfoFunc type is an adapter to allow the use of ordinary
+// function as DiseaseInfo mutator.
+type DiseaseInfoFunc func(context.Context, *ent.DiseaseInfoMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f DiseaseInfoFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.DiseaseInfoMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.DiseaseInfoMutation", m)
 	}
 	return f(ctx, mv)
 }
@@ -528,6 +593,19 @@ func (f FeedGroupFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, e
 	return f(ctx, mv)
 }
 
+// The FeedInfoFunc type is an adapter to allow the use of ordinary
+// function as FeedInfo mutator.
+type FeedInfoFunc func(context.Context, *ent.FeedInfoMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f FeedInfoFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.FeedInfoMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.FeedInfoMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The FeedRecordFunc type is an adapter to allow the use of ordinary
 // function as FeedRecord mutator.
 type FeedRecordFunc func(context.Context, *ent.FeedRecordMutation) (ent.Value, error)
@@ -537,6 +615,19 @@ func (f FeedRecordFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, 
 	mv, ok := m.(*ent.FeedRecordMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.FeedRecordMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The FrozenSemenInfoFunc type is an adapter to allow the use of ordinary
+// function as FrozenSemenInfo mutator.
+type FrozenSemenInfoFunc func(context.Context, *ent.FrozenSemenInfoMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f FrozenSemenInfoFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.FrozenSemenInfoMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.FrozenSemenInfoMutation", m)
 	}
 	return f(ctx, mv)
 }
@@ -749,6 +840,19 @@ func (f RationFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, erro
 	return f(ctx, mv)
 }
 
+// The ReproductionParametersFunc type is an adapter to allow the use of ordinary
+// function as ReproductionParameters mutator.
+type ReproductionParametersFunc func(context.Context, *ent.ReproductionParametersMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f ReproductionParametersFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.ReproductionParametersMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ReproductionParametersMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The ReproductiveStateFunc type is an adapter to allow the use of ordinary
 // function as ReproductiveState mutator.
 type ReproductiveStateFunc func(context.Context, *ent.ReproductiveStateMutation) (ent.Value, error)
@@ -797,6 +901,19 @@ func (f ShedCategoryFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value
 	mv, ok := m.(*ent.ShedCategoryMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ShedCategoryMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The ShedSettingFunc type is an adapter to allow the use of ordinary
+// function as ShedSetting mutator.
+type ShedSettingFunc func(context.Context, *ent.ShedSettingMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f ShedSettingFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.ShedSettingMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ShedSettingMutation", m)
 	}
 	return f(ctx, mv)
 }
@@ -875,6 +992,32 @@ func (f UserFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error)
 	mv, ok := m.(*ent.UserMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.UserMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The VeterinaryDrugsInfoFunc type is an adapter to allow the use of ordinary
+// function as VeterinaryDrugsInfo mutator.
+type VeterinaryDrugsInfoFunc func(context.Context, *ent.VeterinaryDrugsInfoMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f VeterinaryDrugsInfoFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.VeterinaryDrugsInfoMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.VeterinaryDrugsInfoMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The WarehouseSettingFunc type is an adapter to allow the use of ordinary
+// function as WarehouseSetting mutator.
+type WarehouseSettingFunc func(context.Context, *ent.WarehouseSettingMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f WarehouseSettingFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.WarehouseSettingMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.WarehouseSettingMutation", m)
 	}
 	return f(ctx, mv)
 }

@@ -25,6 +25,54 @@ func (stc *ShedTypeCreate) SetName(s string) *ShedTypeCreate {
 	return stc
 }
 
+// SetCode sets the code field.
+func (stc *ShedTypeCreate) SetCode(s string) *ShedTypeCreate {
+	stc.mutation.SetCode(s)
+	return stc
+}
+
+// SetTenantId sets the tenantId field.
+func (stc *ShedTypeCreate) SetTenantId(i int64) *ShedTypeCreate {
+	stc.mutation.SetTenantId(i)
+	return stc
+}
+
+// SetTenantName sets the tenantName field.
+func (stc *ShedTypeCreate) SetTenantName(s string) *ShedTypeCreate {
+	stc.mutation.SetTenantName(s)
+	return stc
+}
+
+// SetOrder sets the order field.
+func (stc *ShedTypeCreate) SetOrder(i int) *ShedTypeCreate {
+	stc.mutation.SetOrder(i)
+	return stc
+}
+
+// SetRemarks sets the remarks field.
+func (stc *ShedTypeCreate) SetRemarks(s string) *ShedTypeCreate {
+	stc.mutation.SetRemarks(s)
+	return stc
+}
+
+// SetCreatedAt sets the createdAt field.
+func (stc *ShedTypeCreate) SetCreatedAt(i int64) *ShedTypeCreate {
+	stc.mutation.SetCreatedAt(i)
+	return stc
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (stc *ShedTypeCreate) SetUpdatedAt(i int64) *ShedTypeCreate {
+	stc.mutation.SetUpdatedAt(i)
+	return stc
+}
+
+// SetDeleted sets the deleted field.
+func (stc *ShedTypeCreate) SetDeleted(i int) *ShedTypeCreate {
+	stc.mutation.SetDeleted(i)
+	return stc
+}
+
 // Mutation returns the ShedTypeMutation object of the builder.
 func (stc *ShedTypeCreate) Mutation() *ShedTypeMutation {
 	return stc.mutation
@@ -79,6 +127,30 @@ func (stc *ShedTypeCreate) check() error {
 	if _, ok := stc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
 	}
+	if _, ok := stc.mutation.Code(); !ok {
+		return &ValidationError{Name: "code", err: errors.New("ent: missing required field \"code\"")}
+	}
+	if _, ok := stc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := stc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := stc.mutation.Order(); !ok {
+		return &ValidationError{Name: "order", err: errors.New("ent: missing required field \"order\"")}
+	}
+	if _, ok := stc.mutation.Remarks(); !ok {
+		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
+	}
+	if _, ok := stc.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "createdAt", err: errors.New("ent: missing required field \"createdAt\"")}
+	}
+	if _, ok := stc.mutation.UpdatedAt(); !ok {
+		return &ValidationError{Name: "updatedAt", err: errors.New("ent: missing required field \"updatedAt\"")}
+	}
+	if _, ok := stc.mutation.Deleted(); !ok {
+		return &ValidationError{Name: "deleted", err: errors.New("ent: missing required field \"deleted\"")}
+	}
 	return nil
 }
 
@@ -113,6 +185,70 @@ func (stc *ShedTypeCreate) createSpec() (*ShedType, *sqlgraph.CreateSpec) {
 			Column: shedtype.FieldName,
 		})
 		_node.Name = value
+	}
+	if value, ok := stc.mutation.Code(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: shedtype.FieldCode,
+		})
+		_node.Code = value
+	}
+	if value, ok := stc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shedtype.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := stc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: shedtype.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := stc.mutation.Order(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: shedtype.FieldOrder,
+		})
+		_node.Order = value
+	}
+	if value, ok := stc.mutation.Remarks(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: shedtype.FieldRemarks,
+		})
+		_node.Remarks = value
+	}
+	if value, ok := stc.mutation.CreatedAt(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shedtype.FieldCreatedAt,
+		})
+		_node.CreatedAt = value
+	}
+	if value, ok := stc.mutation.UpdatedAt(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shedtype.FieldUpdatedAt,
+		})
+		_node.UpdatedAt = value
+	}
+	if value, ok := stc.mutation.Deleted(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: shedtype.FieldDeleted,
+		})
+		_node.Deleted = value
 	}
 	return _node, _spec
 }

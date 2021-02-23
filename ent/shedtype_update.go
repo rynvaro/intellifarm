@@ -33,6 +33,89 @@ func (stu *ShedTypeUpdate) SetName(s string) *ShedTypeUpdate {
 	return stu
 }
 
+// SetCode sets the code field.
+func (stu *ShedTypeUpdate) SetCode(s string) *ShedTypeUpdate {
+	stu.mutation.SetCode(s)
+	return stu
+}
+
+// SetTenantId sets the tenantId field.
+func (stu *ShedTypeUpdate) SetTenantId(i int64) *ShedTypeUpdate {
+	stu.mutation.ResetTenantId()
+	stu.mutation.SetTenantId(i)
+	return stu
+}
+
+// AddTenantId adds i to tenantId.
+func (stu *ShedTypeUpdate) AddTenantId(i int64) *ShedTypeUpdate {
+	stu.mutation.AddTenantId(i)
+	return stu
+}
+
+// SetTenantName sets the tenantName field.
+func (stu *ShedTypeUpdate) SetTenantName(s string) *ShedTypeUpdate {
+	stu.mutation.SetTenantName(s)
+	return stu
+}
+
+// SetOrder sets the order field.
+func (stu *ShedTypeUpdate) SetOrder(i int) *ShedTypeUpdate {
+	stu.mutation.ResetOrder()
+	stu.mutation.SetOrder(i)
+	return stu
+}
+
+// AddOrder adds i to order.
+func (stu *ShedTypeUpdate) AddOrder(i int) *ShedTypeUpdate {
+	stu.mutation.AddOrder(i)
+	return stu
+}
+
+// SetRemarks sets the remarks field.
+func (stu *ShedTypeUpdate) SetRemarks(s string) *ShedTypeUpdate {
+	stu.mutation.SetRemarks(s)
+	return stu
+}
+
+// SetCreatedAt sets the createdAt field.
+func (stu *ShedTypeUpdate) SetCreatedAt(i int64) *ShedTypeUpdate {
+	stu.mutation.ResetCreatedAt()
+	stu.mutation.SetCreatedAt(i)
+	return stu
+}
+
+// AddCreatedAt adds i to createdAt.
+func (stu *ShedTypeUpdate) AddCreatedAt(i int64) *ShedTypeUpdate {
+	stu.mutation.AddCreatedAt(i)
+	return stu
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (stu *ShedTypeUpdate) SetUpdatedAt(i int64) *ShedTypeUpdate {
+	stu.mutation.ResetUpdatedAt()
+	stu.mutation.SetUpdatedAt(i)
+	return stu
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (stu *ShedTypeUpdate) AddUpdatedAt(i int64) *ShedTypeUpdate {
+	stu.mutation.AddUpdatedAt(i)
+	return stu
+}
+
+// SetDeleted sets the deleted field.
+func (stu *ShedTypeUpdate) SetDeleted(i int) *ShedTypeUpdate {
+	stu.mutation.ResetDeleted()
+	stu.mutation.SetDeleted(i)
+	return stu
+}
+
+// AddDeleted adds i to deleted.
+func (stu *ShedTypeUpdate) AddDeleted(i int) *ShedTypeUpdate {
+	stu.mutation.AddDeleted(i)
+	return stu
+}
+
 // Mutation returns the ShedTypeMutation object of the builder.
 func (stu *ShedTypeUpdate) Mutation() *ShedTypeMutation {
 	return stu.mutation
@@ -114,6 +197,97 @@ func (stu *ShedTypeUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: shedtype.FieldName,
 		})
 	}
+	if value, ok := stu.mutation.Code(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: shedtype.FieldCode,
+		})
+	}
+	if value, ok := stu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shedtype.FieldTenantId,
+		})
+	}
+	if value, ok := stu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shedtype.FieldTenantId,
+		})
+	}
+	if value, ok := stu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: shedtype.FieldTenantName,
+		})
+	}
+	if value, ok := stu.mutation.Order(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: shedtype.FieldOrder,
+		})
+	}
+	if value, ok := stu.mutation.AddedOrder(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: shedtype.FieldOrder,
+		})
+	}
+	if value, ok := stu.mutation.Remarks(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: shedtype.FieldRemarks,
+		})
+	}
+	if value, ok := stu.mutation.CreatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shedtype.FieldCreatedAt,
+		})
+	}
+	if value, ok := stu.mutation.AddedCreatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shedtype.FieldCreatedAt,
+		})
+	}
+	if value, ok := stu.mutation.UpdatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shedtype.FieldUpdatedAt,
+		})
+	}
+	if value, ok := stu.mutation.AddedUpdatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shedtype.FieldUpdatedAt,
+		})
+	}
+	if value, ok := stu.mutation.Deleted(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: shedtype.FieldDeleted,
+		})
+	}
+	if value, ok := stu.mutation.AddedDeleted(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: shedtype.FieldDeleted,
+		})
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, stu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{shedtype.Label}
@@ -135,6 +309,89 @@ type ShedTypeUpdateOne struct {
 // SetName sets the name field.
 func (stuo *ShedTypeUpdateOne) SetName(s string) *ShedTypeUpdateOne {
 	stuo.mutation.SetName(s)
+	return stuo
+}
+
+// SetCode sets the code field.
+func (stuo *ShedTypeUpdateOne) SetCode(s string) *ShedTypeUpdateOne {
+	stuo.mutation.SetCode(s)
+	return stuo
+}
+
+// SetTenantId sets the tenantId field.
+func (stuo *ShedTypeUpdateOne) SetTenantId(i int64) *ShedTypeUpdateOne {
+	stuo.mutation.ResetTenantId()
+	stuo.mutation.SetTenantId(i)
+	return stuo
+}
+
+// AddTenantId adds i to tenantId.
+func (stuo *ShedTypeUpdateOne) AddTenantId(i int64) *ShedTypeUpdateOne {
+	stuo.mutation.AddTenantId(i)
+	return stuo
+}
+
+// SetTenantName sets the tenantName field.
+func (stuo *ShedTypeUpdateOne) SetTenantName(s string) *ShedTypeUpdateOne {
+	stuo.mutation.SetTenantName(s)
+	return stuo
+}
+
+// SetOrder sets the order field.
+func (stuo *ShedTypeUpdateOne) SetOrder(i int) *ShedTypeUpdateOne {
+	stuo.mutation.ResetOrder()
+	stuo.mutation.SetOrder(i)
+	return stuo
+}
+
+// AddOrder adds i to order.
+func (stuo *ShedTypeUpdateOne) AddOrder(i int) *ShedTypeUpdateOne {
+	stuo.mutation.AddOrder(i)
+	return stuo
+}
+
+// SetRemarks sets the remarks field.
+func (stuo *ShedTypeUpdateOne) SetRemarks(s string) *ShedTypeUpdateOne {
+	stuo.mutation.SetRemarks(s)
+	return stuo
+}
+
+// SetCreatedAt sets the createdAt field.
+func (stuo *ShedTypeUpdateOne) SetCreatedAt(i int64) *ShedTypeUpdateOne {
+	stuo.mutation.ResetCreatedAt()
+	stuo.mutation.SetCreatedAt(i)
+	return stuo
+}
+
+// AddCreatedAt adds i to createdAt.
+func (stuo *ShedTypeUpdateOne) AddCreatedAt(i int64) *ShedTypeUpdateOne {
+	stuo.mutation.AddCreatedAt(i)
+	return stuo
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (stuo *ShedTypeUpdateOne) SetUpdatedAt(i int64) *ShedTypeUpdateOne {
+	stuo.mutation.ResetUpdatedAt()
+	stuo.mutation.SetUpdatedAt(i)
+	return stuo
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (stuo *ShedTypeUpdateOne) AddUpdatedAt(i int64) *ShedTypeUpdateOne {
+	stuo.mutation.AddUpdatedAt(i)
+	return stuo
+}
+
+// SetDeleted sets the deleted field.
+func (stuo *ShedTypeUpdateOne) SetDeleted(i int) *ShedTypeUpdateOne {
+	stuo.mutation.ResetDeleted()
+	stuo.mutation.SetDeleted(i)
+	return stuo
+}
+
+// AddDeleted adds i to deleted.
+func (stuo *ShedTypeUpdateOne) AddDeleted(i int) *ShedTypeUpdateOne {
+	stuo.mutation.AddDeleted(i)
 	return stuo
 }
 
@@ -215,6 +472,97 @@ func (stuo *ShedTypeUpdateOne) sqlSave(ctx context.Context) (_node *ShedType, er
 			Type:   field.TypeString,
 			Value:  value,
 			Column: shedtype.FieldName,
+		})
+	}
+	if value, ok := stuo.mutation.Code(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: shedtype.FieldCode,
+		})
+	}
+	if value, ok := stuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shedtype.FieldTenantId,
+		})
+	}
+	if value, ok := stuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shedtype.FieldTenantId,
+		})
+	}
+	if value, ok := stuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: shedtype.FieldTenantName,
+		})
+	}
+	if value, ok := stuo.mutation.Order(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: shedtype.FieldOrder,
+		})
+	}
+	if value, ok := stuo.mutation.AddedOrder(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: shedtype.FieldOrder,
+		})
+	}
+	if value, ok := stuo.mutation.Remarks(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: shedtype.FieldRemarks,
+		})
+	}
+	if value, ok := stuo.mutation.CreatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shedtype.FieldCreatedAt,
+		})
+	}
+	if value, ok := stuo.mutation.AddedCreatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shedtype.FieldCreatedAt,
+		})
+	}
+	if value, ok := stuo.mutation.UpdatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shedtype.FieldUpdatedAt,
+		})
+	}
+	if value, ok := stuo.mutation.AddedUpdatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: shedtype.FieldUpdatedAt,
+		})
+	}
+	if value, ok := stuo.mutation.Deleted(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: shedtype.FieldDeleted,
+		})
+	}
+	if value, ok := stuo.mutation.AddedDeleted(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: shedtype.FieldDeleted,
 		})
 	}
 	_node = &ShedType{config: stuo.config}

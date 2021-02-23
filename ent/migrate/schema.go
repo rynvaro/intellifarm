@@ -60,6 +60,26 @@ var (
 		PrimaryKey:  []*schema.Column{AbortionsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// AbortionReasonsColumns holds the columns for the "abortion_reasons" table.
+	AbortionReasonsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "order", Type: field.TypeInt},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// AbortionReasonsTable holds the schema information for the "abortion_reasons" table.
+	AbortionReasonsTable = &schema.Table{
+		Name:        "abortion_reasons",
+		Columns:     AbortionReasonsColumns,
+		PrimaryKey:  []*schema.Column{AbortionReasonsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// AbortionTypesColumns holds the columns for the "abortion_types" table.
 	AbortionTypesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -293,6 +313,26 @@ var (
 		PrimaryKey:  []*schema.Column{CattlesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// CattleBreedsColumns holds the columns for the "cattle_breeds" table.
+	CattleBreedsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "order", Type: field.TypeInt},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// CattleBreedsTable holds the schema information for the "cattle_breeds" table.
+	CattleBreedsTable = &schema.Table{
+		Name:        "cattle_breeds",
+		Columns:     CattleBreedsColumns,
+		PrimaryKey:  []*schema.Column{CattleBreedsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// CattleCatesColumns holds the columns for the "cattle_cates" table.
 	CattleCatesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -447,6 +487,14 @@ var (
 	CattleHairColorsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "order", Type: field.TypeInt},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
 	}
 	// CattleHairColorsTable holds the schema information for the "cattle_hair_colors" table.
 	CattleHairColorsTable = &schema.Table{
@@ -513,6 +561,26 @@ var (
 		Name:        "cattle_moves",
 		Columns:     CattleMovesColumns,
 		PrimaryKey:  []*schema.Column{CattleMovesColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// CattleMoveReasonsColumns holds the columns for the "cattle_move_reasons" table.
+	CattleMoveReasonsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "order", Type: field.TypeInt},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// CattleMoveReasonsTable holds the schema information for the "cattle_move_reasons" table.
+	CattleMoveReasonsTable = &schema.Table{
+		Name:        "cattle_move_reasons",
+		Columns:     CattleMoveReasonsColumns,
+		PrimaryKey:  []*schema.Column{CattleMoveReasonsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// CattleOutsColumns holds the columns for the "cattle_outs" table.
@@ -636,6 +704,53 @@ var (
 		Name:        "confs",
 		Columns:     ConfsColumns,
 		PrimaryKey:  []*schema.Column{ConfsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// CustomersColumns holds the columns for the "customers" table.
+	CustomersColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "type", Type: field.TypeString},
+		{Name: "gender", Type: field.TypeString},
+		{Name: "province", Type: field.TypeString},
+		{Name: "phone", Type: field.TypeString},
+		{Name: "address", Type: field.TypeString},
+		{Name: "email", Type: field.TypeString},
+		{Name: "bank", Type: field.TypeString},
+		{Name: "account", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// CustomersTable holds the schema information for the "customers" table.
+	CustomersTable = &schema.Table{
+		Name:        "customers",
+		Columns:     CustomersColumns,
+		PrimaryKey:  []*schema.Column{CustomersColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// DiseaseInfosColumns holds the columns for the "disease_infos" table.
+	DiseaseInfosColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "type", Type: field.TypeString},
+		{Name: "description", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// DiseaseInfosTable holds the schema information for the "disease_infos" table.
+	DiseaseInfosTable = &schema.Table{
+		Name:        "disease_infos",
+		Columns:     DiseaseInfosColumns,
+		PrimaryKey:  []*schema.Column{DiseaseInfosColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// DisinfectsColumns holds the columns for the "disinfects" table.
@@ -828,6 +943,27 @@ var (
 		PrimaryKey:  []*schema.Column{FeedGroupsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// FeedInfosColumns holds the columns for the "feed_infos" table.
+	FeedInfosColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "type", Type: field.TypeString},
+		{Name: "description", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// FeedInfosTable holds the schema information for the "feed_infos" table.
+	FeedInfosTable = &schema.Table{
+		Name:        "feed_infos",
+		Columns:     FeedInfosColumns,
+		PrimaryKey:  []*schema.Column{FeedInfosColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// FeedRecordsColumns holds the columns for the "feed_records" table.
 	FeedRecordsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -851,6 +987,30 @@ var (
 		Name:        "feed_records",
 		Columns:     FeedRecordsColumns,
 		PrimaryKey:  []*schema.Column{FeedRecordsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// FrozenSemenInfosColumns holds the columns for the "frozen_semen_infos" table.
+	FrozenSemenInfosColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString, Nullable: true},
+		{Name: "code", Type: field.TypeString},
+		{Name: "type", Type: field.TypeString},
+		{Name: "reg_code", Type: field.TypeString},
+		{Name: "bull_number", Type: field.TypeString},
+		{Name: "birthday", Type: field.TypeInt64},
+		{Name: "from", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// FrozenSemenInfosTable holds the schema information for the "frozen_semen_infos" table.
+	FrozenSemenInfosTable = &schema.Table{
+		Name:        "frozen_semen_infos",
+		Columns:     FrozenSemenInfosColumns,
+		PrimaryKey:  []*schema.Column{FrozenSemenInfosColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
 	// HairStatesColumns holds the columns for the "hair_states" table.
@@ -1069,6 +1229,14 @@ var (
 	PositionsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64, Default: 1},
+		{Name: "tenant_name", Type: field.TypeString, Default: "SYSTEM"},
+		{Name: "order", Type: field.TypeInt},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
 	}
 	// PositionsTable holds the schema information for the "positions" table.
 	PositionsTable = &schema.Table{
@@ -1181,6 +1349,26 @@ var (
 		PrimaryKey:  []*schema.Column{RationsColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// ReproductionParametersColumns holds the columns for the "reproduction_parameters" table.
+	ReproductionParametersColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "value", Type: field.TypeInt64},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// ReproductionParametersTable holds the schema information for the "reproduction_parameters" table.
+	ReproductionParametersTable = &schema.Table{
+		Name:        "reproduction_parameters",
+		Columns:     ReproductionParametersColumns,
+		PrimaryKey:  []*schema.Column{ReproductionParametersColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// ReproductiveStatesColumns holds the columns for the "reproductive_states" table.
 	ReproductiveStatesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -1247,6 +1435,26 @@ var (
 		PrimaryKey:  []*schema.Column{ShedCategoriesColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// ShedSettingsColumns holds the columns for the "shed_settings" table.
+	ShedSettingsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "type", Type: field.TypeString},
+		{Name: "seats", Type: field.TypeInt64},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// ShedSettingsTable holds the schema information for the "shed_settings" table.
+	ShedSettingsTable = &schema.Table{
+		Name:        "shed_settings",
+		Columns:     ShedSettingsColumns,
+		PrimaryKey:  []*schema.Column{ShedSettingsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// ShedTransColumns holds the columns for the "shed_trans" table.
 	ShedTransColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -1262,6 +1470,14 @@ var (
 	ShedTypesColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "order", Type: field.TypeInt},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
 	}
 	// ShedTypesTable holds the schema information for the "shed_types" table.
 	ShedTypesTable = &schema.Table{
@@ -1273,8 +1489,14 @@ var (
 	// TenantsColumns holds the columns for the "tenants" table.
 	TenantsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "company", Type: field.TypeString},
 		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
 		{Name: "enabled", Type: field.TypeInt},
+		{Name: "region", Type: field.TypeString},
+		{Name: "address", Type: field.TypeString},
+		{Name: "user_name", Type: field.TypeString},
+		{Name: "phone", Type: field.TypeString},
 		{Name: "remarks", Type: field.TypeString},
 		{Name: "deleted", Type: field.TypeInt},
 		{Name: "created_at", Type: field.TypeInt64},
@@ -1345,6 +1567,46 @@ var (
 		PrimaryKey:  []*schema.Column{UsersColumns[0]},
 		ForeignKeys: []*schema.ForeignKey{},
 	}
+	// VeterinaryDrugsInfosColumns holds the columns for the "veterinary_drugs_infos" table.
+	VeterinaryDrugsInfosColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "code", Type: field.TypeString},
+		{Name: "type", Type: field.TypeString},
+		{Name: "stop_at", Type: field.TypeInt64},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// VeterinaryDrugsInfosTable holds the schema information for the "veterinary_drugs_infos" table.
+	VeterinaryDrugsInfosTable = &schema.Table{
+		Name:        "veterinary_drugs_infos",
+		Columns:     VeterinaryDrugsInfosColumns,
+		PrimaryKey:  []*schema.Column{VeterinaryDrugsInfosColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
+	// WarehouseSettingsColumns holds the columns for the "warehouse_settings" table.
+	WarehouseSettingsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "name", Type: field.TypeString},
+		{Name: "type", Type: field.TypeString},
+		{Name: "tenant_id", Type: field.TypeInt64},
+		{Name: "tenant_name", Type: field.TypeString},
+		{Name: "remarks", Type: field.TypeString},
+		{Name: "created_at", Type: field.TypeInt64},
+		{Name: "updated_at", Type: field.TypeInt64},
+		{Name: "deleted", Type: field.TypeInt},
+	}
+	// WarehouseSettingsTable holds the schema information for the "warehouse_settings" table.
+	WarehouseSettingsTable = &schema.Table{
+		Name:        "warehouse_settings",
+		Columns:     WarehouseSettingsColumns,
+		PrimaryKey:  []*schema.Column{WarehouseSettingsColumns[0]},
+		ForeignKeys: []*schema.ForeignKey{},
+	}
 	// WhereaboutsColumns holds the columns for the "whereabouts" table.
 	WhereaboutsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
@@ -1373,6 +1635,7 @@ var (
 	Tables = []*schema.Table{
 		ApIsTable,
 		AbortionsTable,
+		AbortionReasonsTable,
 		AbortionTypesTable,
 		BirthSurroundingsTable,
 		BreathRatesTable,
@@ -1383,6 +1646,7 @@ var (
 		CalveTypesTable,
 		CategoriesTable,
 		CattlesTable,
+		CattleBreedsTable,
 		CattleCatesTable,
 		CattleDiesTable,
 		CattleGendersTable,
@@ -1394,6 +1658,7 @@ var (
 		CattleInsTable,
 		CattleJoinedTypesTable,
 		CattleMovesTable,
+		CattleMoveReasonsTable,
 		CattleOutsTable,
 		CattleOwnersTable,
 		CattleTypesTable,
@@ -1401,6 +1666,8 @@ var (
 		ConcentrateFormulasTable,
 		ConcentrateProcessesTable,
 		ConfsTable,
+		CustomersTable,
+		DiseaseInfosTable,
 		DisinfectsTable,
 		DispencesTable,
 		DutiesTable,
@@ -1411,7 +1678,9 @@ var (
 		EventsTable,
 		FarmsTable,
 		FeedGroupsTable,
+		FeedInfosTable,
 		FeedRecordsTable,
+		FrozenSemenInfosTable,
 		HairStatesTable,
 		HealthCaresTable,
 		ImmunitiesTable,
@@ -1428,16 +1697,20 @@ var (
 		PregnancyTestResultsTable,
 		PregnancyTestTypesTable,
 		RationsTable,
+		ReproductionParametersTable,
 		ReproductiveStatesTable,
 		SemenFrozenTypesTable,
 		ShedsTable,
 		ShedCategoriesTable,
+		ShedSettingsTable,
 		ShedTransTable,
 		ShedTypesTable,
 		TenantsTable,
 		TreatmentResultsTable,
 		TreatmentStatesTable,
 		UsersTable,
+		VeterinaryDrugsInfosTable,
+		WarehouseSettingsTable,
 		WhereaboutsTable,
 		WindDirectionsTable,
 	}

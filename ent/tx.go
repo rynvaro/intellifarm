@@ -16,6 +16,8 @@ type Tx struct {
 	API *APIClient
 	// Abortion is the client for interacting with the Abortion builders.
 	Abortion *AbortionClient
+	// AbortionReason is the client for interacting with the AbortionReason builders.
+	AbortionReason *AbortionReasonClient
 	// AbortionType is the client for interacting with the AbortionType builders.
 	AbortionType *AbortionTypeClient
 	// BirthSurrounding is the client for interacting with the BirthSurrounding builders.
@@ -36,6 +38,8 @@ type Tx struct {
 	Category *CategoryClient
 	// Cattle is the client for interacting with the Cattle builders.
 	Cattle *CattleClient
+	// CattleBreed is the client for interacting with the CattleBreed builders.
+	CattleBreed *CattleBreedClient
 	// CattleCate is the client for interacting with the CattleCate builders.
 	CattleCate *CattleCateClient
 	// CattleDie is the client for interacting with the CattleDie builders.
@@ -58,6 +62,8 @@ type Tx struct {
 	CattleJoinedType *CattleJoinedTypeClient
 	// CattleMove is the client for interacting with the CattleMove builders.
 	CattleMove *CattleMoveClient
+	// CattleMoveReason is the client for interacting with the CattleMoveReason builders.
+	CattleMoveReason *CattleMoveReasonClient
 	// CattleOut is the client for interacting with the CattleOut builders.
 	CattleOut *CattleOutClient
 	// CattleOwner is the client for interacting with the CattleOwner builders.
@@ -72,6 +78,10 @@ type Tx struct {
 	ConcentrateProcess *ConcentrateProcessClient
 	// Conf is the client for interacting with the Conf builders.
 	Conf *ConfClient
+	// Customer is the client for interacting with the Customer builders.
+	Customer *CustomerClient
+	// DiseaseInfo is the client for interacting with the DiseaseInfo builders.
+	DiseaseInfo *DiseaseInfoClient
 	// Disinfect is the client for interacting with the Disinfect builders.
 	Disinfect *DisinfectClient
 	// Dispence is the client for interacting with the Dispence builders.
@@ -92,8 +102,12 @@ type Tx struct {
 	Farm *FarmClient
 	// FeedGroup is the client for interacting with the FeedGroup builders.
 	FeedGroup *FeedGroupClient
+	// FeedInfo is the client for interacting with the FeedInfo builders.
+	FeedInfo *FeedInfoClient
 	// FeedRecord is the client for interacting with the FeedRecord builders.
 	FeedRecord *FeedRecordClient
+	// FrozenSemenInfo is the client for interacting with the FrozenSemenInfo builders.
+	FrozenSemenInfo *FrozenSemenInfoClient
 	// HairState is the client for interacting with the HairState builders.
 	HairState *HairStateClient
 	// HealthCare is the client for interacting with the HealthCare builders.
@@ -126,6 +140,8 @@ type Tx struct {
 	PregnancyTestType *PregnancyTestTypeClient
 	// Ration is the client for interacting with the Ration builders.
 	Ration *RationClient
+	// ReproductionParameters is the client for interacting with the ReproductionParameters builders.
+	ReproductionParameters *ReproductionParametersClient
 	// ReproductiveState is the client for interacting with the ReproductiveState builders.
 	ReproductiveState *ReproductiveStateClient
 	// SemenFrozenType is the client for interacting with the SemenFrozenType builders.
@@ -134,6 +150,8 @@ type Tx struct {
 	Shed *ShedClient
 	// ShedCategory is the client for interacting with the ShedCategory builders.
 	ShedCategory *ShedCategoryClient
+	// ShedSetting is the client for interacting with the ShedSetting builders.
+	ShedSetting *ShedSettingClient
 	// ShedTrans is the client for interacting with the ShedTrans builders.
 	ShedTrans *ShedTransClient
 	// ShedType is the client for interacting with the ShedType builders.
@@ -146,6 +164,10 @@ type Tx struct {
 	TreatmentState *TreatmentStateClient
 	// User is the client for interacting with the User builders.
 	User *UserClient
+	// VeterinaryDrugsInfo is the client for interacting with the VeterinaryDrugsInfo builders.
+	VeterinaryDrugsInfo *VeterinaryDrugsInfoClient
+	// WarehouseSetting is the client for interacting with the WarehouseSetting builders.
+	WarehouseSetting *WarehouseSettingClient
 	// Whereabouts is the client for interacting with the Whereabouts builders.
 	Whereabouts *WhereaboutsClient
 	// WindDirection is the client for interacting with the WindDirection builders.
@@ -287,6 +309,7 @@ func (tx *Tx) Client() *Client {
 func (tx *Tx) init() {
 	tx.API = NewAPIClient(tx.config)
 	tx.Abortion = NewAbortionClient(tx.config)
+	tx.AbortionReason = NewAbortionReasonClient(tx.config)
 	tx.AbortionType = NewAbortionTypeClient(tx.config)
 	tx.BirthSurrounding = NewBirthSurroundingClient(tx.config)
 	tx.BreathRate = NewBreathRateClient(tx.config)
@@ -297,6 +320,7 @@ func (tx *Tx) init() {
 	tx.CalveType = NewCalveTypeClient(tx.config)
 	tx.Category = NewCategoryClient(tx.config)
 	tx.Cattle = NewCattleClient(tx.config)
+	tx.CattleBreed = NewCattleBreedClient(tx.config)
 	tx.CattleCate = NewCattleCateClient(tx.config)
 	tx.CattleDie = NewCattleDieClient(tx.config)
 	tx.CattleGender = NewCattleGenderClient(tx.config)
@@ -308,6 +332,7 @@ func (tx *Tx) init() {
 	tx.CattleIn = NewCattleInClient(tx.config)
 	tx.CattleJoinedType = NewCattleJoinedTypeClient(tx.config)
 	tx.CattleMove = NewCattleMoveClient(tx.config)
+	tx.CattleMoveReason = NewCattleMoveReasonClient(tx.config)
 	tx.CattleOut = NewCattleOutClient(tx.config)
 	tx.CattleOwner = NewCattleOwnerClient(tx.config)
 	tx.CattleType = NewCattleTypeClient(tx.config)
@@ -315,6 +340,8 @@ func (tx *Tx) init() {
 	tx.ConcentrateFormula = NewConcentrateFormulaClient(tx.config)
 	tx.ConcentrateProcess = NewConcentrateProcessClient(tx.config)
 	tx.Conf = NewConfClient(tx.config)
+	tx.Customer = NewCustomerClient(tx.config)
+	tx.DiseaseInfo = NewDiseaseInfoClient(tx.config)
 	tx.Disinfect = NewDisinfectClient(tx.config)
 	tx.Dispence = NewDispenceClient(tx.config)
 	tx.Duty = NewDutyClient(tx.config)
@@ -325,7 +352,9 @@ func (tx *Tx) init() {
 	tx.Event = NewEventClient(tx.config)
 	tx.Farm = NewFarmClient(tx.config)
 	tx.FeedGroup = NewFeedGroupClient(tx.config)
+	tx.FeedInfo = NewFeedInfoClient(tx.config)
 	tx.FeedRecord = NewFeedRecordClient(tx.config)
+	tx.FrozenSemenInfo = NewFrozenSemenInfoClient(tx.config)
 	tx.HairState = NewHairStateClient(tx.config)
 	tx.HealthCare = NewHealthCareClient(tx.config)
 	tx.Immunity = NewImmunityClient(tx.config)
@@ -342,16 +371,20 @@ func (tx *Tx) init() {
 	tx.PregnancyTestResult = NewPregnancyTestResultClient(tx.config)
 	tx.PregnancyTestType = NewPregnancyTestTypeClient(tx.config)
 	tx.Ration = NewRationClient(tx.config)
+	tx.ReproductionParameters = NewReproductionParametersClient(tx.config)
 	tx.ReproductiveState = NewReproductiveStateClient(tx.config)
 	tx.SemenFrozenType = NewSemenFrozenTypeClient(tx.config)
 	tx.Shed = NewShedClient(tx.config)
 	tx.ShedCategory = NewShedCategoryClient(tx.config)
+	tx.ShedSetting = NewShedSettingClient(tx.config)
 	tx.ShedTrans = NewShedTransClient(tx.config)
 	tx.ShedType = NewShedTypeClient(tx.config)
 	tx.Tenant = NewTenantClient(tx.config)
 	tx.TreatmentResult = NewTreatmentResultClient(tx.config)
 	tx.TreatmentState = NewTreatmentStateClient(tx.config)
 	tx.User = NewUserClient(tx.config)
+	tx.VeterinaryDrugsInfo = NewVeterinaryDrugsInfoClient(tx.config)
+	tx.WarehouseSetting = NewWarehouseSettingClient(tx.config)
 	tx.Whereabouts = NewWhereaboutsClient(tx.config)
 	tx.WindDirection = NewWindDirectionClient(tx.config)
 }

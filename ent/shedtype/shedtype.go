@@ -9,6 +9,22 @@ const (
 	FieldID = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
+	// FieldCode holds the string denoting the code field in the database.
+	FieldCode = "code"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
+	// FieldOrder holds the string denoting the order field in the database.
+	FieldOrder = "order"
+	// FieldRemarks holds the string denoting the remarks field in the database.
+	FieldRemarks = "remarks"
+	// FieldCreatedAt holds the string denoting the createdat field in the database.
+	FieldCreatedAt = "created_at"
+	// FieldUpdatedAt holds the string denoting the updatedat field in the database.
+	FieldUpdatedAt = "updated_at"
+	// FieldDeleted holds the string denoting the deleted field in the database.
+	FieldDeleted = "deleted"
 
 	// Table holds the table name of the shedtype in the database.
 	Table = "shed_types"
@@ -18,6 +34,14 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldName,
+	FieldCode,
+	FieldTenantId,
+	FieldTenantName,
+	FieldOrder,
+	FieldRemarks,
+	FieldCreatedAt,
+	FieldUpdatedAt,
+	FieldDeleted,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).

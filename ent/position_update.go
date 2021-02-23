@@ -33,6 +33,105 @@ func (pu *PositionUpdate) SetName(s string) *PositionUpdate {
 	return pu
 }
 
+// SetCode sets the code field.
+func (pu *PositionUpdate) SetCode(s string) *PositionUpdate {
+	pu.mutation.SetCode(s)
+	return pu
+}
+
+// SetTenantId sets the tenantId field.
+func (pu *PositionUpdate) SetTenantId(i int64) *PositionUpdate {
+	pu.mutation.ResetTenantId()
+	pu.mutation.SetTenantId(i)
+	return pu
+}
+
+// SetNillableTenantId sets the tenantId field if the given value is not nil.
+func (pu *PositionUpdate) SetNillableTenantId(i *int64) *PositionUpdate {
+	if i != nil {
+		pu.SetTenantId(*i)
+	}
+	return pu
+}
+
+// AddTenantId adds i to tenantId.
+func (pu *PositionUpdate) AddTenantId(i int64) *PositionUpdate {
+	pu.mutation.AddTenantId(i)
+	return pu
+}
+
+// SetTenantName sets the tenantName field.
+func (pu *PositionUpdate) SetTenantName(s string) *PositionUpdate {
+	pu.mutation.SetTenantName(s)
+	return pu
+}
+
+// SetNillableTenantName sets the tenantName field if the given value is not nil.
+func (pu *PositionUpdate) SetNillableTenantName(s *string) *PositionUpdate {
+	if s != nil {
+		pu.SetTenantName(*s)
+	}
+	return pu
+}
+
+// SetOrder sets the order field.
+func (pu *PositionUpdate) SetOrder(i int) *PositionUpdate {
+	pu.mutation.ResetOrder()
+	pu.mutation.SetOrder(i)
+	return pu
+}
+
+// AddOrder adds i to order.
+func (pu *PositionUpdate) AddOrder(i int) *PositionUpdate {
+	pu.mutation.AddOrder(i)
+	return pu
+}
+
+// SetRemarks sets the remarks field.
+func (pu *PositionUpdate) SetRemarks(s string) *PositionUpdate {
+	pu.mutation.SetRemarks(s)
+	return pu
+}
+
+// SetCreatedAt sets the createdAt field.
+func (pu *PositionUpdate) SetCreatedAt(i int64) *PositionUpdate {
+	pu.mutation.ResetCreatedAt()
+	pu.mutation.SetCreatedAt(i)
+	return pu
+}
+
+// AddCreatedAt adds i to createdAt.
+func (pu *PositionUpdate) AddCreatedAt(i int64) *PositionUpdate {
+	pu.mutation.AddCreatedAt(i)
+	return pu
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (pu *PositionUpdate) SetUpdatedAt(i int64) *PositionUpdate {
+	pu.mutation.ResetUpdatedAt()
+	pu.mutation.SetUpdatedAt(i)
+	return pu
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (pu *PositionUpdate) AddUpdatedAt(i int64) *PositionUpdate {
+	pu.mutation.AddUpdatedAt(i)
+	return pu
+}
+
+// SetDeleted sets the deleted field.
+func (pu *PositionUpdate) SetDeleted(i int) *PositionUpdate {
+	pu.mutation.ResetDeleted()
+	pu.mutation.SetDeleted(i)
+	return pu
+}
+
+// AddDeleted adds i to deleted.
+func (pu *PositionUpdate) AddDeleted(i int) *PositionUpdate {
+	pu.mutation.AddDeleted(i)
+	return pu
+}
+
 // Mutation returns the PositionMutation object of the builder.
 func (pu *PositionUpdate) Mutation() *PositionMutation {
 	return pu.mutation
@@ -130,6 +229,97 @@ func (pu *PositionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: position.FieldName,
 		})
 	}
+	if value, ok := pu.mutation.Code(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: position.FieldCode,
+		})
+	}
+	if value, ok := pu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: position.FieldTenantId,
+		})
+	}
+	if value, ok := pu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: position.FieldTenantId,
+		})
+	}
+	if value, ok := pu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: position.FieldTenantName,
+		})
+	}
+	if value, ok := pu.mutation.Order(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: position.FieldOrder,
+		})
+	}
+	if value, ok := pu.mutation.AddedOrder(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: position.FieldOrder,
+		})
+	}
+	if value, ok := pu.mutation.Remarks(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: position.FieldRemarks,
+		})
+	}
+	if value, ok := pu.mutation.CreatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: position.FieldCreatedAt,
+		})
+	}
+	if value, ok := pu.mutation.AddedCreatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: position.FieldCreatedAt,
+		})
+	}
+	if value, ok := pu.mutation.UpdatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: position.FieldUpdatedAt,
+		})
+	}
+	if value, ok := pu.mutation.AddedUpdatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: position.FieldUpdatedAt,
+		})
+	}
+	if value, ok := pu.mutation.Deleted(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: position.FieldDeleted,
+		})
+	}
+	if value, ok := pu.mutation.AddedDeleted(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: position.FieldDeleted,
+		})
+	}
 	if n, err = sqlgraph.UpdateNodes(ctx, pu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{position.Label}
@@ -151,6 +341,105 @@ type PositionUpdateOne struct {
 // SetName sets the name field.
 func (puo *PositionUpdateOne) SetName(s string) *PositionUpdateOne {
 	puo.mutation.SetName(s)
+	return puo
+}
+
+// SetCode sets the code field.
+func (puo *PositionUpdateOne) SetCode(s string) *PositionUpdateOne {
+	puo.mutation.SetCode(s)
+	return puo
+}
+
+// SetTenantId sets the tenantId field.
+func (puo *PositionUpdateOne) SetTenantId(i int64) *PositionUpdateOne {
+	puo.mutation.ResetTenantId()
+	puo.mutation.SetTenantId(i)
+	return puo
+}
+
+// SetNillableTenantId sets the tenantId field if the given value is not nil.
+func (puo *PositionUpdateOne) SetNillableTenantId(i *int64) *PositionUpdateOne {
+	if i != nil {
+		puo.SetTenantId(*i)
+	}
+	return puo
+}
+
+// AddTenantId adds i to tenantId.
+func (puo *PositionUpdateOne) AddTenantId(i int64) *PositionUpdateOne {
+	puo.mutation.AddTenantId(i)
+	return puo
+}
+
+// SetTenantName sets the tenantName field.
+func (puo *PositionUpdateOne) SetTenantName(s string) *PositionUpdateOne {
+	puo.mutation.SetTenantName(s)
+	return puo
+}
+
+// SetNillableTenantName sets the tenantName field if the given value is not nil.
+func (puo *PositionUpdateOne) SetNillableTenantName(s *string) *PositionUpdateOne {
+	if s != nil {
+		puo.SetTenantName(*s)
+	}
+	return puo
+}
+
+// SetOrder sets the order field.
+func (puo *PositionUpdateOne) SetOrder(i int) *PositionUpdateOne {
+	puo.mutation.ResetOrder()
+	puo.mutation.SetOrder(i)
+	return puo
+}
+
+// AddOrder adds i to order.
+func (puo *PositionUpdateOne) AddOrder(i int) *PositionUpdateOne {
+	puo.mutation.AddOrder(i)
+	return puo
+}
+
+// SetRemarks sets the remarks field.
+func (puo *PositionUpdateOne) SetRemarks(s string) *PositionUpdateOne {
+	puo.mutation.SetRemarks(s)
+	return puo
+}
+
+// SetCreatedAt sets the createdAt field.
+func (puo *PositionUpdateOne) SetCreatedAt(i int64) *PositionUpdateOne {
+	puo.mutation.ResetCreatedAt()
+	puo.mutation.SetCreatedAt(i)
+	return puo
+}
+
+// AddCreatedAt adds i to createdAt.
+func (puo *PositionUpdateOne) AddCreatedAt(i int64) *PositionUpdateOne {
+	puo.mutation.AddCreatedAt(i)
+	return puo
+}
+
+// SetUpdatedAt sets the updatedAt field.
+func (puo *PositionUpdateOne) SetUpdatedAt(i int64) *PositionUpdateOne {
+	puo.mutation.ResetUpdatedAt()
+	puo.mutation.SetUpdatedAt(i)
+	return puo
+}
+
+// AddUpdatedAt adds i to updatedAt.
+func (puo *PositionUpdateOne) AddUpdatedAt(i int64) *PositionUpdateOne {
+	puo.mutation.AddUpdatedAt(i)
+	return puo
+}
+
+// SetDeleted sets the deleted field.
+func (puo *PositionUpdateOne) SetDeleted(i int) *PositionUpdateOne {
+	puo.mutation.ResetDeleted()
+	puo.mutation.SetDeleted(i)
+	return puo
+}
+
+// AddDeleted adds i to deleted.
+func (puo *PositionUpdateOne) AddDeleted(i int) *PositionUpdateOne {
+	puo.mutation.AddDeleted(i)
 	return puo
 }
 
@@ -247,6 +536,97 @@ func (puo *PositionUpdateOne) sqlSave(ctx context.Context) (_node *Position, err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: position.FieldName,
+		})
+	}
+	if value, ok := puo.mutation.Code(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: position.FieldCode,
+		})
+	}
+	if value, ok := puo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: position.FieldTenantId,
+		})
+	}
+	if value, ok := puo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: position.FieldTenantId,
+		})
+	}
+	if value, ok := puo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: position.FieldTenantName,
+		})
+	}
+	if value, ok := puo.mutation.Order(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: position.FieldOrder,
+		})
+	}
+	if value, ok := puo.mutation.AddedOrder(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: position.FieldOrder,
+		})
+	}
+	if value, ok := puo.mutation.Remarks(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: position.FieldRemarks,
+		})
+	}
+	if value, ok := puo.mutation.CreatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: position.FieldCreatedAt,
+		})
+	}
+	if value, ok := puo.mutation.AddedCreatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: position.FieldCreatedAt,
+		})
+	}
+	if value, ok := puo.mutation.UpdatedAt(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: position.FieldUpdatedAt,
+		})
+	}
+	if value, ok := puo.mutation.AddedUpdatedAt(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: position.FieldUpdatedAt,
+		})
+	}
+	if value, ok := puo.mutation.Deleted(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: position.FieldDeleted,
+		})
+	}
+	if value, ok := puo.mutation.AddedDeleted(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: position.FieldDeleted,
 		})
 	}
 	_node = &Position{config: puo.config}

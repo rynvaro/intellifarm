@@ -15,10 +15,22 @@ type Tenant struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int64 `json:"id,omitempty"`
+	// Company holds the value of the "company" field.
+	Company string `json:"company,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
+	// Code holds the value of the "code" field.
+	Code string `json:"code,omitempty"`
 	// Enabled holds the value of the "enabled" field.
 	Enabled int `json:"enabled,omitempty"`
+	// Region holds the value of the "region" field.
+	Region string `json:"region,omitempty"`
+	// Address holds the value of the "address" field.
+	Address string `json:"address,omitempty"`
+	// UserName holds the value of the "userName" field.
+	UserName string `json:"userName,omitempty"`
+	// Phone holds the value of the "phone" field.
+	Phone string `json:"phone,omitempty"`
 	// Remarks holds the value of the "remarks" field.
 	Remarks string `json:"remarks,omitempty"`
 	// Deleted holds the value of the "deleted" field.
@@ -33,8 +45,14 @@ type Tenant struct {
 func (*Tenant) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
+		&sql.NullString{}, // company
 		&sql.NullString{}, // name
+		&sql.NullString{}, // code
 		&sql.NullInt64{},  // enabled
+		&sql.NullString{}, // region
+		&sql.NullString{}, // address
+		&sql.NullString{}, // userName
+		&sql.NullString{}, // phone
 		&sql.NullString{}, // remarks
 		&sql.NullInt64{},  // deleted
 		&sql.NullInt64{},  // createdAt
@@ -55,32 +73,62 @@ func (t *Tenant) assignValues(values ...interface{}) error {
 	t.ID = int64(value.Int64)
 	values = values[1:]
 	if value, ok := values[0].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field name", values[0])
+		return fmt.Errorf("unexpected type %T for field company", values[0])
+	} else if value.Valid {
+		t.Company = value.String
+	}
+	if value, ok := values[1].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field name", values[1])
 	} else if value.Valid {
 		t.Name = value.String
 	}
-	if value, ok := values[1].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field enabled", values[1])
+	if value, ok := values[2].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field code", values[2])
+	} else if value.Valid {
+		t.Code = value.String
+	}
+	if value, ok := values[3].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field enabled", values[3])
 	} else if value.Valid {
 		t.Enabled = int(value.Int64)
 	}
-	if value, ok := values[2].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[2])
+	if value, ok := values[4].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field region", values[4])
+	} else if value.Valid {
+		t.Region = value.String
+	}
+	if value, ok := values[5].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field address", values[5])
+	} else if value.Valid {
+		t.Address = value.String
+	}
+	if value, ok := values[6].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field userName", values[6])
+	} else if value.Valid {
+		t.UserName = value.String
+	}
+	if value, ok := values[7].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field phone", values[7])
+	} else if value.Valid {
+		t.Phone = value.String
+	}
+	if value, ok := values[8].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[8])
 	} else if value.Valid {
 		t.Remarks = value.String
 	}
-	if value, ok := values[3].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[3])
+	if value, ok := values[9].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[9])
 	} else if value.Valid {
 		t.Deleted = int(value.Int64)
 	}
-	if value, ok := values[4].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[4])
+	if value, ok := values[10].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[10])
 	} else if value.Valid {
 		t.CreatedAt = value.Int64
 	}
-	if value, ok := values[5].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[5])
+	if value, ok := values[11].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[11])
 	} else if value.Valid {
 		t.UpdatedAt = value.Int64
 	}
@@ -110,10 +158,22 @@ func (t *Tenant) String() string {
 	var builder strings.Builder
 	builder.WriteString("Tenant(")
 	builder.WriteString(fmt.Sprintf("id=%v", t.ID))
+	builder.WriteString(", company=")
+	builder.WriteString(t.Company)
 	builder.WriteString(", name=")
 	builder.WriteString(t.Name)
+	builder.WriteString(", code=")
+	builder.WriteString(t.Code)
 	builder.WriteString(", enabled=")
 	builder.WriteString(fmt.Sprintf("%v", t.Enabled))
+	builder.WriteString(", region=")
+	builder.WriteString(t.Region)
+	builder.WriteString(", address=")
+	builder.WriteString(t.Address)
+	builder.WriteString(", userName=")
+	builder.WriteString(t.UserName)
+	builder.WriteString(", phone=")
+	builder.WriteString(t.Phone)
 	builder.WriteString(", remarks=")
 	builder.WriteString(t.Remarks)
 	builder.WriteString(", deleted=")

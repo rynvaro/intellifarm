@@ -26,11 +26,12 @@ func OperationAddHandler(c *gin.Context) {
 		SetAPI(form.API).
 		SetIP(form.IP).
 		SetMethod(form.Method).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetUserId(form.UserId).
 		SetUserName(form.UserName).
-		SetCreatedAt(time.Now().Unix()).SetDeleted(0).
+		SetTenantId(c.MustGet("tenantId").(int64)).
+		SetTenantName(c.MustGet("tenantName").(string)).SetCreatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
@@ -47,6 +48,7 @@ func OperationListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
+	listParams.TenantId = c.MustGet("tenantId").(int64)
 	where := Where(listParams)
 	totalCount, err := db.Client.Operation.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -95,8 +97,8 @@ func OperationUpdateHandler(c *gin.Context) {
 		SetAPI(form.API).
 		SetIP(form.IP).
 		SetMethod(form.Method).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetUserId(form.UserId).
 		SetUserName(form.UserName).
 		Save(c.Request.Context())

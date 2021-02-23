@@ -26,9 +26,10 @@ func EventAddHandler(c *gin.Context) {
 		SetEarNumber(form.EarNumber).
 		SetEventName(form.EventName).
 		SetEventType(form.EventType).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
-		SetCreatedAt(time.Now().Unix()).SetDeleted(0).
+		SetTenantName(c.MustGet("tenantName").(string)).SetCreatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
@@ -45,6 +46,7 @@ func EventListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
+	listParams.TenantId = c.MustGet("tenantId").(int64)
 	where := Where(listParams)
 	totalCount, err := db.Client.Event.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -93,8 +95,8 @@ func EventUpdateHandler(c *gin.Context) {
 		SetEarNumber(form.EarNumber).
 		SetEventName(form.EventName).
 		SetEventType(form.EventType).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())

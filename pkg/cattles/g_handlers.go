@@ -3,8 +3,6 @@ package cattles
 import (
 	"cattleai/db"
 	"cattleai/ent"
-	"cattleai/ent/cattle"
-	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
 	"cattleai/resp"
 	"fmt"
@@ -71,35 +69,6 @@ func CattleAddHandler(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, resp.Success(cattle))
-}
-
-func CattleListHandler(c *gin.Context) {
-	listParams := &params.ListParams{}
-	if err := c.BindQuery(listParams); err != nil {
-		log.Error().Msg(err.Error())
-		return
-	}
-	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
-	where := Where(listParams)
-	totalCount, err := db.Client.Cattle.Query().Where(where).Count(c.Request.Context())
-	if err != nil {
-		log.Error().Msg(err.Error())
-		c.Status(http.StatusInternalServerError)
-		return
-	}
-	cattles, err := db.Client.Cattle.Query().Where(where).Order(ent.Desc(cattle.FieldCreatedAt)).Offset((page.CurrentPage - 1) * page.PageSize).Limit(page.PageSize).All(c.Request.Context())
-	if err != nil {
-		log.Error().Msg(err.Error())
-		c.Status(http.StatusInternalServerError)
-		return
-	}
-	page.TotalCount = totalCount
-	pageData := paging.PageData{
-		Data:   cattles,
-		Paging: page,
-	}
-	c.JSON(http.StatusOK, resp.Success(pageData))
 }
 
 func CattleDeleteHandler(c *gin.Context) {

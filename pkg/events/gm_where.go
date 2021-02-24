@@ -8,9 +8,9 @@ import (
 
 func Where(listParams *params.ListParams) predicate.Event {
 	wheres := []predicate.Event{event.Deleted(0)}
-	// if listParams.Q != "" {
-	// 	wheres = append(wheres, event.NameContains(listParams.Q))
-	// }
+	if listParams.Q != "" {
+		wheres = append(wheres, event.EarNumberEQ(listParams.Q))
+	}
 	wheres = append(wheres, event.TenantId(listParams.TenantId))
 	return event.And(wheres...)
 }

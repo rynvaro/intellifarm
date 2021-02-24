@@ -39,8 +39,19 @@ func EventAddHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, resp.Success(event))
 }
 
+type EventSearchParams struct {
+	EarNumber int64  `json:"earNumber" form:"earNumber"`
+	InGroup   int    `json:"inGroup" form:"inGroup"` // 是否在群
+	Type      string `json:"type" form:"type"`
+	TimeStart int64  `json:"timeStart" form:"timeStart"`
+	TimeEnd   int64  `json:"timeEnd" form:"timeEnd"`
+	PStart    int    `json:"pStart" form:"pStart"`
+	PEnd      int    `json:"pEnd" form:"pEnd"`
+	params.ListParams
+}
+
 func EventListHandler(c *gin.Context) {
-	listParams := &params.ListParams{}
+	listParams := &EventSearchParams{}
 	if err := c.BindQuery(listParams); err != nil {
 		log.Error().Msg(err.Error())
 		return

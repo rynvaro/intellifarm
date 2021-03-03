@@ -8,6 +8,7 @@ import (
 	"cattleai/pkg/positionapis"
 	"cattleai/resp"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -22,12 +23,17 @@ type LoginParams struct {
 	TenantId int64  `json:"tenantId" form:"tenantId" binding:"required"`
 }
 
+func (form *LoginParams) toString() string {
+	return fmt.Sprintf("%+v", form)
+}
+
 func UserLogin(c *gin.Context) {
 	form := &LoginParams{}
 	if err := c.Bind(form); err != nil {
 		log.Error().Msg(err.Error())
 		return
 	}
+	log.Info().Msg(form.toString())
 	rets, err := db.Client.User.Query().Where(
 		user.And(
 			user.NameEQ(form.Username),

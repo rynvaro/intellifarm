@@ -34,15 +34,43 @@ func (uu *UserUpdate) SetFarmId(i int64) *UserUpdate {
 	return uu
 }
 
+// SetNillableFarmId sets the farmId field if the given value is not nil.
+func (uu *UserUpdate) SetNillableFarmId(i *int64) *UserUpdate {
+	if i != nil {
+		uu.SetFarmId(*i)
+	}
+	return uu
+}
+
 // AddFarmId adds i to farmId.
 func (uu *UserUpdate) AddFarmId(i int64) *UserUpdate {
 	uu.mutation.AddFarmId(i)
 	return uu
 }
 
+// ClearFarmId clears the value of farmId.
+func (uu *UserUpdate) ClearFarmId() *UserUpdate {
+	uu.mutation.ClearFarmId()
+	return uu
+}
+
 // SetFarmName sets the farmName field.
 func (uu *UserUpdate) SetFarmName(s string) *UserUpdate {
 	uu.mutation.SetFarmName(s)
+	return uu
+}
+
+// SetNillableFarmName sets the farmName field if the given value is not nil.
+func (uu *UserUpdate) SetNillableFarmName(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetFarmName(*s)
+	}
+	return uu
+}
+
+// ClearFarmName clears the value of farmName.
+func (uu *UserUpdate) ClearFarmName() *UserUpdate {
+	uu.mutation.ClearFarmName()
 	return uu
 }
 
@@ -53,9 +81,23 @@ func (uu *UserUpdate) SetPositionId(i int64) *UserUpdate {
 	return uu
 }
 
+// SetNillablePositionId sets the positionId field if the given value is not nil.
+func (uu *UserUpdate) SetNillablePositionId(i *int64) *UserUpdate {
+	if i != nil {
+		uu.SetPositionId(*i)
+	}
+	return uu
+}
+
 // AddPositionId adds i to positionId.
 func (uu *UserUpdate) AddPositionId(i int64) *UserUpdate {
 	uu.mutation.AddPositionId(i)
+	return uu
+}
+
+// ClearPositionId clears the value of positionId.
+func (uu *UserUpdate) ClearPositionId() *UserUpdate {
+	uu.mutation.ClearPositionId()
 	return uu
 }
 
@@ -65,9 +107,37 @@ func (uu *UserUpdate) SetPositionName(s string) *UserUpdate {
 	return uu
 }
 
+// SetNillablePositionName sets the positionName field if the given value is not nil.
+func (uu *UserUpdate) SetNillablePositionName(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetPositionName(*s)
+	}
+	return uu
+}
+
+// ClearPositionName clears the value of positionName.
+func (uu *UserUpdate) ClearPositionName() *UserUpdate {
+	uu.mutation.ClearPositionName()
+	return uu
+}
+
 // SetDutyName sets the dutyName field.
 func (uu *UserUpdate) SetDutyName(s string) *UserUpdate {
 	uu.mutation.SetDutyName(s)
+	return uu
+}
+
+// SetNillableDutyName sets the dutyName field if the given value is not nil.
+func (uu *UserUpdate) SetNillableDutyName(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetDutyName(*s)
+	}
+	return uu
+}
+
+// ClearDutyName clears the value of dutyName.
+func (uu *UserUpdate) ClearDutyName() *UserUpdate {
+	uu.mutation.ClearDutyName()
 	return uu
 }
 
@@ -84,9 +154,23 @@ func (uu *UserUpdate) SetGender(i int) *UserUpdate {
 	return uu
 }
 
+// SetNillableGender sets the gender field if the given value is not nil.
+func (uu *UserUpdate) SetNillableGender(i *int) *UserUpdate {
+	if i != nil {
+		uu.SetGender(*i)
+	}
+	return uu
+}
+
 // AddGender adds i to gender.
 func (uu *UserUpdate) AddGender(i int) *UserUpdate {
 	uu.mutation.AddGender(i)
+	return uu
+}
+
+// ClearGender clears the value of gender.
+func (uu *UserUpdate) ClearGender() *UserUpdate {
+	uu.mutation.ClearGender()
 	return uu
 }
 
@@ -97,9 +181,23 @@ func (uu *UserUpdate) SetAge(i int) *UserUpdate {
 	return uu
 }
 
+// SetNillableAge sets the age field if the given value is not nil.
+func (uu *UserUpdate) SetNillableAge(i *int) *UserUpdate {
+	if i != nil {
+		uu.SetAge(*i)
+	}
+	return uu
+}
+
 // AddAge adds i to age.
 func (uu *UserUpdate) AddAge(i int) *UserUpdate {
 	uu.mutation.AddAge(i)
+	return uu
+}
+
+// ClearAge clears the value of age.
+func (uu *UserUpdate) ClearAge() *UserUpdate {
+	uu.mutation.ClearAge()
 	return uu
 }
 
@@ -109,9 +207,37 @@ func (uu *UserUpdate) SetEducation(s string) *UserUpdate {
 	return uu
 }
 
+// SetNillableEducation sets the education field if the given value is not nil.
+func (uu *UserUpdate) SetNillableEducation(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetEducation(*s)
+	}
+	return uu
+}
+
+// ClearEducation clears the value of education.
+func (uu *UserUpdate) ClearEducation() *UserUpdate {
+	uu.mutation.ClearEducation()
+	return uu
+}
+
 // SetMajor sets the major field.
 func (uu *UserUpdate) SetMajor(s string) *UserUpdate {
 	uu.mutation.SetMajor(s)
+	return uu
+}
+
+// SetNillableMajor sets the major field if the given value is not nil.
+func (uu *UserUpdate) SetNillableMajor(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetMajor(*s)
+	}
+	return uu
+}
+
+// ClearMajor clears the value of major.
+func (uu *UserUpdate) ClearMajor() *UserUpdate {
+	uu.mutation.ClearMajor()
 	return uu
 }
 
@@ -121,9 +247,37 @@ func (uu *UserUpdate) SetJobTitle(s string) *UserUpdate {
 	return uu
 }
 
+// SetNillableJobTitle sets the jobTitle field if the given value is not nil.
+func (uu *UserUpdate) SetNillableJobTitle(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetJobTitle(*s)
+	}
+	return uu
+}
+
+// ClearJobTitle clears the value of jobTitle.
+func (uu *UserUpdate) ClearJobTitle() *UserUpdate {
+	uu.mutation.ClearJobTitle()
+	return uu
+}
+
 // SetPhone sets the phone field.
 func (uu *UserUpdate) SetPhone(s string) *UserUpdate {
 	uu.mutation.SetPhone(s)
+	return uu
+}
+
+// SetNillablePhone sets the phone field if the given value is not nil.
+func (uu *UserUpdate) SetNillablePhone(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetPhone(*s)
+	}
+	return uu
+}
+
+// ClearPhone clears the value of phone.
+func (uu *UserUpdate) ClearPhone() *UserUpdate {
+	uu.mutation.ClearPhone()
 	return uu
 }
 
@@ -133,9 +287,37 @@ func (uu *UserUpdate) SetIdCard(s string) *UserUpdate {
 	return uu
 }
 
+// SetNillableIdCard sets the idCard field if the given value is not nil.
+func (uu *UserUpdate) SetNillableIdCard(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetIdCard(*s)
+	}
+	return uu
+}
+
+// ClearIdCard clears the value of idCard.
+func (uu *UserUpdate) ClearIdCard() *UserUpdate {
+	uu.mutation.ClearIdCard()
+	return uu
+}
+
 // SetAddress sets the address field.
 func (uu *UserUpdate) SetAddress(s string) *UserUpdate {
 	uu.mutation.SetAddress(s)
+	return uu
+}
+
+// SetNillableAddress sets the address field if the given value is not nil.
+func (uu *UserUpdate) SetNillableAddress(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetAddress(*s)
+	}
+	return uu
+}
+
+// ClearAddress clears the value of address.
+func (uu *UserUpdate) ClearAddress() *UserUpdate {
+	uu.mutation.ClearAddress()
 	return uu
 }
 
@@ -167,9 +349,23 @@ func (uu *UserUpdate) SetJoinedAt(i int64) *UserUpdate {
 	return uu
 }
 
+// SetNillableJoinedAt sets the joinedAt field if the given value is not nil.
+func (uu *UserUpdate) SetNillableJoinedAt(i *int64) *UserUpdate {
+	if i != nil {
+		uu.SetJoinedAt(*i)
+	}
+	return uu
+}
+
 // AddJoinedAt adds i to joinedAt.
 func (uu *UserUpdate) AddJoinedAt(i int64) *UserUpdate {
 	uu.mutation.AddJoinedAt(i)
+	return uu
+}
+
+// ClearJoinedAt clears the value of joinedAt.
+func (uu *UserUpdate) ClearJoinedAt() *UserUpdate {
+	uu.mutation.ClearJoinedAt()
 	return uu
 }
 
@@ -180,15 +376,43 @@ func (uu *UserUpdate) SetTenantId(i int64) *UserUpdate {
 	return uu
 }
 
+// SetNillableTenantId sets the tenantId field if the given value is not nil.
+func (uu *UserUpdate) SetNillableTenantId(i *int64) *UserUpdate {
+	if i != nil {
+		uu.SetTenantId(*i)
+	}
+	return uu
+}
+
 // AddTenantId adds i to tenantId.
 func (uu *UserUpdate) AddTenantId(i int64) *UserUpdate {
 	uu.mutation.AddTenantId(i)
 	return uu
 }
 
+// ClearTenantId clears the value of tenantId.
+func (uu *UserUpdate) ClearTenantId() *UserUpdate {
+	uu.mutation.ClearTenantId()
+	return uu
+}
+
 // SetTenantName sets the tenantName field.
 func (uu *UserUpdate) SetTenantName(s string) *UserUpdate {
 	uu.mutation.SetTenantName(s)
+	return uu
+}
+
+// SetNillableTenantName sets the tenantName field if the given value is not nil.
+func (uu *UserUpdate) SetNillableTenantName(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetTenantName(*s)
+	}
+	return uu
+}
+
+// ClearTenantName clears the value of tenantName.
+func (uu *UserUpdate) ClearTenantName() *UserUpdate {
+	uu.mutation.ClearTenantName()
 	return uu
 }
 
@@ -201,6 +425,20 @@ func (uu *UserUpdate) SetPassword(s string) *UserUpdate {
 // SetRemarks sets the remarks field.
 func (uu *UserUpdate) SetRemarks(s string) *UserUpdate {
 	uu.mutation.SetRemarks(s)
+	return uu
+}
+
+// SetNillableRemarks sets the remarks field if the given value is not nil.
+func (uu *UserUpdate) SetNillableRemarks(s *string) *UserUpdate {
+	if s != nil {
+		uu.SetRemarks(*s)
+	}
+	return uu
+}
+
+// ClearRemarks clears the value of remarks.
+func (uu *UserUpdate) ClearRemarks() *UserUpdate {
+	uu.mutation.ClearRemarks()
 	return uu
 }
 
@@ -234,6 +472,14 @@ func (uu *UserUpdate) AddUpdatedAt(i int64) *UserUpdate {
 func (uu *UserUpdate) SetDeleted(i int) *UserUpdate {
 	uu.mutation.ResetDeleted()
 	uu.mutation.SetDeleted(i)
+	return uu
+}
+
+// SetNillableDeleted sets the deleted field if the given value is not nil.
+func (uu *UserUpdate) SetNillableDeleted(i *int) *UserUpdate {
+	if i != nil {
+		uu.SetDeleted(*i)
+	}
 	return uu
 }
 
@@ -307,21 +553,6 @@ func (uu *UserUpdate) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (uu *UserUpdate) check() error {
-	if v, ok := uu.mutation.FarmName(); ok {
-		if err := user.FarmNameValidator(v); err != nil {
-			return &ValidationError{Name: "farmName", err: fmt.Errorf("ent: validator failed for field \"farmName\": %w", err)}
-		}
-	}
-	if v, ok := uu.mutation.PositionName(); ok {
-		if err := user.PositionNameValidator(v); err != nil {
-			return &ValidationError{Name: "positionName", err: fmt.Errorf("ent: validator failed for field \"positionName\": %w", err)}
-		}
-	}
-	if v, ok := uu.mutation.DutyName(); ok {
-		if err := user.DutyNameValidator(v); err != nil {
-			return &ValidationError{Name: "dutyName", err: fmt.Errorf("ent: validator failed for field \"dutyName\": %w", err)}
-		}
-	}
 	if v, ok := uu.mutation.Name(); ok {
 		if err := user.NameValidator(v); err != nil {
 			return &ValidationError{Name: "name", err: fmt.Errorf("ent: validator failed for field \"name\": %w", err)}
@@ -362,10 +593,22 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: user.FieldFarmId,
 		})
 	}
+	if uu.mutation.FarmIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: user.FieldFarmId,
+		})
+	}
 	if value, ok := uu.mutation.FarmName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldFarmName,
+		})
+	}
+	if uu.mutation.FarmNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldFarmName,
 		})
 	}
@@ -383,6 +626,12 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: user.FieldPositionId,
 		})
 	}
+	if uu.mutation.PositionIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: user.FieldPositionId,
+		})
+	}
 	if value, ok := uu.mutation.PositionName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -390,10 +639,22 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: user.FieldPositionName,
 		})
 	}
+	if uu.mutation.PositionNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: user.FieldPositionName,
+		})
+	}
 	if value, ok := uu.mutation.DutyName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldDutyName,
+		})
+	}
+	if uu.mutation.DutyNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldDutyName,
 		})
 	}
@@ -418,6 +679,12 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: user.FieldGender,
 		})
 	}
+	if uu.mutation.GenderCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Column: user.FieldGender,
+		})
+	}
 	if value, ok := uu.mutation.Age(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
@@ -432,10 +699,22 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: user.FieldAge,
 		})
 	}
+	if uu.mutation.AgeCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Column: user.FieldAge,
+		})
+	}
 	if value, ok := uu.mutation.Education(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldEducation,
+		})
+	}
+	if uu.mutation.EducationCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldEducation,
 		})
 	}
@@ -446,10 +725,22 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: user.FieldMajor,
 		})
 	}
+	if uu.mutation.MajorCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: user.FieldMajor,
+		})
+	}
 	if value, ok := uu.mutation.JobTitle(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldJobTitle,
+		})
+	}
+	if uu.mutation.JobTitleCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldJobTitle,
 		})
 	}
@@ -460,6 +751,12 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: user.FieldPhone,
 		})
 	}
+	if uu.mutation.PhoneCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: user.FieldPhone,
+		})
+	}
 	if value, ok := uu.mutation.IdCard(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -467,10 +764,22 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: user.FieldIdCard,
 		})
 	}
+	if uu.mutation.IdCardCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: user.FieldIdCard,
+		})
+	}
 	if value, ok := uu.mutation.Address(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldAddress,
+		})
+	}
+	if uu.mutation.AddressCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldAddress,
 		})
 	}
@@ -502,6 +811,12 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: user.FieldJoinedAt,
 		})
 	}
+	if uu.mutation.JoinedAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: user.FieldJoinedAt,
+		})
+	}
 	if value, ok := uu.mutation.TenantId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -516,10 +831,22 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: user.FieldTenantId,
 		})
 	}
+	if uu.mutation.TenantIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: user.FieldTenantId,
+		})
+	}
 	if value, ok := uu.mutation.TenantName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldTenantName,
+		})
+	}
+	if uu.mutation.TenantNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldTenantName,
 		})
 	}
@@ -534,6 +861,12 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldRemarks,
+		})
+	}
+	if uu.mutation.RemarksCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldRemarks,
 		})
 	}
@@ -604,15 +937,43 @@ func (uuo *UserUpdateOne) SetFarmId(i int64) *UserUpdateOne {
 	return uuo
 }
 
+// SetNillableFarmId sets the farmId field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableFarmId(i *int64) *UserUpdateOne {
+	if i != nil {
+		uuo.SetFarmId(*i)
+	}
+	return uuo
+}
+
 // AddFarmId adds i to farmId.
 func (uuo *UserUpdateOne) AddFarmId(i int64) *UserUpdateOne {
 	uuo.mutation.AddFarmId(i)
 	return uuo
 }
 
+// ClearFarmId clears the value of farmId.
+func (uuo *UserUpdateOne) ClearFarmId() *UserUpdateOne {
+	uuo.mutation.ClearFarmId()
+	return uuo
+}
+
 // SetFarmName sets the farmName field.
 func (uuo *UserUpdateOne) SetFarmName(s string) *UserUpdateOne {
 	uuo.mutation.SetFarmName(s)
+	return uuo
+}
+
+// SetNillableFarmName sets the farmName field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableFarmName(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetFarmName(*s)
+	}
+	return uuo
+}
+
+// ClearFarmName clears the value of farmName.
+func (uuo *UserUpdateOne) ClearFarmName() *UserUpdateOne {
+	uuo.mutation.ClearFarmName()
 	return uuo
 }
 
@@ -623,9 +984,23 @@ func (uuo *UserUpdateOne) SetPositionId(i int64) *UserUpdateOne {
 	return uuo
 }
 
+// SetNillablePositionId sets the positionId field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillablePositionId(i *int64) *UserUpdateOne {
+	if i != nil {
+		uuo.SetPositionId(*i)
+	}
+	return uuo
+}
+
 // AddPositionId adds i to positionId.
 func (uuo *UserUpdateOne) AddPositionId(i int64) *UserUpdateOne {
 	uuo.mutation.AddPositionId(i)
+	return uuo
+}
+
+// ClearPositionId clears the value of positionId.
+func (uuo *UserUpdateOne) ClearPositionId() *UserUpdateOne {
+	uuo.mutation.ClearPositionId()
 	return uuo
 }
 
@@ -635,9 +1010,37 @@ func (uuo *UserUpdateOne) SetPositionName(s string) *UserUpdateOne {
 	return uuo
 }
 
+// SetNillablePositionName sets the positionName field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillablePositionName(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetPositionName(*s)
+	}
+	return uuo
+}
+
+// ClearPositionName clears the value of positionName.
+func (uuo *UserUpdateOne) ClearPositionName() *UserUpdateOne {
+	uuo.mutation.ClearPositionName()
+	return uuo
+}
+
 // SetDutyName sets the dutyName field.
 func (uuo *UserUpdateOne) SetDutyName(s string) *UserUpdateOne {
 	uuo.mutation.SetDutyName(s)
+	return uuo
+}
+
+// SetNillableDutyName sets the dutyName field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableDutyName(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetDutyName(*s)
+	}
+	return uuo
+}
+
+// ClearDutyName clears the value of dutyName.
+func (uuo *UserUpdateOne) ClearDutyName() *UserUpdateOne {
+	uuo.mutation.ClearDutyName()
 	return uuo
 }
 
@@ -654,9 +1057,23 @@ func (uuo *UserUpdateOne) SetGender(i int) *UserUpdateOne {
 	return uuo
 }
 
+// SetNillableGender sets the gender field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableGender(i *int) *UserUpdateOne {
+	if i != nil {
+		uuo.SetGender(*i)
+	}
+	return uuo
+}
+
 // AddGender adds i to gender.
 func (uuo *UserUpdateOne) AddGender(i int) *UserUpdateOne {
 	uuo.mutation.AddGender(i)
+	return uuo
+}
+
+// ClearGender clears the value of gender.
+func (uuo *UserUpdateOne) ClearGender() *UserUpdateOne {
+	uuo.mutation.ClearGender()
 	return uuo
 }
 
@@ -667,9 +1084,23 @@ func (uuo *UserUpdateOne) SetAge(i int) *UserUpdateOne {
 	return uuo
 }
 
+// SetNillableAge sets the age field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableAge(i *int) *UserUpdateOne {
+	if i != nil {
+		uuo.SetAge(*i)
+	}
+	return uuo
+}
+
 // AddAge adds i to age.
 func (uuo *UserUpdateOne) AddAge(i int) *UserUpdateOne {
 	uuo.mutation.AddAge(i)
+	return uuo
+}
+
+// ClearAge clears the value of age.
+func (uuo *UserUpdateOne) ClearAge() *UserUpdateOne {
+	uuo.mutation.ClearAge()
 	return uuo
 }
 
@@ -679,9 +1110,37 @@ func (uuo *UserUpdateOne) SetEducation(s string) *UserUpdateOne {
 	return uuo
 }
 
+// SetNillableEducation sets the education field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableEducation(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetEducation(*s)
+	}
+	return uuo
+}
+
+// ClearEducation clears the value of education.
+func (uuo *UserUpdateOne) ClearEducation() *UserUpdateOne {
+	uuo.mutation.ClearEducation()
+	return uuo
+}
+
 // SetMajor sets the major field.
 func (uuo *UserUpdateOne) SetMajor(s string) *UserUpdateOne {
 	uuo.mutation.SetMajor(s)
+	return uuo
+}
+
+// SetNillableMajor sets the major field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableMajor(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetMajor(*s)
+	}
+	return uuo
+}
+
+// ClearMajor clears the value of major.
+func (uuo *UserUpdateOne) ClearMajor() *UserUpdateOne {
+	uuo.mutation.ClearMajor()
 	return uuo
 }
 
@@ -691,9 +1150,37 @@ func (uuo *UserUpdateOne) SetJobTitle(s string) *UserUpdateOne {
 	return uuo
 }
 
+// SetNillableJobTitle sets the jobTitle field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableJobTitle(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetJobTitle(*s)
+	}
+	return uuo
+}
+
+// ClearJobTitle clears the value of jobTitle.
+func (uuo *UserUpdateOne) ClearJobTitle() *UserUpdateOne {
+	uuo.mutation.ClearJobTitle()
+	return uuo
+}
+
 // SetPhone sets the phone field.
 func (uuo *UserUpdateOne) SetPhone(s string) *UserUpdateOne {
 	uuo.mutation.SetPhone(s)
+	return uuo
+}
+
+// SetNillablePhone sets the phone field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillablePhone(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetPhone(*s)
+	}
+	return uuo
+}
+
+// ClearPhone clears the value of phone.
+func (uuo *UserUpdateOne) ClearPhone() *UserUpdateOne {
+	uuo.mutation.ClearPhone()
 	return uuo
 }
 
@@ -703,9 +1190,37 @@ func (uuo *UserUpdateOne) SetIdCard(s string) *UserUpdateOne {
 	return uuo
 }
 
+// SetNillableIdCard sets the idCard field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableIdCard(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetIdCard(*s)
+	}
+	return uuo
+}
+
+// ClearIdCard clears the value of idCard.
+func (uuo *UserUpdateOne) ClearIdCard() *UserUpdateOne {
+	uuo.mutation.ClearIdCard()
+	return uuo
+}
+
 // SetAddress sets the address field.
 func (uuo *UserUpdateOne) SetAddress(s string) *UserUpdateOne {
 	uuo.mutation.SetAddress(s)
+	return uuo
+}
+
+// SetNillableAddress sets the address field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableAddress(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetAddress(*s)
+	}
+	return uuo
+}
+
+// ClearAddress clears the value of address.
+func (uuo *UserUpdateOne) ClearAddress() *UserUpdateOne {
+	uuo.mutation.ClearAddress()
 	return uuo
 }
 
@@ -737,9 +1252,23 @@ func (uuo *UserUpdateOne) SetJoinedAt(i int64) *UserUpdateOne {
 	return uuo
 }
 
+// SetNillableJoinedAt sets the joinedAt field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableJoinedAt(i *int64) *UserUpdateOne {
+	if i != nil {
+		uuo.SetJoinedAt(*i)
+	}
+	return uuo
+}
+
 // AddJoinedAt adds i to joinedAt.
 func (uuo *UserUpdateOne) AddJoinedAt(i int64) *UserUpdateOne {
 	uuo.mutation.AddJoinedAt(i)
+	return uuo
+}
+
+// ClearJoinedAt clears the value of joinedAt.
+func (uuo *UserUpdateOne) ClearJoinedAt() *UserUpdateOne {
+	uuo.mutation.ClearJoinedAt()
 	return uuo
 }
 
@@ -750,15 +1279,43 @@ func (uuo *UserUpdateOne) SetTenantId(i int64) *UserUpdateOne {
 	return uuo
 }
 
+// SetNillableTenantId sets the tenantId field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableTenantId(i *int64) *UserUpdateOne {
+	if i != nil {
+		uuo.SetTenantId(*i)
+	}
+	return uuo
+}
+
 // AddTenantId adds i to tenantId.
 func (uuo *UserUpdateOne) AddTenantId(i int64) *UserUpdateOne {
 	uuo.mutation.AddTenantId(i)
 	return uuo
 }
 
+// ClearTenantId clears the value of tenantId.
+func (uuo *UserUpdateOne) ClearTenantId() *UserUpdateOne {
+	uuo.mutation.ClearTenantId()
+	return uuo
+}
+
 // SetTenantName sets the tenantName field.
 func (uuo *UserUpdateOne) SetTenantName(s string) *UserUpdateOne {
 	uuo.mutation.SetTenantName(s)
+	return uuo
+}
+
+// SetNillableTenantName sets the tenantName field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableTenantName(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetTenantName(*s)
+	}
+	return uuo
+}
+
+// ClearTenantName clears the value of tenantName.
+func (uuo *UserUpdateOne) ClearTenantName() *UserUpdateOne {
+	uuo.mutation.ClearTenantName()
 	return uuo
 }
 
@@ -771,6 +1328,20 @@ func (uuo *UserUpdateOne) SetPassword(s string) *UserUpdateOne {
 // SetRemarks sets the remarks field.
 func (uuo *UserUpdateOne) SetRemarks(s string) *UserUpdateOne {
 	uuo.mutation.SetRemarks(s)
+	return uuo
+}
+
+// SetNillableRemarks sets the remarks field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableRemarks(s *string) *UserUpdateOne {
+	if s != nil {
+		uuo.SetRemarks(*s)
+	}
+	return uuo
+}
+
+// ClearRemarks clears the value of remarks.
+func (uuo *UserUpdateOne) ClearRemarks() *UserUpdateOne {
+	uuo.mutation.ClearRemarks()
 	return uuo
 }
 
@@ -804,6 +1375,14 @@ func (uuo *UserUpdateOne) AddUpdatedAt(i int64) *UserUpdateOne {
 func (uuo *UserUpdateOne) SetDeleted(i int) *UserUpdateOne {
 	uuo.mutation.ResetDeleted()
 	uuo.mutation.SetDeleted(i)
+	return uuo
+}
+
+// SetNillableDeleted sets the deleted field if the given value is not nil.
+func (uuo *UserUpdateOne) SetNillableDeleted(i *int) *UserUpdateOne {
+	if i != nil {
+		uuo.SetDeleted(*i)
+	}
 	return uuo
 }
 
@@ -877,21 +1456,6 @@ func (uuo *UserUpdateOne) ExecX(ctx context.Context) {
 
 // check runs all checks and user-defined validators on the builder.
 func (uuo *UserUpdateOne) check() error {
-	if v, ok := uuo.mutation.FarmName(); ok {
-		if err := user.FarmNameValidator(v); err != nil {
-			return &ValidationError{Name: "farmName", err: fmt.Errorf("ent: validator failed for field \"farmName\": %w", err)}
-		}
-	}
-	if v, ok := uuo.mutation.PositionName(); ok {
-		if err := user.PositionNameValidator(v); err != nil {
-			return &ValidationError{Name: "positionName", err: fmt.Errorf("ent: validator failed for field \"positionName\": %w", err)}
-		}
-	}
-	if v, ok := uuo.mutation.DutyName(); ok {
-		if err := user.DutyNameValidator(v); err != nil {
-			return &ValidationError{Name: "dutyName", err: fmt.Errorf("ent: validator failed for field \"dutyName\": %w", err)}
-		}
-	}
 	if v, ok := uuo.mutation.Name(); ok {
 		if err := user.NameValidator(v); err != nil {
 			return &ValidationError{Name: "name", err: fmt.Errorf("ent: validator failed for field \"name\": %w", err)}
@@ -930,10 +1494,22 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Column: user.FieldFarmId,
 		})
 	}
+	if uuo.mutation.FarmIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: user.FieldFarmId,
+		})
+	}
 	if value, ok := uuo.mutation.FarmName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldFarmName,
+		})
+	}
+	if uuo.mutation.FarmNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldFarmName,
 		})
 	}
@@ -951,6 +1527,12 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Column: user.FieldPositionId,
 		})
 	}
+	if uuo.mutation.PositionIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: user.FieldPositionId,
+		})
+	}
 	if value, ok := uuo.mutation.PositionName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -958,10 +1540,22 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Column: user.FieldPositionName,
 		})
 	}
+	if uuo.mutation.PositionNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: user.FieldPositionName,
+		})
+	}
 	if value, ok := uuo.mutation.DutyName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldDutyName,
+		})
+	}
+	if uuo.mutation.DutyNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldDutyName,
 		})
 	}
@@ -986,6 +1580,12 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Column: user.FieldGender,
 		})
 	}
+	if uuo.mutation.GenderCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Column: user.FieldGender,
+		})
+	}
 	if value, ok := uuo.mutation.Age(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
@@ -1000,10 +1600,22 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Column: user.FieldAge,
 		})
 	}
+	if uuo.mutation.AgeCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Column: user.FieldAge,
+		})
+	}
 	if value, ok := uuo.mutation.Education(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldEducation,
+		})
+	}
+	if uuo.mutation.EducationCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldEducation,
 		})
 	}
@@ -1014,10 +1626,22 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Column: user.FieldMajor,
 		})
 	}
+	if uuo.mutation.MajorCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: user.FieldMajor,
+		})
+	}
 	if value, ok := uuo.mutation.JobTitle(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldJobTitle,
+		})
+	}
+	if uuo.mutation.JobTitleCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldJobTitle,
 		})
 	}
@@ -1028,6 +1652,12 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Column: user.FieldPhone,
 		})
 	}
+	if uuo.mutation.PhoneCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: user.FieldPhone,
+		})
+	}
 	if value, ok := uuo.mutation.IdCard(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -1035,10 +1665,22 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Column: user.FieldIdCard,
 		})
 	}
+	if uuo.mutation.IdCardCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: user.FieldIdCard,
+		})
+	}
 	if value, ok := uuo.mutation.Address(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldAddress,
+		})
+	}
+	if uuo.mutation.AddressCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldAddress,
 		})
 	}
@@ -1070,6 +1712,12 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Column: user.FieldJoinedAt,
 		})
 	}
+	if uuo.mutation.JoinedAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: user.FieldJoinedAt,
+		})
+	}
 	if value, ok := uuo.mutation.TenantId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -1084,10 +1732,22 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 			Column: user.FieldTenantId,
 		})
 	}
+	if uuo.mutation.TenantIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: user.FieldTenantId,
+		})
+	}
 	if value, ok := uuo.mutation.TenantName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldTenantName,
+		})
+	}
+	if uuo.mutation.TenantNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldTenantName,
 		})
 	}
@@ -1102,6 +1762,12 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: user.FieldRemarks,
+		})
+	}
+	if uuo.mutation.RemarksCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: user.FieldRemarks,
 		})
 	}

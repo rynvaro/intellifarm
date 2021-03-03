@@ -10,7 +10,11 @@ import (
 
 func ParseTenant() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		if c.Request.URL.String() == "/api/v1/user/login" {
+		// if c.Request.URL.String() == "/api/v1/user/login" {
+		// 	c.Next()
+		// 	return
+		// }
+		if exist, ok := whitelist[c.Request.URL.Path]; ok && exist {
 			c.Next()
 			return
 		}

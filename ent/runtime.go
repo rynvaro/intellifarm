@@ -277,18 +277,6 @@ func init() {
 	treatmentstate.NameValidator = treatmentstateDescName.Validators[0].(func(string) error)
 	userFields := schema.User{}.Fields()
 	_ = userFields
-	// userDescFarmName is the schema descriptor for farmName field.
-	userDescFarmName := userFields[1].Descriptor()
-	// user.FarmNameValidator is a validator for the "farmName" field. It is called by the builders before save.
-	user.FarmNameValidator = userDescFarmName.Validators[0].(func(string) error)
-	// userDescPositionName is the schema descriptor for positionName field.
-	userDescPositionName := userFields[3].Descriptor()
-	// user.PositionNameValidator is a validator for the "positionName" field. It is called by the builders before save.
-	user.PositionNameValidator = userDescPositionName.Validators[0].(func(string) error)
-	// userDescDutyName is the schema descriptor for dutyName field.
-	userDescDutyName := userFields[4].Descriptor()
-	// user.DutyNameValidator is a validator for the "dutyName" field. It is called by the builders before save.
-	user.DutyNameValidator = userDescDutyName.Validators[0].(func(string) error)
 	// userDescName is the schema descriptor for name field.
 	userDescName := userFields[5].Descriptor()
 	// user.NameValidator is a validator for the "name" field. It is called by the builders before save.
@@ -297,6 +285,10 @@ func init() {
 	userDescOnJobState := userFields[14].Descriptor()
 	// user.DefaultOnJobState holds the default value on creation for the onJobState field.
 	user.DefaultOnJobState = userDescOnJobState.Default.(int)
+	// userDescDeleted is the schema descriptor for deleted field.
+	userDescDeleted := userFields[22].Descriptor()
+	// user.DefaultDeleted holds the default value on creation for the deleted field.
+	user.DefaultDeleted = userDescDeleted.Default.(int)
 	whereaboutsFields := schema.Whereabouts{}.Fields()
 	_ = whereaboutsFields
 	// whereaboutsDescName is the schema descriptor for name field.

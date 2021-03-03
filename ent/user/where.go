@@ -328,6 +328,20 @@ func FarmIdLTE(v int64) predicate.User {
 	})
 }
 
+// FarmIdIsNil applies the IsNil predicate on the "farmId" field.
+func FarmIdIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldFarmId)))
+	})
+}
+
+// FarmIdNotNil applies the NotNil predicate on the "farmId" field.
+func FarmIdNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldFarmId)))
+	})
+}
+
 // FarmNameEQ applies the EQ predicate on the "farmName" field.
 func FarmNameEQ(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
@@ -425,6 +439,20 @@ func FarmNameHasSuffix(v string) predicate.User {
 	})
 }
 
+// FarmNameIsNil applies the IsNil predicate on the "farmName" field.
+func FarmNameIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldFarmName)))
+	})
+}
+
+// FarmNameNotNil applies the NotNil predicate on the "farmName" field.
+func FarmNameNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldFarmName)))
+	})
+}
+
 // FarmNameEqualFold applies the EqualFold predicate on the "farmName" field.
 func FarmNameEqualFold(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
@@ -512,6 +540,20 @@ func PositionIdLT(v int64) predicate.User {
 func PositionIdLTE(v int64) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldPositionId), v))
+	})
+}
+
+// PositionIdIsNil applies the IsNil predicate on the "positionId" field.
+func PositionIdIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldPositionId)))
+	})
+}
+
+// PositionIdNotNil applies the NotNil predicate on the "positionId" field.
+func PositionIdNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldPositionId)))
 	})
 }
 
@@ -609,6 +651,20 @@ func PositionNameHasPrefix(v string) predicate.User {
 func PositionNameHasSuffix(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.HasSuffix(s.C(FieldPositionName), v))
+	})
+}
+
+// PositionNameIsNil applies the IsNil predicate on the "positionName" field.
+func PositionNameIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldPositionName)))
+	})
+}
+
+// PositionNameNotNil applies the NotNil predicate on the "positionName" field.
+func PositionNameNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldPositionName)))
 	})
 }
 
@@ -720,6 +776,20 @@ func DutyNameHasPrefix(v string) predicate.User {
 func DutyNameHasSuffix(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.HasSuffix(s.C(FieldDutyName), v))
+	})
+}
+
+// DutyNameIsNil applies the IsNil predicate on the "dutyName" field.
+func DutyNameIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldDutyName)))
+	})
+}
+
+// DutyNameNotNil applies the NotNil predicate on the "dutyName" field.
+func DutyNameNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldDutyName)))
 	})
 }
 
@@ -924,6 +994,20 @@ func GenderLTE(v int) predicate.User {
 	})
 }
 
+// GenderIsNil applies the IsNil predicate on the "gender" field.
+func GenderIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldGender)))
+	})
+}
+
+// GenderNotNil applies the NotNil predicate on the "gender" field.
+func GenderNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldGender)))
+	})
+}
+
 // AgeEQ applies the EQ predicate on the "age" field.
 func AgeEQ(v int) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
@@ -997,6 +1081,20 @@ func AgeLT(v int) predicate.User {
 func AgeLTE(v int) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldAge), v))
+	})
+}
+
+// AgeIsNil applies the IsNil predicate on the "age" field.
+func AgeIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldAge)))
+	})
+}
+
+// AgeNotNil applies the NotNil predicate on the "age" field.
+func AgeNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldAge)))
 	})
 }
 
@@ -1094,6 +1192,20 @@ func EducationHasPrefix(v string) predicate.User {
 func EducationHasSuffix(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.HasSuffix(s.C(FieldEducation), v))
+	})
+}
+
+// EducationIsNil applies the IsNil predicate on the "education" field.
+func EducationIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldEducation)))
+	})
+}
+
+// EducationNotNil applies the NotNil predicate on the "education" field.
+func EducationNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldEducation)))
 	})
 }
 
@@ -1208,6 +1320,20 @@ func MajorHasSuffix(v string) predicate.User {
 	})
 }
 
+// MajorIsNil applies the IsNil predicate on the "major" field.
+func MajorIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldMajor)))
+	})
+}
+
+// MajorNotNil applies the NotNil predicate on the "major" field.
+func MajorNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldMajor)))
+	})
+}
+
 // MajorEqualFold applies the EqualFold predicate on the "major" field.
 func MajorEqualFold(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
@@ -1316,6 +1442,20 @@ func JobTitleHasPrefix(v string) predicate.User {
 func JobTitleHasSuffix(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.HasSuffix(s.C(FieldJobTitle), v))
+	})
+}
+
+// JobTitleIsNil applies the IsNil predicate on the "jobTitle" field.
+func JobTitleIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldJobTitle)))
+	})
+}
+
+// JobTitleNotNil applies the NotNil predicate on the "jobTitle" field.
+func JobTitleNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldJobTitle)))
 	})
 }
 
@@ -1430,6 +1570,20 @@ func PhoneHasSuffix(v string) predicate.User {
 	})
 }
 
+// PhoneIsNil applies the IsNil predicate on the "phone" field.
+func PhoneIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldPhone)))
+	})
+}
+
+// PhoneNotNil applies the NotNil predicate on the "phone" field.
+func PhoneNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldPhone)))
+	})
+}
+
 // PhoneEqualFold applies the EqualFold predicate on the "phone" field.
 func PhoneEqualFold(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
@@ -1541,6 +1695,20 @@ func IdCardHasSuffix(v string) predicate.User {
 	})
 }
 
+// IdCardIsNil applies the IsNil predicate on the "idCard" field.
+func IdCardIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldIdCard)))
+	})
+}
+
+// IdCardNotNil applies the NotNil predicate on the "idCard" field.
+func IdCardNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldIdCard)))
+	})
+}
+
 // IdCardEqualFold applies the EqualFold predicate on the "idCard" field.
 func IdCardEqualFold(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
@@ -1649,6 +1817,20 @@ func AddressHasPrefix(v string) predicate.User {
 func AddressHasSuffix(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.HasSuffix(s.C(FieldAddress), v))
+	})
+}
+
+// AddressIsNil applies the IsNil predicate on the "address" field.
+func AddressIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldAddress)))
+	})
+}
+
+// AddressNotNil applies the NotNil predicate on the "address" field.
+func AddressNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldAddress)))
 	})
 }
 
@@ -1818,6 +2000,20 @@ func JoinedAtLTE(v int64) predicate.User {
 	})
 }
 
+// JoinedAtIsNil applies the IsNil predicate on the "joinedAt" field.
+func JoinedAtIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldJoinedAt)))
+	})
+}
+
+// JoinedAtNotNil applies the NotNil predicate on the "joinedAt" field.
+func JoinedAtNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldJoinedAt)))
+	})
+}
+
 // TenantIdEQ applies the EQ predicate on the "tenantId" field.
 func TenantIdEQ(v int64) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
@@ -1891,6 +2087,20 @@ func TenantIdLT(v int64) predicate.User {
 func TenantIdLTE(v int64) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantIdIsNil applies the IsNil predicate on the "tenantId" field.
+func TenantIdIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldTenantId)))
+	})
+}
+
+// TenantIdNotNil applies the NotNil predicate on the "tenantId" field.
+func TenantIdNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldTenantId)))
 	})
 }
 
@@ -1988,6 +2198,20 @@ func TenantNameHasPrefix(v string) predicate.User {
 func TenantNameHasSuffix(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.HasSuffix(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameIsNil applies the IsNil predicate on the "tenantName" field.
+func TenantNameIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldTenantName)))
+	})
+}
+
+// TenantNameNotNil applies the NotNil predicate on the "tenantName" field.
+func TenantNameNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldTenantName)))
 	})
 }
 
@@ -2210,6 +2434,20 @@ func RemarksHasPrefix(v string) predicate.User {
 func RemarksHasSuffix(v string) predicate.User {
 	return predicate.User(func(s *sql.Selector) {
 		s.Where(sql.HasSuffix(s.C(FieldRemarks), v))
+	})
+}
+
+// RemarksIsNil applies the IsNil predicate on the "remarks" field.
+func RemarksIsNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldRemarks)))
+	})
+}
+
+// RemarksNotNil applies the NotNil predicate on the "remarks" field.
+func RemarksNotNil() predicate.User {
+	return predicate.User(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldRemarks)))
 	})
 }
 

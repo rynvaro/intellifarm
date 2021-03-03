@@ -15,8 +15,14 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+type Tenant struct {
+	ent.Tenant
+	AdminName     string `json:"adminName" form:"adminName"`
+	AdminPassword string `json:"adminPassword" form:"adminPassword"`
+}
+
 func TenantAddHandler(c *gin.Context) {
-	form := &ent.Tenant{}
+	form := &Tenant{}
 	if err := c.Bind(form); err != nil {
 		log.Error().Msg(err.Error())
 		return
@@ -39,6 +45,18 @@ func TenantAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
+
+	_, err = db.Client.User.Create().SetName(form.AdminName).
+		SetPassword(form.AdminPassword).SetPositionId(1).
+		SetTenantId(tenant.ID).SetTenantName(tenant.Name).
+		SetPositionName("场长").SetCreatedAt(time.Now().Unix()).
+		SetUpdatedAt(time.Now().Unix()).Save(c.Request.Context())
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+
 	c.JSON(http.StatusOK, resp.Success(tenant))
 }
 

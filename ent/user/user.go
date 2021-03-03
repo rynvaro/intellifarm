@@ -97,14 +97,10 @@ func ValidColumn(column string) bool {
 }
 
 var (
-	// FarmNameValidator is a validator for the "farmName" field. It is called by the builders before save.
-	FarmNameValidator func(string) error
-	// PositionNameValidator is a validator for the "positionName" field. It is called by the builders before save.
-	PositionNameValidator func(string) error
-	// DutyNameValidator is a validator for the "dutyName" field. It is called by the builders before save.
-	DutyNameValidator func(string) error
 	// NameValidator is a validator for the "name" field. It is called by the builders before save.
 	NameValidator func(string) error
 	// DefaultOnJobState holds the default value on creation for the onJobState field.
 	DefaultOnJobState int
+	// DefaultDeleted holds the default value on creation for the deleted field.
+	DefaultDeleted int
 )

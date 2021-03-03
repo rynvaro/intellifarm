@@ -11,12 +11,22 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+var whitelist = map[string]bool{
+	"/api/v1/user/login": true,
+	"/api/v1/tenantsall": true,
+}
+
 func SaveOperation() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		if c.Request.URL.String() == "/api/v1/user/login" {
+		// if c.Request.URL.String() == "/api/v1/user/login" {
+		// 	c.Next()
+		// 	return
+		// }
+		if exist, ok := whitelist[c.Request.URL.Path]; ok && exist {
 			c.Next()
 			return
 		}
+
 		token := c.Request.Header.Get("X-Token")
 		currentUser, err := cache.GetUserByToken(token)
 		if err != nil {

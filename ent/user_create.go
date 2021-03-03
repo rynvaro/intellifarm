@@ -25,9 +25,25 @@ func (uc *UserCreate) SetFarmId(i int64) *UserCreate {
 	return uc
 }
 
+// SetNillableFarmId sets the farmId field if the given value is not nil.
+func (uc *UserCreate) SetNillableFarmId(i *int64) *UserCreate {
+	if i != nil {
+		uc.SetFarmId(*i)
+	}
+	return uc
+}
+
 // SetFarmName sets the farmName field.
 func (uc *UserCreate) SetFarmName(s string) *UserCreate {
 	uc.mutation.SetFarmName(s)
+	return uc
+}
+
+// SetNillableFarmName sets the farmName field if the given value is not nil.
+func (uc *UserCreate) SetNillableFarmName(s *string) *UserCreate {
+	if s != nil {
+		uc.SetFarmName(*s)
+	}
 	return uc
 }
 
@@ -37,15 +53,39 @@ func (uc *UserCreate) SetPositionId(i int64) *UserCreate {
 	return uc
 }
 
+// SetNillablePositionId sets the positionId field if the given value is not nil.
+func (uc *UserCreate) SetNillablePositionId(i *int64) *UserCreate {
+	if i != nil {
+		uc.SetPositionId(*i)
+	}
+	return uc
+}
+
 // SetPositionName sets the positionName field.
 func (uc *UserCreate) SetPositionName(s string) *UserCreate {
 	uc.mutation.SetPositionName(s)
 	return uc
 }
 
+// SetNillablePositionName sets the positionName field if the given value is not nil.
+func (uc *UserCreate) SetNillablePositionName(s *string) *UserCreate {
+	if s != nil {
+		uc.SetPositionName(*s)
+	}
+	return uc
+}
+
 // SetDutyName sets the dutyName field.
 func (uc *UserCreate) SetDutyName(s string) *UserCreate {
 	uc.mutation.SetDutyName(s)
+	return uc
+}
+
+// SetNillableDutyName sets the dutyName field if the given value is not nil.
+func (uc *UserCreate) SetNillableDutyName(s *string) *UserCreate {
+	if s != nil {
+		uc.SetDutyName(*s)
+	}
 	return uc
 }
 
@@ -61,9 +101,25 @@ func (uc *UserCreate) SetGender(i int) *UserCreate {
 	return uc
 }
 
+// SetNillableGender sets the gender field if the given value is not nil.
+func (uc *UserCreate) SetNillableGender(i *int) *UserCreate {
+	if i != nil {
+		uc.SetGender(*i)
+	}
+	return uc
+}
+
 // SetAge sets the age field.
 func (uc *UserCreate) SetAge(i int) *UserCreate {
 	uc.mutation.SetAge(i)
+	return uc
+}
+
+// SetNillableAge sets the age field if the given value is not nil.
+func (uc *UserCreate) SetNillableAge(i *int) *UserCreate {
+	if i != nil {
+		uc.SetAge(*i)
+	}
 	return uc
 }
 
@@ -73,9 +129,25 @@ func (uc *UserCreate) SetEducation(s string) *UserCreate {
 	return uc
 }
 
+// SetNillableEducation sets the education field if the given value is not nil.
+func (uc *UserCreate) SetNillableEducation(s *string) *UserCreate {
+	if s != nil {
+		uc.SetEducation(*s)
+	}
+	return uc
+}
+
 // SetMajor sets the major field.
 func (uc *UserCreate) SetMajor(s string) *UserCreate {
 	uc.mutation.SetMajor(s)
+	return uc
+}
+
+// SetNillableMajor sets the major field if the given value is not nil.
+func (uc *UserCreate) SetNillableMajor(s *string) *UserCreate {
+	if s != nil {
+		uc.SetMajor(*s)
+	}
 	return uc
 }
 
@@ -85,9 +157,25 @@ func (uc *UserCreate) SetJobTitle(s string) *UserCreate {
 	return uc
 }
 
+// SetNillableJobTitle sets the jobTitle field if the given value is not nil.
+func (uc *UserCreate) SetNillableJobTitle(s *string) *UserCreate {
+	if s != nil {
+		uc.SetJobTitle(*s)
+	}
+	return uc
+}
+
 // SetPhone sets the phone field.
 func (uc *UserCreate) SetPhone(s string) *UserCreate {
 	uc.mutation.SetPhone(s)
+	return uc
+}
+
+// SetNillablePhone sets the phone field if the given value is not nil.
+func (uc *UserCreate) SetNillablePhone(s *string) *UserCreate {
+	if s != nil {
+		uc.SetPhone(*s)
+	}
 	return uc
 }
 
@@ -97,9 +185,25 @@ func (uc *UserCreate) SetIdCard(s string) *UserCreate {
 	return uc
 }
 
+// SetNillableIdCard sets the idCard field if the given value is not nil.
+func (uc *UserCreate) SetNillableIdCard(s *string) *UserCreate {
+	if s != nil {
+		uc.SetIdCard(*s)
+	}
+	return uc
+}
+
 // SetAddress sets the address field.
 func (uc *UserCreate) SetAddress(s string) *UserCreate {
 	uc.mutation.SetAddress(s)
+	return uc
+}
+
+// SetNillableAddress sets the address field if the given value is not nil.
+func (uc *UserCreate) SetNillableAddress(s *string) *UserCreate {
+	if s != nil {
+		uc.SetAddress(*s)
+	}
 	return uc
 }
 
@@ -123,15 +227,39 @@ func (uc *UserCreate) SetJoinedAt(i int64) *UserCreate {
 	return uc
 }
 
+// SetNillableJoinedAt sets the joinedAt field if the given value is not nil.
+func (uc *UserCreate) SetNillableJoinedAt(i *int64) *UserCreate {
+	if i != nil {
+		uc.SetJoinedAt(*i)
+	}
+	return uc
+}
+
 // SetTenantId sets the tenantId field.
 func (uc *UserCreate) SetTenantId(i int64) *UserCreate {
 	uc.mutation.SetTenantId(i)
 	return uc
 }
 
+// SetNillableTenantId sets the tenantId field if the given value is not nil.
+func (uc *UserCreate) SetNillableTenantId(i *int64) *UserCreate {
+	if i != nil {
+		uc.SetTenantId(*i)
+	}
+	return uc
+}
+
 // SetTenantName sets the tenantName field.
 func (uc *UserCreate) SetTenantName(s string) *UserCreate {
 	uc.mutation.SetTenantName(s)
+	return uc
+}
+
+// SetNillableTenantName sets the tenantName field if the given value is not nil.
+func (uc *UserCreate) SetNillableTenantName(s *string) *UserCreate {
+	if s != nil {
+		uc.SetTenantName(*s)
+	}
 	return uc
 }
 
@@ -144,6 +272,14 @@ func (uc *UserCreate) SetPassword(s string) *UserCreate {
 // SetRemarks sets the remarks field.
 func (uc *UserCreate) SetRemarks(s string) *UserCreate {
 	uc.mutation.SetRemarks(s)
+	return uc
+}
+
+// SetNillableRemarks sets the remarks field if the given value is not nil.
+func (uc *UserCreate) SetNillableRemarks(s *string) *UserCreate {
+	if s != nil {
+		uc.SetRemarks(*s)
+	}
 	return uc
 }
 
@@ -162,6 +298,14 @@ func (uc *UserCreate) SetUpdatedAt(i int64) *UserCreate {
 // SetDeleted sets the deleted field.
 func (uc *UserCreate) SetDeleted(i int) *UserCreate {
 	uc.mutation.SetDeleted(i)
+	return uc
+}
+
+// SetNillableDeleted sets the deleted field if the given value is not nil.
+func (uc *UserCreate) SetNillableDeleted(i *int) *UserCreate {
+	if i != nil {
+		uc.SetDeleted(*i)
+	}
 	return uc
 }
 
@@ -221,40 +365,14 @@ func (uc *UserCreate) defaults() {
 		v := user.DefaultOnJobState
 		uc.mutation.SetOnJobState(v)
 	}
+	if _, ok := uc.mutation.Deleted(); !ok {
+		v := user.DefaultDeleted
+		uc.mutation.SetDeleted(v)
+	}
 }
 
 // check runs all checks and user-defined validators on the builder.
 func (uc *UserCreate) check() error {
-	if _, ok := uc.mutation.FarmId(); !ok {
-		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
-	}
-	if _, ok := uc.mutation.FarmName(); !ok {
-		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
-	}
-	if v, ok := uc.mutation.FarmName(); ok {
-		if err := user.FarmNameValidator(v); err != nil {
-			return &ValidationError{Name: "farmName", err: fmt.Errorf("ent: validator failed for field \"farmName\": %w", err)}
-		}
-	}
-	if _, ok := uc.mutation.PositionId(); !ok {
-		return &ValidationError{Name: "positionId", err: errors.New("ent: missing required field \"positionId\"")}
-	}
-	if _, ok := uc.mutation.PositionName(); !ok {
-		return &ValidationError{Name: "positionName", err: errors.New("ent: missing required field \"positionName\"")}
-	}
-	if v, ok := uc.mutation.PositionName(); ok {
-		if err := user.PositionNameValidator(v); err != nil {
-			return &ValidationError{Name: "positionName", err: fmt.Errorf("ent: validator failed for field \"positionName\": %w", err)}
-		}
-	}
-	if _, ok := uc.mutation.DutyName(); !ok {
-		return &ValidationError{Name: "dutyName", err: errors.New("ent: missing required field \"dutyName\"")}
-	}
-	if v, ok := uc.mutation.DutyName(); ok {
-		if err := user.DutyNameValidator(v); err != nil {
-			return &ValidationError{Name: "dutyName", err: fmt.Errorf("ent: validator failed for field \"dutyName\": %w", err)}
-		}
-	}
 	if _, ok := uc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
 	}
@@ -263,47 +381,11 @@ func (uc *UserCreate) check() error {
 			return &ValidationError{Name: "name", err: fmt.Errorf("ent: validator failed for field \"name\": %w", err)}
 		}
 	}
-	if _, ok := uc.mutation.Gender(); !ok {
-		return &ValidationError{Name: "gender", err: errors.New("ent: missing required field \"gender\"")}
-	}
-	if _, ok := uc.mutation.Age(); !ok {
-		return &ValidationError{Name: "age", err: errors.New("ent: missing required field \"age\"")}
-	}
-	if _, ok := uc.mutation.Education(); !ok {
-		return &ValidationError{Name: "education", err: errors.New("ent: missing required field \"education\"")}
-	}
-	if _, ok := uc.mutation.Major(); !ok {
-		return &ValidationError{Name: "major", err: errors.New("ent: missing required field \"major\"")}
-	}
-	if _, ok := uc.mutation.JobTitle(); !ok {
-		return &ValidationError{Name: "jobTitle", err: errors.New("ent: missing required field \"jobTitle\"")}
-	}
-	if _, ok := uc.mutation.Phone(); !ok {
-		return &ValidationError{Name: "phone", err: errors.New("ent: missing required field \"phone\"")}
-	}
-	if _, ok := uc.mutation.IdCard(); !ok {
-		return &ValidationError{Name: "idCard", err: errors.New("ent: missing required field \"idCard\"")}
-	}
-	if _, ok := uc.mutation.Address(); !ok {
-		return &ValidationError{Name: "address", err: errors.New("ent: missing required field \"address\"")}
-	}
 	if _, ok := uc.mutation.OnJobState(); !ok {
 		return &ValidationError{Name: "onJobState", err: errors.New("ent: missing required field \"onJobState\"")}
 	}
-	if _, ok := uc.mutation.JoinedAt(); !ok {
-		return &ValidationError{Name: "joinedAt", err: errors.New("ent: missing required field \"joinedAt\"")}
-	}
-	if _, ok := uc.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if _, ok := uc.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
-	}
 	if _, ok := uc.mutation.Password(); !ok {
 		return &ValidationError{Name: "password", err: errors.New("ent: missing required field \"password\"")}
-	}
-	if _, ok := uc.mutation.Remarks(); !ok {
-		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
 	}
 	if _, ok := uc.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "createdAt", err: errors.New("ent: missing required field \"createdAt\"")}

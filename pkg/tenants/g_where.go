@@ -11,5 +11,6 @@ func Where(listParams *params.ListParams) predicate.Tenant {
 	if listParams.Q != "" {
 		wheres = append(wheres, tenant.NameContains(listParams.Q))
 	}
+	wheres = append(wheres, tenant.CodeNEQ("SYSTEM"))
 	return tenant.And(wheres...)
 }

@@ -9,6 +9,7 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/gobuffalo/packr"
 )
 
 func main() {
@@ -33,6 +34,11 @@ func main() {
 	// init database
 	db.Init()
 	defer db.Close()
+
+	box := packr.NewBox("dist")
+	static := packr.NewBox("dist/static")
+	r.StaticFS("/web", box)
+	r.StaticFS("static", static)
 
 	r.Run(":8090")
 }

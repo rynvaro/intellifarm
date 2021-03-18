@@ -52,7 +52,7 @@ func APIListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
+	listParams.Level = c.MustGet("level").(int)
 	where := Where(listParams)
 	totalCount, err := db.Client.API.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -81,13 +81,13 @@ func APIDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	api, err := db.Client.API.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.API.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(api))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func APIUpdateHandler(c *gin.Context) {

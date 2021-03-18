@@ -25,6 +25,7 @@ func UserAddHandler(c *gin.Context) {
 	user, err := db.Client.User.Create().
 		SetAddress(form.Address).
 		SetAge(form.Age).
+		SetLevel(form.Level).
 		SetDutyName(form.DutyName).
 		SetEducation(form.Education).
 		SetFarmId(form.FarmId).
@@ -41,8 +42,8 @@ func UserAddHandler(c *gin.Context) {
 		SetPositionName(form.PositionName).
 		SetRemarks(form.Remarks).
 		SetPassword(form.Password).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -60,7 +61,8 @@ func UserListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
+	listParams.Level = c.MustGet("level").(int)
+	log.Debug().Msg(listParams.ToString())
 	where := Where(listParams)
 	totalCount, err := db.Client.User.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -89,13 +91,13 @@ func UserDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	user, err := db.Client.User.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.User.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(user))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func UserUpdateHandler(c *gin.Context) {
@@ -108,6 +110,7 @@ func UserUpdateHandler(c *gin.Context) {
 	user, err := db.Client.User.UpdateOneID(form.ID).
 		SetAddress(form.Address).
 		SetAge(form.Age).
+		SetLevel(form.Level).
 		SetDutyName(form.DutyName).
 		SetEducation(form.Education).
 		SetFarmId(form.FarmId).
@@ -125,6 +128,7 @@ func UserUpdateHandler(c *gin.Context) {
 		SetRemarks(form.Remarks).
 		SetPassword(form.Password).
 		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())
 	if err != nil {

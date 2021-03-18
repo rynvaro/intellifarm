@@ -15,14 +15,8 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-type Tenant struct {
-	ent.Tenant
-	AdminName     string `json:"adminName" form:"adminName"`
-	AdminPassword string `json:"adminPassword" form:"adminPassword"`
-}
-
 func TenantAddHandler(c *gin.Context) {
-	form := &Tenant{}
+	form := &ent.Tenant{}
 	if err := c.Bind(form); err != nil {
 		log.Error().Msg(err.Error())
 		return
@@ -46,28 +40,21 @@ func TenantAddHandler(c *gin.Context) {
 		return
 	}
 
-	_, err = db.Client.User.Create().SetName(form.AdminName).
-		SetPassword(form.AdminPassword).SetPositionId(1).
-		SetTenantId(tenant.ID).SetTenantName(tenant.Name).
-		SetPositionName("场长").SetCreatedAt(time.Now().Unix()).
-		SetUpdatedAt(time.Now().Unix()).Save(c.Request.Context())
-	if err != nil {
-		log.Error().Msg(err.Error())
-		c.Status(http.StatusInternalServerError)
-		return
-	}
-
 	c.JSON(http.StatusOK, resp.Success(tenant))
 }
 
 func TenantListHandler(c *gin.Context) {
+	level := c.MustGet("level").(int)
+	if level != 1 {
+		c.JSON(http.StatusOK, resp.Success(paging.PageData{}))
+		return
+	}
 	listParams := &params.ListParams{}
 	if err := c.BindQuery(listParams); err != nil {
 		log.Error().Msg(err.Error())
 		return
 	}
 	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
 	where := Where(listParams)
 	totalCount, err := db.Client.Tenant.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -96,13 +83,13 @@ func TenantDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	tenant, err := db.Client.Tenant.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.Tenant.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(tenant))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func TenantUpdateHandler(c *gin.Context) {

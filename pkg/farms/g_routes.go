@@ -7,4 +7,5 @@ func RegisterRoutes(g *gin.RouterGroup) {
 	g.GET("/farms", FarmListHandler)
 	g.DELETE("/farms/:id", FarmDeleteHandler)
 	g.PUT("/farms/:id", FarmUpdateHandler)
+	g.GET("/farms/:id/sheds", FarmShedsHandler)
 }

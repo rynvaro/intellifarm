@@ -25,8 +25,7 @@ func ParseTenant() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		c.Set("tenantId", currentUser.TenantId)
-		c.Set("tenantName", currentUser.TenantName)
+		c.Set("level", currentUser.Level)
 		c.Next()
 	}
 }

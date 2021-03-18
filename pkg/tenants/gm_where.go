@@ -7,10 +7,9 @@ import (
 )
 
 func Where(listParams *params.ListParams) predicate.Tenant {
-	wheres := []predicate.Tenant{tenant.Deleted(0)}
+	wheres := []predicate.Tenant{}
 	if listParams.Q != "" {
 		wheres = append(wheres, tenant.NameContains(listParams.Q))
 	}
-	wheres = append(wheres, tenant.CodeNEQ("SYSTEM"))
 	return tenant.And(wheres...)
 }

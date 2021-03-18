@@ -37,8 +37,8 @@ func EpidemicAddHandler(c *gin.Context) {
 		SetTreatmentResultId(form.TreatmentResultId).
 		SetTreatmentResultName(form.TreatmentResultName).
 		SetWhereabout(form.Whereabout).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -49,8 +49,8 @@ func EpidemicAddHandler(c *gin.Context) {
 
 	if _, err := db.Client.Event.Create().SetCreatedAt(time.Now().UnixNano()).
 		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventName("发病").
-		SetEventType("兽医事件").SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).Save(c.Request.Context()); err != nil {
+		SetEventType("兽医事件").SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).Save(c.Request.Context()); err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
@@ -66,7 +66,7 @@ func EpidemicListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
+	listParams.Level = c.MustGet("level").(int)
 	where := Where(listParams)
 	totalCount, err := db.Client.Epidemic.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -95,13 +95,13 @@ func EpidemicDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	epidemic, err := db.Client.Epidemic.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.Epidemic.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(epidemic))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func EpidemicUpdateHandler(c *gin.Context) {

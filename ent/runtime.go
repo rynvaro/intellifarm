@@ -278,15 +278,15 @@ func init() {
 	userFields := schema.User{}.Fields()
 	_ = userFields
 	// userDescName is the schema descriptor for name field.
-	userDescName := userFields[5].Descriptor()
+	userDescName := userFields[6].Descriptor()
 	// user.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	user.NameValidator = userDescName.Validators[0].(func(string) error)
 	// userDescOnJobState is the schema descriptor for onJobState field.
-	userDescOnJobState := userFields[14].Descriptor()
+	userDescOnJobState := userFields[15].Descriptor()
 	// user.DefaultOnJobState holds the default value on creation for the onJobState field.
 	user.DefaultOnJobState = userDescOnJobState.Default.(int)
 	// userDescDeleted is the schema descriptor for deleted field.
-	userDescDeleted := userFields[22].Descriptor()
+	userDescDeleted := userFields[23].Descriptor()
 	// user.DefaultDeleted holds the default value on creation for the deleted field.
 	user.DefaultDeleted = userDescDeleted.Default.(int)
 	whereaboutsFields := schema.Whereabouts{}.Fields()

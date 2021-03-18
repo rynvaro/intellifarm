@@ -27,6 +27,19 @@ func (uu *UserUpdate) Where(ps ...predicate.User) *UserUpdate {
 	return uu
 }
 
+// SetLevel sets the level field.
+func (uu *UserUpdate) SetLevel(i int) *UserUpdate {
+	uu.mutation.ResetLevel()
+	uu.mutation.SetLevel(i)
+	return uu
+}
+
+// AddLevel adds i to level.
+func (uu *UserUpdate) AddLevel(i int) *UserUpdate {
+	uu.mutation.AddLevel(i)
+	return uu
+}
+
 // SetFarmId sets the farmId field.
 func (uu *UserUpdate) SetFarmId(i int64) *UserUpdate {
 	uu.mutation.ResetFarmId()
@@ -579,6 +592,20 @@ func (uu *UserUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := uu.mutation.Level(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: user.FieldLevel,
+		})
+	}
+	if value, ok := uu.mutation.AddedLevel(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: user.FieldLevel,
+		})
+	}
 	if value, ok := uu.mutation.FarmId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -928,6 +955,19 @@ type UserUpdateOne struct {
 	config
 	hooks    []Hook
 	mutation *UserMutation
+}
+
+// SetLevel sets the level field.
+func (uuo *UserUpdateOne) SetLevel(i int) *UserUpdateOne {
+	uuo.mutation.ResetLevel()
+	uuo.mutation.SetLevel(i)
+	return uuo
+}
+
+// AddLevel adds i to level.
+func (uuo *UserUpdateOne) AddLevel(i int) *UserUpdateOne {
+	uuo.mutation.AddLevel(i)
+	return uuo
 }
 
 // SetFarmId sets the farmId field.
@@ -1480,6 +1520,20 @@ func (uuo *UserUpdateOne) sqlSave(ctx context.Context) (_node *User, err error) 
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing User.ID for update")}
 	}
 	_spec.Node.ID.Value = id
+	if value, ok := uuo.mutation.Level(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: user.FieldLevel,
+		})
+	}
+	if value, ok := uuo.mutation.AddedLevel(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: user.FieldLevel,
+		})
+	}
 	if value, ok := uuo.mutation.FarmId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,

@@ -38,8 +38,8 @@ func InspectionAddHandler(c *gin.Context) {
 		SetResultId(form.ResultId).
 		SetResultName(form.ResultName).
 		SetShedName(form.ShedName).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -50,8 +50,8 @@ func InspectionAddHandler(c *gin.Context) {
 
 	if _, err := db.Client.Event.Create().SetCreatedAt(time.Now().UnixNano()).
 		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventName("检疫").
-		SetEventType("兽医事件").SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).Save(c.Request.Context()); err != nil {
+		SetEventType("兽医事件").SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).Save(c.Request.Context()); err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
@@ -67,7 +67,7 @@ func InspectionListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
+	listParams.Level = c.MustGet("level").(int)
 	where := Where(listParams)
 	totalCount, err := db.Client.Inspection.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -96,13 +96,13 @@ func InspectionDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	inspection, err := db.Client.Inspection.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.Inspection.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(inspection))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func InspectionUpdateHandler(c *gin.Context) {

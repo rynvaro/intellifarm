@@ -13,6 +13,7 @@ type User struct {
 // Fields of the User.
 func (User) Fields() []ent.Field {
 	return []ent.Field{
+		field.Int("level").Comment("1 系统用户 2 集团用户 3 集团下属用户"),
 		field.Int64("farmId").Comment("牛场ID").Optional(),
 		field.String("farmName").Comment("牛场名称").Optional(),
 		field.Int64("positionId").Comment("职务ID").Optional(),

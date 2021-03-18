@@ -33,8 +33,8 @@ func DisinfectAddHandler(c *gin.Context) {
 		SetTypeName(form.TypeName).
 		SetWayId(form.WayId).
 		SetWayName(form.WayName).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -52,7 +52,7 @@ func DisinfectListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
+	listParams.Level = c.MustGet("level").(int)
 	where := Where(listParams)
 	totalCount, err := db.Client.Disinfect.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -81,13 +81,13 @@ func DisinfectDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	disinfect, err := db.Client.Disinfect.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.Disinfect.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(disinfect))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func DisinfectUpdateHandler(c *gin.Context) {

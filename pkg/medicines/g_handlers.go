@@ -29,8 +29,8 @@ func MedicineAddHandler(c *gin.Context) {
 		SetEarNumber(form.EarNumber).
 		SetEpid(form.Epid).
 		SetMedicineName(form.MedicineName).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetRemarks(form.Remarks).
 		SetUnit(form.Unit).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
@@ -43,8 +43,8 @@ func MedicineAddHandler(c *gin.Context) {
 
 	if _, err := db.Client.Event.Create().SetCreatedAt(time.Now().UnixNano()).
 		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventName("用药").
-		SetEventType("兽医事件").SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).Save(c.Request.Context()); err != nil {
+		SetEventType("兽医事件").SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).Save(c.Request.Context()); err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
@@ -88,13 +88,13 @@ func MedicineDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	medicine, err := db.Client.Medicine.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.Medicine.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(medicine))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func MedicineUpdateHandler(c *gin.Context) {
@@ -112,8 +112,8 @@ func MedicineUpdateHandler(c *gin.Context) {
 		SetEpid(form.Epid).
 		SetMedicineName(form.MedicineName).
 		SetRemarks(form.Remarks).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetUnit(form.Unit).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())

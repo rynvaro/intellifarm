@@ -35,8 +35,8 @@ func CustomerAddHandler(c *gin.Context) {
 		SetTenantId(form.TenantId).
 		SetTenantName(form.TenantName).
 		SetType(form.Type).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
@@ -53,7 +53,7 @@ func CustomerListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
+	listParams.Level = c.MustGet("level").(int)
 	where := Where(listParams)
 	totalCount, err := db.Client.Customer.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -82,13 +82,13 @@ func CustomerDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	customer, err := db.Client.Customer.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.Customer.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(customer))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func CustomerUpdateHandler(c *gin.Context) {

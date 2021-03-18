@@ -34,8 +34,8 @@ func AbortionAddHandler(c *gin.Context) {
 		SetShedName(form.ShedName).
 		SetTimes(form.Times).
 		SetUserName(form.UserName).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -46,8 +46,8 @@ func AbortionAddHandler(c *gin.Context) {
 
 	if _, err := db.Client.Event.Create().SetCreatedAt(time.Now().UnixNano()).
 		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventName("流产").
-		SetEventType("繁殖事件").SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).Save(c.Request.Context()); err != nil {
+		SetEventType("繁殖事件").SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).Save(c.Request.Context()); err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
@@ -63,7 +63,7 @@ func AbortionListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
+	listParams.Level = c.MustGet("level").(int)
 	where := Where(listParams)
 	totalCount, err := db.Client.Abortion.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -92,13 +92,13 @@ func AbortionDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	abortion, err := db.Client.Abortion.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.Abortion.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(abortion))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func AbortionUpdateHandler(c *gin.Context) {

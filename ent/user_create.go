@@ -19,6 +19,12 @@ type UserCreate struct {
 	hooks    []Hook
 }
 
+// SetLevel sets the level field.
+func (uc *UserCreate) SetLevel(i int) *UserCreate {
+	uc.mutation.SetLevel(i)
+	return uc
+}
+
 // SetFarmId sets the farmId field.
 func (uc *UserCreate) SetFarmId(i int64) *UserCreate {
 	uc.mutation.SetFarmId(i)
@@ -373,6 +379,9 @@ func (uc *UserCreate) defaults() {
 
 // check runs all checks and user-defined validators on the builder.
 func (uc *UserCreate) check() error {
+	if _, ok := uc.mutation.Level(); !ok {
+		return &ValidationError{Name: "level", err: errors.New("ent: missing required field \"level\"")}
+	}
 	if _, ok := uc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
 	}
@@ -423,6 +432,14 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := uc.mutation.Level(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: user.FieldLevel,
+		})
+		_node.Level = value
+	}
 	if value, ok := uc.mutation.FarmId(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,

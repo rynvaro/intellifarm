@@ -16,6 +16,21 @@ func Where(listParams *CattleSearchParams) predicate.Cattle {
 	if listParams.CattleCateId > 0 {
 		wheres = append(wheres, cattle.CateId(listParams.CattleCateId))
 	}
-	wheres = append(wheres, cattle.TenantId(listParams.TenantId))
+	switch listParams.Level {
+	case 1:
+		if listParams.TenantId > 0 {
+			wheres = append(wheres, cattle.TenantId(listParams.TenantId))
+		}
+		if listParams.FarmId > 0 {
+			wheres = append(wheres, cattle.FarmId(listParams.FarmId))
+		}
+	case 2:
+		wheres = append(wheres, cattle.TenantId(listParams.TenantId))
+		if listParams.FarmId > 0 {
+			wheres = append(wheres, cattle.FarmId(listParams.FarmId))
+		}
+	case 3:
+		wheres = append(wheres, cattle.FarmId(listParams.FarmId))
+	}
 	return cattle.And(wheres...)
 }

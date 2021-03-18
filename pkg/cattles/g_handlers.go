@@ -59,8 +59,8 @@ func CattleAddHandler(c *gin.Context) {
 		SetType(form.Type).
 		SetTypeName(form.TypeName).
 		SetWeight(form.Weight).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -78,13 +78,13 @@ func CattleDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	cattle, err := db.Client.Cattle.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.Cattle.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(cattle))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func CattleUpdateHandler(c *gin.Context) {
@@ -133,6 +133,8 @@ func CattleUpdateHandler(c *gin.Context) {
 		SetType(form.Type).
 		SetTypeName(form.TypeName).
 		SetWeight(form.Weight).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())
 	if err != nil {

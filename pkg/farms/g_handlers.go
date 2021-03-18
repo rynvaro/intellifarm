@@ -4,6 +4,7 @@ import (
 	"cattleai/db"
 	"cattleai/ent"
 	"cattleai/ent/farm"
+	"cattleai/ent/shed"
 	"cattleai/pkg/paging"
 	"cattleai/pkg/params"
 	"cattleai/resp"
@@ -40,8 +41,8 @@ func FarmAddHandler(c *gin.Context) {
 		SetSquare(form.Square).
 		SetVarietyId(form.VarietyId).
 		SetVarietyName(form.VarietyName).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -59,7 +60,7 @@ func FarmListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
+	listParams.Level = c.MustGet("level").(int)
 	where := Where(listParams)
 	totalCount, err := db.Client.Farm.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -88,13 +89,13 @@ func FarmDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	farm, err := db.Client.Farm.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.Farm.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(farm))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func FarmUpdateHandler(c *gin.Context) {
@@ -121,6 +122,8 @@ func FarmUpdateHandler(c *gin.Context) {
 		SetSquare(form.Square).
 		SetVarietyId(form.VarietyId).
 		SetVarietyName(form.VarietyName).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())
 	if err != nil {
@@ -129,4 +132,19 @@ func FarmUpdateHandler(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, resp.Success(farm))
+}
+
+func FarmShedsHandler(c *gin.Context) {
+	id := &params.Id{}
+	if err := c.BindUri(id); err != nil {
+		log.Error().Msg(err.Error())
+		return
+	}
+	sheds, err := db.Client.Shed.Query().Where(shed.FarmId(id.Id)).All(c.Request.Context())
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+	c.JSON(http.StatusOK, resp.Success(sheds))
 }

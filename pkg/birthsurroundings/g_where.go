@@ -7,9 +7,9 @@ import (
 )
 
 func Where(listParams *params.ListParams) predicate.BirthSurrounding {
-	wheres := []predicate.BirthSurrounding{birthsurrounding.Deleted(0)}
+	wheres := []predicate.BirthSurrounding{}
 	if listParams.Q != "" {
-		wheres = append(wheres, birthsurrounding.NameContains(listParams.Q))
+		wheres = append(wheres, birthsurrounding.UserNameContains(listParams.Q))
 	}
 	if len(listParams.TimeRange) == 2 {
 		wheres = append(wheres, birthsurrounding.RecordTimeGTE(listParams.TimeRange[0]))
@@ -18,6 +18,21 @@ func Where(listParams *params.ListParams) predicate.BirthSurrounding {
 	if listParams.UserId > 0 {
 		wheres = append(wheres, birthsurrounding.UserIdEQ(listParams.UserId))
 	}
-	wheres = append(wheres, birthsurrounding.TenantId(listParams.TenantId))
+	switch listParams.Level {
+	case 1:
+		if listParams.TenantId > 0 {
+			wheres = append(wheres, birthsurrounding.TenantId(listParams.TenantId))
+		}
+		if listParams.FarmId > 0 {
+			wheres = append(wheres, birthsurrounding.FarmId(listParams.FarmId))
+		}
+	case 2:
+		wheres = append(wheres, birthsurrounding.TenantId(listParams.TenantId))
+		if listParams.FarmId > 0 {
+			wheres = append(wheres, birthsurrounding.FarmId(listParams.FarmId))
+		}
+	case 3:
+		wheres = append(wheres, birthsurrounding.FarmId(listParams.FarmId))
+	}
 	return birthsurrounding.And(wheres...)
 }

@@ -68662,6 +68662,8 @@ type UserMutation struct {
 	op            Op
 	typ           string
 	id            *int64
+	level         *int
+	addlevel      *int
 	farmId        *int64
 	addfarmId     *int64
 	farmName      *string
@@ -68777,6 +68779,63 @@ func (m *UserMutation) ID() (id int64, exists bool) {
 		return
 	}
 	return *m.id, true
+}
+
+// SetLevel sets the level field.
+func (m *UserMutation) SetLevel(i int) {
+	m.level = &i
+	m.addlevel = nil
+}
+
+// Level returns the level value in the mutation.
+func (m *UserMutation) Level() (r int, exists bool) {
+	v := m.level
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldLevel returns the old level value of the User.
+// If the User object wasn't provided to the builder, the object is fetched
+// from the database.
+// An error is returned if the mutation operation is not UpdateOne, or database query fails.
+func (m *UserMutation) OldLevel(ctx context.Context) (v int, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, fmt.Errorf("OldLevel is allowed only on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, fmt.Errorf("OldLevel requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldLevel: %w", err)
+	}
+	return oldValue.Level, nil
+}
+
+// AddLevel adds i to level.
+func (m *UserMutation) AddLevel(i int) {
+	if m.addlevel != nil {
+		*m.addlevel += i
+	} else {
+		m.addlevel = &i
+	}
+}
+
+// AddedLevel returns the value that was added to the level field in this mutation.
+func (m *UserMutation) AddedLevel() (r int, exists bool) {
+	v := m.addlevel
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ResetLevel reset all changes of the "level" field.
+func (m *UserMutation) ResetLevel() {
+	m.level = nil
+	m.addlevel = nil
 }
 
 // SetFarmId sets the farmId field.
@@ -70071,7 +70130,10 @@ func (m *UserMutation) Type() string {
 // this mutation. Note that, in order to get all numeric
 // fields that were in/decremented, call AddedFields().
 func (m *UserMutation) Fields() []string {
-	fields := make([]string, 0, 23)
+	fields := make([]string, 0, 24)
+	if m.level != nil {
+		fields = append(fields, user.FieldLevel)
+	}
 	if m.farmId != nil {
 		fields = append(fields, user.FieldFarmId)
 	}
@@ -70149,6 +70211,8 @@ func (m *UserMutation) Fields() []string {
 // not set, or was not define in the schema.
 func (m *UserMutation) Field(name string) (ent.Value, bool) {
 	switch name {
+	case user.FieldLevel:
+		return m.Level()
 	case user.FieldFarmId:
 		return m.FarmId()
 	case user.FieldFarmName:
@@ -70204,6 +70268,8 @@ func (m *UserMutation) Field(name string) (ent.Value, bool) {
 // or the query to the database was failed.
 func (m *UserMutation) OldField(ctx context.Context, name string) (ent.Value, error) {
 	switch name {
+	case user.FieldLevel:
+		return m.OldLevel(ctx)
 	case user.FieldFarmId:
 		return m.OldFarmId(ctx)
 	case user.FieldFarmName:
@@ -70259,6 +70325,13 @@ func (m *UserMutation) OldField(ctx context.Context, name string) (ent.Value, er
 // type mismatch the field type.
 func (m *UserMutation) SetField(name string, value ent.Value) error {
 	switch name {
+	case user.FieldLevel:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetLevel(v)
+		return nil
 	case user.FieldFarmId:
 		v, ok := value.(int64)
 		if !ok {
@@ -70428,6 +70501,9 @@ func (m *UserMutation) SetField(name string, value ent.Value) error {
 // or decremented during this mutation.
 func (m *UserMutation) AddedFields() []string {
 	var fields []string
+	if m.addlevel != nil {
+		fields = append(fields, user.FieldLevel)
+	}
 	if m.addfarmId != nil {
 		fields = append(fields, user.FieldFarmId)
 	}
@@ -70466,6 +70542,8 @@ func (m *UserMutation) AddedFields() []string {
 // that this field was not set, or was not define in the schema.
 func (m *UserMutation) AddedField(name string) (ent.Value, bool) {
 	switch name {
+	case user.FieldLevel:
+		return m.AddedLevel()
 	case user.FieldFarmId:
 		return m.AddedFarmId()
 	case user.FieldPositionId:
@@ -70495,6 +70573,13 @@ func (m *UserMutation) AddedField(name string) (ent.Value, bool) {
 // type mismatch the field type.
 func (m *UserMutation) AddField(name string, value ent.Value) error {
 	switch name {
+	case user.FieldLevel:
+		v, ok := value.(int)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddLevel(v)
+		return nil
 	case user.FieldFarmId:
 		v, ok := value.(int64)
 		if !ok {
@@ -70698,6 +70783,9 @@ func (m *UserMutation) ClearField(name string) error {
 // defined in the schema.
 func (m *UserMutation) ResetField(name string) error {
 	switch name {
+	case user.FieldLevel:
+		m.ResetLevel()
+		return nil
 	case user.FieldFarmId:
 		m.ResetFarmId()
 		return nil

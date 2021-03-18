@@ -40,8 +40,8 @@ func Gen(model string, ins interface{}) {
 		assignments = assignments.Id(v + "(form." + strings.TrimPrefix(v, "Set") + ").").Line()
 		assignmentsForUpdate = assignmentsForUpdate.Id(v + "(form." + strings.TrimPrefix(v, "Set") + ").").Line()
 	}
-	assignments = assignments.Id(`SetTenantId(c.MustGet("tenantId").(int64)).
-	SetTenantName(c.MustGet("tenantName").(string)).`)
+	assignments = assignments.Id(`SetTenantId(form.TenantId).
+	SetTenantName(form.TenantName).`)
 	assignments = assignments.Id("SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).").Line().
 		Id("Save(c.Request.Context())")
 	assignmentsForUpdate = assignmentsForUpdate.Id("SetUpdatedAt(time.Now().Unix()).").Line().
@@ -86,7 +86,7 @@ func Gen(model string, ins interface{}) {
 			Id("return"),
 		),
 		Id("page").Op(":=").Id("listParams.Paging"),
-		Id(`listParams.TenantId = c.MustGet("tenantId").(int64)`),
+		Id(`listParams.Level = c.MustGet("level").(int)`),
 		Id("where").Op(":=").Id("Where(listParams)"),
 		List(Id("totalCount"), Err()).Op(":=").Id("db.Client."+model+".Query().Where(where).Count(c.Request.Context())"),
 		If(Err().Op("!=").Id("nil")).Block(
@@ -114,7 +114,7 @@ func Gen(model string, ins interface{}) {
 			Id("return"),
 		),
 		Id(`log.Debug().Msg(fmt.Sprintf("%+v", id))`),
-		List(Id(lowerModel), Err()).Op(":=").Id("db.Client."+model+".UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())"),
+		List(Id(lowerModel), Err()).Op(":=").Id("db.Client."+model+".DeleteOneID(id.Id).Exec(c.Request.Context())"),
 		If(Err().Op("!=").Id("nil")).Block(
 			Id("log.Error().Msg(err.Error())"),
 			Id("c.Status(http.StatusInternalServerError)"),

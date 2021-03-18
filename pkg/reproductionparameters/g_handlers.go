@@ -29,8 +29,8 @@ func ReproductionParametersAddHandler(c *gin.Context) {
 		SetTenantId(form.TenantId).
 		SetTenantName(form.TenantName).
 		SetValue(form.Value).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
@@ -47,7 +47,7 @@ func ReproductionParametersListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
+	listParams.Level = c.MustGet("level").(int)
 	where := Where(listParams)
 	totalCount, err := db.Client.ReproductionParameters.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -76,13 +76,13 @@ func ReproductionParametersDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	reproductionparameters, err := db.Client.ReproductionParameters.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.ReproductionParameters.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(reproductionparameters))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func ReproductionParametersUpdateHandler(c *gin.Context) {

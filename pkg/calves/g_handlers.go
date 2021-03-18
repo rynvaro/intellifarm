@@ -46,8 +46,8 @@ func CalveAddHandler(c *gin.Context) {
 		SetPregnantAt(form.PregnantAt).
 		SetTimes(form.Times).
 		SetUserName(form.UserName).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -58,8 +58,8 @@ func CalveAddHandler(c *gin.Context) {
 
 	if _, err := db.Client.Event.Create().SetCreatedAt(time.Now().UnixNano()).
 		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventName("产犊").
-		SetEventType("繁殖事件").SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).Save(c.Request.Context()); err != nil {
+		SetEventType("繁殖事件").SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).Save(c.Request.Context()); err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
@@ -75,7 +75,7 @@ func CalveListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
+	listParams.Level = c.MustGet("level").(int)
 	where := Where(listParams)
 	totalCount, err := db.Client.Calve.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -104,13 +104,13 @@ func CalveDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	calve, err := db.Client.Calve.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.Calve.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(calve))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func CalveUpdateHandler(c *gin.Context) {

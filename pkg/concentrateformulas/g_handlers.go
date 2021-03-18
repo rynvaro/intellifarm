@@ -32,8 +32,8 @@ func ConcentrateFormulaAddHandler(c *gin.Context) {
 		SetName(form.Name).
 		SetRemarks(form.Remarks).
 		SetStatus(form.Status).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -51,7 +51,7 @@ func ConcentrateFormulaListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
+	listParams.Level = c.MustGet("level").(int)
 	where := Where(listParams)
 	totalCount, err := db.Client.ConcentrateFormula.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -80,13 +80,13 @@ func ConcentrateFormulaDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	concentrateformula, err := db.Client.ConcentrateFormula.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.ConcentrateFormula.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(concentrateformula))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func ConcentrateFormulaUpdateHandler(c *gin.Context) {

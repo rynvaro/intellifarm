@@ -8,4 +8,5 @@ func RegisterRoutes(g *gin.RouterGroup) {
 	g.DELETE("/tenants/:id", TenantDeleteHandler)
 	g.PUT("/tenants/:id", TenantUpdateHandler)
 	g.GET("/tenantsall", AllTenants)
+	g.GET("/tenants/:id/farms", TenantFarmsHandler)
 }

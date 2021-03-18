@@ -29,7 +29,7 @@ func CattleListHandler(c *gin.Context) {
 	}
 	fmt.Printf("--%+v\n", listParams)
 	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
+	listParams.Level = c.MustGet("level").(int)
 	where := Where(listParams)
 	totalCount, err := db.Client.Cattle.Query().Where(where).Count(c.Request.Context())
 	if err != nil {

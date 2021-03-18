@@ -1,6 +1,9 @@
 package params
 
-import "cattleai/pkg/paging"
+import (
+	"cattleai/pkg/paging"
+	"fmt"
+)
 
 type ListParams struct {
 	Q         string        `json:"q" form:"q"`
@@ -11,4 +14,9 @@ type ListParams struct {
 	ParentId  int64         `json:"parentId" form:"parentId"`
 	TenantId  int64         `json:"tenantId" form:"tenantId"`
 	Epid      int64         `json:"epid" form:"epid"` // 发病ID
+	FarmId    int64         `json:"farmId" form:"farmId"`
+}
+
+func (p *ListParams) ToString() string {
+	return fmt.Sprintf("%+v", p)
 }

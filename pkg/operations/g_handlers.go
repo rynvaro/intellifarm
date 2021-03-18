@@ -30,8 +30,8 @@ func OperationAddHandler(c *gin.Context) {
 		SetTenantName(form.TenantName).
 		SetUserId(form.UserId).
 		SetUserName(form.UserName).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).SetCreatedAt(time.Now().Unix()).SetDeleted(0).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).SetCreatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
@@ -48,7 +48,7 @@ func OperationListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
+	listParams.Level = c.MustGet("level").(int)
 	where := Where(listParams)
 	totalCount, err := db.Client.Operation.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -77,13 +77,13 @@ func OperationDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	operation, err := db.Client.Operation.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.Operation.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(operation))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func OperationUpdateHandler(c *gin.Context) {

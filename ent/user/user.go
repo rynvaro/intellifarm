@@ -7,6 +7,8 @@ const (
 	Label = "user"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldLevel holds the string denoting the level field in the database.
+	FieldLevel = "level"
 	// FieldFarmId holds the string denoting the farmid field in the database.
 	FieldFarmId = "farm_id"
 	// FieldFarmName holds the string denoting the farmname field in the database.
@@ -61,6 +63,7 @@ const (
 // Columns holds all SQL columns for user fields.
 var Columns = []string{
 	FieldID,
+	FieldLevel,
 	FieldFarmId,
 	FieldFarmName,
 	FieldPositionId,

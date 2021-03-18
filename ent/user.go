@@ -15,6 +15,8 @@ type User struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int64 `json:"id,omitempty"`
+	// Level holds the value of the "level" field.
+	Level int `json:"level,omitempty"`
 	// FarmId holds the value of the "farmId" field.
 	FarmId int64 `json:"farmId,omitempty"`
 	// FarmName holds the value of the "farmName" field.
@@ -67,6 +69,7 @@ type User struct {
 func (*User) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
+		&sql.NullInt64{},  // level
 		&sql.NullInt64{},  // farmId
 		&sql.NullString{}, // farmName
 		&sql.NullInt64{},  // positionId
@@ -106,117 +109,122 @@ func (u *User) assignValues(values ...interface{}) error {
 	u.ID = int64(value.Int64)
 	values = values[1:]
 	if value, ok := values[0].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field farmId", values[0])
+		return fmt.Errorf("unexpected type %T for field level", values[0])
+	} else if value.Valid {
+		u.Level = int(value.Int64)
+	}
+	if value, ok := values[1].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field farmId", values[1])
 	} else if value.Valid {
 		u.FarmId = value.Int64
 	}
-	if value, ok := values[1].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field farmName", values[1])
+	if value, ok := values[2].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field farmName", values[2])
 	} else if value.Valid {
 		u.FarmName = value.String
 	}
-	if value, ok := values[2].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field positionId", values[2])
+	if value, ok := values[3].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field positionId", values[3])
 	} else if value.Valid {
 		u.PositionId = value.Int64
 	}
-	if value, ok := values[3].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field positionName", values[3])
+	if value, ok := values[4].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field positionName", values[4])
 	} else if value.Valid {
 		u.PositionName = value.String
 	}
-	if value, ok := values[4].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field dutyName", values[4])
+	if value, ok := values[5].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field dutyName", values[5])
 	} else if value.Valid {
 		u.DutyName = value.String
 	}
-	if value, ok := values[5].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field name", values[5])
+	if value, ok := values[6].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field name", values[6])
 	} else if value.Valid {
 		u.Name = value.String
 	}
-	if value, ok := values[6].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field gender", values[6])
+	if value, ok := values[7].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field gender", values[7])
 	} else if value.Valid {
 		u.Gender = int(value.Int64)
 	}
-	if value, ok := values[7].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field age", values[7])
+	if value, ok := values[8].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field age", values[8])
 	} else if value.Valid {
 		u.Age = int(value.Int64)
 	}
-	if value, ok := values[8].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field education", values[8])
+	if value, ok := values[9].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field education", values[9])
 	} else if value.Valid {
 		u.Education = value.String
 	}
-	if value, ok := values[9].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field major", values[9])
+	if value, ok := values[10].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field major", values[10])
 	} else if value.Valid {
 		u.Major = value.String
 	}
-	if value, ok := values[10].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field jobTitle", values[10])
+	if value, ok := values[11].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field jobTitle", values[11])
 	} else if value.Valid {
 		u.JobTitle = value.String
 	}
-	if value, ok := values[11].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field phone", values[11])
+	if value, ok := values[12].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field phone", values[12])
 	} else if value.Valid {
 		u.Phone = value.String
 	}
-	if value, ok := values[12].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field idCard", values[12])
+	if value, ok := values[13].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field idCard", values[13])
 	} else if value.Valid {
 		u.IdCard = value.String
 	}
-	if value, ok := values[13].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field address", values[13])
+	if value, ok := values[14].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field address", values[14])
 	} else if value.Valid {
 		u.Address = value.String
 	}
-	if value, ok := values[14].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field onJobState", values[14])
+	if value, ok := values[15].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field onJobState", values[15])
 	} else if value.Valid {
 		u.OnJobState = int(value.Int64)
 	}
-	if value, ok := values[15].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field joinedAt", values[15])
+	if value, ok := values[16].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field joinedAt", values[16])
 	} else if value.Valid {
 		u.JoinedAt = value.Int64
 	}
-	if value, ok := values[16].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantId", values[16])
+	if value, ok := values[17].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[17])
 	} else if value.Valid {
 		u.TenantId = value.Int64
 	}
-	if value, ok := values[17].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantName", values[17])
+	if value, ok := values[18].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[18])
 	} else if value.Valid {
 		u.TenantName = value.String
 	}
-	if value, ok := values[18].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field password", values[18])
+	if value, ok := values[19].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field password", values[19])
 	} else if value.Valid {
 		u.Password = value.String
 	}
-	if value, ok := values[19].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[19])
+	if value, ok := values[20].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[20])
 	} else if value.Valid {
 		u.Remarks = value.String
 	}
-	if value, ok := values[20].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[20])
+	if value, ok := values[21].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[21])
 	} else if value.Valid {
 		u.CreatedAt = value.Int64
 	}
-	if value, ok := values[21].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[21])
+	if value, ok := values[22].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[22])
 	} else if value.Valid {
 		u.UpdatedAt = value.Int64
 	}
-	if value, ok := values[22].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[22])
+	if value, ok := values[23].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[23])
 	} else if value.Valid {
 		u.Deleted = int(value.Int64)
 	}
@@ -246,6 +254,8 @@ func (u *User) String() string {
 	var builder strings.Builder
 	builder.WriteString("User(")
 	builder.WriteString(fmt.Sprintf("id=%v", u.ID))
+	builder.WriteString(", level=")
+	builder.WriteString(fmt.Sprintf("%v", u.Level))
 	builder.WriteString(", farmId=")
 	builder.WriteString(fmt.Sprintf("%v", u.FarmId))
 	builder.WriteString(", farmName=")

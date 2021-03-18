@@ -1536,6 +1536,7 @@ var (
 	// UsersColumns holds the columns for the "users" table.
 	UsersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
+		{Name: "level", Type: field.TypeInt},
 		{Name: "farm_id", Type: field.TypeInt64, Nullable: true},
 		{Name: "farm_name", Type: field.TypeString, Nullable: true},
 		{Name: "position_id", Type: field.TypeInt64, Nullable: true},

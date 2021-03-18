@@ -31,8 +31,8 @@ func CattleMoveAddHandler(c *gin.Context) {
 		SetTenantName(form.TenantName).
 		SetToShed(form.ToShed).
 		SetUserName(form.UserName).
-		SetTenantId(c.MustGet("tenantId").(int64)).
-		SetTenantName(c.MustGet("tenantName").(string)).SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
@@ -49,7 +49,7 @@ func CattleMoveListHandler(c *gin.Context) {
 		return
 	}
 	page := listParams.Paging
-	listParams.TenantId = c.MustGet("tenantId").(int64)
+	listParams.Level = c.MustGet("level").(int)
 	where := Where(listParams)
 	totalCount, err := db.Client.CattleMove.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -78,13 +78,13 @@ func CattleMoveDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	cattlemove, err := db.Client.CattleMove.UpdateOneID(id.Id).SetDeleted(1).Save(c.Request.Context())
+	err := db.Client.CattleMove.DeleteOneID(id.Id).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, resp.Success(cattlemove))
+	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
 func CattleMoveUpdateHandler(c *gin.Context) {

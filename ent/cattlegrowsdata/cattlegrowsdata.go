@@ -7,12 +7,24 @@ const (
 	Label = "cattle_grows_data"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldCattleId holds the string denoting the cattleid field in the database.
+	FieldCattleId = "cattle_id"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
+	// FieldFarmId holds the string denoting the farmid field in the database.
+	FieldFarmId = "farm_id"
+	// FieldFarmName holds the string denoting the farmname field in the database.
+	FieldFarmName = "farm_name"
+	// FieldShedId holds the string denoting the shedid field in the database.
+	FieldShedId = "shed_id"
+	// FieldShedName holds the string denoting the shedname field in the database.
+	FieldShedName = "shed_name"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// FieldEarNumber holds the string denoting the earnumber field in the database.
 	FieldEarNumber = "ear_number"
-	// FieldShedName holds the string denoting the shedname field in the database.
-	FieldShedName = "shed_name"
 	// FieldMeasuredAt holds the string denoting the measuredat field in the database.
 	FieldMeasuredAt = "measured_at"
 	// FieldMeasuredBy holds the string denoting the measuredby field in the database.
@@ -23,10 +35,8 @@ const (
 	FieldBust = "bust"
 	// FieldHeight holds the string denoting the height field in the database.
 	FieldHeight = "height"
-	// FieldTenantId holds the string denoting the tenantid field in the database.
-	FieldTenantId = "tenant_id"
-	// FieldTenantName holds the string denoting the tenantname field in the database.
-	FieldTenantName = "tenant_name"
+	// FieldScore holds the string denoting the score field in the database.
+	FieldScore = "score"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -43,16 +53,21 @@ const (
 // Columns holds all SQL columns for cattlegrowsdata fields.
 var Columns = []string{
 	FieldID,
+	FieldCattleId,
+	FieldTenantId,
+	FieldTenantName,
+	FieldFarmId,
+	FieldFarmName,
+	FieldShedId,
+	FieldShedName,
 	FieldName,
 	FieldEarNumber,
-	FieldShedName,
 	FieldMeasuredAt,
 	FieldMeasuredBy,
 	FieldWeight,
 	FieldBust,
 	FieldHeight,
-	FieldTenantId,
-	FieldTenantName,
+	FieldScore,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,

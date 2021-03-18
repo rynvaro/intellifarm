@@ -237,12 +237,12 @@ func (cgdq *CattleGrowsDataQuery) Clone() *CattleGrowsDataQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.CattleGrowsData.Query().
-//		GroupBy(cattlegrowsdata.FieldName).
+//		GroupBy(cattlegrowsdata.FieldCattleId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (cgdq *CattleGrowsDataQuery) GroupBy(field string, fields ...string) *Cattl
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //	}
 //
 //	client.CattleGrowsData.Query().
-//		Select(cattlegrowsdata.FieldName).
+//		Select(cattlegrowsdata.FieldCattleId).
 //		Scan(ctx, &v)
 //
 func (cgdq *CattleGrowsDataQuery) Select(field string, fields ...string) *CattleGrowsDataSelect {

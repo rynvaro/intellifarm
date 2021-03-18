@@ -30,10 +30,12 @@ func CattleGrowsDataAddHandler(c *gin.Context) {
 		SetMeasuredBy(form.MeasuredBy).
 		SetName(form.Name).
 		SetRemarks(form.Remarks).
-		SetShedName(form.ShedName).
 		SetWeight(form.Weight).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
+		SetScore(form.Score).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -62,6 +64,7 @@ func CattleGrowsDataListHandler(c *gin.Context) {
 	}
 	page := listParams.Paging
 	listParams.Level = c.MustGet("level").(int)
+	log.Debug().Msg(listParams.ToString())
 	where := Where(listParams)
 	totalCount, err := db.Client.CattleGrowsData.Query().Where(where).Count(c.Request.Context())
 	if err != nil {
@@ -114,8 +117,12 @@ func CattleGrowsDataUpdateHandler(c *gin.Context) {
 		SetMeasuredBy(form.MeasuredBy).
 		SetName(form.Name).
 		SetRemarks(form.Remarks).
-		SetShedName(form.ShedName).
 		SetWeight(form.Weight).
+		SetScore(form.Score).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())
 	if err != nil {

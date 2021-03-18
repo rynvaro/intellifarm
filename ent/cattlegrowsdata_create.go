@@ -19,6 +19,48 @@ type CattleGrowsDataCreate struct {
 	hooks    []Hook
 }
 
+// SetCattleId sets the cattleId field.
+func (cgdc *CattleGrowsDataCreate) SetCattleId(i int64) *CattleGrowsDataCreate {
+	cgdc.mutation.SetCattleId(i)
+	return cgdc
+}
+
+// SetTenantId sets the tenantId field.
+func (cgdc *CattleGrowsDataCreate) SetTenantId(i int64) *CattleGrowsDataCreate {
+	cgdc.mutation.SetTenantId(i)
+	return cgdc
+}
+
+// SetTenantName sets the tenantName field.
+func (cgdc *CattleGrowsDataCreate) SetTenantName(s string) *CattleGrowsDataCreate {
+	cgdc.mutation.SetTenantName(s)
+	return cgdc
+}
+
+// SetFarmId sets the farmId field.
+func (cgdc *CattleGrowsDataCreate) SetFarmId(i int64) *CattleGrowsDataCreate {
+	cgdc.mutation.SetFarmId(i)
+	return cgdc
+}
+
+// SetFarmName sets the farmName field.
+func (cgdc *CattleGrowsDataCreate) SetFarmName(s string) *CattleGrowsDataCreate {
+	cgdc.mutation.SetFarmName(s)
+	return cgdc
+}
+
+// SetShedId sets the shedId field.
+func (cgdc *CattleGrowsDataCreate) SetShedId(i int64) *CattleGrowsDataCreate {
+	cgdc.mutation.SetShedId(i)
+	return cgdc
+}
+
+// SetShedName sets the shedName field.
+func (cgdc *CattleGrowsDataCreate) SetShedName(s string) *CattleGrowsDataCreate {
+	cgdc.mutation.SetShedName(s)
+	return cgdc
+}
+
 // SetName sets the name field.
 func (cgdc *CattleGrowsDataCreate) SetName(s string) *CattleGrowsDataCreate {
 	cgdc.mutation.SetName(s)
@@ -36,12 +78,6 @@ func (cgdc *CattleGrowsDataCreate) SetNillableName(s *string) *CattleGrowsDataCr
 // SetEarNumber sets the earNumber field.
 func (cgdc *CattleGrowsDataCreate) SetEarNumber(s string) *CattleGrowsDataCreate {
 	cgdc.mutation.SetEarNumber(s)
-	return cgdc
-}
-
-// SetShedName sets the shedName field.
-func (cgdc *CattleGrowsDataCreate) SetShedName(s string) *CattleGrowsDataCreate {
-	cgdc.mutation.SetShedName(s)
 	return cgdc
 }
 
@@ -75,15 +111,9 @@ func (cgdc *CattleGrowsDataCreate) SetHeight(i int) *CattleGrowsDataCreate {
 	return cgdc
 }
 
-// SetTenantId sets the tenantId field.
-func (cgdc *CattleGrowsDataCreate) SetTenantId(i int64) *CattleGrowsDataCreate {
-	cgdc.mutation.SetTenantId(i)
-	return cgdc
-}
-
-// SetTenantName sets the tenantName field.
-func (cgdc *CattleGrowsDataCreate) SetTenantName(s string) *CattleGrowsDataCreate {
-	cgdc.mutation.SetTenantName(s)
+// SetScore sets the score field.
+func (cgdc *CattleGrowsDataCreate) SetScore(i int) *CattleGrowsDataCreate {
+	cgdc.mutation.SetScore(i)
 	return cgdc
 }
 
@@ -162,11 +192,29 @@ func (cgdc *CattleGrowsDataCreate) SaveX(ctx context.Context) *CattleGrowsData {
 
 // check runs all checks and user-defined validators on the builder.
 func (cgdc *CattleGrowsDataCreate) check() error {
-	if _, ok := cgdc.mutation.EarNumber(); !ok {
-		return &ValidationError{Name: "earNumber", err: errors.New("ent: missing required field \"earNumber\"")}
+	if _, ok := cgdc.mutation.CattleId(); !ok {
+		return &ValidationError{Name: "cattleId", err: errors.New("ent: missing required field \"cattleId\"")}
+	}
+	if _, ok := cgdc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := cgdc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := cgdc.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := cgdc.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
+	}
+	if _, ok := cgdc.mutation.ShedId(); !ok {
+		return &ValidationError{Name: "shedId", err: errors.New("ent: missing required field \"shedId\"")}
 	}
 	if _, ok := cgdc.mutation.ShedName(); !ok {
 		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
+	}
+	if _, ok := cgdc.mutation.EarNumber(); !ok {
+		return &ValidationError{Name: "earNumber", err: errors.New("ent: missing required field \"earNumber\"")}
 	}
 	if _, ok := cgdc.mutation.MeasuredAt(); !ok {
 		return &ValidationError{Name: "measuredAt", err: errors.New("ent: missing required field \"measuredAt\"")}
@@ -183,11 +231,8 @@ func (cgdc *CattleGrowsDataCreate) check() error {
 	if _, ok := cgdc.mutation.Height(); !ok {
 		return &ValidationError{Name: "height", err: errors.New("ent: missing required field \"height\"")}
 	}
-	if _, ok := cgdc.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if _, ok := cgdc.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	if _, ok := cgdc.mutation.Score(); !ok {
+		return &ValidationError{Name: "score", err: errors.New("ent: missing required field \"score\"")}
 	}
 	if _, ok := cgdc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -228,6 +273,62 @@ func (cgdc *CattleGrowsDataCreate) createSpec() (*CattleGrowsData, *sqlgraph.Cre
 			},
 		}
 	)
+	if value, ok := cgdc.mutation.CattleId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegrowsdata.FieldCattleId,
+		})
+		_node.CattleId = value
+	}
+	if value, ok := cgdc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegrowsdata.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := cgdc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegrowsdata.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := cgdc.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegrowsdata.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := cgdc.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegrowsdata.FieldFarmName,
+		})
+		_node.FarmName = value
+	}
+	if value, ok := cgdc.mutation.ShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlegrowsdata.FieldShedId,
+		})
+		_node.ShedId = value
+	}
+	if value, ok := cgdc.mutation.ShedName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlegrowsdata.FieldShedName,
+		})
+		_node.ShedName = value
+	}
 	if value, ok := cgdc.mutation.Name(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -243,14 +344,6 @@ func (cgdc *CattleGrowsDataCreate) createSpec() (*CattleGrowsData, *sqlgraph.Cre
 			Column: cattlegrowsdata.FieldEarNumber,
 		})
 		_node.EarNumber = value
-	}
-	if value, ok := cgdc.mutation.ShedName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: cattlegrowsdata.FieldShedName,
-		})
-		_node.ShedName = value
 	}
 	if value, ok := cgdc.mutation.MeasuredAt(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -292,21 +385,13 @@ func (cgdc *CattleGrowsDataCreate) createSpec() (*CattleGrowsData, *sqlgraph.Cre
 		})
 		_node.Height = value
 	}
-	if value, ok := cgdc.mutation.TenantId(); ok {
+	if value, ok := cgdc.mutation.Score(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
+			Type:   field.TypeInt,
 			Value:  value,
-			Column: cattlegrowsdata.FieldTenantId,
+			Column: cattlegrowsdata.FieldScore,
 		})
-		_node.TenantId = value
-	}
-	if value, ok := cgdc.mutation.TenantName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: cattlegrowsdata.FieldTenantName,
-		})
-		_node.TenantName = value
+		_node.Score = value
 	}
 	if value, ok := cgdc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

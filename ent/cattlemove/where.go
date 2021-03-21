@@ -91,6 +91,55 @@ func IDLTE(id int64) predicate.CattleMove {
 	})
 }
 
+// CattleId applies equality check predicate on the "cattleId" field. It's identical to CattleIdEQ.
+func CattleId(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCattleId), v))
+	})
+}
+
+// TenantId applies equality check predicate on the "tenantId" field. It's identical to TenantIdEQ.
+func TenantId(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantName applies equality check predicate on the "tenantName" field. It's identical to TenantNameEQ.
+func TenantName(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTenantName), v))
+	})
+}
+
+// FarmId applies equality check predicate on the "farmId" field. It's identical to FarmIdEQ.
+func FarmId(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmName applies equality check predicate on the "farmName" field. It's identical to FarmNameEQ.
+func FarmName(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
+	})
+}
+
+// ShedId applies equality check predicate on the "shedId" field. It's identical to ShedIdEQ.
+func ShedId(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldShedId), v))
+	})
+}
+
+// ShedName applies equality check predicate on the "shedName" field. It's identical to ShedNameEQ.
+func ShedName(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldShedName), v))
+	})
+}
+
 // EarNumber applies equality check predicate on the "earNumber" field. It's identical to EarNumberEQ.
 func EarNumber(v string) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
@@ -102,6 +151,27 @@ func EarNumber(v string) predicate.CattleMove {
 func Date(v int64) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldDate), v))
+	})
+}
+
+// FromShedId applies equality check predicate on the "fromShedId" field. It's identical to FromShedIdEQ.
+func FromShedId(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFromShedId), v))
+	})
+}
+
+// FromShed applies equality check predicate on the "fromShed" field. It's identical to FromShedEQ.
+func FromShed(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFromShed), v))
+	})
+}
+
+// ToShedId applies equality check predicate on the "toShedId" field. It's identical to ToShedIdEQ.
+func ToShedId(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldToShedId), v))
 	})
 }
 
@@ -119,24 +189,17 @@ func UserName(v string) predicate.CattleMove {
 	})
 }
 
-// Reason applies equality check predicate on the "reason" field. It's identical to ReasonEQ.
-func Reason(v int64) predicate.CattleMove {
+// ReasonId applies equality check predicate on the "reasonId" field. It's identical to ReasonIdEQ.
+func ReasonId(v int64) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldReason), v))
+		s.Where(sql.EQ(s.C(FieldReasonId), v))
 	})
 }
 
-// TenantId applies equality check predicate on the "tenantId" field. It's identical to TenantIdEQ.
-func TenantId(v int64) predicate.CattleMove {
+// ReasonName applies equality check predicate on the "reasonName" field. It's identical to ReasonNameEQ.
+func ReasonName(v string) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldTenantId), v))
-	})
-}
-
-// TenantName applies equality check predicate on the "tenantName" field. It's identical to TenantNameEQ.
-func TenantName(v string) predicate.CattleMove {
-	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldTenantName), v))
+		s.Where(sql.EQ(s.C(FieldReasonName), v))
 	})
 }
 
@@ -165,6 +228,643 @@ func UpdatedAt(v int64) predicate.CattleMove {
 func Deleted(v int) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldDeleted), v))
+	})
+}
+
+// CattleIdEQ applies the EQ predicate on the "cattleId" field.
+func CattleIdEQ(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCattleId), v))
+	})
+}
+
+// CattleIdNEQ applies the NEQ predicate on the "cattleId" field.
+func CattleIdNEQ(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCattleId), v))
+	})
+}
+
+// CattleIdIn applies the In predicate on the "cattleId" field.
+func CattleIdIn(vs ...int64) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldCattleId), v...))
+	})
+}
+
+// CattleIdNotIn applies the NotIn predicate on the "cattleId" field.
+func CattleIdNotIn(vs ...int64) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldCattleId), v...))
+	})
+}
+
+// CattleIdGT applies the GT predicate on the "cattleId" field.
+func CattleIdGT(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCattleId), v))
+	})
+}
+
+// CattleIdGTE applies the GTE predicate on the "cattleId" field.
+func CattleIdGTE(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCattleId), v))
+	})
+}
+
+// CattleIdLT applies the LT predicate on the "cattleId" field.
+func CattleIdLT(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCattleId), v))
+	})
+}
+
+// CattleIdLTE applies the LTE predicate on the "cattleId" field.
+func CattleIdLTE(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCattleId), v))
+	})
+}
+
+// TenantIdEQ applies the EQ predicate on the "tenantId" field.
+func TenantIdEQ(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantIdNEQ applies the NEQ predicate on the "tenantId" field.
+func TenantIdNEQ(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantIdIn applies the In predicate on the "tenantId" field.
+func TenantIdIn(vs ...int64) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldTenantId), v...))
+	})
+}
+
+// TenantIdNotIn applies the NotIn predicate on the "tenantId" field.
+func TenantIdNotIn(vs ...int64) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldTenantId), v...))
+	})
+}
+
+// TenantIdGT applies the GT predicate on the "tenantId" field.
+func TenantIdGT(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantIdGTE applies the GTE predicate on the "tenantId" field.
+func TenantIdGTE(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantIdLT applies the LT predicate on the "tenantId" field.
+func TenantIdLT(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantIdLTE applies the LTE predicate on the "tenantId" field.
+func TenantIdLTE(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantNameEQ applies the EQ predicate on the "tenantName" field.
+func TenantNameEQ(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameNEQ applies the NEQ predicate on the "tenantName" field.
+func TenantNameNEQ(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameIn applies the In predicate on the "tenantName" field.
+func TenantNameIn(vs ...string) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldTenantName), v...))
+	})
+}
+
+// TenantNameNotIn applies the NotIn predicate on the "tenantName" field.
+func TenantNameNotIn(vs ...string) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldTenantName), v...))
+	})
+}
+
+// TenantNameGT applies the GT predicate on the "tenantName" field.
+func TenantNameGT(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameGTE applies the GTE predicate on the "tenantName" field.
+func TenantNameGTE(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameLT applies the LT predicate on the "tenantName" field.
+func TenantNameLT(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameLTE applies the LTE predicate on the "tenantName" field.
+func TenantNameLTE(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameContains applies the Contains predicate on the "tenantName" field.
+func TenantNameContains(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameHasPrefix applies the HasPrefix predicate on the "tenantName" field.
+func TenantNameHasPrefix(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameHasSuffix applies the HasSuffix predicate on the "tenantName" field.
+func TenantNameHasSuffix(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameEqualFold applies the EqualFold predicate on the "tenantName" field.
+func TenantNameEqualFold(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameContainsFold applies the ContainsFold predicate on the "tenantName" field.
+func TenantNameContainsFold(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldTenantName), v))
+	})
+}
+
+// FarmIdEQ applies the EQ predicate on the "farmId" field.
+func FarmIdEQ(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdNEQ applies the NEQ predicate on the "farmId" field.
+func FarmIdNEQ(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdIn applies the In predicate on the "farmId" field.
+func FarmIdIn(vs ...int64) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdNotIn applies the NotIn predicate on the "farmId" field.
+func FarmIdNotIn(vs ...int64) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdGT applies the GT predicate on the "farmId" field.
+func FarmIdGT(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdGTE applies the GTE predicate on the "farmId" field.
+func FarmIdGTE(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLT applies the LT predicate on the "farmId" field.
+func FarmIdLT(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLTE applies the LTE predicate on the "farmId" field.
+func FarmIdLTE(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmNameEQ applies the EQ predicate on the "farmName" field.
+func FarmNameEQ(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameNEQ applies the NEQ predicate on the "farmName" field.
+func FarmNameNEQ(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameIn applies the In predicate on the "farmName" field.
+func FarmNameIn(vs ...string) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameNotIn applies the NotIn predicate on the "farmName" field.
+func FarmNameNotIn(vs ...string) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameGT applies the GT predicate on the "farmName" field.
+func FarmNameGT(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameGTE applies the GTE predicate on the "farmName" field.
+func FarmNameGTE(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLT applies the LT predicate on the "farmName" field.
+func FarmNameLT(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLTE applies the LTE predicate on the "farmName" field.
+func FarmNameLTE(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContains applies the Contains predicate on the "farmName" field.
+func FarmNameContains(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasPrefix applies the HasPrefix predicate on the "farmName" field.
+func FarmNameHasPrefix(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasSuffix applies the HasSuffix predicate on the "farmName" field.
+func FarmNameHasSuffix(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameEqualFold applies the EqualFold predicate on the "farmName" field.
+func FarmNameEqualFold(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContainsFold applies the ContainsFold predicate on the "farmName" field.
+func FarmNameContainsFold(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldFarmName), v))
+	})
+}
+
+// ShedIdEQ applies the EQ predicate on the "shedId" field.
+func ShedIdEQ(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldShedId), v))
+	})
+}
+
+// ShedIdNEQ applies the NEQ predicate on the "shedId" field.
+func ShedIdNEQ(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldShedId), v))
+	})
+}
+
+// ShedIdIn applies the In predicate on the "shedId" field.
+func ShedIdIn(vs ...int64) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldShedId), v...))
+	})
+}
+
+// ShedIdNotIn applies the NotIn predicate on the "shedId" field.
+func ShedIdNotIn(vs ...int64) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldShedId), v...))
+	})
+}
+
+// ShedIdGT applies the GT predicate on the "shedId" field.
+func ShedIdGT(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldShedId), v))
+	})
+}
+
+// ShedIdGTE applies the GTE predicate on the "shedId" field.
+func ShedIdGTE(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldShedId), v))
+	})
+}
+
+// ShedIdLT applies the LT predicate on the "shedId" field.
+func ShedIdLT(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldShedId), v))
+	})
+}
+
+// ShedIdLTE applies the LTE predicate on the "shedId" field.
+func ShedIdLTE(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldShedId), v))
+	})
+}
+
+// ShedNameEQ applies the EQ predicate on the "shedName" field.
+func ShedNameEQ(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameNEQ applies the NEQ predicate on the "shedName" field.
+func ShedNameNEQ(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameIn applies the In predicate on the "shedName" field.
+func ShedNameIn(vs ...string) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldShedName), v...))
+	})
+}
+
+// ShedNameNotIn applies the NotIn predicate on the "shedName" field.
+func ShedNameNotIn(vs ...string) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldShedName), v...))
+	})
+}
+
+// ShedNameGT applies the GT predicate on the "shedName" field.
+func ShedNameGT(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameGTE applies the GTE predicate on the "shedName" field.
+func ShedNameGTE(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameLT applies the LT predicate on the "shedName" field.
+func ShedNameLT(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameLTE applies the LTE predicate on the "shedName" field.
+func ShedNameLTE(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameContains applies the Contains predicate on the "shedName" field.
+func ShedNameContains(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameHasPrefix applies the HasPrefix predicate on the "shedName" field.
+func ShedNameHasPrefix(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameHasSuffix applies the HasSuffix predicate on the "shedName" field.
+func ShedNameHasSuffix(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameEqualFold applies the EqualFold predicate on the "shedName" field.
+func ShedNameEqualFold(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameContainsFold applies the ContainsFold predicate on the "shedName" field.
+func ShedNameContainsFold(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldShedName), v))
 	})
 }
 
@@ -352,6 +1052,269 @@ func DateLT(v int64) predicate.CattleMove {
 func DateLTE(v int64) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldDate), v))
+	})
+}
+
+// FromShedIdEQ applies the EQ predicate on the "fromShedId" field.
+func FromShedIdEQ(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFromShedId), v))
+	})
+}
+
+// FromShedIdNEQ applies the NEQ predicate on the "fromShedId" field.
+func FromShedIdNEQ(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFromShedId), v))
+	})
+}
+
+// FromShedIdIn applies the In predicate on the "fromShedId" field.
+func FromShedIdIn(vs ...int64) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFromShedId), v...))
+	})
+}
+
+// FromShedIdNotIn applies the NotIn predicate on the "fromShedId" field.
+func FromShedIdNotIn(vs ...int64) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFromShedId), v...))
+	})
+}
+
+// FromShedIdGT applies the GT predicate on the "fromShedId" field.
+func FromShedIdGT(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFromShedId), v))
+	})
+}
+
+// FromShedIdGTE applies the GTE predicate on the "fromShedId" field.
+func FromShedIdGTE(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFromShedId), v))
+	})
+}
+
+// FromShedIdLT applies the LT predicate on the "fromShedId" field.
+func FromShedIdLT(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFromShedId), v))
+	})
+}
+
+// FromShedIdLTE applies the LTE predicate on the "fromShedId" field.
+func FromShedIdLTE(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFromShedId), v))
+	})
+}
+
+// FromShedEQ applies the EQ predicate on the "fromShed" field.
+func FromShedEQ(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFromShed), v))
+	})
+}
+
+// FromShedNEQ applies the NEQ predicate on the "fromShed" field.
+func FromShedNEQ(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFromShed), v))
+	})
+}
+
+// FromShedIn applies the In predicate on the "fromShed" field.
+func FromShedIn(vs ...string) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFromShed), v...))
+	})
+}
+
+// FromShedNotIn applies the NotIn predicate on the "fromShed" field.
+func FromShedNotIn(vs ...string) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFromShed), v...))
+	})
+}
+
+// FromShedGT applies the GT predicate on the "fromShed" field.
+func FromShedGT(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFromShed), v))
+	})
+}
+
+// FromShedGTE applies the GTE predicate on the "fromShed" field.
+func FromShedGTE(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFromShed), v))
+	})
+}
+
+// FromShedLT applies the LT predicate on the "fromShed" field.
+func FromShedLT(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFromShed), v))
+	})
+}
+
+// FromShedLTE applies the LTE predicate on the "fromShed" field.
+func FromShedLTE(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFromShed), v))
+	})
+}
+
+// FromShedContains applies the Contains predicate on the "fromShed" field.
+func FromShedContains(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldFromShed), v))
+	})
+}
+
+// FromShedHasPrefix applies the HasPrefix predicate on the "fromShed" field.
+func FromShedHasPrefix(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldFromShed), v))
+	})
+}
+
+// FromShedHasSuffix applies the HasSuffix predicate on the "fromShed" field.
+func FromShedHasSuffix(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldFromShed), v))
+	})
+}
+
+// FromShedEqualFold applies the EqualFold predicate on the "fromShed" field.
+func FromShedEqualFold(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldFromShed), v))
+	})
+}
+
+// FromShedContainsFold applies the ContainsFold predicate on the "fromShed" field.
+func FromShedContainsFold(v string) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldFromShed), v))
+	})
+}
+
+// ToShedIdEQ applies the EQ predicate on the "toShedId" field.
+func ToShedIdEQ(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldToShedId), v))
+	})
+}
+
+// ToShedIdNEQ applies the NEQ predicate on the "toShedId" field.
+func ToShedIdNEQ(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldToShedId), v))
+	})
+}
+
+// ToShedIdIn applies the In predicate on the "toShedId" field.
+func ToShedIdIn(vs ...int64) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldToShedId), v...))
+	})
+}
+
+// ToShedIdNotIn applies the NotIn predicate on the "toShedId" field.
+func ToShedIdNotIn(vs ...int64) predicate.CattleMove {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.CattleMove(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldToShedId), v...))
+	})
+}
+
+// ToShedIdGT applies the GT predicate on the "toShedId" field.
+func ToShedIdGT(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldToShedId), v))
+	})
+}
+
+// ToShedIdGTE applies the GTE predicate on the "toShedId" field.
+func ToShedIdGTE(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldToShedId), v))
+	})
+}
+
+// ToShedIdLT applies the LT predicate on the "toShedId" field.
+func ToShedIdLT(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldToShedId), v))
+	})
+}
+
+// ToShedIdLTE applies the LTE predicate on the "toShedId" field.
+func ToShedIdLTE(v int64) predicate.CattleMove {
+	return predicate.CattleMove(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldToShedId), v))
 	})
 }
 
@@ -577,22 +1540,22 @@ func UserNameContainsFold(v string) predicate.CattleMove {
 	})
 }
 
-// ReasonEQ applies the EQ predicate on the "reason" field.
-func ReasonEQ(v int64) predicate.CattleMove {
+// ReasonIdEQ applies the EQ predicate on the "reasonId" field.
+func ReasonIdEQ(v int64) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldReason), v))
+		s.Where(sql.EQ(s.C(FieldReasonId), v))
 	})
 }
 
-// ReasonNEQ applies the NEQ predicate on the "reason" field.
-func ReasonNEQ(v int64) predicate.CattleMove {
+// ReasonIdNEQ applies the NEQ predicate on the "reasonId" field.
+func ReasonIdNEQ(v int64) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldReason), v))
+		s.Where(sql.NEQ(s.C(FieldReasonId), v))
 	})
 }
 
-// ReasonIn applies the In predicate on the "reason" field.
-func ReasonIn(vs ...int64) predicate.CattleMove {
+// ReasonIdIn applies the In predicate on the "reasonId" field.
+func ReasonIdIn(vs ...int64) predicate.CattleMove {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -604,12 +1567,12 @@ func ReasonIn(vs ...int64) predicate.CattleMove {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldReason), v...))
+		s.Where(sql.In(s.C(FieldReasonId), v...))
 	})
 }
 
-// ReasonNotIn applies the NotIn predicate on the "reason" field.
-func ReasonNotIn(vs ...int64) predicate.CattleMove {
+// ReasonIdNotIn applies the NotIn predicate on the "reasonId" field.
+func ReasonIdNotIn(vs ...int64) predicate.CattleMove {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -621,54 +1584,54 @@ func ReasonNotIn(vs ...int64) predicate.CattleMove {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldReason), v...))
+		s.Where(sql.NotIn(s.C(FieldReasonId), v...))
 	})
 }
 
-// ReasonGT applies the GT predicate on the "reason" field.
-func ReasonGT(v int64) predicate.CattleMove {
+// ReasonIdGT applies the GT predicate on the "reasonId" field.
+func ReasonIdGT(v int64) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldReason), v))
+		s.Where(sql.GT(s.C(FieldReasonId), v))
 	})
 }
 
-// ReasonGTE applies the GTE predicate on the "reason" field.
-func ReasonGTE(v int64) predicate.CattleMove {
+// ReasonIdGTE applies the GTE predicate on the "reasonId" field.
+func ReasonIdGTE(v int64) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldReason), v))
+		s.Where(sql.GTE(s.C(FieldReasonId), v))
 	})
 }
 
-// ReasonLT applies the LT predicate on the "reason" field.
-func ReasonLT(v int64) predicate.CattleMove {
+// ReasonIdLT applies the LT predicate on the "reasonId" field.
+func ReasonIdLT(v int64) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldReason), v))
+		s.Where(sql.LT(s.C(FieldReasonId), v))
 	})
 }
 
-// ReasonLTE applies the LTE predicate on the "reason" field.
-func ReasonLTE(v int64) predicate.CattleMove {
+// ReasonIdLTE applies the LTE predicate on the "reasonId" field.
+func ReasonIdLTE(v int64) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldReason), v))
+		s.Where(sql.LTE(s.C(FieldReasonId), v))
 	})
 }
 
-// TenantIdEQ applies the EQ predicate on the "tenantId" field.
-func TenantIdEQ(v int64) predicate.CattleMove {
+// ReasonNameEQ applies the EQ predicate on the "reasonName" field.
+func ReasonNameEQ(v string) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldTenantId), v))
+		s.Where(sql.EQ(s.C(FieldReasonName), v))
 	})
 }
 
-// TenantIdNEQ applies the NEQ predicate on the "tenantId" field.
-func TenantIdNEQ(v int64) predicate.CattleMove {
+// ReasonNameNEQ applies the NEQ predicate on the "reasonName" field.
+func ReasonNameNEQ(v string) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldTenantId), v))
+		s.Where(sql.NEQ(s.C(FieldReasonName), v))
 	})
 }
 
-// TenantIdIn applies the In predicate on the "tenantId" field.
-func TenantIdIn(vs ...int64) predicate.CattleMove {
+// ReasonNameIn applies the In predicate on the "reasonName" field.
+func ReasonNameIn(vs ...string) predicate.CattleMove {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -680,12 +1643,12 @@ func TenantIdIn(vs ...int64) predicate.CattleMove {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldTenantId), v...))
+		s.Where(sql.In(s.C(FieldReasonName), v...))
 	})
 }
 
-// TenantIdNotIn applies the NotIn predicate on the "tenantId" field.
-func TenantIdNotIn(vs ...int64) predicate.CattleMove {
+// ReasonNameNotIn applies the NotIn predicate on the "reasonName" field.
+func ReasonNameNotIn(vs ...string) predicate.CattleMove {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -697,146 +1660,70 @@ func TenantIdNotIn(vs ...int64) predicate.CattleMove {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldTenantId), v...))
+		s.Where(sql.NotIn(s.C(FieldReasonName), v...))
 	})
 }
 
-// TenantIdGT applies the GT predicate on the "tenantId" field.
-func TenantIdGT(v int64) predicate.CattleMove {
+// ReasonNameGT applies the GT predicate on the "reasonName" field.
+func ReasonNameGT(v string) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldTenantId), v))
+		s.Where(sql.GT(s.C(FieldReasonName), v))
 	})
 }
 
-// TenantIdGTE applies the GTE predicate on the "tenantId" field.
-func TenantIdGTE(v int64) predicate.CattleMove {
+// ReasonNameGTE applies the GTE predicate on the "reasonName" field.
+func ReasonNameGTE(v string) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldTenantId), v))
+		s.Where(sql.GTE(s.C(FieldReasonName), v))
 	})
 }
 
-// TenantIdLT applies the LT predicate on the "tenantId" field.
-func TenantIdLT(v int64) predicate.CattleMove {
+// ReasonNameLT applies the LT predicate on the "reasonName" field.
+func ReasonNameLT(v string) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldTenantId), v))
+		s.Where(sql.LT(s.C(FieldReasonName), v))
 	})
 }
 
-// TenantIdLTE applies the LTE predicate on the "tenantId" field.
-func TenantIdLTE(v int64) predicate.CattleMove {
+// ReasonNameLTE applies the LTE predicate on the "reasonName" field.
+func ReasonNameLTE(v string) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldTenantId), v))
+		s.Where(sql.LTE(s.C(FieldReasonName), v))
 	})
 }
 
-// TenantNameEQ applies the EQ predicate on the "tenantName" field.
-func TenantNameEQ(v string) predicate.CattleMove {
+// ReasonNameContains applies the Contains predicate on the "reasonName" field.
+func ReasonNameContains(v string) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldTenantName), v))
+		s.Where(sql.Contains(s.C(FieldReasonName), v))
 	})
 }
 
-// TenantNameNEQ applies the NEQ predicate on the "tenantName" field.
-func TenantNameNEQ(v string) predicate.CattleMove {
+// ReasonNameHasPrefix applies the HasPrefix predicate on the "reasonName" field.
+func ReasonNameHasPrefix(v string) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldTenantName), v))
+		s.Where(sql.HasPrefix(s.C(FieldReasonName), v))
 	})
 }
 
-// TenantNameIn applies the In predicate on the "tenantName" field.
-func TenantNameIn(vs ...string) predicate.CattleMove {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
+// ReasonNameHasSuffix applies the HasSuffix predicate on the "reasonName" field.
+func ReasonNameHasSuffix(v string) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.In(s.C(FieldTenantName), v...))
+		s.Where(sql.HasSuffix(s.C(FieldReasonName), v))
 	})
 }
 
-// TenantNameNotIn applies the NotIn predicate on the "tenantName" field.
-func TenantNameNotIn(vs ...string) predicate.CattleMove {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
+// ReasonNameEqualFold applies the EqualFold predicate on the "reasonName" field.
+func ReasonNameEqualFold(v string) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.NotIn(s.C(FieldTenantName), v...))
+		s.Where(sql.EqualFold(s.C(FieldReasonName), v))
 	})
 }
 
-// TenantNameGT applies the GT predicate on the "tenantName" field.
-func TenantNameGT(v string) predicate.CattleMove {
+// ReasonNameContainsFold applies the ContainsFold predicate on the "reasonName" field.
+func ReasonNameContainsFold(v string) predicate.CattleMove {
 	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldTenantName), v))
-	})
-}
-
-// TenantNameGTE applies the GTE predicate on the "tenantName" field.
-func TenantNameGTE(v string) predicate.CattleMove {
-	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldTenantName), v))
-	})
-}
-
-// TenantNameLT applies the LT predicate on the "tenantName" field.
-func TenantNameLT(v string) predicate.CattleMove {
-	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldTenantName), v))
-	})
-}
-
-// TenantNameLTE applies the LTE predicate on the "tenantName" field.
-func TenantNameLTE(v string) predicate.CattleMove {
-	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldTenantName), v))
-	})
-}
-
-// TenantNameContains applies the Contains predicate on the "tenantName" field.
-func TenantNameContains(v string) predicate.CattleMove {
-	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldTenantName), v))
-	})
-}
-
-// TenantNameHasPrefix applies the HasPrefix predicate on the "tenantName" field.
-func TenantNameHasPrefix(v string) predicate.CattleMove {
-	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldTenantName), v))
-	})
-}
-
-// TenantNameHasSuffix applies the HasSuffix predicate on the "tenantName" field.
-func TenantNameHasSuffix(v string) predicate.CattleMove {
-	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldTenantName), v))
-	})
-}
-
-// TenantNameEqualFold applies the EqualFold predicate on the "tenantName" field.
-func TenantNameEqualFold(v string) predicate.CattleMove {
-	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldTenantName), v))
-	})
-}
-
-// TenantNameContainsFold applies the ContainsFold predicate on the "tenantName" field.
-func TenantNameContainsFold(v string) predicate.CattleMove {
-	return predicate.CattleMove(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldTenantName), v))
+		s.Where(sql.ContainsFold(s.C(FieldReasonName), v))
 	})
 }
 

@@ -31,10 +31,13 @@ func CattleDieAddHandler(c *gin.Context) {
 		SetInsured(form.Insured).
 		SetInsuredCode(form.InsuredCode).
 		SetInsuredCompany(form.InsuredCompany).
-		SetReason(form.Reason).
+		SetCattleId(form.CattleId).
+		SetReasonId(form.ReasonId).
+		SetReasonName(form.ReasonName).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetRemarks(form.Remarks).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
 		SetUserName(form.UserName).
 		SetWeight(form.Weight).
 		SetTenantId(form.TenantId).
@@ -44,6 +47,9 @@ func CattleDieAddHandler(c *gin.Context) {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
+	}
+	if _, err := db.Client.Cattle.UpdateOneID(form.CattleId).SetAlive(2).Save(c.Request.Context()); err != nil {
+		log.Warn().Msg(err.Error())
 	}
 	c.JSON(http.StatusOK, resp.Success(cattledie))
 }
@@ -109,10 +115,13 @@ func CattleDieUpdateHandler(c *gin.Context) {
 		SetInsured(form.Insured).
 		SetInsuredCode(form.InsuredCode).
 		SetInsuredCompany(form.InsuredCompany).
-		SetReason(form.Reason).
+		SetCattleId(form.CattleId).
+		SetReasonId(form.ReasonId).
+		SetReasonName(form.ReasonName).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetRemarks(form.Remarks).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
 		SetUserName(form.UserName).
 		SetWeight(form.Weight).
 		SetUpdatedAt(time.Now().Unix()).

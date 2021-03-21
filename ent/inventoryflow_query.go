@@ -237,12 +237,12 @@ func (ifq *InventoryFlowQuery) Clone() *InventoryFlowQuery {
 // Example:
 //
 //	var v []struct {
-//		MaterialID int64 `json:"materialID,omitempty"`
+//		SysMaterialId int64 `json:"sysMaterialId,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.InventoryFlow.Query().
-//		GroupBy(inventoryflow.FieldMaterialID).
+//		GroupBy(inventoryflow.FieldSysMaterialId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (ifq *InventoryFlowQuery) GroupBy(field string, fields ...string) *Inventor
 // Example:
 //
 //	var v []struct {
-//		MaterialID int64 `json:"materialID,omitempty"`
+//		SysMaterialId int64 `json:"sysMaterialId,omitempty"`
 //	}
 //
 //	client.InventoryFlow.Query().
-//		Select(inventoryflow.FieldMaterialID).
+//		Select(inventoryflow.FieldSysMaterialId).
 //		Scan(ctx, &v)
 //
 func (ifq *InventoryFlowQuery) Select(field string, fields ...string) *InventoryFlowSelect {

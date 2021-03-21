@@ -7,6 +7,20 @@ const (
 	Label = "calve"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldCattleId holds the string denoting the cattleid field in the database.
+	FieldCattleId = "cattle_id"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
+	// FieldFarmId holds the string denoting the farmid field in the database.
+	FieldFarmId = "farm_id"
+	// FieldFarmName holds the string denoting the farmname field in the database.
+	FieldFarmName = "farm_name"
+	// FieldShedId holds the string denoting the shedid field in the database.
+	FieldShedId = "shed_id"
+	// FieldShedName holds the string denoting the shedname field in the database.
+	FieldShedName = "shed_name"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// FieldEarNumber holds the string denoting the earnumber field in the database.
@@ -51,10 +65,6 @@ const (
 	FieldBabyShedId = "baby_shed_id"
 	// FieldBabyShedName holds the string denoting the babyshedname field in the database.
 	FieldBabyShedName = "baby_shed_name"
-	// FieldTenantId holds the string denoting the tenantid field in the database.
-	FieldTenantId = "tenant_id"
-	// FieldTenantName holds the string denoting the tenantname field in the database.
-	FieldTenantName = "tenant_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -71,6 +81,13 @@ const (
 // Columns holds all SQL columns for calve fields.
 var Columns = []string{
 	FieldID,
+	FieldCattleId,
+	FieldTenantId,
+	FieldTenantName,
+	FieldFarmId,
+	FieldFarmName,
+	FieldShedId,
+	FieldShedName,
 	FieldName,
 	FieldEarNumber,
 	FieldTimes,
@@ -93,8 +110,6 @@ var Columns = []string{
 	FieldBabyWeight,
 	FieldBabyShedId,
 	FieldBabyShedName,
-	FieldTenantId,
-	FieldTenantName,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,

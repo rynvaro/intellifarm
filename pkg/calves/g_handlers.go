@@ -46,8 +46,10 @@ func CalveAddHandler(c *gin.Context) {
 		SetPregnantAt(form.PregnantAt).
 		SetTimes(form.Times).
 		SetUserName(form.UserName).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -143,6 +145,10 @@ func CalveUpdateHandler(c *gin.Context) {
 		SetRemarks(form.Remarks).
 		SetPregnantAt(form.PregnantAt).
 		SetTimes(form.Times).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetUserName(form.UserName).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())

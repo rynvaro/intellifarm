@@ -19,6 +19,48 @@ type MedicineCreate struct {
 	hooks    []Hook
 }
 
+// SetCattleId sets the cattleId field.
+func (mc *MedicineCreate) SetCattleId(i int64) *MedicineCreate {
+	mc.mutation.SetCattleId(i)
+	return mc
+}
+
+// SetTenantId sets the tenantId field.
+func (mc *MedicineCreate) SetTenantId(i int64) *MedicineCreate {
+	mc.mutation.SetTenantId(i)
+	return mc
+}
+
+// SetTenantName sets the tenantName field.
+func (mc *MedicineCreate) SetTenantName(s string) *MedicineCreate {
+	mc.mutation.SetTenantName(s)
+	return mc
+}
+
+// SetFarmId sets the farmId field.
+func (mc *MedicineCreate) SetFarmId(i int64) *MedicineCreate {
+	mc.mutation.SetFarmId(i)
+	return mc
+}
+
+// SetFarmName sets the farmName field.
+func (mc *MedicineCreate) SetFarmName(s string) *MedicineCreate {
+	mc.mutation.SetFarmName(s)
+	return mc
+}
+
+// SetShedId sets the shedId field.
+func (mc *MedicineCreate) SetShedId(i int64) *MedicineCreate {
+	mc.mutation.SetShedId(i)
+	return mc
+}
+
+// SetShedName sets the shedName field.
+func (mc *MedicineCreate) SetShedName(s string) *MedicineCreate {
+	mc.mutation.SetShedName(s)
+	return mc
+}
+
 // SetEpid sets the epid field.
 func (mc *MedicineCreate) SetEpid(i int64) *MedicineCreate {
 	mc.mutation.SetEpid(i)
@@ -85,18 +127,6 @@ func (mc *MedicineCreate) SetRemarks(s string) *MedicineCreate {
 	return mc
 }
 
-// SetTenantId sets the tenantId field.
-func (mc *MedicineCreate) SetTenantId(i int64) *MedicineCreate {
-	mc.mutation.SetTenantId(i)
-	return mc
-}
-
-// SetTenantName sets the tenantName field.
-func (mc *MedicineCreate) SetTenantName(s string) *MedicineCreate {
-	mc.mutation.SetTenantName(s)
-	return mc
-}
-
 // Mutation returns the MedicineMutation object of the builder.
 func (mc *MedicineCreate) Mutation() *MedicineMutation {
 	return mc.mutation
@@ -148,6 +178,27 @@ func (mc *MedicineCreate) SaveX(ctx context.Context) *Medicine {
 
 // check runs all checks and user-defined validators on the builder.
 func (mc *MedicineCreate) check() error {
+	if _, ok := mc.mutation.CattleId(); !ok {
+		return &ValidationError{Name: "cattleId", err: errors.New("ent: missing required field \"cattleId\"")}
+	}
+	if _, ok := mc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := mc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := mc.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := mc.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
+	}
+	if _, ok := mc.mutation.ShedId(); !ok {
+		return &ValidationError{Name: "shedId", err: errors.New("ent: missing required field \"shedId\"")}
+	}
+	if _, ok := mc.mutation.ShedName(); !ok {
+		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
+	}
 	if _, ok := mc.mutation.Epid(); !ok {
 		return &ValidationError{Name: "epid", err: errors.New("ent: missing required field \"epid\"")}
 	}
@@ -181,12 +232,6 @@ func (mc *MedicineCreate) check() error {
 	if _, ok := mc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
 	}
-	if _, ok := mc.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if _, ok := mc.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
-	}
 	return nil
 }
 
@@ -214,6 +259,62 @@ func (mc *MedicineCreate) createSpec() (*Medicine, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := mc.mutation.CattleId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldCattleId,
+		})
+		_node.CattleId = value
+	}
+	if value, ok := mc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := mc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: medicine.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := mc.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := mc.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: medicine.FieldFarmName,
+		})
+		_node.FarmName = value
+	}
+	if value, ok := mc.mutation.ShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldShedId,
+		})
+		_node.ShedId = value
+	}
+	if value, ok := mc.mutation.ShedName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: medicine.FieldShedName,
+		})
+		_node.ShedName = value
+	}
 	if value, ok := mc.mutation.Epid(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -301,22 +402,6 @@ func (mc *MedicineCreate) createSpec() (*Medicine, *sqlgraph.CreateSpec) {
 			Column: medicine.FieldRemarks,
 		})
 		_node.Remarks = value
-	}
-	if value, ok := mc.mutation.TenantId(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: medicine.FieldTenantId,
-		})
-		_node.TenantId = value
-	}
-	if value, ok := mc.mutation.TenantName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: medicine.FieldTenantName,
-		})
-		_node.TenantName = value
 	}
 	return _node, _spec
 }

@@ -19,6 +19,46 @@ type CattleCreate struct {
 	hooks    []Hook
 }
 
+// SetAlive sets the alive field.
+func (cc *CattleCreate) SetAlive(i int) *CattleCreate {
+	cc.mutation.SetAlive(i)
+	return cc
+}
+
+// SetNillableAlive sets the alive field if the given value is not nil.
+func (cc *CattleCreate) SetNillableAlive(i *int) *CattleCreate {
+	if i != nil {
+		cc.SetAlive(*i)
+	}
+	return cc
+}
+
+// SetHealth sets the health field.
+func (cc *CattleCreate) SetHealth(i int) *CattleCreate {
+	cc.mutation.SetHealth(i)
+	return cc
+}
+
+// SetNillableHealth sets the health field if the given value is not nil.
+func (cc *CattleCreate) SetNillableHealth(i *int) *CattleCreate {
+	if i != nil {
+		cc.SetHealth(*i)
+	}
+	return cc
+}
+
+// SetReproductiveStateId sets the reproductiveStateId field.
+func (cc *CattleCreate) SetReproductiveStateId(i int) *CattleCreate {
+	cc.mutation.SetReproductiveStateId(i)
+	return cc
+}
+
+// SetReproductiveStateName sets the reproductiveStateName field.
+func (cc *CattleCreate) SetReproductiveStateName(s string) *CattleCreate {
+	cc.mutation.SetReproductiveStateName(s)
+	return cc
+}
+
 // SetName sets the name field.
 func (cc *CattleCreate) SetName(s string) *CattleCreate {
 	cc.mutation.SetName(s)
@@ -207,18 +247,6 @@ func (cc *CattleCreate) SetHairColorName(s string) *CattleCreate {
 	return cc
 }
 
-// SetReproductiveStateId sets the reproductiveStateId field.
-func (cc *CattleCreate) SetReproductiveStateId(i int) *CattleCreate {
-	cc.mutation.SetReproductiveStateId(i)
-	return cc
-}
-
-// SetReproductiveStateName sets the reproductiveStateName field.
-func (cc *CattleCreate) SetReproductiveStateName(s string) *CattleCreate {
-	cc.mutation.SetReproductiveStateName(s)
-	return cc
-}
-
 // SetPregnantTimes sets the pregnantTimes field.
 func (cc *CattleCreate) SetPregnantTimes(i int) *CattleCreate {
 	cc.mutation.SetPregnantTimes(i)
@@ -302,6 +330,7 @@ func (cc *CattleCreate) Save(ctx context.Context) (*Cattle, error) {
 		err  error
 		node *Cattle
 	)
+	cc.defaults()
 	if len(cc.hooks) == 0 {
 		if err = cc.check(); err != nil {
 			return nil, err
@@ -340,8 +369,32 @@ func (cc *CattleCreate) SaveX(ctx context.Context) *Cattle {
 	return v
 }
 
+// defaults sets the default values of the builder before save.
+func (cc *CattleCreate) defaults() {
+	if _, ok := cc.mutation.Alive(); !ok {
+		v := cattle.DefaultAlive
+		cc.mutation.SetAlive(v)
+	}
+	if _, ok := cc.mutation.Health(); !ok {
+		v := cattle.DefaultHealth
+		cc.mutation.SetHealth(v)
+	}
+}
+
 // check runs all checks and user-defined validators on the builder.
 func (cc *CattleCreate) check() error {
+	if _, ok := cc.mutation.Alive(); !ok {
+		return &ValidationError{Name: "alive", err: errors.New("ent: missing required field \"alive\"")}
+	}
+	if _, ok := cc.mutation.Health(); !ok {
+		return &ValidationError{Name: "health", err: errors.New("ent: missing required field \"health\"")}
+	}
+	if _, ok := cc.mutation.ReproductiveStateId(); !ok {
+		return &ValidationError{Name: "reproductiveStateId", err: errors.New("ent: missing required field \"reproductiveStateId\"")}
+	}
+	if _, ok := cc.mutation.ReproductiveStateName(); !ok {
+		return &ValidationError{Name: "reproductiveStateName", err: errors.New("ent: missing required field \"reproductiveStateName\"")}
+	}
 	if _, ok := cc.mutation.FarmId(); !ok {
 		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
 	}
@@ -449,12 +502,6 @@ func (cc *CattleCreate) check() error {
 	if _, ok := cc.mutation.HairColorName(); !ok {
 		return &ValidationError{Name: "hairColorName", err: errors.New("ent: missing required field \"hairColorName\"")}
 	}
-	if _, ok := cc.mutation.ReproductiveStateId(); !ok {
-		return &ValidationError{Name: "reproductiveStateId", err: errors.New("ent: missing required field \"reproductiveStateId\"")}
-	}
-	if _, ok := cc.mutation.ReproductiveStateName(); !ok {
-		return &ValidationError{Name: "reproductiveStateName", err: errors.New("ent: missing required field \"reproductiveStateName\"")}
-	}
 	if _, ok := cc.mutation.PregnantTimes(); !ok {
 		return &ValidationError{Name: "pregnantTimes", err: errors.New("ent: missing required field \"pregnantTimes\"")}
 	}
@@ -518,6 +565,38 @@ func (cc *CattleCreate) createSpec() (*Cattle, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := cc.mutation.Alive(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattle.FieldAlive,
+		})
+		_node.Alive = value
+	}
+	if value, ok := cc.mutation.Health(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattle.FieldHealth,
+		})
+		_node.Health = value
+	}
+	if value, ok := cc.mutation.ReproductiveStateId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattle.FieldReproductiveStateId,
+		})
+		_node.ReproductiveStateId = value
+	}
+	if value, ok := cc.mutation.ReproductiveStateName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattle.FieldReproductiveStateName,
+		})
+		_node.ReproductiveStateName = value
+	}
 	if value, ok := cc.mutation.Name(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -758,22 +837,6 @@ func (cc *CattleCreate) createSpec() (*Cattle, *sqlgraph.CreateSpec) {
 		})
 		_node.HairColorName = value
 	}
-	if value, ok := cc.mutation.ReproductiveStateId(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: cattle.FieldReproductiveStateId,
-		})
-		_node.ReproductiveStateId = value
-	}
-	if value, ok := cc.mutation.ReproductiveStateName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: cattle.FieldReproductiveStateName,
-		})
-		_node.ReproductiveStateName = value
-	}
 	if value, ok := cc.mutation.PregnantTimes(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
@@ -887,6 +950,7 @@ func (ccb *CattleCreateBulk) Save(ctx context.Context) ([]*Cattle, error) {
 	for i := range ccb.builders {
 		func(i int, root context.Context) {
 			builder := ccb.builders[i]
+			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*CattleMutation)
 				if !ok {

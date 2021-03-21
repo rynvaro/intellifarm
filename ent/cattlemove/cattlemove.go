@@ -7,20 +7,38 @@ const (
 	Label = "cattle_move"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
-	// FieldEarNumber holds the string denoting the earnumber field in the database.
-	FieldEarNumber = "ear_number"
-	// FieldDate holds the string denoting the date field in the database.
-	FieldDate = "date"
-	// FieldToShed holds the string denoting the toshed field in the database.
-	FieldToShed = "to_shed"
-	// FieldUserName holds the string denoting the username field in the database.
-	FieldUserName = "user_name"
-	// FieldReason holds the string denoting the reason field in the database.
-	FieldReason = "reason"
+	// FieldCattleId holds the string denoting the cattleid field in the database.
+	FieldCattleId = "cattle_id"
 	// FieldTenantId holds the string denoting the tenantid field in the database.
 	FieldTenantId = "tenant_id"
 	// FieldTenantName holds the string denoting the tenantname field in the database.
 	FieldTenantName = "tenant_name"
+	// FieldFarmId holds the string denoting the farmid field in the database.
+	FieldFarmId = "farm_id"
+	// FieldFarmName holds the string denoting the farmname field in the database.
+	FieldFarmName = "farm_name"
+	// FieldShedId holds the string denoting the shedid field in the database.
+	FieldShedId = "shed_id"
+	// FieldShedName holds the string denoting the shedname field in the database.
+	FieldShedName = "shed_name"
+	// FieldEarNumber holds the string denoting the earnumber field in the database.
+	FieldEarNumber = "ear_number"
+	// FieldDate holds the string denoting the date field in the database.
+	FieldDate = "date"
+	// FieldFromShedId holds the string denoting the fromshedid field in the database.
+	FieldFromShedId = "from_shed_id"
+	// FieldFromShed holds the string denoting the fromshed field in the database.
+	FieldFromShed = "from_shed"
+	// FieldToShedId holds the string denoting the toshedid field in the database.
+	FieldToShedId = "to_shed_id"
+	// FieldToShed holds the string denoting the toshed field in the database.
+	FieldToShed = "to_shed"
+	// FieldUserName holds the string denoting the username field in the database.
+	FieldUserName = "user_name"
+	// FieldReasonId holds the string denoting the reasonid field in the database.
+	FieldReasonId = "reason_id"
+	// FieldReasonName holds the string denoting the reasonname field in the database.
+	FieldReasonName = "reason_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -37,13 +55,22 @@ const (
 // Columns holds all SQL columns for cattlemove fields.
 var Columns = []string{
 	FieldID,
-	FieldEarNumber,
-	FieldDate,
-	FieldToShed,
-	FieldUserName,
-	FieldReason,
+	FieldCattleId,
 	FieldTenantId,
 	FieldTenantName,
+	FieldFarmId,
+	FieldFarmName,
+	FieldShedId,
+	FieldShedName,
+	FieldEarNumber,
+	FieldDate,
+	FieldFromShedId,
+	FieldFromShed,
+	FieldToShedId,
+	FieldToShed,
+	FieldUserName,
+	FieldReasonId,
+	FieldReasonName,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,

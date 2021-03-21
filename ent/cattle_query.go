@@ -237,12 +237,12 @@ func (cq *CattleQuery) Clone() *CattleQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		Alive int `json:"alive,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Cattle.Query().
-//		GroupBy(cattle.FieldName).
+//		GroupBy(cattle.FieldAlive).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (cq *CattleQuery) GroupBy(field string, fields ...string) *CattleGroupBy {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		Alive int `json:"alive,omitempty"`
 //	}
 //
 //	client.Cattle.Query().
-//		Select(cattle.FieldName).
+//		Select(cattle.FieldAlive).
 //		Scan(ctx, &v)
 //
 func (cq *CattleQuery) Select(field string, fields ...string) *CattleSelect {

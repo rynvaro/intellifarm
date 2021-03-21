@@ -3,6 +3,7 @@ module cattleai
 go 1.13
 
 require (
+	github.com/360EntSecGroup-Skylar/excelize v1.4.1 // indirect
 	github.com/dave/jennifer v1.4.1
 	github.com/facebook/ent v0.4.3
 	github.com/gertd/go-pluralize v0.1.7

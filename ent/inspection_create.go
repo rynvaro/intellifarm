@@ -19,6 +19,48 @@ type InspectionCreate struct {
 	hooks    []Hook
 }
 
+// SetCattleId sets the cattleId field.
+func (ic *InspectionCreate) SetCattleId(i int64) *InspectionCreate {
+	ic.mutation.SetCattleId(i)
+	return ic
+}
+
+// SetTenantId sets the tenantId field.
+func (ic *InspectionCreate) SetTenantId(i int64) *InspectionCreate {
+	ic.mutation.SetTenantId(i)
+	return ic
+}
+
+// SetTenantName sets the tenantName field.
+func (ic *InspectionCreate) SetTenantName(s string) *InspectionCreate {
+	ic.mutation.SetTenantName(s)
+	return ic
+}
+
+// SetFarmId sets the farmId field.
+func (ic *InspectionCreate) SetFarmId(i int64) *InspectionCreate {
+	ic.mutation.SetFarmId(i)
+	return ic
+}
+
+// SetFarmName sets the farmName field.
+func (ic *InspectionCreate) SetFarmName(s string) *InspectionCreate {
+	ic.mutation.SetFarmName(s)
+	return ic
+}
+
+// SetShedId sets the shedId field.
+func (ic *InspectionCreate) SetShedId(i int64) *InspectionCreate {
+	ic.mutation.SetShedId(i)
+	return ic
+}
+
+// SetShedName sets the shedName field.
+func (ic *InspectionCreate) SetShedName(s string) *InspectionCreate {
+	ic.mutation.SetShedName(s)
+	return ic
+}
+
 // SetName sets the name field.
 func (ic *InspectionCreate) SetName(s string) *InspectionCreate {
 	ic.mutation.SetName(s)
@@ -28,12 +70,6 @@ func (ic *InspectionCreate) SetName(s string) *InspectionCreate {
 // SetEarNumber sets the earNumber field.
 func (ic *InspectionCreate) SetEarNumber(s string) *InspectionCreate {
 	ic.mutation.SetEarNumber(s)
-	return ic
-}
-
-// SetShedName sets the shedName field.
-func (ic *InspectionCreate) SetShedName(s string) *InspectionCreate {
-	ic.mutation.SetShedName(s)
 	return ic
 }
 
@@ -100,18 +136,6 @@ func (ic *InspectionCreate) SetHandleId(i int) *InspectionCreate {
 // SetHandleName sets the handleName field.
 func (ic *InspectionCreate) SetHandleName(s string) *InspectionCreate {
 	ic.mutation.SetHandleName(s)
-	return ic
-}
-
-// SetTenantId sets the tenantId field.
-func (ic *InspectionCreate) SetTenantId(i int64) *InspectionCreate {
-	ic.mutation.SetTenantId(i)
-	return ic
-}
-
-// SetTenantName sets the tenantName field.
-func (ic *InspectionCreate) SetTenantName(s string) *InspectionCreate {
-	ic.mutation.SetTenantName(s)
 	return ic
 }
 
@@ -190,14 +214,32 @@ func (ic *InspectionCreate) SaveX(ctx context.Context) *Inspection {
 
 // check runs all checks and user-defined validators on the builder.
 func (ic *InspectionCreate) check() error {
+	if _, ok := ic.mutation.CattleId(); !ok {
+		return &ValidationError{Name: "cattleId", err: errors.New("ent: missing required field \"cattleId\"")}
+	}
+	if _, ok := ic.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := ic.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := ic.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := ic.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
+	}
+	if _, ok := ic.mutation.ShedId(); !ok {
+		return &ValidationError{Name: "shedId", err: errors.New("ent: missing required field \"shedId\"")}
+	}
+	if _, ok := ic.mutation.ShedName(); !ok {
+		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
+	}
 	if _, ok := ic.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
 	}
 	if _, ok := ic.mutation.EarNumber(); !ok {
 		return &ValidationError{Name: "earNumber", err: errors.New("ent: missing required field \"earNumber\"")}
-	}
-	if _, ok := ic.mutation.ShedName(); !ok {
-		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
 	}
 	if _, ok := ic.mutation.Date(); !ok {
 		return &ValidationError{Name: "date", err: errors.New("ent: missing required field \"date\"")}
@@ -231,12 +273,6 @@ func (ic *InspectionCreate) check() error {
 	}
 	if _, ok := ic.mutation.HandleName(); !ok {
 		return &ValidationError{Name: "handleName", err: errors.New("ent: missing required field \"handleName\"")}
-	}
-	if _, ok := ic.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if _, ok := ic.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := ic.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -277,6 +313,62 @@ func (ic *InspectionCreate) createSpec() (*Inspection, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := ic.mutation.CattleId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldCattleId,
+		})
+		_node.CattleId = value
+	}
+	if value, ok := ic.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := ic.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inspection.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := ic.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := ic.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inspection.FieldFarmName,
+		})
+		_node.FarmName = value
+	}
+	if value, ok := ic.mutation.ShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldShedId,
+		})
+		_node.ShedId = value
+	}
+	if value, ok := ic.mutation.ShedName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inspection.FieldShedName,
+		})
+		_node.ShedName = value
+	}
 	if value, ok := ic.mutation.Name(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -292,14 +384,6 @@ func (ic *InspectionCreate) createSpec() (*Inspection, *sqlgraph.CreateSpec) {
 			Column: inspection.FieldEarNumber,
 		})
 		_node.EarNumber = value
-	}
-	if value, ok := ic.mutation.ShedName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: inspection.FieldShedName,
-		})
-		_node.ShedName = value
 	}
 	if value, ok := ic.mutation.Date(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -388,22 +472,6 @@ func (ic *InspectionCreate) createSpec() (*Inspection, *sqlgraph.CreateSpec) {
 			Column: inspection.FieldHandleName,
 		})
 		_node.HandleName = value
-	}
-	if value, ok := ic.mutation.TenantId(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: inspection.FieldTenantId,
-		})
-		_node.TenantId = value
-	}
-	if value, ok := ic.mutation.TenantName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: inspection.FieldTenantName,
-		})
-		_node.TenantName = value
 	}
 	if value, ok := ic.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

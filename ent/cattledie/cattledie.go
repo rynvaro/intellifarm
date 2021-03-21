@@ -7,14 +7,30 @@ const (
 	Label = "cattle_die"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldCattleId holds the string denoting the cattleid field in the database.
+	FieldCattleId = "cattle_id"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
+	// FieldFarmId holds the string denoting the farmid field in the database.
+	FieldFarmId = "farm_id"
+	// FieldFarmName holds the string denoting the farmname field in the database.
+	FieldFarmName = "farm_name"
+	// FieldShedId holds the string denoting the shedid field in the database.
+	FieldShedId = "shed_id"
+	// FieldShedName holds the string denoting the shedname field in the database.
+	FieldShedName = "shed_name"
 	// FieldEarNumber holds the string denoting the earnumber field in the database.
 	FieldEarNumber = "ear_number"
 	// FieldDate holds the string denoting the date field in the database.
 	FieldDate = "date"
 	// FieldUserName holds the string denoting the username field in the database.
 	FieldUserName = "user_name"
-	// FieldReason holds the string denoting the reason field in the database.
-	FieldReason = "reason"
+	// FieldReasonId holds the string denoting the reasonid field in the database.
+	FieldReasonId = "reason_id"
+	// FieldReasonName holds the string denoting the reasonname field in the database.
+	FieldReasonName = "reason_name"
 	// FieldInsured holds the string denoting the insured field in the database.
 	FieldInsured = "insured"
 	// FieldInsuredCode holds the string denoting the insuredcode field in the database.
@@ -29,10 +45,6 @@ const (
 	FieldDeclared = "declared"
 	// FieldDUserName holds the string denoting the dusername field in the database.
 	FieldDUserName = "d_user_name"
-	// FieldTenantId holds the string denoting the tenantid field in the database.
-	FieldTenantId = "tenant_id"
-	// FieldTenantName holds the string denoting the tenantname field in the database.
-	FieldTenantName = "tenant_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -49,10 +61,18 @@ const (
 // Columns holds all SQL columns for cattledie fields.
 var Columns = []string{
 	FieldID,
+	FieldCattleId,
+	FieldTenantId,
+	FieldTenantName,
+	FieldFarmId,
+	FieldFarmName,
+	FieldShedId,
+	FieldShedName,
 	FieldEarNumber,
 	FieldDate,
 	FieldUserName,
-	FieldReason,
+	FieldReasonId,
+	FieldReasonName,
 	FieldInsured,
 	FieldInsuredCode,
 	FieldInsuredCompany,
@@ -60,8 +80,6 @@ var Columns = []string{
 	FieldHandleMethod,
 	FieldDeclared,
 	FieldDUserName,
-	FieldTenantId,
-	FieldTenantName,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,

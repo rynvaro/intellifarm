@@ -9,7 +9,6 @@ import (
 	"cattleai/resp"
 	"fmt"
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -22,27 +21,10 @@ func InventoryFlowAddHandler(c *gin.Context) {
 		log.Error().Msg(err.Error())
 		return
 	}
-	log.Debug().Msg(form.String())
-	inventoryflow, err := db.Client.InventoryFlow.Create().
-		SetCount(form.Count).
-		SetDate(form.Date).
-		SetStatus(form.Status).
-		SetMaterialCode(form.MaterialCode).
-		SetMaterialID(form.MaterialID).
-		SetMaterialName(form.MaterialName).
-		SetRemarks(form.Remarks).
-		SetSeqNumber(form.MaterialCode + "-" + time.Now().Format("20060102150405") + "-" + strconv.FormatInt(time.Now().UnixNano(), 10)).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
-		SetType(form.Type).
-		SetUnit(form.Unit).
-		SetUserName(form.UserName).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
-		Save(c.Request.Context())
+
+	tx, err := db.Client.Tx(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
-		c.Status(http.StatusInternalServerError)
 		return
 	}
 
@@ -51,13 +33,54 @@ func InventoryFlowAddHandler(c *gin.Context) {
 	if form.Type == 2 {
 		count = -count
 	}
-	m, err := db.Client.Material.UpdateOneID(form.MaterialID).AddInventory(int64(count)).Save(c.Request.Context())
+	m, err := tx.Material.UpdateOneID(form.MaterialId).AddInventory(int64(count)).Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
+		tx.Rollback()
 		return
 	}
-	log.Info().Msg(m.String())
+	var after int64 = m.Inventory
+	var before int64 = 0
+	if form.Type == 2 {
+		before = m.Inventory + int64(count)
+	} else {
+		before = m.Inventory - int64(count)
+	}
+
+	log.Debug().Msg(form.String())
+	inventoryflow, err := tx.InventoryFlow.Create().
+		SetCount(form.Count).
+		SetDate(form.Date).
+		SetStatus(form.Status).
+		SetMaterialCode(form.MaterialCode).
+		SetMaterialId(form.MaterialId).
+		SetMaterialName(form.MaterialName).
+		SetRemarks(form.Remarks).
+		SetSeqNumber(form.MaterialCode + "-" + time.Now().Format("20060102150405")).
+		SetType(form.Type).
+		SetUnit(form.Unit).
+		SetUserName(form.UserName).
+		SetBefore(before).SetAfter(after).SetSysMaterialId(form.SysMaterialId).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
+		SetIsChecked(false).SetReportFileAddress(form.ReportFileAddress).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
+		Save(c.Request.Context())
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		tx.Rollback()
+		return
+	}
+
+	if err := tx.Commit(); err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		tx.Rollback()
+		return
+	}
+
 	c.JSON(http.StatusOK, resp.Success(inventoryflow))
 }
 
@@ -97,10 +120,39 @@ func InventoryFlowDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	err := db.Client.InventoryFlow.DeleteOneID(id.Id).Exec(c.Request.Context())
+
+	flow, err := db.Client.InventoryFlow.Get(c.Request.Context(), id.Id)
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
+		return
+	}
+	count := flow.Count
+	if flow.Type == 1 {
+		count = -count
+	}
+	tx, err := db.Client.Tx(c.Request.Context())
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+	_, err = tx.Material.UpdateOneID(flow.MaterialId).AddInventory(int64(count)).Save(c.Request.Context())
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+	err = tx.InventoryFlow.DeleteOneID(id.Id).Exec(c.Request.Context())
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+	if err := tx.Commit(); err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		tx.Rollback()
 		return
 	}
 	c.JSON(http.StatusOK, resp.Success(nil))
@@ -117,7 +169,7 @@ func InventoryFlowUpdateHandler(c *gin.Context) {
 		SetCount(form.Count).
 		SetDate(form.Date).
 		SetMaterialCode(form.MaterialCode).
-		SetMaterialID(form.MaterialID).
+		SetMaterialId(form.MaterialId).
 		SetMaterialName(form.MaterialName).
 		SetRemarks(form.Remarks).
 		SetSeqNumber(form.SeqNumber).
@@ -126,6 +178,9 @@ func InventoryFlowUpdateHandler(c *gin.Context) {
 		SetTenantName(form.TenantName).
 		SetType(form.Type).
 		SetUnit(form.Unit).
+		SetBefore(form.Before).SetAfter(form.After).SetSysMaterialId(form.SysMaterialId).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
+		SetIsChecked(false).SetReportFileAddress(form.ReportFileAddress).
 		SetUserName(form.UserName).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())

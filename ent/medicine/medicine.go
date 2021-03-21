@@ -7,6 +7,20 @@ const (
 	Label = "medicine"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldCattleId holds the string denoting the cattleid field in the database.
+	FieldCattleId = "cattle_id"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
+	// FieldFarmId holds the string denoting the farmid field in the database.
+	FieldFarmId = "farm_id"
+	// FieldFarmName holds the string denoting the farmname field in the database.
+	FieldFarmName = "farm_name"
+	// FieldShedId holds the string denoting the shedid field in the database.
+	FieldShedId = "shed_id"
+	// FieldShedName holds the string denoting the shedname field in the database.
+	FieldShedName = "shed_name"
 	// FieldEpid holds the string denoting the epid field in the database.
 	FieldEpid = "epid"
 	// FieldEarNumber holds the string denoting the earnumber field in the database.
@@ -29,10 +43,6 @@ const (
 	FieldDeleted = "deleted"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
-	// FieldTenantId holds the string denoting the tenantid field in the database.
-	FieldTenantId = "tenant_id"
-	// FieldTenantName holds the string denoting the tenantname field in the database.
-	FieldTenantName = "tenant_name"
 
 	// Table holds the table name of the medicine in the database.
 	Table = "medicines"
@@ -41,6 +51,13 @@ const (
 // Columns holds all SQL columns for medicine fields.
 var Columns = []string{
 	FieldID,
+	FieldCattleId,
+	FieldTenantId,
+	FieldTenantName,
+	FieldFarmId,
+	FieldFarmName,
+	FieldShedId,
+	FieldShedName,
 	FieldEpid,
 	FieldEarNumber,
 	FieldMedicineName,
@@ -52,8 +69,6 @@ var Columns = []string{
 	FieldUpdatedAt,
 	FieldDeleted,
 	FieldRemarks,
-	FieldTenantId,
-	FieldTenantName,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).

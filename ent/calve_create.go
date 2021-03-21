@@ -19,6 +19,48 @@ type CalveCreate struct {
 	hooks    []Hook
 }
 
+// SetCattleId sets the cattleId field.
+func (cc *CalveCreate) SetCattleId(i int64) *CalveCreate {
+	cc.mutation.SetCattleId(i)
+	return cc
+}
+
+// SetTenantId sets the tenantId field.
+func (cc *CalveCreate) SetTenantId(i int64) *CalveCreate {
+	cc.mutation.SetTenantId(i)
+	return cc
+}
+
+// SetTenantName sets the tenantName field.
+func (cc *CalveCreate) SetTenantName(s string) *CalveCreate {
+	cc.mutation.SetTenantName(s)
+	return cc
+}
+
+// SetFarmId sets the farmId field.
+func (cc *CalveCreate) SetFarmId(i int64) *CalveCreate {
+	cc.mutation.SetFarmId(i)
+	return cc
+}
+
+// SetFarmName sets the farmName field.
+func (cc *CalveCreate) SetFarmName(s string) *CalveCreate {
+	cc.mutation.SetFarmName(s)
+	return cc
+}
+
+// SetShedId sets the shedId field.
+func (cc *CalveCreate) SetShedId(i int64) *CalveCreate {
+	cc.mutation.SetShedId(i)
+	return cc
+}
+
+// SetShedName sets the shedName field.
+func (cc *CalveCreate) SetShedName(s string) *CalveCreate {
+	cc.mutation.SetShedName(s)
+	return cc
+}
+
 // SetName sets the name field.
 func (cc *CalveCreate) SetName(s string) *CalveCreate {
 	cc.mutation.SetName(s)
@@ -159,18 +201,6 @@ func (cc *CalveCreate) SetBabyShedName(s string) *CalveCreate {
 	return cc
 }
 
-// SetTenantId sets the tenantId field.
-func (cc *CalveCreate) SetTenantId(i int64) *CalveCreate {
-	cc.mutation.SetTenantId(i)
-	return cc
-}
-
-// SetTenantName sets the tenantName field.
-func (cc *CalveCreate) SetTenantName(s string) *CalveCreate {
-	cc.mutation.SetTenantName(s)
-	return cc
-}
-
 // SetRemarks sets the remarks field.
 func (cc *CalveCreate) SetRemarks(s string) *CalveCreate {
 	cc.mutation.SetRemarks(s)
@@ -246,6 +276,27 @@ func (cc *CalveCreate) SaveX(ctx context.Context) *Calve {
 
 // check runs all checks and user-defined validators on the builder.
 func (cc *CalveCreate) check() error {
+	if _, ok := cc.mutation.CattleId(); !ok {
+		return &ValidationError{Name: "cattleId", err: errors.New("ent: missing required field \"cattleId\"")}
+	}
+	if _, ok := cc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := cc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := cc.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := cc.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
+	}
+	if _, ok := cc.mutation.ShedId(); !ok {
+		return &ValidationError{Name: "shedId", err: errors.New("ent: missing required field \"shedId\"")}
+	}
+	if _, ok := cc.mutation.ShedName(); !ok {
+		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
+	}
 	if _, ok := cc.mutation.EarNumber(); !ok {
 		return &ValidationError{Name: "earNumber", err: errors.New("ent: missing required field \"earNumber\"")}
 	}
@@ -309,12 +360,6 @@ func (cc *CalveCreate) check() error {
 	if _, ok := cc.mutation.BabyShedName(); !ok {
 		return &ValidationError{Name: "babyShedName", err: errors.New("ent: missing required field \"babyShedName\"")}
 	}
-	if _, ok := cc.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if _, ok := cc.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
-	}
 	if _, ok := cc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
 	}
@@ -354,6 +399,62 @@ func (cc *CalveCreate) createSpec() (*Calve, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := cc.mutation.CattleId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldCattleId,
+		})
+		_node.CattleId = value
+	}
+	if value, ok := cc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := cc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: calve.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := cc.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := cc.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: calve.FieldFarmName,
+		})
+		_node.FarmName = value
+	}
+	if value, ok := cc.mutation.ShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldShedId,
+		})
+		_node.ShedId = value
+	}
+	if value, ok := cc.mutation.ShedName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: calve.FieldShedName,
+		})
+		_node.ShedName = value
+	}
 	if value, ok := cc.mutation.Name(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -529,22 +630,6 @@ func (cc *CalveCreate) createSpec() (*Calve, *sqlgraph.CreateSpec) {
 			Column: calve.FieldBabyShedName,
 		})
 		_node.BabyShedName = value
-	}
-	if value, ok := cc.mutation.TenantId(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: calve.FieldTenantId,
-		})
-		_node.TenantId = value
-	}
-	if value, ok := cc.mutation.TenantName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: calve.FieldTenantName,
-		})
-		_node.TenantName = value
 	}
 	if value, ok := cc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

@@ -7,10 +7,10 @@ import (
 )
 
 func Where(listParams *params.ListParams) predicate.FeedInfo {
-	wheres := []predicate.FeedInfo{feedinfo.Deleted(0)}
+	wheres := []predicate.FeedInfo{}
 	if listParams.Q != "" {
 		wheres = append(wheres, feedinfo.NameContains(listParams.Q))
 	}
-	wheres = append(wheres, feedinfo.TenantId(listParams.TenantId))
+	// wheres = append(wheres, feedinfo.TenantId(listParams.TenantId))
 	return feedinfo.And(wheres...)
 }

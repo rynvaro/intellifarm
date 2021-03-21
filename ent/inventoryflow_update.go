@@ -27,16 +27,29 @@ func (ifu *InventoryFlowUpdate) Where(ps ...predicate.InventoryFlow) *InventoryF
 	return ifu
 }
 
-// SetMaterialID sets the materialID field.
-func (ifu *InventoryFlowUpdate) SetMaterialID(i int64) *InventoryFlowUpdate {
-	ifu.mutation.ResetMaterialID()
-	ifu.mutation.SetMaterialID(i)
+// SetSysMaterialId sets the sysMaterialId field.
+func (ifu *InventoryFlowUpdate) SetSysMaterialId(i int64) *InventoryFlowUpdate {
+	ifu.mutation.ResetSysMaterialId()
+	ifu.mutation.SetSysMaterialId(i)
 	return ifu
 }
 
-// AddMaterialID adds i to materialID.
-func (ifu *InventoryFlowUpdate) AddMaterialID(i int64) *InventoryFlowUpdate {
-	ifu.mutation.AddMaterialID(i)
+// AddSysMaterialId adds i to sysMaterialId.
+func (ifu *InventoryFlowUpdate) AddSysMaterialId(i int64) *InventoryFlowUpdate {
+	ifu.mutation.AddSysMaterialId(i)
+	return ifu
+}
+
+// SetMaterialId sets the materialId field.
+func (ifu *InventoryFlowUpdate) SetMaterialId(i int64) *InventoryFlowUpdate {
+	ifu.mutation.ResetMaterialId()
+	ifu.mutation.SetMaterialId(i)
+	return ifu
+}
+
+// AddMaterialId adds i to materialId.
+func (ifu *InventoryFlowUpdate) AddMaterialId(i int64) *InventoryFlowUpdate {
+	ifu.mutation.AddMaterialId(i)
 	return ifu
 }
 
@@ -85,15 +98,8 @@ func (ifu *InventoryFlowUpdate) AddType(i int) *InventoryFlowUpdate {
 }
 
 // SetStatus sets the status field.
-func (ifu *InventoryFlowUpdate) SetStatus(i int) *InventoryFlowUpdate {
-	ifu.mutation.ResetStatus()
-	ifu.mutation.SetStatus(i)
-	return ifu
-}
-
-// AddStatus adds i to status.
-func (ifu *InventoryFlowUpdate) AddStatus(i int) *InventoryFlowUpdate {
-	ifu.mutation.AddStatus(i)
+func (ifu *InventoryFlowUpdate) SetStatus(s string) *InventoryFlowUpdate {
+	ifu.mutation.SetStatus(s)
 	return ifu
 }
 
@@ -113,6 +119,32 @@ func (ifu *InventoryFlowUpdate) AddCount(i int) *InventoryFlowUpdate {
 // SetUnit sets the unit field.
 func (ifu *InventoryFlowUpdate) SetUnit(s string) *InventoryFlowUpdate {
 	ifu.mutation.SetUnit(s)
+	return ifu
+}
+
+// SetBefore sets the before field.
+func (ifu *InventoryFlowUpdate) SetBefore(i int64) *InventoryFlowUpdate {
+	ifu.mutation.ResetBefore()
+	ifu.mutation.SetBefore(i)
+	return ifu
+}
+
+// AddBefore adds i to before.
+func (ifu *InventoryFlowUpdate) AddBefore(i int64) *InventoryFlowUpdate {
+	ifu.mutation.AddBefore(i)
+	return ifu
+}
+
+// SetAfter sets the after field.
+func (ifu *InventoryFlowUpdate) SetAfter(i int64) *InventoryFlowUpdate {
+	ifu.mutation.ResetAfter()
+	ifu.mutation.SetAfter(i)
+	return ifu
+}
+
+// AddAfter adds i to after.
+func (ifu *InventoryFlowUpdate) AddAfter(i int64) *InventoryFlowUpdate {
+	ifu.mutation.AddAfter(i)
 	return ifu
 }
 
@@ -141,9 +173,40 @@ func (ifu *InventoryFlowUpdate) SetTenantName(s string) *InventoryFlowUpdate {
 	return ifu
 }
 
+// SetFarmId sets the farmId field.
+func (ifu *InventoryFlowUpdate) SetFarmId(i int64) *InventoryFlowUpdate {
+	ifu.mutation.ResetFarmId()
+	ifu.mutation.SetFarmId(i)
+	return ifu
+}
+
+// AddFarmId adds i to farmId.
+func (ifu *InventoryFlowUpdate) AddFarmId(i int64) *InventoryFlowUpdate {
+	ifu.mutation.AddFarmId(i)
+	return ifu
+}
+
+// SetFarmName sets the farmName field.
+func (ifu *InventoryFlowUpdate) SetFarmName(s string) *InventoryFlowUpdate {
+	ifu.mutation.SetFarmName(s)
+	return ifu
+}
+
 // SetRemarks sets the remarks field.
 func (ifu *InventoryFlowUpdate) SetRemarks(s string) *InventoryFlowUpdate {
 	ifu.mutation.SetRemarks(s)
+	return ifu
+}
+
+// SetIsChecked sets the isChecked field.
+func (ifu *InventoryFlowUpdate) SetIsChecked(b bool) *InventoryFlowUpdate {
+	ifu.mutation.SetIsChecked(b)
+	return ifu
+}
+
+// SetReportFileAddress sets the reportFileAddress field.
+func (ifu *InventoryFlowUpdate) SetReportFileAddress(s string) *InventoryFlowUpdate {
+	ifu.mutation.SetReportFileAddress(s)
 	return ifu
 }
 
@@ -260,18 +323,32 @@ func (ifu *InventoryFlowUpdate) sqlSave(ctx context.Context) (n int, err error) 
 			}
 		}
 	}
-	if value, ok := ifu.mutation.MaterialID(); ok {
+	if value, ok := ifu.mutation.SysMaterialId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: inventoryflow.FieldMaterialID,
+			Column: inventoryflow.FieldSysMaterialId,
 		})
 	}
-	if value, ok := ifu.mutation.AddedMaterialID(); ok {
+	if value, ok := ifu.mutation.AddedSysMaterialId(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: inventoryflow.FieldMaterialID,
+			Column: inventoryflow.FieldSysMaterialId,
+		})
+	}
+	if value, ok := ifu.mutation.MaterialId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldMaterialId,
+		})
+	}
+	if value, ok := ifu.mutation.AddedMaterialId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldMaterialId,
 		})
 	}
 	if value, ok := ifu.mutation.MaterialName(); ok {
@@ -325,14 +402,7 @@ func (ifu *InventoryFlowUpdate) sqlSave(ctx context.Context) (n int, err error) 
 	}
 	if value, ok := ifu.mutation.Status(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: inventoryflow.FieldStatus,
-		})
-	}
-	if value, ok := ifu.mutation.AddedStatus(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: inventoryflow.FieldStatus,
 		})
@@ -356,6 +426,34 @@ func (ifu *InventoryFlowUpdate) sqlSave(ctx context.Context) (n int, err error) 
 			Type:   field.TypeString,
 			Value:  value,
 			Column: inventoryflow.FieldUnit,
+		})
+	}
+	if value, ok := ifu.mutation.Before(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldBefore,
+		})
+	}
+	if value, ok := ifu.mutation.AddedBefore(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldBefore,
+		})
+	}
+	if value, ok := ifu.mutation.After(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldAfter,
+		})
+	}
+	if value, ok := ifu.mutation.AddedAfter(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldAfter,
 		})
 	}
 	if value, ok := ifu.mutation.UserName(); ok {
@@ -386,11 +484,46 @@ func (ifu *InventoryFlowUpdate) sqlSave(ctx context.Context) (n int, err error) 
 			Column: inventoryflow.FieldTenantName,
 		})
 	}
+	if value, ok := ifu.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldFarmId,
+		})
+	}
+	if value, ok := ifu.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldFarmId,
+		})
+	}
+	if value, ok := ifu.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inventoryflow.FieldFarmName,
+		})
+	}
 	if value, ok := ifu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
 			Column: inventoryflow.FieldRemarks,
+		})
+	}
+	if value, ok := ifu.mutation.IsChecked(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: inventoryflow.FieldIsChecked,
+		})
+	}
+	if value, ok := ifu.mutation.ReportFileAddress(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inventoryflow.FieldReportFileAddress,
 		})
 	}
 	if value, ok := ifu.mutation.CreatedAt(); ok {
@@ -453,16 +586,29 @@ type InventoryFlowUpdateOne struct {
 	mutation *InventoryFlowMutation
 }
 
-// SetMaterialID sets the materialID field.
-func (ifuo *InventoryFlowUpdateOne) SetMaterialID(i int64) *InventoryFlowUpdateOne {
-	ifuo.mutation.ResetMaterialID()
-	ifuo.mutation.SetMaterialID(i)
+// SetSysMaterialId sets the sysMaterialId field.
+func (ifuo *InventoryFlowUpdateOne) SetSysMaterialId(i int64) *InventoryFlowUpdateOne {
+	ifuo.mutation.ResetSysMaterialId()
+	ifuo.mutation.SetSysMaterialId(i)
 	return ifuo
 }
 
-// AddMaterialID adds i to materialID.
-func (ifuo *InventoryFlowUpdateOne) AddMaterialID(i int64) *InventoryFlowUpdateOne {
-	ifuo.mutation.AddMaterialID(i)
+// AddSysMaterialId adds i to sysMaterialId.
+func (ifuo *InventoryFlowUpdateOne) AddSysMaterialId(i int64) *InventoryFlowUpdateOne {
+	ifuo.mutation.AddSysMaterialId(i)
+	return ifuo
+}
+
+// SetMaterialId sets the materialId field.
+func (ifuo *InventoryFlowUpdateOne) SetMaterialId(i int64) *InventoryFlowUpdateOne {
+	ifuo.mutation.ResetMaterialId()
+	ifuo.mutation.SetMaterialId(i)
+	return ifuo
+}
+
+// AddMaterialId adds i to materialId.
+func (ifuo *InventoryFlowUpdateOne) AddMaterialId(i int64) *InventoryFlowUpdateOne {
+	ifuo.mutation.AddMaterialId(i)
 	return ifuo
 }
 
@@ -511,15 +657,8 @@ func (ifuo *InventoryFlowUpdateOne) AddType(i int) *InventoryFlowUpdateOne {
 }
 
 // SetStatus sets the status field.
-func (ifuo *InventoryFlowUpdateOne) SetStatus(i int) *InventoryFlowUpdateOne {
-	ifuo.mutation.ResetStatus()
-	ifuo.mutation.SetStatus(i)
-	return ifuo
-}
-
-// AddStatus adds i to status.
-func (ifuo *InventoryFlowUpdateOne) AddStatus(i int) *InventoryFlowUpdateOne {
-	ifuo.mutation.AddStatus(i)
+func (ifuo *InventoryFlowUpdateOne) SetStatus(s string) *InventoryFlowUpdateOne {
+	ifuo.mutation.SetStatus(s)
 	return ifuo
 }
 
@@ -539,6 +678,32 @@ func (ifuo *InventoryFlowUpdateOne) AddCount(i int) *InventoryFlowUpdateOne {
 // SetUnit sets the unit field.
 func (ifuo *InventoryFlowUpdateOne) SetUnit(s string) *InventoryFlowUpdateOne {
 	ifuo.mutation.SetUnit(s)
+	return ifuo
+}
+
+// SetBefore sets the before field.
+func (ifuo *InventoryFlowUpdateOne) SetBefore(i int64) *InventoryFlowUpdateOne {
+	ifuo.mutation.ResetBefore()
+	ifuo.mutation.SetBefore(i)
+	return ifuo
+}
+
+// AddBefore adds i to before.
+func (ifuo *InventoryFlowUpdateOne) AddBefore(i int64) *InventoryFlowUpdateOne {
+	ifuo.mutation.AddBefore(i)
+	return ifuo
+}
+
+// SetAfter sets the after field.
+func (ifuo *InventoryFlowUpdateOne) SetAfter(i int64) *InventoryFlowUpdateOne {
+	ifuo.mutation.ResetAfter()
+	ifuo.mutation.SetAfter(i)
+	return ifuo
+}
+
+// AddAfter adds i to after.
+func (ifuo *InventoryFlowUpdateOne) AddAfter(i int64) *InventoryFlowUpdateOne {
+	ifuo.mutation.AddAfter(i)
 	return ifuo
 }
 
@@ -567,9 +732,40 @@ func (ifuo *InventoryFlowUpdateOne) SetTenantName(s string) *InventoryFlowUpdate
 	return ifuo
 }
 
+// SetFarmId sets the farmId field.
+func (ifuo *InventoryFlowUpdateOne) SetFarmId(i int64) *InventoryFlowUpdateOne {
+	ifuo.mutation.ResetFarmId()
+	ifuo.mutation.SetFarmId(i)
+	return ifuo
+}
+
+// AddFarmId adds i to farmId.
+func (ifuo *InventoryFlowUpdateOne) AddFarmId(i int64) *InventoryFlowUpdateOne {
+	ifuo.mutation.AddFarmId(i)
+	return ifuo
+}
+
+// SetFarmName sets the farmName field.
+func (ifuo *InventoryFlowUpdateOne) SetFarmName(s string) *InventoryFlowUpdateOne {
+	ifuo.mutation.SetFarmName(s)
+	return ifuo
+}
+
 // SetRemarks sets the remarks field.
 func (ifuo *InventoryFlowUpdateOne) SetRemarks(s string) *InventoryFlowUpdateOne {
 	ifuo.mutation.SetRemarks(s)
+	return ifuo
+}
+
+// SetIsChecked sets the isChecked field.
+func (ifuo *InventoryFlowUpdateOne) SetIsChecked(b bool) *InventoryFlowUpdateOne {
+	ifuo.mutation.SetIsChecked(b)
+	return ifuo
+}
+
+// SetReportFileAddress sets the reportFileAddress field.
+func (ifuo *InventoryFlowUpdateOne) SetReportFileAddress(s string) *InventoryFlowUpdateOne {
+	ifuo.mutation.SetReportFileAddress(s)
 	return ifuo
 }
 
@@ -684,18 +880,32 @@ func (ifuo *InventoryFlowUpdateOne) sqlSave(ctx context.Context) (_node *Invento
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing InventoryFlow.ID for update")}
 	}
 	_spec.Node.ID.Value = id
-	if value, ok := ifuo.mutation.MaterialID(); ok {
+	if value, ok := ifuo.mutation.SysMaterialId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: inventoryflow.FieldMaterialID,
+			Column: inventoryflow.FieldSysMaterialId,
 		})
 	}
-	if value, ok := ifuo.mutation.AddedMaterialID(); ok {
+	if value, ok := ifuo.mutation.AddedSysMaterialId(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: inventoryflow.FieldMaterialID,
+			Column: inventoryflow.FieldSysMaterialId,
+		})
+	}
+	if value, ok := ifuo.mutation.MaterialId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldMaterialId,
+		})
+	}
+	if value, ok := ifuo.mutation.AddedMaterialId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldMaterialId,
 		})
 	}
 	if value, ok := ifuo.mutation.MaterialName(); ok {
@@ -749,14 +959,7 @@ func (ifuo *InventoryFlowUpdateOne) sqlSave(ctx context.Context) (_node *Invento
 	}
 	if value, ok := ifuo.mutation.Status(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: inventoryflow.FieldStatus,
-		})
-	}
-	if value, ok := ifuo.mutation.AddedStatus(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: inventoryflow.FieldStatus,
 		})
@@ -780,6 +983,34 @@ func (ifuo *InventoryFlowUpdateOne) sqlSave(ctx context.Context) (_node *Invento
 			Type:   field.TypeString,
 			Value:  value,
 			Column: inventoryflow.FieldUnit,
+		})
+	}
+	if value, ok := ifuo.mutation.Before(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldBefore,
+		})
+	}
+	if value, ok := ifuo.mutation.AddedBefore(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldBefore,
+		})
+	}
+	if value, ok := ifuo.mutation.After(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldAfter,
+		})
+	}
+	if value, ok := ifuo.mutation.AddedAfter(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldAfter,
 		})
 	}
 	if value, ok := ifuo.mutation.UserName(); ok {
@@ -810,11 +1041,46 @@ func (ifuo *InventoryFlowUpdateOne) sqlSave(ctx context.Context) (_node *Invento
 			Column: inventoryflow.FieldTenantName,
 		})
 	}
+	if value, ok := ifuo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldFarmId,
+		})
+	}
+	if value, ok := ifuo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldFarmId,
+		})
+	}
+	if value, ok := ifuo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inventoryflow.FieldFarmName,
+		})
+	}
 	if value, ok := ifuo.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
 			Column: inventoryflow.FieldRemarks,
+		})
+	}
+	if value, ok := ifuo.mutation.IsChecked(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: inventoryflow.FieldIsChecked,
+		})
+	}
+	if value, ok := ifuo.mutation.ReportFileAddress(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inventoryflow.FieldReportFileAddress,
 		})
 	}
 	if value, ok := ifuo.mutation.CreatedAt(); ok {

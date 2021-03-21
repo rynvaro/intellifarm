@@ -27,15 +27,79 @@ func (hcu *HealthCareUpdate) Where(ps ...predicate.HealthCare) *HealthCareUpdate
 	return hcu
 }
 
-// SetEarNumber sets the earNumber field.
-func (hcu *HealthCareUpdate) SetEarNumber(s string) *HealthCareUpdate {
-	hcu.mutation.SetEarNumber(s)
+// SetCattleId sets the cattleId field.
+func (hcu *HealthCareUpdate) SetCattleId(i int64) *HealthCareUpdate {
+	hcu.mutation.ResetCattleId()
+	hcu.mutation.SetCattleId(i)
+	return hcu
+}
+
+// AddCattleId adds i to cattleId.
+func (hcu *HealthCareUpdate) AddCattleId(i int64) *HealthCareUpdate {
+	hcu.mutation.AddCattleId(i)
+	return hcu
+}
+
+// SetTenantId sets the tenantId field.
+func (hcu *HealthCareUpdate) SetTenantId(i int64) *HealthCareUpdate {
+	hcu.mutation.ResetTenantId()
+	hcu.mutation.SetTenantId(i)
+	return hcu
+}
+
+// AddTenantId adds i to tenantId.
+func (hcu *HealthCareUpdate) AddTenantId(i int64) *HealthCareUpdate {
+	hcu.mutation.AddTenantId(i)
+	return hcu
+}
+
+// SetTenantName sets the tenantName field.
+func (hcu *HealthCareUpdate) SetTenantName(s string) *HealthCareUpdate {
+	hcu.mutation.SetTenantName(s)
+	return hcu
+}
+
+// SetFarmId sets the farmId field.
+func (hcu *HealthCareUpdate) SetFarmId(i int64) *HealthCareUpdate {
+	hcu.mutation.ResetFarmId()
+	hcu.mutation.SetFarmId(i)
+	return hcu
+}
+
+// AddFarmId adds i to farmId.
+func (hcu *HealthCareUpdate) AddFarmId(i int64) *HealthCareUpdate {
+	hcu.mutation.AddFarmId(i)
+	return hcu
+}
+
+// SetFarmName sets the farmName field.
+func (hcu *HealthCareUpdate) SetFarmName(s string) *HealthCareUpdate {
+	hcu.mutation.SetFarmName(s)
+	return hcu
+}
+
+// SetShedId sets the shedId field.
+func (hcu *HealthCareUpdate) SetShedId(i int64) *HealthCareUpdate {
+	hcu.mutation.ResetShedId()
+	hcu.mutation.SetShedId(i)
+	return hcu
+}
+
+// AddShedId adds i to shedId.
+func (hcu *HealthCareUpdate) AddShedId(i int64) *HealthCareUpdate {
+	hcu.mutation.AddShedId(i)
 	return hcu
 }
 
 // SetShedName sets the shedName field.
 func (hcu *HealthCareUpdate) SetShedName(s string) *HealthCareUpdate {
 	hcu.mutation.SetShedName(s)
+	return hcu
+}
+
+// SetEarNumber sets the earNumber field.
+func (hcu *HealthCareUpdate) SetEarNumber(s string) *HealthCareUpdate {
+	hcu.mutation.SetEarNumber(s)
 	return hcu
 }
 
@@ -127,25 +191,6 @@ func (hcu *HealthCareUpdate) SetRemarks(s string) *HealthCareUpdate {
 	return hcu
 }
 
-// SetTenantId sets the tenantId field.
-func (hcu *HealthCareUpdate) SetTenantId(i int64) *HealthCareUpdate {
-	hcu.mutation.ResetTenantId()
-	hcu.mutation.SetTenantId(i)
-	return hcu
-}
-
-// AddTenantId adds i to tenantId.
-func (hcu *HealthCareUpdate) AddTenantId(i int64) *HealthCareUpdate {
-	hcu.mutation.AddTenantId(i)
-	return hcu
-}
-
-// SetTenantName sets the tenantName field.
-func (hcu *HealthCareUpdate) SetTenantName(s string) *HealthCareUpdate {
-	hcu.mutation.SetTenantName(s)
-	return hcu
-}
-
 // Mutation returns the HealthCareMutation object of the builder.
 func (hcu *HealthCareUpdate) Mutation() *HealthCareMutation {
 	return hcu.mutation
@@ -220,11 +265,74 @@ func (hcu *HealthCareUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
-	if value, ok := hcu.mutation.EarNumber(); ok {
+	if value, ok := hcu.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldCattleId,
+		})
+	}
+	if value, ok := hcu.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldCattleId,
+		})
+	}
+	if value, ok := hcu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldTenantId,
+		})
+	}
+	if value, ok := hcu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldTenantId,
+		})
+	}
+	if value, ok := hcu.mutation.TenantName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: healthcare.FieldEarNumber,
+			Column: healthcare.FieldTenantName,
+		})
+	}
+	if value, ok := hcu.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldFarmId,
+		})
+	}
+	if value, ok := hcu.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldFarmId,
+		})
+	}
+	if value, ok := hcu.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: healthcare.FieldFarmName,
+		})
+	}
+	if value, ok := hcu.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldShedId,
+		})
+	}
+	if value, ok := hcu.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldShedId,
 		})
 	}
 	if value, ok := hcu.mutation.ShedName(); ok {
@@ -232,6 +340,13 @@ func (hcu *HealthCareUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: healthcare.FieldShedName,
+		})
+	}
+	if value, ok := hcu.mutation.EarNumber(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: healthcare.FieldEarNumber,
 		})
 	}
 	if value, ok := hcu.mutation.Date(); ok {
@@ -332,27 +447,6 @@ func (hcu *HealthCareUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: healthcare.FieldRemarks,
 		})
 	}
-	if value, ok := hcu.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: healthcare.FieldTenantId,
-		})
-	}
-	if value, ok := hcu.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: healthcare.FieldTenantId,
-		})
-	}
-	if value, ok := hcu.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: healthcare.FieldTenantName,
-		})
-	}
 	if n, err = sqlgraph.UpdateNodes(ctx, hcu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{healthcare.Label}
@@ -371,15 +465,79 @@ type HealthCareUpdateOne struct {
 	mutation *HealthCareMutation
 }
 
-// SetEarNumber sets the earNumber field.
-func (hcuo *HealthCareUpdateOne) SetEarNumber(s string) *HealthCareUpdateOne {
-	hcuo.mutation.SetEarNumber(s)
+// SetCattleId sets the cattleId field.
+func (hcuo *HealthCareUpdateOne) SetCattleId(i int64) *HealthCareUpdateOne {
+	hcuo.mutation.ResetCattleId()
+	hcuo.mutation.SetCattleId(i)
+	return hcuo
+}
+
+// AddCattleId adds i to cattleId.
+func (hcuo *HealthCareUpdateOne) AddCattleId(i int64) *HealthCareUpdateOne {
+	hcuo.mutation.AddCattleId(i)
+	return hcuo
+}
+
+// SetTenantId sets the tenantId field.
+func (hcuo *HealthCareUpdateOne) SetTenantId(i int64) *HealthCareUpdateOne {
+	hcuo.mutation.ResetTenantId()
+	hcuo.mutation.SetTenantId(i)
+	return hcuo
+}
+
+// AddTenantId adds i to tenantId.
+func (hcuo *HealthCareUpdateOne) AddTenantId(i int64) *HealthCareUpdateOne {
+	hcuo.mutation.AddTenantId(i)
+	return hcuo
+}
+
+// SetTenantName sets the tenantName field.
+func (hcuo *HealthCareUpdateOne) SetTenantName(s string) *HealthCareUpdateOne {
+	hcuo.mutation.SetTenantName(s)
+	return hcuo
+}
+
+// SetFarmId sets the farmId field.
+func (hcuo *HealthCareUpdateOne) SetFarmId(i int64) *HealthCareUpdateOne {
+	hcuo.mutation.ResetFarmId()
+	hcuo.mutation.SetFarmId(i)
+	return hcuo
+}
+
+// AddFarmId adds i to farmId.
+func (hcuo *HealthCareUpdateOne) AddFarmId(i int64) *HealthCareUpdateOne {
+	hcuo.mutation.AddFarmId(i)
+	return hcuo
+}
+
+// SetFarmName sets the farmName field.
+func (hcuo *HealthCareUpdateOne) SetFarmName(s string) *HealthCareUpdateOne {
+	hcuo.mutation.SetFarmName(s)
+	return hcuo
+}
+
+// SetShedId sets the shedId field.
+func (hcuo *HealthCareUpdateOne) SetShedId(i int64) *HealthCareUpdateOne {
+	hcuo.mutation.ResetShedId()
+	hcuo.mutation.SetShedId(i)
+	return hcuo
+}
+
+// AddShedId adds i to shedId.
+func (hcuo *HealthCareUpdateOne) AddShedId(i int64) *HealthCareUpdateOne {
+	hcuo.mutation.AddShedId(i)
 	return hcuo
 }
 
 // SetShedName sets the shedName field.
 func (hcuo *HealthCareUpdateOne) SetShedName(s string) *HealthCareUpdateOne {
 	hcuo.mutation.SetShedName(s)
+	return hcuo
+}
+
+// SetEarNumber sets the earNumber field.
+func (hcuo *HealthCareUpdateOne) SetEarNumber(s string) *HealthCareUpdateOne {
+	hcuo.mutation.SetEarNumber(s)
 	return hcuo
 }
 
@@ -471,25 +629,6 @@ func (hcuo *HealthCareUpdateOne) SetRemarks(s string) *HealthCareUpdateOne {
 	return hcuo
 }
 
-// SetTenantId sets the tenantId field.
-func (hcuo *HealthCareUpdateOne) SetTenantId(i int64) *HealthCareUpdateOne {
-	hcuo.mutation.ResetTenantId()
-	hcuo.mutation.SetTenantId(i)
-	return hcuo
-}
-
-// AddTenantId adds i to tenantId.
-func (hcuo *HealthCareUpdateOne) AddTenantId(i int64) *HealthCareUpdateOne {
-	hcuo.mutation.AddTenantId(i)
-	return hcuo
-}
-
-// SetTenantName sets the tenantName field.
-func (hcuo *HealthCareUpdateOne) SetTenantName(s string) *HealthCareUpdateOne {
-	hcuo.mutation.SetTenantName(s)
-	return hcuo
-}
-
 // Mutation returns the HealthCareMutation object of the builder.
 func (hcuo *HealthCareUpdateOne) Mutation() *HealthCareMutation {
 	return hcuo.mutation
@@ -562,11 +701,74 @@ func (hcuo *HealthCareUpdateOne) sqlSave(ctx context.Context) (_node *HealthCare
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing HealthCare.ID for update")}
 	}
 	_spec.Node.ID.Value = id
-	if value, ok := hcuo.mutation.EarNumber(); ok {
+	if value, ok := hcuo.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldCattleId,
+		})
+	}
+	if value, ok := hcuo.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldCattleId,
+		})
+	}
+	if value, ok := hcuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldTenantId,
+		})
+	}
+	if value, ok := hcuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldTenantId,
+		})
+	}
+	if value, ok := hcuo.mutation.TenantName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: healthcare.FieldEarNumber,
+			Column: healthcare.FieldTenantName,
+		})
+	}
+	if value, ok := hcuo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldFarmId,
+		})
+	}
+	if value, ok := hcuo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldFarmId,
+		})
+	}
+	if value, ok := hcuo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: healthcare.FieldFarmName,
+		})
+	}
+	if value, ok := hcuo.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldShedId,
+		})
+	}
+	if value, ok := hcuo.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldShedId,
 		})
 	}
 	if value, ok := hcuo.mutation.ShedName(); ok {
@@ -574,6 +776,13 @@ func (hcuo *HealthCareUpdateOne) sqlSave(ctx context.Context) (_node *HealthCare
 			Type:   field.TypeString,
 			Value:  value,
 			Column: healthcare.FieldShedName,
+		})
+	}
+	if value, ok := hcuo.mutation.EarNumber(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: healthcare.FieldEarNumber,
 		})
 	}
 	if value, ok := hcuo.mutation.Date(); ok {
@@ -672,27 +881,6 @@ func (hcuo *HealthCareUpdateOne) sqlSave(ctx context.Context) (_node *HealthCare
 			Type:   field.TypeString,
 			Value:  value,
 			Column: healthcare.FieldRemarks,
-		})
-	}
-	if value, ok := hcuo.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: healthcare.FieldTenantId,
-		})
-	}
-	if value, ok := hcuo.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: healthcare.FieldTenantId,
-		})
-	}
-	if value, ok := hcuo.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: healthcare.FieldTenantName,
 		})
 	}
 	_node = &HealthCare{config: hcuo.config}

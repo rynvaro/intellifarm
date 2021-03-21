@@ -19,6 +19,48 @@ type CattleDieCreate struct {
 	hooks    []Hook
 }
 
+// SetCattleId sets the cattleId field.
+func (cdc *CattleDieCreate) SetCattleId(i int64) *CattleDieCreate {
+	cdc.mutation.SetCattleId(i)
+	return cdc
+}
+
+// SetTenantId sets the tenantId field.
+func (cdc *CattleDieCreate) SetTenantId(i int64) *CattleDieCreate {
+	cdc.mutation.SetTenantId(i)
+	return cdc
+}
+
+// SetTenantName sets the tenantName field.
+func (cdc *CattleDieCreate) SetTenantName(s string) *CattleDieCreate {
+	cdc.mutation.SetTenantName(s)
+	return cdc
+}
+
+// SetFarmId sets the farmId field.
+func (cdc *CattleDieCreate) SetFarmId(i int64) *CattleDieCreate {
+	cdc.mutation.SetFarmId(i)
+	return cdc
+}
+
+// SetFarmName sets the farmName field.
+func (cdc *CattleDieCreate) SetFarmName(s string) *CattleDieCreate {
+	cdc.mutation.SetFarmName(s)
+	return cdc
+}
+
+// SetShedId sets the shedId field.
+func (cdc *CattleDieCreate) SetShedId(i int64) *CattleDieCreate {
+	cdc.mutation.SetShedId(i)
+	return cdc
+}
+
+// SetShedName sets the shedName field.
+func (cdc *CattleDieCreate) SetShedName(s string) *CattleDieCreate {
+	cdc.mutation.SetShedName(s)
+	return cdc
+}
+
 // SetEarNumber sets the earNumber field.
 func (cdc *CattleDieCreate) SetEarNumber(s string) *CattleDieCreate {
 	cdc.mutation.SetEarNumber(s)
@@ -37,25 +79,31 @@ func (cdc *CattleDieCreate) SetUserName(s string) *CattleDieCreate {
 	return cdc
 }
 
-// SetReason sets the reason field.
-func (cdc *CattleDieCreate) SetReason(i int) *CattleDieCreate {
-	cdc.mutation.SetReason(i)
+// SetReasonId sets the reasonId field.
+func (cdc *CattleDieCreate) SetReasonId(i int) *CattleDieCreate {
+	cdc.mutation.SetReasonId(i)
 	return cdc
 }
 
-// SetInsured sets the Insured field.
+// SetReasonName sets the reasonName field.
+func (cdc *CattleDieCreate) SetReasonName(s string) *CattleDieCreate {
+	cdc.mutation.SetReasonName(s)
+	return cdc
+}
+
+// SetInsured sets the insured field.
 func (cdc *CattleDieCreate) SetInsured(i int) *CattleDieCreate {
 	cdc.mutation.SetInsured(i)
 	return cdc
 }
 
-// SetInsuredCode sets the InsuredCode field.
+// SetInsuredCode sets the insuredCode field.
 func (cdc *CattleDieCreate) SetInsuredCode(s string) *CattleDieCreate {
 	cdc.mutation.SetInsuredCode(s)
 	return cdc
 }
 
-// SetInsuredCompany sets the InsuredCompany field.
+// SetInsuredCompany sets the insuredCompany field.
 func (cdc *CattleDieCreate) SetInsuredCompany(s string) *CattleDieCreate {
 	cdc.mutation.SetInsuredCompany(s)
 	return cdc
@@ -68,8 +116,8 @@ func (cdc *CattleDieCreate) SetWeight(i int64) *CattleDieCreate {
 }
 
 // SetHandleMethod sets the handleMethod field.
-func (cdc *CattleDieCreate) SetHandleMethod(i int) *CattleDieCreate {
-	cdc.mutation.SetHandleMethod(i)
+func (cdc *CattleDieCreate) SetHandleMethod(s string) *CattleDieCreate {
+	cdc.mutation.SetHandleMethod(s)
 	return cdc
 }
 
@@ -82,18 +130,6 @@ func (cdc *CattleDieCreate) SetDeclared(i int) *CattleDieCreate {
 // SetDUserName sets the dUserName field.
 func (cdc *CattleDieCreate) SetDUserName(s string) *CattleDieCreate {
 	cdc.mutation.SetDUserName(s)
-	return cdc
-}
-
-// SetTenantId sets the tenantId field.
-func (cdc *CattleDieCreate) SetTenantId(i int64) *CattleDieCreate {
-	cdc.mutation.SetTenantId(i)
-	return cdc
-}
-
-// SetTenantName sets the tenantName field.
-func (cdc *CattleDieCreate) SetTenantName(s string) *CattleDieCreate {
-	cdc.mutation.SetTenantName(s)
 	return cdc
 }
 
@@ -172,6 +208,27 @@ func (cdc *CattleDieCreate) SaveX(ctx context.Context) *CattleDie {
 
 // check runs all checks and user-defined validators on the builder.
 func (cdc *CattleDieCreate) check() error {
+	if _, ok := cdc.mutation.CattleId(); !ok {
+		return &ValidationError{Name: "cattleId", err: errors.New("ent: missing required field \"cattleId\"")}
+	}
+	if _, ok := cdc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := cdc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := cdc.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := cdc.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
+	}
+	if _, ok := cdc.mutation.ShedId(); !ok {
+		return &ValidationError{Name: "shedId", err: errors.New("ent: missing required field \"shedId\"")}
+	}
+	if _, ok := cdc.mutation.ShedName(); !ok {
+		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
+	}
 	if _, ok := cdc.mutation.EarNumber(); !ok {
 		return &ValidationError{Name: "earNumber", err: errors.New("ent: missing required field \"earNumber\"")}
 	}
@@ -181,17 +238,20 @@ func (cdc *CattleDieCreate) check() error {
 	if _, ok := cdc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
 	}
-	if _, ok := cdc.mutation.Reason(); !ok {
-		return &ValidationError{Name: "reason", err: errors.New("ent: missing required field \"reason\"")}
+	if _, ok := cdc.mutation.ReasonId(); !ok {
+		return &ValidationError{Name: "reasonId", err: errors.New("ent: missing required field \"reasonId\"")}
+	}
+	if _, ok := cdc.mutation.ReasonName(); !ok {
+		return &ValidationError{Name: "reasonName", err: errors.New("ent: missing required field \"reasonName\"")}
 	}
 	if _, ok := cdc.mutation.Insured(); !ok {
-		return &ValidationError{Name: "Insured", err: errors.New("ent: missing required field \"Insured\"")}
+		return &ValidationError{Name: "insured", err: errors.New("ent: missing required field \"insured\"")}
 	}
 	if _, ok := cdc.mutation.InsuredCode(); !ok {
-		return &ValidationError{Name: "InsuredCode", err: errors.New("ent: missing required field \"InsuredCode\"")}
+		return &ValidationError{Name: "insuredCode", err: errors.New("ent: missing required field \"insuredCode\"")}
 	}
 	if _, ok := cdc.mutation.InsuredCompany(); !ok {
-		return &ValidationError{Name: "InsuredCompany", err: errors.New("ent: missing required field \"InsuredCompany\"")}
+		return &ValidationError{Name: "insuredCompany", err: errors.New("ent: missing required field \"insuredCompany\"")}
 	}
 	if _, ok := cdc.mutation.Weight(); !ok {
 		return &ValidationError{Name: "weight", err: errors.New("ent: missing required field \"weight\"")}
@@ -204,12 +264,6 @@ func (cdc *CattleDieCreate) check() error {
 	}
 	if _, ok := cdc.mutation.DUserName(); !ok {
 		return &ValidationError{Name: "dUserName", err: errors.New("ent: missing required field \"dUserName\"")}
-	}
-	if _, ok := cdc.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if _, ok := cdc.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := cdc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -250,6 +304,62 @@ func (cdc *CattleDieCreate) createSpec() (*CattleDie, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := cdc.mutation.CattleId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldCattleId,
+		})
+		_node.CattleId = value
+	}
+	if value, ok := cdc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := cdc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := cdc.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := cdc.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldFarmName,
+		})
+		_node.FarmName = value
+	}
+	if value, ok := cdc.mutation.ShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattledie.FieldShedId,
+		})
+		_node.ShedId = value
+	}
+	if value, ok := cdc.mutation.ShedName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldShedName,
+		})
+		_node.ShedName = value
+	}
 	if value, ok := cdc.mutation.EarNumber(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -274,13 +384,21 @@ func (cdc *CattleDieCreate) createSpec() (*CattleDie, *sqlgraph.CreateSpec) {
 		})
 		_node.UserName = value
 	}
-	if value, ok := cdc.mutation.Reason(); ok {
+	if value, ok := cdc.mutation.ReasonId(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
 			Value:  value,
-			Column: cattledie.FieldReason,
+			Column: cattledie.FieldReasonId,
 		})
-		_node.Reason = value
+		_node.ReasonId = value
+	}
+	if value, ok := cdc.mutation.ReasonName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattledie.FieldReasonName,
+		})
+		_node.ReasonName = value
 	}
 	if value, ok := cdc.mutation.Insured(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -316,7 +434,7 @@ func (cdc *CattleDieCreate) createSpec() (*CattleDie, *sqlgraph.CreateSpec) {
 	}
 	if value, ok := cdc.mutation.HandleMethod(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: cattledie.FieldHandleMethod,
 		})
@@ -337,22 +455,6 @@ func (cdc *CattleDieCreate) createSpec() (*CattleDie, *sqlgraph.CreateSpec) {
 			Column: cattledie.FieldDUserName,
 		})
 		_node.DUserName = value
-	}
-	if value, ok := cdc.mutation.TenantId(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: cattledie.FieldTenantId,
-		})
-		_node.TenantId = value
-	}
-	if value, ok := cdc.mutation.TenantName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: cattledie.FieldTenantName,
-		})
-		_node.TenantName = value
 	}
 	if value, ok := cdc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

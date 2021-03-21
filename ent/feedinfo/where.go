@@ -105,10 +105,227 @@ func Code(v string) predicate.FeedInfo {
 	})
 }
 
-// Type applies equality check predicate on the "type" field. It's identical to TypeEQ.
-func Type(v string) predicate.FeedInfo {
+// Moisture applies equality check predicate on the "moisture" field. It's identical to MoistureEQ.
+func Moisture(v float32) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldType), v))
+		s.Where(sql.EQ(s.C(FieldMoisture), v))
+	})
+}
+
+// DryMatter applies equality check predicate on the "dryMatter" field. It's identical to DryMatterEQ.
+func DryMatter(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldDryMatter), v))
+	})
+}
+
+// Ndf applies equality check predicate on the "ndf" field. It's identical to NdfEQ.
+func Ndf(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldNdf), v))
+	})
+}
+
+// Adf applies equality check predicate on the "adf" field. It's identical to AdfEQ.
+func Adf(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldAdf), v))
+	})
+}
+
+// Endf applies equality check predicate on the "endf" field. It's identical to EndfEQ.
+func Endf(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldEndf), v))
+	})
+}
+
+// LacticAcid applies equality check predicate on the "lacticAcid" field. It's identical to LacticAcidEQ.
+func LacticAcid(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldLacticAcid), v))
+	})
+}
+
+// Wsc applies equality check predicate on the "wsc" field. It's identical to WscEQ.
+func Wsc(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldWsc), v))
+	})
+}
+
+// Starch applies equality check predicate on the "starch" field. It's identical to StarchEQ.
+func Starch(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldStarch), v))
+	})
+}
+
+// SolubleFiber applies equality check predicate on the "solubleFiber" field. It's identical to SolubleFiberEQ.
+func SolubleFiber(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldSolubleFiber), v))
+	})
+}
+
+// TotalProtein applies equality check predicate on the "totalProtein" field. It's identical to TotalProteinEQ.
+func TotalProtein(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTotalProtein), v))
+	})
+}
+
+// SolubleProtein applies equality check predicate on the "solubleProtein" field. It's identical to SolubleProteinEQ.
+func SolubleProtein(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldSolubleProtein), v))
+	})
+}
+
+// Rdp applies equality check predicate on the "rdp" field. It's identical to RdpEQ.
+func Rdp(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldRdp), v))
+	})
+}
+
+// Me applies equality check predicate on the "me" field. It's identical to MeEQ.
+func Me(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldMe), v))
+	})
+}
+
+// Nel applies equality check predicate on the "nel" field. It's identical to NelEQ.
+func Nel(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldNel), v))
+	})
+}
+
+// CrudeFat applies equality check predicate on the "crudeFat" field. It's identical to CrudeFatEQ.
+func CrudeFat(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCrudeFat), v))
+	})
+}
+
+// TotalFttyAcid applies equality check predicate on the "totalFttyAcid" field. It's identical to TotalFttyAcidEQ.
+func TotalFttyAcid(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTotalFttyAcid), v))
+	})
+}
+
+// Ash applies equality check predicate on the "ash" field. It's identical to AshEQ.
+func Ash(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldAsh), v))
+	})
+}
+
+// Ca applies equality check predicate on the "ca" field. It's identical to CaEQ.
+func Ca(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCa), v))
+	})
+}
+
+// P applies equality check predicate on the "p" field. It's identical to PEQ.
+func P(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldP), v))
+	})
+}
+
+// Mg applies equality check predicate on the "mg" field. It's identical to MgEQ.
+func Mg(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldMg), v))
+	})
+}
+
+// K applies equality check predicate on the "k" field. It's identical to KEQ.
+func K(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldK), v))
+	})
+}
+
+// Mn applies equality check predicate on the "mn" field. It's identical to MnEQ.
+func Mn(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldMn), v))
+	})
+}
+
+// Cu applies equality check predicate on the "cu" field. It's identical to CuEQ.
+func Cu(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCu), v))
+	})
+}
+
+// Fe applies equality check predicate on the "fe" field. It's identical to FeEQ.
+func Fe(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFe), v))
+	})
+}
+
+// Zn applies equality check predicate on the "zn" field. It's identical to ZnEQ.
+func Zn(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldZn), v))
+	})
+}
+
+// Methionine applies equality check predicate on the "methionine" field. It's identical to MethionineEQ.
+func Methionine(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldMethionine), v))
+	})
+}
+
+// Lysine applies equality check predicate on the "lysine" field. It's identical to LysineEQ.
+func Lysine(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldLysine), v))
+	})
+}
+
+// VitaminA applies equality check predicate on the "vitaminA" field. It's identical to VitaminAEQ.
+func VitaminA(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldVitaminA), v))
+	})
+}
+
+// VitaminD3 applies equality check predicate on the "vitaminD3" field. It's identical to VitaminD3EQ.
+func VitaminD3(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldVitaminD3), v))
+	})
+}
+
+// VitaminE applies equality check predicate on the "vitaminE" field. It's identical to VitaminEEQ.
+func VitaminE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldVitaminE), v))
+	})
+}
+
+// Choline applies equality check predicate on the "choline" field. It's identical to CholineEQ.
+func Choline(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCholine), v))
+	})
+}
+
+// Biotin applies equality check predicate on the "biotin" field. It's identical to BiotinEQ.
+func Biotin(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldBiotin), v))
 	})
 }
 
@@ -130,6 +347,20 @@ func TenantId(v int64) predicate.FeedInfo {
 func TenantName(v string) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldTenantName), v))
+	})
+}
+
+// FarmId applies equality check predicate on the "farmId" field. It's identical to FarmIdEQ.
+func FarmId(v int64) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmName applies equality check predicate on the "farmName" field. It's identical to FarmNameEQ.
+func FarmName(v string) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
 	})
 }
 
@@ -383,22 +614,22 @@ func CodeContainsFold(v string) predicate.FeedInfo {
 	})
 }
 
-// TypeEQ applies the EQ predicate on the "type" field.
-func TypeEQ(v string) predicate.FeedInfo {
+// MoistureEQ applies the EQ predicate on the "moisture" field.
+func MoistureEQ(v float32) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldType), v))
+		s.Where(sql.EQ(s.C(FieldMoisture), v))
 	})
 }
 
-// TypeNEQ applies the NEQ predicate on the "type" field.
-func TypeNEQ(v string) predicate.FeedInfo {
+// MoistureNEQ applies the NEQ predicate on the "moisture" field.
+func MoistureNEQ(v float32) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldType), v))
+		s.Where(sql.NEQ(s.C(FieldMoisture), v))
 	})
 }
 
-// TypeIn applies the In predicate on the "type" field.
-func TypeIn(vs ...string) predicate.FeedInfo {
+// MoistureIn applies the In predicate on the "moisture" field.
+func MoistureIn(vs ...float32) predicate.FeedInfo {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -410,12 +641,12 @@ func TypeIn(vs ...string) predicate.FeedInfo {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldType), v...))
+		s.Where(sql.In(s.C(FieldMoisture), v...))
 	})
 }
 
-// TypeNotIn applies the NotIn predicate on the "type" field.
-func TypeNotIn(vs ...string) predicate.FeedInfo {
+// MoistureNotIn applies the NotIn predicate on the "moisture" field.
+func MoistureNotIn(vs ...float32) predicate.FeedInfo {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -427,70 +658,2391 @@ func TypeNotIn(vs ...string) predicate.FeedInfo {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldType), v...))
+		s.Where(sql.NotIn(s.C(FieldMoisture), v...))
 	})
 }
 
-// TypeGT applies the GT predicate on the "type" field.
-func TypeGT(v string) predicate.FeedInfo {
+// MoistureGT applies the GT predicate on the "moisture" field.
+func MoistureGT(v float32) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldType), v))
+		s.Where(sql.GT(s.C(FieldMoisture), v))
 	})
 }
 
-// TypeGTE applies the GTE predicate on the "type" field.
-func TypeGTE(v string) predicate.FeedInfo {
+// MoistureGTE applies the GTE predicate on the "moisture" field.
+func MoistureGTE(v float32) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldType), v))
+		s.Where(sql.GTE(s.C(FieldMoisture), v))
 	})
 }
 
-// TypeLT applies the LT predicate on the "type" field.
-func TypeLT(v string) predicate.FeedInfo {
+// MoistureLT applies the LT predicate on the "moisture" field.
+func MoistureLT(v float32) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldType), v))
+		s.Where(sql.LT(s.C(FieldMoisture), v))
 	})
 }
 
-// TypeLTE applies the LTE predicate on the "type" field.
-func TypeLTE(v string) predicate.FeedInfo {
+// MoistureLTE applies the LTE predicate on the "moisture" field.
+func MoistureLTE(v float32) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldType), v))
+		s.Where(sql.LTE(s.C(FieldMoisture), v))
 	})
 }
 
-// TypeContains applies the Contains predicate on the "type" field.
-func TypeContains(v string) predicate.FeedInfo {
+// DryMatterEQ applies the EQ predicate on the "dryMatter" field.
+func DryMatterEQ(v float32) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldType), v))
+		s.Where(sql.EQ(s.C(FieldDryMatter), v))
 	})
 }
 
-// TypeHasPrefix applies the HasPrefix predicate on the "type" field.
-func TypeHasPrefix(v string) predicate.FeedInfo {
+// DryMatterNEQ applies the NEQ predicate on the "dryMatter" field.
+func DryMatterNEQ(v float32) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldType), v))
+		s.Where(sql.NEQ(s.C(FieldDryMatter), v))
 	})
 }
 
-// TypeHasSuffix applies the HasSuffix predicate on the "type" field.
-func TypeHasSuffix(v string) predicate.FeedInfo {
+// DryMatterIn applies the In predicate on the "dryMatter" field.
+func DryMatterIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
 	return predicate.FeedInfo(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldType), v))
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldDryMatter), v...))
 	})
 }
 
-// TypeEqualFold applies the EqualFold predicate on the "type" field.
-func TypeEqualFold(v string) predicate.FeedInfo {
+// DryMatterNotIn applies the NotIn predicate on the "dryMatter" field.
+func DryMatterNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
 	return predicate.FeedInfo(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldType), v))
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldDryMatter), v...))
 	})
 }
 
-// TypeContainsFold applies the ContainsFold predicate on the "type" field.
-func TypeContainsFold(v string) predicate.FeedInfo {
+// DryMatterGT applies the GT predicate on the "dryMatter" field.
+func DryMatterGT(v float32) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldType), v))
+		s.Where(sql.GT(s.C(FieldDryMatter), v))
+	})
+}
+
+// DryMatterGTE applies the GTE predicate on the "dryMatter" field.
+func DryMatterGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldDryMatter), v))
+	})
+}
+
+// DryMatterLT applies the LT predicate on the "dryMatter" field.
+func DryMatterLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldDryMatter), v))
+	})
+}
+
+// DryMatterLTE applies the LTE predicate on the "dryMatter" field.
+func DryMatterLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldDryMatter), v))
+	})
+}
+
+// NdfEQ applies the EQ predicate on the "ndf" field.
+func NdfEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldNdf), v))
+	})
+}
+
+// NdfNEQ applies the NEQ predicate on the "ndf" field.
+func NdfNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldNdf), v))
+	})
+}
+
+// NdfIn applies the In predicate on the "ndf" field.
+func NdfIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldNdf), v...))
+	})
+}
+
+// NdfNotIn applies the NotIn predicate on the "ndf" field.
+func NdfNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldNdf), v...))
+	})
+}
+
+// NdfGT applies the GT predicate on the "ndf" field.
+func NdfGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldNdf), v))
+	})
+}
+
+// NdfGTE applies the GTE predicate on the "ndf" field.
+func NdfGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldNdf), v))
+	})
+}
+
+// NdfLT applies the LT predicate on the "ndf" field.
+func NdfLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldNdf), v))
+	})
+}
+
+// NdfLTE applies the LTE predicate on the "ndf" field.
+func NdfLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldNdf), v))
+	})
+}
+
+// AdfEQ applies the EQ predicate on the "adf" field.
+func AdfEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldAdf), v))
+	})
+}
+
+// AdfNEQ applies the NEQ predicate on the "adf" field.
+func AdfNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldAdf), v))
+	})
+}
+
+// AdfIn applies the In predicate on the "adf" field.
+func AdfIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldAdf), v...))
+	})
+}
+
+// AdfNotIn applies the NotIn predicate on the "adf" field.
+func AdfNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldAdf), v...))
+	})
+}
+
+// AdfGT applies the GT predicate on the "adf" field.
+func AdfGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldAdf), v))
+	})
+}
+
+// AdfGTE applies the GTE predicate on the "adf" field.
+func AdfGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldAdf), v))
+	})
+}
+
+// AdfLT applies the LT predicate on the "adf" field.
+func AdfLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldAdf), v))
+	})
+}
+
+// AdfLTE applies the LTE predicate on the "adf" field.
+func AdfLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldAdf), v))
+	})
+}
+
+// EndfEQ applies the EQ predicate on the "endf" field.
+func EndfEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldEndf), v))
+	})
+}
+
+// EndfNEQ applies the NEQ predicate on the "endf" field.
+func EndfNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldEndf), v))
+	})
+}
+
+// EndfIn applies the In predicate on the "endf" field.
+func EndfIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldEndf), v...))
+	})
+}
+
+// EndfNotIn applies the NotIn predicate on the "endf" field.
+func EndfNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldEndf), v...))
+	})
+}
+
+// EndfGT applies the GT predicate on the "endf" field.
+func EndfGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldEndf), v))
+	})
+}
+
+// EndfGTE applies the GTE predicate on the "endf" field.
+func EndfGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldEndf), v))
+	})
+}
+
+// EndfLT applies the LT predicate on the "endf" field.
+func EndfLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldEndf), v))
+	})
+}
+
+// EndfLTE applies the LTE predicate on the "endf" field.
+func EndfLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldEndf), v))
+	})
+}
+
+// LacticAcidEQ applies the EQ predicate on the "lacticAcid" field.
+func LacticAcidEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldLacticAcid), v))
+	})
+}
+
+// LacticAcidNEQ applies the NEQ predicate on the "lacticAcid" field.
+func LacticAcidNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldLacticAcid), v))
+	})
+}
+
+// LacticAcidIn applies the In predicate on the "lacticAcid" field.
+func LacticAcidIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldLacticAcid), v...))
+	})
+}
+
+// LacticAcidNotIn applies the NotIn predicate on the "lacticAcid" field.
+func LacticAcidNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldLacticAcid), v...))
+	})
+}
+
+// LacticAcidGT applies the GT predicate on the "lacticAcid" field.
+func LacticAcidGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldLacticAcid), v))
+	})
+}
+
+// LacticAcidGTE applies the GTE predicate on the "lacticAcid" field.
+func LacticAcidGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldLacticAcid), v))
+	})
+}
+
+// LacticAcidLT applies the LT predicate on the "lacticAcid" field.
+func LacticAcidLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldLacticAcid), v))
+	})
+}
+
+// LacticAcidLTE applies the LTE predicate on the "lacticAcid" field.
+func LacticAcidLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldLacticAcid), v))
+	})
+}
+
+// WscEQ applies the EQ predicate on the "wsc" field.
+func WscEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldWsc), v))
+	})
+}
+
+// WscNEQ applies the NEQ predicate on the "wsc" field.
+func WscNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldWsc), v))
+	})
+}
+
+// WscIn applies the In predicate on the "wsc" field.
+func WscIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldWsc), v...))
+	})
+}
+
+// WscNotIn applies the NotIn predicate on the "wsc" field.
+func WscNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldWsc), v...))
+	})
+}
+
+// WscGT applies the GT predicate on the "wsc" field.
+func WscGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldWsc), v))
+	})
+}
+
+// WscGTE applies the GTE predicate on the "wsc" field.
+func WscGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldWsc), v))
+	})
+}
+
+// WscLT applies the LT predicate on the "wsc" field.
+func WscLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldWsc), v))
+	})
+}
+
+// WscLTE applies the LTE predicate on the "wsc" field.
+func WscLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldWsc), v))
+	})
+}
+
+// StarchEQ applies the EQ predicate on the "starch" field.
+func StarchEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldStarch), v))
+	})
+}
+
+// StarchNEQ applies the NEQ predicate on the "starch" field.
+func StarchNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldStarch), v))
+	})
+}
+
+// StarchIn applies the In predicate on the "starch" field.
+func StarchIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldStarch), v...))
+	})
+}
+
+// StarchNotIn applies the NotIn predicate on the "starch" field.
+func StarchNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldStarch), v...))
+	})
+}
+
+// StarchGT applies the GT predicate on the "starch" field.
+func StarchGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldStarch), v))
+	})
+}
+
+// StarchGTE applies the GTE predicate on the "starch" field.
+func StarchGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldStarch), v))
+	})
+}
+
+// StarchLT applies the LT predicate on the "starch" field.
+func StarchLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldStarch), v))
+	})
+}
+
+// StarchLTE applies the LTE predicate on the "starch" field.
+func StarchLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldStarch), v))
+	})
+}
+
+// SolubleFiberEQ applies the EQ predicate on the "solubleFiber" field.
+func SolubleFiberEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldSolubleFiber), v))
+	})
+}
+
+// SolubleFiberNEQ applies the NEQ predicate on the "solubleFiber" field.
+func SolubleFiberNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldSolubleFiber), v))
+	})
+}
+
+// SolubleFiberIn applies the In predicate on the "solubleFiber" field.
+func SolubleFiberIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldSolubleFiber), v...))
+	})
+}
+
+// SolubleFiberNotIn applies the NotIn predicate on the "solubleFiber" field.
+func SolubleFiberNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldSolubleFiber), v...))
+	})
+}
+
+// SolubleFiberGT applies the GT predicate on the "solubleFiber" field.
+func SolubleFiberGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldSolubleFiber), v))
+	})
+}
+
+// SolubleFiberGTE applies the GTE predicate on the "solubleFiber" field.
+func SolubleFiberGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldSolubleFiber), v))
+	})
+}
+
+// SolubleFiberLT applies the LT predicate on the "solubleFiber" field.
+func SolubleFiberLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldSolubleFiber), v))
+	})
+}
+
+// SolubleFiberLTE applies the LTE predicate on the "solubleFiber" field.
+func SolubleFiberLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldSolubleFiber), v))
+	})
+}
+
+// TotalProteinEQ applies the EQ predicate on the "totalProtein" field.
+func TotalProteinEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTotalProtein), v))
+	})
+}
+
+// TotalProteinNEQ applies the NEQ predicate on the "totalProtein" field.
+func TotalProteinNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldTotalProtein), v))
+	})
+}
+
+// TotalProteinIn applies the In predicate on the "totalProtein" field.
+func TotalProteinIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldTotalProtein), v...))
+	})
+}
+
+// TotalProteinNotIn applies the NotIn predicate on the "totalProtein" field.
+func TotalProteinNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldTotalProtein), v...))
+	})
+}
+
+// TotalProteinGT applies the GT predicate on the "totalProtein" field.
+func TotalProteinGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldTotalProtein), v))
+	})
+}
+
+// TotalProteinGTE applies the GTE predicate on the "totalProtein" field.
+func TotalProteinGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldTotalProtein), v))
+	})
+}
+
+// TotalProteinLT applies the LT predicate on the "totalProtein" field.
+func TotalProteinLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldTotalProtein), v))
+	})
+}
+
+// TotalProteinLTE applies the LTE predicate on the "totalProtein" field.
+func TotalProteinLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldTotalProtein), v))
+	})
+}
+
+// SolubleProteinEQ applies the EQ predicate on the "solubleProtein" field.
+func SolubleProteinEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldSolubleProtein), v))
+	})
+}
+
+// SolubleProteinNEQ applies the NEQ predicate on the "solubleProtein" field.
+func SolubleProteinNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldSolubleProtein), v))
+	})
+}
+
+// SolubleProteinIn applies the In predicate on the "solubleProtein" field.
+func SolubleProteinIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldSolubleProtein), v...))
+	})
+}
+
+// SolubleProteinNotIn applies the NotIn predicate on the "solubleProtein" field.
+func SolubleProteinNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldSolubleProtein), v...))
+	})
+}
+
+// SolubleProteinGT applies the GT predicate on the "solubleProtein" field.
+func SolubleProteinGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldSolubleProtein), v))
+	})
+}
+
+// SolubleProteinGTE applies the GTE predicate on the "solubleProtein" field.
+func SolubleProteinGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldSolubleProtein), v))
+	})
+}
+
+// SolubleProteinLT applies the LT predicate on the "solubleProtein" field.
+func SolubleProteinLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldSolubleProtein), v))
+	})
+}
+
+// SolubleProteinLTE applies the LTE predicate on the "solubleProtein" field.
+func SolubleProteinLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldSolubleProtein), v))
+	})
+}
+
+// RdpEQ applies the EQ predicate on the "rdp" field.
+func RdpEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldRdp), v))
+	})
+}
+
+// RdpNEQ applies the NEQ predicate on the "rdp" field.
+func RdpNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldRdp), v))
+	})
+}
+
+// RdpIn applies the In predicate on the "rdp" field.
+func RdpIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldRdp), v...))
+	})
+}
+
+// RdpNotIn applies the NotIn predicate on the "rdp" field.
+func RdpNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldRdp), v...))
+	})
+}
+
+// RdpGT applies the GT predicate on the "rdp" field.
+func RdpGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldRdp), v))
+	})
+}
+
+// RdpGTE applies the GTE predicate on the "rdp" field.
+func RdpGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldRdp), v))
+	})
+}
+
+// RdpLT applies the LT predicate on the "rdp" field.
+func RdpLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldRdp), v))
+	})
+}
+
+// RdpLTE applies the LTE predicate on the "rdp" field.
+func RdpLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldRdp), v))
+	})
+}
+
+// MeEQ applies the EQ predicate on the "me" field.
+func MeEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldMe), v))
+	})
+}
+
+// MeNEQ applies the NEQ predicate on the "me" field.
+func MeNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldMe), v))
+	})
+}
+
+// MeIn applies the In predicate on the "me" field.
+func MeIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldMe), v...))
+	})
+}
+
+// MeNotIn applies the NotIn predicate on the "me" field.
+func MeNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldMe), v...))
+	})
+}
+
+// MeGT applies the GT predicate on the "me" field.
+func MeGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldMe), v))
+	})
+}
+
+// MeGTE applies the GTE predicate on the "me" field.
+func MeGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldMe), v))
+	})
+}
+
+// MeLT applies the LT predicate on the "me" field.
+func MeLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldMe), v))
+	})
+}
+
+// MeLTE applies the LTE predicate on the "me" field.
+func MeLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldMe), v))
+	})
+}
+
+// NelEQ applies the EQ predicate on the "nel" field.
+func NelEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldNel), v))
+	})
+}
+
+// NelNEQ applies the NEQ predicate on the "nel" field.
+func NelNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldNel), v))
+	})
+}
+
+// NelIn applies the In predicate on the "nel" field.
+func NelIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldNel), v...))
+	})
+}
+
+// NelNotIn applies the NotIn predicate on the "nel" field.
+func NelNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldNel), v...))
+	})
+}
+
+// NelGT applies the GT predicate on the "nel" field.
+func NelGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldNel), v))
+	})
+}
+
+// NelGTE applies the GTE predicate on the "nel" field.
+func NelGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldNel), v))
+	})
+}
+
+// NelLT applies the LT predicate on the "nel" field.
+func NelLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldNel), v))
+	})
+}
+
+// NelLTE applies the LTE predicate on the "nel" field.
+func NelLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldNel), v))
+	})
+}
+
+// CrudeFatEQ applies the EQ predicate on the "crudeFat" field.
+func CrudeFatEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCrudeFat), v))
+	})
+}
+
+// CrudeFatNEQ applies the NEQ predicate on the "crudeFat" field.
+func CrudeFatNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCrudeFat), v))
+	})
+}
+
+// CrudeFatIn applies the In predicate on the "crudeFat" field.
+func CrudeFatIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldCrudeFat), v...))
+	})
+}
+
+// CrudeFatNotIn applies the NotIn predicate on the "crudeFat" field.
+func CrudeFatNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldCrudeFat), v...))
+	})
+}
+
+// CrudeFatGT applies the GT predicate on the "crudeFat" field.
+func CrudeFatGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCrudeFat), v))
+	})
+}
+
+// CrudeFatGTE applies the GTE predicate on the "crudeFat" field.
+func CrudeFatGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCrudeFat), v))
+	})
+}
+
+// CrudeFatLT applies the LT predicate on the "crudeFat" field.
+func CrudeFatLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCrudeFat), v))
+	})
+}
+
+// CrudeFatLTE applies the LTE predicate on the "crudeFat" field.
+func CrudeFatLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCrudeFat), v))
+	})
+}
+
+// TotalFttyAcidEQ applies the EQ predicate on the "totalFttyAcid" field.
+func TotalFttyAcidEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTotalFttyAcid), v))
+	})
+}
+
+// TotalFttyAcidNEQ applies the NEQ predicate on the "totalFttyAcid" field.
+func TotalFttyAcidNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldTotalFttyAcid), v))
+	})
+}
+
+// TotalFttyAcidIn applies the In predicate on the "totalFttyAcid" field.
+func TotalFttyAcidIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldTotalFttyAcid), v...))
+	})
+}
+
+// TotalFttyAcidNotIn applies the NotIn predicate on the "totalFttyAcid" field.
+func TotalFttyAcidNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldTotalFttyAcid), v...))
+	})
+}
+
+// TotalFttyAcidGT applies the GT predicate on the "totalFttyAcid" field.
+func TotalFttyAcidGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldTotalFttyAcid), v))
+	})
+}
+
+// TotalFttyAcidGTE applies the GTE predicate on the "totalFttyAcid" field.
+func TotalFttyAcidGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldTotalFttyAcid), v))
+	})
+}
+
+// TotalFttyAcidLT applies the LT predicate on the "totalFttyAcid" field.
+func TotalFttyAcidLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldTotalFttyAcid), v))
+	})
+}
+
+// TotalFttyAcidLTE applies the LTE predicate on the "totalFttyAcid" field.
+func TotalFttyAcidLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldTotalFttyAcid), v))
+	})
+}
+
+// AshEQ applies the EQ predicate on the "ash" field.
+func AshEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldAsh), v))
+	})
+}
+
+// AshNEQ applies the NEQ predicate on the "ash" field.
+func AshNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldAsh), v))
+	})
+}
+
+// AshIn applies the In predicate on the "ash" field.
+func AshIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldAsh), v...))
+	})
+}
+
+// AshNotIn applies the NotIn predicate on the "ash" field.
+func AshNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldAsh), v...))
+	})
+}
+
+// AshGT applies the GT predicate on the "ash" field.
+func AshGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldAsh), v))
+	})
+}
+
+// AshGTE applies the GTE predicate on the "ash" field.
+func AshGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldAsh), v))
+	})
+}
+
+// AshLT applies the LT predicate on the "ash" field.
+func AshLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldAsh), v))
+	})
+}
+
+// AshLTE applies the LTE predicate on the "ash" field.
+func AshLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldAsh), v))
+	})
+}
+
+// CaEQ applies the EQ predicate on the "ca" field.
+func CaEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCa), v))
+	})
+}
+
+// CaNEQ applies the NEQ predicate on the "ca" field.
+func CaNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCa), v))
+	})
+}
+
+// CaIn applies the In predicate on the "ca" field.
+func CaIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldCa), v...))
+	})
+}
+
+// CaNotIn applies the NotIn predicate on the "ca" field.
+func CaNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldCa), v...))
+	})
+}
+
+// CaGT applies the GT predicate on the "ca" field.
+func CaGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCa), v))
+	})
+}
+
+// CaGTE applies the GTE predicate on the "ca" field.
+func CaGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCa), v))
+	})
+}
+
+// CaLT applies the LT predicate on the "ca" field.
+func CaLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCa), v))
+	})
+}
+
+// CaLTE applies the LTE predicate on the "ca" field.
+func CaLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCa), v))
+	})
+}
+
+// PEQ applies the EQ predicate on the "p" field.
+func PEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldP), v))
+	})
+}
+
+// PNEQ applies the NEQ predicate on the "p" field.
+func PNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldP), v))
+	})
+}
+
+// PIn applies the In predicate on the "p" field.
+func PIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldP), v...))
+	})
+}
+
+// PNotIn applies the NotIn predicate on the "p" field.
+func PNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldP), v...))
+	})
+}
+
+// PGT applies the GT predicate on the "p" field.
+func PGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldP), v))
+	})
+}
+
+// PGTE applies the GTE predicate on the "p" field.
+func PGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldP), v))
+	})
+}
+
+// PLT applies the LT predicate on the "p" field.
+func PLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldP), v))
+	})
+}
+
+// PLTE applies the LTE predicate on the "p" field.
+func PLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldP), v))
+	})
+}
+
+// MgEQ applies the EQ predicate on the "mg" field.
+func MgEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldMg), v))
+	})
+}
+
+// MgNEQ applies the NEQ predicate on the "mg" field.
+func MgNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldMg), v))
+	})
+}
+
+// MgIn applies the In predicate on the "mg" field.
+func MgIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldMg), v...))
+	})
+}
+
+// MgNotIn applies the NotIn predicate on the "mg" field.
+func MgNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldMg), v...))
+	})
+}
+
+// MgGT applies the GT predicate on the "mg" field.
+func MgGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldMg), v))
+	})
+}
+
+// MgGTE applies the GTE predicate on the "mg" field.
+func MgGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldMg), v))
+	})
+}
+
+// MgLT applies the LT predicate on the "mg" field.
+func MgLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldMg), v))
+	})
+}
+
+// MgLTE applies the LTE predicate on the "mg" field.
+func MgLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldMg), v))
+	})
+}
+
+// KEQ applies the EQ predicate on the "k" field.
+func KEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldK), v))
+	})
+}
+
+// KNEQ applies the NEQ predicate on the "k" field.
+func KNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldK), v))
+	})
+}
+
+// KIn applies the In predicate on the "k" field.
+func KIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldK), v...))
+	})
+}
+
+// KNotIn applies the NotIn predicate on the "k" field.
+func KNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldK), v...))
+	})
+}
+
+// KGT applies the GT predicate on the "k" field.
+func KGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldK), v))
+	})
+}
+
+// KGTE applies the GTE predicate on the "k" field.
+func KGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldK), v))
+	})
+}
+
+// KLT applies the LT predicate on the "k" field.
+func KLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldK), v))
+	})
+}
+
+// KLTE applies the LTE predicate on the "k" field.
+func KLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldK), v))
+	})
+}
+
+// MnEQ applies the EQ predicate on the "mn" field.
+func MnEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldMn), v))
+	})
+}
+
+// MnNEQ applies the NEQ predicate on the "mn" field.
+func MnNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldMn), v))
+	})
+}
+
+// MnIn applies the In predicate on the "mn" field.
+func MnIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldMn), v...))
+	})
+}
+
+// MnNotIn applies the NotIn predicate on the "mn" field.
+func MnNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldMn), v...))
+	})
+}
+
+// MnGT applies the GT predicate on the "mn" field.
+func MnGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldMn), v))
+	})
+}
+
+// MnGTE applies the GTE predicate on the "mn" field.
+func MnGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldMn), v))
+	})
+}
+
+// MnLT applies the LT predicate on the "mn" field.
+func MnLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldMn), v))
+	})
+}
+
+// MnLTE applies the LTE predicate on the "mn" field.
+func MnLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldMn), v))
+	})
+}
+
+// CuEQ applies the EQ predicate on the "cu" field.
+func CuEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCu), v))
+	})
+}
+
+// CuNEQ applies the NEQ predicate on the "cu" field.
+func CuNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCu), v))
+	})
+}
+
+// CuIn applies the In predicate on the "cu" field.
+func CuIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldCu), v...))
+	})
+}
+
+// CuNotIn applies the NotIn predicate on the "cu" field.
+func CuNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldCu), v...))
+	})
+}
+
+// CuGT applies the GT predicate on the "cu" field.
+func CuGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCu), v))
+	})
+}
+
+// CuGTE applies the GTE predicate on the "cu" field.
+func CuGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCu), v))
+	})
+}
+
+// CuLT applies the LT predicate on the "cu" field.
+func CuLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCu), v))
+	})
+}
+
+// CuLTE applies the LTE predicate on the "cu" field.
+func CuLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCu), v))
+	})
+}
+
+// FeEQ applies the EQ predicate on the "fe" field.
+func FeEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFe), v))
+	})
+}
+
+// FeNEQ applies the NEQ predicate on the "fe" field.
+func FeNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFe), v))
+	})
+}
+
+// FeIn applies the In predicate on the "fe" field.
+func FeIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFe), v...))
+	})
+}
+
+// FeNotIn applies the NotIn predicate on the "fe" field.
+func FeNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFe), v...))
+	})
+}
+
+// FeGT applies the GT predicate on the "fe" field.
+func FeGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFe), v))
+	})
+}
+
+// FeGTE applies the GTE predicate on the "fe" field.
+func FeGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFe), v))
+	})
+}
+
+// FeLT applies the LT predicate on the "fe" field.
+func FeLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFe), v))
+	})
+}
+
+// FeLTE applies the LTE predicate on the "fe" field.
+func FeLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFe), v))
+	})
+}
+
+// ZnEQ applies the EQ predicate on the "zn" field.
+func ZnEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldZn), v))
+	})
+}
+
+// ZnNEQ applies the NEQ predicate on the "zn" field.
+func ZnNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldZn), v))
+	})
+}
+
+// ZnIn applies the In predicate on the "zn" field.
+func ZnIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldZn), v...))
+	})
+}
+
+// ZnNotIn applies the NotIn predicate on the "zn" field.
+func ZnNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldZn), v...))
+	})
+}
+
+// ZnGT applies the GT predicate on the "zn" field.
+func ZnGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldZn), v))
+	})
+}
+
+// ZnGTE applies the GTE predicate on the "zn" field.
+func ZnGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldZn), v))
+	})
+}
+
+// ZnLT applies the LT predicate on the "zn" field.
+func ZnLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldZn), v))
+	})
+}
+
+// ZnLTE applies the LTE predicate on the "zn" field.
+func ZnLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldZn), v))
+	})
+}
+
+// MethionineEQ applies the EQ predicate on the "methionine" field.
+func MethionineEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldMethionine), v))
+	})
+}
+
+// MethionineNEQ applies the NEQ predicate on the "methionine" field.
+func MethionineNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldMethionine), v))
+	})
+}
+
+// MethionineIn applies the In predicate on the "methionine" field.
+func MethionineIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldMethionine), v...))
+	})
+}
+
+// MethionineNotIn applies the NotIn predicate on the "methionine" field.
+func MethionineNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldMethionine), v...))
+	})
+}
+
+// MethionineGT applies the GT predicate on the "methionine" field.
+func MethionineGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldMethionine), v))
+	})
+}
+
+// MethionineGTE applies the GTE predicate on the "methionine" field.
+func MethionineGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldMethionine), v))
+	})
+}
+
+// MethionineLT applies the LT predicate on the "methionine" field.
+func MethionineLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldMethionine), v))
+	})
+}
+
+// MethionineLTE applies the LTE predicate on the "methionine" field.
+func MethionineLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldMethionine), v))
+	})
+}
+
+// LysineEQ applies the EQ predicate on the "lysine" field.
+func LysineEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldLysine), v))
+	})
+}
+
+// LysineNEQ applies the NEQ predicate on the "lysine" field.
+func LysineNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldLysine), v))
+	})
+}
+
+// LysineIn applies the In predicate on the "lysine" field.
+func LysineIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldLysine), v...))
+	})
+}
+
+// LysineNotIn applies the NotIn predicate on the "lysine" field.
+func LysineNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldLysine), v...))
+	})
+}
+
+// LysineGT applies the GT predicate on the "lysine" field.
+func LysineGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldLysine), v))
+	})
+}
+
+// LysineGTE applies the GTE predicate on the "lysine" field.
+func LysineGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldLysine), v))
+	})
+}
+
+// LysineLT applies the LT predicate on the "lysine" field.
+func LysineLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldLysine), v))
+	})
+}
+
+// LysineLTE applies the LTE predicate on the "lysine" field.
+func LysineLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldLysine), v))
+	})
+}
+
+// VitaminAEQ applies the EQ predicate on the "vitaminA" field.
+func VitaminAEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldVitaminA), v))
+	})
+}
+
+// VitaminANEQ applies the NEQ predicate on the "vitaminA" field.
+func VitaminANEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldVitaminA), v))
+	})
+}
+
+// VitaminAIn applies the In predicate on the "vitaminA" field.
+func VitaminAIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldVitaminA), v...))
+	})
+}
+
+// VitaminANotIn applies the NotIn predicate on the "vitaminA" field.
+func VitaminANotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldVitaminA), v...))
+	})
+}
+
+// VitaminAGT applies the GT predicate on the "vitaminA" field.
+func VitaminAGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldVitaminA), v))
+	})
+}
+
+// VitaminAGTE applies the GTE predicate on the "vitaminA" field.
+func VitaminAGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldVitaminA), v))
+	})
+}
+
+// VitaminALT applies the LT predicate on the "vitaminA" field.
+func VitaminALT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldVitaminA), v))
+	})
+}
+
+// VitaminALTE applies the LTE predicate on the "vitaminA" field.
+func VitaminALTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldVitaminA), v))
+	})
+}
+
+// VitaminD3EQ applies the EQ predicate on the "vitaminD3" field.
+func VitaminD3EQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldVitaminD3), v))
+	})
+}
+
+// VitaminD3NEQ applies the NEQ predicate on the "vitaminD3" field.
+func VitaminD3NEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldVitaminD3), v))
+	})
+}
+
+// VitaminD3In applies the In predicate on the "vitaminD3" field.
+func VitaminD3In(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldVitaminD3), v...))
+	})
+}
+
+// VitaminD3NotIn applies the NotIn predicate on the "vitaminD3" field.
+func VitaminD3NotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldVitaminD3), v...))
+	})
+}
+
+// VitaminD3GT applies the GT predicate on the "vitaminD3" field.
+func VitaminD3GT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldVitaminD3), v))
+	})
+}
+
+// VitaminD3GTE applies the GTE predicate on the "vitaminD3" field.
+func VitaminD3GTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldVitaminD3), v))
+	})
+}
+
+// VitaminD3LT applies the LT predicate on the "vitaminD3" field.
+func VitaminD3LT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldVitaminD3), v))
+	})
+}
+
+// VitaminD3LTE applies the LTE predicate on the "vitaminD3" field.
+func VitaminD3LTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldVitaminD3), v))
+	})
+}
+
+// VitaminEEQ applies the EQ predicate on the "vitaminE" field.
+func VitaminEEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldVitaminE), v))
+	})
+}
+
+// VitaminENEQ applies the NEQ predicate on the "vitaminE" field.
+func VitaminENEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldVitaminE), v))
+	})
+}
+
+// VitaminEIn applies the In predicate on the "vitaminE" field.
+func VitaminEIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldVitaminE), v...))
+	})
+}
+
+// VitaminENotIn applies the NotIn predicate on the "vitaminE" field.
+func VitaminENotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldVitaminE), v...))
+	})
+}
+
+// VitaminEGT applies the GT predicate on the "vitaminE" field.
+func VitaminEGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldVitaminE), v))
+	})
+}
+
+// VitaminEGTE applies the GTE predicate on the "vitaminE" field.
+func VitaminEGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldVitaminE), v))
+	})
+}
+
+// VitaminELT applies the LT predicate on the "vitaminE" field.
+func VitaminELT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldVitaminE), v))
+	})
+}
+
+// VitaminELTE applies the LTE predicate on the "vitaminE" field.
+func VitaminELTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldVitaminE), v))
+	})
+}
+
+// CholineEQ applies the EQ predicate on the "choline" field.
+func CholineEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCholine), v))
+	})
+}
+
+// CholineNEQ applies the NEQ predicate on the "choline" field.
+func CholineNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCholine), v))
+	})
+}
+
+// CholineIn applies the In predicate on the "choline" field.
+func CholineIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldCholine), v...))
+	})
+}
+
+// CholineNotIn applies the NotIn predicate on the "choline" field.
+func CholineNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldCholine), v...))
+	})
+}
+
+// CholineGT applies the GT predicate on the "choline" field.
+func CholineGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCholine), v))
+	})
+}
+
+// CholineGTE applies the GTE predicate on the "choline" field.
+func CholineGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCholine), v))
+	})
+}
+
+// CholineLT applies the LT predicate on the "choline" field.
+func CholineLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCholine), v))
+	})
+}
+
+// CholineLTE applies the LTE predicate on the "choline" field.
+func CholineLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCholine), v))
+	})
+}
+
+// BiotinEQ applies the EQ predicate on the "biotin" field.
+func BiotinEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldBiotin), v))
+	})
+}
+
+// BiotinNEQ applies the NEQ predicate on the "biotin" field.
+func BiotinNEQ(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldBiotin), v))
+	})
+}
+
+// BiotinIn applies the In predicate on the "biotin" field.
+func BiotinIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldBiotin), v...))
+	})
+}
+
+// BiotinNotIn applies the NotIn predicate on the "biotin" field.
+func BiotinNotIn(vs ...float32) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldBiotin), v...))
+	})
+}
+
+// BiotinGT applies the GT predicate on the "biotin" field.
+func BiotinGT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldBiotin), v))
+	})
+}
+
+// BiotinGTE applies the GTE predicate on the "biotin" field.
+func BiotinGTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldBiotin), v))
+	})
+}
+
+// BiotinLT applies the LT predicate on the "biotin" field.
+func BiotinLT(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldBiotin), v))
+	})
+}
+
+// BiotinLTE applies the LTE predicate on the "biotin" field.
+func BiotinLTE(v float32) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldBiotin), v))
 	})
 }
 
@@ -591,6 +3143,20 @@ func DescriptionHasSuffix(v string) predicate.FeedInfo {
 	})
 }
 
+// DescriptionIsNil applies the IsNil predicate on the "description" field.
+func DescriptionIsNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldDescription)))
+	})
+}
+
+// DescriptionNotNil applies the NotNil predicate on the "description" field.
+func DescriptionNotNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldDescription)))
+	})
+}
+
 // DescriptionEqualFold applies the EqualFold predicate on the "description" field.
 func DescriptionEqualFold(v string) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
@@ -678,6 +3244,20 @@ func TenantIdLT(v int64) predicate.FeedInfo {
 func TenantIdLTE(v int64) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantIdIsNil applies the IsNil predicate on the "tenantId" field.
+func TenantIdIsNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldTenantId)))
+	})
+}
+
+// TenantIdNotNil applies the NotNil predicate on the "tenantId" field.
+func TenantIdNotNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldTenantId)))
 	})
 }
 
@@ -778,6 +3358,20 @@ func TenantNameHasSuffix(v string) predicate.FeedInfo {
 	})
 }
 
+// TenantNameIsNil applies the IsNil predicate on the "tenantName" field.
+func TenantNameIsNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldTenantName)))
+	})
+}
+
+// TenantNameNotNil applies the NotNil predicate on the "tenantName" field.
+func TenantNameNotNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldTenantName)))
+	})
+}
+
 // TenantNameEqualFold applies the EqualFold predicate on the "tenantName" field.
 func TenantNameEqualFold(v string) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
@@ -789,6 +3383,221 @@ func TenantNameEqualFold(v string) predicate.FeedInfo {
 func TenantNameContainsFold(v string) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldTenantName), v))
+	})
+}
+
+// FarmIdEQ applies the EQ predicate on the "farmId" field.
+func FarmIdEQ(v int64) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdNEQ applies the NEQ predicate on the "farmId" field.
+func FarmIdNEQ(v int64) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdIn applies the In predicate on the "farmId" field.
+func FarmIdIn(vs ...int64) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdNotIn applies the NotIn predicate on the "farmId" field.
+func FarmIdNotIn(vs ...int64) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdGT applies the GT predicate on the "farmId" field.
+func FarmIdGT(v int64) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdGTE applies the GTE predicate on the "farmId" field.
+func FarmIdGTE(v int64) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLT applies the LT predicate on the "farmId" field.
+func FarmIdLT(v int64) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLTE applies the LTE predicate on the "farmId" field.
+func FarmIdLTE(v int64) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdIsNil applies the IsNil predicate on the "farmId" field.
+func FarmIdIsNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldFarmId)))
+	})
+}
+
+// FarmIdNotNil applies the NotNil predicate on the "farmId" field.
+func FarmIdNotNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldFarmId)))
+	})
+}
+
+// FarmNameEQ applies the EQ predicate on the "farmName" field.
+func FarmNameEQ(v string) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameNEQ applies the NEQ predicate on the "farmName" field.
+func FarmNameNEQ(v string) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameIn applies the In predicate on the "farmName" field.
+func FarmNameIn(vs ...string) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameNotIn applies the NotIn predicate on the "farmName" field.
+func FarmNameNotIn(vs ...string) predicate.FeedInfo {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameGT applies the GT predicate on the "farmName" field.
+func FarmNameGT(v string) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameGTE applies the GTE predicate on the "farmName" field.
+func FarmNameGTE(v string) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLT applies the LT predicate on the "farmName" field.
+func FarmNameLT(v string) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLTE applies the LTE predicate on the "farmName" field.
+func FarmNameLTE(v string) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContains applies the Contains predicate on the "farmName" field.
+func FarmNameContains(v string) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasPrefix applies the HasPrefix predicate on the "farmName" field.
+func FarmNameHasPrefix(v string) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasSuffix applies the HasSuffix predicate on the "farmName" field.
+func FarmNameHasSuffix(v string) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameIsNil applies the IsNil predicate on the "farmName" field.
+func FarmNameIsNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldFarmName)))
+	})
+}
+
+// FarmNameNotNil applies the NotNil predicate on the "farmName" field.
+func FarmNameNotNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldFarmName)))
+	})
+}
+
+// FarmNameEqualFold applies the EqualFold predicate on the "farmName" field.
+func FarmNameEqualFold(v string) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContainsFold applies the ContainsFold predicate on the "farmName" field.
+func FarmNameContainsFold(v string) predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldFarmName), v))
 	})
 }
 
@@ -889,6 +3698,20 @@ func RemarksHasSuffix(v string) predicate.FeedInfo {
 	})
 }
 
+// RemarksIsNil applies the IsNil predicate on the "remarks" field.
+func RemarksIsNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldRemarks)))
+	})
+}
+
+// RemarksNotNil applies the NotNil predicate on the "remarks" field.
+func RemarksNotNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldRemarks)))
+	})
+}
+
 // RemarksEqualFold applies the EqualFold predicate on the "remarks" field.
 func RemarksEqualFold(v string) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
@@ -979,6 +3802,20 @@ func CreatedAtLTE(v int64) predicate.FeedInfo {
 	})
 }
 
+// CreatedAtIsNil applies the IsNil predicate on the "createdAt" field.
+func CreatedAtIsNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldCreatedAt)))
+	})
+}
+
+// CreatedAtNotNil applies the NotNil predicate on the "createdAt" field.
+func CreatedAtNotNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldCreatedAt)))
+	})
+}
+
 // UpdatedAtEQ applies the EQ predicate on the "updatedAt" field.
 func UpdatedAtEQ(v int64) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
@@ -1055,6 +3892,20 @@ func UpdatedAtLTE(v int64) predicate.FeedInfo {
 	})
 }
 
+// UpdatedAtIsNil applies the IsNil predicate on the "updatedAt" field.
+func UpdatedAtIsNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldUpdatedAt)))
+	})
+}
+
+// UpdatedAtNotNil applies the NotNil predicate on the "updatedAt" field.
+func UpdatedAtNotNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldUpdatedAt)))
+	})
+}
+
 // DeletedEQ applies the EQ predicate on the "deleted" field.
 func DeletedEQ(v int) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
@@ -1128,6 +3979,20 @@ func DeletedLT(v int) predicate.FeedInfo {
 func DeletedLTE(v int) predicate.FeedInfo {
 	return predicate.FeedInfo(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldDeleted), v))
+	})
+}
+
+// DeletedIsNil applies the IsNil predicate on the "deleted" field.
+func DeletedIsNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldDeleted)))
+	})
+}
+
+// DeletedNotNil applies the NotNil predicate on the "deleted" field.
+func DeletedNotNil() predicate.FeedInfo {
+	return predicate.FeedInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldDeleted)))
 	})
 }
 

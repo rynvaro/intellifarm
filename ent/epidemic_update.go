@@ -27,6 +27,76 @@ func (eu *EpidemicUpdate) Where(ps ...predicate.Epidemic) *EpidemicUpdate {
 	return eu
 }
 
+// SetCattleId sets the cattleId field.
+func (eu *EpidemicUpdate) SetCattleId(i int64) *EpidemicUpdate {
+	eu.mutation.ResetCattleId()
+	eu.mutation.SetCattleId(i)
+	return eu
+}
+
+// AddCattleId adds i to cattleId.
+func (eu *EpidemicUpdate) AddCattleId(i int64) *EpidemicUpdate {
+	eu.mutation.AddCattleId(i)
+	return eu
+}
+
+// SetTenantId sets the tenantId field.
+func (eu *EpidemicUpdate) SetTenantId(i int64) *EpidemicUpdate {
+	eu.mutation.ResetTenantId()
+	eu.mutation.SetTenantId(i)
+	return eu
+}
+
+// AddTenantId adds i to tenantId.
+func (eu *EpidemicUpdate) AddTenantId(i int64) *EpidemicUpdate {
+	eu.mutation.AddTenantId(i)
+	return eu
+}
+
+// SetTenantName sets the tenantName field.
+func (eu *EpidemicUpdate) SetTenantName(s string) *EpidemicUpdate {
+	eu.mutation.SetTenantName(s)
+	return eu
+}
+
+// SetFarmId sets the farmId field.
+func (eu *EpidemicUpdate) SetFarmId(i int64) *EpidemicUpdate {
+	eu.mutation.ResetFarmId()
+	eu.mutation.SetFarmId(i)
+	return eu
+}
+
+// AddFarmId adds i to farmId.
+func (eu *EpidemicUpdate) AddFarmId(i int64) *EpidemicUpdate {
+	eu.mutation.AddFarmId(i)
+	return eu
+}
+
+// SetFarmName sets the farmName field.
+func (eu *EpidemicUpdate) SetFarmName(s string) *EpidemicUpdate {
+	eu.mutation.SetFarmName(s)
+	return eu
+}
+
+// SetShedId sets the shedId field.
+func (eu *EpidemicUpdate) SetShedId(i int64) *EpidemicUpdate {
+	eu.mutation.ResetShedId()
+	eu.mutation.SetShedId(i)
+	return eu
+}
+
+// AddShedId adds i to shedId.
+func (eu *EpidemicUpdate) AddShedId(i int64) *EpidemicUpdate {
+	eu.mutation.AddShedId(i)
+	return eu
+}
+
+// SetShedName sets the shedName field.
+func (eu *EpidemicUpdate) SetShedName(s string) *EpidemicUpdate {
+	eu.mutation.SetShedName(s)
+	return eu
+}
+
 // SetName sets the name field.
 func (eu *EpidemicUpdate) SetName(s string) *EpidemicUpdate {
 	eu.mutation.SetName(s)
@@ -36,12 +106,6 @@ func (eu *EpidemicUpdate) SetName(s string) *EpidemicUpdate {
 // SetEarNumber sets the earNumber field.
 func (eu *EpidemicUpdate) SetEarNumber(s string) *EpidemicUpdate {
 	eu.mutation.SetEarNumber(s)
-	return eu
-}
-
-// SetShedName sets the shedName field.
-func (eu *EpidemicUpdate) SetShedName(s string) *EpidemicUpdate {
-	eu.mutation.SetShedName(s)
 	return eu
 }
 
@@ -130,25 +194,6 @@ func (eu *EpidemicUpdate) AddTreatmentAt(i int64) *EpidemicUpdate {
 // SetWhereabout sets the whereabout field.
 func (eu *EpidemicUpdate) SetWhereabout(s string) *EpidemicUpdate {
 	eu.mutation.SetWhereabout(s)
-	return eu
-}
-
-// SetTenantId sets the tenantId field.
-func (eu *EpidemicUpdate) SetTenantId(i int64) *EpidemicUpdate {
-	eu.mutation.ResetTenantId()
-	eu.mutation.SetTenantId(i)
-	return eu
-}
-
-// AddTenantId adds i to tenantId.
-func (eu *EpidemicUpdate) AddTenantId(i int64) *EpidemicUpdate {
-	eu.mutation.AddTenantId(i)
-	return eu
-}
-
-// SetTenantName sets the tenantName field.
-func (eu *EpidemicUpdate) SetTenantName(s string) *EpidemicUpdate {
-	eu.mutation.SetTenantName(s)
 	return eu
 }
 
@@ -271,6 +316,83 @@ func (eu *EpidemicUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := eu.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldCattleId,
+		})
+	}
+	if value, ok := eu.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldCattleId,
+		})
+	}
+	if value, ok := eu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldTenantId,
+		})
+	}
+	if value, ok := eu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldTenantId,
+		})
+	}
+	if value, ok := eu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: epidemic.FieldTenantName,
+		})
+	}
+	if value, ok := eu.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldFarmId,
+		})
+	}
+	if value, ok := eu.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldFarmId,
+		})
+	}
+	if value, ok := eu.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: epidemic.FieldFarmName,
+		})
+	}
+	if value, ok := eu.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldShedId,
+		})
+	}
+	if value, ok := eu.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldShedId,
+		})
+	}
+	if value, ok := eu.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: epidemic.FieldShedName,
+		})
+	}
 	if value, ok := eu.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -283,13 +405,6 @@ func (eu *EpidemicUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: epidemic.FieldEarNumber,
-		})
-	}
-	if value, ok := eu.mutation.ShedName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: epidemic.FieldShedName,
 		})
 	}
 	if value, ok := eu.mutation.Onset(); ok {
@@ -390,27 +505,6 @@ func (eu *EpidemicUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: epidemic.FieldWhereabout,
 		})
 	}
-	if value, ok := eu.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: epidemic.FieldTenantId,
-		})
-	}
-	if value, ok := eu.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: epidemic.FieldTenantId,
-		})
-	}
-	if value, ok := eu.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: epidemic.FieldTenantName,
-		})
-	}
 	if value, ok := eu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -478,6 +572,76 @@ type EpidemicUpdateOne struct {
 	mutation *EpidemicMutation
 }
 
+// SetCattleId sets the cattleId field.
+func (euo *EpidemicUpdateOne) SetCattleId(i int64) *EpidemicUpdateOne {
+	euo.mutation.ResetCattleId()
+	euo.mutation.SetCattleId(i)
+	return euo
+}
+
+// AddCattleId adds i to cattleId.
+func (euo *EpidemicUpdateOne) AddCattleId(i int64) *EpidemicUpdateOne {
+	euo.mutation.AddCattleId(i)
+	return euo
+}
+
+// SetTenantId sets the tenantId field.
+func (euo *EpidemicUpdateOne) SetTenantId(i int64) *EpidemicUpdateOne {
+	euo.mutation.ResetTenantId()
+	euo.mutation.SetTenantId(i)
+	return euo
+}
+
+// AddTenantId adds i to tenantId.
+func (euo *EpidemicUpdateOne) AddTenantId(i int64) *EpidemicUpdateOne {
+	euo.mutation.AddTenantId(i)
+	return euo
+}
+
+// SetTenantName sets the tenantName field.
+func (euo *EpidemicUpdateOne) SetTenantName(s string) *EpidemicUpdateOne {
+	euo.mutation.SetTenantName(s)
+	return euo
+}
+
+// SetFarmId sets the farmId field.
+func (euo *EpidemicUpdateOne) SetFarmId(i int64) *EpidemicUpdateOne {
+	euo.mutation.ResetFarmId()
+	euo.mutation.SetFarmId(i)
+	return euo
+}
+
+// AddFarmId adds i to farmId.
+func (euo *EpidemicUpdateOne) AddFarmId(i int64) *EpidemicUpdateOne {
+	euo.mutation.AddFarmId(i)
+	return euo
+}
+
+// SetFarmName sets the farmName field.
+func (euo *EpidemicUpdateOne) SetFarmName(s string) *EpidemicUpdateOne {
+	euo.mutation.SetFarmName(s)
+	return euo
+}
+
+// SetShedId sets the shedId field.
+func (euo *EpidemicUpdateOne) SetShedId(i int64) *EpidemicUpdateOne {
+	euo.mutation.ResetShedId()
+	euo.mutation.SetShedId(i)
+	return euo
+}
+
+// AddShedId adds i to shedId.
+func (euo *EpidemicUpdateOne) AddShedId(i int64) *EpidemicUpdateOne {
+	euo.mutation.AddShedId(i)
+	return euo
+}
+
+// SetShedName sets the shedName field.
+func (euo *EpidemicUpdateOne) SetShedName(s string) *EpidemicUpdateOne {
+	euo.mutation.SetShedName(s)
+	return euo
+}
+
 // SetName sets the name field.
 func (euo *EpidemicUpdateOne) SetName(s string) *EpidemicUpdateOne {
 	euo.mutation.SetName(s)
@@ -487,12 +651,6 @@ func (euo *EpidemicUpdateOne) SetName(s string) *EpidemicUpdateOne {
 // SetEarNumber sets the earNumber field.
 func (euo *EpidemicUpdateOne) SetEarNumber(s string) *EpidemicUpdateOne {
 	euo.mutation.SetEarNumber(s)
-	return euo
-}
-
-// SetShedName sets the shedName field.
-func (euo *EpidemicUpdateOne) SetShedName(s string) *EpidemicUpdateOne {
-	euo.mutation.SetShedName(s)
 	return euo
 }
 
@@ -581,25 +739,6 @@ func (euo *EpidemicUpdateOne) AddTreatmentAt(i int64) *EpidemicUpdateOne {
 // SetWhereabout sets the whereabout field.
 func (euo *EpidemicUpdateOne) SetWhereabout(s string) *EpidemicUpdateOne {
 	euo.mutation.SetWhereabout(s)
-	return euo
-}
-
-// SetTenantId sets the tenantId field.
-func (euo *EpidemicUpdateOne) SetTenantId(i int64) *EpidemicUpdateOne {
-	euo.mutation.ResetTenantId()
-	euo.mutation.SetTenantId(i)
-	return euo
-}
-
-// AddTenantId adds i to tenantId.
-func (euo *EpidemicUpdateOne) AddTenantId(i int64) *EpidemicUpdateOne {
-	euo.mutation.AddTenantId(i)
-	return euo
-}
-
-// SetTenantName sets the tenantName field.
-func (euo *EpidemicUpdateOne) SetTenantName(s string) *EpidemicUpdateOne {
-	euo.mutation.SetTenantName(s)
 	return euo
 }
 
@@ -720,6 +859,83 @@ func (euo *EpidemicUpdateOne) sqlSave(ctx context.Context) (_node *Epidemic, err
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing Epidemic.ID for update")}
 	}
 	_spec.Node.ID.Value = id
+	if value, ok := euo.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldCattleId,
+		})
+	}
+	if value, ok := euo.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldCattleId,
+		})
+	}
+	if value, ok := euo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldTenantId,
+		})
+	}
+	if value, ok := euo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldTenantId,
+		})
+	}
+	if value, ok := euo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: epidemic.FieldTenantName,
+		})
+	}
+	if value, ok := euo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldFarmId,
+		})
+	}
+	if value, ok := euo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldFarmId,
+		})
+	}
+	if value, ok := euo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: epidemic.FieldFarmName,
+		})
+	}
+	if value, ok := euo.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldShedId,
+		})
+	}
+	if value, ok := euo.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldShedId,
+		})
+	}
+	if value, ok := euo.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: epidemic.FieldShedName,
+		})
+	}
 	if value, ok := euo.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -732,13 +948,6 @@ func (euo *EpidemicUpdateOne) sqlSave(ctx context.Context) (_node *Epidemic, err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: epidemic.FieldEarNumber,
-		})
-	}
-	if value, ok := euo.mutation.ShedName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: epidemic.FieldShedName,
 		})
 	}
 	if value, ok := euo.mutation.Onset(); ok {
@@ -837,27 +1046,6 @@ func (euo *EpidemicUpdateOne) sqlSave(ctx context.Context) (_node *Epidemic, err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: epidemic.FieldWhereabout,
-		})
-	}
-	if value, ok := euo.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: epidemic.FieldTenantId,
-		})
-	}
-	if value, ok := euo.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: epidemic.FieldTenantId,
-		})
-	}
-	if value, ok := euo.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: epidemic.FieldTenantName,
 		})
 	}
 	if value, ok := euo.mutation.Remarks(); ok {

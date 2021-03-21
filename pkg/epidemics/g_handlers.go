@@ -32,13 +32,14 @@ func EpidemicAddHandler(c *gin.Context) {
 		SetTreatmentState(form.TreatmentState).
 		SetOnset(form.Onset).
 		SetRemarks(form.Remarks).
-		SetShedName(form.ShedName).
 		SetTreatmentAt(form.TreatmentAt).
 		SetTreatmentResultId(form.TreatmentResultId).
 		SetTreatmentResultName(form.TreatmentResultName).
 		SetWhereabout(form.Whereabout).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -121,7 +122,10 @@ func EpidemicUpdateHandler(c *gin.Context) {
 		SetTreatmentState(form.TreatmentState).
 		SetOnset(form.Onset).
 		SetRemarks(form.Remarks).
-		SetShedName(form.ShedName).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetTreatmentAt(form.TreatmentAt).
 		SetTreatmentResultId(form.TreatmentResultId).
 		SetTreatmentResultName(form.TreatmentResultName).

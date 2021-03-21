@@ -237,12 +237,12 @@ func (cmq *CattleMoveQuery) Clone() *CattleMoveQuery {
 // Example:
 //
 //	var v []struct {
-//		EarNumber string `json:"earNumber,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.CattleMove.Query().
-//		GroupBy(cattlemove.FieldEarNumber).
+//		GroupBy(cattlemove.FieldCattleId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (cmq *CattleMoveQuery) GroupBy(field string, fields ...string) *CattleMoveG
 // Example:
 //
 //	var v []struct {
-//		EarNumber string `json:"earNumber,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //	}
 //
 //	client.CattleMove.Query().
-//		Select(cattlemove.FieldEarNumber).
+//		Select(cattlemove.FieldCattleId).
 //		Scan(ctx, &v)
 //
 func (cmq *CattleMoveQuery) Select(field string, fields ...string) *CattleMoveSelect {

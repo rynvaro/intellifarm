@@ -19,15 +19,51 @@ type HealthCareCreate struct {
 	hooks    []Hook
 }
 
-// SetEarNumber sets the earNumber field.
-func (hcc *HealthCareCreate) SetEarNumber(s string) *HealthCareCreate {
-	hcc.mutation.SetEarNumber(s)
+// SetCattleId sets the cattleId field.
+func (hcc *HealthCareCreate) SetCattleId(i int64) *HealthCareCreate {
+	hcc.mutation.SetCattleId(i)
+	return hcc
+}
+
+// SetTenantId sets the tenantId field.
+func (hcc *HealthCareCreate) SetTenantId(i int64) *HealthCareCreate {
+	hcc.mutation.SetTenantId(i)
+	return hcc
+}
+
+// SetTenantName sets the tenantName field.
+func (hcc *HealthCareCreate) SetTenantName(s string) *HealthCareCreate {
+	hcc.mutation.SetTenantName(s)
+	return hcc
+}
+
+// SetFarmId sets the farmId field.
+func (hcc *HealthCareCreate) SetFarmId(i int64) *HealthCareCreate {
+	hcc.mutation.SetFarmId(i)
+	return hcc
+}
+
+// SetFarmName sets the farmName field.
+func (hcc *HealthCareCreate) SetFarmName(s string) *HealthCareCreate {
+	hcc.mutation.SetFarmName(s)
+	return hcc
+}
+
+// SetShedId sets the shedId field.
+func (hcc *HealthCareCreate) SetShedId(i int64) *HealthCareCreate {
+	hcc.mutation.SetShedId(i)
 	return hcc
 }
 
 // SetShedName sets the shedName field.
 func (hcc *HealthCareCreate) SetShedName(s string) *HealthCareCreate {
 	hcc.mutation.SetShedName(s)
+	return hcc
+}
+
+// SetEarNumber sets the earNumber field.
+func (hcc *HealthCareCreate) SetEarNumber(s string) *HealthCareCreate {
+	hcc.mutation.SetEarNumber(s)
 	return hcc
 }
 
@@ -91,18 +127,6 @@ func (hcc *HealthCareCreate) SetRemarks(s string) *HealthCareCreate {
 	return hcc
 }
 
-// SetTenantId sets the tenantId field.
-func (hcc *HealthCareCreate) SetTenantId(i int64) *HealthCareCreate {
-	hcc.mutation.SetTenantId(i)
-	return hcc
-}
-
-// SetTenantName sets the tenantName field.
-func (hcc *HealthCareCreate) SetTenantName(s string) *HealthCareCreate {
-	hcc.mutation.SetTenantName(s)
-	return hcc
-}
-
 // Mutation returns the HealthCareMutation object of the builder.
 func (hcc *HealthCareCreate) Mutation() *HealthCareMutation {
 	return hcc.mutation
@@ -154,11 +178,29 @@ func (hcc *HealthCareCreate) SaveX(ctx context.Context) *HealthCare {
 
 // check runs all checks and user-defined validators on the builder.
 func (hcc *HealthCareCreate) check() error {
-	if _, ok := hcc.mutation.EarNumber(); !ok {
-		return &ValidationError{Name: "earNumber", err: errors.New("ent: missing required field \"earNumber\"")}
+	if _, ok := hcc.mutation.CattleId(); !ok {
+		return &ValidationError{Name: "cattleId", err: errors.New("ent: missing required field \"cattleId\"")}
+	}
+	if _, ok := hcc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := hcc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := hcc.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := hcc.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
+	}
+	if _, ok := hcc.mutation.ShedId(); !ok {
+		return &ValidationError{Name: "shedId", err: errors.New("ent: missing required field \"shedId\"")}
 	}
 	if _, ok := hcc.mutation.ShedName(); !ok {
 		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
+	}
+	if _, ok := hcc.mutation.EarNumber(); !ok {
+		return &ValidationError{Name: "earNumber", err: errors.New("ent: missing required field \"earNumber\"")}
 	}
 	if _, ok := hcc.mutation.Date(); !ok {
 		return &ValidationError{Name: "date", err: errors.New("ent: missing required field \"date\"")}
@@ -190,12 +232,6 @@ func (hcc *HealthCareCreate) check() error {
 	if _, ok := hcc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
 	}
-	if _, ok := hcc.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if _, ok := hcc.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
-	}
 	return nil
 }
 
@@ -223,13 +259,53 @@ func (hcc *HealthCareCreate) createSpec() (*HealthCare, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
-	if value, ok := hcc.mutation.EarNumber(); ok {
+	if value, ok := hcc.mutation.CattleId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldCattleId,
+		})
+		_node.CattleId = value
+	}
+	if value, ok := hcc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := hcc.mutation.TenantName(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: healthcare.FieldEarNumber,
+			Column: healthcare.FieldTenantName,
 		})
-		_node.EarNumber = value
+		_node.TenantName = value
+	}
+	if value, ok := hcc.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := hcc.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: healthcare.FieldFarmName,
+		})
+		_node.FarmName = value
+	}
+	if value, ok := hcc.mutation.ShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: healthcare.FieldShedId,
+		})
+		_node.ShedId = value
 	}
 	if value, ok := hcc.mutation.ShedName(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -238,6 +314,14 @@ func (hcc *HealthCareCreate) createSpec() (*HealthCare, *sqlgraph.CreateSpec) {
 			Column: healthcare.FieldShedName,
 		})
 		_node.ShedName = value
+	}
+	if value, ok := hcc.mutation.EarNumber(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: healthcare.FieldEarNumber,
+		})
+		_node.EarNumber = value
 	}
 	if value, ok := hcc.mutation.Date(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -318,22 +402,6 @@ func (hcc *HealthCareCreate) createSpec() (*HealthCare, *sqlgraph.CreateSpec) {
 			Column: healthcare.FieldRemarks,
 		})
 		_node.Remarks = value
-	}
-	if value, ok := hcc.mutation.TenantId(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: healthcare.FieldTenantId,
-		})
-		_node.TenantId = value
-	}
-	if value, ok := hcc.mutation.TenantName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: healthcare.FieldTenantName,
-		})
-		_node.TenantName = value
 	}
 	return _node, _spec
 }

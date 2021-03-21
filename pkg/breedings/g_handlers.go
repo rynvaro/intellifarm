@@ -33,11 +33,12 @@ func BreedingAddHandler(c *gin.Context) {
 		SetRemarks(form.Remarks).
 		SetSemenFrozenTypeId(form.SemenFrozenTypeId).
 		SetSemenFrozenTypeName(form.SemenFrozenTypeName).
-		SetShedName(form.ShedName).
 		SetTimes(form.Times).
 		SetUserName(form.UserName).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -121,7 +122,10 @@ func BreedingUpdateHandler(c *gin.Context) {
 		SetRemarks(form.Remarks).
 		SetSemenFrozenTypeId(form.SemenFrozenTypeId).
 		SetSemenFrozenTypeName(form.SemenFrozenTypeName).
-		SetShedName(form.ShedName).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetTimes(form.Times).
 		SetUserName(form.UserName).
 		SetUpdatedAt(time.Now().Unix()).

@@ -13,8 +13,14 @@ type HealthCare struct {
 // Fields of the HealthCare.
 func (HealthCare) Fields() []ent.Field {
 	return []ent.Field{
+		field.Int64("cattleId").Comment("牛只ID"),
+		field.Int64("tenantId").Comment("租户ID"),
+		field.String("tenantName").Comment("租户组织名称"),
+		field.Int64("farmId").Comment("牛场ID"),
+		field.String("farmName").Comment("牛场名称"),
+		field.Int64("shedId").Comment("牛舍ID"),
+		field.String("shedName").Comment("牛舍名称"),
 		field.String("earNumber"),
-		field.String("shedName"),
 		field.Int64("date").Comment("保健日期"),
 		field.String("reason").Comment("保健原因"),
 		field.String("method").Comment("保健措施"),
@@ -25,8 +31,6 @@ func (HealthCare) Fields() []ent.Field {
 		field.Int64("updatedAt").Comment("更新时间时间"),
 		field.Int("deleted").Comment("是否已删除"),
 		field.String("remarks"),
-		field.Int64("tenantId").Comment("租户ID"),
-		field.String("tenantName").Comment("租户组织名称"),
 	}
 }
 

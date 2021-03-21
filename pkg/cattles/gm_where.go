@@ -6,7 +6,7 @@ import (
 )
 
 func Where(listParams *CattleSearchParams) predicate.Cattle {
-	wheres := []predicate.Cattle{cattle.Deleted(0)}
+	wheres := []predicate.Cattle{}
 	if listParams.Q != "" {
 		wheres = append(wheres, cattle.EarNumberContains(listParams.Q))
 	}

@@ -237,12 +237,12 @@ func (iq *ImmunityQuery) Clone() *ImmunityQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Immunity.Query().
-//		GroupBy(immunity.FieldName).
+//		GroupBy(immunity.FieldCattleId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (iq *ImmunityQuery) GroupBy(field string, fields ...string) *ImmunityGroupB
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //	}
 //
 //	client.Immunity.Query().
-//		Select(immunity.FieldName).
+//		Select(immunity.FieldCattleId).
 //		Scan(ctx, &v)
 //
 func (iq *ImmunityQuery) Select(field string, fields ...string) *ImmunitySelect {

@@ -11,14 +11,80 @@ const (
 	FieldName = "name"
 	// FieldCode holds the string denoting the code field in the database.
 	FieldCode = "code"
-	// FieldType holds the string denoting the type field in the database.
-	FieldType = "type"
+	// FieldMoisture holds the string denoting the moisture field in the database.
+	FieldMoisture = "moisture"
+	// FieldDryMatter holds the string denoting the drymatter field in the database.
+	FieldDryMatter = "dry_matter"
+	// FieldNdf holds the string denoting the ndf field in the database.
+	FieldNdf = "ndf"
+	// FieldAdf holds the string denoting the adf field in the database.
+	FieldAdf = "adf"
+	// FieldEndf holds the string denoting the endf field in the database.
+	FieldEndf = "endf"
+	// FieldLacticAcid holds the string denoting the lacticacid field in the database.
+	FieldLacticAcid = "lactic_acid"
+	// FieldWsc holds the string denoting the wsc field in the database.
+	FieldWsc = "wsc"
+	// FieldStarch holds the string denoting the starch field in the database.
+	FieldStarch = "starch"
+	// FieldSolubleFiber holds the string denoting the solublefiber field in the database.
+	FieldSolubleFiber = "soluble_fiber"
+	// FieldTotalProtein holds the string denoting the totalprotein field in the database.
+	FieldTotalProtein = "total_protein"
+	// FieldSolubleProtein holds the string denoting the solubleprotein field in the database.
+	FieldSolubleProtein = "soluble_protein"
+	// FieldRdp holds the string denoting the rdp field in the database.
+	FieldRdp = "rdp"
+	// FieldMe holds the string denoting the me field in the database.
+	FieldMe = "me"
+	// FieldNel holds the string denoting the nel field in the database.
+	FieldNel = "nel"
+	// FieldCrudeFat holds the string denoting the crudefat field in the database.
+	FieldCrudeFat = "crude_fat"
+	// FieldTotalFttyAcid holds the string denoting the totalfttyacid field in the database.
+	FieldTotalFttyAcid = "total_ftty_acid"
+	// FieldAsh holds the string denoting the ash field in the database.
+	FieldAsh = "ash"
+	// FieldCa holds the string denoting the ca field in the database.
+	FieldCa = "ca"
+	// FieldP holds the string denoting the p field in the database.
+	FieldP = "p"
+	// FieldMg holds the string denoting the mg field in the database.
+	FieldMg = "mg"
+	// FieldK holds the string denoting the k field in the database.
+	FieldK = "k"
+	// FieldMn holds the string denoting the mn field in the database.
+	FieldMn = "mn"
+	// FieldCu holds the string denoting the cu field in the database.
+	FieldCu = "cu"
+	// FieldFe holds the string denoting the fe field in the database.
+	FieldFe = "fe"
+	// FieldZn holds the string denoting the zn field in the database.
+	FieldZn = "zn"
+	// FieldMethionine holds the string denoting the methionine field in the database.
+	FieldMethionine = "methionine"
+	// FieldLysine holds the string denoting the lysine field in the database.
+	FieldLysine = "lysine"
+	// FieldVitaminA holds the string denoting the vitamina field in the database.
+	FieldVitaminA = "vitamina"
+	// FieldVitaminD3 holds the string denoting the vitamind3 field in the database.
+	FieldVitaminD3 = "vitamin_d3"
+	// FieldVitaminE holds the string denoting the vitamine field in the database.
+	FieldVitaminE = "vitamine"
+	// FieldCholine holds the string denoting the choline field in the database.
+	FieldCholine = "choline"
+	// FieldBiotin holds the string denoting the biotin field in the database.
+	FieldBiotin = "biotin"
 	// FieldDescription holds the string denoting the description field in the database.
 	FieldDescription = "description"
 	// FieldTenantId holds the string denoting the tenantid field in the database.
 	FieldTenantId = "tenant_id"
 	// FieldTenantName holds the string denoting the tenantname field in the database.
 	FieldTenantName = "tenant_name"
+	// FieldFarmId holds the string denoting the farmid field in the database.
+	FieldFarmId = "farm_id"
+	// FieldFarmName holds the string denoting the farmname field in the database.
+	FieldFarmName = "farm_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -37,10 +103,43 @@ var Columns = []string{
 	FieldID,
 	FieldName,
 	FieldCode,
-	FieldType,
+	FieldMoisture,
+	FieldDryMatter,
+	FieldNdf,
+	FieldAdf,
+	FieldEndf,
+	FieldLacticAcid,
+	FieldWsc,
+	FieldStarch,
+	FieldSolubleFiber,
+	FieldTotalProtein,
+	FieldSolubleProtein,
+	FieldRdp,
+	FieldMe,
+	FieldNel,
+	FieldCrudeFat,
+	FieldTotalFttyAcid,
+	FieldAsh,
+	FieldCa,
+	FieldP,
+	FieldMg,
+	FieldK,
+	FieldMn,
+	FieldCu,
+	FieldFe,
+	FieldZn,
+	FieldMethionine,
+	FieldLysine,
+	FieldVitaminA,
+	FieldVitaminD3,
+	FieldVitaminE,
+	FieldCholine,
+	FieldBiotin,
 	FieldDescription,
 	FieldTenantId,
 	FieldTenantName,
+	FieldFarmId,
+	FieldFarmName,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -56,3 +155,12 @@ func ValidColumn(column string) bool {
 	}
 	return false
 }
+
+var (
+	// DefaultCreatedAt holds the default value on creation for the createdAt field.
+	DefaultCreatedAt int64
+	// DefaultUpdatedAt holds the default value on creation for the updatedAt field.
+	DefaultUpdatedAt int64
+	// DefaultDeleted holds the default value on creation for the deleted field.
+	DefaultDeleted int
+)

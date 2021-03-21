@@ -30,9 +30,10 @@ func HealthCareAddHandler(c *gin.Context) {
 		SetMethod(form.Method).
 		SetReason(form.Reason).
 		SetRemarks(form.Remarks).
-		SetShedName(form.ShedName).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetVetName(form.VetName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
@@ -123,9 +124,10 @@ func HealthCareUpdateHandler(c *gin.Context) {
 		SetMethod(form.Method).
 		SetReason(form.Reason).
 		SetRemarks(form.Remarks).
-		SetShedName(form.ShedName).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetVetName(form.VetName).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())

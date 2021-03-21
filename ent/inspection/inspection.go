@@ -7,12 +7,24 @@ const (
 	Label = "inspection"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldCattleId holds the string denoting the cattleid field in the database.
+	FieldCattleId = "cattle_id"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
+	// FieldFarmId holds the string denoting the farmid field in the database.
+	FieldFarmId = "farm_id"
+	// FieldFarmName holds the string denoting the farmname field in the database.
+	FieldFarmName = "farm_name"
+	// FieldShedId holds the string denoting the shedid field in the database.
+	FieldShedId = "shed_id"
+	// FieldShedName holds the string denoting the shedname field in the database.
+	FieldShedName = "shed_name"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// FieldEarNumber holds the string denoting the earnumber field in the database.
 	FieldEarNumber = "ear_number"
-	// FieldShedName holds the string denoting the shedname field in the database.
-	FieldShedName = "shed_name"
 	// FieldDate holds the string denoting the date field in the database.
 	FieldDate = "date"
 	// FieldItemId holds the string denoting the itemid field in the database.
@@ -35,10 +47,6 @@ const (
 	FieldHandleId = "handle_id"
 	// FieldHandleName holds the string denoting the handlename field in the database.
 	FieldHandleName = "handle_name"
-	// FieldTenantId holds the string denoting the tenantid field in the database.
-	FieldTenantId = "tenant_id"
-	// FieldTenantName holds the string denoting the tenantname field in the database.
-	FieldTenantName = "tenant_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -55,9 +63,15 @@ const (
 // Columns holds all SQL columns for inspection fields.
 var Columns = []string{
 	FieldID,
+	FieldCattleId,
+	FieldTenantId,
+	FieldTenantName,
+	FieldFarmId,
+	FieldFarmName,
+	FieldShedId,
+	FieldShedName,
 	FieldName,
 	FieldEarNumber,
-	FieldShedName,
 	FieldDate,
 	FieldItemId,
 	FieldItemName,
@@ -69,8 +83,6 @@ var Columns = []string{
 	FieldResultName,
 	FieldHandleId,
 	FieldHandleName,
-	FieldTenantId,
-	FieldTenantName,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,

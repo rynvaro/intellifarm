@@ -105,10 +105,24 @@ func Code(v string) predicate.Material {
 	})
 }
 
-// Category applies equality check predicate on the "category" field. It's identical to CategoryEQ.
-func Category(v int) predicate.Material {
+// MaterialId applies equality check predicate on the "materialId" field. It's identical to MaterialIdEQ.
+func MaterialId(v int64) predicate.Material {
 	return predicate.Material(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCategory), v))
+		s.Where(sql.EQ(s.C(FieldMaterialId), v))
+	})
+}
+
+// CategoryId applies equality check predicate on the "categoryId" field. It's identical to CategoryIdEQ.
+func CategoryId(v int) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCategoryId), v))
+	})
+}
+
+// CategoryName applies equality check predicate on the "categoryName" field. It's identical to CategoryNameEQ.
+func CategoryName(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCategoryName), v))
 	})
 }
 
@@ -137,6 +151,20 @@ func TenantId(v int64) predicate.Material {
 func TenantName(v string) predicate.Material {
 	return predicate.Material(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldTenantName), v))
+	})
+}
+
+// FarmId applies equality check predicate on the "farmId" field. It's identical to FarmIdEQ.
+func FarmId(v int64) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmName applies equality check predicate on the "farmName" field. It's identical to FarmNameEQ.
+func FarmName(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
 	})
 }
 
@@ -390,22 +418,22 @@ func CodeContainsFold(v string) predicate.Material {
 	})
 }
 
-// CategoryEQ applies the EQ predicate on the "category" field.
-func CategoryEQ(v int) predicate.Material {
+// MaterialIdEQ applies the EQ predicate on the "materialId" field.
+func MaterialIdEQ(v int64) predicate.Material {
 	return predicate.Material(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCategory), v))
+		s.Where(sql.EQ(s.C(FieldMaterialId), v))
 	})
 }
 
-// CategoryNEQ applies the NEQ predicate on the "category" field.
-func CategoryNEQ(v int) predicate.Material {
+// MaterialIdNEQ applies the NEQ predicate on the "materialId" field.
+func MaterialIdNEQ(v int64) predicate.Material {
 	return predicate.Material(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldCategory), v))
+		s.Where(sql.NEQ(s.C(FieldMaterialId), v))
 	})
 }
 
-// CategoryIn applies the In predicate on the "category" field.
-func CategoryIn(vs ...int) predicate.Material {
+// MaterialIdIn applies the In predicate on the "materialId" field.
+func MaterialIdIn(vs ...int64) predicate.Material {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -417,12 +445,12 @@ func CategoryIn(vs ...int) predicate.Material {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldCategory), v...))
+		s.Where(sql.In(s.C(FieldMaterialId), v...))
 	})
 }
 
-// CategoryNotIn applies the NotIn predicate on the "category" field.
-func CategoryNotIn(vs ...int) predicate.Material {
+// MaterialIdNotIn applies the NotIn predicate on the "materialId" field.
+func MaterialIdNotIn(vs ...int64) predicate.Material {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -434,35 +462,222 @@ func CategoryNotIn(vs ...int) predicate.Material {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldCategory), v...))
+		s.Where(sql.NotIn(s.C(FieldMaterialId), v...))
 	})
 }
 
-// CategoryGT applies the GT predicate on the "category" field.
-func CategoryGT(v int) predicate.Material {
+// MaterialIdGT applies the GT predicate on the "materialId" field.
+func MaterialIdGT(v int64) predicate.Material {
 	return predicate.Material(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldCategory), v))
+		s.Where(sql.GT(s.C(FieldMaterialId), v))
 	})
 }
 
-// CategoryGTE applies the GTE predicate on the "category" field.
-func CategoryGTE(v int) predicate.Material {
+// MaterialIdGTE applies the GTE predicate on the "materialId" field.
+func MaterialIdGTE(v int64) predicate.Material {
 	return predicate.Material(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldCategory), v))
+		s.Where(sql.GTE(s.C(FieldMaterialId), v))
 	})
 }
 
-// CategoryLT applies the LT predicate on the "category" field.
-func CategoryLT(v int) predicate.Material {
+// MaterialIdLT applies the LT predicate on the "materialId" field.
+func MaterialIdLT(v int64) predicate.Material {
 	return predicate.Material(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldCategory), v))
+		s.Where(sql.LT(s.C(FieldMaterialId), v))
 	})
 }
 
-// CategoryLTE applies the LTE predicate on the "category" field.
-func CategoryLTE(v int) predicate.Material {
+// MaterialIdLTE applies the LTE predicate on the "materialId" field.
+func MaterialIdLTE(v int64) predicate.Material {
 	return predicate.Material(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldCategory), v))
+		s.Where(sql.LTE(s.C(FieldMaterialId), v))
+	})
+}
+
+// CategoryIdEQ applies the EQ predicate on the "categoryId" field.
+func CategoryIdEQ(v int) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCategoryId), v))
+	})
+}
+
+// CategoryIdNEQ applies the NEQ predicate on the "categoryId" field.
+func CategoryIdNEQ(v int) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCategoryId), v))
+	})
+}
+
+// CategoryIdIn applies the In predicate on the "categoryId" field.
+func CategoryIdIn(vs ...int) predicate.Material {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Material(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldCategoryId), v...))
+	})
+}
+
+// CategoryIdNotIn applies the NotIn predicate on the "categoryId" field.
+func CategoryIdNotIn(vs ...int) predicate.Material {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Material(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldCategoryId), v...))
+	})
+}
+
+// CategoryIdGT applies the GT predicate on the "categoryId" field.
+func CategoryIdGT(v int) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCategoryId), v))
+	})
+}
+
+// CategoryIdGTE applies the GTE predicate on the "categoryId" field.
+func CategoryIdGTE(v int) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCategoryId), v))
+	})
+}
+
+// CategoryIdLT applies the LT predicate on the "categoryId" field.
+func CategoryIdLT(v int) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCategoryId), v))
+	})
+}
+
+// CategoryIdLTE applies the LTE predicate on the "categoryId" field.
+func CategoryIdLTE(v int) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCategoryId), v))
+	})
+}
+
+// CategoryNameEQ applies the EQ predicate on the "categoryName" field.
+func CategoryNameEQ(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldCategoryName), v))
+	})
+}
+
+// CategoryNameNEQ applies the NEQ predicate on the "categoryName" field.
+func CategoryNameNEQ(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldCategoryName), v))
+	})
+}
+
+// CategoryNameIn applies the In predicate on the "categoryName" field.
+func CategoryNameIn(vs ...string) predicate.Material {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Material(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldCategoryName), v...))
+	})
+}
+
+// CategoryNameNotIn applies the NotIn predicate on the "categoryName" field.
+func CategoryNameNotIn(vs ...string) predicate.Material {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Material(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldCategoryName), v...))
+	})
+}
+
+// CategoryNameGT applies the GT predicate on the "categoryName" field.
+func CategoryNameGT(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldCategoryName), v))
+	})
+}
+
+// CategoryNameGTE applies the GTE predicate on the "categoryName" field.
+func CategoryNameGTE(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldCategoryName), v))
+	})
+}
+
+// CategoryNameLT applies the LT predicate on the "categoryName" field.
+func CategoryNameLT(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldCategoryName), v))
+	})
+}
+
+// CategoryNameLTE applies the LTE predicate on the "categoryName" field.
+func CategoryNameLTE(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldCategoryName), v))
+	})
+}
+
+// CategoryNameContains applies the Contains predicate on the "categoryName" field.
+func CategoryNameContains(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldCategoryName), v))
+	})
+}
+
+// CategoryNameHasPrefix applies the HasPrefix predicate on the "categoryName" field.
+func CategoryNameHasPrefix(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldCategoryName), v))
+	})
+}
+
+// CategoryNameHasSuffix applies the HasSuffix predicate on the "categoryName" field.
+func CategoryNameHasSuffix(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldCategoryName), v))
+	})
+}
+
+// CategoryNameEqualFold applies the EqualFold predicate on the "categoryName" field.
+func CategoryNameEqualFold(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldCategoryName), v))
+	})
+}
+
+// CategoryNameContainsFold applies the ContainsFold predicate on the "categoryName" field.
+func CategoryNameContainsFold(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldCategoryName), v))
 	})
 }
 
@@ -837,6 +1052,193 @@ func TenantNameEqualFold(v string) predicate.Material {
 func TenantNameContainsFold(v string) predicate.Material {
 	return predicate.Material(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldTenantName), v))
+	})
+}
+
+// FarmIdEQ applies the EQ predicate on the "farmId" field.
+func FarmIdEQ(v int64) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdNEQ applies the NEQ predicate on the "farmId" field.
+func FarmIdNEQ(v int64) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdIn applies the In predicate on the "farmId" field.
+func FarmIdIn(vs ...int64) predicate.Material {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Material(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdNotIn applies the NotIn predicate on the "farmId" field.
+func FarmIdNotIn(vs ...int64) predicate.Material {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Material(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdGT applies the GT predicate on the "farmId" field.
+func FarmIdGT(v int64) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdGTE applies the GTE predicate on the "farmId" field.
+func FarmIdGTE(v int64) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLT applies the LT predicate on the "farmId" field.
+func FarmIdLT(v int64) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLTE applies the LTE predicate on the "farmId" field.
+func FarmIdLTE(v int64) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmNameEQ applies the EQ predicate on the "farmName" field.
+func FarmNameEQ(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameNEQ applies the NEQ predicate on the "farmName" field.
+func FarmNameNEQ(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameIn applies the In predicate on the "farmName" field.
+func FarmNameIn(vs ...string) predicate.Material {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Material(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameNotIn applies the NotIn predicate on the "farmName" field.
+func FarmNameNotIn(vs ...string) predicate.Material {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Material(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameGT applies the GT predicate on the "farmName" field.
+func FarmNameGT(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameGTE applies the GTE predicate on the "farmName" field.
+func FarmNameGTE(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLT applies the LT predicate on the "farmName" field.
+func FarmNameLT(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLTE applies the LTE predicate on the "farmName" field.
+func FarmNameLTE(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContains applies the Contains predicate on the "farmName" field.
+func FarmNameContains(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasPrefix applies the HasPrefix predicate on the "farmName" field.
+func FarmNameHasPrefix(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasSuffix applies the HasSuffix predicate on the "farmName" field.
+func FarmNameHasSuffix(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameEqualFold applies the EqualFold predicate on the "farmName" field.
+func FarmNameEqualFold(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContainsFold applies the ContainsFold predicate on the "farmName" field.
+func FarmNameContainsFold(v string) predicate.Material {
+	return predicate.Material(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldFarmName), v))
 	})
 }
 

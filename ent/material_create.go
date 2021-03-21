@@ -31,9 +31,21 @@ func (mc *MaterialCreate) SetCode(s string) *MaterialCreate {
 	return mc
 }
 
-// SetCategory sets the category field.
-func (mc *MaterialCreate) SetCategory(i int) *MaterialCreate {
-	mc.mutation.SetCategory(i)
+// SetMaterialId sets the materialId field.
+func (mc *MaterialCreate) SetMaterialId(i int64) *MaterialCreate {
+	mc.mutation.SetMaterialId(i)
+	return mc
+}
+
+// SetCategoryId sets the categoryId field.
+func (mc *MaterialCreate) SetCategoryId(i int) *MaterialCreate {
+	mc.mutation.SetCategoryId(i)
+	return mc
+}
+
+// SetCategoryName sets the categoryName field.
+func (mc *MaterialCreate) SetCategoryName(s string) *MaterialCreate {
+	mc.mutation.SetCategoryName(s)
 	return mc
 }
 
@@ -49,6 +61,14 @@ func (mc *MaterialCreate) SetInventory(i int64) *MaterialCreate {
 	return mc
 }
 
+// SetNillableInventory sets the inventory field if the given value is not nil.
+func (mc *MaterialCreate) SetNillableInventory(i *int64) *MaterialCreate {
+	if i != nil {
+		mc.SetInventory(*i)
+	}
+	return mc
+}
+
 // SetTenantId sets the tenantId field.
 func (mc *MaterialCreate) SetTenantId(i int64) *MaterialCreate {
 	mc.mutation.SetTenantId(i)
@@ -58,6 +78,18 @@ func (mc *MaterialCreate) SetTenantId(i int64) *MaterialCreate {
 // SetTenantName sets the tenantName field.
 func (mc *MaterialCreate) SetTenantName(s string) *MaterialCreate {
 	mc.mutation.SetTenantName(s)
+	return mc
+}
+
+// SetFarmId sets the farmId field.
+func (mc *MaterialCreate) SetFarmId(i int64) *MaterialCreate {
+	mc.mutation.SetFarmId(i)
+	return mc
+}
+
+// SetFarmName sets the farmName field.
+func (mc *MaterialCreate) SetFarmName(s string) *MaterialCreate {
+	mc.mutation.SetFarmName(s)
 	return mc
 }
 
@@ -96,6 +128,7 @@ func (mc *MaterialCreate) Save(ctx context.Context) (*Material, error) {
 		err  error
 		node *Material
 	)
+	mc.defaults()
 	if len(mc.hooks) == 0 {
 		if err = mc.check(); err != nil {
 			return nil, err
@@ -134,6 +167,14 @@ func (mc *MaterialCreate) SaveX(ctx context.Context) *Material {
 	return v
 }
 
+// defaults sets the default values of the builder before save.
+func (mc *MaterialCreate) defaults() {
+	if _, ok := mc.mutation.Inventory(); !ok {
+		v := material.DefaultInventory
+		mc.mutation.SetInventory(v)
+	}
+}
+
 // check runs all checks and user-defined validators on the builder.
 func (mc *MaterialCreate) check() error {
 	if _, ok := mc.mutation.Name(); !ok {
@@ -142,8 +183,14 @@ func (mc *MaterialCreate) check() error {
 	if _, ok := mc.mutation.Code(); !ok {
 		return &ValidationError{Name: "code", err: errors.New("ent: missing required field \"code\"")}
 	}
-	if _, ok := mc.mutation.Category(); !ok {
-		return &ValidationError{Name: "category", err: errors.New("ent: missing required field \"category\"")}
+	if _, ok := mc.mutation.MaterialId(); !ok {
+		return &ValidationError{Name: "materialId", err: errors.New("ent: missing required field \"materialId\"")}
+	}
+	if _, ok := mc.mutation.CategoryId(); !ok {
+		return &ValidationError{Name: "categoryId", err: errors.New("ent: missing required field \"categoryId\"")}
+	}
+	if _, ok := mc.mutation.CategoryName(); !ok {
+		return &ValidationError{Name: "categoryName", err: errors.New("ent: missing required field \"categoryName\"")}
 	}
 	if _, ok := mc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
@@ -156,6 +203,12 @@ func (mc *MaterialCreate) check() error {
 	}
 	if _, ok := mc.mutation.TenantName(); !ok {
 		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := mc.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := mc.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
 	}
 	if _, ok := mc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -212,13 +265,29 @@ func (mc *MaterialCreate) createSpec() (*Material, *sqlgraph.CreateSpec) {
 		})
 		_node.Code = value
 	}
-	if value, ok := mc.mutation.Category(); ok {
+	if value, ok := mc.mutation.MaterialId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: material.FieldMaterialId,
+		})
+		_node.MaterialId = value
+	}
+	if value, ok := mc.mutation.CategoryId(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
 			Value:  value,
-			Column: material.FieldCategory,
+			Column: material.FieldCategoryId,
 		})
-		_node.Category = value
+		_node.CategoryId = value
+	}
+	if value, ok := mc.mutation.CategoryName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: material.FieldCategoryName,
+		})
+		_node.CategoryName = value
 	}
 	if value, ok := mc.mutation.UserName(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -251,6 +320,22 @@ func (mc *MaterialCreate) createSpec() (*Material, *sqlgraph.CreateSpec) {
 			Column: material.FieldTenantName,
 		})
 		_node.TenantName = value
+	}
+	if value, ok := mc.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: material.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := mc.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: material.FieldFarmName,
+		})
+		_node.FarmName = value
 	}
 	if value, ok := mc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -301,6 +386,7 @@ func (mcb *MaterialCreateBulk) Save(ctx context.Context) ([]*Material, error) {
 	for i := range mcb.builders {
 		func(i int, root context.Context) {
 			builder := mcb.builders[i]
+			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*MaterialMutation)
 				if !ok {

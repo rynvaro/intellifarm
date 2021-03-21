@@ -25,19 +25,31 @@ func CattleMoveAddHandler(c *gin.Context) {
 	cattlemove, err := db.Client.CattleMove.Create().
 		SetDate(form.Date).
 		SetEarNumber(form.EarNumber).
-		SetReason(form.Reason).
+		SetCattleId(form.CattleId).
+		SetReasonId(form.ReasonId).
+		SetReasonName(form.ReasonName).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
+		SetFromShed(form.FromShed).
+		SetFromShedId(form.FromShedId).
 		SetRemarks(form.Remarks).
 		SetTenantId(form.TenantId).
 		SetTenantName(form.TenantName).
+		SetToShedId(form.ToShedId).
 		SetToShed(form.ToShed).
 		SetUserName(form.UserName).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
+		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
+	}
+	// TODO check shed exists
+	if _, err := db.Client.Cattle.UpdateOneID(form.CattleId).SetShedId(form.ToShedId).
+		SetShedName(form.ToShed).Save(c.Request.Context()); err != nil {
+		log.Warn().Msg(err.Error())
 	}
 	c.JSON(http.StatusOK, resp.Success(cattlemove))
 }
@@ -97,10 +109,16 @@ func CattleMoveUpdateHandler(c *gin.Context) {
 	cattlemove, err := db.Client.CattleMove.UpdateOneID(form.ID).
 		SetDate(form.Date).
 		SetEarNumber(form.EarNumber).
-		SetReason(form.Reason).
+		SetCattleId(form.CattleId).
+		SetReasonId(form.ReasonId).
+		SetReasonName(form.ReasonName).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
+		SetFromShed(form.FromShed).
+		SetFromShedId(form.FromShedId).
 		SetRemarks(form.Remarks).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
+		SetToShedId(form.ToShedId).
 		SetToShed(form.ToShed).
 		SetUserName(form.UserName).
 		SetUpdatedAt(time.Now().Unix()).

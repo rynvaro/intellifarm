@@ -7,6 +7,14 @@ const (
 	Label = "cattle"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldAlive holds the string denoting the alive field in the database.
+	FieldAlive = "alive"
+	// FieldHealth holds the string denoting the health field in the database.
+	FieldHealth = "health"
+	// FieldReproductiveStateId holds the string denoting the reproductivestateid field in the database.
+	FieldReproductiveStateId = "reproductive_state_id"
+	// FieldReproductiveStateName holds the string denoting the reproductivestatename field in the database.
+	FieldReproductiveStateName = "reproductive_state_name"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
 	// FieldFarmId holds the string denoting the farmid field in the database.
@@ -67,10 +75,6 @@ const (
 	FieldHairColorId = "hair_color_id"
 	// FieldHairColorName holds the string denoting the haircolorname field in the database.
 	FieldHairColorName = "hair_color_name"
-	// FieldReproductiveStateId holds the string denoting the reproductivestateid field in the database.
-	FieldReproductiveStateId = "reproductive_state_id"
-	// FieldReproductiveStateName holds the string denoting the reproductivestatename field in the database.
-	FieldReproductiveStateName = "reproductive_state_name"
 	// FieldPregnantTimes holds the string denoting the pregnanttimes field in the database.
 	FieldPregnantTimes = "pregnant_times"
 	// FieldLastCalvingAt holds the string denoting the lastcalvingat field in the database.
@@ -103,6 +107,10 @@ const (
 // Columns holds all SQL columns for cattle fields.
 var Columns = []string{
 	FieldID,
+	FieldAlive,
+	FieldHealth,
+	FieldReproductiveStateId,
+	FieldReproductiveStateName,
 	FieldName,
 	FieldFarmId,
 	FieldFarmName,
@@ -133,8 +141,6 @@ var Columns = []string{
 	FieldOwnerName,
 	FieldHairColorId,
 	FieldHairColorName,
-	FieldReproductiveStateId,
-	FieldReproductiveStateName,
 	FieldPregnantTimes,
 	FieldLastCalvingAt,
 	FieldBreedingAt,
@@ -160,6 +166,10 @@ func ValidColumn(column string) bool {
 }
 
 var (
+	// DefaultAlive holds the default value on creation for the alive field.
+	DefaultAlive int
+	// DefaultHealth holds the default value on creation for the health field.
+	DefaultHealth int
 	// FarmNameValidator is a validator for the "farmName" field. It is called by the builders before save.
 	FarmNameValidator func(string) error
 	// ShedNameValidator is a validator for the "shedName" field. It is called by the builders before save.

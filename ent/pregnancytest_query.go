@@ -237,12 +237,12 @@ func (ptq *PregnancyTestQuery) Clone() *PregnancyTestQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.PregnancyTest.Query().
-//		GroupBy(pregnancytest.FieldName).
+//		GroupBy(pregnancytest.FieldCattleId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (ptq *PregnancyTestQuery) GroupBy(field string, fields ...string) *Pregnanc
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //	}
 //
 //	client.PregnancyTest.Query().
-//		Select(pregnancytest.FieldName).
+//		Select(pregnancytest.FieldCattleId).
 //		Scan(ctx, &v)
 //
 func (ptq *PregnancyTestQuery) Select(field string, fields ...string) *PregnancyTestSelect {

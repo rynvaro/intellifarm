@@ -27,6 +27,76 @@ func (au *AbortionUpdate) Where(ps ...predicate.Abortion) *AbortionUpdate {
 	return au
 }
 
+// SetCattleId sets the cattleId field.
+func (au *AbortionUpdate) SetCattleId(i int64) *AbortionUpdate {
+	au.mutation.ResetCattleId()
+	au.mutation.SetCattleId(i)
+	return au
+}
+
+// AddCattleId adds i to cattleId.
+func (au *AbortionUpdate) AddCattleId(i int64) *AbortionUpdate {
+	au.mutation.AddCattleId(i)
+	return au
+}
+
+// SetTenantId sets the tenantId field.
+func (au *AbortionUpdate) SetTenantId(i int64) *AbortionUpdate {
+	au.mutation.ResetTenantId()
+	au.mutation.SetTenantId(i)
+	return au
+}
+
+// AddTenantId adds i to tenantId.
+func (au *AbortionUpdate) AddTenantId(i int64) *AbortionUpdate {
+	au.mutation.AddTenantId(i)
+	return au
+}
+
+// SetTenantName sets the tenantName field.
+func (au *AbortionUpdate) SetTenantName(s string) *AbortionUpdate {
+	au.mutation.SetTenantName(s)
+	return au
+}
+
+// SetFarmId sets the farmId field.
+func (au *AbortionUpdate) SetFarmId(i int64) *AbortionUpdate {
+	au.mutation.ResetFarmId()
+	au.mutation.SetFarmId(i)
+	return au
+}
+
+// AddFarmId adds i to farmId.
+func (au *AbortionUpdate) AddFarmId(i int64) *AbortionUpdate {
+	au.mutation.AddFarmId(i)
+	return au
+}
+
+// SetFarmName sets the farmName field.
+func (au *AbortionUpdate) SetFarmName(s string) *AbortionUpdate {
+	au.mutation.SetFarmName(s)
+	return au
+}
+
+// SetShedId sets the shedId field.
+func (au *AbortionUpdate) SetShedId(i int64) *AbortionUpdate {
+	au.mutation.ResetShedId()
+	au.mutation.SetShedId(i)
+	return au
+}
+
+// AddShedId adds i to shedId.
+func (au *AbortionUpdate) AddShedId(i int64) *AbortionUpdate {
+	au.mutation.AddShedId(i)
+	return au
+}
+
+// SetShedName sets the shedName field.
+func (au *AbortionUpdate) SetShedName(s string) *AbortionUpdate {
+	au.mutation.SetShedName(s)
+	return au
+}
+
 // SetName sets the name field.
 func (au *AbortionUpdate) SetName(s string) *AbortionUpdate {
 	au.mutation.SetName(s)
@@ -63,18 +133,6 @@ func (au *AbortionUpdate) SetTimes(i int) *AbortionUpdate {
 // AddTimes adds i to times.
 func (au *AbortionUpdate) AddTimes(i int) *AbortionUpdate {
 	au.mutation.AddTimes(i)
-	return au
-}
-
-// SetReproductiveState sets the reproductiveState field.
-func (au *AbortionUpdate) SetReproductiveState(s string) *AbortionUpdate {
-	au.mutation.SetReproductiveState(s)
-	return au
-}
-
-// SetShedName sets the shedName field.
-func (au *AbortionUpdate) SetShedName(s string) *AbortionUpdate {
-	au.mutation.SetShedName(s)
 	return au
 }
 
@@ -126,25 +184,6 @@ func (au *AbortionUpdate) SetAbortionTypeName(s string) *AbortionUpdate {
 // SetUserName sets the userName field.
 func (au *AbortionUpdate) SetUserName(s string) *AbortionUpdate {
 	au.mutation.SetUserName(s)
-	return au
-}
-
-// SetTenantId sets the tenantId field.
-func (au *AbortionUpdate) SetTenantId(i int64) *AbortionUpdate {
-	au.mutation.ResetTenantId()
-	au.mutation.SetTenantId(i)
-	return au
-}
-
-// AddTenantId adds i to tenantId.
-func (au *AbortionUpdate) AddTenantId(i int64) *AbortionUpdate {
-	au.mutation.AddTenantId(i)
-	return au
-}
-
-// SetTenantName sets the tenantName field.
-func (au *AbortionUpdate) SetTenantName(s string) *AbortionUpdate {
-	au.mutation.SetTenantName(s)
 	return au
 }
 
@@ -267,6 +306,83 @@ func (au *AbortionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := au.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldCattleId,
+		})
+	}
+	if value, ok := au.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldCattleId,
+		})
+	}
+	if value, ok := au.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldTenantId,
+		})
+	}
+	if value, ok := au.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldTenantId,
+		})
+	}
+	if value, ok := au.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: abortion.FieldTenantName,
+		})
+	}
+	if value, ok := au.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldFarmId,
+		})
+	}
+	if value, ok := au.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldFarmId,
+		})
+	}
+	if value, ok := au.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: abortion.FieldFarmName,
+		})
+	}
+	if value, ok := au.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldShedId,
+		})
+	}
+	if value, ok := au.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldShedId,
+		})
+	}
+	if value, ok := au.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: abortion.FieldShedName,
+		})
+	}
 	if value, ok := au.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -299,20 +415,6 @@ func (au *AbortionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeInt,
 			Value:  value,
 			Column: abortion.FieldTimes,
-		})
-	}
-	if value, ok := au.mutation.ReproductiveState(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: abortion.FieldReproductiveState,
-		})
-	}
-	if value, ok := au.mutation.ShedName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: abortion.FieldShedName,
 		})
 	}
 	if value, ok := au.mutation.PregnantAt(); ok {
@@ -369,27 +471,6 @@ func (au *AbortionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: abortion.FieldUserName,
-		})
-	}
-	if value, ok := au.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: abortion.FieldTenantId,
-		})
-	}
-	if value, ok := au.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: abortion.FieldTenantId,
-		})
-	}
-	if value, ok := au.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: abortion.FieldTenantName,
 		})
 	}
 	if value, ok := au.mutation.Remarks(); ok {
@@ -459,6 +540,76 @@ type AbortionUpdateOne struct {
 	mutation *AbortionMutation
 }
 
+// SetCattleId sets the cattleId field.
+func (auo *AbortionUpdateOne) SetCattleId(i int64) *AbortionUpdateOne {
+	auo.mutation.ResetCattleId()
+	auo.mutation.SetCattleId(i)
+	return auo
+}
+
+// AddCattleId adds i to cattleId.
+func (auo *AbortionUpdateOne) AddCattleId(i int64) *AbortionUpdateOne {
+	auo.mutation.AddCattleId(i)
+	return auo
+}
+
+// SetTenantId sets the tenantId field.
+func (auo *AbortionUpdateOne) SetTenantId(i int64) *AbortionUpdateOne {
+	auo.mutation.ResetTenantId()
+	auo.mutation.SetTenantId(i)
+	return auo
+}
+
+// AddTenantId adds i to tenantId.
+func (auo *AbortionUpdateOne) AddTenantId(i int64) *AbortionUpdateOne {
+	auo.mutation.AddTenantId(i)
+	return auo
+}
+
+// SetTenantName sets the tenantName field.
+func (auo *AbortionUpdateOne) SetTenantName(s string) *AbortionUpdateOne {
+	auo.mutation.SetTenantName(s)
+	return auo
+}
+
+// SetFarmId sets the farmId field.
+func (auo *AbortionUpdateOne) SetFarmId(i int64) *AbortionUpdateOne {
+	auo.mutation.ResetFarmId()
+	auo.mutation.SetFarmId(i)
+	return auo
+}
+
+// AddFarmId adds i to farmId.
+func (auo *AbortionUpdateOne) AddFarmId(i int64) *AbortionUpdateOne {
+	auo.mutation.AddFarmId(i)
+	return auo
+}
+
+// SetFarmName sets the farmName field.
+func (auo *AbortionUpdateOne) SetFarmName(s string) *AbortionUpdateOne {
+	auo.mutation.SetFarmName(s)
+	return auo
+}
+
+// SetShedId sets the shedId field.
+func (auo *AbortionUpdateOne) SetShedId(i int64) *AbortionUpdateOne {
+	auo.mutation.ResetShedId()
+	auo.mutation.SetShedId(i)
+	return auo
+}
+
+// AddShedId adds i to shedId.
+func (auo *AbortionUpdateOne) AddShedId(i int64) *AbortionUpdateOne {
+	auo.mutation.AddShedId(i)
+	return auo
+}
+
+// SetShedName sets the shedName field.
+func (auo *AbortionUpdateOne) SetShedName(s string) *AbortionUpdateOne {
+	auo.mutation.SetShedName(s)
+	return auo
+}
+
 // SetName sets the name field.
 func (auo *AbortionUpdateOne) SetName(s string) *AbortionUpdateOne {
 	auo.mutation.SetName(s)
@@ -495,18 +646,6 @@ func (auo *AbortionUpdateOne) SetTimes(i int) *AbortionUpdateOne {
 // AddTimes adds i to times.
 func (auo *AbortionUpdateOne) AddTimes(i int) *AbortionUpdateOne {
 	auo.mutation.AddTimes(i)
-	return auo
-}
-
-// SetReproductiveState sets the reproductiveState field.
-func (auo *AbortionUpdateOne) SetReproductiveState(s string) *AbortionUpdateOne {
-	auo.mutation.SetReproductiveState(s)
-	return auo
-}
-
-// SetShedName sets the shedName field.
-func (auo *AbortionUpdateOne) SetShedName(s string) *AbortionUpdateOne {
-	auo.mutation.SetShedName(s)
 	return auo
 }
 
@@ -558,25 +697,6 @@ func (auo *AbortionUpdateOne) SetAbortionTypeName(s string) *AbortionUpdateOne {
 // SetUserName sets the userName field.
 func (auo *AbortionUpdateOne) SetUserName(s string) *AbortionUpdateOne {
 	auo.mutation.SetUserName(s)
-	return auo
-}
-
-// SetTenantId sets the tenantId field.
-func (auo *AbortionUpdateOne) SetTenantId(i int64) *AbortionUpdateOne {
-	auo.mutation.ResetTenantId()
-	auo.mutation.SetTenantId(i)
-	return auo
-}
-
-// AddTenantId adds i to tenantId.
-func (auo *AbortionUpdateOne) AddTenantId(i int64) *AbortionUpdateOne {
-	auo.mutation.AddTenantId(i)
-	return auo
-}
-
-// SetTenantName sets the tenantName field.
-func (auo *AbortionUpdateOne) SetTenantName(s string) *AbortionUpdateOne {
-	auo.mutation.SetTenantName(s)
 	return auo
 }
 
@@ -697,6 +817,83 @@ func (auo *AbortionUpdateOne) sqlSave(ctx context.Context) (_node *Abortion, err
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing Abortion.ID for update")}
 	}
 	_spec.Node.ID.Value = id
+	if value, ok := auo.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldCattleId,
+		})
+	}
+	if value, ok := auo.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldCattleId,
+		})
+	}
+	if value, ok := auo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldTenantId,
+		})
+	}
+	if value, ok := auo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldTenantId,
+		})
+	}
+	if value, ok := auo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: abortion.FieldTenantName,
+		})
+	}
+	if value, ok := auo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldFarmId,
+		})
+	}
+	if value, ok := auo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldFarmId,
+		})
+	}
+	if value, ok := auo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: abortion.FieldFarmName,
+		})
+	}
+	if value, ok := auo.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldShedId,
+		})
+	}
+	if value, ok := auo.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldShedId,
+		})
+	}
+	if value, ok := auo.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: abortion.FieldShedName,
+		})
+	}
 	if value, ok := auo.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -729,20 +926,6 @@ func (auo *AbortionUpdateOne) sqlSave(ctx context.Context) (_node *Abortion, err
 			Type:   field.TypeInt,
 			Value:  value,
 			Column: abortion.FieldTimes,
-		})
-	}
-	if value, ok := auo.mutation.ReproductiveState(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: abortion.FieldReproductiveState,
-		})
-	}
-	if value, ok := auo.mutation.ShedName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: abortion.FieldShedName,
 		})
 	}
 	if value, ok := auo.mutation.PregnantAt(); ok {
@@ -799,27 +982,6 @@ func (auo *AbortionUpdateOne) sqlSave(ctx context.Context) (_node *Abortion, err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: abortion.FieldUserName,
-		})
-	}
-	if value, ok := auo.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: abortion.FieldTenantId,
-		})
-	}
-	if value, ok := auo.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: abortion.FieldTenantId,
-		})
-	}
-	if value, ok := auo.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: abortion.FieldTenantName,
 		})
 	}
 	if value, ok := auo.mutation.Remarks(); ok {

@@ -39,16 +39,35 @@ func (mu *MaterialUpdate) SetCode(s string) *MaterialUpdate {
 	return mu
 }
 
-// SetCategory sets the category field.
-func (mu *MaterialUpdate) SetCategory(i int) *MaterialUpdate {
-	mu.mutation.ResetCategory()
-	mu.mutation.SetCategory(i)
+// SetMaterialId sets the materialId field.
+func (mu *MaterialUpdate) SetMaterialId(i int64) *MaterialUpdate {
+	mu.mutation.ResetMaterialId()
+	mu.mutation.SetMaterialId(i)
 	return mu
 }
 
-// AddCategory adds i to category.
-func (mu *MaterialUpdate) AddCategory(i int) *MaterialUpdate {
-	mu.mutation.AddCategory(i)
+// AddMaterialId adds i to materialId.
+func (mu *MaterialUpdate) AddMaterialId(i int64) *MaterialUpdate {
+	mu.mutation.AddMaterialId(i)
+	return mu
+}
+
+// SetCategoryId sets the categoryId field.
+func (mu *MaterialUpdate) SetCategoryId(i int) *MaterialUpdate {
+	mu.mutation.ResetCategoryId()
+	mu.mutation.SetCategoryId(i)
+	return mu
+}
+
+// AddCategoryId adds i to categoryId.
+func (mu *MaterialUpdate) AddCategoryId(i int) *MaterialUpdate {
+	mu.mutation.AddCategoryId(i)
+	return mu
+}
+
+// SetCategoryName sets the categoryName field.
+func (mu *MaterialUpdate) SetCategoryName(s string) *MaterialUpdate {
+	mu.mutation.SetCategoryName(s)
 	return mu
 }
 
@@ -62,6 +81,14 @@ func (mu *MaterialUpdate) SetUserName(s string) *MaterialUpdate {
 func (mu *MaterialUpdate) SetInventory(i int64) *MaterialUpdate {
 	mu.mutation.ResetInventory()
 	mu.mutation.SetInventory(i)
+	return mu
+}
+
+// SetNillableInventory sets the inventory field if the given value is not nil.
+func (mu *MaterialUpdate) SetNillableInventory(i *int64) *MaterialUpdate {
+	if i != nil {
+		mu.SetInventory(*i)
+	}
 	return mu
 }
 
@@ -87,6 +114,25 @@ func (mu *MaterialUpdate) AddTenantId(i int64) *MaterialUpdate {
 // SetTenantName sets the tenantName field.
 func (mu *MaterialUpdate) SetTenantName(s string) *MaterialUpdate {
 	mu.mutation.SetTenantName(s)
+	return mu
+}
+
+// SetFarmId sets the farmId field.
+func (mu *MaterialUpdate) SetFarmId(i int64) *MaterialUpdate {
+	mu.mutation.ResetFarmId()
+	mu.mutation.SetFarmId(i)
+	return mu
+}
+
+// AddFarmId adds i to farmId.
+func (mu *MaterialUpdate) AddFarmId(i int64) *MaterialUpdate {
+	mu.mutation.AddFarmId(i)
+	return mu
+}
+
+// SetFarmName sets the farmName field.
+func (mu *MaterialUpdate) SetFarmName(s string) *MaterialUpdate {
+	mu.mutation.SetFarmName(s)
 	return mu
 }
 
@@ -223,18 +269,39 @@ func (mu *MaterialUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: material.FieldCode,
 		})
 	}
-	if value, ok := mu.mutation.Category(); ok {
+	if value, ok := mu.mutation.MaterialId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: material.FieldMaterialId,
+		})
+	}
+	if value, ok := mu.mutation.AddedMaterialId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: material.FieldMaterialId,
+		})
+	}
+	if value, ok := mu.mutation.CategoryId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
 			Value:  value,
-			Column: material.FieldCategory,
+			Column: material.FieldCategoryId,
 		})
 	}
-	if value, ok := mu.mutation.AddedCategory(); ok {
+	if value, ok := mu.mutation.AddedCategoryId(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
 			Value:  value,
-			Column: material.FieldCategory,
+			Column: material.FieldCategoryId,
+		})
+	}
+	if value, ok := mu.mutation.CategoryName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: material.FieldCategoryName,
 		})
 	}
 	if value, ok := mu.mutation.UserName(); ok {
@@ -277,6 +344,27 @@ func (mu *MaterialUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: material.FieldTenantName,
+		})
+	}
+	if value, ok := mu.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: material.FieldFarmId,
+		})
+	}
+	if value, ok := mu.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: material.FieldFarmId,
+		})
+	}
+	if value, ok := mu.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: material.FieldFarmName,
 		})
 	}
 	if value, ok := mu.mutation.Remarks(); ok {
@@ -358,16 +446,35 @@ func (muo *MaterialUpdateOne) SetCode(s string) *MaterialUpdateOne {
 	return muo
 }
 
-// SetCategory sets the category field.
-func (muo *MaterialUpdateOne) SetCategory(i int) *MaterialUpdateOne {
-	muo.mutation.ResetCategory()
-	muo.mutation.SetCategory(i)
+// SetMaterialId sets the materialId field.
+func (muo *MaterialUpdateOne) SetMaterialId(i int64) *MaterialUpdateOne {
+	muo.mutation.ResetMaterialId()
+	muo.mutation.SetMaterialId(i)
 	return muo
 }
 
-// AddCategory adds i to category.
-func (muo *MaterialUpdateOne) AddCategory(i int) *MaterialUpdateOne {
-	muo.mutation.AddCategory(i)
+// AddMaterialId adds i to materialId.
+func (muo *MaterialUpdateOne) AddMaterialId(i int64) *MaterialUpdateOne {
+	muo.mutation.AddMaterialId(i)
+	return muo
+}
+
+// SetCategoryId sets the categoryId field.
+func (muo *MaterialUpdateOne) SetCategoryId(i int) *MaterialUpdateOne {
+	muo.mutation.ResetCategoryId()
+	muo.mutation.SetCategoryId(i)
+	return muo
+}
+
+// AddCategoryId adds i to categoryId.
+func (muo *MaterialUpdateOne) AddCategoryId(i int) *MaterialUpdateOne {
+	muo.mutation.AddCategoryId(i)
+	return muo
+}
+
+// SetCategoryName sets the categoryName field.
+func (muo *MaterialUpdateOne) SetCategoryName(s string) *MaterialUpdateOne {
+	muo.mutation.SetCategoryName(s)
 	return muo
 }
 
@@ -381,6 +488,14 @@ func (muo *MaterialUpdateOne) SetUserName(s string) *MaterialUpdateOne {
 func (muo *MaterialUpdateOne) SetInventory(i int64) *MaterialUpdateOne {
 	muo.mutation.ResetInventory()
 	muo.mutation.SetInventory(i)
+	return muo
+}
+
+// SetNillableInventory sets the inventory field if the given value is not nil.
+func (muo *MaterialUpdateOne) SetNillableInventory(i *int64) *MaterialUpdateOne {
+	if i != nil {
+		muo.SetInventory(*i)
+	}
 	return muo
 }
 
@@ -406,6 +521,25 @@ func (muo *MaterialUpdateOne) AddTenantId(i int64) *MaterialUpdateOne {
 // SetTenantName sets the tenantName field.
 func (muo *MaterialUpdateOne) SetTenantName(s string) *MaterialUpdateOne {
 	muo.mutation.SetTenantName(s)
+	return muo
+}
+
+// SetFarmId sets the farmId field.
+func (muo *MaterialUpdateOne) SetFarmId(i int64) *MaterialUpdateOne {
+	muo.mutation.ResetFarmId()
+	muo.mutation.SetFarmId(i)
+	return muo
+}
+
+// AddFarmId adds i to farmId.
+func (muo *MaterialUpdateOne) AddFarmId(i int64) *MaterialUpdateOne {
+	muo.mutation.AddFarmId(i)
+	return muo
+}
+
+// SetFarmName sets the farmName field.
+func (muo *MaterialUpdateOne) SetFarmName(s string) *MaterialUpdateOne {
+	muo.mutation.SetFarmName(s)
 	return muo
 }
 
@@ -540,18 +674,39 @@ func (muo *MaterialUpdateOne) sqlSave(ctx context.Context) (_node *Material, err
 			Column: material.FieldCode,
 		})
 	}
-	if value, ok := muo.mutation.Category(); ok {
+	if value, ok := muo.mutation.MaterialId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: material.FieldMaterialId,
+		})
+	}
+	if value, ok := muo.mutation.AddedMaterialId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: material.FieldMaterialId,
+		})
+	}
+	if value, ok := muo.mutation.CategoryId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
 			Value:  value,
-			Column: material.FieldCategory,
+			Column: material.FieldCategoryId,
 		})
 	}
-	if value, ok := muo.mutation.AddedCategory(); ok {
+	if value, ok := muo.mutation.AddedCategoryId(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
 			Value:  value,
-			Column: material.FieldCategory,
+			Column: material.FieldCategoryId,
+		})
+	}
+	if value, ok := muo.mutation.CategoryName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: material.FieldCategoryName,
 		})
 	}
 	if value, ok := muo.mutation.UserName(); ok {
@@ -594,6 +749,27 @@ func (muo *MaterialUpdateOne) sqlSave(ctx context.Context) (_node *Material, err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: material.FieldTenantName,
+		})
+	}
+	if value, ok := muo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: material.FieldFarmId,
+		})
+	}
+	if value, ok := muo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: material.FieldFarmId,
+		})
+	}
+	if value, ok := muo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: material.FieldFarmName,
 		})
 	}
 	if value, ok := muo.mutation.Remarks(); ok {

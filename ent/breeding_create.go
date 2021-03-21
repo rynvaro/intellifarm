@@ -19,6 +19,48 @@ type BreedingCreate struct {
 	hooks    []Hook
 }
 
+// SetCattleId sets the cattleId field.
+func (bc *BreedingCreate) SetCattleId(i int64) *BreedingCreate {
+	bc.mutation.SetCattleId(i)
+	return bc
+}
+
+// SetTenantId sets the tenantId field.
+func (bc *BreedingCreate) SetTenantId(i int64) *BreedingCreate {
+	bc.mutation.SetTenantId(i)
+	return bc
+}
+
+// SetTenantName sets the tenantName field.
+func (bc *BreedingCreate) SetTenantName(s string) *BreedingCreate {
+	bc.mutation.SetTenantName(s)
+	return bc
+}
+
+// SetFarmId sets the farmId field.
+func (bc *BreedingCreate) SetFarmId(i int64) *BreedingCreate {
+	bc.mutation.SetFarmId(i)
+	return bc
+}
+
+// SetFarmName sets the farmName field.
+func (bc *BreedingCreate) SetFarmName(s string) *BreedingCreate {
+	bc.mutation.SetFarmName(s)
+	return bc
+}
+
+// SetShedId sets the shedId field.
+func (bc *BreedingCreate) SetShedId(i int64) *BreedingCreate {
+	bc.mutation.SetShedId(i)
+	return bc
+}
+
+// SetShedName sets the shedName field.
+func (bc *BreedingCreate) SetShedName(s string) *BreedingCreate {
+	bc.mutation.SetShedName(s)
+	return bc
+}
+
 // SetName sets the name field.
 func (bc *BreedingCreate) SetName(s string) *BreedingCreate {
 	bc.mutation.SetName(s)
@@ -81,12 +123,6 @@ func (bc *BreedingCreate) SetBullId(s string) *BreedingCreate {
 	return bc
 }
 
-// SetShedName sets the shedName field.
-func (bc *BreedingCreate) SetShedName(s string) *BreedingCreate {
-	bc.mutation.SetShedName(s)
-	return bc
-}
-
 // SetCount sets the count field.
 func (bc *BreedingCreate) SetCount(i int) *BreedingCreate {
 	bc.mutation.SetCount(i)
@@ -96,18 +132,6 @@ func (bc *BreedingCreate) SetCount(i int) *BreedingCreate {
 // SetUserName sets the userName field.
 func (bc *BreedingCreate) SetUserName(s string) *BreedingCreate {
 	bc.mutation.SetUserName(s)
-	return bc
-}
-
-// SetTenantId sets the tenantId field.
-func (bc *BreedingCreate) SetTenantId(i int64) *BreedingCreate {
-	bc.mutation.SetTenantId(i)
-	return bc
-}
-
-// SetTenantName sets the tenantName field.
-func (bc *BreedingCreate) SetTenantName(s string) *BreedingCreate {
-	bc.mutation.SetTenantName(s)
 	return bc
 }
 
@@ -186,6 +210,27 @@ func (bc *BreedingCreate) SaveX(ctx context.Context) *Breeding {
 
 // check runs all checks and user-defined validators on the builder.
 func (bc *BreedingCreate) check() error {
+	if _, ok := bc.mutation.CattleId(); !ok {
+		return &ValidationError{Name: "cattleId", err: errors.New("ent: missing required field \"cattleId\"")}
+	}
+	if _, ok := bc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := bc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := bc.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := bc.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
+	}
+	if _, ok := bc.mutation.ShedId(); !ok {
+		return &ValidationError{Name: "shedId", err: errors.New("ent: missing required field \"shedId\"")}
+	}
+	if _, ok := bc.mutation.ShedName(); !ok {
+		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
+	}
 	if _, ok := bc.mutation.EarNumber(); !ok {
 		return &ValidationError{Name: "earNumber", err: errors.New("ent: missing required field \"earNumber\"")}
 	}
@@ -210,20 +255,11 @@ func (bc *BreedingCreate) check() error {
 	if _, ok := bc.mutation.BullId(); !ok {
 		return &ValidationError{Name: "bullId", err: errors.New("ent: missing required field \"bullId\"")}
 	}
-	if _, ok := bc.mutation.ShedName(); !ok {
-		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
-	}
 	if _, ok := bc.mutation.Count(); !ok {
 		return &ValidationError{Name: "count", err: errors.New("ent: missing required field \"count\"")}
 	}
 	if _, ok := bc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
-	}
-	if _, ok := bc.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if _, ok := bc.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := bc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -264,6 +300,62 @@ func (bc *BreedingCreate) createSpec() (*Breeding, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := bc.mutation.CattleId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: breeding.FieldCattleId,
+		})
+		_node.CattleId = value
+	}
+	if value, ok := bc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: breeding.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := bc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: breeding.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := bc.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: breeding.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := bc.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: breeding.FieldFarmName,
+		})
+		_node.FarmName = value
+	}
+	if value, ok := bc.mutation.ShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: breeding.FieldShedId,
+		})
+		_node.ShedId = value
+	}
+	if value, ok := bc.mutation.ShedName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: breeding.FieldShedName,
+		})
+		_node.ShedName = value
+	}
 	if value, ok := bc.mutation.Name(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -336,14 +428,6 @@ func (bc *BreedingCreate) createSpec() (*Breeding, *sqlgraph.CreateSpec) {
 		})
 		_node.BullId = value
 	}
-	if value, ok := bc.mutation.ShedName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: breeding.FieldShedName,
-		})
-		_node.ShedName = value
-	}
 	if value, ok := bc.mutation.Count(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
@@ -359,22 +443,6 @@ func (bc *BreedingCreate) createSpec() (*Breeding, *sqlgraph.CreateSpec) {
 			Column: breeding.FieldUserName,
 		})
 		_node.UserName = value
-	}
-	if value, ok := bc.mutation.TenantId(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: breeding.FieldTenantId,
-		})
-		_node.TenantId = value
-	}
-	if value, ok := bc.mutation.TenantName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: breeding.FieldTenantName,
-		})
-		_node.TenantName = value
 	}
 	if value, ok := bc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

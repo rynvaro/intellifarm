@@ -91,6 +91,34 @@ func IDLTE(id int64) predicate.Cattle {
 	})
 }
 
+// Alive applies equality check predicate on the "alive" field. It's identical to AliveEQ.
+func Alive(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldAlive), v))
+	})
+}
+
+// Health applies equality check predicate on the "health" field. It's identical to HealthEQ.
+func Health(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldHealth), v))
+	})
+}
+
+// ReproductiveStateId applies equality check predicate on the "reproductiveStateId" field. It's identical to ReproductiveStateIdEQ.
+func ReproductiveStateId(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldReproductiveStateId), v))
+	})
+}
+
+// ReproductiveStateName applies equality check predicate on the "reproductiveStateName" field. It's identical to ReproductiveStateNameEQ.
+func ReproductiveStateName(v string) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldReproductiveStateName), v))
+	})
+}
+
 // Name applies equality check predicate on the "name" field. It's identical to NameEQ.
 func Name(v string) predicate.Cattle {
 	return predicate.Cattle(func(s *sql.Selector) {
@@ -301,20 +329,6 @@ func HairColorName(v string) predicate.Cattle {
 	})
 }
 
-// ReproductiveStateId applies equality check predicate on the "reproductiveStateId" field. It's identical to ReproductiveStateIdEQ.
-func ReproductiveStateId(v int) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldReproductiveStateId), v))
-	})
-}
-
-// ReproductiveStateName applies equality check predicate on the "reproductiveStateName" field. It's identical to ReproductiveStateNameEQ.
-func ReproductiveStateName(v string) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldReproductiveStateName), v))
-	})
-}
-
 // PregnantTimes applies equality check predicate on the "pregnantTimes" field. It's identical to PregnantTimesEQ.
 func PregnantTimes(v int) predicate.Cattle {
 	return predicate.Cattle(func(s *sql.Selector) {
@@ -396,6 +410,345 @@ func UpdatedAt(v int64) predicate.Cattle {
 func Deleted(v int) predicate.Cattle {
 	return predicate.Cattle(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldDeleted), v))
+	})
+}
+
+// AliveEQ applies the EQ predicate on the "alive" field.
+func AliveEQ(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldAlive), v))
+	})
+}
+
+// AliveNEQ applies the NEQ predicate on the "alive" field.
+func AliveNEQ(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldAlive), v))
+	})
+}
+
+// AliveIn applies the In predicate on the "alive" field.
+func AliveIn(vs ...int) predicate.Cattle {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Cattle(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldAlive), v...))
+	})
+}
+
+// AliveNotIn applies the NotIn predicate on the "alive" field.
+func AliveNotIn(vs ...int) predicate.Cattle {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Cattle(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldAlive), v...))
+	})
+}
+
+// AliveGT applies the GT predicate on the "alive" field.
+func AliveGT(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldAlive), v))
+	})
+}
+
+// AliveGTE applies the GTE predicate on the "alive" field.
+func AliveGTE(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldAlive), v))
+	})
+}
+
+// AliveLT applies the LT predicate on the "alive" field.
+func AliveLT(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldAlive), v))
+	})
+}
+
+// AliveLTE applies the LTE predicate on the "alive" field.
+func AliveLTE(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldAlive), v))
+	})
+}
+
+// HealthEQ applies the EQ predicate on the "health" field.
+func HealthEQ(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldHealth), v))
+	})
+}
+
+// HealthNEQ applies the NEQ predicate on the "health" field.
+func HealthNEQ(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldHealth), v))
+	})
+}
+
+// HealthIn applies the In predicate on the "health" field.
+func HealthIn(vs ...int) predicate.Cattle {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Cattle(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldHealth), v...))
+	})
+}
+
+// HealthNotIn applies the NotIn predicate on the "health" field.
+func HealthNotIn(vs ...int) predicate.Cattle {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Cattle(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldHealth), v...))
+	})
+}
+
+// HealthGT applies the GT predicate on the "health" field.
+func HealthGT(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldHealth), v))
+	})
+}
+
+// HealthGTE applies the GTE predicate on the "health" field.
+func HealthGTE(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldHealth), v))
+	})
+}
+
+// HealthLT applies the LT predicate on the "health" field.
+func HealthLT(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldHealth), v))
+	})
+}
+
+// HealthLTE applies the LTE predicate on the "health" field.
+func HealthLTE(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldHealth), v))
+	})
+}
+
+// ReproductiveStateIdEQ applies the EQ predicate on the "reproductiveStateId" field.
+func ReproductiveStateIdEQ(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldReproductiveStateId), v))
+	})
+}
+
+// ReproductiveStateIdNEQ applies the NEQ predicate on the "reproductiveStateId" field.
+func ReproductiveStateIdNEQ(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldReproductiveStateId), v))
+	})
+}
+
+// ReproductiveStateIdIn applies the In predicate on the "reproductiveStateId" field.
+func ReproductiveStateIdIn(vs ...int) predicate.Cattle {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Cattle(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldReproductiveStateId), v...))
+	})
+}
+
+// ReproductiveStateIdNotIn applies the NotIn predicate on the "reproductiveStateId" field.
+func ReproductiveStateIdNotIn(vs ...int) predicate.Cattle {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Cattle(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldReproductiveStateId), v...))
+	})
+}
+
+// ReproductiveStateIdGT applies the GT predicate on the "reproductiveStateId" field.
+func ReproductiveStateIdGT(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldReproductiveStateId), v))
+	})
+}
+
+// ReproductiveStateIdGTE applies the GTE predicate on the "reproductiveStateId" field.
+func ReproductiveStateIdGTE(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldReproductiveStateId), v))
+	})
+}
+
+// ReproductiveStateIdLT applies the LT predicate on the "reproductiveStateId" field.
+func ReproductiveStateIdLT(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldReproductiveStateId), v))
+	})
+}
+
+// ReproductiveStateIdLTE applies the LTE predicate on the "reproductiveStateId" field.
+func ReproductiveStateIdLTE(v int) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldReproductiveStateId), v))
+	})
+}
+
+// ReproductiveStateNameEQ applies the EQ predicate on the "reproductiveStateName" field.
+func ReproductiveStateNameEQ(v string) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldReproductiveStateName), v))
+	})
+}
+
+// ReproductiveStateNameNEQ applies the NEQ predicate on the "reproductiveStateName" field.
+func ReproductiveStateNameNEQ(v string) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldReproductiveStateName), v))
+	})
+}
+
+// ReproductiveStateNameIn applies the In predicate on the "reproductiveStateName" field.
+func ReproductiveStateNameIn(vs ...string) predicate.Cattle {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Cattle(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldReproductiveStateName), v...))
+	})
+}
+
+// ReproductiveStateNameNotIn applies the NotIn predicate on the "reproductiveStateName" field.
+func ReproductiveStateNameNotIn(vs ...string) predicate.Cattle {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Cattle(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldReproductiveStateName), v...))
+	})
+}
+
+// ReproductiveStateNameGT applies the GT predicate on the "reproductiveStateName" field.
+func ReproductiveStateNameGT(v string) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldReproductiveStateName), v))
+	})
+}
+
+// ReproductiveStateNameGTE applies the GTE predicate on the "reproductiveStateName" field.
+func ReproductiveStateNameGTE(v string) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldReproductiveStateName), v))
+	})
+}
+
+// ReproductiveStateNameLT applies the LT predicate on the "reproductiveStateName" field.
+func ReproductiveStateNameLT(v string) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldReproductiveStateName), v))
+	})
+}
+
+// ReproductiveStateNameLTE applies the LTE predicate on the "reproductiveStateName" field.
+func ReproductiveStateNameLTE(v string) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldReproductiveStateName), v))
+	})
+}
+
+// ReproductiveStateNameContains applies the Contains predicate on the "reproductiveStateName" field.
+func ReproductiveStateNameContains(v string) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldReproductiveStateName), v))
+	})
+}
+
+// ReproductiveStateNameHasPrefix applies the HasPrefix predicate on the "reproductiveStateName" field.
+func ReproductiveStateNameHasPrefix(v string) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldReproductiveStateName), v))
+	})
+}
+
+// ReproductiveStateNameHasSuffix applies the HasSuffix predicate on the "reproductiveStateName" field.
+func ReproductiveStateNameHasSuffix(v string) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldReproductiveStateName), v))
+	})
+}
+
+// ReproductiveStateNameEqualFold applies the EqualFold predicate on the "reproductiveStateName" field.
+func ReproductiveStateNameEqualFold(v string) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldReproductiveStateName), v))
+	})
+}
+
+// ReproductiveStateNameContainsFold applies the ContainsFold predicate on the "reproductiveStateName" field.
+func ReproductiveStateNameContainsFold(v string) predicate.Cattle {
+	return predicate.Cattle(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldReproductiveStateName), v))
 	})
 }
 
@@ -3320,193 +3673,6 @@ func HairColorNameEqualFold(v string) predicate.Cattle {
 func HairColorNameContainsFold(v string) predicate.Cattle {
 	return predicate.Cattle(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldHairColorName), v))
-	})
-}
-
-// ReproductiveStateIdEQ applies the EQ predicate on the "reproductiveStateId" field.
-func ReproductiveStateIdEQ(v int) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldReproductiveStateId), v))
-	})
-}
-
-// ReproductiveStateIdNEQ applies the NEQ predicate on the "reproductiveStateId" field.
-func ReproductiveStateIdNEQ(v int) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldReproductiveStateId), v))
-	})
-}
-
-// ReproductiveStateIdIn applies the In predicate on the "reproductiveStateId" field.
-func ReproductiveStateIdIn(vs ...int) predicate.Cattle {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Cattle(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.In(s.C(FieldReproductiveStateId), v...))
-	})
-}
-
-// ReproductiveStateIdNotIn applies the NotIn predicate on the "reproductiveStateId" field.
-func ReproductiveStateIdNotIn(vs ...int) predicate.Cattle {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Cattle(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.NotIn(s.C(FieldReproductiveStateId), v...))
-	})
-}
-
-// ReproductiveStateIdGT applies the GT predicate on the "reproductiveStateId" field.
-func ReproductiveStateIdGT(v int) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldReproductiveStateId), v))
-	})
-}
-
-// ReproductiveStateIdGTE applies the GTE predicate on the "reproductiveStateId" field.
-func ReproductiveStateIdGTE(v int) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldReproductiveStateId), v))
-	})
-}
-
-// ReproductiveStateIdLT applies the LT predicate on the "reproductiveStateId" field.
-func ReproductiveStateIdLT(v int) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldReproductiveStateId), v))
-	})
-}
-
-// ReproductiveStateIdLTE applies the LTE predicate on the "reproductiveStateId" field.
-func ReproductiveStateIdLTE(v int) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldReproductiveStateId), v))
-	})
-}
-
-// ReproductiveStateNameEQ applies the EQ predicate on the "reproductiveStateName" field.
-func ReproductiveStateNameEQ(v string) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldReproductiveStateName), v))
-	})
-}
-
-// ReproductiveStateNameNEQ applies the NEQ predicate on the "reproductiveStateName" field.
-func ReproductiveStateNameNEQ(v string) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldReproductiveStateName), v))
-	})
-}
-
-// ReproductiveStateNameIn applies the In predicate on the "reproductiveStateName" field.
-func ReproductiveStateNameIn(vs ...string) predicate.Cattle {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Cattle(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.In(s.C(FieldReproductiveStateName), v...))
-	})
-}
-
-// ReproductiveStateNameNotIn applies the NotIn predicate on the "reproductiveStateName" field.
-func ReproductiveStateNameNotIn(vs ...string) predicate.Cattle {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.Cattle(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.NotIn(s.C(FieldReproductiveStateName), v...))
-	})
-}
-
-// ReproductiveStateNameGT applies the GT predicate on the "reproductiveStateName" field.
-func ReproductiveStateNameGT(v string) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldReproductiveStateName), v))
-	})
-}
-
-// ReproductiveStateNameGTE applies the GTE predicate on the "reproductiveStateName" field.
-func ReproductiveStateNameGTE(v string) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldReproductiveStateName), v))
-	})
-}
-
-// ReproductiveStateNameLT applies the LT predicate on the "reproductiveStateName" field.
-func ReproductiveStateNameLT(v string) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldReproductiveStateName), v))
-	})
-}
-
-// ReproductiveStateNameLTE applies the LTE predicate on the "reproductiveStateName" field.
-func ReproductiveStateNameLTE(v string) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldReproductiveStateName), v))
-	})
-}
-
-// ReproductiveStateNameContains applies the Contains predicate on the "reproductiveStateName" field.
-func ReproductiveStateNameContains(v string) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldReproductiveStateName), v))
-	})
-}
-
-// ReproductiveStateNameHasPrefix applies the HasPrefix predicate on the "reproductiveStateName" field.
-func ReproductiveStateNameHasPrefix(v string) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldReproductiveStateName), v))
-	})
-}
-
-// ReproductiveStateNameHasSuffix applies the HasSuffix predicate on the "reproductiveStateName" field.
-func ReproductiveStateNameHasSuffix(v string) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldReproductiveStateName), v))
-	})
-}
-
-// ReproductiveStateNameEqualFold applies the EqualFold predicate on the "reproductiveStateName" field.
-func ReproductiveStateNameEqualFold(v string) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldReproductiveStateName), v))
-	})
-}
-
-// ReproductiveStateNameContainsFold applies the ContainsFold predicate on the "reproductiveStateName" field.
-func ReproductiveStateNameContainsFold(v string) predicate.Cattle {
-	return predicate.Cattle(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldReproductiveStateName), v))
 	})
 }
 

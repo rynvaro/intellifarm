@@ -237,12 +237,12 @@ func (aq *AbortionQuery) Clone() *AbortionQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Abortion.Query().
-//		GroupBy(abortion.FieldName).
+//		GroupBy(abortion.FieldCattleId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (aq *AbortionQuery) GroupBy(field string, fields ...string) *AbortionGroupB
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //	}
 //
 //	client.Abortion.Query().
-//		Select(abortion.FieldName).
+//		Select(abortion.FieldCattleId).
 //		Scan(ctx, &v)
 //
 func (aq *AbortionQuery) Select(field string, fields ...string) *AbortionSelect {

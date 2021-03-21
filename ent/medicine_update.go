@@ -27,6 +27,76 @@ func (mu *MedicineUpdate) Where(ps ...predicate.Medicine) *MedicineUpdate {
 	return mu
 }
 
+// SetCattleId sets the cattleId field.
+func (mu *MedicineUpdate) SetCattleId(i int64) *MedicineUpdate {
+	mu.mutation.ResetCattleId()
+	mu.mutation.SetCattleId(i)
+	return mu
+}
+
+// AddCattleId adds i to cattleId.
+func (mu *MedicineUpdate) AddCattleId(i int64) *MedicineUpdate {
+	mu.mutation.AddCattleId(i)
+	return mu
+}
+
+// SetTenantId sets the tenantId field.
+func (mu *MedicineUpdate) SetTenantId(i int64) *MedicineUpdate {
+	mu.mutation.ResetTenantId()
+	mu.mutation.SetTenantId(i)
+	return mu
+}
+
+// AddTenantId adds i to tenantId.
+func (mu *MedicineUpdate) AddTenantId(i int64) *MedicineUpdate {
+	mu.mutation.AddTenantId(i)
+	return mu
+}
+
+// SetTenantName sets the tenantName field.
+func (mu *MedicineUpdate) SetTenantName(s string) *MedicineUpdate {
+	mu.mutation.SetTenantName(s)
+	return mu
+}
+
+// SetFarmId sets the farmId field.
+func (mu *MedicineUpdate) SetFarmId(i int64) *MedicineUpdate {
+	mu.mutation.ResetFarmId()
+	mu.mutation.SetFarmId(i)
+	return mu
+}
+
+// AddFarmId adds i to farmId.
+func (mu *MedicineUpdate) AddFarmId(i int64) *MedicineUpdate {
+	mu.mutation.AddFarmId(i)
+	return mu
+}
+
+// SetFarmName sets the farmName field.
+func (mu *MedicineUpdate) SetFarmName(s string) *MedicineUpdate {
+	mu.mutation.SetFarmName(s)
+	return mu
+}
+
+// SetShedId sets the shedId field.
+func (mu *MedicineUpdate) SetShedId(i int64) *MedicineUpdate {
+	mu.mutation.ResetShedId()
+	mu.mutation.SetShedId(i)
+	return mu
+}
+
+// AddShedId adds i to shedId.
+func (mu *MedicineUpdate) AddShedId(i int64) *MedicineUpdate {
+	mu.mutation.AddShedId(i)
+	return mu
+}
+
+// SetShedName sets the shedName field.
+func (mu *MedicineUpdate) SetShedName(s string) *MedicineUpdate {
+	mu.mutation.SetShedName(s)
+	return mu
+}
+
 // SetEpid sets the epid field.
 func (mu *MedicineUpdate) SetEpid(i int64) *MedicineUpdate {
 	mu.mutation.ResetEpid()
@@ -142,25 +212,6 @@ func (mu *MedicineUpdate) SetRemarks(s string) *MedicineUpdate {
 	return mu
 }
 
-// SetTenantId sets the tenantId field.
-func (mu *MedicineUpdate) SetTenantId(i int64) *MedicineUpdate {
-	mu.mutation.ResetTenantId()
-	mu.mutation.SetTenantId(i)
-	return mu
-}
-
-// AddTenantId adds i to tenantId.
-func (mu *MedicineUpdate) AddTenantId(i int64) *MedicineUpdate {
-	mu.mutation.AddTenantId(i)
-	return mu
-}
-
-// SetTenantName sets the tenantName field.
-func (mu *MedicineUpdate) SetTenantName(s string) *MedicineUpdate {
-	mu.mutation.SetTenantName(s)
-	return mu
-}
-
 // Mutation returns the MedicineMutation object of the builder.
 func (mu *MedicineUpdate) Mutation() *MedicineMutation {
 	return mu.mutation
@@ -234,6 +285,83 @@ func (mu *MedicineUpdate) sqlSave(ctx context.Context) (n int, err error) {
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := mu.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldCattleId,
+		})
+	}
+	if value, ok := mu.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldCattleId,
+		})
+	}
+	if value, ok := mu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldTenantId,
+		})
+	}
+	if value, ok := mu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldTenantId,
+		})
+	}
+	if value, ok := mu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: medicine.FieldTenantName,
+		})
+	}
+	if value, ok := mu.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldFarmId,
+		})
+	}
+	if value, ok := mu.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldFarmId,
+		})
+	}
+	if value, ok := mu.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: medicine.FieldFarmName,
+		})
+	}
+	if value, ok := mu.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldShedId,
+		})
+	}
+	if value, ok := mu.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldShedId,
+		})
+	}
+	if value, ok := mu.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: medicine.FieldShedName,
+		})
 	}
 	if value, ok := mu.mutation.Epid(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
@@ -361,27 +489,6 @@ func (mu *MedicineUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: medicine.FieldRemarks,
 		})
 	}
-	if value, ok := mu.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: medicine.FieldTenantId,
-		})
-	}
-	if value, ok := mu.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: medicine.FieldTenantId,
-		})
-	}
-	if value, ok := mu.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: medicine.FieldTenantName,
-		})
-	}
 	if n, err = sqlgraph.UpdateNodes(ctx, mu.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{medicine.Label}
@@ -398,6 +505,76 @@ type MedicineUpdateOne struct {
 	config
 	hooks    []Hook
 	mutation *MedicineMutation
+}
+
+// SetCattleId sets the cattleId field.
+func (muo *MedicineUpdateOne) SetCattleId(i int64) *MedicineUpdateOne {
+	muo.mutation.ResetCattleId()
+	muo.mutation.SetCattleId(i)
+	return muo
+}
+
+// AddCattleId adds i to cattleId.
+func (muo *MedicineUpdateOne) AddCattleId(i int64) *MedicineUpdateOne {
+	muo.mutation.AddCattleId(i)
+	return muo
+}
+
+// SetTenantId sets the tenantId field.
+func (muo *MedicineUpdateOne) SetTenantId(i int64) *MedicineUpdateOne {
+	muo.mutation.ResetTenantId()
+	muo.mutation.SetTenantId(i)
+	return muo
+}
+
+// AddTenantId adds i to tenantId.
+func (muo *MedicineUpdateOne) AddTenantId(i int64) *MedicineUpdateOne {
+	muo.mutation.AddTenantId(i)
+	return muo
+}
+
+// SetTenantName sets the tenantName field.
+func (muo *MedicineUpdateOne) SetTenantName(s string) *MedicineUpdateOne {
+	muo.mutation.SetTenantName(s)
+	return muo
+}
+
+// SetFarmId sets the farmId field.
+func (muo *MedicineUpdateOne) SetFarmId(i int64) *MedicineUpdateOne {
+	muo.mutation.ResetFarmId()
+	muo.mutation.SetFarmId(i)
+	return muo
+}
+
+// AddFarmId adds i to farmId.
+func (muo *MedicineUpdateOne) AddFarmId(i int64) *MedicineUpdateOne {
+	muo.mutation.AddFarmId(i)
+	return muo
+}
+
+// SetFarmName sets the farmName field.
+func (muo *MedicineUpdateOne) SetFarmName(s string) *MedicineUpdateOne {
+	muo.mutation.SetFarmName(s)
+	return muo
+}
+
+// SetShedId sets the shedId field.
+func (muo *MedicineUpdateOne) SetShedId(i int64) *MedicineUpdateOne {
+	muo.mutation.ResetShedId()
+	muo.mutation.SetShedId(i)
+	return muo
+}
+
+// AddShedId adds i to shedId.
+func (muo *MedicineUpdateOne) AddShedId(i int64) *MedicineUpdateOne {
+	muo.mutation.AddShedId(i)
+	return muo
+}
+
+// SetShedName sets the shedName field.
+func (muo *MedicineUpdateOne) SetShedName(s string) *MedicineUpdateOne {
+	muo.mutation.SetShedName(s)
+	return muo
 }
 
 // SetEpid sets the epid field.
@@ -515,25 +692,6 @@ func (muo *MedicineUpdateOne) SetRemarks(s string) *MedicineUpdateOne {
 	return muo
 }
 
-// SetTenantId sets the tenantId field.
-func (muo *MedicineUpdateOne) SetTenantId(i int64) *MedicineUpdateOne {
-	muo.mutation.ResetTenantId()
-	muo.mutation.SetTenantId(i)
-	return muo
-}
-
-// AddTenantId adds i to tenantId.
-func (muo *MedicineUpdateOne) AddTenantId(i int64) *MedicineUpdateOne {
-	muo.mutation.AddTenantId(i)
-	return muo
-}
-
-// SetTenantName sets the tenantName field.
-func (muo *MedicineUpdateOne) SetTenantName(s string) *MedicineUpdateOne {
-	muo.mutation.SetTenantName(s)
-	return muo
-}
-
 // Mutation returns the MedicineMutation object of the builder.
 func (muo *MedicineUpdateOne) Mutation() *MedicineMutation {
 	return muo.mutation
@@ -606,6 +764,83 @@ func (muo *MedicineUpdateOne) sqlSave(ctx context.Context) (_node *Medicine, err
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing Medicine.ID for update")}
 	}
 	_spec.Node.ID.Value = id
+	if value, ok := muo.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldCattleId,
+		})
+	}
+	if value, ok := muo.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldCattleId,
+		})
+	}
+	if value, ok := muo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldTenantId,
+		})
+	}
+	if value, ok := muo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldTenantId,
+		})
+	}
+	if value, ok := muo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: medicine.FieldTenantName,
+		})
+	}
+	if value, ok := muo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldFarmId,
+		})
+	}
+	if value, ok := muo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldFarmId,
+		})
+	}
+	if value, ok := muo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: medicine.FieldFarmName,
+		})
+	}
+	if value, ok := muo.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldShedId,
+		})
+	}
+	if value, ok := muo.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: medicine.FieldShedId,
+		})
+	}
+	if value, ok := muo.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: medicine.FieldShedName,
+		})
+	}
 	if value, ok := muo.mutation.Epid(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -730,27 +965,6 @@ func (muo *MedicineUpdateOne) sqlSave(ctx context.Context) (_node *Medicine, err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: medicine.FieldRemarks,
-		})
-	}
-	if value, ok := muo.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: medicine.FieldTenantId,
-		})
-	}
-	if value, ok := muo.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: medicine.FieldTenantId,
-		})
-	}
-	if value, ok := muo.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: medicine.FieldTenantName,
 		})
 	}
 	_node = &Medicine{config: muo.config}

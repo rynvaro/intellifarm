@@ -19,6 +19,48 @@ type AbortionCreate struct {
 	hooks    []Hook
 }
 
+// SetCattleId sets the cattleId field.
+func (ac *AbortionCreate) SetCattleId(i int64) *AbortionCreate {
+	ac.mutation.SetCattleId(i)
+	return ac
+}
+
+// SetTenantId sets the tenantId field.
+func (ac *AbortionCreate) SetTenantId(i int64) *AbortionCreate {
+	ac.mutation.SetTenantId(i)
+	return ac
+}
+
+// SetTenantName sets the tenantName field.
+func (ac *AbortionCreate) SetTenantName(s string) *AbortionCreate {
+	ac.mutation.SetTenantName(s)
+	return ac
+}
+
+// SetFarmId sets the farmId field.
+func (ac *AbortionCreate) SetFarmId(i int64) *AbortionCreate {
+	ac.mutation.SetFarmId(i)
+	return ac
+}
+
+// SetFarmName sets the farmName field.
+func (ac *AbortionCreate) SetFarmName(s string) *AbortionCreate {
+	ac.mutation.SetFarmName(s)
+	return ac
+}
+
+// SetShedId sets the shedId field.
+func (ac *AbortionCreate) SetShedId(i int64) *AbortionCreate {
+	ac.mutation.SetShedId(i)
+	return ac
+}
+
+// SetShedName sets the shedName field.
+func (ac *AbortionCreate) SetShedName(s string) *AbortionCreate {
+	ac.mutation.SetShedName(s)
+	return ac
+}
+
 // SetName sets the name field.
 func (ac *AbortionCreate) SetName(s string) *AbortionCreate {
 	ac.mutation.SetName(s)
@@ -42,18 +84,6 @@ func (ac *AbortionCreate) SetEarNumber(s string) *AbortionCreate {
 // SetTimes sets the times field.
 func (ac *AbortionCreate) SetTimes(i int) *AbortionCreate {
 	ac.mutation.SetTimes(i)
-	return ac
-}
-
-// SetReproductiveState sets the reproductiveState field.
-func (ac *AbortionCreate) SetReproductiveState(s string) *AbortionCreate {
-	ac.mutation.SetReproductiveState(s)
-	return ac
-}
-
-// SetShedName sets the shedName field.
-func (ac *AbortionCreate) SetShedName(s string) *AbortionCreate {
-	ac.mutation.SetShedName(s)
 	return ac
 }
 
@@ -84,18 +114,6 @@ func (ac *AbortionCreate) SetAbortionTypeName(s string) *AbortionCreate {
 // SetUserName sets the userName field.
 func (ac *AbortionCreate) SetUserName(s string) *AbortionCreate {
 	ac.mutation.SetUserName(s)
-	return ac
-}
-
-// SetTenantId sets the tenantId field.
-func (ac *AbortionCreate) SetTenantId(i int64) *AbortionCreate {
-	ac.mutation.SetTenantId(i)
-	return ac
-}
-
-// SetTenantName sets the tenantName field.
-func (ac *AbortionCreate) SetTenantName(s string) *AbortionCreate {
-	ac.mutation.SetTenantName(s)
 	return ac
 }
 
@@ -174,17 +192,32 @@ func (ac *AbortionCreate) SaveX(ctx context.Context) *Abortion {
 
 // check runs all checks and user-defined validators on the builder.
 func (ac *AbortionCreate) check() error {
+	if _, ok := ac.mutation.CattleId(); !ok {
+		return &ValidationError{Name: "cattleId", err: errors.New("ent: missing required field \"cattleId\"")}
+	}
+	if _, ok := ac.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := ac.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := ac.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := ac.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
+	}
+	if _, ok := ac.mutation.ShedId(); !ok {
+		return &ValidationError{Name: "shedId", err: errors.New("ent: missing required field \"shedId\"")}
+	}
+	if _, ok := ac.mutation.ShedName(); !ok {
+		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
+	}
 	if _, ok := ac.mutation.EarNumber(); !ok {
 		return &ValidationError{Name: "earNumber", err: errors.New("ent: missing required field \"earNumber\"")}
 	}
 	if _, ok := ac.mutation.Times(); !ok {
 		return &ValidationError{Name: "times", err: errors.New("ent: missing required field \"times\"")}
-	}
-	if _, ok := ac.mutation.ReproductiveState(); !ok {
-		return &ValidationError{Name: "reproductiveState", err: errors.New("ent: missing required field \"reproductiveState\"")}
-	}
-	if _, ok := ac.mutation.ShedName(); !ok {
-		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
 	}
 	if _, ok := ac.mutation.PregnantAt(); !ok {
 		return &ValidationError{Name: "pregnantAt", err: errors.New("ent: missing required field \"pregnantAt\"")}
@@ -200,12 +233,6 @@ func (ac *AbortionCreate) check() error {
 	}
 	if _, ok := ac.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
-	}
-	if _, ok := ac.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if _, ok := ac.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := ac.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -246,6 +273,62 @@ func (ac *AbortionCreate) createSpec() (*Abortion, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := ac.mutation.CattleId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldCattleId,
+		})
+		_node.CattleId = value
+	}
+	if value, ok := ac.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := ac.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: abortion.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := ac.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := ac.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: abortion.FieldFarmName,
+		})
+		_node.FarmName = value
+	}
+	if value, ok := ac.mutation.ShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: abortion.FieldShedId,
+		})
+		_node.ShedId = value
+	}
+	if value, ok := ac.mutation.ShedName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: abortion.FieldShedName,
+		})
+		_node.ShedName = value
+	}
 	if value, ok := ac.mutation.Name(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -269,22 +352,6 @@ func (ac *AbortionCreate) createSpec() (*Abortion, *sqlgraph.CreateSpec) {
 			Column: abortion.FieldTimes,
 		})
 		_node.Times = value
-	}
-	if value, ok := ac.mutation.ReproductiveState(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: abortion.FieldReproductiveState,
-		})
-		_node.ReproductiveState = value
-	}
-	if value, ok := ac.mutation.ShedName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: abortion.FieldShedName,
-		})
-		_node.ShedName = value
 	}
 	if value, ok := ac.mutation.PregnantAt(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -325,22 +392,6 @@ func (ac *AbortionCreate) createSpec() (*Abortion, *sqlgraph.CreateSpec) {
 			Column: abortion.FieldUserName,
 		})
 		_node.UserName = value
-	}
-	if value, ok := ac.mutation.TenantId(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: abortion.FieldTenantId,
-		})
-		_node.TenantId = value
-	}
-	if value, ok := ac.mutation.TenantName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: abortion.FieldTenantName,
-		})
-		_node.TenantName = value
 	}
 	if value, ok := ac.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

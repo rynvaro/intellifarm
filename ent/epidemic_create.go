@@ -19,6 +19,48 @@ type EpidemicCreate struct {
 	hooks    []Hook
 }
 
+// SetCattleId sets the cattleId field.
+func (ec *EpidemicCreate) SetCattleId(i int64) *EpidemicCreate {
+	ec.mutation.SetCattleId(i)
+	return ec
+}
+
+// SetTenantId sets the tenantId field.
+func (ec *EpidemicCreate) SetTenantId(i int64) *EpidemicCreate {
+	ec.mutation.SetTenantId(i)
+	return ec
+}
+
+// SetTenantName sets the tenantName field.
+func (ec *EpidemicCreate) SetTenantName(s string) *EpidemicCreate {
+	ec.mutation.SetTenantName(s)
+	return ec
+}
+
+// SetFarmId sets the farmId field.
+func (ec *EpidemicCreate) SetFarmId(i int64) *EpidemicCreate {
+	ec.mutation.SetFarmId(i)
+	return ec
+}
+
+// SetFarmName sets the farmName field.
+func (ec *EpidemicCreate) SetFarmName(s string) *EpidemicCreate {
+	ec.mutation.SetFarmName(s)
+	return ec
+}
+
+// SetShedId sets the shedId field.
+func (ec *EpidemicCreate) SetShedId(i int64) *EpidemicCreate {
+	ec.mutation.SetShedId(i)
+	return ec
+}
+
+// SetShedName sets the shedName field.
+func (ec *EpidemicCreate) SetShedName(s string) *EpidemicCreate {
+	ec.mutation.SetShedName(s)
+	return ec
+}
+
 // SetName sets the name field.
 func (ec *EpidemicCreate) SetName(s string) *EpidemicCreate {
 	ec.mutation.SetName(s)
@@ -28,12 +70,6 @@ func (ec *EpidemicCreate) SetName(s string) *EpidemicCreate {
 // SetEarNumber sets the earNumber field.
 func (ec *EpidemicCreate) SetEarNumber(s string) *EpidemicCreate {
 	ec.mutation.SetEarNumber(s)
-	return ec
-}
-
-// SetShedName sets the shedName field.
-func (ec *EpidemicCreate) SetShedName(s string) *EpidemicCreate {
-	ec.mutation.SetShedName(s)
 	return ec
 }
 
@@ -94,18 +130,6 @@ func (ec *EpidemicCreate) SetTreatmentAt(i int64) *EpidemicCreate {
 // SetWhereabout sets the whereabout field.
 func (ec *EpidemicCreate) SetWhereabout(s string) *EpidemicCreate {
 	ec.mutation.SetWhereabout(s)
-	return ec
-}
-
-// SetTenantId sets the tenantId field.
-func (ec *EpidemicCreate) SetTenantId(i int64) *EpidemicCreate {
-	ec.mutation.SetTenantId(i)
-	return ec
-}
-
-// SetTenantName sets the tenantName field.
-func (ec *EpidemicCreate) SetTenantName(s string) *EpidemicCreate {
-	ec.mutation.SetTenantName(s)
 	return ec
 }
 
@@ -184,14 +208,32 @@ func (ec *EpidemicCreate) SaveX(ctx context.Context) *Epidemic {
 
 // check runs all checks and user-defined validators on the builder.
 func (ec *EpidemicCreate) check() error {
+	if _, ok := ec.mutation.CattleId(); !ok {
+		return &ValidationError{Name: "cattleId", err: errors.New("ent: missing required field \"cattleId\"")}
+	}
+	if _, ok := ec.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := ec.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := ec.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := ec.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
+	}
+	if _, ok := ec.mutation.ShedId(); !ok {
+		return &ValidationError{Name: "shedId", err: errors.New("ent: missing required field \"shedId\"")}
+	}
+	if _, ok := ec.mutation.ShedName(); !ok {
+		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
+	}
 	if _, ok := ec.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
 	}
 	if _, ok := ec.mutation.EarNumber(); !ok {
 		return &ValidationError{Name: "earNumber", err: errors.New("ent: missing required field \"earNumber\"")}
-	}
-	if _, ok := ec.mutation.ShedName(); !ok {
-		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
 	}
 	if _, ok := ec.mutation.Onset(); !ok {
 		return &ValidationError{Name: "onset", err: errors.New("ent: missing required field \"onset\"")}
@@ -222,12 +264,6 @@ func (ec *EpidemicCreate) check() error {
 	}
 	if _, ok := ec.mutation.Whereabout(); !ok {
 		return &ValidationError{Name: "whereabout", err: errors.New("ent: missing required field \"whereabout\"")}
-	}
-	if _, ok := ec.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if _, ok := ec.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := ec.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -268,6 +304,62 @@ func (ec *EpidemicCreate) createSpec() (*Epidemic, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := ec.mutation.CattleId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldCattleId,
+		})
+		_node.CattleId = value
+	}
+	if value, ok := ec.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := ec.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: epidemic.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := ec.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := ec.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: epidemic.FieldFarmName,
+		})
+		_node.FarmName = value
+	}
+	if value, ok := ec.mutation.ShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: epidemic.FieldShedId,
+		})
+		_node.ShedId = value
+	}
+	if value, ok := ec.mutation.ShedName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: epidemic.FieldShedName,
+		})
+		_node.ShedName = value
+	}
 	if value, ok := ec.mutation.Name(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -283,14 +375,6 @@ func (ec *EpidemicCreate) createSpec() (*Epidemic, *sqlgraph.CreateSpec) {
 			Column: epidemic.FieldEarNumber,
 		})
 		_node.EarNumber = value
-	}
-	if value, ok := ec.mutation.ShedName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: epidemic.FieldShedName,
-		})
-		_node.ShedName = value
 	}
 	if value, ok := ec.mutation.Onset(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -371,22 +455,6 @@ func (ec *EpidemicCreate) createSpec() (*Epidemic, *sqlgraph.CreateSpec) {
 			Column: epidemic.FieldWhereabout,
 		})
 		_node.Whereabout = value
-	}
-	if value, ok := ec.mutation.TenantId(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: epidemic.FieldTenantId,
-		})
-		_node.TenantId = value
-	}
-	if value, ok := ec.mutation.TenantName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: epidemic.FieldTenantName,
-		})
-		_node.TenantName = value
 	}
 	if value, ok := ec.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

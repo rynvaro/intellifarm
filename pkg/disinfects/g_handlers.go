@@ -33,8 +33,10 @@ func DisinfectAddHandler(c *gin.Context) {
 		SetTypeName(form.TypeName).
 		SetWayId(form.WayId).
 		SetWayName(form.WayName).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -108,6 +110,10 @@ func DisinfectUpdateHandler(c *gin.Context) {
 		SetTypeName(form.TypeName).
 		SetWayId(form.WayId).
 		SetWayName(form.WayName).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())
 	if err != nil {

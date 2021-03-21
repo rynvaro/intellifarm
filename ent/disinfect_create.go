@@ -19,6 +19,48 @@ type DisinfectCreate struct {
 	hooks    []Hook
 }
 
+// SetCattleId sets the cattleId field.
+func (dc *DisinfectCreate) SetCattleId(i int64) *DisinfectCreate {
+	dc.mutation.SetCattleId(i)
+	return dc
+}
+
+// SetTenantId sets the tenantId field.
+func (dc *DisinfectCreate) SetTenantId(i int64) *DisinfectCreate {
+	dc.mutation.SetTenantId(i)
+	return dc
+}
+
+// SetTenantName sets the tenantName field.
+func (dc *DisinfectCreate) SetTenantName(s string) *DisinfectCreate {
+	dc.mutation.SetTenantName(s)
+	return dc
+}
+
+// SetFarmId sets the farmId field.
+func (dc *DisinfectCreate) SetFarmId(i int64) *DisinfectCreate {
+	dc.mutation.SetFarmId(i)
+	return dc
+}
+
+// SetFarmName sets the farmName field.
+func (dc *DisinfectCreate) SetFarmName(s string) *DisinfectCreate {
+	dc.mutation.SetFarmName(s)
+	return dc
+}
+
+// SetShedId sets the shedId field.
+func (dc *DisinfectCreate) SetShedId(i int64) *DisinfectCreate {
+	dc.mutation.SetShedId(i)
+	return dc
+}
+
+// SetShedName sets the shedName field.
+func (dc *DisinfectCreate) SetShedName(s string) *DisinfectCreate {
+	dc.mutation.SetShedName(s)
+	return dc
+}
+
 // SetName sets the name field.
 func (dc *DisinfectCreate) SetName(s string) *DisinfectCreate {
 	dc.mutation.SetName(s)
@@ -70,18 +112,6 @@ func (dc *DisinfectCreate) SetWayName(s string) *DisinfectCreate {
 // SetDrug sets the drug field.
 func (dc *DisinfectCreate) SetDrug(s string) *DisinfectCreate {
 	dc.mutation.SetDrug(s)
-	return dc
-}
-
-// SetTenantId sets the tenantId field.
-func (dc *DisinfectCreate) SetTenantId(i int64) *DisinfectCreate {
-	dc.mutation.SetTenantId(i)
-	return dc
-}
-
-// SetTenantName sets the tenantName field.
-func (dc *DisinfectCreate) SetTenantName(s string) *DisinfectCreate {
-	dc.mutation.SetTenantName(s)
 	return dc
 }
 
@@ -160,6 +190,27 @@ func (dc *DisinfectCreate) SaveX(ctx context.Context) *Disinfect {
 
 // check runs all checks and user-defined validators on the builder.
 func (dc *DisinfectCreate) check() error {
+	if _, ok := dc.mutation.CattleId(); !ok {
+		return &ValidationError{Name: "cattleId", err: errors.New("ent: missing required field \"cattleId\"")}
+	}
+	if _, ok := dc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := dc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := dc.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := dc.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
+	}
+	if _, ok := dc.mutation.ShedId(); !ok {
+		return &ValidationError{Name: "shedId", err: errors.New("ent: missing required field \"shedId\"")}
+	}
+	if _, ok := dc.mutation.ShedName(); !ok {
+		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
+	}
 	if _, ok := dc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
 	}
@@ -186,12 +237,6 @@ func (dc *DisinfectCreate) check() error {
 	}
 	if _, ok := dc.mutation.Drug(); !ok {
 		return &ValidationError{Name: "drug", err: errors.New("ent: missing required field \"drug\"")}
-	}
-	if _, ok := dc.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if _, ok := dc.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := dc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -232,6 +277,62 @@ func (dc *DisinfectCreate) createSpec() (*Disinfect, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := dc.mutation.CattleId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldCattleId,
+		})
+		_node.CattleId = value
+	}
+	if value, ok := dc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := dc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: disinfect.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := dc.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := dc.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: disinfect.FieldFarmName,
+		})
+		_node.FarmName = value
+	}
+	if value, ok := dc.mutation.ShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldShedId,
+		})
+		_node.ShedId = value
+	}
+	if value, ok := dc.mutation.ShedName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: disinfect.FieldShedName,
+		})
+		_node.ShedName = value
+	}
 	if value, ok := dc.mutation.Name(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -303,22 +404,6 @@ func (dc *DisinfectCreate) createSpec() (*Disinfect, *sqlgraph.CreateSpec) {
 			Column: disinfect.FieldDrug,
 		})
 		_node.Drug = value
-	}
-	if value, ok := dc.mutation.TenantId(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: disinfect.FieldTenantId,
-		})
-		_node.TenantId = value
-	}
-	if value, ok := dc.mutation.TenantName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: disinfect.FieldTenantName,
-		})
-		_node.TenantName = value
 	}
 	if value, ok := dc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

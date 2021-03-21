@@ -19,14 +19,80 @@ type FeedInfo struct {
 	Name string `json:"name,omitempty"`
 	// Code holds the value of the "code" field.
 	Code string `json:"code,omitempty"`
-	// Type holds the value of the "type" field.
-	Type string `json:"type,omitempty"`
+	// Moisture holds the value of the "moisture" field.
+	Moisture float32 `json:"moisture,omitempty"`
+	// DryMatter holds the value of the "dryMatter" field.
+	DryMatter float32 `json:"dryMatter,omitempty"`
+	// Ndf holds the value of the "ndf" field.
+	Ndf float32 `json:"ndf,omitempty"`
+	// Adf holds the value of the "adf" field.
+	Adf float32 `json:"adf,omitempty"`
+	// Endf holds the value of the "endf" field.
+	Endf float32 `json:"endf,omitempty"`
+	// LacticAcid holds the value of the "lacticAcid" field.
+	LacticAcid float32 `json:"lacticAcid,omitempty"`
+	// Wsc holds the value of the "wsc" field.
+	Wsc float32 `json:"wsc,omitempty"`
+	// Starch holds the value of the "starch" field.
+	Starch float32 `json:"starch,omitempty"`
+	// SolubleFiber holds the value of the "solubleFiber" field.
+	SolubleFiber float32 `json:"solubleFiber,omitempty"`
+	// TotalProtein holds the value of the "totalProtein" field.
+	TotalProtein float32 `json:"totalProtein,omitempty"`
+	// SolubleProtein holds the value of the "solubleProtein" field.
+	SolubleProtein float32 `json:"solubleProtein,omitempty"`
+	// Rdp holds the value of the "rdp" field.
+	Rdp float32 `json:"rdp,omitempty"`
+	// Me holds the value of the "me" field.
+	Me float32 `json:"me,omitempty"`
+	// Nel holds the value of the "nel" field.
+	Nel float32 `json:"nel,omitempty"`
+	// CrudeFat holds the value of the "crudeFat" field.
+	CrudeFat float32 `json:"crudeFat,omitempty"`
+	// TotalFttyAcid holds the value of the "totalFttyAcid" field.
+	TotalFttyAcid float32 `json:"totalFttyAcid,omitempty"`
+	// Ash holds the value of the "ash" field.
+	Ash float32 `json:"ash,omitempty"`
+	// Ca holds the value of the "ca" field.
+	Ca float32 `json:"ca,omitempty"`
+	// P holds the value of the "p" field.
+	P float32 `json:"p,omitempty"`
+	// Mg holds the value of the "mg" field.
+	Mg float32 `json:"mg,omitempty"`
+	// K holds the value of the "k" field.
+	K float32 `json:"k,omitempty"`
+	// Mn holds the value of the "mn" field.
+	Mn float32 `json:"mn,omitempty"`
+	// Cu holds the value of the "cu" field.
+	Cu float32 `json:"cu,omitempty"`
+	// Fe holds the value of the "fe" field.
+	Fe float32 `json:"fe,omitempty"`
+	// Zn holds the value of the "zn" field.
+	Zn float32 `json:"zn,omitempty"`
+	// Methionine holds the value of the "methionine" field.
+	Methionine float32 `json:"methionine,omitempty"`
+	// Lysine holds the value of the "lysine" field.
+	Lysine float32 `json:"lysine,omitempty"`
+	// VitaminA holds the value of the "vitaminA" field.
+	VitaminA float32 `json:"vitaminA,omitempty"`
+	// VitaminD3 holds the value of the "vitaminD3" field.
+	VitaminD3 float32 `json:"vitaminD3,omitempty"`
+	// VitaminE holds the value of the "vitaminE" field.
+	VitaminE float32 `json:"vitaminE,omitempty"`
+	// Choline holds the value of the "choline" field.
+	Choline float32 `json:"choline,omitempty"`
+	// Biotin holds the value of the "biotin" field.
+	Biotin float32 `json:"biotin,omitempty"`
 	// Description holds the value of the "description" field.
 	Description string `json:"description,omitempty"`
 	// TenantId holds the value of the "tenantId" field.
 	TenantId int64 `json:"tenantId,omitempty"`
 	// TenantName holds the value of the "tenantName" field.
 	TenantName string `json:"tenantName,omitempty"`
+	// FarmId holds the value of the "farmId" field.
+	FarmId int64 `json:"farmId,omitempty"`
+	// FarmName holds the value of the "farmName" field.
+	FarmName string `json:"farmName,omitempty"`
 	// Remarks holds the value of the "remarks" field.
 	Remarks string `json:"remarks,omitempty"`
 	// CreatedAt holds the value of the "createdAt" field.
@@ -40,17 +106,50 @@ type FeedInfo struct {
 // scanValues returns the types for scanning values from sql.Rows.
 func (*FeedInfo) scanValues() []interface{} {
 	return []interface{}{
-		&sql.NullInt64{},  // id
-		&sql.NullString{}, // name
-		&sql.NullString{}, // code
-		&sql.NullString{}, // type
-		&sql.NullString{}, // description
-		&sql.NullInt64{},  // tenantId
-		&sql.NullString{}, // tenantName
-		&sql.NullString{}, // remarks
-		&sql.NullInt64{},  // createdAt
-		&sql.NullInt64{},  // updatedAt
-		&sql.NullInt64{},  // deleted
+		&sql.NullInt64{},   // id
+		&sql.NullString{},  // name
+		&sql.NullString{},  // code
+		&sql.NullFloat64{}, // moisture
+		&sql.NullFloat64{}, // dryMatter
+		&sql.NullFloat64{}, // ndf
+		&sql.NullFloat64{}, // adf
+		&sql.NullFloat64{}, // endf
+		&sql.NullFloat64{}, // lacticAcid
+		&sql.NullFloat64{}, // wsc
+		&sql.NullFloat64{}, // starch
+		&sql.NullFloat64{}, // solubleFiber
+		&sql.NullFloat64{}, // totalProtein
+		&sql.NullFloat64{}, // solubleProtein
+		&sql.NullFloat64{}, // rdp
+		&sql.NullFloat64{}, // me
+		&sql.NullFloat64{}, // nel
+		&sql.NullFloat64{}, // crudeFat
+		&sql.NullFloat64{}, // totalFttyAcid
+		&sql.NullFloat64{}, // ash
+		&sql.NullFloat64{}, // ca
+		&sql.NullFloat64{}, // p
+		&sql.NullFloat64{}, // mg
+		&sql.NullFloat64{}, // k
+		&sql.NullFloat64{}, // mn
+		&sql.NullFloat64{}, // cu
+		&sql.NullFloat64{}, // fe
+		&sql.NullFloat64{}, // zn
+		&sql.NullFloat64{}, // methionine
+		&sql.NullFloat64{}, // lysine
+		&sql.NullFloat64{}, // vitaminA
+		&sql.NullFloat64{}, // vitaminD3
+		&sql.NullFloat64{}, // vitaminE
+		&sql.NullFloat64{}, // choline
+		&sql.NullFloat64{}, // biotin
+		&sql.NullString{},  // description
+		&sql.NullInt64{},   // tenantId
+		&sql.NullString{},  // tenantName
+		&sql.NullInt64{},   // farmId
+		&sql.NullString{},  // farmName
+		&sql.NullString{},  // remarks
+		&sql.NullInt64{},   // createdAt
+		&sql.NullInt64{},   // updatedAt
+		&sql.NullInt64{},   // deleted
 	}
 }
 
@@ -76,43 +175,208 @@ func (fi *FeedInfo) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		fi.Code = value.String
 	}
-	if value, ok := values[2].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field type", values[2])
+	if value, ok := values[2].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field moisture", values[2])
 	} else if value.Valid {
-		fi.Type = value.String
+		fi.Moisture = float32(value.Float64)
 	}
-	if value, ok := values[3].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field description", values[3])
+	if value, ok := values[3].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field dryMatter", values[3])
+	} else if value.Valid {
+		fi.DryMatter = float32(value.Float64)
+	}
+	if value, ok := values[4].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field ndf", values[4])
+	} else if value.Valid {
+		fi.Ndf = float32(value.Float64)
+	}
+	if value, ok := values[5].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field adf", values[5])
+	} else if value.Valid {
+		fi.Adf = float32(value.Float64)
+	}
+	if value, ok := values[6].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field endf", values[6])
+	} else if value.Valid {
+		fi.Endf = float32(value.Float64)
+	}
+	if value, ok := values[7].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field lacticAcid", values[7])
+	} else if value.Valid {
+		fi.LacticAcid = float32(value.Float64)
+	}
+	if value, ok := values[8].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field wsc", values[8])
+	} else if value.Valid {
+		fi.Wsc = float32(value.Float64)
+	}
+	if value, ok := values[9].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field starch", values[9])
+	} else if value.Valid {
+		fi.Starch = float32(value.Float64)
+	}
+	if value, ok := values[10].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field solubleFiber", values[10])
+	} else if value.Valid {
+		fi.SolubleFiber = float32(value.Float64)
+	}
+	if value, ok := values[11].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field totalProtein", values[11])
+	} else if value.Valid {
+		fi.TotalProtein = float32(value.Float64)
+	}
+	if value, ok := values[12].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field solubleProtein", values[12])
+	} else if value.Valid {
+		fi.SolubleProtein = float32(value.Float64)
+	}
+	if value, ok := values[13].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field rdp", values[13])
+	} else if value.Valid {
+		fi.Rdp = float32(value.Float64)
+	}
+	if value, ok := values[14].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field me", values[14])
+	} else if value.Valid {
+		fi.Me = float32(value.Float64)
+	}
+	if value, ok := values[15].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field nel", values[15])
+	} else if value.Valid {
+		fi.Nel = float32(value.Float64)
+	}
+	if value, ok := values[16].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field crudeFat", values[16])
+	} else if value.Valid {
+		fi.CrudeFat = float32(value.Float64)
+	}
+	if value, ok := values[17].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field totalFttyAcid", values[17])
+	} else if value.Valid {
+		fi.TotalFttyAcid = float32(value.Float64)
+	}
+	if value, ok := values[18].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field ash", values[18])
+	} else if value.Valid {
+		fi.Ash = float32(value.Float64)
+	}
+	if value, ok := values[19].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field ca", values[19])
+	} else if value.Valid {
+		fi.Ca = float32(value.Float64)
+	}
+	if value, ok := values[20].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field p", values[20])
+	} else if value.Valid {
+		fi.P = float32(value.Float64)
+	}
+	if value, ok := values[21].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field mg", values[21])
+	} else if value.Valid {
+		fi.Mg = float32(value.Float64)
+	}
+	if value, ok := values[22].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field k", values[22])
+	} else if value.Valid {
+		fi.K = float32(value.Float64)
+	}
+	if value, ok := values[23].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field mn", values[23])
+	} else if value.Valid {
+		fi.Mn = float32(value.Float64)
+	}
+	if value, ok := values[24].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field cu", values[24])
+	} else if value.Valid {
+		fi.Cu = float32(value.Float64)
+	}
+	if value, ok := values[25].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field fe", values[25])
+	} else if value.Valid {
+		fi.Fe = float32(value.Float64)
+	}
+	if value, ok := values[26].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field zn", values[26])
+	} else if value.Valid {
+		fi.Zn = float32(value.Float64)
+	}
+	if value, ok := values[27].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field methionine", values[27])
+	} else if value.Valid {
+		fi.Methionine = float32(value.Float64)
+	}
+	if value, ok := values[28].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field lysine", values[28])
+	} else if value.Valid {
+		fi.Lysine = float32(value.Float64)
+	}
+	if value, ok := values[29].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field vitaminA", values[29])
+	} else if value.Valid {
+		fi.VitaminA = float32(value.Float64)
+	}
+	if value, ok := values[30].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field vitaminD3", values[30])
+	} else if value.Valid {
+		fi.VitaminD3 = float32(value.Float64)
+	}
+	if value, ok := values[31].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field vitaminE", values[31])
+	} else if value.Valid {
+		fi.VitaminE = float32(value.Float64)
+	}
+	if value, ok := values[32].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field choline", values[32])
+	} else if value.Valid {
+		fi.Choline = float32(value.Float64)
+	}
+	if value, ok := values[33].(*sql.NullFloat64); !ok {
+		return fmt.Errorf("unexpected type %T for field biotin", values[33])
+	} else if value.Valid {
+		fi.Biotin = float32(value.Float64)
+	}
+	if value, ok := values[34].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field description", values[34])
 	} else if value.Valid {
 		fi.Description = value.String
 	}
-	if value, ok := values[4].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantId", values[4])
+	if value, ok := values[35].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[35])
 	} else if value.Valid {
 		fi.TenantId = value.Int64
 	}
-	if value, ok := values[5].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantName", values[5])
+	if value, ok := values[36].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[36])
 	} else if value.Valid {
 		fi.TenantName = value.String
 	}
-	if value, ok := values[6].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[6])
+	if value, ok := values[37].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field farmId", values[37])
+	} else if value.Valid {
+		fi.FarmId = value.Int64
+	}
+	if value, ok := values[38].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field farmName", values[38])
+	} else if value.Valid {
+		fi.FarmName = value.String
+	}
+	if value, ok := values[39].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[39])
 	} else if value.Valid {
 		fi.Remarks = value.String
 	}
-	if value, ok := values[7].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[7])
+	if value, ok := values[40].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[40])
 	} else if value.Valid {
 		fi.CreatedAt = value.Int64
 	}
-	if value, ok := values[8].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[8])
+	if value, ok := values[41].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[41])
 	} else if value.Valid {
 		fi.UpdatedAt = value.Int64
 	}
-	if value, ok := values[9].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[9])
+	if value, ok := values[42].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[42])
 	} else if value.Valid {
 		fi.Deleted = int(value.Int64)
 	}
@@ -146,14 +410,80 @@ func (fi *FeedInfo) String() string {
 	builder.WriteString(fi.Name)
 	builder.WriteString(", code=")
 	builder.WriteString(fi.Code)
-	builder.WriteString(", type=")
-	builder.WriteString(fi.Type)
+	builder.WriteString(", moisture=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Moisture))
+	builder.WriteString(", dryMatter=")
+	builder.WriteString(fmt.Sprintf("%v", fi.DryMatter))
+	builder.WriteString(", ndf=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Ndf))
+	builder.WriteString(", adf=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Adf))
+	builder.WriteString(", endf=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Endf))
+	builder.WriteString(", lacticAcid=")
+	builder.WriteString(fmt.Sprintf("%v", fi.LacticAcid))
+	builder.WriteString(", wsc=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Wsc))
+	builder.WriteString(", starch=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Starch))
+	builder.WriteString(", solubleFiber=")
+	builder.WriteString(fmt.Sprintf("%v", fi.SolubleFiber))
+	builder.WriteString(", totalProtein=")
+	builder.WriteString(fmt.Sprintf("%v", fi.TotalProtein))
+	builder.WriteString(", solubleProtein=")
+	builder.WriteString(fmt.Sprintf("%v", fi.SolubleProtein))
+	builder.WriteString(", rdp=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Rdp))
+	builder.WriteString(", me=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Me))
+	builder.WriteString(", nel=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Nel))
+	builder.WriteString(", crudeFat=")
+	builder.WriteString(fmt.Sprintf("%v", fi.CrudeFat))
+	builder.WriteString(", totalFttyAcid=")
+	builder.WriteString(fmt.Sprintf("%v", fi.TotalFttyAcid))
+	builder.WriteString(", ash=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Ash))
+	builder.WriteString(", ca=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Ca))
+	builder.WriteString(", p=")
+	builder.WriteString(fmt.Sprintf("%v", fi.P))
+	builder.WriteString(", mg=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Mg))
+	builder.WriteString(", k=")
+	builder.WriteString(fmt.Sprintf("%v", fi.K))
+	builder.WriteString(", mn=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Mn))
+	builder.WriteString(", cu=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Cu))
+	builder.WriteString(", fe=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Fe))
+	builder.WriteString(", zn=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Zn))
+	builder.WriteString(", methionine=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Methionine))
+	builder.WriteString(", lysine=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Lysine))
+	builder.WriteString(", vitaminA=")
+	builder.WriteString(fmt.Sprintf("%v", fi.VitaminA))
+	builder.WriteString(", vitaminD3=")
+	builder.WriteString(fmt.Sprintf("%v", fi.VitaminD3))
+	builder.WriteString(", vitaminE=")
+	builder.WriteString(fmt.Sprintf("%v", fi.VitaminE))
+	builder.WriteString(", choline=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Choline))
+	builder.WriteString(", biotin=")
+	builder.WriteString(fmt.Sprintf("%v", fi.Biotin))
 	builder.WriteString(", description=")
 	builder.WriteString(fi.Description)
 	builder.WriteString(", tenantId=")
 	builder.WriteString(fmt.Sprintf("%v", fi.TenantId))
 	builder.WriteString(", tenantName=")
 	builder.WriteString(fi.TenantName)
+	builder.WriteString(", farmId=")
+	builder.WriteString(fmt.Sprintf("%v", fi.FarmId))
+	builder.WriteString(", farmName=")
+	builder.WriteString(fi.FarmName)
 	builder.WriteString(", remarks=")
 	builder.WriteString(fi.Remarks)
 	builder.WriteString(", createdAt=")

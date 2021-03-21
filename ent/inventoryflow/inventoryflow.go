@@ -7,8 +7,10 @@ const (
 	Label = "inventory_flow"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
-	// FieldMaterialID holds the string denoting the materialid field in the database.
-	FieldMaterialID = "material_id"
+	// FieldSysMaterialId holds the string denoting the sysmaterialid field in the database.
+	FieldSysMaterialId = "sys_material_id"
+	// FieldMaterialId holds the string denoting the materialid field in the database.
+	FieldMaterialId = "material_id"
 	// FieldMaterialName holds the string denoting the materialname field in the database.
 	FieldMaterialName = "material_name"
 	// FieldMaterialCode holds the string denoting the materialcode field in the database.
@@ -25,14 +27,26 @@ const (
 	FieldCount = "count"
 	// FieldUnit holds the string denoting the unit field in the database.
 	FieldUnit = "unit"
+	// FieldBefore holds the string denoting the before field in the database.
+	FieldBefore = "before"
+	// FieldAfter holds the string denoting the after field in the database.
+	FieldAfter = "after"
 	// FieldUserName holds the string denoting the username field in the database.
 	FieldUserName = "user_name"
 	// FieldTenantId holds the string denoting the tenantid field in the database.
 	FieldTenantId = "tenant_id"
 	// FieldTenantName holds the string denoting the tenantname field in the database.
 	FieldTenantName = "tenant_name"
+	// FieldFarmId holds the string denoting the farmid field in the database.
+	FieldFarmId = "farm_id"
+	// FieldFarmName holds the string denoting the farmname field in the database.
+	FieldFarmName = "farm_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
+	// FieldIsChecked holds the string denoting the ischecked field in the database.
+	FieldIsChecked = "is_checked"
+	// FieldReportFileAddress holds the string denoting the reportfileaddress field in the database.
+	FieldReportFileAddress = "report_file_address"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
 	FieldCreatedAt = "created_at"
 	// FieldUpdatedAt holds the string denoting the updatedat field in the database.
@@ -47,7 +61,8 @@ const (
 // Columns holds all SQL columns for inventoryflow fields.
 var Columns = []string{
 	FieldID,
-	FieldMaterialID,
+	FieldSysMaterialId,
+	FieldMaterialId,
 	FieldMaterialName,
 	FieldMaterialCode,
 	FieldSeqNumber,
@@ -56,10 +71,16 @@ var Columns = []string{
 	FieldStatus,
 	FieldCount,
 	FieldUnit,
+	FieldBefore,
+	FieldAfter,
 	FieldUserName,
 	FieldTenantId,
 	FieldTenantName,
+	FieldFarmId,
+	FieldFarmName,
 	FieldRemarks,
+	FieldIsChecked,
+	FieldReportFileAddress,
 	FieldCreatedAt,
 	FieldUpdatedAt,
 	FieldDeleted,

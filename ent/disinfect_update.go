@@ -27,6 +27,76 @@ func (du *DisinfectUpdate) Where(ps ...predicate.Disinfect) *DisinfectUpdate {
 	return du
 }
 
+// SetCattleId sets the cattleId field.
+func (du *DisinfectUpdate) SetCattleId(i int64) *DisinfectUpdate {
+	du.mutation.ResetCattleId()
+	du.mutation.SetCattleId(i)
+	return du
+}
+
+// AddCattleId adds i to cattleId.
+func (du *DisinfectUpdate) AddCattleId(i int64) *DisinfectUpdate {
+	du.mutation.AddCattleId(i)
+	return du
+}
+
+// SetTenantId sets the tenantId field.
+func (du *DisinfectUpdate) SetTenantId(i int64) *DisinfectUpdate {
+	du.mutation.ResetTenantId()
+	du.mutation.SetTenantId(i)
+	return du
+}
+
+// AddTenantId adds i to tenantId.
+func (du *DisinfectUpdate) AddTenantId(i int64) *DisinfectUpdate {
+	du.mutation.AddTenantId(i)
+	return du
+}
+
+// SetTenantName sets the tenantName field.
+func (du *DisinfectUpdate) SetTenantName(s string) *DisinfectUpdate {
+	du.mutation.SetTenantName(s)
+	return du
+}
+
+// SetFarmId sets the farmId field.
+func (du *DisinfectUpdate) SetFarmId(i int64) *DisinfectUpdate {
+	du.mutation.ResetFarmId()
+	du.mutation.SetFarmId(i)
+	return du
+}
+
+// AddFarmId adds i to farmId.
+func (du *DisinfectUpdate) AddFarmId(i int64) *DisinfectUpdate {
+	du.mutation.AddFarmId(i)
+	return du
+}
+
+// SetFarmName sets the farmName field.
+func (du *DisinfectUpdate) SetFarmName(s string) *DisinfectUpdate {
+	du.mutation.SetFarmName(s)
+	return du
+}
+
+// SetShedId sets the shedId field.
+func (du *DisinfectUpdate) SetShedId(i int64) *DisinfectUpdate {
+	du.mutation.ResetShedId()
+	du.mutation.SetShedId(i)
+	return du
+}
+
+// AddShedId adds i to shedId.
+func (du *DisinfectUpdate) AddShedId(i int64) *DisinfectUpdate {
+	du.mutation.AddShedId(i)
+	return du
+}
+
+// SetShedName sets the shedName field.
+func (du *DisinfectUpdate) SetShedName(s string) *DisinfectUpdate {
+	du.mutation.SetShedName(s)
+	return du
+}
+
 // SetName sets the name field.
 func (du *DisinfectUpdate) SetName(s string) *DisinfectUpdate {
 	du.mutation.SetName(s)
@@ -106,25 +176,6 @@ func (du *DisinfectUpdate) SetWayName(s string) *DisinfectUpdate {
 // SetDrug sets the drug field.
 func (du *DisinfectUpdate) SetDrug(s string) *DisinfectUpdate {
 	du.mutation.SetDrug(s)
-	return du
-}
-
-// SetTenantId sets the tenantId field.
-func (du *DisinfectUpdate) SetTenantId(i int64) *DisinfectUpdate {
-	du.mutation.ResetTenantId()
-	du.mutation.SetTenantId(i)
-	return du
-}
-
-// AddTenantId adds i to tenantId.
-func (du *DisinfectUpdate) AddTenantId(i int64) *DisinfectUpdate {
-	du.mutation.AddTenantId(i)
-	return du
-}
-
-// SetTenantName sets the tenantName field.
-func (du *DisinfectUpdate) SetTenantName(s string) *DisinfectUpdate {
-	du.mutation.SetTenantName(s)
 	return du
 }
 
@@ -247,6 +298,83 @@ func (du *DisinfectUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := du.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldCattleId,
+		})
+	}
+	if value, ok := du.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldCattleId,
+		})
+	}
+	if value, ok := du.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldTenantId,
+		})
+	}
+	if value, ok := du.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldTenantId,
+		})
+	}
+	if value, ok := du.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: disinfect.FieldTenantName,
+		})
+	}
+	if value, ok := du.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldFarmId,
+		})
+	}
+	if value, ok := du.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldFarmId,
+		})
+	}
+	if value, ok := du.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: disinfect.FieldFarmName,
+		})
+	}
+	if value, ok := du.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldShedId,
+		})
+	}
+	if value, ok := du.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldShedId,
+		})
+	}
+	if value, ok := du.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: disinfect.FieldShedName,
+		})
+	}
 	if value, ok := du.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -338,27 +466,6 @@ func (du *DisinfectUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: disinfect.FieldDrug,
 		})
 	}
-	if value, ok := du.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: disinfect.FieldTenantId,
-		})
-	}
-	if value, ok := du.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: disinfect.FieldTenantId,
-		})
-	}
-	if value, ok := du.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: disinfect.FieldTenantName,
-		})
-	}
 	if value, ok := du.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -424,6 +531,76 @@ type DisinfectUpdateOne struct {
 	config
 	hooks    []Hook
 	mutation *DisinfectMutation
+}
+
+// SetCattleId sets the cattleId field.
+func (duo *DisinfectUpdateOne) SetCattleId(i int64) *DisinfectUpdateOne {
+	duo.mutation.ResetCattleId()
+	duo.mutation.SetCattleId(i)
+	return duo
+}
+
+// AddCattleId adds i to cattleId.
+func (duo *DisinfectUpdateOne) AddCattleId(i int64) *DisinfectUpdateOne {
+	duo.mutation.AddCattleId(i)
+	return duo
+}
+
+// SetTenantId sets the tenantId field.
+func (duo *DisinfectUpdateOne) SetTenantId(i int64) *DisinfectUpdateOne {
+	duo.mutation.ResetTenantId()
+	duo.mutation.SetTenantId(i)
+	return duo
+}
+
+// AddTenantId adds i to tenantId.
+func (duo *DisinfectUpdateOne) AddTenantId(i int64) *DisinfectUpdateOne {
+	duo.mutation.AddTenantId(i)
+	return duo
+}
+
+// SetTenantName sets the tenantName field.
+func (duo *DisinfectUpdateOne) SetTenantName(s string) *DisinfectUpdateOne {
+	duo.mutation.SetTenantName(s)
+	return duo
+}
+
+// SetFarmId sets the farmId field.
+func (duo *DisinfectUpdateOne) SetFarmId(i int64) *DisinfectUpdateOne {
+	duo.mutation.ResetFarmId()
+	duo.mutation.SetFarmId(i)
+	return duo
+}
+
+// AddFarmId adds i to farmId.
+func (duo *DisinfectUpdateOne) AddFarmId(i int64) *DisinfectUpdateOne {
+	duo.mutation.AddFarmId(i)
+	return duo
+}
+
+// SetFarmName sets the farmName field.
+func (duo *DisinfectUpdateOne) SetFarmName(s string) *DisinfectUpdateOne {
+	duo.mutation.SetFarmName(s)
+	return duo
+}
+
+// SetShedId sets the shedId field.
+func (duo *DisinfectUpdateOne) SetShedId(i int64) *DisinfectUpdateOne {
+	duo.mutation.ResetShedId()
+	duo.mutation.SetShedId(i)
+	return duo
+}
+
+// AddShedId adds i to shedId.
+func (duo *DisinfectUpdateOne) AddShedId(i int64) *DisinfectUpdateOne {
+	duo.mutation.AddShedId(i)
+	return duo
+}
+
+// SetShedName sets the shedName field.
+func (duo *DisinfectUpdateOne) SetShedName(s string) *DisinfectUpdateOne {
+	duo.mutation.SetShedName(s)
+	return duo
 }
 
 // SetName sets the name field.
@@ -505,25 +682,6 @@ func (duo *DisinfectUpdateOne) SetWayName(s string) *DisinfectUpdateOne {
 // SetDrug sets the drug field.
 func (duo *DisinfectUpdateOne) SetDrug(s string) *DisinfectUpdateOne {
 	duo.mutation.SetDrug(s)
-	return duo
-}
-
-// SetTenantId sets the tenantId field.
-func (duo *DisinfectUpdateOne) SetTenantId(i int64) *DisinfectUpdateOne {
-	duo.mutation.ResetTenantId()
-	duo.mutation.SetTenantId(i)
-	return duo
-}
-
-// AddTenantId adds i to tenantId.
-func (duo *DisinfectUpdateOne) AddTenantId(i int64) *DisinfectUpdateOne {
-	duo.mutation.AddTenantId(i)
-	return duo
-}
-
-// SetTenantName sets the tenantName field.
-func (duo *DisinfectUpdateOne) SetTenantName(s string) *DisinfectUpdateOne {
-	duo.mutation.SetTenantName(s)
 	return duo
 }
 
@@ -644,6 +802,83 @@ func (duo *DisinfectUpdateOne) sqlSave(ctx context.Context) (_node *Disinfect, e
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing Disinfect.ID for update")}
 	}
 	_spec.Node.ID.Value = id
+	if value, ok := duo.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldCattleId,
+		})
+	}
+	if value, ok := duo.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldCattleId,
+		})
+	}
+	if value, ok := duo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldTenantId,
+		})
+	}
+	if value, ok := duo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldTenantId,
+		})
+	}
+	if value, ok := duo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: disinfect.FieldTenantName,
+		})
+	}
+	if value, ok := duo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldFarmId,
+		})
+	}
+	if value, ok := duo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldFarmId,
+		})
+	}
+	if value, ok := duo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: disinfect.FieldFarmName,
+		})
+	}
+	if value, ok := duo.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldShedId,
+		})
+	}
+	if value, ok := duo.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: disinfect.FieldShedId,
+		})
+	}
+	if value, ok := duo.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: disinfect.FieldShedName,
+		})
+	}
 	if value, ok := duo.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -733,27 +968,6 @@ func (duo *DisinfectUpdateOne) sqlSave(ctx context.Context) (_node *Disinfect, e
 			Type:   field.TypeString,
 			Value:  value,
 			Column: disinfect.FieldDrug,
-		})
-	}
-	if value, ok := duo.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: disinfect.FieldTenantId,
-		})
-	}
-	if value, ok := duo.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: disinfect.FieldTenantId,
-		})
-	}
-	if value, ok := duo.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: disinfect.FieldTenantName,
 		})
 	}
 	if value, ok := duo.mutation.Remarks(); ok {

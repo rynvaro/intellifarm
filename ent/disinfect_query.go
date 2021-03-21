@@ -237,12 +237,12 @@ func (dq *DisinfectQuery) Clone() *DisinfectQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Disinfect.Query().
-//		GroupBy(disinfect.FieldName).
+//		GroupBy(disinfect.FieldCattleId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (dq *DisinfectQuery) GroupBy(field string, fields ...string) *DisinfectGrou
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //	}
 //
 //	client.Disinfect.Query().
-//		Select(disinfect.FieldName).
+//		Select(disinfect.FieldCattleId).
 //		Scan(ctx, &v)
 //
 func (dq *DisinfectQuery) Select(field string, fields ...string) *DisinfectSelect {

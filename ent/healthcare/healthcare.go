@@ -7,10 +7,22 @@ const (
 	Label = "health_care"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
-	// FieldEarNumber holds the string denoting the earnumber field in the database.
-	FieldEarNumber = "ear_number"
+	// FieldCattleId holds the string denoting the cattleid field in the database.
+	FieldCattleId = "cattle_id"
+	// FieldTenantId holds the string denoting the tenantid field in the database.
+	FieldTenantId = "tenant_id"
+	// FieldTenantName holds the string denoting the tenantname field in the database.
+	FieldTenantName = "tenant_name"
+	// FieldFarmId holds the string denoting the farmid field in the database.
+	FieldFarmId = "farm_id"
+	// FieldFarmName holds the string denoting the farmname field in the database.
+	FieldFarmName = "farm_name"
+	// FieldShedId holds the string denoting the shedid field in the database.
+	FieldShedId = "shed_id"
 	// FieldShedName holds the string denoting the shedname field in the database.
 	FieldShedName = "shed_name"
+	// FieldEarNumber holds the string denoting the earnumber field in the database.
+	FieldEarNumber = "ear_number"
 	// FieldDate holds the string denoting the date field in the database.
 	FieldDate = "date"
 	// FieldReason holds the string denoting the reason field in the database.
@@ -31,10 +43,6 @@ const (
 	FieldDeleted = "deleted"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
-	// FieldTenantId holds the string denoting the tenantid field in the database.
-	FieldTenantId = "tenant_id"
-	// FieldTenantName holds the string denoting the tenantname field in the database.
-	FieldTenantName = "tenant_name"
 
 	// Table holds the table name of the healthcare in the database.
 	Table = "health_cares"
@@ -43,8 +51,14 @@ const (
 // Columns holds all SQL columns for healthcare fields.
 var Columns = []string{
 	FieldID,
-	FieldEarNumber,
+	FieldCattleId,
+	FieldTenantId,
+	FieldTenantName,
+	FieldFarmId,
+	FieldFarmName,
+	FieldShedId,
 	FieldShedName,
+	FieldEarNumber,
 	FieldDate,
 	FieldReason,
 	FieldMethod,
@@ -55,8 +69,6 @@ var Columns = []string{
 	FieldUpdatedAt,
 	FieldDeleted,
 	FieldRemarks,
-	FieldTenantId,
-	FieldTenantName,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).

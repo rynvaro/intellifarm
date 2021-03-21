@@ -37,9 +37,25 @@ func (dic *DiseaseInfoCreate) SetType(s string) *DiseaseInfoCreate {
 	return dic
 }
 
+// SetNillableType sets the type field if the given value is not nil.
+func (dic *DiseaseInfoCreate) SetNillableType(s *string) *DiseaseInfoCreate {
+	if s != nil {
+		dic.SetType(*s)
+	}
+	return dic
+}
+
 // SetDescription sets the description field.
 func (dic *DiseaseInfoCreate) SetDescription(s string) *DiseaseInfoCreate {
 	dic.mutation.SetDescription(s)
+	return dic
+}
+
+// SetNillableDescription sets the description field if the given value is not nil.
+func (dic *DiseaseInfoCreate) SetNillableDescription(s *string) *DiseaseInfoCreate {
+	if s != nil {
+		dic.SetDescription(*s)
+	}
 	return dic
 }
 
@@ -49,9 +65,25 @@ func (dic *DiseaseInfoCreate) SetTenantId(i int64) *DiseaseInfoCreate {
 	return dic
 }
 
+// SetNillableTenantId sets the tenantId field if the given value is not nil.
+func (dic *DiseaseInfoCreate) SetNillableTenantId(i *int64) *DiseaseInfoCreate {
+	if i != nil {
+		dic.SetTenantId(*i)
+	}
+	return dic
+}
+
 // SetTenantName sets the tenantName field.
 func (dic *DiseaseInfoCreate) SetTenantName(s string) *DiseaseInfoCreate {
 	dic.mutation.SetTenantName(s)
+	return dic
+}
+
+// SetNillableTenantName sets the tenantName field if the given value is not nil.
+func (dic *DiseaseInfoCreate) SetNillableTenantName(s *string) *DiseaseInfoCreate {
+	if s != nil {
+		dic.SetTenantName(*s)
+	}
 	return dic
 }
 
@@ -61,9 +93,25 @@ func (dic *DiseaseInfoCreate) SetRemarks(s string) *DiseaseInfoCreate {
 	return dic
 }
 
+// SetNillableRemarks sets the remarks field if the given value is not nil.
+func (dic *DiseaseInfoCreate) SetNillableRemarks(s *string) *DiseaseInfoCreate {
+	if s != nil {
+		dic.SetRemarks(*s)
+	}
+	return dic
+}
+
 // SetCreatedAt sets the createdAt field.
 func (dic *DiseaseInfoCreate) SetCreatedAt(i int64) *DiseaseInfoCreate {
 	dic.mutation.SetCreatedAt(i)
+	return dic
+}
+
+// SetNillableCreatedAt sets the createdAt field if the given value is not nil.
+func (dic *DiseaseInfoCreate) SetNillableCreatedAt(i *int64) *DiseaseInfoCreate {
+	if i != nil {
+		dic.SetCreatedAt(*i)
+	}
 	return dic
 }
 
@@ -73,9 +121,25 @@ func (dic *DiseaseInfoCreate) SetUpdatedAt(i int64) *DiseaseInfoCreate {
 	return dic
 }
 
+// SetNillableUpdatedAt sets the updatedAt field if the given value is not nil.
+func (dic *DiseaseInfoCreate) SetNillableUpdatedAt(i *int64) *DiseaseInfoCreate {
+	if i != nil {
+		dic.SetUpdatedAt(*i)
+	}
+	return dic
+}
+
 // SetDeleted sets the deleted field.
 func (dic *DiseaseInfoCreate) SetDeleted(i int) *DiseaseInfoCreate {
 	dic.mutation.SetDeleted(i)
+	return dic
+}
+
+// SetNillableDeleted sets the deleted field if the given value is not nil.
+func (dic *DiseaseInfoCreate) SetNillableDeleted(i *int) *DiseaseInfoCreate {
+	if i != nil {
+		dic.SetDeleted(*i)
+	}
 	return dic
 }
 
@@ -135,30 +199,6 @@ func (dic *DiseaseInfoCreate) check() error {
 	}
 	if _, ok := dic.mutation.Code(); !ok {
 		return &ValidationError{Name: "code", err: errors.New("ent: missing required field \"code\"")}
-	}
-	if _, ok := dic.mutation.GetType(); !ok {
-		return &ValidationError{Name: "type", err: errors.New("ent: missing required field \"type\"")}
-	}
-	if _, ok := dic.mutation.Description(); !ok {
-		return &ValidationError{Name: "description", err: errors.New("ent: missing required field \"description\"")}
-	}
-	if _, ok := dic.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if _, ok := dic.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
-	}
-	if _, ok := dic.mutation.Remarks(); !ok {
-		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
-	}
-	if _, ok := dic.mutation.CreatedAt(); !ok {
-		return &ValidationError{Name: "createdAt", err: errors.New("ent: missing required field \"createdAt\"")}
-	}
-	if _, ok := dic.mutation.UpdatedAt(); !ok {
-		return &ValidationError{Name: "updatedAt", err: errors.New("ent: missing required field \"updatedAt\"")}
-	}
-	if _, ok := dic.mutation.Deleted(); !ok {
-		return &ValidationError{Name: "deleted", err: errors.New("ent: missing required field \"deleted\"")}
 	}
 	return nil
 }

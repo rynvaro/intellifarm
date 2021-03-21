@@ -39,15 +39,439 @@ func (fiu *FeedInfoUpdate) SetCode(s string) *FeedInfoUpdate {
 	return fiu
 }
 
-// SetType sets the type field.
-func (fiu *FeedInfoUpdate) SetType(s string) *FeedInfoUpdate {
-	fiu.mutation.SetType(s)
+// SetMoisture sets the moisture field.
+func (fiu *FeedInfoUpdate) SetMoisture(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetMoisture()
+	fiu.mutation.SetMoisture(f)
+	return fiu
+}
+
+// AddMoisture adds f to moisture.
+func (fiu *FeedInfoUpdate) AddMoisture(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddMoisture(f)
+	return fiu
+}
+
+// SetDryMatter sets the dryMatter field.
+func (fiu *FeedInfoUpdate) SetDryMatter(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetDryMatter()
+	fiu.mutation.SetDryMatter(f)
+	return fiu
+}
+
+// AddDryMatter adds f to dryMatter.
+func (fiu *FeedInfoUpdate) AddDryMatter(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddDryMatter(f)
+	return fiu
+}
+
+// SetNdf sets the ndf field.
+func (fiu *FeedInfoUpdate) SetNdf(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetNdf()
+	fiu.mutation.SetNdf(f)
+	return fiu
+}
+
+// AddNdf adds f to ndf.
+func (fiu *FeedInfoUpdate) AddNdf(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddNdf(f)
+	return fiu
+}
+
+// SetAdf sets the adf field.
+func (fiu *FeedInfoUpdate) SetAdf(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetAdf()
+	fiu.mutation.SetAdf(f)
+	return fiu
+}
+
+// AddAdf adds f to adf.
+func (fiu *FeedInfoUpdate) AddAdf(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddAdf(f)
+	return fiu
+}
+
+// SetEndf sets the endf field.
+func (fiu *FeedInfoUpdate) SetEndf(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetEndf()
+	fiu.mutation.SetEndf(f)
+	return fiu
+}
+
+// AddEndf adds f to endf.
+func (fiu *FeedInfoUpdate) AddEndf(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddEndf(f)
+	return fiu
+}
+
+// SetLacticAcid sets the lacticAcid field.
+func (fiu *FeedInfoUpdate) SetLacticAcid(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetLacticAcid()
+	fiu.mutation.SetLacticAcid(f)
+	return fiu
+}
+
+// AddLacticAcid adds f to lacticAcid.
+func (fiu *FeedInfoUpdate) AddLacticAcid(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddLacticAcid(f)
+	return fiu
+}
+
+// SetWsc sets the wsc field.
+func (fiu *FeedInfoUpdate) SetWsc(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetWsc()
+	fiu.mutation.SetWsc(f)
+	return fiu
+}
+
+// AddWsc adds f to wsc.
+func (fiu *FeedInfoUpdate) AddWsc(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddWsc(f)
+	return fiu
+}
+
+// SetStarch sets the starch field.
+func (fiu *FeedInfoUpdate) SetStarch(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetStarch()
+	fiu.mutation.SetStarch(f)
+	return fiu
+}
+
+// AddStarch adds f to starch.
+func (fiu *FeedInfoUpdate) AddStarch(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddStarch(f)
+	return fiu
+}
+
+// SetSolubleFiber sets the solubleFiber field.
+func (fiu *FeedInfoUpdate) SetSolubleFiber(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetSolubleFiber()
+	fiu.mutation.SetSolubleFiber(f)
+	return fiu
+}
+
+// AddSolubleFiber adds f to solubleFiber.
+func (fiu *FeedInfoUpdate) AddSolubleFiber(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddSolubleFiber(f)
+	return fiu
+}
+
+// SetTotalProtein sets the totalProtein field.
+func (fiu *FeedInfoUpdate) SetTotalProtein(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetTotalProtein()
+	fiu.mutation.SetTotalProtein(f)
+	return fiu
+}
+
+// AddTotalProtein adds f to totalProtein.
+func (fiu *FeedInfoUpdate) AddTotalProtein(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddTotalProtein(f)
+	return fiu
+}
+
+// SetSolubleProtein sets the solubleProtein field.
+func (fiu *FeedInfoUpdate) SetSolubleProtein(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetSolubleProtein()
+	fiu.mutation.SetSolubleProtein(f)
+	return fiu
+}
+
+// AddSolubleProtein adds f to solubleProtein.
+func (fiu *FeedInfoUpdate) AddSolubleProtein(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddSolubleProtein(f)
+	return fiu
+}
+
+// SetRdp sets the rdp field.
+func (fiu *FeedInfoUpdate) SetRdp(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetRdp()
+	fiu.mutation.SetRdp(f)
+	return fiu
+}
+
+// AddRdp adds f to rdp.
+func (fiu *FeedInfoUpdate) AddRdp(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddRdp(f)
+	return fiu
+}
+
+// SetMe sets the me field.
+func (fiu *FeedInfoUpdate) SetMe(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetMe()
+	fiu.mutation.SetMe(f)
+	return fiu
+}
+
+// AddMe adds f to me.
+func (fiu *FeedInfoUpdate) AddMe(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddMe(f)
+	return fiu
+}
+
+// SetNel sets the nel field.
+func (fiu *FeedInfoUpdate) SetNel(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetNel()
+	fiu.mutation.SetNel(f)
+	return fiu
+}
+
+// AddNel adds f to nel.
+func (fiu *FeedInfoUpdate) AddNel(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddNel(f)
+	return fiu
+}
+
+// SetCrudeFat sets the crudeFat field.
+func (fiu *FeedInfoUpdate) SetCrudeFat(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetCrudeFat()
+	fiu.mutation.SetCrudeFat(f)
+	return fiu
+}
+
+// AddCrudeFat adds f to crudeFat.
+func (fiu *FeedInfoUpdate) AddCrudeFat(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddCrudeFat(f)
+	return fiu
+}
+
+// SetTotalFttyAcid sets the totalFttyAcid field.
+func (fiu *FeedInfoUpdate) SetTotalFttyAcid(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetTotalFttyAcid()
+	fiu.mutation.SetTotalFttyAcid(f)
+	return fiu
+}
+
+// AddTotalFttyAcid adds f to totalFttyAcid.
+func (fiu *FeedInfoUpdate) AddTotalFttyAcid(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddTotalFttyAcid(f)
+	return fiu
+}
+
+// SetAsh sets the ash field.
+func (fiu *FeedInfoUpdate) SetAsh(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetAsh()
+	fiu.mutation.SetAsh(f)
+	return fiu
+}
+
+// AddAsh adds f to ash.
+func (fiu *FeedInfoUpdate) AddAsh(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddAsh(f)
+	return fiu
+}
+
+// SetCa sets the ca field.
+func (fiu *FeedInfoUpdate) SetCa(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetCa()
+	fiu.mutation.SetCa(f)
+	return fiu
+}
+
+// AddCa adds f to ca.
+func (fiu *FeedInfoUpdate) AddCa(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddCa(f)
+	return fiu
+}
+
+// SetP sets the p field.
+func (fiu *FeedInfoUpdate) SetP(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetP()
+	fiu.mutation.SetP(f)
+	return fiu
+}
+
+// AddP adds f to p.
+func (fiu *FeedInfoUpdate) AddP(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddP(f)
+	return fiu
+}
+
+// SetMg sets the mg field.
+func (fiu *FeedInfoUpdate) SetMg(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetMg()
+	fiu.mutation.SetMg(f)
+	return fiu
+}
+
+// AddMg adds f to mg.
+func (fiu *FeedInfoUpdate) AddMg(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddMg(f)
+	return fiu
+}
+
+// SetK sets the k field.
+func (fiu *FeedInfoUpdate) SetK(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetK()
+	fiu.mutation.SetK(f)
+	return fiu
+}
+
+// AddK adds f to k.
+func (fiu *FeedInfoUpdate) AddK(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddK(f)
+	return fiu
+}
+
+// SetMn sets the mn field.
+func (fiu *FeedInfoUpdate) SetMn(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetMn()
+	fiu.mutation.SetMn(f)
+	return fiu
+}
+
+// AddMn adds f to mn.
+func (fiu *FeedInfoUpdate) AddMn(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddMn(f)
+	return fiu
+}
+
+// SetCu sets the cu field.
+func (fiu *FeedInfoUpdate) SetCu(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetCu()
+	fiu.mutation.SetCu(f)
+	return fiu
+}
+
+// AddCu adds f to cu.
+func (fiu *FeedInfoUpdate) AddCu(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddCu(f)
+	return fiu
+}
+
+// SetFe sets the fe field.
+func (fiu *FeedInfoUpdate) SetFe(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetFe()
+	fiu.mutation.SetFe(f)
+	return fiu
+}
+
+// AddFe adds f to fe.
+func (fiu *FeedInfoUpdate) AddFe(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddFe(f)
+	return fiu
+}
+
+// SetZn sets the zn field.
+func (fiu *FeedInfoUpdate) SetZn(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetZn()
+	fiu.mutation.SetZn(f)
+	return fiu
+}
+
+// AddZn adds f to zn.
+func (fiu *FeedInfoUpdate) AddZn(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddZn(f)
+	return fiu
+}
+
+// SetMethionine sets the methionine field.
+func (fiu *FeedInfoUpdate) SetMethionine(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetMethionine()
+	fiu.mutation.SetMethionine(f)
+	return fiu
+}
+
+// AddMethionine adds f to methionine.
+func (fiu *FeedInfoUpdate) AddMethionine(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddMethionine(f)
+	return fiu
+}
+
+// SetLysine sets the lysine field.
+func (fiu *FeedInfoUpdate) SetLysine(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetLysine()
+	fiu.mutation.SetLysine(f)
+	return fiu
+}
+
+// AddLysine adds f to lysine.
+func (fiu *FeedInfoUpdate) AddLysine(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddLysine(f)
+	return fiu
+}
+
+// SetVitaminA sets the vitaminA field.
+func (fiu *FeedInfoUpdate) SetVitaminA(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetVitaminA()
+	fiu.mutation.SetVitaminA(f)
+	return fiu
+}
+
+// AddVitaminA adds f to vitaminA.
+func (fiu *FeedInfoUpdate) AddVitaminA(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddVitaminA(f)
+	return fiu
+}
+
+// SetVitaminD3 sets the vitaminD3 field.
+func (fiu *FeedInfoUpdate) SetVitaminD3(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetVitaminD3()
+	fiu.mutation.SetVitaminD3(f)
+	return fiu
+}
+
+// AddVitaminD3 adds f to vitaminD3.
+func (fiu *FeedInfoUpdate) AddVitaminD3(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddVitaminD3(f)
+	return fiu
+}
+
+// SetVitaminE sets the vitaminE field.
+func (fiu *FeedInfoUpdate) SetVitaminE(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetVitaminE()
+	fiu.mutation.SetVitaminE(f)
+	return fiu
+}
+
+// AddVitaminE adds f to vitaminE.
+func (fiu *FeedInfoUpdate) AddVitaminE(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddVitaminE(f)
+	return fiu
+}
+
+// SetCholine sets the choline field.
+func (fiu *FeedInfoUpdate) SetCholine(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetCholine()
+	fiu.mutation.SetCholine(f)
+	return fiu
+}
+
+// AddCholine adds f to choline.
+func (fiu *FeedInfoUpdate) AddCholine(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddCholine(f)
+	return fiu
+}
+
+// SetBiotin sets the biotin field.
+func (fiu *FeedInfoUpdate) SetBiotin(f float32) *FeedInfoUpdate {
+	fiu.mutation.ResetBiotin()
+	fiu.mutation.SetBiotin(f)
+	return fiu
+}
+
+// AddBiotin adds f to biotin.
+func (fiu *FeedInfoUpdate) AddBiotin(f float32) *FeedInfoUpdate {
+	fiu.mutation.AddBiotin(f)
 	return fiu
 }
 
 // SetDescription sets the description field.
 func (fiu *FeedInfoUpdate) SetDescription(s string) *FeedInfoUpdate {
 	fiu.mutation.SetDescription(s)
+	return fiu
+}
+
+// SetNillableDescription sets the description field if the given value is not nil.
+func (fiu *FeedInfoUpdate) SetNillableDescription(s *string) *FeedInfoUpdate {
+	if s != nil {
+		fiu.SetDescription(*s)
+	}
+	return fiu
+}
+
+// ClearDescription clears the value of description.
+func (fiu *FeedInfoUpdate) ClearDescription() *FeedInfoUpdate {
+	fiu.mutation.ClearDescription()
 	return fiu
 }
 
@@ -58,9 +482,23 @@ func (fiu *FeedInfoUpdate) SetTenantId(i int64) *FeedInfoUpdate {
 	return fiu
 }
 
+// SetNillableTenantId sets the tenantId field if the given value is not nil.
+func (fiu *FeedInfoUpdate) SetNillableTenantId(i *int64) *FeedInfoUpdate {
+	if i != nil {
+		fiu.SetTenantId(*i)
+	}
+	return fiu
+}
+
 // AddTenantId adds i to tenantId.
 func (fiu *FeedInfoUpdate) AddTenantId(i int64) *FeedInfoUpdate {
 	fiu.mutation.AddTenantId(i)
+	return fiu
+}
+
+// ClearTenantId clears the value of tenantId.
+func (fiu *FeedInfoUpdate) ClearTenantId() *FeedInfoUpdate {
+	fiu.mutation.ClearTenantId()
 	return fiu
 }
 
@@ -70,9 +508,84 @@ func (fiu *FeedInfoUpdate) SetTenantName(s string) *FeedInfoUpdate {
 	return fiu
 }
 
+// SetNillableTenantName sets the tenantName field if the given value is not nil.
+func (fiu *FeedInfoUpdate) SetNillableTenantName(s *string) *FeedInfoUpdate {
+	if s != nil {
+		fiu.SetTenantName(*s)
+	}
+	return fiu
+}
+
+// ClearTenantName clears the value of tenantName.
+func (fiu *FeedInfoUpdate) ClearTenantName() *FeedInfoUpdate {
+	fiu.mutation.ClearTenantName()
+	return fiu
+}
+
+// SetFarmId sets the farmId field.
+func (fiu *FeedInfoUpdate) SetFarmId(i int64) *FeedInfoUpdate {
+	fiu.mutation.ResetFarmId()
+	fiu.mutation.SetFarmId(i)
+	return fiu
+}
+
+// SetNillableFarmId sets the farmId field if the given value is not nil.
+func (fiu *FeedInfoUpdate) SetNillableFarmId(i *int64) *FeedInfoUpdate {
+	if i != nil {
+		fiu.SetFarmId(*i)
+	}
+	return fiu
+}
+
+// AddFarmId adds i to farmId.
+func (fiu *FeedInfoUpdate) AddFarmId(i int64) *FeedInfoUpdate {
+	fiu.mutation.AddFarmId(i)
+	return fiu
+}
+
+// ClearFarmId clears the value of farmId.
+func (fiu *FeedInfoUpdate) ClearFarmId() *FeedInfoUpdate {
+	fiu.mutation.ClearFarmId()
+	return fiu
+}
+
+// SetFarmName sets the farmName field.
+func (fiu *FeedInfoUpdate) SetFarmName(s string) *FeedInfoUpdate {
+	fiu.mutation.SetFarmName(s)
+	return fiu
+}
+
+// SetNillableFarmName sets the farmName field if the given value is not nil.
+func (fiu *FeedInfoUpdate) SetNillableFarmName(s *string) *FeedInfoUpdate {
+	if s != nil {
+		fiu.SetFarmName(*s)
+	}
+	return fiu
+}
+
+// ClearFarmName clears the value of farmName.
+func (fiu *FeedInfoUpdate) ClearFarmName() *FeedInfoUpdate {
+	fiu.mutation.ClearFarmName()
+	return fiu
+}
+
 // SetRemarks sets the remarks field.
 func (fiu *FeedInfoUpdate) SetRemarks(s string) *FeedInfoUpdate {
 	fiu.mutation.SetRemarks(s)
+	return fiu
+}
+
+// SetNillableRemarks sets the remarks field if the given value is not nil.
+func (fiu *FeedInfoUpdate) SetNillableRemarks(s *string) *FeedInfoUpdate {
+	if s != nil {
+		fiu.SetRemarks(*s)
+	}
+	return fiu
+}
+
+// ClearRemarks clears the value of remarks.
+func (fiu *FeedInfoUpdate) ClearRemarks() *FeedInfoUpdate {
+	fiu.mutation.ClearRemarks()
 	return fiu
 }
 
@@ -83,9 +596,23 @@ func (fiu *FeedInfoUpdate) SetCreatedAt(i int64) *FeedInfoUpdate {
 	return fiu
 }
 
+// SetNillableCreatedAt sets the createdAt field if the given value is not nil.
+func (fiu *FeedInfoUpdate) SetNillableCreatedAt(i *int64) *FeedInfoUpdate {
+	if i != nil {
+		fiu.SetCreatedAt(*i)
+	}
+	return fiu
+}
+
 // AddCreatedAt adds i to createdAt.
 func (fiu *FeedInfoUpdate) AddCreatedAt(i int64) *FeedInfoUpdate {
 	fiu.mutation.AddCreatedAt(i)
+	return fiu
+}
+
+// ClearCreatedAt clears the value of createdAt.
+func (fiu *FeedInfoUpdate) ClearCreatedAt() *FeedInfoUpdate {
+	fiu.mutation.ClearCreatedAt()
 	return fiu
 }
 
@@ -96,9 +623,23 @@ func (fiu *FeedInfoUpdate) SetUpdatedAt(i int64) *FeedInfoUpdate {
 	return fiu
 }
 
+// SetNillableUpdatedAt sets the updatedAt field if the given value is not nil.
+func (fiu *FeedInfoUpdate) SetNillableUpdatedAt(i *int64) *FeedInfoUpdate {
+	if i != nil {
+		fiu.SetUpdatedAt(*i)
+	}
+	return fiu
+}
+
 // AddUpdatedAt adds i to updatedAt.
 func (fiu *FeedInfoUpdate) AddUpdatedAt(i int64) *FeedInfoUpdate {
 	fiu.mutation.AddUpdatedAt(i)
+	return fiu
+}
+
+// ClearUpdatedAt clears the value of updatedAt.
+func (fiu *FeedInfoUpdate) ClearUpdatedAt() *FeedInfoUpdate {
+	fiu.mutation.ClearUpdatedAt()
 	return fiu
 }
 
@@ -109,9 +650,23 @@ func (fiu *FeedInfoUpdate) SetDeleted(i int) *FeedInfoUpdate {
 	return fiu
 }
 
+// SetNillableDeleted sets the deleted field if the given value is not nil.
+func (fiu *FeedInfoUpdate) SetNillableDeleted(i *int) *FeedInfoUpdate {
+	if i != nil {
+		fiu.SetDeleted(*i)
+	}
+	return fiu
+}
+
 // AddDeleted adds i to deleted.
 func (fiu *FeedInfoUpdate) AddDeleted(i int) *FeedInfoUpdate {
 	fiu.mutation.AddDeleted(i)
+	return fiu
+}
+
+// ClearDeleted clears the value of deleted.
+func (fiu *FeedInfoUpdate) ClearDeleted() *FeedInfoUpdate {
+	fiu.mutation.ClearDeleted()
 	return fiu
 }
 
@@ -203,17 +758,464 @@ func (fiu *FeedInfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: feedinfo.FieldCode,
 		})
 	}
-	if value, ok := fiu.mutation.GetType(); ok {
+	if value, ok := fiu.mutation.Moisture(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeFloat32,
 			Value:  value,
-			Column: feedinfo.FieldType,
+			Column: feedinfo.FieldMoisture,
+		})
+	}
+	if value, ok := fiu.mutation.AddedMoisture(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMoisture,
+		})
+	}
+	if value, ok := fiu.mutation.DryMatter(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldDryMatter,
+		})
+	}
+	if value, ok := fiu.mutation.AddedDryMatter(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldDryMatter,
+		})
+	}
+	if value, ok := fiu.mutation.Ndf(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldNdf,
+		})
+	}
+	if value, ok := fiu.mutation.AddedNdf(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldNdf,
+		})
+	}
+	if value, ok := fiu.mutation.Adf(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldAdf,
+		})
+	}
+	if value, ok := fiu.mutation.AddedAdf(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldAdf,
+		})
+	}
+	if value, ok := fiu.mutation.Endf(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldEndf,
+		})
+	}
+	if value, ok := fiu.mutation.AddedEndf(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldEndf,
+		})
+	}
+	if value, ok := fiu.mutation.LacticAcid(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldLacticAcid,
+		})
+	}
+	if value, ok := fiu.mutation.AddedLacticAcid(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldLacticAcid,
+		})
+	}
+	if value, ok := fiu.mutation.Wsc(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldWsc,
+		})
+	}
+	if value, ok := fiu.mutation.AddedWsc(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldWsc,
+		})
+	}
+	if value, ok := fiu.mutation.Starch(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldStarch,
+		})
+	}
+	if value, ok := fiu.mutation.AddedStarch(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldStarch,
+		})
+	}
+	if value, ok := fiu.mutation.SolubleFiber(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldSolubleFiber,
+		})
+	}
+	if value, ok := fiu.mutation.AddedSolubleFiber(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldSolubleFiber,
+		})
+	}
+	if value, ok := fiu.mutation.TotalProtein(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldTotalProtein,
+		})
+	}
+	if value, ok := fiu.mutation.AddedTotalProtein(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldTotalProtein,
+		})
+	}
+	if value, ok := fiu.mutation.SolubleProtein(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldSolubleProtein,
+		})
+	}
+	if value, ok := fiu.mutation.AddedSolubleProtein(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldSolubleProtein,
+		})
+	}
+	if value, ok := fiu.mutation.Rdp(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldRdp,
+		})
+	}
+	if value, ok := fiu.mutation.AddedRdp(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldRdp,
+		})
+	}
+	if value, ok := fiu.mutation.Me(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMe,
+		})
+	}
+	if value, ok := fiu.mutation.AddedMe(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMe,
+		})
+	}
+	if value, ok := fiu.mutation.Nel(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldNel,
+		})
+	}
+	if value, ok := fiu.mutation.AddedNel(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldNel,
+		})
+	}
+	if value, ok := fiu.mutation.CrudeFat(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCrudeFat,
+		})
+	}
+	if value, ok := fiu.mutation.AddedCrudeFat(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCrudeFat,
+		})
+	}
+	if value, ok := fiu.mutation.TotalFttyAcid(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldTotalFttyAcid,
+		})
+	}
+	if value, ok := fiu.mutation.AddedTotalFttyAcid(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldTotalFttyAcid,
+		})
+	}
+	if value, ok := fiu.mutation.Ash(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldAsh,
+		})
+	}
+	if value, ok := fiu.mutation.AddedAsh(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldAsh,
+		})
+	}
+	if value, ok := fiu.mutation.Ca(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCa,
+		})
+	}
+	if value, ok := fiu.mutation.AddedCa(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCa,
+		})
+	}
+	if value, ok := fiu.mutation.P(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldP,
+		})
+	}
+	if value, ok := fiu.mutation.AddedP(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldP,
+		})
+	}
+	if value, ok := fiu.mutation.Mg(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMg,
+		})
+	}
+	if value, ok := fiu.mutation.AddedMg(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMg,
+		})
+	}
+	if value, ok := fiu.mutation.K(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldK,
+		})
+	}
+	if value, ok := fiu.mutation.AddedK(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldK,
+		})
+	}
+	if value, ok := fiu.mutation.Mn(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMn,
+		})
+	}
+	if value, ok := fiu.mutation.AddedMn(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMn,
+		})
+	}
+	if value, ok := fiu.mutation.Cu(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCu,
+		})
+	}
+	if value, ok := fiu.mutation.AddedCu(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCu,
+		})
+	}
+	if value, ok := fiu.mutation.Fe(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldFe,
+		})
+	}
+	if value, ok := fiu.mutation.AddedFe(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldFe,
+		})
+	}
+	if value, ok := fiu.mutation.Zn(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldZn,
+		})
+	}
+	if value, ok := fiu.mutation.AddedZn(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldZn,
+		})
+	}
+	if value, ok := fiu.mutation.Methionine(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMethionine,
+		})
+	}
+	if value, ok := fiu.mutation.AddedMethionine(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMethionine,
+		})
+	}
+	if value, ok := fiu.mutation.Lysine(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldLysine,
+		})
+	}
+	if value, ok := fiu.mutation.AddedLysine(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldLysine,
+		})
+	}
+	if value, ok := fiu.mutation.VitaminA(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldVitaminA,
+		})
+	}
+	if value, ok := fiu.mutation.AddedVitaminA(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldVitaminA,
+		})
+	}
+	if value, ok := fiu.mutation.VitaminD3(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldVitaminD3,
+		})
+	}
+	if value, ok := fiu.mutation.AddedVitaminD3(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldVitaminD3,
+		})
+	}
+	if value, ok := fiu.mutation.VitaminE(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldVitaminE,
+		})
+	}
+	if value, ok := fiu.mutation.AddedVitaminE(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldVitaminE,
+		})
+	}
+	if value, ok := fiu.mutation.Choline(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCholine,
+		})
+	}
+	if value, ok := fiu.mutation.AddedCholine(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCholine,
+		})
+	}
+	if value, ok := fiu.mutation.Biotin(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldBiotin,
+		})
+	}
+	if value, ok := fiu.mutation.AddedBiotin(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldBiotin,
 		})
 	}
 	if value, ok := fiu.mutation.Description(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: feedinfo.FieldDescription,
+		})
+	}
+	if fiu.mutation.DescriptionCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: feedinfo.FieldDescription,
 		})
 	}
@@ -231,6 +1233,12 @@ func (fiu *FeedInfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: feedinfo.FieldTenantId,
 		})
 	}
+	if fiu.mutation.TenantIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: feedinfo.FieldTenantId,
+		})
+	}
 	if value, ok := fiu.mutation.TenantName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -238,10 +1246,55 @@ func (fiu *FeedInfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: feedinfo.FieldTenantName,
 		})
 	}
+	if fiu.mutation.TenantNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: feedinfo.FieldTenantName,
+		})
+	}
+	if value, ok := fiu.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: feedinfo.FieldFarmId,
+		})
+	}
+	if value, ok := fiu.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: feedinfo.FieldFarmId,
+		})
+	}
+	if fiu.mutation.FarmIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: feedinfo.FieldFarmId,
+		})
+	}
+	if value, ok := fiu.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: feedinfo.FieldFarmName,
+		})
+	}
+	if fiu.mutation.FarmNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: feedinfo.FieldFarmName,
+		})
+	}
 	if value, ok := fiu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: feedinfo.FieldRemarks,
+		})
+	}
+	if fiu.mutation.RemarksCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: feedinfo.FieldRemarks,
 		})
 	}
@@ -259,6 +1312,12 @@ func (fiu *FeedInfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: feedinfo.FieldCreatedAt,
 		})
 	}
+	if fiu.mutation.CreatedAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: feedinfo.FieldCreatedAt,
+		})
+	}
 	if value, ok := fiu.mutation.UpdatedAt(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -273,6 +1332,12 @@ func (fiu *FeedInfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: feedinfo.FieldUpdatedAt,
 		})
 	}
+	if fiu.mutation.UpdatedAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: feedinfo.FieldUpdatedAt,
+		})
+	}
 	if value, ok := fiu.mutation.Deleted(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
@@ -284,6 +1349,12 @@ func (fiu *FeedInfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
 			Value:  value,
+			Column: feedinfo.FieldDeleted,
+		})
+	}
+	if fiu.mutation.DeletedCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
 			Column: feedinfo.FieldDeleted,
 		})
 	}
@@ -317,15 +1388,439 @@ func (fiuo *FeedInfoUpdateOne) SetCode(s string) *FeedInfoUpdateOne {
 	return fiuo
 }
 
-// SetType sets the type field.
-func (fiuo *FeedInfoUpdateOne) SetType(s string) *FeedInfoUpdateOne {
-	fiuo.mutation.SetType(s)
+// SetMoisture sets the moisture field.
+func (fiuo *FeedInfoUpdateOne) SetMoisture(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetMoisture()
+	fiuo.mutation.SetMoisture(f)
+	return fiuo
+}
+
+// AddMoisture adds f to moisture.
+func (fiuo *FeedInfoUpdateOne) AddMoisture(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddMoisture(f)
+	return fiuo
+}
+
+// SetDryMatter sets the dryMatter field.
+func (fiuo *FeedInfoUpdateOne) SetDryMatter(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetDryMatter()
+	fiuo.mutation.SetDryMatter(f)
+	return fiuo
+}
+
+// AddDryMatter adds f to dryMatter.
+func (fiuo *FeedInfoUpdateOne) AddDryMatter(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddDryMatter(f)
+	return fiuo
+}
+
+// SetNdf sets the ndf field.
+func (fiuo *FeedInfoUpdateOne) SetNdf(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetNdf()
+	fiuo.mutation.SetNdf(f)
+	return fiuo
+}
+
+// AddNdf adds f to ndf.
+func (fiuo *FeedInfoUpdateOne) AddNdf(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddNdf(f)
+	return fiuo
+}
+
+// SetAdf sets the adf field.
+func (fiuo *FeedInfoUpdateOne) SetAdf(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetAdf()
+	fiuo.mutation.SetAdf(f)
+	return fiuo
+}
+
+// AddAdf adds f to adf.
+func (fiuo *FeedInfoUpdateOne) AddAdf(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddAdf(f)
+	return fiuo
+}
+
+// SetEndf sets the endf field.
+func (fiuo *FeedInfoUpdateOne) SetEndf(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetEndf()
+	fiuo.mutation.SetEndf(f)
+	return fiuo
+}
+
+// AddEndf adds f to endf.
+func (fiuo *FeedInfoUpdateOne) AddEndf(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddEndf(f)
+	return fiuo
+}
+
+// SetLacticAcid sets the lacticAcid field.
+func (fiuo *FeedInfoUpdateOne) SetLacticAcid(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetLacticAcid()
+	fiuo.mutation.SetLacticAcid(f)
+	return fiuo
+}
+
+// AddLacticAcid adds f to lacticAcid.
+func (fiuo *FeedInfoUpdateOne) AddLacticAcid(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddLacticAcid(f)
+	return fiuo
+}
+
+// SetWsc sets the wsc field.
+func (fiuo *FeedInfoUpdateOne) SetWsc(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetWsc()
+	fiuo.mutation.SetWsc(f)
+	return fiuo
+}
+
+// AddWsc adds f to wsc.
+func (fiuo *FeedInfoUpdateOne) AddWsc(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddWsc(f)
+	return fiuo
+}
+
+// SetStarch sets the starch field.
+func (fiuo *FeedInfoUpdateOne) SetStarch(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetStarch()
+	fiuo.mutation.SetStarch(f)
+	return fiuo
+}
+
+// AddStarch adds f to starch.
+func (fiuo *FeedInfoUpdateOne) AddStarch(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddStarch(f)
+	return fiuo
+}
+
+// SetSolubleFiber sets the solubleFiber field.
+func (fiuo *FeedInfoUpdateOne) SetSolubleFiber(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetSolubleFiber()
+	fiuo.mutation.SetSolubleFiber(f)
+	return fiuo
+}
+
+// AddSolubleFiber adds f to solubleFiber.
+func (fiuo *FeedInfoUpdateOne) AddSolubleFiber(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddSolubleFiber(f)
+	return fiuo
+}
+
+// SetTotalProtein sets the totalProtein field.
+func (fiuo *FeedInfoUpdateOne) SetTotalProtein(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetTotalProtein()
+	fiuo.mutation.SetTotalProtein(f)
+	return fiuo
+}
+
+// AddTotalProtein adds f to totalProtein.
+func (fiuo *FeedInfoUpdateOne) AddTotalProtein(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddTotalProtein(f)
+	return fiuo
+}
+
+// SetSolubleProtein sets the solubleProtein field.
+func (fiuo *FeedInfoUpdateOne) SetSolubleProtein(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetSolubleProtein()
+	fiuo.mutation.SetSolubleProtein(f)
+	return fiuo
+}
+
+// AddSolubleProtein adds f to solubleProtein.
+func (fiuo *FeedInfoUpdateOne) AddSolubleProtein(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddSolubleProtein(f)
+	return fiuo
+}
+
+// SetRdp sets the rdp field.
+func (fiuo *FeedInfoUpdateOne) SetRdp(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetRdp()
+	fiuo.mutation.SetRdp(f)
+	return fiuo
+}
+
+// AddRdp adds f to rdp.
+func (fiuo *FeedInfoUpdateOne) AddRdp(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddRdp(f)
+	return fiuo
+}
+
+// SetMe sets the me field.
+func (fiuo *FeedInfoUpdateOne) SetMe(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetMe()
+	fiuo.mutation.SetMe(f)
+	return fiuo
+}
+
+// AddMe adds f to me.
+func (fiuo *FeedInfoUpdateOne) AddMe(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddMe(f)
+	return fiuo
+}
+
+// SetNel sets the nel field.
+func (fiuo *FeedInfoUpdateOne) SetNel(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetNel()
+	fiuo.mutation.SetNel(f)
+	return fiuo
+}
+
+// AddNel adds f to nel.
+func (fiuo *FeedInfoUpdateOne) AddNel(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddNel(f)
+	return fiuo
+}
+
+// SetCrudeFat sets the crudeFat field.
+func (fiuo *FeedInfoUpdateOne) SetCrudeFat(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetCrudeFat()
+	fiuo.mutation.SetCrudeFat(f)
+	return fiuo
+}
+
+// AddCrudeFat adds f to crudeFat.
+func (fiuo *FeedInfoUpdateOne) AddCrudeFat(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddCrudeFat(f)
+	return fiuo
+}
+
+// SetTotalFttyAcid sets the totalFttyAcid field.
+func (fiuo *FeedInfoUpdateOne) SetTotalFttyAcid(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetTotalFttyAcid()
+	fiuo.mutation.SetTotalFttyAcid(f)
+	return fiuo
+}
+
+// AddTotalFttyAcid adds f to totalFttyAcid.
+func (fiuo *FeedInfoUpdateOne) AddTotalFttyAcid(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddTotalFttyAcid(f)
+	return fiuo
+}
+
+// SetAsh sets the ash field.
+func (fiuo *FeedInfoUpdateOne) SetAsh(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetAsh()
+	fiuo.mutation.SetAsh(f)
+	return fiuo
+}
+
+// AddAsh adds f to ash.
+func (fiuo *FeedInfoUpdateOne) AddAsh(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddAsh(f)
+	return fiuo
+}
+
+// SetCa sets the ca field.
+func (fiuo *FeedInfoUpdateOne) SetCa(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetCa()
+	fiuo.mutation.SetCa(f)
+	return fiuo
+}
+
+// AddCa adds f to ca.
+func (fiuo *FeedInfoUpdateOne) AddCa(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddCa(f)
+	return fiuo
+}
+
+// SetP sets the p field.
+func (fiuo *FeedInfoUpdateOne) SetP(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetP()
+	fiuo.mutation.SetP(f)
+	return fiuo
+}
+
+// AddP adds f to p.
+func (fiuo *FeedInfoUpdateOne) AddP(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddP(f)
+	return fiuo
+}
+
+// SetMg sets the mg field.
+func (fiuo *FeedInfoUpdateOne) SetMg(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetMg()
+	fiuo.mutation.SetMg(f)
+	return fiuo
+}
+
+// AddMg adds f to mg.
+func (fiuo *FeedInfoUpdateOne) AddMg(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddMg(f)
+	return fiuo
+}
+
+// SetK sets the k field.
+func (fiuo *FeedInfoUpdateOne) SetK(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetK()
+	fiuo.mutation.SetK(f)
+	return fiuo
+}
+
+// AddK adds f to k.
+func (fiuo *FeedInfoUpdateOne) AddK(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddK(f)
+	return fiuo
+}
+
+// SetMn sets the mn field.
+func (fiuo *FeedInfoUpdateOne) SetMn(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetMn()
+	fiuo.mutation.SetMn(f)
+	return fiuo
+}
+
+// AddMn adds f to mn.
+func (fiuo *FeedInfoUpdateOne) AddMn(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddMn(f)
+	return fiuo
+}
+
+// SetCu sets the cu field.
+func (fiuo *FeedInfoUpdateOne) SetCu(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetCu()
+	fiuo.mutation.SetCu(f)
+	return fiuo
+}
+
+// AddCu adds f to cu.
+func (fiuo *FeedInfoUpdateOne) AddCu(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddCu(f)
+	return fiuo
+}
+
+// SetFe sets the fe field.
+func (fiuo *FeedInfoUpdateOne) SetFe(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetFe()
+	fiuo.mutation.SetFe(f)
+	return fiuo
+}
+
+// AddFe adds f to fe.
+func (fiuo *FeedInfoUpdateOne) AddFe(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddFe(f)
+	return fiuo
+}
+
+// SetZn sets the zn field.
+func (fiuo *FeedInfoUpdateOne) SetZn(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetZn()
+	fiuo.mutation.SetZn(f)
+	return fiuo
+}
+
+// AddZn adds f to zn.
+func (fiuo *FeedInfoUpdateOne) AddZn(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddZn(f)
+	return fiuo
+}
+
+// SetMethionine sets the methionine field.
+func (fiuo *FeedInfoUpdateOne) SetMethionine(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetMethionine()
+	fiuo.mutation.SetMethionine(f)
+	return fiuo
+}
+
+// AddMethionine adds f to methionine.
+func (fiuo *FeedInfoUpdateOne) AddMethionine(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddMethionine(f)
+	return fiuo
+}
+
+// SetLysine sets the lysine field.
+func (fiuo *FeedInfoUpdateOne) SetLysine(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetLysine()
+	fiuo.mutation.SetLysine(f)
+	return fiuo
+}
+
+// AddLysine adds f to lysine.
+func (fiuo *FeedInfoUpdateOne) AddLysine(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddLysine(f)
+	return fiuo
+}
+
+// SetVitaminA sets the vitaminA field.
+func (fiuo *FeedInfoUpdateOne) SetVitaminA(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetVitaminA()
+	fiuo.mutation.SetVitaminA(f)
+	return fiuo
+}
+
+// AddVitaminA adds f to vitaminA.
+func (fiuo *FeedInfoUpdateOne) AddVitaminA(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddVitaminA(f)
+	return fiuo
+}
+
+// SetVitaminD3 sets the vitaminD3 field.
+func (fiuo *FeedInfoUpdateOne) SetVitaminD3(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetVitaminD3()
+	fiuo.mutation.SetVitaminD3(f)
+	return fiuo
+}
+
+// AddVitaminD3 adds f to vitaminD3.
+func (fiuo *FeedInfoUpdateOne) AddVitaminD3(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddVitaminD3(f)
+	return fiuo
+}
+
+// SetVitaminE sets the vitaminE field.
+func (fiuo *FeedInfoUpdateOne) SetVitaminE(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetVitaminE()
+	fiuo.mutation.SetVitaminE(f)
+	return fiuo
+}
+
+// AddVitaminE adds f to vitaminE.
+func (fiuo *FeedInfoUpdateOne) AddVitaminE(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddVitaminE(f)
+	return fiuo
+}
+
+// SetCholine sets the choline field.
+func (fiuo *FeedInfoUpdateOne) SetCholine(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetCholine()
+	fiuo.mutation.SetCholine(f)
+	return fiuo
+}
+
+// AddCholine adds f to choline.
+func (fiuo *FeedInfoUpdateOne) AddCholine(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddCholine(f)
+	return fiuo
+}
+
+// SetBiotin sets the biotin field.
+func (fiuo *FeedInfoUpdateOne) SetBiotin(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetBiotin()
+	fiuo.mutation.SetBiotin(f)
+	return fiuo
+}
+
+// AddBiotin adds f to biotin.
+func (fiuo *FeedInfoUpdateOne) AddBiotin(f float32) *FeedInfoUpdateOne {
+	fiuo.mutation.AddBiotin(f)
 	return fiuo
 }
 
 // SetDescription sets the description field.
 func (fiuo *FeedInfoUpdateOne) SetDescription(s string) *FeedInfoUpdateOne {
 	fiuo.mutation.SetDescription(s)
+	return fiuo
+}
+
+// SetNillableDescription sets the description field if the given value is not nil.
+func (fiuo *FeedInfoUpdateOne) SetNillableDescription(s *string) *FeedInfoUpdateOne {
+	if s != nil {
+		fiuo.SetDescription(*s)
+	}
+	return fiuo
+}
+
+// ClearDescription clears the value of description.
+func (fiuo *FeedInfoUpdateOne) ClearDescription() *FeedInfoUpdateOne {
+	fiuo.mutation.ClearDescription()
 	return fiuo
 }
 
@@ -336,9 +1831,23 @@ func (fiuo *FeedInfoUpdateOne) SetTenantId(i int64) *FeedInfoUpdateOne {
 	return fiuo
 }
 
+// SetNillableTenantId sets the tenantId field if the given value is not nil.
+func (fiuo *FeedInfoUpdateOne) SetNillableTenantId(i *int64) *FeedInfoUpdateOne {
+	if i != nil {
+		fiuo.SetTenantId(*i)
+	}
+	return fiuo
+}
+
 // AddTenantId adds i to tenantId.
 func (fiuo *FeedInfoUpdateOne) AddTenantId(i int64) *FeedInfoUpdateOne {
 	fiuo.mutation.AddTenantId(i)
+	return fiuo
+}
+
+// ClearTenantId clears the value of tenantId.
+func (fiuo *FeedInfoUpdateOne) ClearTenantId() *FeedInfoUpdateOne {
+	fiuo.mutation.ClearTenantId()
 	return fiuo
 }
 
@@ -348,9 +1857,84 @@ func (fiuo *FeedInfoUpdateOne) SetTenantName(s string) *FeedInfoUpdateOne {
 	return fiuo
 }
 
+// SetNillableTenantName sets the tenantName field if the given value is not nil.
+func (fiuo *FeedInfoUpdateOne) SetNillableTenantName(s *string) *FeedInfoUpdateOne {
+	if s != nil {
+		fiuo.SetTenantName(*s)
+	}
+	return fiuo
+}
+
+// ClearTenantName clears the value of tenantName.
+func (fiuo *FeedInfoUpdateOne) ClearTenantName() *FeedInfoUpdateOne {
+	fiuo.mutation.ClearTenantName()
+	return fiuo
+}
+
+// SetFarmId sets the farmId field.
+func (fiuo *FeedInfoUpdateOne) SetFarmId(i int64) *FeedInfoUpdateOne {
+	fiuo.mutation.ResetFarmId()
+	fiuo.mutation.SetFarmId(i)
+	return fiuo
+}
+
+// SetNillableFarmId sets the farmId field if the given value is not nil.
+func (fiuo *FeedInfoUpdateOne) SetNillableFarmId(i *int64) *FeedInfoUpdateOne {
+	if i != nil {
+		fiuo.SetFarmId(*i)
+	}
+	return fiuo
+}
+
+// AddFarmId adds i to farmId.
+func (fiuo *FeedInfoUpdateOne) AddFarmId(i int64) *FeedInfoUpdateOne {
+	fiuo.mutation.AddFarmId(i)
+	return fiuo
+}
+
+// ClearFarmId clears the value of farmId.
+func (fiuo *FeedInfoUpdateOne) ClearFarmId() *FeedInfoUpdateOne {
+	fiuo.mutation.ClearFarmId()
+	return fiuo
+}
+
+// SetFarmName sets the farmName field.
+func (fiuo *FeedInfoUpdateOne) SetFarmName(s string) *FeedInfoUpdateOne {
+	fiuo.mutation.SetFarmName(s)
+	return fiuo
+}
+
+// SetNillableFarmName sets the farmName field if the given value is not nil.
+func (fiuo *FeedInfoUpdateOne) SetNillableFarmName(s *string) *FeedInfoUpdateOne {
+	if s != nil {
+		fiuo.SetFarmName(*s)
+	}
+	return fiuo
+}
+
+// ClearFarmName clears the value of farmName.
+func (fiuo *FeedInfoUpdateOne) ClearFarmName() *FeedInfoUpdateOne {
+	fiuo.mutation.ClearFarmName()
+	return fiuo
+}
+
 // SetRemarks sets the remarks field.
 func (fiuo *FeedInfoUpdateOne) SetRemarks(s string) *FeedInfoUpdateOne {
 	fiuo.mutation.SetRemarks(s)
+	return fiuo
+}
+
+// SetNillableRemarks sets the remarks field if the given value is not nil.
+func (fiuo *FeedInfoUpdateOne) SetNillableRemarks(s *string) *FeedInfoUpdateOne {
+	if s != nil {
+		fiuo.SetRemarks(*s)
+	}
+	return fiuo
+}
+
+// ClearRemarks clears the value of remarks.
+func (fiuo *FeedInfoUpdateOne) ClearRemarks() *FeedInfoUpdateOne {
+	fiuo.mutation.ClearRemarks()
 	return fiuo
 }
 
@@ -361,9 +1945,23 @@ func (fiuo *FeedInfoUpdateOne) SetCreatedAt(i int64) *FeedInfoUpdateOne {
 	return fiuo
 }
 
+// SetNillableCreatedAt sets the createdAt field if the given value is not nil.
+func (fiuo *FeedInfoUpdateOne) SetNillableCreatedAt(i *int64) *FeedInfoUpdateOne {
+	if i != nil {
+		fiuo.SetCreatedAt(*i)
+	}
+	return fiuo
+}
+
 // AddCreatedAt adds i to createdAt.
 func (fiuo *FeedInfoUpdateOne) AddCreatedAt(i int64) *FeedInfoUpdateOne {
 	fiuo.mutation.AddCreatedAt(i)
+	return fiuo
+}
+
+// ClearCreatedAt clears the value of createdAt.
+func (fiuo *FeedInfoUpdateOne) ClearCreatedAt() *FeedInfoUpdateOne {
+	fiuo.mutation.ClearCreatedAt()
 	return fiuo
 }
 
@@ -374,9 +1972,23 @@ func (fiuo *FeedInfoUpdateOne) SetUpdatedAt(i int64) *FeedInfoUpdateOne {
 	return fiuo
 }
 
+// SetNillableUpdatedAt sets the updatedAt field if the given value is not nil.
+func (fiuo *FeedInfoUpdateOne) SetNillableUpdatedAt(i *int64) *FeedInfoUpdateOne {
+	if i != nil {
+		fiuo.SetUpdatedAt(*i)
+	}
+	return fiuo
+}
+
 // AddUpdatedAt adds i to updatedAt.
 func (fiuo *FeedInfoUpdateOne) AddUpdatedAt(i int64) *FeedInfoUpdateOne {
 	fiuo.mutation.AddUpdatedAt(i)
+	return fiuo
+}
+
+// ClearUpdatedAt clears the value of updatedAt.
+func (fiuo *FeedInfoUpdateOne) ClearUpdatedAt() *FeedInfoUpdateOne {
+	fiuo.mutation.ClearUpdatedAt()
 	return fiuo
 }
 
@@ -387,9 +1999,23 @@ func (fiuo *FeedInfoUpdateOne) SetDeleted(i int) *FeedInfoUpdateOne {
 	return fiuo
 }
 
+// SetNillableDeleted sets the deleted field if the given value is not nil.
+func (fiuo *FeedInfoUpdateOne) SetNillableDeleted(i *int) *FeedInfoUpdateOne {
+	if i != nil {
+		fiuo.SetDeleted(*i)
+	}
+	return fiuo
+}
+
 // AddDeleted adds i to deleted.
 func (fiuo *FeedInfoUpdateOne) AddDeleted(i int) *FeedInfoUpdateOne {
 	fiuo.mutation.AddDeleted(i)
+	return fiuo
+}
+
+// ClearDeleted clears the value of deleted.
+func (fiuo *FeedInfoUpdateOne) ClearDeleted() *FeedInfoUpdateOne {
+	fiuo.mutation.ClearDeleted()
 	return fiuo
 }
 
@@ -479,17 +2105,464 @@ func (fiuo *FeedInfoUpdateOne) sqlSave(ctx context.Context) (_node *FeedInfo, er
 			Column: feedinfo.FieldCode,
 		})
 	}
-	if value, ok := fiuo.mutation.GetType(); ok {
+	if value, ok := fiuo.mutation.Moisture(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeFloat32,
 			Value:  value,
-			Column: feedinfo.FieldType,
+			Column: feedinfo.FieldMoisture,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedMoisture(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMoisture,
+		})
+	}
+	if value, ok := fiuo.mutation.DryMatter(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldDryMatter,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedDryMatter(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldDryMatter,
+		})
+	}
+	if value, ok := fiuo.mutation.Ndf(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldNdf,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedNdf(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldNdf,
+		})
+	}
+	if value, ok := fiuo.mutation.Adf(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldAdf,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedAdf(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldAdf,
+		})
+	}
+	if value, ok := fiuo.mutation.Endf(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldEndf,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedEndf(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldEndf,
+		})
+	}
+	if value, ok := fiuo.mutation.LacticAcid(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldLacticAcid,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedLacticAcid(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldLacticAcid,
+		})
+	}
+	if value, ok := fiuo.mutation.Wsc(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldWsc,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedWsc(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldWsc,
+		})
+	}
+	if value, ok := fiuo.mutation.Starch(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldStarch,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedStarch(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldStarch,
+		})
+	}
+	if value, ok := fiuo.mutation.SolubleFiber(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldSolubleFiber,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedSolubleFiber(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldSolubleFiber,
+		})
+	}
+	if value, ok := fiuo.mutation.TotalProtein(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldTotalProtein,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedTotalProtein(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldTotalProtein,
+		})
+	}
+	if value, ok := fiuo.mutation.SolubleProtein(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldSolubleProtein,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedSolubleProtein(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldSolubleProtein,
+		})
+	}
+	if value, ok := fiuo.mutation.Rdp(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldRdp,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedRdp(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldRdp,
+		})
+	}
+	if value, ok := fiuo.mutation.Me(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMe,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedMe(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMe,
+		})
+	}
+	if value, ok := fiuo.mutation.Nel(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldNel,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedNel(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldNel,
+		})
+	}
+	if value, ok := fiuo.mutation.CrudeFat(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCrudeFat,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedCrudeFat(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCrudeFat,
+		})
+	}
+	if value, ok := fiuo.mutation.TotalFttyAcid(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldTotalFttyAcid,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedTotalFttyAcid(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldTotalFttyAcid,
+		})
+	}
+	if value, ok := fiuo.mutation.Ash(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldAsh,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedAsh(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldAsh,
+		})
+	}
+	if value, ok := fiuo.mutation.Ca(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCa,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedCa(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCa,
+		})
+	}
+	if value, ok := fiuo.mutation.P(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldP,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedP(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldP,
+		})
+	}
+	if value, ok := fiuo.mutation.Mg(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMg,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedMg(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMg,
+		})
+	}
+	if value, ok := fiuo.mutation.K(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldK,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedK(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldK,
+		})
+	}
+	if value, ok := fiuo.mutation.Mn(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMn,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedMn(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMn,
+		})
+	}
+	if value, ok := fiuo.mutation.Cu(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCu,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedCu(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCu,
+		})
+	}
+	if value, ok := fiuo.mutation.Fe(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldFe,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedFe(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldFe,
+		})
+	}
+	if value, ok := fiuo.mutation.Zn(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldZn,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedZn(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldZn,
+		})
+	}
+	if value, ok := fiuo.mutation.Methionine(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMethionine,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedMethionine(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMethionine,
+		})
+	}
+	if value, ok := fiuo.mutation.Lysine(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldLysine,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedLysine(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldLysine,
+		})
+	}
+	if value, ok := fiuo.mutation.VitaminA(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldVitaminA,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedVitaminA(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldVitaminA,
+		})
+	}
+	if value, ok := fiuo.mutation.VitaminD3(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldVitaminD3,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedVitaminD3(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldVitaminD3,
+		})
+	}
+	if value, ok := fiuo.mutation.VitaminE(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldVitaminE,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedVitaminE(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldVitaminE,
+		})
+	}
+	if value, ok := fiuo.mutation.Choline(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCholine,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedCholine(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCholine,
+		})
+	}
+	if value, ok := fiuo.mutation.Biotin(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldBiotin,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedBiotin(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldBiotin,
 		})
 	}
 	if value, ok := fiuo.mutation.Description(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: feedinfo.FieldDescription,
+		})
+	}
+	if fiuo.mutation.DescriptionCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: feedinfo.FieldDescription,
 		})
 	}
@@ -507,6 +2580,12 @@ func (fiuo *FeedInfoUpdateOne) sqlSave(ctx context.Context) (_node *FeedInfo, er
 			Column: feedinfo.FieldTenantId,
 		})
 	}
+	if fiuo.mutation.TenantIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: feedinfo.FieldTenantId,
+		})
+	}
 	if value, ok := fiuo.mutation.TenantName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -514,10 +2593,55 @@ func (fiuo *FeedInfoUpdateOne) sqlSave(ctx context.Context) (_node *FeedInfo, er
 			Column: feedinfo.FieldTenantName,
 		})
 	}
+	if fiuo.mutation.TenantNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: feedinfo.FieldTenantName,
+		})
+	}
+	if value, ok := fiuo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: feedinfo.FieldFarmId,
+		})
+	}
+	if value, ok := fiuo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: feedinfo.FieldFarmId,
+		})
+	}
+	if fiuo.mutation.FarmIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: feedinfo.FieldFarmId,
+		})
+	}
+	if value, ok := fiuo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: feedinfo.FieldFarmName,
+		})
+	}
+	if fiuo.mutation.FarmNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: feedinfo.FieldFarmName,
+		})
+	}
 	if value, ok := fiuo.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: feedinfo.FieldRemarks,
+		})
+	}
+	if fiuo.mutation.RemarksCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: feedinfo.FieldRemarks,
 		})
 	}
@@ -535,6 +2659,12 @@ func (fiuo *FeedInfoUpdateOne) sqlSave(ctx context.Context) (_node *FeedInfo, er
 			Column: feedinfo.FieldCreatedAt,
 		})
 	}
+	if fiuo.mutation.CreatedAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: feedinfo.FieldCreatedAt,
+		})
+	}
 	if value, ok := fiuo.mutation.UpdatedAt(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -549,6 +2679,12 @@ func (fiuo *FeedInfoUpdateOne) sqlSave(ctx context.Context) (_node *FeedInfo, er
 			Column: feedinfo.FieldUpdatedAt,
 		})
 	}
+	if fiuo.mutation.UpdatedAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: feedinfo.FieldUpdatedAt,
+		})
+	}
 	if value, ok := fiuo.mutation.Deleted(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
@@ -560,6 +2696,12 @@ func (fiuo *FeedInfoUpdateOne) sqlSave(ctx context.Context) (_node *FeedInfo, er
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
 			Value:  value,
+			Column: feedinfo.FieldDeleted,
+		})
+	}
+	if fiuo.mutation.DeletedCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
 			Column: feedinfo.FieldDeleted,
 		})
 	}

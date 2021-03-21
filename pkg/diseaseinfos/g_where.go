@@ -7,10 +7,10 @@ import (
 )
 
 func Where(listParams *params.ListParams) predicate.DiseaseInfo {
-	wheres := []predicate.DiseaseInfo{diseaseinfo.Deleted(0)}
+	wheres := []predicate.DiseaseInfo{}
 	if listParams.Q != "" {
 		wheres = append(wheres, diseaseinfo.NameContains(listParams.Q))
 	}
-	wheres = append(wheres, diseaseinfo.TenantId(listParams.TenantId))
+	// wheres = append(wheres, diseaseinfo.TenantId(listParams.TenantId))
 	return diseaseinfo.And(wheres...)
 }

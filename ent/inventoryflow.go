@@ -15,8 +15,10 @@ type InventoryFlow struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int64 `json:"id,omitempty"`
-	// MaterialID holds the value of the "materialID" field.
-	MaterialID int64 `json:"materialID,omitempty"`
+	// SysMaterialId holds the value of the "sysMaterialId" field.
+	SysMaterialId int64 `json:"sysMaterialId,omitempty"`
+	// MaterialId holds the value of the "materialId" field.
+	MaterialId int64 `json:"materialId,omitempty"`
 	// MaterialName holds the value of the "materialName" field.
 	MaterialName string `json:"materialName,omitempty"`
 	// MaterialCode holds the value of the "materialCode" field.
@@ -28,19 +30,31 @@ type InventoryFlow struct {
 	// Type holds the value of the "type" field.
 	Type int `json:"type,omitempty"`
 	// Status holds the value of the "status" field.
-	Status int `json:"status,omitempty"`
+	Status string `json:"status,omitempty"`
 	// Count holds the value of the "count" field.
 	Count int `json:"count,omitempty"`
 	// Unit holds the value of the "unit" field.
 	Unit string `json:"unit,omitempty"`
+	// Before holds the value of the "before" field.
+	Before int64 `json:"before,omitempty"`
+	// After holds the value of the "after" field.
+	After int64 `json:"after,omitempty"`
 	// UserName holds the value of the "userName" field.
 	UserName string `json:"userName,omitempty"`
 	// TenantId holds the value of the "tenantId" field.
 	TenantId int64 `json:"tenantId,omitempty"`
 	// TenantName holds the value of the "tenantName" field.
 	TenantName string `json:"tenantName,omitempty"`
+	// FarmId holds the value of the "farmId" field.
+	FarmId int64 `json:"farmId,omitempty"`
+	// FarmName holds the value of the "farmName" field.
+	FarmName string `json:"farmName,omitempty"`
 	// Remarks holds the value of the "remarks" field.
 	Remarks string `json:"remarks,omitempty"`
+	// IsChecked holds the value of the "isChecked" field.
+	IsChecked bool `json:"isChecked,omitempty"`
+	// ReportFileAddress holds the value of the "reportFileAddress" field.
+	ReportFileAddress string `json:"reportFileAddress,omitempty"`
 	// CreatedAt holds the value of the "createdAt" field.
 	CreatedAt int64 `json:"createdAt,omitempty"`
 	// UpdatedAt holds the value of the "updatedAt" field.
@@ -53,19 +67,26 @@ type InventoryFlow struct {
 func (*InventoryFlow) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
-		&sql.NullInt64{},  // materialID
+		&sql.NullInt64{},  // sysMaterialId
+		&sql.NullInt64{},  // materialId
 		&sql.NullString{}, // materialName
 		&sql.NullString{}, // materialCode
 		&sql.NullString{}, // seqNumber
 		&sql.NullInt64{},  // date
 		&sql.NullInt64{},  // type
-		&sql.NullInt64{},  // status
+		&sql.NullString{}, // status
 		&sql.NullInt64{},  // count
 		&sql.NullString{}, // unit
+		&sql.NullInt64{},  // before
+		&sql.NullInt64{},  // after
 		&sql.NullString{}, // userName
 		&sql.NullInt64{},  // tenantId
 		&sql.NullString{}, // tenantName
+		&sql.NullInt64{},  // farmId
+		&sql.NullString{}, // farmName
 		&sql.NullString{}, // remarks
+		&sql.NullBool{},   // isChecked
+		&sql.NullString{}, // reportFileAddress
 		&sql.NullInt64{},  // createdAt
 		&sql.NullInt64{},  // updatedAt
 		&sql.NullInt64{},  // deleted
@@ -85,82 +106,117 @@ func (_if *InventoryFlow) assignValues(values ...interface{}) error {
 	_if.ID = int64(value.Int64)
 	values = values[1:]
 	if value, ok := values[0].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field materialID", values[0])
+		return fmt.Errorf("unexpected type %T for field sysMaterialId", values[0])
 	} else if value.Valid {
-		_if.MaterialID = value.Int64
+		_if.SysMaterialId = value.Int64
 	}
-	if value, ok := values[1].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field materialName", values[1])
+	if value, ok := values[1].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field materialId", values[1])
+	} else if value.Valid {
+		_if.MaterialId = value.Int64
+	}
+	if value, ok := values[2].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field materialName", values[2])
 	} else if value.Valid {
 		_if.MaterialName = value.String
 	}
-	if value, ok := values[2].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field materialCode", values[2])
+	if value, ok := values[3].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field materialCode", values[3])
 	} else if value.Valid {
 		_if.MaterialCode = value.String
 	}
-	if value, ok := values[3].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field seqNumber", values[3])
+	if value, ok := values[4].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field seqNumber", values[4])
 	} else if value.Valid {
 		_if.SeqNumber = value.String
 	}
-	if value, ok := values[4].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field date", values[4])
+	if value, ok := values[5].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field date", values[5])
 	} else if value.Valid {
 		_if.Date = value.Int64
 	}
-	if value, ok := values[5].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field type", values[5])
+	if value, ok := values[6].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field type", values[6])
 	} else if value.Valid {
 		_if.Type = int(value.Int64)
 	}
-	if value, ok := values[6].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field status", values[6])
+	if value, ok := values[7].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field status", values[7])
 	} else if value.Valid {
-		_if.Status = int(value.Int64)
+		_if.Status = value.String
 	}
-	if value, ok := values[7].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field count", values[7])
+	if value, ok := values[8].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field count", values[8])
 	} else if value.Valid {
 		_if.Count = int(value.Int64)
 	}
-	if value, ok := values[8].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field unit", values[8])
+	if value, ok := values[9].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field unit", values[9])
 	} else if value.Valid {
 		_if.Unit = value.String
 	}
-	if value, ok := values[9].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field userName", values[9])
+	if value, ok := values[10].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field before", values[10])
+	} else if value.Valid {
+		_if.Before = value.Int64
+	}
+	if value, ok := values[11].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field after", values[11])
+	} else if value.Valid {
+		_if.After = value.Int64
+	}
+	if value, ok := values[12].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field userName", values[12])
 	} else if value.Valid {
 		_if.UserName = value.String
 	}
-	if value, ok := values[10].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantId", values[10])
+	if value, ok := values[13].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[13])
 	} else if value.Valid {
 		_if.TenantId = value.Int64
 	}
-	if value, ok := values[11].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantName", values[11])
+	if value, ok := values[14].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[14])
 	} else if value.Valid {
 		_if.TenantName = value.String
 	}
-	if value, ok := values[12].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[12])
+	if value, ok := values[15].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field farmId", values[15])
+	} else if value.Valid {
+		_if.FarmId = value.Int64
+	}
+	if value, ok := values[16].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field farmName", values[16])
+	} else if value.Valid {
+		_if.FarmName = value.String
+	}
+	if value, ok := values[17].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[17])
 	} else if value.Valid {
 		_if.Remarks = value.String
 	}
-	if value, ok := values[13].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[13])
+	if value, ok := values[18].(*sql.NullBool); !ok {
+		return fmt.Errorf("unexpected type %T for field isChecked", values[18])
+	} else if value.Valid {
+		_if.IsChecked = value.Bool
+	}
+	if value, ok := values[19].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field reportFileAddress", values[19])
+	} else if value.Valid {
+		_if.ReportFileAddress = value.String
+	}
+	if value, ok := values[20].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[20])
 	} else if value.Valid {
 		_if.CreatedAt = value.Int64
 	}
-	if value, ok := values[14].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[14])
+	if value, ok := values[21].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[21])
 	} else if value.Valid {
 		_if.UpdatedAt = value.Int64
 	}
-	if value, ok := values[15].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[15])
+	if value, ok := values[22].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[22])
 	} else if value.Valid {
 		_if.Deleted = int(value.Int64)
 	}
@@ -190,8 +246,10 @@ func (_if *InventoryFlow) String() string {
 	var builder strings.Builder
 	builder.WriteString("InventoryFlow(")
 	builder.WriteString(fmt.Sprintf("id=%v", _if.ID))
-	builder.WriteString(", materialID=")
-	builder.WriteString(fmt.Sprintf("%v", _if.MaterialID))
+	builder.WriteString(", sysMaterialId=")
+	builder.WriteString(fmt.Sprintf("%v", _if.SysMaterialId))
+	builder.WriteString(", materialId=")
+	builder.WriteString(fmt.Sprintf("%v", _if.MaterialId))
 	builder.WriteString(", materialName=")
 	builder.WriteString(_if.MaterialName)
 	builder.WriteString(", materialCode=")
@@ -203,19 +261,31 @@ func (_if *InventoryFlow) String() string {
 	builder.WriteString(", type=")
 	builder.WriteString(fmt.Sprintf("%v", _if.Type))
 	builder.WriteString(", status=")
-	builder.WriteString(fmt.Sprintf("%v", _if.Status))
+	builder.WriteString(_if.Status)
 	builder.WriteString(", count=")
 	builder.WriteString(fmt.Sprintf("%v", _if.Count))
 	builder.WriteString(", unit=")
 	builder.WriteString(_if.Unit)
+	builder.WriteString(", before=")
+	builder.WriteString(fmt.Sprintf("%v", _if.Before))
+	builder.WriteString(", after=")
+	builder.WriteString(fmt.Sprintf("%v", _if.After))
 	builder.WriteString(", userName=")
 	builder.WriteString(_if.UserName)
 	builder.WriteString(", tenantId=")
 	builder.WriteString(fmt.Sprintf("%v", _if.TenantId))
 	builder.WriteString(", tenantName=")
 	builder.WriteString(_if.TenantName)
+	builder.WriteString(", farmId=")
+	builder.WriteString(fmt.Sprintf("%v", _if.FarmId))
+	builder.WriteString(", farmName=")
+	builder.WriteString(_if.FarmName)
 	builder.WriteString(", remarks=")
 	builder.WriteString(_if.Remarks)
+	builder.WriteString(", isChecked=")
+	builder.WriteString(fmt.Sprintf("%v", _if.IsChecked))
+	builder.WriteString(", reportFileAddress=")
+	builder.WriteString(_if.ReportFileAddress)
 	builder.WriteString(", createdAt=")
 	builder.WriteString(fmt.Sprintf("%v", _if.CreatedAt))
 	builder.WriteString(", updatedAt=")

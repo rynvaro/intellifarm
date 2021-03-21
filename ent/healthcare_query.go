@@ -237,12 +237,12 @@ func (hcq *HealthCareQuery) Clone() *HealthCareQuery {
 // Example:
 //
 //	var v []struct {
-//		EarNumber string `json:"earNumber,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.HealthCare.Query().
-//		GroupBy(healthcare.FieldEarNumber).
+//		GroupBy(healthcare.FieldCattleId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (hcq *HealthCareQuery) GroupBy(field string, fields ...string) *HealthCareG
 // Example:
 //
 //	var v []struct {
-//		EarNumber string `json:"earNumber,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //	}
 //
 //	client.HealthCare.Query().
-//		Select(healthcare.FieldEarNumber).
+//		Select(healthcare.FieldCattleId).
 //		Scan(ctx, &v)
 //
 func (hcq *HealthCareQuery) Select(field string, fields ...string) *HealthCareSelect {

@@ -45,9 +45,37 @@ func (diu *DiseaseInfoUpdate) SetType(s string) *DiseaseInfoUpdate {
 	return diu
 }
 
+// SetNillableType sets the type field if the given value is not nil.
+func (diu *DiseaseInfoUpdate) SetNillableType(s *string) *DiseaseInfoUpdate {
+	if s != nil {
+		diu.SetType(*s)
+	}
+	return diu
+}
+
+// ClearType clears the value of type.
+func (diu *DiseaseInfoUpdate) ClearType() *DiseaseInfoUpdate {
+	diu.mutation.ClearType()
+	return diu
+}
+
 // SetDescription sets the description field.
 func (diu *DiseaseInfoUpdate) SetDescription(s string) *DiseaseInfoUpdate {
 	diu.mutation.SetDescription(s)
+	return diu
+}
+
+// SetNillableDescription sets the description field if the given value is not nil.
+func (diu *DiseaseInfoUpdate) SetNillableDescription(s *string) *DiseaseInfoUpdate {
+	if s != nil {
+		diu.SetDescription(*s)
+	}
+	return diu
+}
+
+// ClearDescription clears the value of description.
+func (diu *DiseaseInfoUpdate) ClearDescription() *DiseaseInfoUpdate {
+	diu.mutation.ClearDescription()
 	return diu
 }
 
@@ -58,9 +86,23 @@ func (diu *DiseaseInfoUpdate) SetTenantId(i int64) *DiseaseInfoUpdate {
 	return diu
 }
 
+// SetNillableTenantId sets the tenantId field if the given value is not nil.
+func (diu *DiseaseInfoUpdate) SetNillableTenantId(i *int64) *DiseaseInfoUpdate {
+	if i != nil {
+		diu.SetTenantId(*i)
+	}
+	return diu
+}
+
 // AddTenantId adds i to tenantId.
 func (diu *DiseaseInfoUpdate) AddTenantId(i int64) *DiseaseInfoUpdate {
 	diu.mutation.AddTenantId(i)
+	return diu
+}
+
+// ClearTenantId clears the value of tenantId.
+func (diu *DiseaseInfoUpdate) ClearTenantId() *DiseaseInfoUpdate {
+	diu.mutation.ClearTenantId()
 	return diu
 }
 
@@ -70,9 +112,37 @@ func (diu *DiseaseInfoUpdate) SetTenantName(s string) *DiseaseInfoUpdate {
 	return diu
 }
 
+// SetNillableTenantName sets the tenantName field if the given value is not nil.
+func (diu *DiseaseInfoUpdate) SetNillableTenantName(s *string) *DiseaseInfoUpdate {
+	if s != nil {
+		diu.SetTenantName(*s)
+	}
+	return diu
+}
+
+// ClearTenantName clears the value of tenantName.
+func (diu *DiseaseInfoUpdate) ClearTenantName() *DiseaseInfoUpdate {
+	diu.mutation.ClearTenantName()
+	return diu
+}
+
 // SetRemarks sets the remarks field.
 func (diu *DiseaseInfoUpdate) SetRemarks(s string) *DiseaseInfoUpdate {
 	diu.mutation.SetRemarks(s)
+	return diu
+}
+
+// SetNillableRemarks sets the remarks field if the given value is not nil.
+func (diu *DiseaseInfoUpdate) SetNillableRemarks(s *string) *DiseaseInfoUpdate {
+	if s != nil {
+		diu.SetRemarks(*s)
+	}
+	return diu
+}
+
+// ClearRemarks clears the value of remarks.
+func (diu *DiseaseInfoUpdate) ClearRemarks() *DiseaseInfoUpdate {
+	diu.mutation.ClearRemarks()
 	return diu
 }
 
@@ -83,9 +153,23 @@ func (diu *DiseaseInfoUpdate) SetCreatedAt(i int64) *DiseaseInfoUpdate {
 	return diu
 }
 
+// SetNillableCreatedAt sets the createdAt field if the given value is not nil.
+func (diu *DiseaseInfoUpdate) SetNillableCreatedAt(i *int64) *DiseaseInfoUpdate {
+	if i != nil {
+		diu.SetCreatedAt(*i)
+	}
+	return diu
+}
+
 // AddCreatedAt adds i to createdAt.
 func (diu *DiseaseInfoUpdate) AddCreatedAt(i int64) *DiseaseInfoUpdate {
 	diu.mutation.AddCreatedAt(i)
+	return diu
+}
+
+// ClearCreatedAt clears the value of createdAt.
+func (diu *DiseaseInfoUpdate) ClearCreatedAt() *DiseaseInfoUpdate {
+	diu.mutation.ClearCreatedAt()
 	return diu
 }
 
@@ -96,9 +180,23 @@ func (diu *DiseaseInfoUpdate) SetUpdatedAt(i int64) *DiseaseInfoUpdate {
 	return diu
 }
 
+// SetNillableUpdatedAt sets the updatedAt field if the given value is not nil.
+func (diu *DiseaseInfoUpdate) SetNillableUpdatedAt(i *int64) *DiseaseInfoUpdate {
+	if i != nil {
+		diu.SetUpdatedAt(*i)
+	}
+	return diu
+}
+
 // AddUpdatedAt adds i to updatedAt.
 func (diu *DiseaseInfoUpdate) AddUpdatedAt(i int64) *DiseaseInfoUpdate {
 	diu.mutation.AddUpdatedAt(i)
+	return diu
+}
+
+// ClearUpdatedAt clears the value of updatedAt.
+func (diu *DiseaseInfoUpdate) ClearUpdatedAt() *DiseaseInfoUpdate {
+	diu.mutation.ClearUpdatedAt()
 	return diu
 }
 
@@ -109,9 +207,23 @@ func (diu *DiseaseInfoUpdate) SetDeleted(i int) *DiseaseInfoUpdate {
 	return diu
 }
 
+// SetNillableDeleted sets the deleted field if the given value is not nil.
+func (diu *DiseaseInfoUpdate) SetNillableDeleted(i *int) *DiseaseInfoUpdate {
+	if i != nil {
+		diu.SetDeleted(*i)
+	}
+	return diu
+}
+
 // AddDeleted adds i to deleted.
 func (diu *DiseaseInfoUpdate) AddDeleted(i int) *DiseaseInfoUpdate {
 	diu.mutation.AddDeleted(i)
+	return diu
+}
+
+// ClearDeleted clears the value of deleted.
+func (diu *DiseaseInfoUpdate) ClearDeleted() *DiseaseInfoUpdate {
+	diu.mutation.ClearDeleted()
 	return diu
 }
 
@@ -210,10 +322,22 @@ func (diu *DiseaseInfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: diseaseinfo.FieldType,
 		})
 	}
+	if diu.mutation.TypeCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: diseaseinfo.FieldType,
+		})
+	}
 	if value, ok := diu.mutation.Description(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: diseaseinfo.FieldDescription,
+		})
+	}
+	if diu.mutation.DescriptionCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: diseaseinfo.FieldDescription,
 		})
 	}
@@ -231,6 +355,12 @@ func (diu *DiseaseInfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: diseaseinfo.FieldTenantId,
 		})
 	}
+	if diu.mutation.TenantIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: diseaseinfo.FieldTenantId,
+		})
+	}
 	if value, ok := diu.mutation.TenantName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -238,10 +368,22 @@ func (diu *DiseaseInfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: diseaseinfo.FieldTenantName,
 		})
 	}
+	if diu.mutation.TenantNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: diseaseinfo.FieldTenantName,
+		})
+	}
 	if value, ok := diu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: diseaseinfo.FieldRemarks,
+		})
+	}
+	if diu.mutation.RemarksCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: diseaseinfo.FieldRemarks,
 		})
 	}
@@ -259,6 +401,12 @@ func (diu *DiseaseInfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: diseaseinfo.FieldCreatedAt,
 		})
 	}
+	if diu.mutation.CreatedAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: diseaseinfo.FieldCreatedAt,
+		})
+	}
 	if value, ok := diu.mutation.UpdatedAt(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -273,6 +421,12 @@ func (diu *DiseaseInfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: diseaseinfo.FieldUpdatedAt,
 		})
 	}
+	if diu.mutation.UpdatedAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: diseaseinfo.FieldUpdatedAt,
+		})
+	}
 	if value, ok := diu.mutation.Deleted(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
@@ -284,6 +438,12 @@ func (diu *DiseaseInfoUpdate) sqlSave(ctx context.Context) (n int, err error) {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
 			Value:  value,
+			Column: diseaseinfo.FieldDeleted,
+		})
+	}
+	if diu.mutation.DeletedCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
 			Column: diseaseinfo.FieldDeleted,
 		})
 	}
@@ -323,9 +483,37 @@ func (diuo *DiseaseInfoUpdateOne) SetType(s string) *DiseaseInfoUpdateOne {
 	return diuo
 }
 
+// SetNillableType sets the type field if the given value is not nil.
+func (diuo *DiseaseInfoUpdateOne) SetNillableType(s *string) *DiseaseInfoUpdateOne {
+	if s != nil {
+		diuo.SetType(*s)
+	}
+	return diuo
+}
+
+// ClearType clears the value of type.
+func (diuo *DiseaseInfoUpdateOne) ClearType() *DiseaseInfoUpdateOne {
+	diuo.mutation.ClearType()
+	return diuo
+}
+
 // SetDescription sets the description field.
 func (diuo *DiseaseInfoUpdateOne) SetDescription(s string) *DiseaseInfoUpdateOne {
 	diuo.mutation.SetDescription(s)
+	return diuo
+}
+
+// SetNillableDescription sets the description field if the given value is not nil.
+func (diuo *DiseaseInfoUpdateOne) SetNillableDescription(s *string) *DiseaseInfoUpdateOne {
+	if s != nil {
+		diuo.SetDescription(*s)
+	}
+	return diuo
+}
+
+// ClearDescription clears the value of description.
+func (diuo *DiseaseInfoUpdateOne) ClearDescription() *DiseaseInfoUpdateOne {
+	diuo.mutation.ClearDescription()
 	return diuo
 }
 
@@ -336,9 +524,23 @@ func (diuo *DiseaseInfoUpdateOne) SetTenantId(i int64) *DiseaseInfoUpdateOne {
 	return diuo
 }
 
+// SetNillableTenantId sets the tenantId field if the given value is not nil.
+func (diuo *DiseaseInfoUpdateOne) SetNillableTenantId(i *int64) *DiseaseInfoUpdateOne {
+	if i != nil {
+		diuo.SetTenantId(*i)
+	}
+	return diuo
+}
+
 // AddTenantId adds i to tenantId.
 func (diuo *DiseaseInfoUpdateOne) AddTenantId(i int64) *DiseaseInfoUpdateOne {
 	diuo.mutation.AddTenantId(i)
+	return diuo
+}
+
+// ClearTenantId clears the value of tenantId.
+func (diuo *DiseaseInfoUpdateOne) ClearTenantId() *DiseaseInfoUpdateOne {
+	diuo.mutation.ClearTenantId()
 	return diuo
 }
 
@@ -348,9 +550,37 @@ func (diuo *DiseaseInfoUpdateOne) SetTenantName(s string) *DiseaseInfoUpdateOne 
 	return diuo
 }
 
+// SetNillableTenantName sets the tenantName field if the given value is not nil.
+func (diuo *DiseaseInfoUpdateOne) SetNillableTenantName(s *string) *DiseaseInfoUpdateOne {
+	if s != nil {
+		diuo.SetTenantName(*s)
+	}
+	return diuo
+}
+
+// ClearTenantName clears the value of tenantName.
+func (diuo *DiseaseInfoUpdateOne) ClearTenantName() *DiseaseInfoUpdateOne {
+	diuo.mutation.ClearTenantName()
+	return diuo
+}
+
 // SetRemarks sets the remarks field.
 func (diuo *DiseaseInfoUpdateOne) SetRemarks(s string) *DiseaseInfoUpdateOne {
 	diuo.mutation.SetRemarks(s)
+	return diuo
+}
+
+// SetNillableRemarks sets the remarks field if the given value is not nil.
+func (diuo *DiseaseInfoUpdateOne) SetNillableRemarks(s *string) *DiseaseInfoUpdateOne {
+	if s != nil {
+		diuo.SetRemarks(*s)
+	}
+	return diuo
+}
+
+// ClearRemarks clears the value of remarks.
+func (diuo *DiseaseInfoUpdateOne) ClearRemarks() *DiseaseInfoUpdateOne {
+	diuo.mutation.ClearRemarks()
 	return diuo
 }
 
@@ -361,9 +591,23 @@ func (diuo *DiseaseInfoUpdateOne) SetCreatedAt(i int64) *DiseaseInfoUpdateOne {
 	return diuo
 }
 
+// SetNillableCreatedAt sets the createdAt field if the given value is not nil.
+func (diuo *DiseaseInfoUpdateOne) SetNillableCreatedAt(i *int64) *DiseaseInfoUpdateOne {
+	if i != nil {
+		diuo.SetCreatedAt(*i)
+	}
+	return diuo
+}
+
 // AddCreatedAt adds i to createdAt.
 func (diuo *DiseaseInfoUpdateOne) AddCreatedAt(i int64) *DiseaseInfoUpdateOne {
 	diuo.mutation.AddCreatedAt(i)
+	return diuo
+}
+
+// ClearCreatedAt clears the value of createdAt.
+func (diuo *DiseaseInfoUpdateOne) ClearCreatedAt() *DiseaseInfoUpdateOne {
+	diuo.mutation.ClearCreatedAt()
 	return diuo
 }
 
@@ -374,9 +618,23 @@ func (diuo *DiseaseInfoUpdateOne) SetUpdatedAt(i int64) *DiseaseInfoUpdateOne {
 	return diuo
 }
 
+// SetNillableUpdatedAt sets the updatedAt field if the given value is not nil.
+func (diuo *DiseaseInfoUpdateOne) SetNillableUpdatedAt(i *int64) *DiseaseInfoUpdateOne {
+	if i != nil {
+		diuo.SetUpdatedAt(*i)
+	}
+	return diuo
+}
+
 // AddUpdatedAt adds i to updatedAt.
 func (diuo *DiseaseInfoUpdateOne) AddUpdatedAt(i int64) *DiseaseInfoUpdateOne {
 	diuo.mutation.AddUpdatedAt(i)
+	return diuo
+}
+
+// ClearUpdatedAt clears the value of updatedAt.
+func (diuo *DiseaseInfoUpdateOne) ClearUpdatedAt() *DiseaseInfoUpdateOne {
+	diuo.mutation.ClearUpdatedAt()
 	return diuo
 }
 
@@ -387,9 +645,23 @@ func (diuo *DiseaseInfoUpdateOne) SetDeleted(i int) *DiseaseInfoUpdateOne {
 	return diuo
 }
 
+// SetNillableDeleted sets the deleted field if the given value is not nil.
+func (diuo *DiseaseInfoUpdateOne) SetNillableDeleted(i *int) *DiseaseInfoUpdateOne {
+	if i != nil {
+		diuo.SetDeleted(*i)
+	}
+	return diuo
+}
+
 // AddDeleted adds i to deleted.
 func (diuo *DiseaseInfoUpdateOne) AddDeleted(i int) *DiseaseInfoUpdateOne {
 	diuo.mutation.AddDeleted(i)
+	return diuo
+}
+
+// ClearDeleted clears the value of deleted.
+func (diuo *DiseaseInfoUpdateOne) ClearDeleted() *DiseaseInfoUpdateOne {
+	diuo.mutation.ClearDeleted()
 	return diuo
 }
 
@@ -486,10 +758,22 @@ func (diuo *DiseaseInfoUpdateOne) sqlSave(ctx context.Context) (_node *DiseaseIn
 			Column: diseaseinfo.FieldType,
 		})
 	}
+	if diuo.mutation.TypeCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: diseaseinfo.FieldType,
+		})
+	}
 	if value, ok := diuo.mutation.Description(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: diseaseinfo.FieldDescription,
+		})
+	}
+	if diuo.mutation.DescriptionCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: diseaseinfo.FieldDescription,
 		})
 	}
@@ -507,6 +791,12 @@ func (diuo *DiseaseInfoUpdateOne) sqlSave(ctx context.Context) (_node *DiseaseIn
 			Column: diseaseinfo.FieldTenantId,
 		})
 	}
+	if diuo.mutation.TenantIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: diseaseinfo.FieldTenantId,
+		})
+	}
 	if value, ok := diuo.mutation.TenantName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -514,10 +804,22 @@ func (diuo *DiseaseInfoUpdateOne) sqlSave(ctx context.Context) (_node *DiseaseIn
 			Column: diseaseinfo.FieldTenantName,
 		})
 	}
+	if diuo.mutation.TenantNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: diseaseinfo.FieldTenantName,
+		})
+	}
 	if value, ok := diuo.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
+			Column: diseaseinfo.FieldRemarks,
+		})
+	}
+	if diuo.mutation.RemarksCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
 			Column: diseaseinfo.FieldRemarks,
 		})
 	}
@@ -535,6 +837,12 @@ func (diuo *DiseaseInfoUpdateOne) sqlSave(ctx context.Context) (_node *DiseaseIn
 			Column: diseaseinfo.FieldCreatedAt,
 		})
 	}
+	if diuo.mutation.CreatedAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: diseaseinfo.FieldCreatedAt,
+		})
+	}
 	if value, ok := diuo.mutation.UpdatedAt(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -549,6 +857,12 @@ func (diuo *DiseaseInfoUpdateOne) sqlSave(ctx context.Context) (_node *DiseaseIn
 			Column: diseaseinfo.FieldUpdatedAt,
 		})
 	}
+	if diuo.mutation.UpdatedAtCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: diseaseinfo.FieldUpdatedAt,
+		})
+	}
 	if value, ok := diuo.mutation.Deleted(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
@@ -560,6 +874,12 @@ func (diuo *DiseaseInfoUpdateOne) sqlSave(ctx context.Context) (_node *DiseaseIn
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
 			Value:  value,
+			Column: diseaseinfo.FieldDeleted,
+		})
+	}
+	if diuo.mutation.DeletedCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
 			Column: diseaseinfo.FieldDeleted,
 		})
 	}

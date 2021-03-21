@@ -27,6 +27,76 @@ func (iu *InspectionUpdate) Where(ps ...predicate.Inspection) *InspectionUpdate 
 	return iu
 }
 
+// SetCattleId sets the cattleId field.
+func (iu *InspectionUpdate) SetCattleId(i int64) *InspectionUpdate {
+	iu.mutation.ResetCattleId()
+	iu.mutation.SetCattleId(i)
+	return iu
+}
+
+// AddCattleId adds i to cattleId.
+func (iu *InspectionUpdate) AddCattleId(i int64) *InspectionUpdate {
+	iu.mutation.AddCattleId(i)
+	return iu
+}
+
+// SetTenantId sets the tenantId field.
+func (iu *InspectionUpdate) SetTenantId(i int64) *InspectionUpdate {
+	iu.mutation.ResetTenantId()
+	iu.mutation.SetTenantId(i)
+	return iu
+}
+
+// AddTenantId adds i to tenantId.
+func (iu *InspectionUpdate) AddTenantId(i int64) *InspectionUpdate {
+	iu.mutation.AddTenantId(i)
+	return iu
+}
+
+// SetTenantName sets the tenantName field.
+func (iu *InspectionUpdate) SetTenantName(s string) *InspectionUpdate {
+	iu.mutation.SetTenantName(s)
+	return iu
+}
+
+// SetFarmId sets the farmId field.
+func (iu *InspectionUpdate) SetFarmId(i int64) *InspectionUpdate {
+	iu.mutation.ResetFarmId()
+	iu.mutation.SetFarmId(i)
+	return iu
+}
+
+// AddFarmId adds i to farmId.
+func (iu *InspectionUpdate) AddFarmId(i int64) *InspectionUpdate {
+	iu.mutation.AddFarmId(i)
+	return iu
+}
+
+// SetFarmName sets the farmName field.
+func (iu *InspectionUpdate) SetFarmName(s string) *InspectionUpdate {
+	iu.mutation.SetFarmName(s)
+	return iu
+}
+
+// SetShedId sets the shedId field.
+func (iu *InspectionUpdate) SetShedId(i int64) *InspectionUpdate {
+	iu.mutation.ResetShedId()
+	iu.mutation.SetShedId(i)
+	return iu
+}
+
+// AddShedId adds i to shedId.
+func (iu *InspectionUpdate) AddShedId(i int64) *InspectionUpdate {
+	iu.mutation.AddShedId(i)
+	return iu
+}
+
+// SetShedName sets the shedName field.
+func (iu *InspectionUpdate) SetShedName(s string) *InspectionUpdate {
+	iu.mutation.SetShedName(s)
+	return iu
+}
+
 // SetName sets the name field.
 func (iu *InspectionUpdate) SetName(s string) *InspectionUpdate {
 	iu.mutation.SetName(s)
@@ -36,12 +106,6 @@ func (iu *InspectionUpdate) SetName(s string) *InspectionUpdate {
 // SetEarNumber sets the earNumber field.
 func (iu *InspectionUpdate) SetEarNumber(s string) *InspectionUpdate {
 	iu.mutation.SetEarNumber(s)
-	return iu
-}
-
-// SetShedName sets the shedName field.
-func (iu *InspectionUpdate) SetShedName(s string) *InspectionUpdate {
-	iu.mutation.SetShedName(s)
 	return iu
 }
 
@@ -150,25 +214,6 @@ func (iu *InspectionUpdate) AddHandleId(i int) *InspectionUpdate {
 // SetHandleName sets the handleName field.
 func (iu *InspectionUpdate) SetHandleName(s string) *InspectionUpdate {
 	iu.mutation.SetHandleName(s)
-	return iu
-}
-
-// SetTenantId sets the tenantId field.
-func (iu *InspectionUpdate) SetTenantId(i int64) *InspectionUpdate {
-	iu.mutation.ResetTenantId()
-	iu.mutation.SetTenantId(i)
-	return iu
-}
-
-// AddTenantId adds i to tenantId.
-func (iu *InspectionUpdate) AddTenantId(i int64) *InspectionUpdate {
-	iu.mutation.AddTenantId(i)
-	return iu
-}
-
-// SetTenantName sets the tenantName field.
-func (iu *InspectionUpdate) SetTenantName(s string) *InspectionUpdate {
-	iu.mutation.SetTenantName(s)
 	return iu
 }
 
@@ -291,6 +336,83 @@ func (iu *InspectionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := iu.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldCattleId,
+		})
+	}
+	if value, ok := iu.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldCattleId,
+		})
+	}
+	if value, ok := iu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldTenantId,
+		})
+	}
+	if value, ok := iu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldTenantId,
+		})
+	}
+	if value, ok := iu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inspection.FieldTenantName,
+		})
+	}
+	if value, ok := iu.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldFarmId,
+		})
+	}
+	if value, ok := iu.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldFarmId,
+		})
+	}
+	if value, ok := iu.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inspection.FieldFarmName,
+		})
+	}
+	if value, ok := iu.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldShedId,
+		})
+	}
+	if value, ok := iu.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldShedId,
+		})
+	}
+	if value, ok := iu.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inspection.FieldShedName,
+		})
+	}
 	if value, ok := iu.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -303,13 +425,6 @@ func (iu *InspectionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: inspection.FieldEarNumber,
-		})
-	}
-	if value, ok := iu.mutation.ShedName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: inspection.FieldShedName,
 		})
 	}
 	if value, ok := iu.mutation.Date(); ok {
@@ -431,27 +546,6 @@ func (iu *InspectionUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: inspection.FieldHandleName,
 		})
 	}
-	if value, ok := iu.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: inspection.FieldTenantId,
-		})
-	}
-	if value, ok := iu.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: inspection.FieldTenantId,
-		})
-	}
-	if value, ok := iu.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: inspection.FieldTenantName,
-		})
-	}
 	if value, ok := iu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -519,6 +613,76 @@ type InspectionUpdateOne struct {
 	mutation *InspectionMutation
 }
 
+// SetCattleId sets the cattleId field.
+func (iuo *InspectionUpdateOne) SetCattleId(i int64) *InspectionUpdateOne {
+	iuo.mutation.ResetCattleId()
+	iuo.mutation.SetCattleId(i)
+	return iuo
+}
+
+// AddCattleId adds i to cattleId.
+func (iuo *InspectionUpdateOne) AddCattleId(i int64) *InspectionUpdateOne {
+	iuo.mutation.AddCattleId(i)
+	return iuo
+}
+
+// SetTenantId sets the tenantId field.
+func (iuo *InspectionUpdateOne) SetTenantId(i int64) *InspectionUpdateOne {
+	iuo.mutation.ResetTenantId()
+	iuo.mutation.SetTenantId(i)
+	return iuo
+}
+
+// AddTenantId adds i to tenantId.
+func (iuo *InspectionUpdateOne) AddTenantId(i int64) *InspectionUpdateOne {
+	iuo.mutation.AddTenantId(i)
+	return iuo
+}
+
+// SetTenantName sets the tenantName field.
+func (iuo *InspectionUpdateOne) SetTenantName(s string) *InspectionUpdateOne {
+	iuo.mutation.SetTenantName(s)
+	return iuo
+}
+
+// SetFarmId sets the farmId field.
+func (iuo *InspectionUpdateOne) SetFarmId(i int64) *InspectionUpdateOne {
+	iuo.mutation.ResetFarmId()
+	iuo.mutation.SetFarmId(i)
+	return iuo
+}
+
+// AddFarmId adds i to farmId.
+func (iuo *InspectionUpdateOne) AddFarmId(i int64) *InspectionUpdateOne {
+	iuo.mutation.AddFarmId(i)
+	return iuo
+}
+
+// SetFarmName sets the farmName field.
+func (iuo *InspectionUpdateOne) SetFarmName(s string) *InspectionUpdateOne {
+	iuo.mutation.SetFarmName(s)
+	return iuo
+}
+
+// SetShedId sets the shedId field.
+func (iuo *InspectionUpdateOne) SetShedId(i int64) *InspectionUpdateOne {
+	iuo.mutation.ResetShedId()
+	iuo.mutation.SetShedId(i)
+	return iuo
+}
+
+// AddShedId adds i to shedId.
+func (iuo *InspectionUpdateOne) AddShedId(i int64) *InspectionUpdateOne {
+	iuo.mutation.AddShedId(i)
+	return iuo
+}
+
+// SetShedName sets the shedName field.
+func (iuo *InspectionUpdateOne) SetShedName(s string) *InspectionUpdateOne {
+	iuo.mutation.SetShedName(s)
+	return iuo
+}
+
 // SetName sets the name field.
 func (iuo *InspectionUpdateOne) SetName(s string) *InspectionUpdateOne {
 	iuo.mutation.SetName(s)
@@ -528,12 +692,6 @@ func (iuo *InspectionUpdateOne) SetName(s string) *InspectionUpdateOne {
 // SetEarNumber sets the earNumber field.
 func (iuo *InspectionUpdateOne) SetEarNumber(s string) *InspectionUpdateOne {
 	iuo.mutation.SetEarNumber(s)
-	return iuo
-}
-
-// SetShedName sets the shedName field.
-func (iuo *InspectionUpdateOne) SetShedName(s string) *InspectionUpdateOne {
-	iuo.mutation.SetShedName(s)
 	return iuo
 }
 
@@ -642,25 +800,6 @@ func (iuo *InspectionUpdateOne) AddHandleId(i int) *InspectionUpdateOne {
 // SetHandleName sets the handleName field.
 func (iuo *InspectionUpdateOne) SetHandleName(s string) *InspectionUpdateOne {
 	iuo.mutation.SetHandleName(s)
-	return iuo
-}
-
-// SetTenantId sets the tenantId field.
-func (iuo *InspectionUpdateOne) SetTenantId(i int64) *InspectionUpdateOne {
-	iuo.mutation.ResetTenantId()
-	iuo.mutation.SetTenantId(i)
-	return iuo
-}
-
-// AddTenantId adds i to tenantId.
-func (iuo *InspectionUpdateOne) AddTenantId(i int64) *InspectionUpdateOne {
-	iuo.mutation.AddTenantId(i)
-	return iuo
-}
-
-// SetTenantName sets the tenantName field.
-func (iuo *InspectionUpdateOne) SetTenantName(s string) *InspectionUpdateOne {
-	iuo.mutation.SetTenantName(s)
 	return iuo
 }
 
@@ -781,6 +920,83 @@ func (iuo *InspectionUpdateOne) sqlSave(ctx context.Context) (_node *Inspection,
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing Inspection.ID for update")}
 	}
 	_spec.Node.ID.Value = id
+	if value, ok := iuo.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldCattleId,
+		})
+	}
+	if value, ok := iuo.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldCattleId,
+		})
+	}
+	if value, ok := iuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldTenantId,
+		})
+	}
+	if value, ok := iuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldTenantId,
+		})
+	}
+	if value, ok := iuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inspection.FieldTenantName,
+		})
+	}
+	if value, ok := iuo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldFarmId,
+		})
+	}
+	if value, ok := iuo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldFarmId,
+		})
+	}
+	if value, ok := iuo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inspection.FieldFarmName,
+		})
+	}
+	if value, ok := iuo.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldShedId,
+		})
+	}
+	if value, ok := iuo.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inspection.FieldShedId,
+		})
+	}
+	if value, ok := iuo.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inspection.FieldShedName,
+		})
+	}
 	if value, ok := iuo.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -793,13 +1009,6 @@ func (iuo *InspectionUpdateOne) sqlSave(ctx context.Context) (_node *Inspection,
 			Type:   field.TypeString,
 			Value:  value,
 			Column: inspection.FieldEarNumber,
-		})
-	}
-	if value, ok := iuo.mutation.ShedName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: inspection.FieldShedName,
 		})
 	}
 	if value, ok := iuo.mutation.Date(); ok {
@@ -919,27 +1128,6 @@ func (iuo *InspectionUpdateOne) sqlSave(ctx context.Context) (_node *Inspection,
 			Type:   field.TypeString,
 			Value:  value,
 			Column: inspection.FieldHandleName,
-		})
-	}
-	if value, ok := iuo.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: inspection.FieldTenantId,
-		})
-	}
-	if value, ok := iuo.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: inspection.FieldTenantId,
-		})
-	}
-	if value, ok := iuo.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: inspection.FieldTenantName,
 		})
 	}
 	if value, ok := iuo.mutation.Remarks(); ok {

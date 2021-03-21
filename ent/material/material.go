@@ -11,8 +11,12 @@ const (
 	FieldName = "name"
 	// FieldCode holds the string denoting the code field in the database.
 	FieldCode = "code"
-	// FieldCategory holds the string denoting the category field in the database.
-	FieldCategory = "category"
+	// FieldMaterialId holds the string denoting the materialid field in the database.
+	FieldMaterialId = "material_id"
+	// FieldCategoryId holds the string denoting the categoryid field in the database.
+	FieldCategoryId = "category_id"
+	// FieldCategoryName holds the string denoting the categoryname field in the database.
+	FieldCategoryName = "category_name"
 	// FieldUserName holds the string denoting the username field in the database.
 	FieldUserName = "user_name"
 	// FieldInventory holds the string denoting the inventory field in the database.
@@ -21,6 +25,10 @@ const (
 	FieldTenantId = "tenant_id"
 	// FieldTenantName holds the string denoting the tenantname field in the database.
 	FieldTenantName = "tenant_name"
+	// FieldFarmId holds the string denoting the farmid field in the database.
+	FieldFarmId = "farm_id"
+	// FieldFarmName holds the string denoting the farmname field in the database.
+	FieldFarmName = "farm_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -39,11 +47,15 @@ var Columns = []string{
 	FieldID,
 	FieldName,
 	FieldCode,
-	FieldCategory,
+	FieldMaterialId,
+	FieldCategoryId,
+	FieldCategoryName,
 	FieldUserName,
 	FieldInventory,
 	FieldTenantId,
 	FieldTenantName,
+	FieldFarmId,
+	FieldFarmName,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,
@@ -59,3 +71,8 @@ func ValidColumn(column string) bool {
 	}
 	return false
 }
+
+var (
+	// DefaultInventory holds the default value on creation for the inventory field.
+	DefaultInventory int64
+)

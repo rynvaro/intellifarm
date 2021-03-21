@@ -27,6 +27,76 @@ func (iu *ImmunityUpdate) Where(ps ...predicate.Immunity) *ImmunityUpdate {
 	return iu
 }
 
+// SetCattleId sets the cattleId field.
+func (iu *ImmunityUpdate) SetCattleId(i int64) *ImmunityUpdate {
+	iu.mutation.ResetCattleId()
+	iu.mutation.SetCattleId(i)
+	return iu
+}
+
+// AddCattleId adds i to cattleId.
+func (iu *ImmunityUpdate) AddCattleId(i int64) *ImmunityUpdate {
+	iu.mutation.AddCattleId(i)
+	return iu
+}
+
+// SetTenantId sets the tenantId field.
+func (iu *ImmunityUpdate) SetTenantId(i int64) *ImmunityUpdate {
+	iu.mutation.ResetTenantId()
+	iu.mutation.SetTenantId(i)
+	return iu
+}
+
+// AddTenantId adds i to tenantId.
+func (iu *ImmunityUpdate) AddTenantId(i int64) *ImmunityUpdate {
+	iu.mutation.AddTenantId(i)
+	return iu
+}
+
+// SetTenantName sets the tenantName field.
+func (iu *ImmunityUpdate) SetTenantName(s string) *ImmunityUpdate {
+	iu.mutation.SetTenantName(s)
+	return iu
+}
+
+// SetFarmId sets the farmId field.
+func (iu *ImmunityUpdate) SetFarmId(i int64) *ImmunityUpdate {
+	iu.mutation.ResetFarmId()
+	iu.mutation.SetFarmId(i)
+	return iu
+}
+
+// AddFarmId adds i to farmId.
+func (iu *ImmunityUpdate) AddFarmId(i int64) *ImmunityUpdate {
+	iu.mutation.AddFarmId(i)
+	return iu
+}
+
+// SetFarmName sets the farmName field.
+func (iu *ImmunityUpdate) SetFarmName(s string) *ImmunityUpdate {
+	iu.mutation.SetFarmName(s)
+	return iu
+}
+
+// SetShedId sets the shedId field.
+func (iu *ImmunityUpdate) SetShedId(i int64) *ImmunityUpdate {
+	iu.mutation.ResetShedId()
+	iu.mutation.SetShedId(i)
+	return iu
+}
+
+// AddShedId adds i to shedId.
+func (iu *ImmunityUpdate) AddShedId(i int64) *ImmunityUpdate {
+	iu.mutation.AddShedId(i)
+	return iu
+}
+
+// SetShedName sets the shedName field.
+func (iu *ImmunityUpdate) SetShedName(s string) *ImmunityUpdate {
+	iu.mutation.SetShedName(s)
+	return iu
+}
+
 // SetName sets the name field.
 func (iu *ImmunityUpdate) SetName(s string) *ImmunityUpdate {
 	iu.mutation.SetName(s)
@@ -36,12 +106,6 @@ func (iu *ImmunityUpdate) SetName(s string) *ImmunityUpdate {
 // SetEarNumber sets the earNumber field.
 func (iu *ImmunityUpdate) SetEarNumber(s string) *ImmunityUpdate {
 	iu.mutation.SetEarNumber(s)
-	return iu
-}
-
-// SetShedName sets the shedName field.
-func (iu *ImmunityUpdate) SetShedName(s string) *ImmunityUpdate {
-	iu.mutation.SetShedName(s)
 	return iu
 }
 
@@ -86,25 +150,6 @@ func (iu *ImmunityUpdate) SetUserName(s string) *ImmunityUpdate {
 // SetDrug sets the drug field.
 func (iu *ImmunityUpdate) SetDrug(s string) *ImmunityUpdate {
 	iu.mutation.SetDrug(s)
-	return iu
-}
-
-// SetTenantId sets the tenantId field.
-func (iu *ImmunityUpdate) SetTenantId(i int64) *ImmunityUpdate {
-	iu.mutation.ResetTenantId()
-	iu.mutation.SetTenantId(i)
-	return iu
-}
-
-// AddTenantId adds i to tenantId.
-func (iu *ImmunityUpdate) AddTenantId(i int64) *ImmunityUpdate {
-	iu.mutation.AddTenantId(i)
-	return iu
-}
-
-// SetTenantName sets the tenantName field.
-func (iu *ImmunityUpdate) SetTenantName(s string) *ImmunityUpdate {
-	iu.mutation.SetTenantName(s)
 	return iu
 }
 
@@ -227,6 +272,83 @@ func (iu *ImmunityUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := iu.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldCattleId,
+		})
+	}
+	if value, ok := iu.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldCattleId,
+		})
+	}
+	if value, ok := iu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldTenantId,
+		})
+	}
+	if value, ok := iu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldTenantId,
+		})
+	}
+	if value, ok := iu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: immunity.FieldTenantName,
+		})
+	}
+	if value, ok := iu.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldFarmId,
+		})
+	}
+	if value, ok := iu.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldFarmId,
+		})
+	}
+	if value, ok := iu.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: immunity.FieldFarmName,
+		})
+	}
+	if value, ok := iu.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldShedId,
+		})
+	}
+	if value, ok := iu.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldShedId,
+		})
+	}
+	if value, ok := iu.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: immunity.FieldShedName,
+		})
+	}
 	if value, ok := iu.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -239,13 +361,6 @@ func (iu *ImmunityUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: immunity.FieldEarNumber,
-		})
-	}
-	if value, ok := iu.mutation.ShedName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: immunity.FieldShedName,
 		})
 	}
 	if value, ok := iu.mutation.Date(); ok {
@@ -295,27 +410,6 @@ func (iu *ImmunityUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: immunity.FieldDrug,
-		})
-	}
-	if value, ok := iu.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: immunity.FieldTenantId,
-		})
-	}
-	if value, ok := iu.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: immunity.FieldTenantId,
-		})
-	}
-	if value, ok := iu.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: immunity.FieldTenantName,
 		})
 	}
 	if value, ok := iu.mutation.Remarks(); ok {
@@ -385,6 +479,76 @@ type ImmunityUpdateOne struct {
 	mutation *ImmunityMutation
 }
 
+// SetCattleId sets the cattleId field.
+func (iuo *ImmunityUpdateOne) SetCattleId(i int64) *ImmunityUpdateOne {
+	iuo.mutation.ResetCattleId()
+	iuo.mutation.SetCattleId(i)
+	return iuo
+}
+
+// AddCattleId adds i to cattleId.
+func (iuo *ImmunityUpdateOne) AddCattleId(i int64) *ImmunityUpdateOne {
+	iuo.mutation.AddCattleId(i)
+	return iuo
+}
+
+// SetTenantId sets the tenantId field.
+func (iuo *ImmunityUpdateOne) SetTenantId(i int64) *ImmunityUpdateOne {
+	iuo.mutation.ResetTenantId()
+	iuo.mutation.SetTenantId(i)
+	return iuo
+}
+
+// AddTenantId adds i to tenantId.
+func (iuo *ImmunityUpdateOne) AddTenantId(i int64) *ImmunityUpdateOne {
+	iuo.mutation.AddTenantId(i)
+	return iuo
+}
+
+// SetTenantName sets the tenantName field.
+func (iuo *ImmunityUpdateOne) SetTenantName(s string) *ImmunityUpdateOne {
+	iuo.mutation.SetTenantName(s)
+	return iuo
+}
+
+// SetFarmId sets the farmId field.
+func (iuo *ImmunityUpdateOne) SetFarmId(i int64) *ImmunityUpdateOne {
+	iuo.mutation.ResetFarmId()
+	iuo.mutation.SetFarmId(i)
+	return iuo
+}
+
+// AddFarmId adds i to farmId.
+func (iuo *ImmunityUpdateOne) AddFarmId(i int64) *ImmunityUpdateOne {
+	iuo.mutation.AddFarmId(i)
+	return iuo
+}
+
+// SetFarmName sets the farmName field.
+func (iuo *ImmunityUpdateOne) SetFarmName(s string) *ImmunityUpdateOne {
+	iuo.mutation.SetFarmName(s)
+	return iuo
+}
+
+// SetShedId sets the shedId field.
+func (iuo *ImmunityUpdateOne) SetShedId(i int64) *ImmunityUpdateOne {
+	iuo.mutation.ResetShedId()
+	iuo.mutation.SetShedId(i)
+	return iuo
+}
+
+// AddShedId adds i to shedId.
+func (iuo *ImmunityUpdateOne) AddShedId(i int64) *ImmunityUpdateOne {
+	iuo.mutation.AddShedId(i)
+	return iuo
+}
+
+// SetShedName sets the shedName field.
+func (iuo *ImmunityUpdateOne) SetShedName(s string) *ImmunityUpdateOne {
+	iuo.mutation.SetShedName(s)
+	return iuo
+}
+
 // SetName sets the name field.
 func (iuo *ImmunityUpdateOne) SetName(s string) *ImmunityUpdateOne {
 	iuo.mutation.SetName(s)
@@ -394,12 +558,6 @@ func (iuo *ImmunityUpdateOne) SetName(s string) *ImmunityUpdateOne {
 // SetEarNumber sets the earNumber field.
 func (iuo *ImmunityUpdateOne) SetEarNumber(s string) *ImmunityUpdateOne {
 	iuo.mutation.SetEarNumber(s)
-	return iuo
-}
-
-// SetShedName sets the shedName field.
-func (iuo *ImmunityUpdateOne) SetShedName(s string) *ImmunityUpdateOne {
-	iuo.mutation.SetShedName(s)
 	return iuo
 }
 
@@ -444,25 +602,6 @@ func (iuo *ImmunityUpdateOne) SetUserName(s string) *ImmunityUpdateOne {
 // SetDrug sets the drug field.
 func (iuo *ImmunityUpdateOne) SetDrug(s string) *ImmunityUpdateOne {
 	iuo.mutation.SetDrug(s)
-	return iuo
-}
-
-// SetTenantId sets the tenantId field.
-func (iuo *ImmunityUpdateOne) SetTenantId(i int64) *ImmunityUpdateOne {
-	iuo.mutation.ResetTenantId()
-	iuo.mutation.SetTenantId(i)
-	return iuo
-}
-
-// AddTenantId adds i to tenantId.
-func (iuo *ImmunityUpdateOne) AddTenantId(i int64) *ImmunityUpdateOne {
-	iuo.mutation.AddTenantId(i)
-	return iuo
-}
-
-// SetTenantName sets the tenantName field.
-func (iuo *ImmunityUpdateOne) SetTenantName(s string) *ImmunityUpdateOne {
-	iuo.mutation.SetTenantName(s)
 	return iuo
 }
 
@@ -583,6 +722,83 @@ func (iuo *ImmunityUpdateOne) sqlSave(ctx context.Context) (_node *Immunity, err
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing Immunity.ID for update")}
 	}
 	_spec.Node.ID.Value = id
+	if value, ok := iuo.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldCattleId,
+		})
+	}
+	if value, ok := iuo.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldCattleId,
+		})
+	}
+	if value, ok := iuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldTenantId,
+		})
+	}
+	if value, ok := iuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldTenantId,
+		})
+	}
+	if value, ok := iuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: immunity.FieldTenantName,
+		})
+	}
+	if value, ok := iuo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldFarmId,
+		})
+	}
+	if value, ok := iuo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldFarmId,
+		})
+	}
+	if value, ok := iuo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: immunity.FieldFarmName,
+		})
+	}
+	if value, ok := iuo.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldShedId,
+		})
+	}
+	if value, ok := iuo.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: immunity.FieldShedId,
+		})
+	}
+	if value, ok := iuo.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: immunity.FieldShedName,
+		})
+	}
 	if value, ok := iuo.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -595,13 +811,6 @@ func (iuo *ImmunityUpdateOne) sqlSave(ctx context.Context) (_node *Immunity, err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: immunity.FieldEarNumber,
-		})
-	}
-	if value, ok := iuo.mutation.ShedName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: immunity.FieldShedName,
 		})
 	}
 	if value, ok := iuo.mutation.Date(); ok {
@@ -651,27 +860,6 @@ func (iuo *ImmunityUpdateOne) sqlSave(ctx context.Context) (_node *Immunity, err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: immunity.FieldDrug,
-		})
-	}
-	if value, ok := iuo.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: immunity.FieldTenantId,
-		})
-	}
-	if value, ok := iuo.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: immunity.FieldTenantId,
-		})
-	}
-	if value, ok := iuo.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: immunity.FieldTenantName,
 		})
 	}
 	if value, ok := iuo.mutation.Remarks(); ok {

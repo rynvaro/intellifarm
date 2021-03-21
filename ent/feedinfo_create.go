@@ -31,9 +31,195 @@ func (fic *FeedInfoCreate) SetCode(s string) *FeedInfoCreate {
 	return fic
 }
 
-// SetType sets the type field.
-func (fic *FeedInfoCreate) SetType(s string) *FeedInfoCreate {
-	fic.mutation.SetType(s)
+// SetMoisture sets the moisture field.
+func (fic *FeedInfoCreate) SetMoisture(f float32) *FeedInfoCreate {
+	fic.mutation.SetMoisture(f)
+	return fic
+}
+
+// SetDryMatter sets the dryMatter field.
+func (fic *FeedInfoCreate) SetDryMatter(f float32) *FeedInfoCreate {
+	fic.mutation.SetDryMatter(f)
+	return fic
+}
+
+// SetNdf sets the ndf field.
+func (fic *FeedInfoCreate) SetNdf(f float32) *FeedInfoCreate {
+	fic.mutation.SetNdf(f)
+	return fic
+}
+
+// SetAdf sets the adf field.
+func (fic *FeedInfoCreate) SetAdf(f float32) *FeedInfoCreate {
+	fic.mutation.SetAdf(f)
+	return fic
+}
+
+// SetEndf sets the endf field.
+func (fic *FeedInfoCreate) SetEndf(f float32) *FeedInfoCreate {
+	fic.mutation.SetEndf(f)
+	return fic
+}
+
+// SetLacticAcid sets the lacticAcid field.
+func (fic *FeedInfoCreate) SetLacticAcid(f float32) *FeedInfoCreate {
+	fic.mutation.SetLacticAcid(f)
+	return fic
+}
+
+// SetWsc sets the wsc field.
+func (fic *FeedInfoCreate) SetWsc(f float32) *FeedInfoCreate {
+	fic.mutation.SetWsc(f)
+	return fic
+}
+
+// SetStarch sets the starch field.
+func (fic *FeedInfoCreate) SetStarch(f float32) *FeedInfoCreate {
+	fic.mutation.SetStarch(f)
+	return fic
+}
+
+// SetSolubleFiber sets the solubleFiber field.
+func (fic *FeedInfoCreate) SetSolubleFiber(f float32) *FeedInfoCreate {
+	fic.mutation.SetSolubleFiber(f)
+	return fic
+}
+
+// SetTotalProtein sets the totalProtein field.
+func (fic *FeedInfoCreate) SetTotalProtein(f float32) *FeedInfoCreate {
+	fic.mutation.SetTotalProtein(f)
+	return fic
+}
+
+// SetSolubleProtein sets the solubleProtein field.
+func (fic *FeedInfoCreate) SetSolubleProtein(f float32) *FeedInfoCreate {
+	fic.mutation.SetSolubleProtein(f)
+	return fic
+}
+
+// SetRdp sets the rdp field.
+func (fic *FeedInfoCreate) SetRdp(f float32) *FeedInfoCreate {
+	fic.mutation.SetRdp(f)
+	return fic
+}
+
+// SetMe sets the me field.
+func (fic *FeedInfoCreate) SetMe(f float32) *FeedInfoCreate {
+	fic.mutation.SetMe(f)
+	return fic
+}
+
+// SetNel sets the nel field.
+func (fic *FeedInfoCreate) SetNel(f float32) *FeedInfoCreate {
+	fic.mutation.SetNel(f)
+	return fic
+}
+
+// SetCrudeFat sets the crudeFat field.
+func (fic *FeedInfoCreate) SetCrudeFat(f float32) *FeedInfoCreate {
+	fic.mutation.SetCrudeFat(f)
+	return fic
+}
+
+// SetTotalFttyAcid sets the totalFttyAcid field.
+func (fic *FeedInfoCreate) SetTotalFttyAcid(f float32) *FeedInfoCreate {
+	fic.mutation.SetTotalFttyAcid(f)
+	return fic
+}
+
+// SetAsh sets the ash field.
+func (fic *FeedInfoCreate) SetAsh(f float32) *FeedInfoCreate {
+	fic.mutation.SetAsh(f)
+	return fic
+}
+
+// SetCa sets the ca field.
+func (fic *FeedInfoCreate) SetCa(f float32) *FeedInfoCreate {
+	fic.mutation.SetCa(f)
+	return fic
+}
+
+// SetP sets the p field.
+func (fic *FeedInfoCreate) SetP(f float32) *FeedInfoCreate {
+	fic.mutation.SetP(f)
+	return fic
+}
+
+// SetMg sets the mg field.
+func (fic *FeedInfoCreate) SetMg(f float32) *FeedInfoCreate {
+	fic.mutation.SetMg(f)
+	return fic
+}
+
+// SetK sets the k field.
+func (fic *FeedInfoCreate) SetK(f float32) *FeedInfoCreate {
+	fic.mutation.SetK(f)
+	return fic
+}
+
+// SetMn sets the mn field.
+func (fic *FeedInfoCreate) SetMn(f float32) *FeedInfoCreate {
+	fic.mutation.SetMn(f)
+	return fic
+}
+
+// SetCu sets the cu field.
+func (fic *FeedInfoCreate) SetCu(f float32) *FeedInfoCreate {
+	fic.mutation.SetCu(f)
+	return fic
+}
+
+// SetFe sets the fe field.
+func (fic *FeedInfoCreate) SetFe(f float32) *FeedInfoCreate {
+	fic.mutation.SetFe(f)
+	return fic
+}
+
+// SetZn sets the zn field.
+func (fic *FeedInfoCreate) SetZn(f float32) *FeedInfoCreate {
+	fic.mutation.SetZn(f)
+	return fic
+}
+
+// SetMethionine sets the methionine field.
+func (fic *FeedInfoCreate) SetMethionine(f float32) *FeedInfoCreate {
+	fic.mutation.SetMethionine(f)
+	return fic
+}
+
+// SetLysine sets the lysine field.
+func (fic *FeedInfoCreate) SetLysine(f float32) *FeedInfoCreate {
+	fic.mutation.SetLysine(f)
+	return fic
+}
+
+// SetVitaminA sets the vitaminA field.
+func (fic *FeedInfoCreate) SetVitaminA(f float32) *FeedInfoCreate {
+	fic.mutation.SetVitaminA(f)
+	return fic
+}
+
+// SetVitaminD3 sets the vitaminD3 field.
+func (fic *FeedInfoCreate) SetVitaminD3(f float32) *FeedInfoCreate {
+	fic.mutation.SetVitaminD3(f)
+	return fic
+}
+
+// SetVitaminE sets the vitaminE field.
+func (fic *FeedInfoCreate) SetVitaminE(f float32) *FeedInfoCreate {
+	fic.mutation.SetVitaminE(f)
+	return fic
+}
+
+// SetCholine sets the choline field.
+func (fic *FeedInfoCreate) SetCholine(f float32) *FeedInfoCreate {
+	fic.mutation.SetCholine(f)
+	return fic
+}
+
+// SetBiotin sets the biotin field.
+func (fic *FeedInfoCreate) SetBiotin(f float32) *FeedInfoCreate {
+	fic.mutation.SetBiotin(f)
 	return fic
 }
 
@@ -43,9 +229,25 @@ func (fic *FeedInfoCreate) SetDescription(s string) *FeedInfoCreate {
 	return fic
 }
 
+// SetNillableDescription sets the description field if the given value is not nil.
+func (fic *FeedInfoCreate) SetNillableDescription(s *string) *FeedInfoCreate {
+	if s != nil {
+		fic.SetDescription(*s)
+	}
+	return fic
+}
+
 // SetTenantId sets the tenantId field.
 func (fic *FeedInfoCreate) SetTenantId(i int64) *FeedInfoCreate {
 	fic.mutation.SetTenantId(i)
+	return fic
+}
+
+// SetNillableTenantId sets the tenantId field if the given value is not nil.
+func (fic *FeedInfoCreate) SetNillableTenantId(i *int64) *FeedInfoCreate {
+	if i != nil {
+		fic.SetTenantId(*i)
+	}
 	return fic
 }
 
@@ -55,9 +257,53 @@ func (fic *FeedInfoCreate) SetTenantName(s string) *FeedInfoCreate {
 	return fic
 }
 
+// SetNillableTenantName sets the tenantName field if the given value is not nil.
+func (fic *FeedInfoCreate) SetNillableTenantName(s *string) *FeedInfoCreate {
+	if s != nil {
+		fic.SetTenantName(*s)
+	}
+	return fic
+}
+
+// SetFarmId sets the farmId field.
+func (fic *FeedInfoCreate) SetFarmId(i int64) *FeedInfoCreate {
+	fic.mutation.SetFarmId(i)
+	return fic
+}
+
+// SetNillableFarmId sets the farmId field if the given value is not nil.
+func (fic *FeedInfoCreate) SetNillableFarmId(i *int64) *FeedInfoCreate {
+	if i != nil {
+		fic.SetFarmId(*i)
+	}
+	return fic
+}
+
+// SetFarmName sets the farmName field.
+func (fic *FeedInfoCreate) SetFarmName(s string) *FeedInfoCreate {
+	fic.mutation.SetFarmName(s)
+	return fic
+}
+
+// SetNillableFarmName sets the farmName field if the given value is not nil.
+func (fic *FeedInfoCreate) SetNillableFarmName(s *string) *FeedInfoCreate {
+	if s != nil {
+		fic.SetFarmName(*s)
+	}
+	return fic
+}
+
 // SetRemarks sets the remarks field.
 func (fic *FeedInfoCreate) SetRemarks(s string) *FeedInfoCreate {
 	fic.mutation.SetRemarks(s)
+	return fic
+}
+
+// SetNillableRemarks sets the remarks field if the given value is not nil.
+func (fic *FeedInfoCreate) SetNillableRemarks(s *string) *FeedInfoCreate {
+	if s != nil {
+		fic.SetRemarks(*s)
+	}
 	return fic
 }
 
@@ -67,15 +313,39 @@ func (fic *FeedInfoCreate) SetCreatedAt(i int64) *FeedInfoCreate {
 	return fic
 }
 
+// SetNillableCreatedAt sets the createdAt field if the given value is not nil.
+func (fic *FeedInfoCreate) SetNillableCreatedAt(i *int64) *FeedInfoCreate {
+	if i != nil {
+		fic.SetCreatedAt(*i)
+	}
+	return fic
+}
+
 // SetUpdatedAt sets the updatedAt field.
 func (fic *FeedInfoCreate) SetUpdatedAt(i int64) *FeedInfoCreate {
 	fic.mutation.SetUpdatedAt(i)
 	return fic
 }
 
+// SetNillableUpdatedAt sets the updatedAt field if the given value is not nil.
+func (fic *FeedInfoCreate) SetNillableUpdatedAt(i *int64) *FeedInfoCreate {
+	if i != nil {
+		fic.SetUpdatedAt(*i)
+	}
+	return fic
+}
+
 // SetDeleted sets the deleted field.
 func (fic *FeedInfoCreate) SetDeleted(i int) *FeedInfoCreate {
 	fic.mutation.SetDeleted(i)
+	return fic
+}
+
+// SetNillableDeleted sets the deleted field if the given value is not nil.
+func (fic *FeedInfoCreate) SetNillableDeleted(i *int) *FeedInfoCreate {
+	if i != nil {
+		fic.SetDeleted(*i)
+	}
 	return fic
 }
 
@@ -90,6 +360,7 @@ func (fic *FeedInfoCreate) Save(ctx context.Context) (*FeedInfo, error) {
 		err  error
 		node *FeedInfo
 	)
+	fic.defaults()
 	if len(fic.hooks) == 0 {
 		if err = fic.check(); err != nil {
 			return nil, err
@@ -128,6 +399,22 @@ func (fic *FeedInfoCreate) SaveX(ctx context.Context) *FeedInfo {
 	return v
 }
 
+// defaults sets the default values of the builder before save.
+func (fic *FeedInfoCreate) defaults() {
+	if _, ok := fic.mutation.CreatedAt(); !ok {
+		v := feedinfo.DefaultCreatedAt
+		fic.mutation.SetCreatedAt(v)
+	}
+	if _, ok := fic.mutation.UpdatedAt(); !ok {
+		v := feedinfo.DefaultUpdatedAt
+		fic.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := fic.mutation.Deleted(); !ok {
+		v := feedinfo.DefaultDeleted
+		fic.mutation.SetDeleted(v)
+	}
+}
+
 // check runs all checks and user-defined validators on the builder.
 func (fic *FeedInfoCreate) check() error {
 	if _, ok := fic.mutation.Name(); !ok {
@@ -136,29 +423,101 @@ func (fic *FeedInfoCreate) check() error {
 	if _, ok := fic.mutation.Code(); !ok {
 		return &ValidationError{Name: "code", err: errors.New("ent: missing required field \"code\"")}
 	}
-	if _, ok := fic.mutation.GetType(); !ok {
-		return &ValidationError{Name: "type", err: errors.New("ent: missing required field \"type\"")}
+	if _, ok := fic.mutation.Moisture(); !ok {
+		return &ValidationError{Name: "moisture", err: errors.New("ent: missing required field \"moisture\"")}
 	}
-	if _, ok := fic.mutation.Description(); !ok {
-		return &ValidationError{Name: "description", err: errors.New("ent: missing required field \"description\"")}
+	if _, ok := fic.mutation.DryMatter(); !ok {
+		return &ValidationError{Name: "dryMatter", err: errors.New("ent: missing required field \"dryMatter\"")}
 	}
-	if _, ok := fic.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	if _, ok := fic.mutation.Ndf(); !ok {
+		return &ValidationError{Name: "ndf", err: errors.New("ent: missing required field \"ndf\"")}
 	}
-	if _, ok := fic.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	if _, ok := fic.mutation.Adf(); !ok {
+		return &ValidationError{Name: "adf", err: errors.New("ent: missing required field \"adf\"")}
 	}
-	if _, ok := fic.mutation.Remarks(); !ok {
-		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
+	if _, ok := fic.mutation.Endf(); !ok {
+		return &ValidationError{Name: "endf", err: errors.New("ent: missing required field \"endf\"")}
 	}
-	if _, ok := fic.mutation.CreatedAt(); !ok {
-		return &ValidationError{Name: "createdAt", err: errors.New("ent: missing required field \"createdAt\"")}
+	if _, ok := fic.mutation.LacticAcid(); !ok {
+		return &ValidationError{Name: "lacticAcid", err: errors.New("ent: missing required field \"lacticAcid\"")}
 	}
-	if _, ok := fic.mutation.UpdatedAt(); !ok {
-		return &ValidationError{Name: "updatedAt", err: errors.New("ent: missing required field \"updatedAt\"")}
+	if _, ok := fic.mutation.Wsc(); !ok {
+		return &ValidationError{Name: "wsc", err: errors.New("ent: missing required field \"wsc\"")}
 	}
-	if _, ok := fic.mutation.Deleted(); !ok {
-		return &ValidationError{Name: "deleted", err: errors.New("ent: missing required field \"deleted\"")}
+	if _, ok := fic.mutation.Starch(); !ok {
+		return &ValidationError{Name: "starch", err: errors.New("ent: missing required field \"starch\"")}
+	}
+	if _, ok := fic.mutation.SolubleFiber(); !ok {
+		return &ValidationError{Name: "solubleFiber", err: errors.New("ent: missing required field \"solubleFiber\"")}
+	}
+	if _, ok := fic.mutation.TotalProtein(); !ok {
+		return &ValidationError{Name: "totalProtein", err: errors.New("ent: missing required field \"totalProtein\"")}
+	}
+	if _, ok := fic.mutation.SolubleProtein(); !ok {
+		return &ValidationError{Name: "solubleProtein", err: errors.New("ent: missing required field \"solubleProtein\"")}
+	}
+	if _, ok := fic.mutation.Rdp(); !ok {
+		return &ValidationError{Name: "rdp", err: errors.New("ent: missing required field \"rdp\"")}
+	}
+	if _, ok := fic.mutation.Me(); !ok {
+		return &ValidationError{Name: "me", err: errors.New("ent: missing required field \"me\"")}
+	}
+	if _, ok := fic.mutation.Nel(); !ok {
+		return &ValidationError{Name: "nel", err: errors.New("ent: missing required field \"nel\"")}
+	}
+	if _, ok := fic.mutation.CrudeFat(); !ok {
+		return &ValidationError{Name: "crudeFat", err: errors.New("ent: missing required field \"crudeFat\"")}
+	}
+	if _, ok := fic.mutation.TotalFttyAcid(); !ok {
+		return &ValidationError{Name: "totalFttyAcid", err: errors.New("ent: missing required field \"totalFttyAcid\"")}
+	}
+	if _, ok := fic.mutation.Ash(); !ok {
+		return &ValidationError{Name: "ash", err: errors.New("ent: missing required field \"ash\"")}
+	}
+	if _, ok := fic.mutation.Ca(); !ok {
+		return &ValidationError{Name: "ca", err: errors.New("ent: missing required field \"ca\"")}
+	}
+	if _, ok := fic.mutation.P(); !ok {
+		return &ValidationError{Name: "p", err: errors.New("ent: missing required field \"p\"")}
+	}
+	if _, ok := fic.mutation.Mg(); !ok {
+		return &ValidationError{Name: "mg", err: errors.New("ent: missing required field \"mg\"")}
+	}
+	if _, ok := fic.mutation.K(); !ok {
+		return &ValidationError{Name: "k", err: errors.New("ent: missing required field \"k\"")}
+	}
+	if _, ok := fic.mutation.Mn(); !ok {
+		return &ValidationError{Name: "mn", err: errors.New("ent: missing required field \"mn\"")}
+	}
+	if _, ok := fic.mutation.Cu(); !ok {
+		return &ValidationError{Name: "cu", err: errors.New("ent: missing required field \"cu\"")}
+	}
+	if _, ok := fic.mutation.Fe(); !ok {
+		return &ValidationError{Name: "fe", err: errors.New("ent: missing required field \"fe\"")}
+	}
+	if _, ok := fic.mutation.Zn(); !ok {
+		return &ValidationError{Name: "zn", err: errors.New("ent: missing required field \"zn\"")}
+	}
+	if _, ok := fic.mutation.Methionine(); !ok {
+		return &ValidationError{Name: "methionine", err: errors.New("ent: missing required field \"methionine\"")}
+	}
+	if _, ok := fic.mutation.Lysine(); !ok {
+		return &ValidationError{Name: "lysine", err: errors.New("ent: missing required field \"lysine\"")}
+	}
+	if _, ok := fic.mutation.VitaminA(); !ok {
+		return &ValidationError{Name: "vitaminA", err: errors.New("ent: missing required field \"vitaminA\"")}
+	}
+	if _, ok := fic.mutation.VitaminD3(); !ok {
+		return &ValidationError{Name: "vitaminD3", err: errors.New("ent: missing required field \"vitaminD3\"")}
+	}
+	if _, ok := fic.mutation.VitaminE(); !ok {
+		return &ValidationError{Name: "vitaminE", err: errors.New("ent: missing required field \"vitaminE\"")}
+	}
+	if _, ok := fic.mutation.Choline(); !ok {
+		return &ValidationError{Name: "choline", err: errors.New("ent: missing required field \"choline\"")}
+	}
+	if _, ok := fic.mutation.Biotin(); !ok {
+		return &ValidationError{Name: "biotin", err: errors.New("ent: missing required field \"biotin\"")}
 	}
 	return nil
 }
@@ -203,13 +562,261 @@ func (fic *FeedInfoCreate) createSpec() (*FeedInfo, *sqlgraph.CreateSpec) {
 		})
 		_node.Code = value
 	}
-	if value, ok := fic.mutation.GetType(); ok {
+	if value, ok := fic.mutation.Moisture(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeFloat32,
 			Value:  value,
-			Column: feedinfo.FieldType,
+			Column: feedinfo.FieldMoisture,
 		})
-		_node.Type = value
+		_node.Moisture = value
+	}
+	if value, ok := fic.mutation.DryMatter(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldDryMatter,
+		})
+		_node.DryMatter = value
+	}
+	if value, ok := fic.mutation.Ndf(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldNdf,
+		})
+		_node.Ndf = value
+	}
+	if value, ok := fic.mutation.Adf(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldAdf,
+		})
+		_node.Adf = value
+	}
+	if value, ok := fic.mutation.Endf(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldEndf,
+		})
+		_node.Endf = value
+	}
+	if value, ok := fic.mutation.LacticAcid(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldLacticAcid,
+		})
+		_node.LacticAcid = value
+	}
+	if value, ok := fic.mutation.Wsc(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldWsc,
+		})
+		_node.Wsc = value
+	}
+	if value, ok := fic.mutation.Starch(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldStarch,
+		})
+		_node.Starch = value
+	}
+	if value, ok := fic.mutation.SolubleFiber(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldSolubleFiber,
+		})
+		_node.SolubleFiber = value
+	}
+	if value, ok := fic.mutation.TotalProtein(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldTotalProtein,
+		})
+		_node.TotalProtein = value
+	}
+	if value, ok := fic.mutation.SolubleProtein(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldSolubleProtein,
+		})
+		_node.SolubleProtein = value
+	}
+	if value, ok := fic.mutation.Rdp(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldRdp,
+		})
+		_node.Rdp = value
+	}
+	if value, ok := fic.mutation.Me(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMe,
+		})
+		_node.Me = value
+	}
+	if value, ok := fic.mutation.Nel(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldNel,
+		})
+		_node.Nel = value
+	}
+	if value, ok := fic.mutation.CrudeFat(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCrudeFat,
+		})
+		_node.CrudeFat = value
+	}
+	if value, ok := fic.mutation.TotalFttyAcid(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldTotalFttyAcid,
+		})
+		_node.TotalFttyAcid = value
+	}
+	if value, ok := fic.mutation.Ash(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldAsh,
+		})
+		_node.Ash = value
+	}
+	if value, ok := fic.mutation.Ca(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCa,
+		})
+		_node.Ca = value
+	}
+	if value, ok := fic.mutation.P(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldP,
+		})
+		_node.P = value
+	}
+	if value, ok := fic.mutation.Mg(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMg,
+		})
+		_node.Mg = value
+	}
+	if value, ok := fic.mutation.K(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldK,
+		})
+		_node.K = value
+	}
+	if value, ok := fic.mutation.Mn(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMn,
+		})
+		_node.Mn = value
+	}
+	if value, ok := fic.mutation.Cu(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCu,
+		})
+		_node.Cu = value
+	}
+	if value, ok := fic.mutation.Fe(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldFe,
+		})
+		_node.Fe = value
+	}
+	if value, ok := fic.mutation.Zn(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldZn,
+		})
+		_node.Zn = value
+	}
+	if value, ok := fic.mutation.Methionine(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldMethionine,
+		})
+		_node.Methionine = value
+	}
+	if value, ok := fic.mutation.Lysine(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldLysine,
+		})
+		_node.Lysine = value
+	}
+	if value, ok := fic.mutation.VitaminA(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldVitaminA,
+		})
+		_node.VitaminA = value
+	}
+	if value, ok := fic.mutation.VitaminD3(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldVitaminD3,
+		})
+		_node.VitaminD3 = value
+	}
+	if value, ok := fic.mutation.VitaminE(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldVitaminE,
+		})
+		_node.VitaminE = value
+	}
+	if value, ok := fic.mutation.Choline(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldCholine,
+		})
+		_node.Choline = value
+	}
+	if value, ok := fic.mutation.Biotin(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeFloat32,
+			Value:  value,
+			Column: feedinfo.FieldBiotin,
+		})
+		_node.Biotin = value
 	}
 	if value, ok := fic.mutation.Description(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -234,6 +841,22 @@ func (fic *FeedInfoCreate) createSpec() (*FeedInfo, *sqlgraph.CreateSpec) {
 			Column: feedinfo.FieldTenantName,
 		})
 		_node.TenantName = value
+	}
+	if value, ok := fic.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: feedinfo.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := fic.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: feedinfo.FieldFarmName,
+		})
+		_node.FarmName = value
 	}
 	if value, ok := fic.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -284,6 +907,7 @@ func (ficb *FeedInfoCreateBulk) Save(ctx context.Context) ([]*FeedInfo, error) {
 	for i := range ficb.builders {
 		func(i int, root context.Context) {
 			builder := ficb.builders[i]
+			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*FeedInfoMutation)
 				if !ok {

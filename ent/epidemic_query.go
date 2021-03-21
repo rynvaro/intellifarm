@@ -237,12 +237,12 @@ func (eq *EpidemicQuery) Clone() *EpidemicQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Epidemic.Query().
-//		GroupBy(epidemic.FieldName).
+//		GroupBy(epidemic.FieldCattleId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (eq *EpidemicQuery) GroupBy(field string, fields ...string) *EpidemicGroupB
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //	}
 //
 //	client.Epidemic.Query().
-//		Select(epidemic.FieldName).
+//		Select(epidemic.FieldCattleId).
 //		Scan(ctx, &v)
 //
 func (eq *EpidemicQuery) Select(field string, fields ...string) *EpidemicSelect {

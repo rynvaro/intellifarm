@@ -237,12 +237,12 @@ func (cdq *CattleDieQuery) Clone() *CattleDieQuery {
 // Example:
 //
 //	var v []struct {
-//		EarNumber string `json:"earNumber,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.CattleDie.Query().
-//		GroupBy(cattledie.FieldEarNumber).
+//		GroupBy(cattledie.FieldCattleId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (cdq *CattleDieQuery) GroupBy(field string, fields ...string) *CattleDieGro
 // Example:
 //
 //	var v []struct {
-//		EarNumber string `json:"earNumber,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //	}
 //
 //	client.CattleDie.Query().
-//		Select(cattledie.FieldEarNumber).
+//		Select(cattledie.FieldCattleId).
 //		Scan(ctx, &v)
 //
 func (cdq *CattleDieQuery) Select(field string, fields ...string) *CattleDieSelect {

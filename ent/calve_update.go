@@ -27,6 +27,76 @@ func (cu *CalveUpdate) Where(ps ...predicate.Calve) *CalveUpdate {
 	return cu
 }
 
+// SetCattleId sets the cattleId field.
+func (cu *CalveUpdate) SetCattleId(i int64) *CalveUpdate {
+	cu.mutation.ResetCattleId()
+	cu.mutation.SetCattleId(i)
+	return cu
+}
+
+// AddCattleId adds i to cattleId.
+func (cu *CalveUpdate) AddCattleId(i int64) *CalveUpdate {
+	cu.mutation.AddCattleId(i)
+	return cu
+}
+
+// SetTenantId sets the tenantId field.
+func (cu *CalveUpdate) SetTenantId(i int64) *CalveUpdate {
+	cu.mutation.ResetTenantId()
+	cu.mutation.SetTenantId(i)
+	return cu
+}
+
+// AddTenantId adds i to tenantId.
+func (cu *CalveUpdate) AddTenantId(i int64) *CalveUpdate {
+	cu.mutation.AddTenantId(i)
+	return cu
+}
+
+// SetTenantName sets the tenantName field.
+func (cu *CalveUpdate) SetTenantName(s string) *CalveUpdate {
+	cu.mutation.SetTenantName(s)
+	return cu
+}
+
+// SetFarmId sets the farmId field.
+func (cu *CalveUpdate) SetFarmId(i int64) *CalveUpdate {
+	cu.mutation.ResetFarmId()
+	cu.mutation.SetFarmId(i)
+	return cu
+}
+
+// AddFarmId adds i to farmId.
+func (cu *CalveUpdate) AddFarmId(i int64) *CalveUpdate {
+	cu.mutation.AddFarmId(i)
+	return cu
+}
+
+// SetFarmName sets the farmName field.
+func (cu *CalveUpdate) SetFarmName(s string) *CalveUpdate {
+	cu.mutation.SetFarmName(s)
+	return cu
+}
+
+// SetShedId sets the shedId field.
+func (cu *CalveUpdate) SetShedId(i int64) *CalveUpdate {
+	cu.mutation.ResetShedId()
+	cu.mutation.SetShedId(i)
+	return cu
+}
+
+// AddShedId adds i to shedId.
+func (cu *CalveUpdate) AddShedId(i int64) *CalveUpdate {
+	cu.mutation.AddShedId(i)
+	return cu
+}
+
+// SetShedName sets the shedName field.
+func (cu *CalveUpdate) SetShedName(s string) *CalveUpdate {
+	cu.mutation.SetShedName(s)
+	return cu
+}
+
 // SetName sets the name field.
 func (cu *CalveUpdate) SetName(s string) *CalveUpdate {
 	cu.mutation.SetName(s)
@@ -271,25 +341,6 @@ func (cu *CalveUpdate) SetBabyShedName(s string) *CalveUpdate {
 	return cu
 }
 
-// SetTenantId sets the tenantId field.
-func (cu *CalveUpdate) SetTenantId(i int64) *CalveUpdate {
-	cu.mutation.ResetTenantId()
-	cu.mutation.SetTenantId(i)
-	return cu
-}
-
-// AddTenantId adds i to tenantId.
-func (cu *CalveUpdate) AddTenantId(i int64) *CalveUpdate {
-	cu.mutation.AddTenantId(i)
-	return cu
-}
-
-// SetTenantName sets the tenantName field.
-func (cu *CalveUpdate) SetTenantName(s string) *CalveUpdate {
-	cu.mutation.SetTenantName(s)
-	return cu
-}
-
 // SetRemarks sets the remarks field.
 func (cu *CalveUpdate) SetRemarks(s string) *CalveUpdate {
 	cu.mutation.SetRemarks(s)
@@ -408,6 +459,83 @@ func (cu *CalveUpdate) sqlSave(ctx context.Context) (n int, err error) {
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := cu.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldCattleId,
+		})
+	}
+	if value, ok := cu.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldCattleId,
+		})
+	}
+	if value, ok := cu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldTenantId,
+		})
+	}
+	if value, ok := cu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldTenantId,
+		})
+	}
+	if value, ok := cu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: calve.FieldTenantName,
+		})
+	}
+	if value, ok := cu.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldFarmId,
+		})
+	}
+	if value, ok := cu.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldFarmId,
+		})
+	}
+	if value, ok := cu.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: calve.FieldFarmName,
+		})
+	}
+	if value, ok := cu.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldShedId,
+		})
+	}
+	if value, ok := cu.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldShedId,
+		})
+	}
+	if value, ok := cu.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: calve.FieldShedName,
+		})
 	}
 	if value, ok := cu.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
@@ -667,27 +795,6 @@ func (cu *CalveUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: calve.FieldBabyShedName,
 		})
 	}
-	if value, ok := cu.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: calve.FieldTenantId,
-		})
-	}
-	if value, ok := cu.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: calve.FieldTenantId,
-		})
-	}
-	if value, ok := cu.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: calve.FieldTenantName,
-		})
-	}
 	if value, ok := cu.mutation.Remarks(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -753,6 +860,76 @@ type CalveUpdateOne struct {
 	config
 	hooks    []Hook
 	mutation *CalveMutation
+}
+
+// SetCattleId sets the cattleId field.
+func (cuo *CalveUpdateOne) SetCattleId(i int64) *CalveUpdateOne {
+	cuo.mutation.ResetCattleId()
+	cuo.mutation.SetCattleId(i)
+	return cuo
+}
+
+// AddCattleId adds i to cattleId.
+func (cuo *CalveUpdateOne) AddCattleId(i int64) *CalveUpdateOne {
+	cuo.mutation.AddCattleId(i)
+	return cuo
+}
+
+// SetTenantId sets the tenantId field.
+func (cuo *CalveUpdateOne) SetTenantId(i int64) *CalveUpdateOne {
+	cuo.mutation.ResetTenantId()
+	cuo.mutation.SetTenantId(i)
+	return cuo
+}
+
+// AddTenantId adds i to tenantId.
+func (cuo *CalveUpdateOne) AddTenantId(i int64) *CalveUpdateOne {
+	cuo.mutation.AddTenantId(i)
+	return cuo
+}
+
+// SetTenantName sets the tenantName field.
+func (cuo *CalveUpdateOne) SetTenantName(s string) *CalveUpdateOne {
+	cuo.mutation.SetTenantName(s)
+	return cuo
+}
+
+// SetFarmId sets the farmId field.
+func (cuo *CalveUpdateOne) SetFarmId(i int64) *CalveUpdateOne {
+	cuo.mutation.ResetFarmId()
+	cuo.mutation.SetFarmId(i)
+	return cuo
+}
+
+// AddFarmId adds i to farmId.
+func (cuo *CalveUpdateOne) AddFarmId(i int64) *CalveUpdateOne {
+	cuo.mutation.AddFarmId(i)
+	return cuo
+}
+
+// SetFarmName sets the farmName field.
+func (cuo *CalveUpdateOne) SetFarmName(s string) *CalveUpdateOne {
+	cuo.mutation.SetFarmName(s)
+	return cuo
+}
+
+// SetShedId sets the shedId field.
+func (cuo *CalveUpdateOne) SetShedId(i int64) *CalveUpdateOne {
+	cuo.mutation.ResetShedId()
+	cuo.mutation.SetShedId(i)
+	return cuo
+}
+
+// AddShedId adds i to shedId.
+func (cuo *CalveUpdateOne) AddShedId(i int64) *CalveUpdateOne {
+	cuo.mutation.AddShedId(i)
+	return cuo
+}
+
+// SetShedName sets the shedName field.
+func (cuo *CalveUpdateOne) SetShedName(s string) *CalveUpdateOne {
+	cuo.mutation.SetShedName(s)
+	return cuo
 }
 
 // SetName sets the name field.
@@ -999,25 +1176,6 @@ func (cuo *CalveUpdateOne) SetBabyShedName(s string) *CalveUpdateOne {
 	return cuo
 }
 
-// SetTenantId sets the tenantId field.
-func (cuo *CalveUpdateOne) SetTenantId(i int64) *CalveUpdateOne {
-	cuo.mutation.ResetTenantId()
-	cuo.mutation.SetTenantId(i)
-	return cuo
-}
-
-// AddTenantId adds i to tenantId.
-func (cuo *CalveUpdateOne) AddTenantId(i int64) *CalveUpdateOne {
-	cuo.mutation.AddTenantId(i)
-	return cuo
-}
-
-// SetTenantName sets the tenantName field.
-func (cuo *CalveUpdateOne) SetTenantName(s string) *CalveUpdateOne {
-	cuo.mutation.SetTenantName(s)
-	return cuo
-}
-
 // SetRemarks sets the remarks field.
 func (cuo *CalveUpdateOne) SetRemarks(s string) *CalveUpdateOne {
 	cuo.mutation.SetRemarks(s)
@@ -1135,6 +1293,83 @@ func (cuo *CalveUpdateOne) sqlSave(ctx context.Context) (_node *Calve, err error
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing Calve.ID for update")}
 	}
 	_spec.Node.ID.Value = id
+	if value, ok := cuo.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldCattleId,
+		})
+	}
+	if value, ok := cuo.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldCattleId,
+		})
+	}
+	if value, ok := cuo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldTenantId,
+		})
+	}
+	if value, ok := cuo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldTenantId,
+		})
+	}
+	if value, ok := cuo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: calve.FieldTenantName,
+		})
+	}
+	if value, ok := cuo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldFarmId,
+		})
+	}
+	if value, ok := cuo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldFarmId,
+		})
+	}
+	if value, ok := cuo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: calve.FieldFarmName,
+		})
+	}
+	if value, ok := cuo.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldShedId,
+		})
+	}
+	if value, ok := cuo.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: calve.FieldShedId,
+		})
+	}
+	if value, ok := cuo.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: calve.FieldShedName,
+		})
+	}
 	if value, ok := cuo.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -1391,27 +1626,6 @@ func (cuo *CalveUpdateOne) sqlSave(ctx context.Context) (_node *Calve, err error
 			Type:   field.TypeString,
 			Value:  value,
 			Column: calve.FieldBabyShedName,
-		})
-	}
-	if value, ok := cuo.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: calve.FieldTenantId,
-		})
-	}
-	if value, ok := cuo.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: calve.FieldTenantId,
-		})
-	}
-	if value, ok := cuo.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: calve.FieldTenantName,
 		})
 	}
 	if value, ok := cuo.mutation.Remarks(); ok {

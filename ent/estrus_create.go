@@ -19,6 +19,48 @@ type EstrusCreate struct {
 	hooks    []Hook
 }
 
+// SetCattleId sets the cattleId field.
+func (ec *EstrusCreate) SetCattleId(i int64) *EstrusCreate {
+	ec.mutation.SetCattleId(i)
+	return ec
+}
+
+// SetTenantId sets the tenantId field.
+func (ec *EstrusCreate) SetTenantId(i int64) *EstrusCreate {
+	ec.mutation.SetTenantId(i)
+	return ec
+}
+
+// SetTenantName sets the tenantName field.
+func (ec *EstrusCreate) SetTenantName(s string) *EstrusCreate {
+	ec.mutation.SetTenantName(s)
+	return ec
+}
+
+// SetFarmId sets the farmId field.
+func (ec *EstrusCreate) SetFarmId(i int64) *EstrusCreate {
+	ec.mutation.SetFarmId(i)
+	return ec
+}
+
+// SetFarmName sets the farmName field.
+func (ec *EstrusCreate) SetFarmName(s string) *EstrusCreate {
+	ec.mutation.SetFarmName(s)
+	return ec
+}
+
+// SetShedId sets the shedId field.
+func (ec *EstrusCreate) SetShedId(i int64) *EstrusCreate {
+	ec.mutation.SetShedId(i)
+	return ec
+}
+
+// SetShedName sets the shedName field.
+func (ec *EstrusCreate) SetShedName(s string) *EstrusCreate {
+	ec.mutation.SetShedName(s)
+	return ec
+}
+
 // SetName sets the name field.
 func (ec *EstrusCreate) SetName(s string) *EstrusCreate {
 	ec.mutation.SetName(s)
@@ -45,18 +87,6 @@ func (ec *EstrusCreate) SetTimes(i int) *EstrusCreate {
 	return ec
 }
 
-// SetReproductiveState sets the reproductiveState field.
-func (ec *EstrusCreate) SetReproductiveState(s string) *EstrusCreate {
-	ec.mutation.SetReproductiveState(s)
-	return ec
-}
-
-// SetShedName sets the shedName field.
-func (ec *EstrusCreate) SetShedName(s string) *EstrusCreate {
-	ec.mutation.SetShedName(s)
-	return ec
-}
-
 // SetEstrusAt sets the estrusAt field.
 func (ec *EstrusCreate) SetEstrusAt(i int64) *EstrusCreate {
 	ec.mutation.SetEstrusAt(i)
@@ -78,18 +108,6 @@ func (ec *EstrusCreate) SetEstrusTypeName(s string) *EstrusCreate {
 // SetUserName sets the userName field.
 func (ec *EstrusCreate) SetUserName(s string) *EstrusCreate {
 	ec.mutation.SetUserName(s)
-	return ec
-}
-
-// SetTenantId sets the tenantId field.
-func (ec *EstrusCreate) SetTenantId(i int64) *EstrusCreate {
-	ec.mutation.SetTenantId(i)
-	return ec
-}
-
-// SetTenantName sets the tenantName field.
-func (ec *EstrusCreate) SetTenantName(s string) *EstrusCreate {
-	ec.mutation.SetTenantName(s)
 	return ec
 }
 
@@ -168,17 +186,32 @@ func (ec *EstrusCreate) SaveX(ctx context.Context) *Estrus {
 
 // check runs all checks and user-defined validators on the builder.
 func (ec *EstrusCreate) check() error {
+	if _, ok := ec.mutation.CattleId(); !ok {
+		return &ValidationError{Name: "cattleId", err: errors.New("ent: missing required field \"cattleId\"")}
+	}
+	if _, ok := ec.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := ec.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := ec.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := ec.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
+	}
+	if _, ok := ec.mutation.ShedId(); !ok {
+		return &ValidationError{Name: "shedId", err: errors.New("ent: missing required field \"shedId\"")}
+	}
+	if _, ok := ec.mutation.ShedName(); !ok {
+		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
+	}
 	if _, ok := ec.mutation.EarNumber(); !ok {
 		return &ValidationError{Name: "earNumber", err: errors.New("ent: missing required field \"earNumber\"")}
 	}
 	if _, ok := ec.mutation.Times(); !ok {
 		return &ValidationError{Name: "times", err: errors.New("ent: missing required field \"times\"")}
-	}
-	if _, ok := ec.mutation.ReproductiveState(); !ok {
-		return &ValidationError{Name: "reproductiveState", err: errors.New("ent: missing required field \"reproductiveState\"")}
-	}
-	if _, ok := ec.mutation.ShedName(); !ok {
-		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
 	}
 	if _, ok := ec.mutation.EstrusAt(); !ok {
 		return &ValidationError{Name: "estrusAt", err: errors.New("ent: missing required field \"estrusAt\"")}
@@ -191,12 +224,6 @@ func (ec *EstrusCreate) check() error {
 	}
 	if _, ok := ec.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
-	}
-	if _, ok := ec.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if _, ok := ec.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := ec.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -237,6 +264,62 @@ func (ec *EstrusCreate) createSpec() (*Estrus, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := ec.mutation.CattleId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldCattleId,
+		})
+		_node.CattleId = value
+	}
+	if value, ok := ec.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := ec.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: estrus.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := ec.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := ec.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: estrus.FieldFarmName,
+		})
+		_node.FarmName = value
+	}
+	if value, ok := ec.mutation.ShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldShedId,
+		})
+		_node.ShedId = value
+	}
+	if value, ok := ec.mutation.ShedName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: estrus.FieldShedName,
+		})
+		_node.ShedName = value
+	}
 	if value, ok := ec.mutation.Name(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -260,22 +343,6 @@ func (ec *EstrusCreate) createSpec() (*Estrus, *sqlgraph.CreateSpec) {
 			Column: estrus.FieldTimes,
 		})
 		_node.Times = value
-	}
-	if value, ok := ec.mutation.ReproductiveState(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: estrus.FieldReproductiveState,
-		})
-		_node.ReproductiveState = value
-	}
-	if value, ok := ec.mutation.ShedName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: estrus.FieldShedName,
-		})
-		_node.ShedName = value
 	}
 	if value, ok := ec.mutation.EstrusAt(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -308,22 +375,6 @@ func (ec *EstrusCreate) createSpec() (*Estrus, *sqlgraph.CreateSpec) {
 			Column: estrus.FieldUserName,
 		})
 		_node.UserName = value
-	}
-	if value, ok := ec.mutation.TenantId(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: estrus.FieldTenantId,
-		})
-		_node.TenantId = value
-	}
-	if value, ok := ec.mutation.TenantName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: estrus.FieldTenantName,
-		})
-		_node.TenantName = value
 	}
 	if value, ok := ec.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

@@ -16,6 +16,8 @@ type ListParams struct {
 	Epid      int64         `json:"epid" form:"epid"` // 发病ID
 	FarmId    int64         `json:"farmId" form:"farmId"`
 	CattleId  int64         `json:"cattleId" form:"cattleId"`
+	Id        int64         `json:"id" form:"id"`
+	Type      int           `json:"type" form:"type"`
 }
 
 func (p *ListParams) ToString() string {

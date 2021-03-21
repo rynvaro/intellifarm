@@ -23,16 +23,18 @@ func MaterialAddHandler(c *gin.Context) {
 	}
 	log.Debug().Msg(form.String())
 	material, err := db.Client.Material.Create().
-		SetCategory(form.Category).
+		SetCategoryId(form.CategoryId).
+		SetCategoryName(form.CategoryName).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).
+		SetFarmName(form.FarmName).
+		SetMaterialId(form.MaterialId).
 		SetCode(form.Code).
 		SetInventory(form.Inventory).
 		SetName(form.Name).
 		SetRemarks(form.Remarks).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
-		SetUserName(form.UserName).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
+		SetUserName(form.UserName).SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
@@ -95,13 +97,17 @@ func MaterialUpdateHandler(c *gin.Context) {
 	}
 	log.Debug().Msg(form.String())
 	material, err := db.Client.Material.UpdateOneID(form.ID).
-		SetCategory(form.Category).
+		SetCategoryId(form.CategoryId).
+		SetCategoryName(form.CategoryName).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).
+		SetFarmName(form.FarmName).
+		SetMaterialId(form.MaterialId).
 		SetCode(form.Code).
 		SetInventory(form.Inventory).
 		SetName(form.Name).
 		SetRemarks(form.Remarks).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
 		SetUserName(form.UserName).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())

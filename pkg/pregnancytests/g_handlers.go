@@ -33,13 +33,13 @@ func PregnancyTestAddHandler(c *gin.Context) {
 		SetPregnancyTestTypeId(form.PregnancyTestTypeId).
 		SetPregnancyTestTypeName(form.PregnancyTestTypeName).
 		SetRemarks(form.Remarks).
-		SetReproductiveState(form.ReproductiveState).
-		SetShedName(form.ShedName).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetTestAt(form.TestAt).
 		SetTimes(form.Times).
 		SetUserName(form.UserName).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -123,7 +123,10 @@ func PregnancyTestUpdateHandler(c *gin.Context) {
 		SetPregnancyTestTypeId(form.PregnancyTestTypeId).
 		SetPregnancyTestTypeName(form.PregnancyTestTypeName).
 		SetRemarks(form.Remarks).
-		SetReproductiveState(form.ReproductiveState).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetShedName(form.ShedName).
 		SetTestAt(form.TestAt).
 		SetTimes(form.Times).

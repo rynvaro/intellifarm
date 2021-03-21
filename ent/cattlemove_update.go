@@ -27,47 +27,16 @@ func (cmu *CattleMoveUpdate) Where(ps ...predicate.CattleMove) *CattleMoveUpdate
 	return cmu
 }
 
-// SetEarNumber sets the earNumber field.
-func (cmu *CattleMoveUpdate) SetEarNumber(s string) *CattleMoveUpdate {
-	cmu.mutation.SetEarNumber(s)
+// SetCattleId sets the cattleId field.
+func (cmu *CattleMoveUpdate) SetCattleId(i int64) *CattleMoveUpdate {
+	cmu.mutation.ResetCattleId()
+	cmu.mutation.SetCattleId(i)
 	return cmu
 }
 
-// SetDate sets the date field.
-func (cmu *CattleMoveUpdate) SetDate(i int64) *CattleMoveUpdate {
-	cmu.mutation.ResetDate()
-	cmu.mutation.SetDate(i)
-	return cmu
-}
-
-// AddDate adds i to date.
-func (cmu *CattleMoveUpdate) AddDate(i int64) *CattleMoveUpdate {
-	cmu.mutation.AddDate(i)
-	return cmu
-}
-
-// SetToShed sets the toShed field.
-func (cmu *CattleMoveUpdate) SetToShed(s string) *CattleMoveUpdate {
-	cmu.mutation.SetToShed(s)
-	return cmu
-}
-
-// SetUserName sets the userName field.
-func (cmu *CattleMoveUpdate) SetUserName(s string) *CattleMoveUpdate {
-	cmu.mutation.SetUserName(s)
-	return cmu
-}
-
-// SetReason sets the reason field.
-func (cmu *CattleMoveUpdate) SetReason(i int64) *CattleMoveUpdate {
-	cmu.mutation.ResetReason()
-	cmu.mutation.SetReason(i)
-	return cmu
-}
-
-// AddReason adds i to reason.
-func (cmu *CattleMoveUpdate) AddReason(i int64) *CattleMoveUpdate {
-	cmu.mutation.AddReason(i)
+// AddCattleId adds i to cattleId.
+func (cmu *CattleMoveUpdate) AddCattleId(i int64) *CattleMoveUpdate {
+	cmu.mutation.AddCattleId(i)
 	return cmu
 }
 
@@ -87,6 +56,126 @@ func (cmu *CattleMoveUpdate) AddTenantId(i int64) *CattleMoveUpdate {
 // SetTenantName sets the tenantName field.
 func (cmu *CattleMoveUpdate) SetTenantName(s string) *CattleMoveUpdate {
 	cmu.mutation.SetTenantName(s)
+	return cmu
+}
+
+// SetFarmId sets the farmId field.
+func (cmu *CattleMoveUpdate) SetFarmId(i int64) *CattleMoveUpdate {
+	cmu.mutation.ResetFarmId()
+	cmu.mutation.SetFarmId(i)
+	return cmu
+}
+
+// AddFarmId adds i to farmId.
+func (cmu *CattleMoveUpdate) AddFarmId(i int64) *CattleMoveUpdate {
+	cmu.mutation.AddFarmId(i)
+	return cmu
+}
+
+// SetFarmName sets the farmName field.
+func (cmu *CattleMoveUpdate) SetFarmName(s string) *CattleMoveUpdate {
+	cmu.mutation.SetFarmName(s)
+	return cmu
+}
+
+// SetShedId sets the shedId field.
+func (cmu *CattleMoveUpdate) SetShedId(i int64) *CattleMoveUpdate {
+	cmu.mutation.ResetShedId()
+	cmu.mutation.SetShedId(i)
+	return cmu
+}
+
+// AddShedId adds i to shedId.
+func (cmu *CattleMoveUpdate) AddShedId(i int64) *CattleMoveUpdate {
+	cmu.mutation.AddShedId(i)
+	return cmu
+}
+
+// SetShedName sets the shedName field.
+func (cmu *CattleMoveUpdate) SetShedName(s string) *CattleMoveUpdate {
+	cmu.mutation.SetShedName(s)
+	return cmu
+}
+
+// SetEarNumber sets the earNumber field.
+func (cmu *CattleMoveUpdate) SetEarNumber(s string) *CattleMoveUpdate {
+	cmu.mutation.SetEarNumber(s)
+	return cmu
+}
+
+// SetDate sets the date field.
+func (cmu *CattleMoveUpdate) SetDate(i int64) *CattleMoveUpdate {
+	cmu.mutation.ResetDate()
+	cmu.mutation.SetDate(i)
+	return cmu
+}
+
+// AddDate adds i to date.
+func (cmu *CattleMoveUpdate) AddDate(i int64) *CattleMoveUpdate {
+	cmu.mutation.AddDate(i)
+	return cmu
+}
+
+// SetFromShedId sets the fromShedId field.
+func (cmu *CattleMoveUpdate) SetFromShedId(i int64) *CattleMoveUpdate {
+	cmu.mutation.ResetFromShedId()
+	cmu.mutation.SetFromShedId(i)
+	return cmu
+}
+
+// AddFromShedId adds i to fromShedId.
+func (cmu *CattleMoveUpdate) AddFromShedId(i int64) *CattleMoveUpdate {
+	cmu.mutation.AddFromShedId(i)
+	return cmu
+}
+
+// SetFromShed sets the fromShed field.
+func (cmu *CattleMoveUpdate) SetFromShed(s string) *CattleMoveUpdate {
+	cmu.mutation.SetFromShed(s)
+	return cmu
+}
+
+// SetToShedId sets the toShedId field.
+func (cmu *CattleMoveUpdate) SetToShedId(i int64) *CattleMoveUpdate {
+	cmu.mutation.ResetToShedId()
+	cmu.mutation.SetToShedId(i)
+	return cmu
+}
+
+// AddToShedId adds i to toShedId.
+func (cmu *CattleMoveUpdate) AddToShedId(i int64) *CattleMoveUpdate {
+	cmu.mutation.AddToShedId(i)
+	return cmu
+}
+
+// SetToShed sets the toShed field.
+func (cmu *CattleMoveUpdate) SetToShed(s string) *CattleMoveUpdate {
+	cmu.mutation.SetToShed(s)
+	return cmu
+}
+
+// SetUserName sets the userName field.
+func (cmu *CattleMoveUpdate) SetUserName(s string) *CattleMoveUpdate {
+	cmu.mutation.SetUserName(s)
+	return cmu
+}
+
+// SetReasonId sets the reasonId field.
+func (cmu *CattleMoveUpdate) SetReasonId(i int64) *CattleMoveUpdate {
+	cmu.mutation.ResetReasonId()
+	cmu.mutation.SetReasonId(i)
+	return cmu
+}
+
+// AddReasonId adds i to reasonId.
+func (cmu *CattleMoveUpdate) AddReasonId(i int64) *CattleMoveUpdate {
+	cmu.mutation.AddReasonId(i)
+	return cmu
+}
+
+// SetReasonName sets the reasonName field.
+func (cmu *CattleMoveUpdate) SetReasonName(s string) *CattleMoveUpdate {
+	cmu.mutation.SetReasonName(s)
 	return cmu
 }
 
@@ -209,53 +298,18 @@ func (cmu *CattleMoveUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
-	if value, ok := cmu.mutation.EarNumber(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: cattlemove.FieldEarNumber,
-		})
-	}
-	if value, ok := cmu.mutation.Date(); ok {
+	if value, ok := cmu.mutation.CattleId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: cattlemove.FieldDate,
+			Column: cattlemove.FieldCattleId,
 		})
 	}
-	if value, ok := cmu.mutation.AddedDate(); ok {
+	if value, ok := cmu.mutation.AddedCattleId(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: cattlemove.FieldDate,
-		})
-	}
-	if value, ok := cmu.mutation.ToShed(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: cattlemove.FieldToShed,
-		})
-	}
-	if value, ok := cmu.mutation.UserName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: cattlemove.FieldUserName,
-		})
-	}
-	if value, ok := cmu.mutation.Reason(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: cattlemove.FieldReason,
-		})
-	}
-	if value, ok := cmu.mutation.AddedReason(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: cattlemove.FieldReason,
+			Column: cattlemove.FieldCattleId,
 		})
 	}
 	if value, ok := cmu.mutation.TenantId(); ok {
@@ -277,6 +331,139 @@ func (cmu *CattleMoveUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: cattlemove.FieldTenantName,
+		})
+	}
+	if value, ok := cmu.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldFarmId,
+		})
+	}
+	if value, ok := cmu.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldFarmId,
+		})
+	}
+	if value, ok := cmu.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldFarmName,
+		})
+	}
+	if value, ok := cmu.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldShedId,
+		})
+	}
+	if value, ok := cmu.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldShedId,
+		})
+	}
+	if value, ok := cmu.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldShedName,
+		})
+	}
+	if value, ok := cmu.mutation.EarNumber(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldEarNumber,
+		})
+	}
+	if value, ok := cmu.mutation.Date(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldDate,
+		})
+	}
+	if value, ok := cmu.mutation.AddedDate(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldDate,
+		})
+	}
+	if value, ok := cmu.mutation.FromShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldFromShedId,
+		})
+	}
+	if value, ok := cmu.mutation.AddedFromShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldFromShedId,
+		})
+	}
+	if value, ok := cmu.mutation.FromShed(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldFromShed,
+		})
+	}
+	if value, ok := cmu.mutation.ToShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldToShedId,
+		})
+	}
+	if value, ok := cmu.mutation.AddedToShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldToShedId,
+		})
+	}
+	if value, ok := cmu.mutation.ToShed(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldToShed,
+		})
+	}
+	if value, ok := cmu.mutation.UserName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldUserName,
+		})
+	}
+	if value, ok := cmu.mutation.ReasonId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldReasonId,
+		})
+	}
+	if value, ok := cmu.mutation.AddedReasonId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldReasonId,
+		})
+	}
+	if value, ok := cmu.mutation.ReasonName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldReasonName,
 		})
 	}
 	if value, ok := cmu.mutation.Remarks(); ok {
@@ -346,47 +533,16 @@ type CattleMoveUpdateOne struct {
 	mutation *CattleMoveMutation
 }
 
-// SetEarNumber sets the earNumber field.
-func (cmuo *CattleMoveUpdateOne) SetEarNumber(s string) *CattleMoveUpdateOne {
-	cmuo.mutation.SetEarNumber(s)
+// SetCattleId sets the cattleId field.
+func (cmuo *CattleMoveUpdateOne) SetCattleId(i int64) *CattleMoveUpdateOne {
+	cmuo.mutation.ResetCattleId()
+	cmuo.mutation.SetCattleId(i)
 	return cmuo
 }
 
-// SetDate sets the date field.
-func (cmuo *CattleMoveUpdateOne) SetDate(i int64) *CattleMoveUpdateOne {
-	cmuo.mutation.ResetDate()
-	cmuo.mutation.SetDate(i)
-	return cmuo
-}
-
-// AddDate adds i to date.
-func (cmuo *CattleMoveUpdateOne) AddDate(i int64) *CattleMoveUpdateOne {
-	cmuo.mutation.AddDate(i)
-	return cmuo
-}
-
-// SetToShed sets the toShed field.
-func (cmuo *CattleMoveUpdateOne) SetToShed(s string) *CattleMoveUpdateOne {
-	cmuo.mutation.SetToShed(s)
-	return cmuo
-}
-
-// SetUserName sets the userName field.
-func (cmuo *CattleMoveUpdateOne) SetUserName(s string) *CattleMoveUpdateOne {
-	cmuo.mutation.SetUserName(s)
-	return cmuo
-}
-
-// SetReason sets the reason field.
-func (cmuo *CattleMoveUpdateOne) SetReason(i int64) *CattleMoveUpdateOne {
-	cmuo.mutation.ResetReason()
-	cmuo.mutation.SetReason(i)
-	return cmuo
-}
-
-// AddReason adds i to reason.
-func (cmuo *CattleMoveUpdateOne) AddReason(i int64) *CattleMoveUpdateOne {
-	cmuo.mutation.AddReason(i)
+// AddCattleId adds i to cattleId.
+func (cmuo *CattleMoveUpdateOne) AddCattleId(i int64) *CattleMoveUpdateOne {
+	cmuo.mutation.AddCattleId(i)
 	return cmuo
 }
 
@@ -406,6 +562,126 @@ func (cmuo *CattleMoveUpdateOne) AddTenantId(i int64) *CattleMoveUpdateOne {
 // SetTenantName sets the tenantName field.
 func (cmuo *CattleMoveUpdateOne) SetTenantName(s string) *CattleMoveUpdateOne {
 	cmuo.mutation.SetTenantName(s)
+	return cmuo
+}
+
+// SetFarmId sets the farmId field.
+func (cmuo *CattleMoveUpdateOne) SetFarmId(i int64) *CattleMoveUpdateOne {
+	cmuo.mutation.ResetFarmId()
+	cmuo.mutation.SetFarmId(i)
+	return cmuo
+}
+
+// AddFarmId adds i to farmId.
+func (cmuo *CattleMoveUpdateOne) AddFarmId(i int64) *CattleMoveUpdateOne {
+	cmuo.mutation.AddFarmId(i)
+	return cmuo
+}
+
+// SetFarmName sets the farmName field.
+func (cmuo *CattleMoveUpdateOne) SetFarmName(s string) *CattleMoveUpdateOne {
+	cmuo.mutation.SetFarmName(s)
+	return cmuo
+}
+
+// SetShedId sets the shedId field.
+func (cmuo *CattleMoveUpdateOne) SetShedId(i int64) *CattleMoveUpdateOne {
+	cmuo.mutation.ResetShedId()
+	cmuo.mutation.SetShedId(i)
+	return cmuo
+}
+
+// AddShedId adds i to shedId.
+func (cmuo *CattleMoveUpdateOne) AddShedId(i int64) *CattleMoveUpdateOne {
+	cmuo.mutation.AddShedId(i)
+	return cmuo
+}
+
+// SetShedName sets the shedName field.
+func (cmuo *CattleMoveUpdateOne) SetShedName(s string) *CattleMoveUpdateOne {
+	cmuo.mutation.SetShedName(s)
+	return cmuo
+}
+
+// SetEarNumber sets the earNumber field.
+func (cmuo *CattleMoveUpdateOne) SetEarNumber(s string) *CattleMoveUpdateOne {
+	cmuo.mutation.SetEarNumber(s)
+	return cmuo
+}
+
+// SetDate sets the date field.
+func (cmuo *CattleMoveUpdateOne) SetDate(i int64) *CattleMoveUpdateOne {
+	cmuo.mutation.ResetDate()
+	cmuo.mutation.SetDate(i)
+	return cmuo
+}
+
+// AddDate adds i to date.
+func (cmuo *CattleMoveUpdateOne) AddDate(i int64) *CattleMoveUpdateOne {
+	cmuo.mutation.AddDate(i)
+	return cmuo
+}
+
+// SetFromShedId sets the fromShedId field.
+func (cmuo *CattleMoveUpdateOne) SetFromShedId(i int64) *CattleMoveUpdateOne {
+	cmuo.mutation.ResetFromShedId()
+	cmuo.mutation.SetFromShedId(i)
+	return cmuo
+}
+
+// AddFromShedId adds i to fromShedId.
+func (cmuo *CattleMoveUpdateOne) AddFromShedId(i int64) *CattleMoveUpdateOne {
+	cmuo.mutation.AddFromShedId(i)
+	return cmuo
+}
+
+// SetFromShed sets the fromShed field.
+func (cmuo *CattleMoveUpdateOne) SetFromShed(s string) *CattleMoveUpdateOne {
+	cmuo.mutation.SetFromShed(s)
+	return cmuo
+}
+
+// SetToShedId sets the toShedId field.
+func (cmuo *CattleMoveUpdateOne) SetToShedId(i int64) *CattleMoveUpdateOne {
+	cmuo.mutation.ResetToShedId()
+	cmuo.mutation.SetToShedId(i)
+	return cmuo
+}
+
+// AddToShedId adds i to toShedId.
+func (cmuo *CattleMoveUpdateOne) AddToShedId(i int64) *CattleMoveUpdateOne {
+	cmuo.mutation.AddToShedId(i)
+	return cmuo
+}
+
+// SetToShed sets the toShed field.
+func (cmuo *CattleMoveUpdateOne) SetToShed(s string) *CattleMoveUpdateOne {
+	cmuo.mutation.SetToShed(s)
+	return cmuo
+}
+
+// SetUserName sets the userName field.
+func (cmuo *CattleMoveUpdateOne) SetUserName(s string) *CattleMoveUpdateOne {
+	cmuo.mutation.SetUserName(s)
+	return cmuo
+}
+
+// SetReasonId sets the reasonId field.
+func (cmuo *CattleMoveUpdateOne) SetReasonId(i int64) *CattleMoveUpdateOne {
+	cmuo.mutation.ResetReasonId()
+	cmuo.mutation.SetReasonId(i)
+	return cmuo
+}
+
+// AddReasonId adds i to reasonId.
+func (cmuo *CattleMoveUpdateOne) AddReasonId(i int64) *CattleMoveUpdateOne {
+	cmuo.mutation.AddReasonId(i)
+	return cmuo
+}
+
+// SetReasonName sets the reasonName field.
+func (cmuo *CattleMoveUpdateOne) SetReasonName(s string) *CattleMoveUpdateOne {
+	cmuo.mutation.SetReasonName(s)
 	return cmuo
 }
 
@@ -526,53 +802,18 @@ func (cmuo *CattleMoveUpdateOne) sqlSave(ctx context.Context) (_node *CattleMove
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing CattleMove.ID for update")}
 	}
 	_spec.Node.ID.Value = id
-	if value, ok := cmuo.mutation.EarNumber(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: cattlemove.FieldEarNumber,
-		})
-	}
-	if value, ok := cmuo.mutation.Date(); ok {
+	if value, ok := cmuo.mutation.CattleId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: cattlemove.FieldDate,
+			Column: cattlemove.FieldCattleId,
 		})
 	}
-	if value, ok := cmuo.mutation.AddedDate(); ok {
+	if value, ok := cmuo.mutation.AddedCattleId(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: cattlemove.FieldDate,
-		})
-	}
-	if value, ok := cmuo.mutation.ToShed(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: cattlemove.FieldToShed,
-		})
-	}
-	if value, ok := cmuo.mutation.UserName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: cattlemove.FieldUserName,
-		})
-	}
-	if value, ok := cmuo.mutation.Reason(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: cattlemove.FieldReason,
-		})
-	}
-	if value, ok := cmuo.mutation.AddedReason(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: cattlemove.FieldReason,
+			Column: cattlemove.FieldCattleId,
 		})
 	}
 	if value, ok := cmuo.mutation.TenantId(); ok {
@@ -594,6 +835,139 @@ func (cmuo *CattleMoveUpdateOne) sqlSave(ctx context.Context) (_node *CattleMove
 			Type:   field.TypeString,
 			Value:  value,
 			Column: cattlemove.FieldTenantName,
+		})
+	}
+	if value, ok := cmuo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldFarmId,
+		})
+	}
+	if value, ok := cmuo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldFarmId,
+		})
+	}
+	if value, ok := cmuo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldFarmName,
+		})
+	}
+	if value, ok := cmuo.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldShedId,
+		})
+	}
+	if value, ok := cmuo.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldShedId,
+		})
+	}
+	if value, ok := cmuo.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldShedName,
+		})
+	}
+	if value, ok := cmuo.mutation.EarNumber(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldEarNumber,
+		})
+	}
+	if value, ok := cmuo.mutation.Date(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldDate,
+		})
+	}
+	if value, ok := cmuo.mutation.AddedDate(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldDate,
+		})
+	}
+	if value, ok := cmuo.mutation.FromShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldFromShedId,
+		})
+	}
+	if value, ok := cmuo.mutation.AddedFromShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldFromShedId,
+		})
+	}
+	if value, ok := cmuo.mutation.FromShed(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldFromShed,
+		})
+	}
+	if value, ok := cmuo.mutation.ToShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldToShedId,
+		})
+	}
+	if value, ok := cmuo.mutation.AddedToShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldToShedId,
+		})
+	}
+	if value, ok := cmuo.mutation.ToShed(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldToShed,
+		})
+	}
+	if value, ok := cmuo.mutation.UserName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldUserName,
+		})
+	}
+	if value, ok := cmuo.mutation.ReasonId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldReasonId,
+		})
+	}
+	if value, ok := cmuo.mutation.AddedReasonId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldReasonId,
+		})
+	}
+	if value, ok := cmuo.mutation.ReasonName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldReasonName,
 		})
 	}
 	if value, ok := cmuo.mutation.Remarks(); ok {

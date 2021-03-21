@@ -237,12 +237,12 @@ func (iq *InspectionQuery) Clone() *InspectionQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Inspection.Query().
-//		GroupBy(inspection.FieldName).
+//		GroupBy(inspection.FieldCattleId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (iq *InspectionQuery) GroupBy(field string, fields ...string) *InspectionGr
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //	}
 //
 //	client.Inspection.Query().
-//		Select(inspection.FieldName).
+//		Select(inspection.FieldCattleId).
 //		Scan(ctx, &v)
 //
 func (iq *InspectionQuery) Select(field string, fields ...string) *InspectionSelect {

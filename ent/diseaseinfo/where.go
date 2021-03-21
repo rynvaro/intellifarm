@@ -480,6 +480,20 @@ func TypeHasSuffix(v string) predicate.DiseaseInfo {
 	})
 }
 
+// TypeIsNil applies the IsNil predicate on the "type" field.
+func TypeIsNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldType)))
+	})
+}
+
+// TypeNotNil applies the NotNil predicate on the "type" field.
+func TypeNotNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldType)))
+	})
+}
+
 // TypeEqualFold applies the EqualFold predicate on the "type" field.
 func TypeEqualFold(v string) predicate.DiseaseInfo {
 	return predicate.DiseaseInfo(func(s *sql.Selector) {
@@ -591,6 +605,20 @@ func DescriptionHasSuffix(v string) predicate.DiseaseInfo {
 	})
 }
 
+// DescriptionIsNil applies the IsNil predicate on the "description" field.
+func DescriptionIsNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldDescription)))
+	})
+}
+
+// DescriptionNotNil applies the NotNil predicate on the "description" field.
+func DescriptionNotNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldDescription)))
+	})
+}
+
 // DescriptionEqualFold applies the EqualFold predicate on the "description" field.
 func DescriptionEqualFold(v string) predicate.DiseaseInfo {
 	return predicate.DiseaseInfo(func(s *sql.Selector) {
@@ -678,6 +706,20 @@ func TenantIdLT(v int64) predicate.DiseaseInfo {
 func TenantIdLTE(v int64) predicate.DiseaseInfo {
 	return predicate.DiseaseInfo(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldTenantId), v))
+	})
+}
+
+// TenantIdIsNil applies the IsNil predicate on the "tenantId" field.
+func TenantIdIsNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldTenantId)))
+	})
+}
+
+// TenantIdNotNil applies the NotNil predicate on the "tenantId" field.
+func TenantIdNotNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldTenantId)))
 	})
 }
 
@@ -775,6 +817,20 @@ func TenantNameHasPrefix(v string) predicate.DiseaseInfo {
 func TenantNameHasSuffix(v string) predicate.DiseaseInfo {
 	return predicate.DiseaseInfo(func(s *sql.Selector) {
 		s.Where(sql.HasSuffix(s.C(FieldTenantName), v))
+	})
+}
+
+// TenantNameIsNil applies the IsNil predicate on the "tenantName" field.
+func TenantNameIsNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldTenantName)))
+	})
+}
+
+// TenantNameNotNil applies the NotNil predicate on the "tenantName" field.
+func TenantNameNotNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldTenantName)))
 	})
 }
 
@@ -889,6 +945,20 @@ func RemarksHasSuffix(v string) predicate.DiseaseInfo {
 	})
 }
 
+// RemarksIsNil applies the IsNil predicate on the "remarks" field.
+func RemarksIsNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldRemarks)))
+	})
+}
+
+// RemarksNotNil applies the NotNil predicate on the "remarks" field.
+func RemarksNotNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldRemarks)))
+	})
+}
+
 // RemarksEqualFold applies the EqualFold predicate on the "remarks" field.
 func RemarksEqualFold(v string) predicate.DiseaseInfo {
 	return predicate.DiseaseInfo(func(s *sql.Selector) {
@@ -979,6 +1049,20 @@ func CreatedAtLTE(v int64) predicate.DiseaseInfo {
 	})
 }
 
+// CreatedAtIsNil applies the IsNil predicate on the "createdAt" field.
+func CreatedAtIsNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldCreatedAt)))
+	})
+}
+
+// CreatedAtNotNil applies the NotNil predicate on the "createdAt" field.
+func CreatedAtNotNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldCreatedAt)))
+	})
+}
+
 // UpdatedAtEQ applies the EQ predicate on the "updatedAt" field.
 func UpdatedAtEQ(v int64) predicate.DiseaseInfo {
 	return predicate.DiseaseInfo(func(s *sql.Selector) {
@@ -1055,6 +1139,20 @@ func UpdatedAtLTE(v int64) predicate.DiseaseInfo {
 	})
 }
 
+// UpdatedAtIsNil applies the IsNil predicate on the "updatedAt" field.
+func UpdatedAtIsNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldUpdatedAt)))
+	})
+}
+
+// UpdatedAtNotNil applies the NotNil predicate on the "updatedAt" field.
+func UpdatedAtNotNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldUpdatedAt)))
+	})
+}
+
 // DeletedEQ applies the EQ predicate on the "deleted" field.
 func DeletedEQ(v int) predicate.DiseaseInfo {
 	return predicate.DiseaseInfo(func(s *sql.Selector) {
@@ -1128,6 +1226,20 @@ func DeletedLT(v int) predicate.DiseaseInfo {
 func DeletedLTE(v int) predicate.DiseaseInfo {
 	return predicate.DiseaseInfo(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldDeleted), v))
+	})
+}
+
+// DeletedIsNil applies the IsNil predicate on the "deleted" field.
+func DeletedIsNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldDeleted)))
+	})
+}
+
+// DeletedNotNil applies the NotNil predicate on the "deleted" field.
+func DeletedNotNil() predicate.DiseaseInfo {
+	return predicate.DiseaseInfo(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldDeleted)))
 	})
 }
 

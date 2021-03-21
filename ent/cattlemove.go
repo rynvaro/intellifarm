@@ -15,20 +15,38 @@ type CattleMove struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int64 `json:"id,omitempty"`
-	// EarNumber holds the value of the "earNumber" field.
-	EarNumber string `json:"earNumber,omitempty"`
-	// Date holds the value of the "date" field.
-	Date int64 `json:"date,omitempty"`
-	// ToShed holds the value of the "toShed" field.
-	ToShed string `json:"toShed,omitempty"`
-	// UserName holds the value of the "userName" field.
-	UserName string `json:"userName,omitempty"`
-	// Reason holds the value of the "reason" field.
-	Reason int64 `json:"reason,omitempty"`
+	// CattleId holds the value of the "cattleId" field.
+	CattleId int64 `json:"cattleId,omitempty"`
 	// TenantId holds the value of the "tenantId" field.
 	TenantId int64 `json:"tenantId,omitempty"`
 	// TenantName holds the value of the "tenantName" field.
 	TenantName string `json:"tenantName,omitempty"`
+	// FarmId holds the value of the "farmId" field.
+	FarmId int64 `json:"farmId,omitempty"`
+	// FarmName holds the value of the "farmName" field.
+	FarmName string `json:"farmName,omitempty"`
+	// ShedId holds the value of the "shedId" field.
+	ShedId int64 `json:"shedId,omitempty"`
+	// ShedName holds the value of the "shedName" field.
+	ShedName string `json:"shedName,omitempty"`
+	// EarNumber holds the value of the "earNumber" field.
+	EarNumber string `json:"earNumber,omitempty"`
+	// Date holds the value of the "date" field.
+	Date int64 `json:"date,omitempty"`
+	// FromShedId holds the value of the "fromShedId" field.
+	FromShedId int64 `json:"fromShedId,omitempty"`
+	// FromShed holds the value of the "fromShed" field.
+	FromShed string `json:"fromShed,omitempty"`
+	// ToShedId holds the value of the "toShedId" field.
+	ToShedId int64 `json:"toShedId,omitempty"`
+	// ToShed holds the value of the "toShed" field.
+	ToShed string `json:"toShed,omitempty"`
+	// UserName holds the value of the "userName" field.
+	UserName string `json:"userName,omitempty"`
+	// ReasonId holds the value of the "reasonId" field.
+	ReasonId int64 `json:"reasonId,omitempty"`
+	// ReasonName holds the value of the "reasonName" field.
+	ReasonName string `json:"reasonName,omitempty"`
 	// Remarks holds the value of the "remarks" field.
 	Remarks string `json:"remarks,omitempty"`
 	// CreatedAt holds the value of the "createdAt" field.
@@ -43,13 +61,22 @@ type CattleMove struct {
 func (*CattleMove) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
-		&sql.NullString{}, // earNumber
-		&sql.NullInt64{},  // date
-		&sql.NullString{}, // toShed
-		&sql.NullString{}, // userName
-		&sql.NullInt64{},  // reason
+		&sql.NullInt64{},  // cattleId
 		&sql.NullInt64{},  // tenantId
 		&sql.NullString{}, // tenantName
+		&sql.NullInt64{},  // farmId
+		&sql.NullString{}, // farmName
+		&sql.NullInt64{},  // shedId
+		&sql.NullString{}, // shedName
+		&sql.NullString{}, // earNumber
+		&sql.NullInt64{},  // date
+		&sql.NullInt64{},  // fromShedId
+		&sql.NullString{}, // fromShed
+		&sql.NullInt64{},  // toShedId
+		&sql.NullString{}, // toShed
+		&sql.NullString{}, // userName
+		&sql.NullInt64{},  // reasonId
+		&sql.NullString{}, // reasonName
 		&sql.NullString{}, // remarks
 		&sql.NullInt64{},  // createdAt
 		&sql.NullInt64{},  // updatedAt
@@ -69,58 +96,103 @@ func (cm *CattleMove) assignValues(values ...interface{}) error {
 	}
 	cm.ID = int64(value.Int64)
 	values = values[1:]
-	if value, ok := values[0].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field earNumber", values[0])
+	if value, ok := values[0].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field cattleId", values[0])
 	} else if value.Valid {
-		cm.EarNumber = value.String
+		cm.CattleId = value.Int64
 	}
 	if value, ok := values[1].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field date", values[1])
-	} else if value.Valid {
-		cm.Date = value.Int64
-	}
-	if value, ok := values[2].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field toShed", values[2])
-	} else if value.Valid {
-		cm.ToShed = value.String
-	}
-	if value, ok := values[3].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field userName", values[3])
-	} else if value.Valid {
-		cm.UserName = value.String
-	}
-	if value, ok := values[4].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field reason", values[4])
-	} else if value.Valid {
-		cm.Reason = value.Int64
-	}
-	if value, ok := values[5].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantId", values[5])
+		return fmt.Errorf("unexpected type %T for field tenantId", values[1])
 	} else if value.Valid {
 		cm.TenantId = value.Int64
 	}
-	if value, ok := values[6].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantName", values[6])
+	if value, ok := values[2].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[2])
 	} else if value.Valid {
 		cm.TenantName = value.String
 	}
+	if value, ok := values[3].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field farmId", values[3])
+	} else if value.Valid {
+		cm.FarmId = value.Int64
+	}
+	if value, ok := values[4].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field farmName", values[4])
+	} else if value.Valid {
+		cm.FarmName = value.String
+	}
+	if value, ok := values[5].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field shedId", values[5])
+	} else if value.Valid {
+		cm.ShedId = value.Int64
+	}
+	if value, ok := values[6].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field shedName", values[6])
+	} else if value.Valid {
+		cm.ShedName = value.String
+	}
 	if value, ok := values[7].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[7])
+		return fmt.Errorf("unexpected type %T for field earNumber", values[7])
+	} else if value.Valid {
+		cm.EarNumber = value.String
+	}
+	if value, ok := values[8].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field date", values[8])
+	} else if value.Valid {
+		cm.Date = value.Int64
+	}
+	if value, ok := values[9].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field fromShedId", values[9])
+	} else if value.Valid {
+		cm.FromShedId = value.Int64
+	}
+	if value, ok := values[10].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field fromShed", values[10])
+	} else if value.Valid {
+		cm.FromShed = value.String
+	}
+	if value, ok := values[11].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field toShedId", values[11])
+	} else if value.Valid {
+		cm.ToShedId = value.Int64
+	}
+	if value, ok := values[12].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field toShed", values[12])
+	} else if value.Valid {
+		cm.ToShed = value.String
+	}
+	if value, ok := values[13].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field userName", values[13])
+	} else if value.Valid {
+		cm.UserName = value.String
+	}
+	if value, ok := values[14].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field reasonId", values[14])
+	} else if value.Valid {
+		cm.ReasonId = value.Int64
+	}
+	if value, ok := values[15].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field reasonName", values[15])
+	} else if value.Valid {
+		cm.ReasonName = value.String
+	}
+	if value, ok := values[16].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[16])
 	} else if value.Valid {
 		cm.Remarks = value.String
 	}
-	if value, ok := values[8].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[8])
+	if value, ok := values[17].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[17])
 	} else if value.Valid {
 		cm.CreatedAt = value.Int64
 	}
-	if value, ok := values[9].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[9])
+	if value, ok := values[18].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[18])
 	} else if value.Valid {
 		cm.UpdatedAt = value.Int64
 	}
-	if value, ok := values[10].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[10])
+	if value, ok := values[19].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[19])
 	} else if value.Valid {
 		cm.Deleted = int(value.Int64)
 	}
@@ -150,20 +222,38 @@ func (cm *CattleMove) String() string {
 	var builder strings.Builder
 	builder.WriteString("CattleMove(")
 	builder.WriteString(fmt.Sprintf("id=%v", cm.ID))
-	builder.WriteString(", earNumber=")
-	builder.WriteString(cm.EarNumber)
-	builder.WriteString(", date=")
-	builder.WriteString(fmt.Sprintf("%v", cm.Date))
-	builder.WriteString(", toShed=")
-	builder.WriteString(cm.ToShed)
-	builder.WriteString(", userName=")
-	builder.WriteString(cm.UserName)
-	builder.WriteString(", reason=")
-	builder.WriteString(fmt.Sprintf("%v", cm.Reason))
+	builder.WriteString(", cattleId=")
+	builder.WriteString(fmt.Sprintf("%v", cm.CattleId))
 	builder.WriteString(", tenantId=")
 	builder.WriteString(fmt.Sprintf("%v", cm.TenantId))
 	builder.WriteString(", tenantName=")
 	builder.WriteString(cm.TenantName)
+	builder.WriteString(", farmId=")
+	builder.WriteString(fmt.Sprintf("%v", cm.FarmId))
+	builder.WriteString(", farmName=")
+	builder.WriteString(cm.FarmName)
+	builder.WriteString(", shedId=")
+	builder.WriteString(fmt.Sprintf("%v", cm.ShedId))
+	builder.WriteString(", shedName=")
+	builder.WriteString(cm.ShedName)
+	builder.WriteString(", earNumber=")
+	builder.WriteString(cm.EarNumber)
+	builder.WriteString(", date=")
+	builder.WriteString(fmt.Sprintf("%v", cm.Date))
+	builder.WriteString(", fromShedId=")
+	builder.WriteString(fmt.Sprintf("%v", cm.FromShedId))
+	builder.WriteString(", fromShed=")
+	builder.WriteString(cm.FromShed)
+	builder.WriteString(", toShedId=")
+	builder.WriteString(fmt.Sprintf("%v", cm.ToShedId))
+	builder.WriteString(", toShed=")
+	builder.WriteString(cm.ToShed)
+	builder.WriteString(", userName=")
+	builder.WriteString(cm.UserName)
+	builder.WriteString(", reasonId=")
+	builder.WriteString(fmt.Sprintf("%v", cm.ReasonId))
+	builder.WriteString(", reasonName=")
+	builder.WriteString(cm.ReasonName)
 	builder.WriteString(", remarks=")
 	builder.WriteString(cm.Remarks)
 	builder.WriteString(", createdAt=")

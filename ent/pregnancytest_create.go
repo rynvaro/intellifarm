@@ -19,6 +19,48 @@ type PregnancyTestCreate struct {
 	hooks    []Hook
 }
 
+// SetCattleId sets the cattleId field.
+func (ptc *PregnancyTestCreate) SetCattleId(i int64) *PregnancyTestCreate {
+	ptc.mutation.SetCattleId(i)
+	return ptc
+}
+
+// SetTenantId sets the tenantId field.
+func (ptc *PregnancyTestCreate) SetTenantId(i int64) *PregnancyTestCreate {
+	ptc.mutation.SetTenantId(i)
+	return ptc
+}
+
+// SetTenantName sets the tenantName field.
+func (ptc *PregnancyTestCreate) SetTenantName(s string) *PregnancyTestCreate {
+	ptc.mutation.SetTenantName(s)
+	return ptc
+}
+
+// SetFarmId sets the farmId field.
+func (ptc *PregnancyTestCreate) SetFarmId(i int64) *PregnancyTestCreate {
+	ptc.mutation.SetFarmId(i)
+	return ptc
+}
+
+// SetFarmName sets the farmName field.
+func (ptc *PregnancyTestCreate) SetFarmName(s string) *PregnancyTestCreate {
+	ptc.mutation.SetFarmName(s)
+	return ptc
+}
+
+// SetShedId sets the shedId field.
+func (ptc *PregnancyTestCreate) SetShedId(i int64) *PregnancyTestCreate {
+	ptc.mutation.SetShedId(i)
+	return ptc
+}
+
+// SetShedName sets the shedName field.
+func (ptc *PregnancyTestCreate) SetShedName(s string) *PregnancyTestCreate {
+	ptc.mutation.SetShedName(s)
+	return ptc
+}
+
 // SetName sets the name field.
 func (ptc *PregnancyTestCreate) SetName(s string) *PregnancyTestCreate {
 	ptc.mutation.SetName(s)
@@ -42,18 +84,6 @@ func (ptc *PregnancyTestCreate) SetEarNumber(s string) *PregnancyTestCreate {
 // SetTimes sets the times field.
 func (ptc *PregnancyTestCreate) SetTimes(i int) *PregnancyTestCreate {
 	ptc.mutation.SetTimes(i)
-	return ptc
-}
-
-// SetReproductiveState sets the reproductiveState field.
-func (ptc *PregnancyTestCreate) SetReproductiveState(s string) *PregnancyTestCreate {
-	ptc.mutation.SetReproductiveState(s)
-	return ptc
-}
-
-// SetShedName sets the shedName field.
-func (ptc *PregnancyTestCreate) SetShedName(s string) *PregnancyTestCreate {
-	ptc.mutation.SetShedName(s)
 	return ptc
 }
 
@@ -108,18 +138,6 @@ func (ptc *PregnancyTestCreate) SetPregnancyTestResultName(s string) *PregnancyT
 // SetUserName sets the userName field.
 func (ptc *PregnancyTestCreate) SetUserName(s string) *PregnancyTestCreate {
 	ptc.mutation.SetUserName(s)
-	return ptc
-}
-
-// SetTenantId sets the tenantId field.
-func (ptc *PregnancyTestCreate) SetTenantId(i int64) *PregnancyTestCreate {
-	ptc.mutation.SetTenantId(i)
-	return ptc
-}
-
-// SetTenantName sets the tenantName field.
-func (ptc *PregnancyTestCreate) SetTenantName(s string) *PregnancyTestCreate {
-	ptc.mutation.SetTenantName(s)
 	return ptc
 }
 
@@ -198,17 +216,32 @@ func (ptc *PregnancyTestCreate) SaveX(ctx context.Context) *PregnancyTest {
 
 // check runs all checks and user-defined validators on the builder.
 func (ptc *PregnancyTestCreate) check() error {
+	if _, ok := ptc.mutation.CattleId(); !ok {
+		return &ValidationError{Name: "cattleId", err: errors.New("ent: missing required field \"cattleId\"")}
+	}
+	if _, ok := ptc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := ptc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := ptc.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := ptc.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
+	}
+	if _, ok := ptc.mutation.ShedId(); !ok {
+		return &ValidationError{Name: "shedId", err: errors.New("ent: missing required field \"shedId\"")}
+	}
+	if _, ok := ptc.mutation.ShedName(); !ok {
+		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
+	}
 	if _, ok := ptc.mutation.EarNumber(); !ok {
 		return &ValidationError{Name: "earNumber", err: errors.New("ent: missing required field \"earNumber\"")}
 	}
 	if _, ok := ptc.mutation.Times(); !ok {
 		return &ValidationError{Name: "times", err: errors.New("ent: missing required field \"times\"")}
-	}
-	if _, ok := ptc.mutation.ReproductiveState(); !ok {
-		return &ValidationError{Name: "reproductiveState", err: errors.New("ent: missing required field \"reproductiveState\"")}
-	}
-	if _, ok := ptc.mutation.ShedName(); !ok {
-		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
 	}
 	if _, ok := ptc.mutation.BreedingAt(); !ok {
 		return &ValidationError{Name: "breedingAt", err: errors.New("ent: missing required field \"breedingAt\"")}
@@ -236,12 +269,6 @@ func (ptc *PregnancyTestCreate) check() error {
 	}
 	if _, ok := ptc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
-	}
-	if _, ok := ptc.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if _, ok := ptc.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
 	if _, ok := ptc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -282,6 +309,62 @@ func (ptc *PregnancyTestCreate) createSpec() (*PregnancyTest, *sqlgraph.CreateSp
 			},
 		}
 	)
+	if value, ok := ptc.mutation.CattleId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: pregnancytest.FieldCattleId,
+		})
+		_node.CattleId = value
+	}
+	if value, ok := ptc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: pregnancytest.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := ptc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: pregnancytest.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := ptc.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: pregnancytest.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := ptc.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: pregnancytest.FieldFarmName,
+		})
+		_node.FarmName = value
+	}
+	if value, ok := ptc.mutation.ShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: pregnancytest.FieldShedId,
+		})
+		_node.ShedId = value
+	}
+	if value, ok := ptc.mutation.ShedName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: pregnancytest.FieldShedName,
+		})
+		_node.ShedName = value
+	}
 	if value, ok := ptc.mutation.Name(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -305,22 +388,6 @@ func (ptc *PregnancyTestCreate) createSpec() (*PregnancyTest, *sqlgraph.CreateSp
 			Column: pregnancytest.FieldTimes,
 		})
 		_node.Times = value
-	}
-	if value, ok := ptc.mutation.ReproductiveState(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: pregnancytest.FieldReproductiveState,
-		})
-		_node.ReproductiveState = value
-	}
-	if value, ok := ptc.mutation.ShedName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: pregnancytest.FieldShedName,
-		})
-		_node.ShedName = value
 	}
 	if value, ok := ptc.mutation.BreedingAt(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -393,22 +460,6 @@ func (ptc *PregnancyTestCreate) createSpec() (*PregnancyTest, *sqlgraph.CreateSp
 			Column: pregnancytest.FieldUserName,
 		})
 		_node.UserName = value
-	}
-	if value, ok := ptc.mutation.TenantId(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: pregnancytest.FieldTenantId,
-		})
-		_node.TenantId = value
-	}
-	if value, ok := ptc.mutation.TenantName(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: pregnancytest.FieldTenantName,
-		})
-		_node.TenantName = value
 	}
 	if value, ok := ptc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

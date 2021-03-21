@@ -15,6 +15,20 @@ type Medicine struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int64 `json:"id,omitempty"`
+	// CattleId holds the value of the "cattleId" field.
+	CattleId int64 `json:"cattleId,omitempty"`
+	// TenantId holds the value of the "tenantId" field.
+	TenantId int64 `json:"tenantId,omitempty"`
+	// TenantName holds the value of the "tenantName" field.
+	TenantName string `json:"tenantName,omitempty"`
+	// FarmId holds the value of the "farmId" field.
+	FarmId int64 `json:"farmId,omitempty"`
+	// FarmName holds the value of the "farmName" field.
+	FarmName string `json:"farmName,omitempty"`
+	// ShedId holds the value of the "shedId" field.
+	ShedId int64 `json:"shedId,omitempty"`
+	// ShedName holds the value of the "shedName" field.
+	ShedName string `json:"shedName,omitempty"`
 	// Epid holds the value of the "epid" field.
 	Epid int64 `json:"epid,omitempty"`
 	// EarNumber holds the value of the "earNumber" field.
@@ -37,16 +51,19 @@ type Medicine struct {
 	Deleted int `json:"deleted,omitempty"`
 	// Remarks holds the value of the "remarks" field.
 	Remarks string `json:"remarks,omitempty"`
-	// TenantId holds the value of the "tenantId" field.
-	TenantId int64 `json:"tenantId,omitempty"`
-	// TenantName holds the value of the "tenantName" field.
-	TenantName string `json:"tenantName,omitempty"`
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
 func (*Medicine) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
+		&sql.NullInt64{},  // cattleId
+		&sql.NullInt64{},  // tenantId
+		&sql.NullString{}, // tenantName
+		&sql.NullInt64{},  // farmId
+		&sql.NullString{}, // farmName
+		&sql.NullInt64{},  // shedId
+		&sql.NullString{}, // shedName
 		&sql.NullInt64{},  // epid
 		&sql.NullString{}, // earNumber
 		&sql.NullString{}, // medicineName
@@ -58,8 +75,6 @@ func (*Medicine) scanValues() []interface{} {
 		&sql.NullInt64{},  // updatedAt
 		&sql.NullInt64{},  // deleted
 		&sql.NullString{}, // remarks
-		&sql.NullInt64{},  // tenantId
-		&sql.NullString{}, // tenantName
 	}
 }
 
@@ -76,69 +91,94 @@ func (m *Medicine) assignValues(values ...interface{}) error {
 	m.ID = int64(value.Int64)
 	values = values[1:]
 	if value, ok := values[0].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field epid", values[0])
+		return fmt.Errorf("unexpected type %T for field cattleId", values[0])
 	} else if value.Valid {
-		m.Epid = value.Int64
+		m.CattleId = value.Int64
 	}
-	if value, ok := values[1].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field earNumber", values[1])
-	} else if value.Valid {
-		m.EarNumber = value.String
-	}
-	if value, ok := values[2].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field medicineName", values[2])
-	} else if value.Valid {
-		m.MedicineName = value.String
-	}
-	if value, ok := values[3].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field dose", values[3])
-	} else if value.Valid {
-		m.Dose = value.Int64
-	}
-	if value, ok := values[4].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field unit", values[4])
-	} else if value.Valid {
-		m.Unit = value.String
-	}
-	if value, ok := values[5].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field dateStart", values[5])
-	} else if value.Valid {
-		m.DateStart = value.Int64
-	}
-	if value, ok := values[6].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field dateEnd", values[6])
-	} else if value.Valid {
-		m.DateEnd = value.Int64
-	}
-	if value, ok := values[7].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[7])
-	} else if value.Valid {
-		m.CreatedAt = value.Int64
-	}
-	if value, ok := values[8].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[8])
-	} else if value.Valid {
-		m.UpdatedAt = value.Int64
-	}
-	if value, ok := values[9].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[9])
-	} else if value.Valid {
-		m.Deleted = int(value.Int64)
-	}
-	if value, ok := values[10].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[10])
-	} else if value.Valid {
-		m.Remarks = value.String
-	}
-	if value, ok := values[11].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantId", values[11])
+	if value, ok := values[1].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[1])
 	} else if value.Valid {
 		m.TenantId = value.Int64
 	}
-	if value, ok := values[12].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantName", values[12])
+	if value, ok := values[2].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[2])
 	} else if value.Valid {
 		m.TenantName = value.String
+	}
+	if value, ok := values[3].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field farmId", values[3])
+	} else if value.Valid {
+		m.FarmId = value.Int64
+	}
+	if value, ok := values[4].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field farmName", values[4])
+	} else if value.Valid {
+		m.FarmName = value.String
+	}
+	if value, ok := values[5].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field shedId", values[5])
+	} else if value.Valid {
+		m.ShedId = value.Int64
+	}
+	if value, ok := values[6].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field shedName", values[6])
+	} else if value.Valid {
+		m.ShedName = value.String
+	}
+	if value, ok := values[7].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field epid", values[7])
+	} else if value.Valid {
+		m.Epid = value.Int64
+	}
+	if value, ok := values[8].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field earNumber", values[8])
+	} else if value.Valid {
+		m.EarNumber = value.String
+	}
+	if value, ok := values[9].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field medicineName", values[9])
+	} else if value.Valid {
+		m.MedicineName = value.String
+	}
+	if value, ok := values[10].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field dose", values[10])
+	} else if value.Valid {
+		m.Dose = value.Int64
+	}
+	if value, ok := values[11].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field unit", values[11])
+	} else if value.Valid {
+		m.Unit = value.String
+	}
+	if value, ok := values[12].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field dateStart", values[12])
+	} else if value.Valid {
+		m.DateStart = value.Int64
+	}
+	if value, ok := values[13].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field dateEnd", values[13])
+	} else if value.Valid {
+		m.DateEnd = value.Int64
+	}
+	if value, ok := values[14].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[14])
+	} else if value.Valid {
+		m.CreatedAt = value.Int64
+	}
+	if value, ok := values[15].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[15])
+	} else if value.Valid {
+		m.UpdatedAt = value.Int64
+	}
+	if value, ok := values[16].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[16])
+	} else if value.Valid {
+		m.Deleted = int(value.Int64)
+	}
+	if value, ok := values[17].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[17])
+	} else if value.Valid {
+		m.Remarks = value.String
 	}
 	return nil
 }
@@ -166,6 +206,20 @@ func (m *Medicine) String() string {
 	var builder strings.Builder
 	builder.WriteString("Medicine(")
 	builder.WriteString(fmt.Sprintf("id=%v", m.ID))
+	builder.WriteString(", cattleId=")
+	builder.WriteString(fmt.Sprintf("%v", m.CattleId))
+	builder.WriteString(", tenantId=")
+	builder.WriteString(fmt.Sprintf("%v", m.TenantId))
+	builder.WriteString(", tenantName=")
+	builder.WriteString(m.TenantName)
+	builder.WriteString(", farmId=")
+	builder.WriteString(fmt.Sprintf("%v", m.FarmId))
+	builder.WriteString(", farmName=")
+	builder.WriteString(m.FarmName)
+	builder.WriteString(", shedId=")
+	builder.WriteString(fmt.Sprintf("%v", m.ShedId))
+	builder.WriteString(", shedName=")
+	builder.WriteString(m.ShedName)
 	builder.WriteString(", epid=")
 	builder.WriteString(fmt.Sprintf("%v", m.Epid))
 	builder.WriteString(", earNumber=")
@@ -188,10 +242,6 @@ func (m *Medicine) String() string {
 	builder.WriteString(fmt.Sprintf("%v", m.Deleted))
 	builder.WriteString(", remarks=")
 	builder.WriteString(m.Remarks)
-	builder.WriteString(", tenantId=")
-	builder.WriteString(fmt.Sprintf("%v", m.TenantId))
-	builder.WriteString(", tenantName=")
-	builder.WriteString(m.TenantName)
 	builder.WriteByte(')')
 	return builder.String()
 }

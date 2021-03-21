@@ -29,7 +29,6 @@ func FeedInfoAddHandler(c *gin.Context) {
 		SetRemarks(form.Remarks).
 		SetTenantId(form.TenantId).
 		SetTenantName(form.TenantName).
-		SetType(form.Type).
 		SetTenantId(form.TenantId).
 		SetTenantName(form.TenantName).SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
@@ -86,6 +85,22 @@ func FeedInfoDeleteHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, resp.Success(nil))
 }
 
+func FeedInfoGetHandler(c *gin.Context) {
+	id := &params.Id{}
+	if err := c.BindUri(id); err != nil {
+		log.Error().Msg(err.Error())
+		return
+	}
+	log.Debug().Msg(fmt.Sprintf("%+v", id))
+	fInfo, err := db.Client.FeedInfo.Get(c.Request.Context(), id.Id)
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+	c.JSON(http.StatusOK, resp.Success(fInfo))
+}
+
 func FeedInfoUpdateHandler(c *gin.Context) {
 	form := &ent.FeedInfo{}
 	if err := c.Bind(form); err != nil {
@@ -100,7 +115,6 @@ func FeedInfoUpdateHandler(c *gin.Context) {
 		SetRemarks(form.Remarks).
 		SetTenantId(form.TenantId).
 		SetTenantName(form.TenantName).
-		SetType(form.Type).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())
 	if err != nil {

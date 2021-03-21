@@ -13,6 +13,10 @@ type Cattle struct {
 // Fields of the Cattle.
 func (Cattle) Fields() []ent.Field {
 	return []ent.Field{
+		field.Int("alive").Comment("生存状态, 1: 存活，2: 死亡").Default(1),
+		field.Int("health").Comment("健康状态, 1: 健康，2: 发病").Default(1),
+		field.Int("reproductiveStateId").Comment("繁育状态ID"),
+		field.String("reproductiveStateName").Comment("繁育状态"),
 		field.String("name").Comment("名称").Optional(),
 		field.Int64("farmId").Comment("牛场ID"),
 		field.String("farmName").Comment("牛场名称").NotEmpty(),
@@ -43,8 +47,6 @@ func (Cattle) Fields() []ent.Field {
 		field.String("ownerName").Comment("拥有者"),
 		field.Int64("hairColorId").Comment("毛色ID"),
 		field.String("hairColorName").Comment("毛色"),
-		field.Int("reproductiveStateId").Comment("繁育状态ID"),
-		field.String("reproductiveStateName").Comment("繁育状态"),
 		field.Int("pregnantTimes").Comment("胎次"),
 		field.Int64("lastCalvingAt").Comment("最后产犊日期"),
 		field.Int64("breedingAt").Comment("配种日期"),

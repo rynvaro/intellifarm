@@ -237,12 +237,12 @@ func (eq *EstrusQuery) Clone() *EstrusQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Estrus.Query().
-//		GroupBy(estrus.FieldName).
+//		GroupBy(estrus.FieldCattleId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (eq *EstrusQuery) GroupBy(field string, fields ...string) *EstrusGroupBy {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //	}
 //
 //	client.Estrus.Query().
-//		Select(estrus.FieldName).
+//		Select(estrus.FieldCattleId).
 //		Scan(ctx, &v)
 //
 func (eq *EstrusQuery) Select(field string, fields ...string) *EstrusSelect {

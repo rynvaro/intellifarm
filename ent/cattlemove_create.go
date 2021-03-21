@@ -19,6 +19,48 @@ type CattleMoveCreate struct {
 	hooks    []Hook
 }
 
+// SetCattleId sets the cattleId field.
+func (cmc *CattleMoveCreate) SetCattleId(i int64) *CattleMoveCreate {
+	cmc.mutation.SetCattleId(i)
+	return cmc
+}
+
+// SetTenantId sets the tenantId field.
+func (cmc *CattleMoveCreate) SetTenantId(i int64) *CattleMoveCreate {
+	cmc.mutation.SetTenantId(i)
+	return cmc
+}
+
+// SetTenantName sets the tenantName field.
+func (cmc *CattleMoveCreate) SetTenantName(s string) *CattleMoveCreate {
+	cmc.mutation.SetTenantName(s)
+	return cmc
+}
+
+// SetFarmId sets the farmId field.
+func (cmc *CattleMoveCreate) SetFarmId(i int64) *CattleMoveCreate {
+	cmc.mutation.SetFarmId(i)
+	return cmc
+}
+
+// SetFarmName sets the farmName field.
+func (cmc *CattleMoveCreate) SetFarmName(s string) *CattleMoveCreate {
+	cmc.mutation.SetFarmName(s)
+	return cmc
+}
+
+// SetShedId sets the shedId field.
+func (cmc *CattleMoveCreate) SetShedId(i int64) *CattleMoveCreate {
+	cmc.mutation.SetShedId(i)
+	return cmc
+}
+
+// SetShedName sets the shedName field.
+func (cmc *CattleMoveCreate) SetShedName(s string) *CattleMoveCreate {
+	cmc.mutation.SetShedName(s)
+	return cmc
+}
+
 // SetEarNumber sets the earNumber field.
 func (cmc *CattleMoveCreate) SetEarNumber(s string) *CattleMoveCreate {
 	cmc.mutation.SetEarNumber(s)
@@ -28,6 +70,24 @@ func (cmc *CattleMoveCreate) SetEarNumber(s string) *CattleMoveCreate {
 // SetDate sets the date field.
 func (cmc *CattleMoveCreate) SetDate(i int64) *CattleMoveCreate {
 	cmc.mutation.SetDate(i)
+	return cmc
+}
+
+// SetFromShedId sets the fromShedId field.
+func (cmc *CattleMoveCreate) SetFromShedId(i int64) *CattleMoveCreate {
+	cmc.mutation.SetFromShedId(i)
+	return cmc
+}
+
+// SetFromShed sets the fromShed field.
+func (cmc *CattleMoveCreate) SetFromShed(s string) *CattleMoveCreate {
+	cmc.mutation.SetFromShed(s)
+	return cmc
+}
+
+// SetToShedId sets the toShedId field.
+func (cmc *CattleMoveCreate) SetToShedId(i int64) *CattleMoveCreate {
+	cmc.mutation.SetToShedId(i)
 	return cmc
 }
 
@@ -43,21 +103,15 @@ func (cmc *CattleMoveCreate) SetUserName(s string) *CattleMoveCreate {
 	return cmc
 }
 
-// SetReason sets the reason field.
-func (cmc *CattleMoveCreate) SetReason(i int64) *CattleMoveCreate {
-	cmc.mutation.SetReason(i)
+// SetReasonId sets the reasonId field.
+func (cmc *CattleMoveCreate) SetReasonId(i int64) *CattleMoveCreate {
+	cmc.mutation.SetReasonId(i)
 	return cmc
 }
 
-// SetTenantId sets the tenantId field.
-func (cmc *CattleMoveCreate) SetTenantId(i int64) *CattleMoveCreate {
-	cmc.mutation.SetTenantId(i)
-	return cmc
-}
-
-// SetTenantName sets the tenantName field.
-func (cmc *CattleMoveCreate) SetTenantName(s string) *CattleMoveCreate {
-	cmc.mutation.SetTenantName(s)
+// SetReasonName sets the reasonName field.
+func (cmc *CattleMoveCreate) SetReasonName(s string) *CattleMoveCreate {
+	cmc.mutation.SetReasonName(s)
 	return cmc
 }
 
@@ -136,11 +190,41 @@ func (cmc *CattleMoveCreate) SaveX(ctx context.Context) *CattleMove {
 
 // check runs all checks and user-defined validators on the builder.
 func (cmc *CattleMoveCreate) check() error {
+	if _, ok := cmc.mutation.CattleId(); !ok {
+		return &ValidationError{Name: "cattleId", err: errors.New("ent: missing required field \"cattleId\"")}
+	}
+	if _, ok := cmc.mutation.TenantId(); !ok {
+		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
+	}
+	if _, ok := cmc.mutation.TenantName(); !ok {
+		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := cmc.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := cmc.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
+	}
+	if _, ok := cmc.mutation.ShedId(); !ok {
+		return &ValidationError{Name: "shedId", err: errors.New("ent: missing required field \"shedId\"")}
+	}
+	if _, ok := cmc.mutation.ShedName(); !ok {
+		return &ValidationError{Name: "shedName", err: errors.New("ent: missing required field \"shedName\"")}
+	}
 	if _, ok := cmc.mutation.EarNumber(); !ok {
 		return &ValidationError{Name: "earNumber", err: errors.New("ent: missing required field \"earNumber\"")}
 	}
 	if _, ok := cmc.mutation.Date(); !ok {
 		return &ValidationError{Name: "date", err: errors.New("ent: missing required field \"date\"")}
+	}
+	if _, ok := cmc.mutation.FromShedId(); !ok {
+		return &ValidationError{Name: "fromShedId", err: errors.New("ent: missing required field \"fromShedId\"")}
+	}
+	if _, ok := cmc.mutation.FromShed(); !ok {
+		return &ValidationError{Name: "fromShed", err: errors.New("ent: missing required field \"fromShed\"")}
+	}
+	if _, ok := cmc.mutation.ToShedId(); !ok {
+		return &ValidationError{Name: "toShedId", err: errors.New("ent: missing required field \"toShedId\"")}
 	}
 	if _, ok := cmc.mutation.ToShed(); !ok {
 		return &ValidationError{Name: "toShed", err: errors.New("ent: missing required field \"toShed\"")}
@@ -148,14 +232,11 @@ func (cmc *CattleMoveCreate) check() error {
 	if _, ok := cmc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
 	}
-	if _, ok := cmc.mutation.Reason(); !ok {
-		return &ValidationError{Name: "reason", err: errors.New("ent: missing required field \"reason\"")}
+	if _, ok := cmc.mutation.ReasonId(); !ok {
+		return &ValidationError{Name: "reasonId", err: errors.New("ent: missing required field \"reasonId\"")}
 	}
-	if _, ok := cmc.mutation.TenantId(); !ok {
-		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
-	}
-	if _, ok := cmc.mutation.TenantName(); !ok {
-		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	if _, ok := cmc.mutation.ReasonName(); !ok {
+		return &ValidationError{Name: "reasonName", err: errors.New("ent: missing required field \"reasonName\"")}
 	}
 	if _, ok := cmc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -196,6 +277,62 @@ func (cmc *CattleMoveCreate) createSpec() (*CattleMove, *sqlgraph.CreateSpec) {
 			},
 		}
 	)
+	if value, ok := cmc.mutation.CattleId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldCattleId,
+		})
+		_node.CattleId = value
+	}
+	if value, ok := cmc.mutation.TenantId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldTenantId,
+		})
+		_node.TenantId = value
+	}
+	if value, ok := cmc.mutation.TenantName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldTenantName,
+		})
+		_node.TenantName = value
+	}
+	if value, ok := cmc.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := cmc.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldFarmName,
+		})
+		_node.FarmName = value
+	}
+	if value, ok := cmc.mutation.ShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldShedId,
+		})
+		_node.ShedId = value
+	}
+	if value, ok := cmc.mutation.ShedName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldShedName,
+		})
+		_node.ShedName = value
+	}
 	if value, ok := cmc.mutation.EarNumber(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -211,6 +348,30 @@ func (cmc *CattleMoveCreate) createSpec() (*CattleMove, *sqlgraph.CreateSpec) {
 			Column: cattlemove.FieldDate,
 		})
 		_node.Date = value
+	}
+	if value, ok := cmc.mutation.FromShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldFromShedId,
+		})
+		_node.FromShedId = value
+	}
+	if value, ok := cmc.mutation.FromShed(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattlemove.FieldFromShed,
+		})
+		_node.FromShed = value
+	}
+	if value, ok := cmc.mutation.ToShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: cattlemove.FieldToShedId,
+		})
+		_node.ToShedId = value
 	}
 	if value, ok := cmc.mutation.ToShed(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -228,29 +389,21 @@ func (cmc *CattleMoveCreate) createSpec() (*CattleMove, *sqlgraph.CreateSpec) {
 		})
 		_node.UserName = value
 	}
-	if value, ok := cmc.mutation.Reason(); ok {
+	if value, ok := cmc.mutation.ReasonId(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: cattlemove.FieldReason,
+			Column: cattlemove.FieldReasonId,
 		})
-		_node.Reason = value
+		_node.ReasonId = value
 	}
-	if value, ok := cmc.mutation.TenantId(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: cattlemove.FieldTenantId,
-		})
-		_node.TenantId = value
-	}
-	if value, ok := cmc.mutation.TenantName(); ok {
+	if value, ok := cmc.mutation.ReasonName(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: cattlemove.FieldTenantName,
+			Column: cattlemove.FieldReasonName,
 		})
-		_node.TenantName = value
+		_node.ReasonName = value
 	}
 	if value, ok := cmc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

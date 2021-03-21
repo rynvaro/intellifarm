@@ -19,9 +19,15 @@ type InventoryFlowCreate struct {
 	hooks    []Hook
 }
 
-// SetMaterialID sets the materialID field.
-func (ifc *InventoryFlowCreate) SetMaterialID(i int64) *InventoryFlowCreate {
-	ifc.mutation.SetMaterialID(i)
+// SetSysMaterialId sets the sysMaterialId field.
+func (ifc *InventoryFlowCreate) SetSysMaterialId(i int64) *InventoryFlowCreate {
+	ifc.mutation.SetSysMaterialId(i)
+	return ifc
+}
+
+// SetMaterialId sets the materialId field.
+func (ifc *InventoryFlowCreate) SetMaterialId(i int64) *InventoryFlowCreate {
+	ifc.mutation.SetMaterialId(i)
 	return ifc
 }
 
@@ -56,8 +62,8 @@ func (ifc *InventoryFlowCreate) SetType(i int) *InventoryFlowCreate {
 }
 
 // SetStatus sets the status field.
-func (ifc *InventoryFlowCreate) SetStatus(i int) *InventoryFlowCreate {
-	ifc.mutation.SetStatus(i)
+func (ifc *InventoryFlowCreate) SetStatus(s string) *InventoryFlowCreate {
+	ifc.mutation.SetStatus(s)
 	return ifc
 }
 
@@ -70,6 +76,18 @@ func (ifc *InventoryFlowCreate) SetCount(i int) *InventoryFlowCreate {
 // SetUnit sets the unit field.
 func (ifc *InventoryFlowCreate) SetUnit(s string) *InventoryFlowCreate {
 	ifc.mutation.SetUnit(s)
+	return ifc
+}
+
+// SetBefore sets the before field.
+func (ifc *InventoryFlowCreate) SetBefore(i int64) *InventoryFlowCreate {
+	ifc.mutation.SetBefore(i)
+	return ifc
+}
+
+// SetAfter sets the after field.
+func (ifc *InventoryFlowCreate) SetAfter(i int64) *InventoryFlowCreate {
+	ifc.mutation.SetAfter(i)
 	return ifc
 }
 
@@ -91,9 +109,33 @@ func (ifc *InventoryFlowCreate) SetTenantName(s string) *InventoryFlowCreate {
 	return ifc
 }
 
+// SetFarmId sets the farmId field.
+func (ifc *InventoryFlowCreate) SetFarmId(i int64) *InventoryFlowCreate {
+	ifc.mutation.SetFarmId(i)
+	return ifc
+}
+
+// SetFarmName sets the farmName field.
+func (ifc *InventoryFlowCreate) SetFarmName(s string) *InventoryFlowCreate {
+	ifc.mutation.SetFarmName(s)
+	return ifc
+}
+
 // SetRemarks sets the remarks field.
 func (ifc *InventoryFlowCreate) SetRemarks(s string) *InventoryFlowCreate {
 	ifc.mutation.SetRemarks(s)
+	return ifc
+}
+
+// SetIsChecked sets the isChecked field.
+func (ifc *InventoryFlowCreate) SetIsChecked(b bool) *InventoryFlowCreate {
+	ifc.mutation.SetIsChecked(b)
+	return ifc
+}
+
+// SetReportFileAddress sets the reportFileAddress field.
+func (ifc *InventoryFlowCreate) SetReportFileAddress(s string) *InventoryFlowCreate {
+	ifc.mutation.SetReportFileAddress(s)
 	return ifc
 }
 
@@ -166,8 +208,11 @@ func (ifc *InventoryFlowCreate) SaveX(ctx context.Context) *InventoryFlow {
 
 // check runs all checks and user-defined validators on the builder.
 func (ifc *InventoryFlowCreate) check() error {
-	if _, ok := ifc.mutation.MaterialID(); !ok {
-		return &ValidationError{Name: "materialID", err: errors.New("ent: missing required field \"materialID\"")}
+	if _, ok := ifc.mutation.SysMaterialId(); !ok {
+		return &ValidationError{Name: "sysMaterialId", err: errors.New("ent: missing required field \"sysMaterialId\"")}
+	}
+	if _, ok := ifc.mutation.MaterialId(); !ok {
+		return &ValidationError{Name: "materialId", err: errors.New("ent: missing required field \"materialId\"")}
 	}
 	if _, ok := ifc.mutation.MaterialName(); !ok {
 		return &ValidationError{Name: "materialName", err: errors.New("ent: missing required field \"materialName\"")}
@@ -193,6 +238,12 @@ func (ifc *InventoryFlowCreate) check() error {
 	if _, ok := ifc.mutation.Unit(); !ok {
 		return &ValidationError{Name: "unit", err: errors.New("ent: missing required field \"unit\"")}
 	}
+	if _, ok := ifc.mutation.Before(); !ok {
+		return &ValidationError{Name: "before", err: errors.New("ent: missing required field \"before\"")}
+	}
+	if _, ok := ifc.mutation.After(); !ok {
+		return &ValidationError{Name: "after", err: errors.New("ent: missing required field \"after\"")}
+	}
 	if _, ok := ifc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
 	}
@@ -202,8 +253,20 @@ func (ifc *InventoryFlowCreate) check() error {
 	if _, ok := ifc.mutation.TenantName(); !ok {
 		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
+	if _, ok := ifc.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := ifc.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
+	}
 	if _, ok := ifc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
+	}
+	if _, ok := ifc.mutation.IsChecked(); !ok {
+		return &ValidationError{Name: "isChecked", err: errors.New("ent: missing required field \"isChecked\"")}
+	}
+	if _, ok := ifc.mutation.ReportFileAddress(); !ok {
+		return &ValidationError{Name: "reportFileAddress", err: errors.New("ent: missing required field \"reportFileAddress\"")}
 	}
 	if _, ok := ifc.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "createdAt", err: errors.New("ent: missing required field \"createdAt\"")}
@@ -241,13 +304,21 @@ func (ifc *InventoryFlowCreate) createSpec() (*InventoryFlow, *sqlgraph.CreateSp
 			},
 		}
 	)
-	if value, ok := ifc.mutation.MaterialID(); ok {
+	if value, ok := ifc.mutation.SysMaterialId(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: inventoryflow.FieldMaterialID,
+			Column: inventoryflow.FieldSysMaterialId,
 		})
-		_node.MaterialID = value
+		_node.SysMaterialId = value
+	}
+	if value, ok := ifc.mutation.MaterialId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldMaterialId,
+		})
+		_node.MaterialId = value
 	}
 	if value, ok := ifc.mutation.MaterialName(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -291,7 +362,7 @@ func (ifc *InventoryFlowCreate) createSpec() (*InventoryFlow, *sqlgraph.CreateSp
 	}
 	if value, ok := ifc.mutation.Status(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
 			Column: inventoryflow.FieldStatus,
 		})
@@ -312,6 +383,22 @@ func (ifc *InventoryFlowCreate) createSpec() (*InventoryFlow, *sqlgraph.CreateSp
 			Column: inventoryflow.FieldUnit,
 		})
 		_node.Unit = value
+	}
+	if value, ok := ifc.mutation.Before(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldBefore,
+		})
+		_node.Before = value
+	}
+	if value, ok := ifc.mutation.After(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldAfter,
+		})
+		_node.After = value
 	}
 	if value, ok := ifc.mutation.UserName(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -337,6 +424,22 @@ func (ifc *InventoryFlowCreate) createSpec() (*InventoryFlow, *sqlgraph.CreateSp
 		})
 		_node.TenantName = value
 	}
+	if value, ok := ifc.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: inventoryflow.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := ifc.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inventoryflow.FieldFarmName,
+		})
+		_node.FarmName = value
+	}
 	if value, ok := ifc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -344,6 +447,22 @@ func (ifc *InventoryFlowCreate) createSpec() (*InventoryFlow, *sqlgraph.CreateSp
 			Column: inventoryflow.FieldRemarks,
 		})
 		_node.Remarks = value
+	}
+	if value, ok := ifc.mutation.IsChecked(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeBool,
+			Value:  value,
+			Column: inventoryflow.FieldIsChecked,
+		})
+		_node.IsChecked = value
+	}
+	if value, ok := ifc.mutation.ReportFileAddress(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: inventoryflow.FieldReportFileAddress,
+		})
+		_node.ReportFileAddress = value
 	}
 	if value, ok := ifc.mutation.CreatedAt(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

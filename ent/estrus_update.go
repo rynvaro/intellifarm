@@ -27,6 +27,76 @@ func (eu *EstrusUpdate) Where(ps ...predicate.Estrus) *EstrusUpdate {
 	return eu
 }
 
+// SetCattleId sets the cattleId field.
+func (eu *EstrusUpdate) SetCattleId(i int64) *EstrusUpdate {
+	eu.mutation.ResetCattleId()
+	eu.mutation.SetCattleId(i)
+	return eu
+}
+
+// AddCattleId adds i to cattleId.
+func (eu *EstrusUpdate) AddCattleId(i int64) *EstrusUpdate {
+	eu.mutation.AddCattleId(i)
+	return eu
+}
+
+// SetTenantId sets the tenantId field.
+func (eu *EstrusUpdate) SetTenantId(i int64) *EstrusUpdate {
+	eu.mutation.ResetTenantId()
+	eu.mutation.SetTenantId(i)
+	return eu
+}
+
+// AddTenantId adds i to tenantId.
+func (eu *EstrusUpdate) AddTenantId(i int64) *EstrusUpdate {
+	eu.mutation.AddTenantId(i)
+	return eu
+}
+
+// SetTenantName sets the tenantName field.
+func (eu *EstrusUpdate) SetTenantName(s string) *EstrusUpdate {
+	eu.mutation.SetTenantName(s)
+	return eu
+}
+
+// SetFarmId sets the farmId field.
+func (eu *EstrusUpdate) SetFarmId(i int64) *EstrusUpdate {
+	eu.mutation.ResetFarmId()
+	eu.mutation.SetFarmId(i)
+	return eu
+}
+
+// AddFarmId adds i to farmId.
+func (eu *EstrusUpdate) AddFarmId(i int64) *EstrusUpdate {
+	eu.mutation.AddFarmId(i)
+	return eu
+}
+
+// SetFarmName sets the farmName field.
+func (eu *EstrusUpdate) SetFarmName(s string) *EstrusUpdate {
+	eu.mutation.SetFarmName(s)
+	return eu
+}
+
+// SetShedId sets the shedId field.
+func (eu *EstrusUpdate) SetShedId(i int64) *EstrusUpdate {
+	eu.mutation.ResetShedId()
+	eu.mutation.SetShedId(i)
+	return eu
+}
+
+// AddShedId adds i to shedId.
+func (eu *EstrusUpdate) AddShedId(i int64) *EstrusUpdate {
+	eu.mutation.AddShedId(i)
+	return eu
+}
+
+// SetShedName sets the shedName field.
+func (eu *EstrusUpdate) SetShedName(s string) *EstrusUpdate {
+	eu.mutation.SetShedName(s)
+	return eu
+}
+
 // SetName sets the name field.
 func (eu *EstrusUpdate) SetName(s string) *EstrusUpdate {
 	eu.mutation.SetName(s)
@@ -66,18 +136,6 @@ func (eu *EstrusUpdate) AddTimes(i int) *EstrusUpdate {
 	return eu
 }
 
-// SetReproductiveState sets the reproductiveState field.
-func (eu *EstrusUpdate) SetReproductiveState(s string) *EstrusUpdate {
-	eu.mutation.SetReproductiveState(s)
-	return eu
-}
-
-// SetShedName sets the shedName field.
-func (eu *EstrusUpdate) SetShedName(s string) *EstrusUpdate {
-	eu.mutation.SetShedName(s)
-	return eu
-}
-
 // SetEstrusAt sets the estrusAt field.
 func (eu *EstrusUpdate) SetEstrusAt(i int64) *EstrusUpdate {
 	eu.mutation.ResetEstrusAt()
@@ -113,25 +171,6 @@ func (eu *EstrusUpdate) SetEstrusTypeName(s string) *EstrusUpdate {
 // SetUserName sets the userName field.
 func (eu *EstrusUpdate) SetUserName(s string) *EstrusUpdate {
 	eu.mutation.SetUserName(s)
-	return eu
-}
-
-// SetTenantId sets the tenantId field.
-func (eu *EstrusUpdate) SetTenantId(i int64) *EstrusUpdate {
-	eu.mutation.ResetTenantId()
-	eu.mutation.SetTenantId(i)
-	return eu
-}
-
-// AddTenantId adds i to tenantId.
-func (eu *EstrusUpdate) AddTenantId(i int64) *EstrusUpdate {
-	eu.mutation.AddTenantId(i)
-	return eu
-}
-
-// SetTenantName sets the tenantName field.
-func (eu *EstrusUpdate) SetTenantName(s string) *EstrusUpdate {
-	eu.mutation.SetTenantName(s)
 	return eu
 }
 
@@ -254,6 +293,83 @@ func (eu *EstrusUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
+	if value, ok := eu.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldCattleId,
+		})
+	}
+	if value, ok := eu.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldCattleId,
+		})
+	}
+	if value, ok := eu.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldTenantId,
+		})
+	}
+	if value, ok := eu.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldTenantId,
+		})
+	}
+	if value, ok := eu.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: estrus.FieldTenantName,
+		})
+	}
+	if value, ok := eu.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldFarmId,
+		})
+	}
+	if value, ok := eu.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldFarmId,
+		})
+	}
+	if value, ok := eu.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: estrus.FieldFarmName,
+		})
+	}
+	if value, ok := eu.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldShedId,
+		})
+	}
+	if value, ok := eu.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldShedId,
+		})
+	}
+	if value, ok := eu.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: estrus.FieldShedName,
+		})
+	}
 	if value, ok := eu.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -286,20 +402,6 @@ func (eu *EstrusUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeInt,
 			Value:  value,
 			Column: estrus.FieldTimes,
-		})
-	}
-	if value, ok := eu.mutation.ReproductiveState(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: estrus.FieldReproductiveState,
-		})
-	}
-	if value, ok := eu.mutation.ShedName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: estrus.FieldShedName,
 		})
 	}
 	if value, ok := eu.mutation.EstrusAt(); ok {
@@ -342,27 +444,6 @@ func (eu *EstrusUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: estrus.FieldUserName,
-		})
-	}
-	if value, ok := eu.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: estrus.FieldTenantId,
-		})
-	}
-	if value, ok := eu.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: estrus.FieldTenantId,
-		})
-	}
-	if value, ok := eu.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: estrus.FieldTenantName,
 		})
 	}
 	if value, ok := eu.mutation.Remarks(); ok {
@@ -432,6 +513,76 @@ type EstrusUpdateOne struct {
 	mutation *EstrusMutation
 }
 
+// SetCattleId sets the cattleId field.
+func (euo *EstrusUpdateOne) SetCattleId(i int64) *EstrusUpdateOne {
+	euo.mutation.ResetCattleId()
+	euo.mutation.SetCattleId(i)
+	return euo
+}
+
+// AddCattleId adds i to cattleId.
+func (euo *EstrusUpdateOne) AddCattleId(i int64) *EstrusUpdateOne {
+	euo.mutation.AddCattleId(i)
+	return euo
+}
+
+// SetTenantId sets the tenantId field.
+func (euo *EstrusUpdateOne) SetTenantId(i int64) *EstrusUpdateOne {
+	euo.mutation.ResetTenantId()
+	euo.mutation.SetTenantId(i)
+	return euo
+}
+
+// AddTenantId adds i to tenantId.
+func (euo *EstrusUpdateOne) AddTenantId(i int64) *EstrusUpdateOne {
+	euo.mutation.AddTenantId(i)
+	return euo
+}
+
+// SetTenantName sets the tenantName field.
+func (euo *EstrusUpdateOne) SetTenantName(s string) *EstrusUpdateOne {
+	euo.mutation.SetTenantName(s)
+	return euo
+}
+
+// SetFarmId sets the farmId field.
+func (euo *EstrusUpdateOne) SetFarmId(i int64) *EstrusUpdateOne {
+	euo.mutation.ResetFarmId()
+	euo.mutation.SetFarmId(i)
+	return euo
+}
+
+// AddFarmId adds i to farmId.
+func (euo *EstrusUpdateOne) AddFarmId(i int64) *EstrusUpdateOne {
+	euo.mutation.AddFarmId(i)
+	return euo
+}
+
+// SetFarmName sets the farmName field.
+func (euo *EstrusUpdateOne) SetFarmName(s string) *EstrusUpdateOne {
+	euo.mutation.SetFarmName(s)
+	return euo
+}
+
+// SetShedId sets the shedId field.
+func (euo *EstrusUpdateOne) SetShedId(i int64) *EstrusUpdateOne {
+	euo.mutation.ResetShedId()
+	euo.mutation.SetShedId(i)
+	return euo
+}
+
+// AddShedId adds i to shedId.
+func (euo *EstrusUpdateOne) AddShedId(i int64) *EstrusUpdateOne {
+	euo.mutation.AddShedId(i)
+	return euo
+}
+
+// SetShedName sets the shedName field.
+func (euo *EstrusUpdateOne) SetShedName(s string) *EstrusUpdateOne {
+	euo.mutation.SetShedName(s)
+	return euo
+}
+
 // SetName sets the name field.
 func (euo *EstrusUpdateOne) SetName(s string) *EstrusUpdateOne {
 	euo.mutation.SetName(s)
@@ -471,18 +622,6 @@ func (euo *EstrusUpdateOne) AddTimes(i int) *EstrusUpdateOne {
 	return euo
 }
 
-// SetReproductiveState sets the reproductiveState field.
-func (euo *EstrusUpdateOne) SetReproductiveState(s string) *EstrusUpdateOne {
-	euo.mutation.SetReproductiveState(s)
-	return euo
-}
-
-// SetShedName sets the shedName field.
-func (euo *EstrusUpdateOne) SetShedName(s string) *EstrusUpdateOne {
-	euo.mutation.SetShedName(s)
-	return euo
-}
-
 // SetEstrusAt sets the estrusAt field.
 func (euo *EstrusUpdateOne) SetEstrusAt(i int64) *EstrusUpdateOne {
 	euo.mutation.ResetEstrusAt()
@@ -518,25 +657,6 @@ func (euo *EstrusUpdateOne) SetEstrusTypeName(s string) *EstrusUpdateOne {
 // SetUserName sets the userName field.
 func (euo *EstrusUpdateOne) SetUserName(s string) *EstrusUpdateOne {
 	euo.mutation.SetUserName(s)
-	return euo
-}
-
-// SetTenantId sets the tenantId field.
-func (euo *EstrusUpdateOne) SetTenantId(i int64) *EstrusUpdateOne {
-	euo.mutation.ResetTenantId()
-	euo.mutation.SetTenantId(i)
-	return euo
-}
-
-// AddTenantId adds i to tenantId.
-func (euo *EstrusUpdateOne) AddTenantId(i int64) *EstrusUpdateOne {
-	euo.mutation.AddTenantId(i)
-	return euo
-}
-
-// SetTenantName sets the tenantName field.
-func (euo *EstrusUpdateOne) SetTenantName(s string) *EstrusUpdateOne {
-	euo.mutation.SetTenantName(s)
 	return euo
 }
 
@@ -657,6 +777,83 @@ func (euo *EstrusUpdateOne) sqlSave(ctx context.Context) (_node *Estrus, err err
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing Estrus.ID for update")}
 	}
 	_spec.Node.ID.Value = id
+	if value, ok := euo.mutation.CattleId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldCattleId,
+		})
+	}
+	if value, ok := euo.mutation.AddedCattleId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldCattleId,
+		})
+	}
+	if value, ok := euo.mutation.TenantId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldTenantId,
+		})
+	}
+	if value, ok := euo.mutation.AddedTenantId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldTenantId,
+		})
+	}
+	if value, ok := euo.mutation.TenantName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: estrus.FieldTenantName,
+		})
+	}
+	if value, ok := euo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldFarmId,
+		})
+	}
+	if value, ok := euo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldFarmId,
+		})
+	}
+	if value, ok := euo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: estrus.FieldFarmName,
+		})
+	}
+	if value, ok := euo.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldShedId,
+		})
+	}
+	if value, ok := euo.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: estrus.FieldShedId,
+		})
+	}
+	if value, ok := euo.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: estrus.FieldShedName,
+		})
+	}
 	if value, ok := euo.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -689,20 +886,6 @@ func (euo *EstrusUpdateOne) sqlSave(ctx context.Context) (_node *Estrus, err err
 			Type:   field.TypeInt,
 			Value:  value,
 			Column: estrus.FieldTimes,
-		})
-	}
-	if value, ok := euo.mutation.ReproductiveState(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: estrus.FieldReproductiveState,
-		})
-	}
-	if value, ok := euo.mutation.ShedName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: estrus.FieldShedName,
 		})
 	}
 	if value, ok := euo.mutation.EstrusAt(); ok {
@@ -745,27 +928,6 @@ func (euo *EstrusUpdateOne) sqlSave(ctx context.Context) (_node *Estrus, err err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: estrus.FieldUserName,
-		})
-	}
-	if value, ok := euo.mutation.TenantId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: estrus.FieldTenantId,
-		})
-	}
-	if value, ok := euo.mutation.AddedTenantId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: estrus.FieldTenantId,
-		})
-	}
-	if value, ok := euo.mutation.TenantName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: estrus.FieldTenantName,
 		})
 	}
 	if value, ok := euo.mutation.Remarks(); ok {

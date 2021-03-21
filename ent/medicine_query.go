@@ -237,12 +237,12 @@ func (mq *MedicineQuery) Clone() *MedicineQuery {
 // Example:
 //
 //	var v []struct {
-//		Epid int64 `json:"epid,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Medicine.Query().
-//		GroupBy(medicine.FieldEpid).
+//		GroupBy(medicine.FieldCattleId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (mq *MedicineQuery) GroupBy(field string, fields ...string) *MedicineGroupB
 // Example:
 //
 //	var v []struct {
-//		Epid int64 `json:"epid,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //	}
 //
 //	client.Medicine.Query().
-//		Select(medicine.FieldEpid).
+//		Select(medicine.FieldCattleId).
 //		Scan(ctx, &v)
 //
 func (mq *MedicineQuery) Select(field string, fields ...string) *MedicineSelect {

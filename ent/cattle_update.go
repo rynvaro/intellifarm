@@ -27,6 +27,67 @@ func (cu *CattleUpdate) Where(ps ...predicate.Cattle) *CattleUpdate {
 	return cu
 }
 
+// SetAlive sets the alive field.
+func (cu *CattleUpdate) SetAlive(i int) *CattleUpdate {
+	cu.mutation.ResetAlive()
+	cu.mutation.SetAlive(i)
+	return cu
+}
+
+// SetNillableAlive sets the alive field if the given value is not nil.
+func (cu *CattleUpdate) SetNillableAlive(i *int) *CattleUpdate {
+	if i != nil {
+		cu.SetAlive(*i)
+	}
+	return cu
+}
+
+// AddAlive adds i to alive.
+func (cu *CattleUpdate) AddAlive(i int) *CattleUpdate {
+	cu.mutation.AddAlive(i)
+	return cu
+}
+
+// SetHealth sets the health field.
+func (cu *CattleUpdate) SetHealth(i int) *CattleUpdate {
+	cu.mutation.ResetHealth()
+	cu.mutation.SetHealth(i)
+	return cu
+}
+
+// SetNillableHealth sets the health field if the given value is not nil.
+func (cu *CattleUpdate) SetNillableHealth(i *int) *CattleUpdate {
+	if i != nil {
+		cu.SetHealth(*i)
+	}
+	return cu
+}
+
+// AddHealth adds i to health.
+func (cu *CattleUpdate) AddHealth(i int) *CattleUpdate {
+	cu.mutation.AddHealth(i)
+	return cu
+}
+
+// SetReproductiveStateId sets the reproductiveStateId field.
+func (cu *CattleUpdate) SetReproductiveStateId(i int) *CattleUpdate {
+	cu.mutation.ResetReproductiveStateId()
+	cu.mutation.SetReproductiveStateId(i)
+	return cu
+}
+
+// AddReproductiveStateId adds i to reproductiveStateId.
+func (cu *CattleUpdate) AddReproductiveStateId(i int) *CattleUpdate {
+	cu.mutation.AddReproductiveStateId(i)
+	return cu
+}
+
+// SetReproductiveStateName sets the reproductiveStateName field.
+func (cu *CattleUpdate) SetReproductiveStateName(s string) *CattleUpdate {
+	cu.mutation.SetReproductiveStateName(s)
+	return cu
+}
+
 // SetName sets the name field.
 func (cu *CattleUpdate) SetName(s string) *CattleUpdate {
 	cu.mutation.SetName(s)
@@ -305,25 +366,6 @@ func (cu *CattleUpdate) SetHairColorName(s string) *CattleUpdate {
 	return cu
 }
 
-// SetReproductiveStateId sets the reproductiveStateId field.
-func (cu *CattleUpdate) SetReproductiveStateId(i int) *CattleUpdate {
-	cu.mutation.ResetReproductiveStateId()
-	cu.mutation.SetReproductiveStateId(i)
-	return cu
-}
-
-// AddReproductiveStateId adds i to reproductiveStateId.
-func (cu *CattleUpdate) AddReproductiveStateId(i int) *CattleUpdate {
-	cu.mutation.AddReproductiveStateId(i)
-	return cu
-}
-
-// SetReproductiveStateName sets the reproductiveStateName field.
-func (cu *CattleUpdate) SetReproductiveStateName(s string) *CattleUpdate {
-	cu.mutation.SetReproductiveStateName(s)
-	return cu
-}
-
 // SetPregnantTimes sets the pregnantTimes field.
 func (cu *CattleUpdate) SetPregnantTimes(i int) *CattleUpdate {
 	cu.mutation.ResetPregnantTimes()
@@ -570,6 +612,55 @@ func (cu *CattleUpdate) sqlSave(ctx context.Context) (n int, err error) {
 				ps[i](selector)
 			}
 		}
+	}
+	if value, ok := cu.mutation.Alive(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattle.FieldAlive,
+		})
+	}
+	if value, ok := cu.mutation.AddedAlive(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattle.FieldAlive,
+		})
+	}
+	if value, ok := cu.mutation.Health(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattle.FieldHealth,
+		})
+	}
+	if value, ok := cu.mutation.AddedHealth(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattle.FieldHealth,
+		})
+	}
+	if value, ok := cu.mutation.ReproductiveStateId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattle.FieldReproductiveStateId,
+		})
+	}
+	if value, ok := cu.mutation.AddedReproductiveStateId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattle.FieldReproductiveStateId,
+		})
+	}
+	if value, ok := cu.mutation.ReproductiveStateName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattle.FieldReproductiveStateName,
+		})
 	}
 	if value, ok := cu.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
@@ -871,27 +962,6 @@ func (cu *CattleUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: cattle.FieldHairColorName,
 		})
 	}
-	if value, ok := cu.mutation.ReproductiveStateId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: cattle.FieldReproductiveStateId,
-		})
-	}
-	if value, ok := cu.mutation.AddedReproductiveStateId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: cattle.FieldReproductiveStateId,
-		})
-	}
-	if value, ok := cu.mutation.ReproductiveStateName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: cattle.FieldReproductiveStateName,
-		})
-	}
 	if value, ok := cu.mutation.PregnantTimes(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt,
@@ -1062,6 +1132,67 @@ type CattleUpdateOne struct {
 	config
 	hooks    []Hook
 	mutation *CattleMutation
+}
+
+// SetAlive sets the alive field.
+func (cuo *CattleUpdateOne) SetAlive(i int) *CattleUpdateOne {
+	cuo.mutation.ResetAlive()
+	cuo.mutation.SetAlive(i)
+	return cuo
+}
+
+// SetNillableAlive sets the alive field if the given value is not nil.
+func (cuo *CattleUpdateOne) SetNillableAlive(i *int) *CattleUpdateOne {
+	if i != nil {
+		cuo.SetAlive(*i)
+	}
+	return cuo
+}
+
+// AddAlive adds i to alive.
+func (cuo *CattleUpdateOne) AddAlive(i int) *CattleUpdateOne {
+	cuo.mutation.AddAlive(i)
+	return cuo
+}
+
+// SetHealth sets the health field.
+func (cuo *CattleUpdateOne) SetHealth(i int) *CattleUpdateOne {
+	cuo.mutation.ResetHealth()
+	cuo.mutation.SetHealth(i)
+	return cuo
+}
+
+// SetNillableHealth sets the health field if the given value is not nil.
+func (cuo *CattleUpdateOne) SetNillableHealth(i *int) *CattleUpdateOne {
+	if i != nil {
+		cuo.SetHealth(*i)
+	}
+	return cuo
+}
+
+// AddHealth adds i to health.
+func (cuo *CattleUpdateOne) AddHealth(i int) *CattleUpdateOne {
+	cuo.mutation.AddHealth(i)
+	return cuo
+}
+
+// SetReproductiveStateId sets the reproductiveStateId field.
+func (cuo *CattleUpdateOne) SetReproductiveStateId(i int) *CattleUpdateOne {
+	cuo.mutation.ResetReproductiveStateId()
+	cuo.mutation.SetReproductiveStateId(i)
+	return cuo
+}
+
+// AddReproductiveStateId adds i to reproductiveStateId.
+func (cuo *CattleUpdateOne) AddReproductiveStateId(i int) *CattleUpdateOne {
+	cuo.mutation.AddReproductiveStateId(i)
+	return cuo
+}
+
+// SetReproductiveStateName sets the reproductiveStateName field.
+func (cuo *CattleUpdateOne) SetReproductiveStateName(s string) *CattleUpdateOne {
+	cuo.mutation.SetReproductiveStateName(s)
+	return cuo
 }
 
 // SetName sets the name field.
@@ -1342,25 +1473,6 @@ func (cuo *CattleUpdateOne) SetHairColorName(s string) *CattleUpdateOne {
 	return cuo
 }
 
-// SetReproductiveStateId sets the reproductiveStateId field.
-func (cuo *CattleUpdateOne) SetReproductiveStateId(i int) *CattleUpdateOne {
-	cuo.mutation.ResetReproductiveStateId()
-	cuo.mutation.SetReproductiveStateId(i)
-	return cuo
-}
-
-// AddReproductiveStateId adds i to reproductiveStateId.
-func (cuo *CattleUpdateOne) AddReproductiveStateId(i int) *CattleUpdateOne {
-	cuo.mutation.AddReproductiveStateId(i)
-	return cuo
-}
-
-// SetReproductiveStateName sets the reproductiveStateName field.
-func (cuo *CattleUpdateOne) SetReproductiveStateName(s string) *CattleUpdateOne {
-	cuo.mutation.SetReproductiveStateName(s)
-	return cuo
-}
-
 // SetPregnantTimes sets the pregnantTimes field.
 func (cuo *CattleUpdateOne) SetPregnantTimes(i int) *CattleUpdateOne {
 	cuo.mutation.ResetPregnantTimes()
@@ -1606,6 +1718,55 @@ func (cuo *CattleUpdateOne) sqlSave(ctx context.Context) (_node *Cattle, err err
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing Cattle.ID for update")}
 	}
 	_spec.Node.ID.Value = id
+	if value, ok := cuo.mutation.Alive(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattle.FieldAlive,
+		})
+	}
+	if value, ok := cuo.mutation.AddedAlive(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattle.FieldAlive,
+		})
+	}
+	if value, ok := cuo.mutation.Health(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattle.FieldHealth,
+		})
+	}
+	if value, ok := cuo.mutation.AddedHealth(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattle.FieldHealth,
+		})
+	}
+	if value, ok := cuo.mutation.ReproductiveStateId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattle.FieldReproductiveStateId,
+		})
+	}
+	if value, ok := cuo.mutation.AddedReproductiveStateId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: cattle.FieldReproductiveStateId,
+		})
+	}
+	if value, ok := cuo.mutation.ReproductiveStateName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: cattle.FieldReproductiveStateName,
+		})
+	}
 	if value, ok := cuo.mutation.Name(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -1904,27 +2065,6 @@ func (cuo *CattleUpdateOne) sqlSave(ctx context.Context) (_node *Cattle, err err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: cattle.FieldHairColorName,
-		})
-	}
-	if value, ok := cuo.mutation.ReproductiveStateId(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: cattle.FieldReproductiveStateId,
-		})
-	}
-	if value, ok := cuo.mutation.AddedReproductiveStateId(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: cattle.FieldReproductiveStateId,
-		})
-	}
-	if value, ok := cuo.mutation.ReproductiveStateName(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: cattle.FieldReproductiveStateName,
 		})
 	}
 	if value, ok := cuo.mutation.PregnantTimes(); ok {

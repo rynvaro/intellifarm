@@ -29,8 +29,10 @@ func MedicineAddHandler(c *gin.Context) {
 		SetEarNumber(form.EarNumber).
 		SetEpid(form.Epid).
 		SetMedicineName(form.MedicineName).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetRemarks(form.Remarks).
 		SetUnit(form.Unit).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
@@ -112,8 +114,10 @@ func MedicineUpdateHandler(c *gin.Context) {
 		SetEpid(form.Epid).
 		SetMedicineName(form.MedicineName).
 		SetRemarks(form.Remarks).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
+		SetCattleId(form.CattleId).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTenantId(form.TenantId).SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetUnit(form.Unit).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())

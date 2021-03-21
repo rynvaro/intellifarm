@@ -91,10 +91,17 @@ func IDLTE(id int64) predicate.InventoryFlow {
 	})
 }
 
-// MaterialID applies equality check predicate on the "materialID" field. It's identical to MaterialIDEQ.
-func MaterialID(v int64) predicate.InventoryFlow {
+// SysMaterialId applies equality check predicate on the "sysMaterialId" field. It's identical to SysMaterialIdEQ.
+func SysMaterialId(v int64) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldMaterialID), v))
+		s.Where(sql.EQ(s.C(FieldSysMaterialId), v))
+	})
+}
+
+// MaterialId applies equality check predicate on the "materialId" field. It's identical to MaterialIdEQ.
+func MaterialId(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldMaterialId), v))
 	})
 }
 
@@ -134,7 +141,7 @@ func Type(v int) predicate.InventoryFlow {
 }
 
 // Status applies equality check predicate on the "status" field. It's identical to StatusEQ.
-func Status(v int) predicate.InventoryFlow {
+func Status(v string) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldStatus), v))
 	})
@@ -151,6 +158,20 @@ func Count(v int) predicate.InventoryFlow {
 func Unit(v string) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldUnit), v))
+	})
+}
+
+// Before applies equality check predicate on the "before" field. It's identical to BeforeEQ.
+func Before(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldBefore), v))
+	})
+}
+
+// After applies equality check predicate on the "after" field. It's identical to AfterEQ.
+func After(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldAfter), v))
 	})
 }
 
@@ -175,10 +196,38 @@ func TenantName(v string) predicate.InventoryFlow {
 	})
 }
 
+// FarmId applies equality check predicate on the "farmId" field. It's identical to FarmIdEQ.
+func FarmId(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmName applies equality check predicate on the "farmName" field. It's identical to FarmNameEQ.
+func FarmName(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
+	})
+}
+
 // Remarks applies equality check predicate on the "remarks" field. It's identical to RemarksEQ.
 func Remarks(v string) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldRemarks), v))
+	})
+}
+
+// IsChecked applies equality check predicate on the "isChecked" field. It's identical to IsCheckedEQ.
+func IsChecked(v bool) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldIsChecked), v))
+	})
+}
+
+// ReportFileAddress applies equality check predicate on the "reportFileAddress" field. It's identical to ReportFileAddressEQ.
+func ReportFileAddress(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldReportFileAddress), v))
 	})
 }
 
@@ -203,22 +252,22 @@ func Deleted(v int) predicate.InventoryFlow {
 	})
 }
 
-// MaterialIDEQ applies the EQ predicate on the "materialID" field.
-func MaterialIDEQ(v int64) predicate.InventoryFlow {
+// SysMaterialIdEQ applies the EQ predicate on the "sysMaterialId" field.
+func SysMaterialIdEQ(v int64) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldMaterialID), v))
+		s.Where(sql.EQ(s.C(FieldSysMaterialId), v))
 	})
 }
 
-// MaterialIDNEQ applies the NEQ predicate on the "materialID" field.
-func MaterialIDNEQ(v int64) predicate.InventoryFlow {
+// SysMaterialIdNEQ applies the NEQ predicate on the "sysMaterialId" field.
+func SysMaterialIdNEQ(v int64) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldMaterialID), v))
+		s.Where(sql.NEQ(s.C(FieldSysMaterialId), v))
 	})
 }
 
-// MaterialIDIn applies the In predicate on the "materialID" field.
-func MaterialIDIn(vs ...int64) predicate.InventoryFlow {
+// SysMaterialIdIn applies the In predicate on the "sysMaterialId" field.
+func SysMaterialIdIn(vs ...int64) predicate.InventoryFlow {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -230,12 +279,12 @@ func MaterialIDIn(vs ...int64) predicate.InventoryFlow {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldMaterialID), v...))
+		s.Where(sql.In(s.C(FieldSysMaterialId), v...))
 	})
 }
 
-// MaterialIDNotIn applies the NotIn predicate on the "materialID" field.
-func MaterialIDNotIn(vs ...int64) predicate.InventoryFlow {
+// SysMaterialIdNotIn applies the NotIn predicate on the "sysMaterialId" field.
+func SysMaterialIdNotIn(vs ...int64) predicate.InventoryFlow {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -247,35 +296,111 @@ func MaterialIDNotIn(vs ...int64) predicate.InventoryFlow {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldMaterialID), v...))
+		s.Where(sql.NotIn(s.C(FieldSysMaterialId), v...))
 	})
 }
 
-// MaterialIDGT applies the GT predicate on the "materialID" field.
-func MaterialIDGT(v int64) predicate.InventoryFlow {
+// SysMaterialIdGT applies the GT predicate on the "sysMaterialId" field.
+func SysMaterialIdGT(v int64) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldMaterialID), v))
+		s.Where(sql.GT(s.C(FieldSysMaterialId), v))
 	})
 }
 
-// MaterialIDGTE applies the GTE predicate on the "materialID" field.
-func MaterialIDGTE(v int64) predicate.InventoryFlow {
+// SysMaterialIdGTE applies the GTE predicate on the "sysMaterialId" field.
+func SysMaterialIdGTE(v int64) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldMaterialID), v))
+		s.Where(sql.GTE(s.C(FieldSysMaterialId), v))
 	})
 }
 
-// MaterialIDLT applies the LT predicate on the "materialID" field.
-func MaterialIDLT(v int64) predicate.InventoryFlow {
+// SysMaterialIdLT applies the LT predicate on the "sysMaterialId" field.
+func SysMaterialIdLT(v int64) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldMaterialID), v))
+		s.Where(sql.LT(s.C(FieldSysMaterialId), v))
 	})
 }
 
-// MaterialIDLTE applies the LTE predicate on the "materialID" field.
-func MaterialIDLTE(v int64) predicate.InventoryFlow {
+// SysMaterialIdLTE applies the LTE predicate on the "sysMaterialId" field.
+func SysMaterialIdLTE(v int64) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldMaterialID), v))
+		s.Where(sql.LTE(s.C(FieldSysMaterialId), v))
+	})
+}
+
+// MaterialIdEQ applies the EQ predicate on the "materialId" field.
+func MaterialIdEQ(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldMaterialId), v))
+	})
+}
+
+// MaterialIdNEQ applies the NEQ predicate on the "materialId" field.
+func MaterialIdNEQ(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldMaterialId), v))
+	})
+}
+
+// MaterialIdIn applies the In predicate on the "materialId" field.
+func MaterialIdIn(vs ...int64) predicate.InventoryFlow {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldMaterialId), v...))
+	})
+}
+
+// MaterialIdNotIn applies the NotIn predicate on the "materialId" field.
+func MaterialIdNotIn(vs ...int64) predicate.InventoryFlow {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldMaterialId), v...))
+	})
+}
+
+// MaterialIdGT applies the GT predicate on the "materialId" field.
+func MaterialIdGT(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldMaterialId), v))
+	})
+}
+
+// MaterialIdGTE applies the GTE predicate on the "materialId" field.
+func MaterialIdGTE(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldMaterialId), v))
+	})
+}
+
+// MaterialIdLT applies the LT predicate on the "materialId" field.
+func MaterialIdLT(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldMaterialId), v))
+	})
+}
+
+// MaterialIdLTE applies the LTE predicate on the "materialId" field.
+func MaterialIdLTE(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldMaterialId), v))
 	})
 }
 
@@ -765,21 +890,21 @@ func TypeLTE(v int) predicate.InventoryFlow {
 }
 
 // StatusEQ applies the EQ predicate on the "status" field.
-func StatusEQ(v int) predicate.InventoryFlow {
+func StatusEQ(v string) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldStatus), v))
 	})
 }
 
 // StatusNEQ applies the NEQ predicate on the "status" field.
-func StatusNEQ(v int) predicate.InventoryFlow {
+func StatusNEQ(v string) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
 		s.Where(sql.NEQ(s.C(FieldStatus), v))
 	})
 }
 
 // StatusIn applies the In predicate on the "status" field.
-func StatusIn(vs ...int) predicate.InventoryFlow {
+func StatusIn(vs ...string) predicate.InventoryFlow {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -796,7 +921,7 @@ func StatusIn(vs ...int) predicate.InventoryFlow {
 }
 
 // StatusNotIn applies the NotIn predicate on the "status" field.
-func StatusNotIn(vs ...int) predicate.InventoryFlow {
+func StatusNotIn(vs ...string) predicate.InventoryFlow {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -813,30 +938,65 @@ func StatusNotIn(vs ...int) predicate.InventoryFlow {
 }
 
 // StatusGT applies the GT predicate on the "status" field.
-func StatusGT(v int) predicate.InventoryFlow {
+func StatusGT(v string) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
 		s.Where(sql.GT(s.C(FieldStatus), v))
 	})
 }
 
 // StatusGTE applies the GTE predicate on the "status" field.
-func StatusGTE(v int) predicate.InventoryFlow {
+func StatusGTE(v string) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
 		s.Where(sql.GTE(s.C(FieldStatus), v))
 	})
 }
 
 // StatusLT applies the LT predicate on the "status" field.
-func StatusLT(v int) predicate.InventoryFlow {
+func StatusLT(v string) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
 		s.Where(sql.LT(s.C(FieldStatus), v))
 	})
 }
 
 // StatusLTE applies the LTE predicate on the "status" field.
-func StatusLTE(v int) predicate.InventoryFlow {
+func StatusLTE(v string) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldStatus), v))
+	})
+}
+
+// StatusContains applies the Contains predicate on the "status" field.
+func StatusContains(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldStatus), v))
+	})
+}
+
+// StatusHasPrefix applies the HasPrefix predicate on the "status" field.
+func StatusHasPrefix(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldStatus), v))
+	})
+}
+
+// StatusHasSuffix applies the HasSuffix predicate on the "status" field.
+func StatusHasSuffix(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldStatus), v))
+	})
+}
+
+// StatusEqualFold applies the EqualFold predicate on the "status" field.
+func StatusEqualFold(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldStatus), v))
+	})
+}
+
+// StatusContainsFold applies the ContainsFold predicate on the "status" field.
+func StatusContainsFold(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldStatus), v))
 	})
 }
 
@@ -1024,6 +1184,158 @@ func UnitEqualFold(v string) predicate.InventoryFlow {
 func UnitContainsFold(v string) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldUnit), v))
+	})
+}
+
+// BeforeEQ applies the EQ predicate on the "before" field.
+func BeforeEQ(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldBefore), v))
+	})
+}
+
+// BeforeNEQ applies the NEQ predicate on the "before" field.
+func BeforeNEQ(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldBefore), v))
+	})
+}
+
+// BeforeIn applies the In predicate on the "before" field.
+func BeforeIn(vs ...int64) predicate.InventoryFlow {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldBefore), v...))
+	})
+}
+
+// BeforeNotIn applies the NotIn predicate on the "before" field.
+func BeforeNotIn(vs ...int64) predicate.InventoryFlow {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldBefore), v...))
+	})
+}
+
+// BeforeGT applies the GT predicate on the "before" field.
+func BeforeGT(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldBefore), v))
+	})
+}
+
+// BeforeGTE applies the GTE predicate on the "before" field.
+func BeforeGTE(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldBefore), v))
+	})
+}
+
+// BeforeLT applies the LT predicate on the "before" field.
+func BeforeLT(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldBefore), v))
+	})
+}
+
+// BeforeLTE applies the LTE predicate on the "before" field.
+func BeforeLTE(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldBefore), v))
+	})
+}
+
+// AfterEQ applies the EQ predicate on the "after" field.
+func AfterEQ(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldAfter), v))
+	})
+}
+
+// AfterNEQ applies the NEQ predicate on the "after" field.
+func AfterNEQ(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldAfter), v))
+	})
+}
+
+// AfterIn applies the In predicate on the "after" field.
+func AfterIn(vs ...int64) predicate.InventoryFlow {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldAfter), v...))
+	})
+}
+
+// AfterNotIn applies the NotIn predicate on the "after" field.
+func AfterNotIn(vs ...int64) predicate.InventoryFlow {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldAfter), v...))
+	})
+}
+
+// AfterGT applies the GT predicate on the "after" field.
+func AfterGT(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldAfter), v))
+	})
+}
+
+// AfterGTE applies the GTE predicate on the "after" field.
+func AfterGTE(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldAfter), v))
+	})
+}
+
+// AfterLT applies the LT predicate on the "after" field.
+func AfterLT(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldAfter), v))
+	})
+}
+
+// AfterLTE applies the LTE predicate on the "after" field.
+func AfterLTE(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldAfter), v))
 	})
 }
 
@@ -1325,6 +1637,193 @@ func TenantNameContainsFold(v string) predicate.InventoryFlow {
 	})
 }
 
+// FarmIdEQ applies the EQ predicate on the "farmId" field.
+func FarmIdEQ(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdNEQ applies the NEQ predicate on the "farmId" field.
+func FarmIdNEQ(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdIn applies the In predicate on the "farmId" field.
+func FarmIdIn(vs ...int64) predicate.InventoryFlow {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdNotIn applies the NotIn predicate on the "farmId" field.
+func FarmIdNotIn(vs ...int64) predicate.InventoryFlow {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdGT applies the GT predicate on the "farmId" field.
+func FarmIdGT(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdGTE applies the GTE predicate on the "farmId" field.
+func FarmIdGTE(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLT applies the LT predicate on the "farmId" field.
+func FarmIdLT(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLTE applies the LTE predicate on the "farmId" field.
+func FarmIdLTE(v int64) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmNameEQ applies the EQ predicate on the "farmName" field.
+func FarmNameEQ(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameNEQ applies the NEQ predicate on the "farmName" field.
+func FarmNameNEQ(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameIn applies the In predicate on the "farmName" field.
+func FarmNameIn(vs ...string) predicate.InventoryFlow {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameNotIn applies the NotIn predicate on the "farmName" field.
+func FarmNameNotIn(vs ...string) predicate.InventoryFlow {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameGT applies the GT predicate on the "farmName" field.
+func FarmNameGT(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameGTE applies the GTE predicate on the "farmName" field.
+func FarmNameGTE(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLT applies the LT predicate on the "farmName" field.
+func FarmNameLT(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLTE applies the LTE predicate on the "farmName" field.
+func FarmNameLTE(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContains applies the Contains predicate on the "farmName" field.
+func FarmNameContains(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasPrefix applies the HasPrefix predicate on the "farmName" field.
+func FarmNameHasPrefix(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasSuffix applies the HasSuffix predicate on the "farmName" field.
+func FarmNameHasSuffix(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameEqualFold applies the EqualFold predicate on the "farmName" field.
+func FarmNameEqualFold(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContainsFold applies the ContainsFold predicate on the "farmName" field.
+func FarmNameContainsFold(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldFarmName), v))
+	})
+}
+
 // RemarksEQ applies the EQ predicate on the "remarks" field.
 func RemarksEQ(v string) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
@@ -1433,6 +1932,131 @@ func RemarksEqualFold(v string) predicate.InventoryFlow {
 func RemarksContainsFold(v string) predicate.InventoryFlow {
 	return predicate.InventoryFlow(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldRemarks), v))
+	})
+}
+
+// IsCheckedEQ applies the EQ predicate on the "isChecked" field.
+func IsCheckedEQ(v bool) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldIsChecked), v))
+	})
+}
+
+// IsCheckedNEQ applies the NEQ predicate on the "isChecked" field.
+func IsCheckedNEQ(v bool) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldIsChecked), v))
+	})
+}
+
+// ReportFileAddressEQ applies the EQ predicate on the "reportFileAddress" field.
+func ReportFileAddressEQ(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldReportFileAddress), v))
+	})
+}
+
+// ReportFileAddressNEQ applies the NEQ predicate on the "reportFileAddress" field.
+func ReportFileAddressNEQ(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldReportFileAddress), v))
+	})
+}
+
+// ReportFileAddressIn applies the In predicate on the "reportFileAddress" field.
+func ReportFileAddressIn(vs ...string) predicate.InventoryFlow {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldReportFileAddress), v...))
+	})
+}
+
+// ReportFileAddressNotIn applies the NotIn predicate on the "reportFileAddress" field.
+func ReportFileAddressNotIn(vs ...string) predicate.InventoryFlow {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldReportFileAddress), v...))
+	})
+}
+
+// ReportFileAddressGT applies the GT predicate on the "reportFileAddress" field.
+func ReportFileAddressGT(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldReportFileAddress), v))
+	})
+}
+
+// ReportFileAddressGTE applies the GTE predicate on the "reportFileAddress" field.
+func ReportFileAddressGTE(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldReportFileAddress), v))
+	})
+}
+
+// ReportFileAddressLT applies the LT predicate on the "reportFileAddress" field.
+func ReportFileAddressLT(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldReportFileAddress), v))
+	})
+}
+
+// ReportFileAddressLTE applies the LTE predicate on the "reportFileAddress" field.
+func ReportFileAddressLTE(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldReportFileAddress), v))
+	})
+}
+
+// ReportFileAddressContains applies the Contains predicate on the "reportFileAddress" field.
+func ReportFileAddressContains(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldReportFileAddress), v))
+	})
+}
+
+// ReportFileAddressHasPrefix applies the HasPrefix predicate on the "reportFileAddress" field.
+func ReportFileAddressHasPrefix(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldReportFileAddress), v))
+	})
+}
+
+// ReportFileAddressHasSuffix applies the HasSuffix predicate on the "reportFileAddress" field.
+func ReportFileAddressHasSuffix(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldReportFileAddress), v))
+	})
+}
+
+// ReportFileAddressEqualFold applies the EqualFold predicate on the "reportFileAddress" field.
+func ReportFileAddressEqualFold(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldReportFileAddress), v))
+	})
+}
+
+// ReportFileAddressContainsFold applies the ContainsFold predicate on the "reportFileAddress" field.
+func ReportFileAddressContainsFold(v string) predicate.InventoryFlow {
+	return predicate.InventoryFlow(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldReportFileAddress), v))
 	})
 }
 

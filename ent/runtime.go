@@ -23,7 +23,9 @@ import (
 	"cattleai/ent/epidemictype"
 	"cattleai/ent/estrustype"
 	"cattleai/ent/farm"
+	"cattleai/ent/feedinfo"
 	"cattleai/ent/hairstate"
+	"cattleai/ent/material"
 	"cattleai/ent/position"
 	"cattleai/ent/pregnancytestmethod"
 	"cattleai/ent/pregnancytestresult"
@@ -91,20 +93,28 @@ func init() {
 	category.NameValidator = categoryDescName.Validators[0].(func(string) error)
 	cattleFields := schema.Cattle{}.Fields()
 	_ = cattleFields
+	// cattleDescAlive is the schema descriptor for alive field.
+	cattleDescAlive := cattleFields[0].Descriptor()
+	// cattle.DefaultAlive holds the default value on creation for the alive field.
+	cattle.DefaultAlive = cattleDescAlive.Default.(int)
+	// cattleDescHealth is the schema descriptor for health field.
+	cattleDescHealth := cattleFields[1].Descriptor()
+	// cattle.DefaultHealth holds the default value on creation for the health field.
+	cattle.DefaultHealth = cattleDescHealth.Default.(int)
 	// cattleDescFarmName is the schema descriptor for farmName field.
-	cattleDescFarmName := cattleFields[2].Descriptor()
+	cattleDescFarmName := cattleFields[6].Descriptor()
 	// cattle.FarmNameValidator is a validator for the "farmName" field. It is called by the builders before save.
 	cattle.FarmNameValidator = cattleDescFarmName.Validators[0].(func(string) error)
 	// cattleDescShedName is the schema descriptor for shedName field.
-	cattleDescShedName := cattleFields[4].Descriptor()
+	cattleDescShedName := cattleFields[8].Descriptor()
 	// cattle.ShedNameValidator is a validator for the "shedName" field. It is called by the builders before save.
 	cattle.ShedNameValidator = cattleDescShedName.Validators[0].(func(string) error)
 	// cattleDescShedTypeName is the schema descriptor for shedTypeName field.
-	cattleDescShedTypeName := cattleFields[6].Descriptor()
+	cattleDescShedTypeName := cattleFields[10].Descriptor()
 	// cattle.ShedTypeNameValidator is a validator for the "shedTypeName" field. It is called by the builders before save.
 	cattle.ShedTypeNameValidator = cattleDescShedTypeName.Validators[0].(func(string) error)
 	// cattleDescEarNumber is the schema descriptor for earNumber field.
-	cattleDescEarNumber := cattleFields[7].Descriptor()
+	cattleDescEarNumber := cattleFields[11].Descriptor()
 	// cattle.EarNumberValidator is a validator for the "earNumber" field. It is called by the builders before save.
 	cattle.EarNumberValidator = cattleDescEarNumber.Validators[0].(func(string) error)
 	cattlecateFields := schema.CattleCate{}.Fields()
@@ -195,12 +205,32 @@ func init() {
 	farmDescDeleted := farmFields[20].Descriptor()
 	// farm.DefaultDeleted holds the default value on creation for the deleted field.
 	farm.DefaultDeleted = farmDescDeleted.Default.(int)
+	feedinfoFields := schema.FeedInfo{}.Fields()
+	_ = feedinfoFields
+	// feedinfoDescCreatedAt is the schema descriptor for createdAt field.
+	feedinfoDescCreatedAt := feedinfoFields[40].Descriptor()
+	// feedinfo.DefaultCreatedAt holds the default value on creation for the createdAt field.
+	feedinfo.DefaultCreatedAt = feedinfoDescCreatedAt.Default.(int64)
+	// feedinfoDescUpdatedAt is the schema descriptor for updatedAt field.
+	feedinfoDescUpdatedAt := feedinfoFields[41].Descriptor()
+	// feedinfo.DefaultUpdatedAt holds the default value on creation for the updatedAt field.
+	feedinfo.DefaultUpdatedAt = feedinfoDescUpdatedAt.Default.(int64)
+	// feedinfoDescDeleted is the schema descriptor for deleted field.
+	feedinfoDescDeleted := feedinfoFields[42].Descriptor()
+	// feedinfo.DefaultDeleted holds the default value on creation for the deleted field.
+	feedinfo.DefaultDeleted = feedinfoDescDeleted.Default.(int)
 	hairstateFields := schema.HairState{}.Fields()
 	_ = hairstateFields
 	// hairstateDescName is the schema descriptor for name field.
 	hairstateDescName := hairstateFields[0].Descriptor()
 	// hairstate.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	hairstate.NameValidator = hairstateDescName.Validators[0].(func(string) error)
+	materialFields := schema.Material{}.Fields()
+	_ = materialFields
+	// materialDescInventory is the schema descriptor for inventory field.
+	materialDescInventory := materialFields[6].Descriptor()
+	// material.DefaultInventory holds the default value on creation for the inventory field.
+	material.DefaultInventory = materialDescInventory.Default.(int64)
 	positionFields := schema.Position{}.Fields()
 	_ = positionFields
 	// positionDescName is the schema descriptor for name field.

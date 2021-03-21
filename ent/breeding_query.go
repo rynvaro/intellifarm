@@ -237,12 +237,12 @@ func (bq *BreedingQuery) Clone() *BreedingQuery {
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Breeding.Query().
-//		GroupBy(breeding.FieldName).
+//		GroupBy(breeding.FieldCattleId).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 //
@@ -263,11 +263,11 @@ func (bq *BreedingQuery) GroupBy(field string, fields ...string) *BreedingGroupB
 // Example:
 //
 //	var v []struct {
-//		Name string `json:"name,omitempty"`
+//		CattleId int64 `json:"cattleId,omitempty"`
 //	}
 //
 //	client.Breeding.Query().
-//		Select(breeding.FieldName).
+//		Select(breeding.FieldCattleId).
 //		Scan(ctx, &v)
 //
 func (bq *BreedingQuery) Select(field string, fields ...string) *BreedingSelect {

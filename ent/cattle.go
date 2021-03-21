@@ -15,6 +15,14 @@ type Cattle struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int64 `json:"id,omitempty"`
+	// Alive holds the value of the "alive" field.
+	Alive int `json:"alive,omitempty"`
+	// Health holds the value of the "health" field.
+	Health int `json:"health,omitempty"`
+	// ReproductiveStateId holds the value of the "reproductiveStateId" field.
+	ReproductiveStateId int `json:"reproductiveStateId,omitempty"`
+	// ReproductiveStateName holds the value of the "reproductiveStateName" field.
+	ReproductiveStateName string `json:"reproductiveStateName,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
 	// FarmId holds the value of the "farmId" field.
@@ -75,10 +83,6 @@ type Cattle struct {
 	HairColorId int64 `json:"hairColorId,omitempty"`
 	// HairColorName holds the value of the "hairColorName" field.
 	HairColorName string `json:"hairColorName,omitempty"`
-	// ReproductiveStateId holds the value of the "reproductiveStateId" field.
-	ReproductiveStateId int `json:"reproductiveStateId,omitempty"`
-	// ReproductiveStateName holds the value of the "reproductiveStateName" field.
-	ReproductiveStateName string `json:"reproductiveStateName,omitempty"`
 	// PregnantTimes holds the value of the "pregnantTimes" field.
 	PregnantTimes int `json:"pregnantTimes,omitempty"`
 	// LastCalvingAt holds the value of the "lastCalvingAt" field.
@@ -109,6 +113,10 @@ type Cattle struct {
 func (*Cattle) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
+		&sql.NullInt64{},  // alive
+		&sql.NullInt64{},  // health
+		&sql.NullInt64{},  // reproductiveStateId
+		&sql.NullString{}, // reproductiveStateName
 		&sql.NullString{}, // name
 		&sql.NullInt64{},  // farmId
 		&sql.NullString{}, // farmName
@@ -139,8 +147,6 @@ func (*Cattle) scanValues() []interface{} {
 		&sql.NullString{}, // ownerName
 		&sql.NullInt64{},  // hairColorId
 		&sql.NullString{}, // hairColorName
-		&sql.NullInt64{},  // reproductiveStateId
-		&sql.NullString{}, // reproductiveStateName
 		&sql.NullInt64{},  // pregnantTimes
 		&sql.NullInt64{},  // lastCalvingAt
 		&sql.NullInt64{},  // breedingAt
@@ -168,223 +174,233 @@ func (c *Cattle) assignValues(values ...interface{}) error {
 	}
 	c.ID = int64(value.Int64)
 	values = values[1:]
-	if value, ok := values[0].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field name", values[0])
+	if value, ok := values[0].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field alive", values[0])
 	} else if value.Valid {
-		c.Name = value.String
+		c.Alive = int(value.Int64)
 	}
 	if value, ok := values[1].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field farmId", values[1])
+		return fmt.Errorf("unexpected type %T for field health", values[1])
 	} else if value.Valid {
-		c.FarmId = value.Int64
+		c.Health = int(value.Int64)
 	}
-	if value, ok := values[2].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field farmName", values[2])
-	} else if value.Valid {
-		c.FarmName = value.String
-	}
-	if value, ok := values[3].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field shedId", values[3])
-	} else if value.Valid {
-		c.ShedId = value.Int64
-	}
-	if value, ok := values[4].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field shedName", values[4])
-	} else if value.Valid {
-		c.ShedName = value.String
-	}
-	if value, ok := values[5].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field shedTypeId", values[5])
-	} else if value.Valid {
-		c.ShedTypeId = value.Int64
-	}
-	if value, ok := values[6].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field shedTypeName", values[6])
-	} else if value.Valid {
-		c.ShedTypeName = value.String
-	}
-	if value, ok := values[7].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field earNumber", values[7])
-	} else if value.Valid {
-		c.EarNumber = value.String
-	}
-	if value, ok := values[8].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field electronicEarNumber", values[8])
-	} else if value.Valid {
-		c.ElectronicEarNumber = value.String
-	}
-	if value, ok := values[9].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field pedometer", values[9])
-	} else if value.Valid {
-		c.Pedometer = value.String
-	}
-	if value, ok := values[10].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field genderId", values[10])
-	} else if value.Valid {
-		c.GenderId = int(value.Int64)
-	}
-	if value, ok := values[11].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field genderName", values[11])
-	} else if value.Valid {
-		c.GenderName = value.String
-	}
-	if value, ok := values[12].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field birthday", values[12])
-	} else if value.Valid {
-		c.Birthday = value.Int64
-	}
-	if value, ok := values[13].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field joinedAt", values[13])
-	} else if value.Valid {
-		c.JoinedAt = value.Int64
-	}
-	if value, ok := values[14].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field cateId", values[14])
-	} else if value.Valid {
-		c.CateId = int(value.Int64)
-	}
-	if value, ok := values[15].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field cateName", values[15])
-	} else if value.Valid {
-		c.CateName = value.String
-	}
-	if value, ok := values[16].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field type", values[16])
-	} else if value.Valid {
-		c.Type = int(value.Int64)
-	}
-	if value, ok := values[17].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field typeName", values[17])
-	} else if value.Valid {
-		c.TypeName = value.String
-	}
-	if value, ok := values[18].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field weight", values[18])
-	} else if value.Valid {
-		c.Weight = int32(value.Int64)
-	}
-	if value, ok := values[19].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field from", values[19])
-	} else if value.Valid {
-		c.From = value.String
-	}
-	if value, ok := values[20].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field breed", values[20])
-	} else if value.Valid {
-		c.Breed = value.String
-	}
-	if value, ok := values[21].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field joinedTypeId", values[21])
-	} else if value.Valid {
-		c.JoinedTypeId = int(value.Int64)
-	}
-	if value, ok := values[22].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field joinedTypeName", values[22])
-	} else if value.Valid {
-		c.JoinedTypeName = value.String
-	}
-	if value, ok := values[23].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field mother", values[23])
-	} else if value.Valid {
-		c.Mother = value.String
-	}
-	if value, ok := values[24].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field father", values[24])
-	} else if value.Valid {
-		c.Father = value.String
-	}
-	if value, ok := values[25].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field grandfather", values[25])
-	} else if value.Valid {
-		c.Grandfather = value.String
-	}
-	if value, ok := values[26].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field ownerId", values[26])
-	} else if value.Valid {
-		c.OwnerId = value.Int64
-	}
-	if value, ok := values[27].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field ownerName", values[27])
-	} else if value.Valid {
-		c.OwnerName = value.String
-	}
-	if value, ok := values[28].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field hairColorId", values[28])
-	} else if value.Valid {
-		c.HairColorId = value.Int64
-	}
-	if value, ok := values[29].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field hairColorName", values[29])
-	} else if value.Valid {
-		c.HairColorName = value.String
-	}
-	if value, ok := values[30].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field reproductiveStateId", values[30])
+	if value, ok := values[2].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field reproductiveStateId", values[2])
 	} else if value.Valid {
 		c.ReproductiveStateId = int(value.Int64)
 	}
-	if value, ok := values[31].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field reproductiveStateName", values[31])
+	if value, ok := values[3].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field reproductiveStateName", values[3])
 	} else if value.Valid {
 		c.ReproductiveStateName = value.String
 	}
+	if value, ok := values[4].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field name", values[4])
+	} else if value.Valid {
+		c.Name = value.String
+	}
+	if value, ok := values[5].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field farmId", values[5])
+	} else if value.Valid {
+		c.FarmId = value.Int64
+	}
+	if value, ok := values[6].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field farmName", values[6])
+	} else if value.Valid {
+		c.FarmName = value.String
+	}
+	if value, ok := values[7].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field shedId", values[7])
+	} else if value.Valid {
+		c.ShedId = value.Int64
+	}
+	if value, ok := values[8].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field shedName", values[8])
+	} else if value.Valid {
+		c.ShedName = value.String
+	}
+	if value, ok := values[9].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field shedTypeId", values[9])
+	} else if value.Valid {
+		c.ShedTypeId = value.Int64
+	}
+	if value, ok := values[10].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field shedTypeName", values[10])
+	} else if value.Valid {
+		c.ShedTypeName = value.String
+	}
+	if value, ok := values[11].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field earNumber", values[11])
+	} else if value.Valid {
+		c.EarNumber = value.String
+	}
+	if value, ok := values[12].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field electronicEarNumber", values[12])
+	} else if value.Valid {
+		c.ElectronicEarNumber = value.String
+	}
+	if value, ok := values[13].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field pedometer", values[13])
+	} else if value.Valid {
+		c.Pedometer = value.String
+	}
+	if value, ok := values[14].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field genderId", values[14])
+	} else if value.Valid {
+		c.GenderId = int(value.Int64)
+	}
+	if value, ok := values[15].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field genderName", values[15])
+	} else if value.Valid {
+		c.GenderName = value.String
+	}
+	if value, ok := values[16].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field birthday", values[16])
+	} else if value.Valid {
+		c.Birthday = value.Int64
+	}
+	if value, ok := values[17].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field joinedAt", values[17])
+	} else if value.Valid {
+		c.JoinedAt = value.Int64
+	}
+	if value, ok := values[18].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field cateId", values[18])
+	} else if value.Valid {
+		c.CateId = int(value.Int64)
+	}
+	if value, ok := values[19].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field cateName", values[19])
+	} else if value.Valid {
+		c.CateName = value.String
+	}
+	if value, ok := values[20].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field type", values[20])
+	} else if value.Valid {
+		c.Type = int(value.Int64)
+	}
+	if value, ok := values[21].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field typeName", values[21])
+	} else if value.Valid {
+		c.TypeName = value.String
+	}
+	if value, ok := values[22].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field weight", values[22])
+	} else if value.Valid {
+		c.Weight = int32(value.Int64)
+	}
+	if value, ok := values[23].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field from", values[23])
+	} else if value.Valid {
+		c.From = value.String
+	}
+	if value, ok := values[24].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field breed", values[24])
+	} else if value.Valid {
+		c.Breed = value.String
+	}
+	if value, ok := values[25].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field joinedTypeId", values[25])
+	} else if value.Valid {
+		c.JoinedTypeId = int(value.Int64)
+	}
+	if value, ok := values[26].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field joinedTypeName", values[26])
+	} else if value.Valid {
+		c.JoinedTypeName = value.String
+	}
+	if value, ok := values[27].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field mother", values[27])
+	} else if value.Valid {
+		c.Mother = value.String
+	}
+	if value, ok := values[28].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field father", values[28])
+	} else if value.Valid {
+		c.Father = value.String
+	}
+	if value, ok := values[29].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field grandfather", values[29])
+	} else if value.Valid {
+		c.Grandfather = value.String
+	}
+	if value, ok := values[30].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field ownerId", values[30])
+	} else if value.Valid {
+		c.OwnerId = value.Int64
+	}
+	if value, ok := values[31].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field ownerName", values[31])
+	} else if value.Valid {
+		c.OwnerName = value.String
+	}
 	if value, ok := values[32].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field pregnantTimes", values[32])
+		return fmt.Errorf("unexpected type %T for field hairColorId", values[32])
+	} else if value.Valid {
+		c.HairColorId = value.Int64
+	}
+	if value, ok := values[33].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field hairColorName", values[33])
+	} else if value.Valid {
+		c.HairColorName = value.String
+	}
+	if value, ok := values[34].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field pregnantTimes", values[34])
 	} else if value.Valid {
 		c.PregnantTimes = int(value.Int64)
 	}
-	if value, ok := values[33].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field lastCalvingAt", values[33])
+	if value, ok := values[35].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field lastCalvingAt", values[35])
 	} else if value.Valid {
 		c.LastCalvingAt = value.Int64
 	}
-	if value, ok := values[34].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field breedingAt", values[34])
+	if value, ok := values[36].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field breedingAt", values[36])
 	} else if value.Valid {
 		c.BreedingAt = value.Int64
 	}
-	if value, ok := values[35].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field breedingTypeId", values[35])
+	if value, ok := values[37].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field breedingTypeId", values[37])
 	} else if value.Valid {
 		c.BreedingTypeId = int(value.Int64)
 	}
-	if value, ok := values[36].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field breedingTypeName", values[36])
+	if value, ok := values[38].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field breedingTypeName", values[38])
 	} else if value.Valid {
 		c.BreedingTypeName = value.String
 	}
-	if value, ok := values[37].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field bullId", values[37])
+	if value, ok := values[39].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field bullId", values[39])
 	} else if value.Valid {
 		c.BullId = value.Int64
 	}
-	if value, ok := values[38].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field pregnancyCheckAt", values[38])
+	if value, ok := values[40].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field pregnancyCheckAt", values[40])
 	} else if value.Valid {
 		c.PregnancyCheckAt = value.Int64
 	}
-	if value, ok := values[39].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantId", values[39])
+	if value, ok := values[41].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[41])
 	} else if value.Valid {
 		c.TenantId = value.Int64
 	}
-	if value, ok := values[40].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantName", values[40])
+	if value, ok := values[42].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[42])
 	} else if value.Valid {
 		c.TenantName = value.String
 	}
-	if value, ok := values[41].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[41])
+	if value, ok := values[43].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[43])
 	} else if value.Valid {
 		c.CreatedAt = value.Int64
 	}
-	if value, ok := values[42].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[42])
+	if value, ok := values[44].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[44])
 	} else if value.Valid {
 		c.UpdatedAt = value.Int64
 	}
-	if value, ok := values[43].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[43])
+	if value, ok := values[45].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[45])
 	} else if value.Valid {
 		c.Deleted = int(value.Int64)
 	}
@@ -414,6 +430,14 @@ func (c *Cattle) String() string {
 	var builder strings.Builder
 	builder.WriteString("Cattle(")
 	builder.WriteString(fmt.Sprintf("id=%v", c.ID))
+	builder.WriteString(", alive=")
+	builder.WriteString(fmt.Sprintf("%v", c.Alive))
+	builder.WriteString(", health=")
+	builder.WriteString(fmt.Sprintf("%v", c.Health))
+	builder.WriteString(", reproductiveStateId=")
+	builder.WriteString(fmt.Sprintf("%v", c.ReproductiveStateId))
+	builder.WriteString(", reproductiveStateName=")
+	builder.WriteString(c.ReproductiveStateName)
 	builder.WriteString(", name=")
 	builder.WriteString(c.Name)
 	builder.WriteString(", farmId=")
@@ -474,10 +498,6 @@ func (c *Cattle) String() string {
 	builder.WriteString(fmt.Sprintf("%v", c.HairColorId))
 	builder.WriteString(", hairColorName=")
 	builder.WriteString(c.HairColorName)
-	builder.WriteString(", reproductiveStateId=")
-	builder.WriteString(fmt.Sprintf("%v", c.ReproductiveStateId))
-	builder.WriteString(", reproductiveStateName=")
-	builder.WriteString(c.ReproductiveStateName)
 	builder.WriteString(", pregnantTimes=")
 	builder.WriteString(fmt.Sprintf("%v", c.PregnantTimes))
 	builder.WriteString(", lastCalvingAt=")

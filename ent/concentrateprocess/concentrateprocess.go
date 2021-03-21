@@ -7,26 +7,26 @@ const (
 	Label = "concentrate_process"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
-	// FieldFormulaID holds the string denoting the formulaid field in the database.
-	FieldFormulaID = "formula_id"
+	// FieldConcentrateId holds the string denoting the concentrateid field in the database.
+	FieldConcentrateId = "concentrate_id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
-	// FieldCode holds the string denoting the code field in the database.
-	FieldCode = "code"
 	// FieldDate holds the string denoting the date field in the database.
 	FieldDate = "date"
 	// FieldCount holds the string denoting the count field in the database.
 	FieldCount = "count"
 	// FieldIn holds the string denoting the in field in the database.
 	FieldIn = "in"
-	// FieldInventory holds the string denoting the inventory field in the database.
-	FieldInventory = "inventory"
 	// FieldUserName holds the string denoting the username field in the database.
 	FieldUserName = "user_name"
 	// FieldTenantId holds the string denoting the tenantid field in the database.
 	FieldTenantId = "tenant_id"
 	// FieldTenantName holds the string denoting the tenantname field in the database.
 	FieldTenantName = "tenant_name"
+	// FieldFarmId holds the string denoting the farmid field in the database.
+	FieldFarmId = "farm_id"
+	// FieldFarmName holds the string denoting the farmname field in the database.
+	FieldFarmName = "farm_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -43,16 +43,16 @@ const (
 // Columns holds all SQL columns for concentrateprocess fields.
 var Columns = []string{
 	FieldID,
-	FieldFormulaID,
+	FieldConcentrateId,
 	FieldName,
-	FieldCode,
 	FieldDate,
 	FieldCount,
 	FieldIn,
-	FieldInventory,
 	FieldUserName,
 	FieldTenantId,
 	FieldTenantName,
+	FieldFarmId,
+	FieldFarmName,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,

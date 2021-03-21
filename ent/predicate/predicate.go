@@ -96,6 +96,9 @@ type CattleType func(*sql.Selector)
 // Change is the predicate function for change builders.
 type Change func(*sql.Selector)
 
+// Concentrate is the predicate function for concentrate builders.
+type Concentrate func(*sql.Selector)
+
 // ConcentrateFormula is the predicate function for concentrateformula builders.
 type ConcentrateFormula func(*sql.Selector)
 
@@ -197,6 +200,12 @@ type PregnancyTestType func(*sql.Selector)
 
 // Ration is the predicate function for ration builders.
 type Ration func(*sql.Selector)
+
+// RationFormula is the predicate function for rationformula builders.
+type RationFormula func(*sql.Selector)
+
+// RationProcess is the predicate function for rationprocess builders.
+type RationProcess func(*sql.Selector)
 
 // ReproductionParameters is the predicate function for reproductionparameters builders.
 type ReproductionParameters func(*sql.Selector)

@@ -20,8 +20,8 @@ func Where(listParams *params.ListParams) predicate.Farm {
 	case 2:
 		wheres = append(wheres, farm.TenantId(listParams.TenantId))
 	case 3:
-		// 没有权限
-		wheres = append(wheres, farm.TenantIdLT(0))
+		// 只能看到自己的牧场
+		wheres = append(wheres, farm.ID(listParams.FarmId))
 	}
 	return farm.And(wheres...)
 }

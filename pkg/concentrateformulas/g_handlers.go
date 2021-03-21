@@ -23,17 +23,15 @@ func ConcentrateFormulaAddHandler(c *gin.Context) {
 	}
 	log.Debug().Msg(form.String())
 	concentrateformula, err := db.Client.ConcentrateFormula.Create().
-		SetAdjustDate(form.AdjustDate).
 		SetCode(form.Code).
 		SetCost(form.Cost).
 		SetData(form.Data).
-		SetCreateDate(form.CreateDate).
-		SetDisableDate(form.DisableDate).
 		SetName(form.Name).
 		SetRemarks(form.Remarks).
 		SetStatus(form.Status).
 		SetTenantId(form.TenantId).
 		SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
@@ -97,15 +95,15 @@ func ConcentrateFormulaUpdateHandler(c *gin.Context) {
 	}
 	log.Debug().Msg(form.String())
 	concentrateformula, err := db.Client.ConcentrateFormula.UpdateOneID(form.ID).
-		SetAdjustDate(form.AdjustDate).
 		SetCode(form.Code).
 		SetData(form.Data).
 		SetCost(form.Cost).
-		SetCreateDate(form.CreateDate).
-		SetDisableDate(form.DisableDate).
 		SetName(form.Name).
 		SetRemarks(form.Remarks).
 		SetStatus(form.Status).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())
 	if err != nil {

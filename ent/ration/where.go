@@ -98,45 +98,38 @@ func Name(v string) predicate.Ration {
 	})
 }
 
-// Code applies equality check predicate on the "code" field. It's identical to CodeEQ.
-func Code(v string) predicate.Ration {
+// FormulaId applies equality check predicate on the "formulaId" field. It's identical to FormulaIdEQ.
+func FormulaId(v int64) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCode), v))
+		s.Where(sql.EQ(s.C(FieldFormulaId), v))
 	})
 }
 
-// Status applies equality check predicate on the "status" field. It's identical to StatusEQ.
-func Status(v int) predicate.Ration {
+// FormulaName applies equality check predicate on the "formulaName" field. It's identical to FormulaNameEQ.
+func FormulaName(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldStatus), v))
+		s.Where(sql.EQ(s.C(FieldFormulaName), v))
 	})
 }
 
-// CreateDate applies equality check predicate on the "createDate" field. It's identical to CreateDateEQ.
-func CreateDate(v int64) predicate.Ration {
+// FormulaCode applies equality check predicate on the "formulaCode" field. It's identical to FormulaCodeEQ.
+func FormulaCode(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCreateDate), v))
+		s.Where(sql.EQ(s.C(FieldFormulaCode), v))
 	})
 }
 
-// AdjustDate applies equality check predicate on the "adjustDate" field. It's identical to AdjustDateEQ.
-func AdjustDate(v int64) predicate.Ration {
+// Inventory applies equality check predicate on the "inventory" field. It's identical to InventoryEQ.
+func Inventory(v int64) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldAdjustDate), v))
+		s.Where(sql.EQ(s.C(FieldInventory), v))
 	})
 }
 
-// DisableDate applies equality check predicate on the "disableDate" field. It's identical to DisableDateEQ.
-func DisableDate(v int64) predicate.Ration {
+// UserName applies equality check predicate on the "userName" field. It's identical to UserNameEQ.
+func UserName(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldDisableDate), v))
-	})
-}
-
-// Cost applies equality check predicate on the "cost" field. It's identical to CostEQ.
-func Cost(v int64) predicate.Ration {
-	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCost), v))
+		s.Where(sql.EQ(s.C(FieldUserName), v))
 	})
 }
 
@@ -151,6 +144,20 @@ func TenantId(v int64) predicate.Ration {
 func TenantName(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldTenantName), v))
+	})
+}
+
+// FarmId applies equality check predicate on the "farmId" field. It's identical to FarmIdEQ.
+func FarmId(v int64) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmName applies equality check predicate on the "farmName" field. It's identical to FarmNameEQ.
+func FarmName(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
 	})
 }
 
@@ -293,22 +300,22 @@ func NameContainsFold(v string) predicate.Ration {
 	})
 }
 
-// CodeEQ applies the EQ predicate on the "code" field.
-func CodeEQ(v string) predicate.Ration {
+// FormulaIdEQ applies the EQ predicate on the "formulaId" field.
+func FormulaIdEQ(v int64) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCode), v))
+		s.Where(sql.EQ(s.C(FieldFormulaId), v))
 	})
 }
 
-// CodeNEQ applies the NEQ predicate on the "code" field.
-func CodeNEQ(v string) predicate.Ration {
+// FormulaIdNEQ applies the NEQ predicate on the "formulaId" field.
+func FormulaIdNEQ(v int64) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldCode), v))
+		s.Where(sql.NEQ(s.C(FieldFormulaId), v))
 	})
 }
 
-// CodeIn applies the In predicate on the "code" field.
-func CodeIn(vs ...string) predicate.Ration {
+// FormulaIdIn applies the In predicate on the "formulaId" field.
+func FormulaIdIn(vs ...int64) predicate.Ration {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -320,12 +327,12 @@ func CodeIn(vs ...string) predicate.Ration {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldCode), v...))
+		s.Where(sql.In(s.C(FieldFormulaId), v...))
 	})
 }
 
-// CodeNotIn applies the NotIn predicate on the "code" field.
-func CodeNotIn(vs ...string) predicate.Ration {
+// FormulaIdNotIn applies the NotIn predicate on the "formulaId" field.
+func FormulaIdNotIn(vs ...int64) predicate.Ration {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -337,89 +344,54 @@ func CodeNotIn(vs ...string) predicate.Ration {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldCode), v...))
+		s.Where(sql.NotIn(s.C(FieldFormulaId), v...))
 	})
 }
 
-// CodeGT applies the GT predicate on the "code" field.
-func CodeGT(v string) predicate.Ration {
+// FormulaIdGT applies the GT predicate on the "formulaId" field.
+func FormulaIdGT(v int64) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldCode), v))
+		s.Where(sql.GT(s.C(FieldFormulaId), v))
 	})
 }
 
-// CodeGTE applies the GTE predicate on the "code" field.
-func CodeGTE(v string) predicate.Ration {
+// FormulaIdGTE applies the GTE predicate on the "formulaId" field.
+func FormulaIdGTE(v int64) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldCode), v))
+		s.Where(sql.GTE(s.C(FieldFormulaId), v))
 	})
 }
 
-// CodeLT applies the LT predicate on the "code" field.
-func CodeLT(v string) predicate.Ration {
+// FormulaIdLT applies the LT predicate on the "formulaId" field.
+func FormulaIdLT(v int64) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldCode), v))
+		s.Where(sql.LT(s.C(FieldFormulaId), v))
 	})
 }
 
-// CodeLTE applies the LTE predicate on the "code" field.
-func CodeLTE(v string) predicate.Ration {
+// FormulaIdLTE applies the LTE predicate on the "formulaId" field.
+func FormulaIdLTE(v int64) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldCode), v))
+		s.Where(sql.LTE(s.C(FieldFormulaId), v))
 	})
 }
 
-// CodeContains applies the Contains predicate on the "code" field.
-func CodeContains(v string) predicate.Ration {
+// FormulaNameEQ applies the EQ predicate on the "formulaName" field.
+func FormulaNameEQ(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldCode), v))
+		s.Where(sql.EQ(s.C(FieldFormulaName), v))
 	})
 }
 
-// CodeHasPrefix applies the HasPrefix predicate on the "code" field.
-func CodeHasPrefix(v string) predicate.Ration {
+// FormulaNameNEQ applies the NEQ predicate on the "formulaName" field.
+func FormulaNameNEQ(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldCode), v))
+		s.Where(sql.NEQ(s.C(FieldFormulaName), v))
 	})
 }
 
-// CodeHasSuffix applies the HasSuffix predicate on the "code" field.
-func CodeHasSuffix(v string) predicate.Ration {
-	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldCode), v))
-	})
-}
-
-// CodeEqualFold applies the EqualFold predicate on the "code" field.
-func CodeEqualFold(v string) predicate.Ration {
-	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldCode), v))
-	})
-}
-
-// CodeContainsFold applies the ContainsFold predicate on the "code" field.
-func CodeContainsFold(v string) predicate.Ration {
-	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldCode), v))
-	})
-}
-
-// StatusEQ applies the EQ predicate on the "status" field.
-func StatusEQ(v int) predicate.Ration {
-	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldStatus), v))
-	})
-}
-
-// StatusNEQ applies the NEQ predicate on the "status" field.
-func StatusNEQ(v int) predicate.Ration {
-	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldStatus), v))
-	})
-}
-
-// StatusIn applies the In predicate on the "status" field.
-func StatusIn(vs ...int) predicate.Ration {
+// FormulaNameIn applies the In predicate on the "formulaName" field.
+func FormulaNameIn(vs ...string) predicate.Ration {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -431,12 +403,12 @@ func StatusIn(vs ...int) predicate.Ration {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldStatus), v...))
+		s.Where(sql.In(s.C(FieldFormulaName), v...))
 	})
 }
 
-// StatusNotIn applies the NotIn predicate on the "status" field.
-func StatusNotIn(vs ...int) predicate.Ration {
+// FormulaNameNotIn applies the NotIn predicate on the "formulaName" field.
+func FormulaNameNotIn(vs ...string) predicate.Ration {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -448,54 +420,89 @@ func StatusNotIn(vs ...int) predicate.Ration {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldStatus), v...))
+		s.Where(sql.NotIn(s.C(FieldFormulaName), v...))
 	})
 }
 
-// StatusGT applies the GT predicate on the "status" field.
-func StatusGT(v int) predicate.Ration {
+// FormulaNameGT applies the GT predicate on the "formulaName" field.
+func FormulaNameGT(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldStatus), v))
+		s.Where(sql.GT(s.C(FieldFormulaName), v))
 	})
 }
 
-// StatusGTE applies the GTE predicate on the "status" field.
-func StatusGTE(v int) predicate.Ration {
+// FormulaNameGTE applies the GTE predicate on the "formulaName" field.
+func FormulaNameGTE(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldStatus), v))
+		s.Where(sql.GTE(s.C(FieldFormulaName), v))
 	})
 }
 
-// StatusLT applies the LT predicate on the "status" field.
-func StatusLT(v int) predicate.Ration {
+// FormulaNameLT applies the LT predicate on the "formulaName" field.
+func FormulaNameLT(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldStatus), v))
+		s.Where(sql.LT(s.C(FieldFormulaName), v))
 	})
 }
 
-// StatusLTE applies the LTE predicate on the "status" field.
-func StatusLTE(v int) predicate.Ration {
+// FormulaNameLTE applies the LTE predicate on the "formulaName" field.
+func FormulaNameLTE(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldStatus), v))
+		s.Where(sql.LTE(s.C(FieldFormulaName), v))
 	})
 }
 
-// CreateDateEQ applies the EQ predicate on the "createDate" field.
-func CreateDateEQ(v int64) predicate.Ration {
+// FormulaNameContains applies the Contains predicate on the "formulaName" field.
+func FormulaNameContains(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCreateDate), v))
+		s.Where(sql.Contains(s.C(FieldFormulaName), v))
 	})
 }
 
-// CreateDateNEQ applies the NEQ predicate on the "createDate" field.
-func CreateDateNEQ(v int64) predicate.Ration {
+// FormulaNameHasPrefix applies the HasPrefix predicate on the "formulaName" field.
+func FormulaNameHasPrefix(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldCreateDate), v))
+		s.Where(sql.HasPrefix(s.C(FieldFormulaName), v))
 	})
 }
 
-// CreateDateIn applies the In predicate on the "createDate" field.
-func CreateDateIn(vs ...int64) predicate.Ration {
+// FormulaNameHasSuffix applies the HasSuffix predicate on the "formulaName" field.
+func FormulaNameHasSuffix(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldFormulaName), v))
+	})
+}
+
+// FormulaNameEqualFold applies the EqualFold predicate on the "formulaName" field.
+func FormulaNameEqualFold(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldFormulaName), v))
+	})
+}
+
+// FormulaNameContainsFold applies the ContainsFold predicate on the "formulaName" field.
+func FormulaNameContainsFold(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldFormulaName), v))
+	})
+}
+
+// FormulaCodeEQ applies the EQ predicate on the "formulaCode" field.
+func FormulaCodeEQ(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFormulaCode), v))
+	})
+}
+
+// FormulaCodeNEQ applies the NEQ predicate on the "formulaCode" field.
+func FormulaCodeNEQ(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFormulaCode), v))
+	})
+}
+
+// FormulaCodeIn applies the In predicate on the "formulaCode" field.
+func FormulaCodeIn(vs ...string) predicate.Ration {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -507,12 +514,12 @@ func CreateDateIn(vs ...int64) predicate.Ration {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldCreateDate), v...))
+		s.Where(sql.In(s.C(FieldFormulaCode), v...))
 	})
 }
 
-// CreateDateNotIn applies the NotIn predicate on the "createDate" field.
-func CreateDateNotIn(vs ...int64) predicate.Ration {
+// FormulaCodeNotIn applies the NotIn predicate on the "formulaCode" field.
+func FormulaCodeNotIn(vs ...string) predicate.Ration {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -524,54 +531,89 @@ func CreateDateNotIn(vs ...int64) predicate.Ration {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldCreateDate), v...))
+		s.Where(sql.NotIn(s.C(FieldFormulaCode), v...))
 	})
 }
 
-// CreateDateGT applies the GT predicate on the "createDate" field.
-func CreateDateGT(v int64) predicate.Ration {
+// FormulaCodeGT applies the GT predicate on the "formulaCode" field.
+func FormulaCodeGT(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldCreateDate), v))
+		s.Where(sql.GT(s.C(FieldFormulaCode), v))
 	})
 }
 
-// CreateDateGTE applies the GTE predicate on the "createDate" field.
-func CreateDateGTE(v int64) predicate.Ration {
+// FormulaCodeGTE applies the GTE predicate on the "formulaCode" field.
+func FormulaCodeGTE(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldCreateDate), v))
+		s.Where(sql.GTE(s.C(FieldFormulaCode), v))
 	})
 }
 
-// CreateDateLT applies the LT predicate on the "createDate" field.
-func CreateDateLT(v int64) predicate.Ration {
+// FormulaCodeLT applies the LT predicate on the "formulaCode" field.
+func FormulaCodeLT(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldCreateDate), v))
+		s.Where(sql.LT(s.C(FieldFormulaCode), v))
 	})
 }
 
-// CreateDateLTE applies the LTE predicate on the "createDate" field.
-func CreateDateLTE(v int64) predicate.Ration {
+// FormulaCodeLTE applies the LTE predicate on the "formulaCode" field.
+func FormulaCodeLTE(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldCreateDate), v))
+		s.Where(sql.LTE(s.C(FieldFormulaCode), v))
 	})
 }
 
-// AdjustDateEQ applies the EQ predicate on the "adjustDate" field.
-func AdjustDateEQ(v int64) predicate.Ration {
+// FormulaCodeContains applies the Contains predicate on the "formulaCode" field.
+func FormulaCodeContains(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldAdjustDate), v))
+		s.Where(sql.Contains(s.C(FieldFormulaCode), v))
 	})
 }
 
-// AdjustDateNEQ applies the NEQ predicate on the "adjustDate" field.
-func AdjustDateNEQ(v int64) predicate.Ration {
+// FormulaCodeHasPrefix applies the HasPrefix predicate on the "formulaCode" field.
+func FormulaCodeHasPrefix(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldAdjustDate), v))
+		s.Where(sql.HasPrefix(s.C(FieldFormulaCode), v))
 	})
 }
 
-// AdjustDateIn applies the In predicate on the "adjustDate" field.
-func AdjustDateIn(vs ...int64) predicate.Ration {
+// FormulaCodeHasSuffix applies the HasSuffix predicate on the "formulaCode" field.
+func FormulaCodeHasSuffix(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldFormulaCode), v))
+	})
+}
+
+// FormulaCodeEqualFold applies the EqualFold predicate on the "formulaCode" field.
+func FormulaCodeEqualFold(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldFormulaCode), v))
+	})
+}
+
+// FormulaCodeContainsFold applies the ContainsFold predicate on the "formulaCode" field.
+func FormulaCodeContainsFold(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldFormulaCode), v))
+	})
+}
+
+// InventoryEQ applies the EQ predicate on the "inventory" field.
+func InventoryEQ(v int64) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldInventory), v))
+	})
+}
+
+// InventoryNEQ applies the NEQ predicate on the "inventory" field.
+func InventoryNEQ(v int64) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldInventory), v))
+	})
+}
+
+// InventoryIn applies the In predicate on the "inventory" field.
+func InventoryIn(vs ...int64) predicate.Ration {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -583,12 +625,12 @@ func AdjustDateIn(vs ...int64) predicate.Ration {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldAdjustDate), v...))
+		s.Where(sql.In(s.C(FieldInventory), v...))
 	})
 }
 
-// AdjustDateNotIn applies the NotIn predicate on the "adjustDate" field.
-func AdjustDateNotIn(vs ...int64) predicate.Ration {
+// InventoryNotIn applies the NotIn predicate on the "inventory" field.
+func InventoryNotIn(vs ...int64) predicate.Ration {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -600,54 +642,54 @@ func AdjustDateNotIn(vs ...int64) predicate.Ration {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldAdjustDate), v...))
+		s.Where(sql.NotIn(s.C(FieldInventory), v...))
 	})
 }
 
-// AdjustDateGT applies the GT predicate on the "adjustDate" field.
-func AdjustDateGT(v int64) predicate.Ration {
+// InventoryGT applies the GT predicate on the "inventory" field.
+func InventoryGT(v int64) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldAdjustDate), v))
+		s.Where(sql.GT(s.C(FieldInventory), v))
 	})
 }
 
-// AdjustDateGTE applies the GTE predicate on the "adjustDate" field.
-func AdjustDateGTE(v int64) predicate.Ration {
+// InventoryGTE applies the GTE predicate on the "inventory" field.
+func InventoryGTE(v int64) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldAdjustDate), v))
+		s.Where(sql.GTE(s.C(FieldInventory), v))
 	})
 }
 
-// AdjustDateLT applies the LT predicate on the "adjustDate" field.
-func AdjustDateLT(v int64) predicate.Ration {
+// InventoryLT applies the LT predicate on the "inventory" field.
+func InventoryLT(v int64) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldAdjustDate), v))
+		s.Where(sql.LT(s.C(FieldInventory), v))
 	})
 }
 
-// AdjustDateLTE applies the LTE predicate on the "adjustDate" field.
-func AdjustDateLTE(v int64) predicate.Ration {
+// InventoryLTE applies the LTE predicate on the "inventory" field.
+func InventoryLTE(v int64) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldAdjustDate), v))
+		s.Where(sql.LTE(s.C(FieldInventory), v))
 	})
 }
 
-// DisableDateEQ applies the EQ predicate on the "disableDate" field.
-func DisableDateEQ(v int64) predicate.Ration {
+// UserNameEQ applies the EQ predicate on the "userName" field.
+func UserNameEQ(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldDisableDate), v))
+		s.Where(sql.EQ(s.C(FieldUserName), v))
 	})
 }
 
-// DisableDateNEQ applies the NEQ predicate on the "disableDate" field.
-func DisableDateNEQ(v int64) predicate.Ration {
+// UserNameNEQ applies the NEQ predicate on the "userName" field.
+func UserNameNEQ(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldDisableDate), v))
+		s.Where(sql.NEQ(s.C(FieldUserName), v))
 	})
 }
 
-// DisableDateIn applies the In predicate on the "disableDate" field.
-func DisableDateIn(vs ...int64) predicate.Ration {
+// UserNameIn applies the In predicate on the "userName" field.
+func UserNameIn(vs ...string) predicate.Ration {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -659,12 +701,12 @@ func DisableDateIn(vs ...int64) predicate.Ration {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldDisableDate), v...))
+		s.Where(sql.In(s.C(FieldUserName), v...))
 	})
 }
 
-// DisableDateNotIn applies the NotIn predicate on the "disableDate" field.
-func DisableDateNotIn(vs ...int64) predicate.Ration {
+// UserNameNotIn applies the NotIn predicate on the "userName" field.
+func UserNameNotIn(vs ...string) predicate.Ration {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -676,111 +718,70 @@ func DisableDateNotIn(vs ...int64) predicate.Ration {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldDisableDate), v...))
+		s.Where(sql.NotIn(s.C(FieldUserName), v...))
 	})
 }
 
-// DisableDateGT applies the GT predicate on the "disableDate" field.
-func DisableDateGT(v int64) predicate.Ration {
+// UserNameGT applies the GT predicate on the "userName" field.
+func UserNameGT(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldDisableDate), v))
+		s.Where(sql.GT(s.C(FieldUserName), v))
 	})
 }
 
-// DisableDateGTE applies the GTE predicate on the "disableDate" field.
-func DisableDateGTE(v int64) predicate.Ration {
+// UserNameGTE applies the GTE predicate on the "userName" field.
+func UserNameGTE(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldDisableDate), v))
+		s.Where(sql.GTE(s.C(FieldUserName), v))
 	})
 }
 
-// DisableDateLT applies the LT predicate on the "disableDate" field.
-func DisableDateLT(v int64) predicate.Ration {
+// UserNameLT applies the LT predicate on the "userName" field.
+func UserNameLT(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldDisableDate), v))
+		s.Where(sql.LT(s.C(FieldUserName), v))
 	})
 }
 
-// DisableDateLTE applies the LTE predicate on the "disableDate" field.
-func DisableDateLTE(v int64) predicate.Ration {
+// UserNameLTE applies the LTE predicate on the "userName" field.
+func UserNameLTE(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldDisableDate), v))
+		s.Where(sql.LTE(s.C(FieldUserName), v))
 	})
 }
 
-// CostEQ applies the EQ predicate on the "cost" field.
-func CostEQ(v int64) predicate.Ration {
+// UserNameContains applies the Contains predicate on the "userName" field.
+func UserNameContains(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCost), v))
+		s.Where(sql.Contains(s.C(FieldUserName), v))
 	})
 }
 
-// CostNEQ applies the NEQ predicate on the "cost" field.
-func CostNEQ(v int64) predicate.Ration {
+// UserNameHasPrefix applies the HasPrefix predicate on the "userName" field.
+func UserNameHasPrefix(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldCost), v))
+		s.Where(sql.HasPrefix(s.C(FieldUserName), v))
 	})
 }
 
-// CostIn applies the In predicate on the "cost" field.
-func CostIn(vs ...int64) predicate.Ration {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
+// UserNameHasSuffix applies the HasSuffix predicate on the "userName" field.
+func UserNameHasSuffix(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.In(s.C(FieldCost), v...))
+		s.Where(sql.HasSuffix(s.C(FieldUserName), v))
 	})
 }
 
-// CostNotIn applies the NotIn predicate on the "cost" field.
-func CostNotIn(vs ...int64) predicate.Ration {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
+// UserNameEqualFold applies the EqualFold predicate on the "userName" field.
+func UserNameEqualFold(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.NotIn(s.C(FieldCost), v...))
+		s.Where(sql.EqualFold(s.C(FieldUserName), v))
 	})
 }
 
-// CostGT applies the GT predicate on the "cost" field.
-func CostGT(v int64) predicate.Ration {
+// UserNameContainsFold applies the ContainsFold predicate on the "userName" field.
+func UserNameContainsFold(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldCost), v))
-	})
-}
-
-// CostGTE applies the GTE predicate on the "cost" field.
-func CostGTE(v int64) predicate.Ration {
-	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldCost), v))
-	})
-}
-
-// CostLT applies the LT predicate on the "cost" field.
-func CostLT(v int64) predicate.Ration {
-	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldCost), v))
-	})
-}
-
-// CostLTE applies the LTE predicate on the "cost" field.
-func CostLTE(v int64) predicate.Ration {
-	return predicate.Ration(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldCost), v))
+		s.Where(sql.ContainsFold(s.C(FieldUserName), v))
 	})
 }
 
@@ -968,6 +969,193 @@ func TenantNameEqualFold(v string) predicate.Ration {
 func TenantNameContainsFold(v string) predicate.Ration {
 	return predicate.Ration(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldTenantName), v))
+	})
+}
+
+// FarmIdEQ applies the EQ predicate on the "farmId" field.
+func FarmIdEQ(v int64) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdNEQ applies the NEQ predicate on the "farmId" field.
+func FarmIdNEQ(v int64) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdIn applies the In predicate on the "farmId" field.
+func FarmIdIn(vs ...int64) predicate.Ration {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Ration(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdNotIn applies the NotIn predicate on the "farmId" field.
+func FarmIdNotIn(vs ...int64) predicate.Ration {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Ration(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdGT applies the GT predicate on the "farmId" field.
+func FarmIdGT(v int64) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdGTE applies the GTE predicate on the "farmId" field.
+func FarmIdGTE(v int64) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLT applies the LT predicate on the "farmId" field.
+func FarmIdLT(v int64) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLTE applies the LTE predicate on the "farmId" field.
+func FarmIdLTE(v int64) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmNameEQ applies the EQ predicate on the "farmName" field.
+func FarmNameEQ(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameNEQ applies the NEQ predicate on the "farmName" field.
+func FarmNameNEQ(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameIn applies the In predicate on the "farmName" field.
+func FarmNameIn(vs ...string) predicate.Ration {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Ration(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameNotIn applies the NotIn predicate on the "farmName" field.
+func FarmNameNotIn(vs ...string) predicate.Ration {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Ration(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameGT applies the GT predicate on the "farmName" field.
+func FarmNameGT(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameGTE applies the GTE predicate on the "farmName" field.
+func FarmNameGTE(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLT applies the LT predicate on the "farmName" field.
+func FarmNameLT(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLTE applies the LTE predicate on the "farmName" field.
+func FarmNameLTE(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContains applies the Contains predicate on the "farmName" field.
+func FarmNameContains(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasPrefix applies the HasPrefix predicate on the "farmName" field.
+func FarmNameHasPrefix(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasSuffix applies the HasSuffix predicate on the "farmName" field.
+func FarmNameHasSuffix(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameEqualFold applies the EqualFold predicate on the "farmName" field.
+func FarmNameEqualFold(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContainsFold applies the ContainsFold predicate on the "farmName" field.
+func FarmNameContainsFold(v string) predicate.Ration {
+	return predicate.Ration(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldFarmName), v))
 	})
 }
 

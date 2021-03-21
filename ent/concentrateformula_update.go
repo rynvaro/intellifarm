@@ -52,45 +52,6 @@ func (cfu *ConcentrateFormulaUpdate) AddStatus(i int) *ConcentrateFormulaUpdate 
 	return cfu
 }
 
-// SetCreateDate sets the createDate field.
-func (cfu *ConcentrateFormulaUpdate) SetCreateDate(i int64) *ConcentrateFormulaUpdate {
-	cfu.mutation.ResetCreateDate()
-	cfu.mutation.SetCreateDate(i)
-	return cfu
-}
-
-// AddCreateDate adds i to createDate.
-func (cfu *ConcentrateFormulaUpdate) AddCreateDate(i int64) *ConcentrateFormulaUpdate {
-	cfu.mutation.AddCreateDate(i)
-	return cfu
-}
-
-// SetAdjustDate sets the adjustDate field.
-func (cfu *ConcentrateFormulaUpdate) SetAdjustDate(i int64) *ConcentrateFormulaUpdate {
-	cfu.mutation.ResetAdjustDate()
-	cfu.mutation.SetAdjustDate(i)
-	return cfu
-}
-
-// AddAdjustDate adds i to adjustDate.
-func (cfu *ConcentrateFormulaUpdate) AddAdjustDate(i int64) *ConcentrateFormulaUpdate {
-	cfu.mutation.AddAdjustDate(i)
-	return cfu
-}
-
-// SetDisableDate sets the disableDate field.
-func (cfu *ConcentrateFormulaUpdate) SetDisableDate(i int64) *ConcentrateFormulaUpdate {
-	cfu.mutation.ResetDisableDate()
-	cfu.mutation.SetDisableDate(i)
-	return cfu
-}
-
-// AddDisableDate adds i to disableDate.
-func (cfu *ConcentrateFormulaUpdate) AddDisableDate(i int64) *ConcentrateFormulaUpdate {
-	cfu.mutation.AddDisableDate(i)
-	return cfu
-}
-
 // SetCost sets the cost field.
 func (cfu *ConcentrateFormulaUpdate) SetCost(i int64) *ConcentrateFormulaUpdate {
 	cfu.mutation.ResetCost()
@@ -126,6 +87,25 @@ func (cfu *ConcentrateFormulaUpdate) AddTenantId(i int64) *ConcentrateFormulaUpd
 // SetTenantName sets the tenantName field.
 func (cfu *ConcentrateFormulaUpdate) SetTenantName(s string) *ConcentrateFormulaUpdate {
 	cfu.mutation.SetTenantName(s)
+	return cfu
+}
+
+// SetFarmId sets the farmId field.
+func (cfu *ConcentrateFormulaUpdate) SetFarmId(i int64) *ConcentrateFormulaUpdate {
+	cfu.mutation.ResetFarmId()
+	cfu.mutation.SetFarmId(i)
+	return cfu
+}
+
+// AddFarmId adds i to farmId.
+func (cfu *ConcentrateFormulaUpdate) AddFarmId(i int64) *ConcentrateFormulaUpdate {
+	cfu.mutation.AddFarmId(i)
+	return cfu
+}
+
+// SetFarmName sets the farmName field.
+func (cfu *ConcentrateFormulaUpdate) SetFarmName(s string) *ConcentrateFormulaUpdate {
+	cfu.mutation.SetFarmName(s)
 	return cfu
 }
 
@@ -276,48 +256,6 @@ func (cfu *ConcentrateFormulaUpdate) sqlSave(ctx context.Context) (n int, err er
 			Column: concentrateformula.FieldStatus,
 		})
 	}
-	if value, ok := cfu.mutation.CreateDate(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateformula.FieldCreateDate,
-		})
-	}
-	if value, ok := cfu.mutation.AddedCreateDate(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateformula.FieldCreateDate,
-		})
-	}
-	if value, ok := cfu.mutation.AdjustDate(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateformula.FieldAdjustDate,
-		})
-	}
-	if value, ok := cfu.mutation.AddedAdjustDate(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateformula.FieldAdjustDate,
-		})
-	}
-	if value, ok := cfu.mutation.DisableDate(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateformula.FieldDisableDate,
-		})
-	}
-	if value, ok := cfu.mutation.AddedDisableDate(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateformula.FieldDisableDate,
-		})
-	}
 	if value, ok := cfu.mutation.Cost(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -358,6 +296,27 @@ func (cfu *ConcentrateFormulaUpdate) sqlSave(ctx context.Context) (n int, err er
 			Type:   field.TypeString,
 			Value:  value,
 			Column: concentrateformula.FieldTenantName,
+		})
+	}
+	if value, ok := cfu.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateformula.FieldFarmId,
+		})
+	}
+	if value, ok := cfu.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateformula.FieldFarmId,
+		})
+	}
+	if value, ok := cfu.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: concentrateformula.FieldFarmName,
 		})
 	}
 	if value, ok := cfu.mutation.Remarks(); ok {
@@ -452,45 +411,6 @@ func (cfuo *ConcentrateFormulaUpdateOne) AddStatus(i int) *ConcentrateFormulaUpd
 	return cfuo
 }
 
-// SetCreateDate sets the createDate field.
-func (cfuo *ConcentrateFormulaUpdateOne) SetCreateDate(i int64) *ConcentrateFormulaUpdateOne {
-	cfuo.mutation.ResetCreateDate()
-	cfuo.mutation.SetCreateDate(i)
-	return cfuo
-}
-
-// AddCreateDate adds i to createDate.
-func (cfuo *ConcentrateFormulaUpdateOne) AddCreateDate(i int64) *ConcentrateFormulaUpdateOne {
-	cfuo.mutation.AddCreateDate(i)
-	return cfuo
-}
-
-// SetAdjustDate sets the adjustDate field.
-func (cfuo *ConcentrateFormulaUpdateOne) SetAdjustDate(i int64) *ConcentrateFormulaUpdateOne {
-	cfuo.mutation.ResetAdjustDate()
-	cfuo.mutation.SetAdjustDate(i)
-	return cfuo
-}
-
-// AddAdjustDate adds i to adjustDate.
-func (cfuo *ConcentrateFormulaUpdateOne) AddAdjustDate(i int64) *ConcentrateFormulaUpdateOne {
-	cfuo.mutation.AddAdjustDate(i)
-	return cfuo
-}
-
-// SetDisableDate sets the disableDate field.
-func (cfuo *ConcentrateFormulaUpdateOne) SetDisableDate(i int64) *ConcentrateFormulaUpdateOne {
-	cfuo.mutation.ResetDisableDate()
-	cfuo.mutation.SetDisableDate(i)
-	return cfuo
-}
-
-// AddDisableDate adds i to disableDate.
-func (cfuo *ConcentrateFormulaUpdateOne) AddDisableDate(i int64) *ConcentrateFormulaUpdateOne {
-	cfuo.mutation.AddDisableDate(i)
-	return cfuo
-}
-
 // SetCost sets the cost field.
 func (cfuo *ConcentrateFormulaUpdateOne) SetCost(i int64) *ConcentrateFormulaUpdateOne {
 	cfuo.mutation.ResetCost()
@@ -526,6 +446,25 @@ func (cfuo *ConcentrateFormulaUpdateOne) AddTenantId(i int64) *ConcentrateFormul
 // SetTenantName sets the tenantName field.
 func (cfuo *ConcentrateFormulaUpdateOne) SetTenantName(s string) *ConcentrateFormulaUpdateOne {
 	cfuo.mutation.SetTenantName(s)
+	return cfuo
+}
+
+// SetFarmId sets the farmId field.
+func (cfuo *ConcentrateFormulaUpdateOne) SetFarmId(i int64) *ConcentrateFormulaUpdateOne {
+	cfuo.mutation.ResetFarmId()
+	cfuo.mutation.SetFarmId(i)
+	return cfuo
+}
+
+// AddFarmId adds i to farmId.
+func (cfuo *ConcentrateFormulaUpdateOne) AddFarmId(i int64) *ConcentrateFormulaUpdateOne {
+	cfuo.mutation.AddFarmId(i)
+	return cfuo
+}
+
+// SetFarmName sets the farmName field.
+func (cfuo *ConcentrateFormulaUpdateOne) SetFarmName(s string) *ConcentrateFormulaUpdateOne {
+	cfuo.mutation.SetFarmName(s)
 	return cfuo
 }
 
@@ -674,48 +613,6 @@ func (cfuo *ConcentrateFormulaUpdateOne) sqlSave(ctx context.Context) (_node *Co
 			Column: concentrateformula.FieldStatus,
 		})
 	}
-	if value, ok := cfuo.mutation.CreateDate(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateformula.FieldCreateDate,
-		})
-	}
-	if value, ok := cfuo.mutation.AddedCreateDate(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateformula.FieldCreateDate,
-		})
-	}
-	if value, ok := cfuo.mutation.AdjustDate(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateformula.FieldAdjustDate,
-		})
-	}
-	if value, ok := cfuo.mutation.AddedAdjustDate(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateformula.FieldAdjustDate,
-		})
-	}
-	if value, ok := cfuo.mutation.DisableDate(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateformula.FieldDisableDate,
-		})
-	}
-	if value, ok := cfuo.mutation.AddedDisableDate(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateformula.FieldDisableDate,
-		})
-	}
 	if value, ok := cfuo.mutation.Cost(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -756,6 +653,27 @@ func (cfuo *ConcentrateFormulaUpdateOne) sqlSave(ctx context.Context) (_node *Co
 			Type:   field.TypeString,
 			Value:  value,
 			Column: concentrateformula.FieldTenantName,
+		})
+	}
+	if value, ok := cfuo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateformula.FieldFarmId,
+		})
+	}
+	if value, ok := cfuo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateformula.FieldFarmId,
+		})
+	}
+	if value, ok := cfuo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: concentrateformula.FieldFarmName,
 		})
 	}
 	if value, ok := cfuo.mutation.Remarks(); ok {

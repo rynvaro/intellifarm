@@ -9,22 +9,24 @@ const (
 	FieldID = "id"
 	// FieldName holds the string denoting the name field in the database.
 	FieldName = "name"
-	// FieldCode holds the string denoting the code field in the database.
-	FieldCode = "code"
-	// FieldStatus holds the string denoting the status field in the database.
-	FieldStatus = "status"
-	// FieldCreateDate holds the string denoting the createdate field in the database.
-	FieldCreateDate = "create_date"
-	// FieldAdjustDate holds the string denoting the adjustdate field in the database.
-	FieldAdjustDate = "adjust_date"
-	// FieldDisableDate holds the string denoting the disabledate field in the database.
-	FieldDisableDate = "disable_date"
-	// FieldCost holds the string denoting the cost field in the database.
-	FieldCost = "cost"
+	// FieldFormulaId holds the string denoting the formulaid field in the database.
+	FieldFormulaId = "formula_id"
+	// FieldFormulaName holds the string denoting the formulaname field in the database.
+	FieldFormulaName = "formula_name"
+	// FieldFormulaCode holds the string denoting the formulacode field in the database.
+	FieldFormulaCode = "formula_code"
+	// FieldInventory holds the string denoting the inventory field in the database.
+	FieldInventory = "inventory"
+	// FieldUserName holds the string denoting the username field in the database.
+	FieldUserName = "user_name"
 	// FieldTenantId holds the string denoting the tenantid field in the database.
 	FieldTenantId = "tenant_id"
 	// FieldTenantName holds the string denoting the tenantname field in the database.
 	FieldTenantName = "tenant_name"
+	// FieldFarmId holds the string denoting the farmid field in the database.
+	FieldFarmId = "farm_id"
+	// FieldFarmName holds the string denoting the farmname field in the database.
+	FieldFarmName = "farm_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -42,14 +44,15 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldName,
-	FieldCode,
-	FieldStatus,
-	FieldCreateDate,
-	FieldAdjustDate,
-	FieldDisableDate,
-	FieldCost,
+	FieldFormulaId,
+	FieldFormulaName,
+	FieldFormulaCode,
+	FieldInventory,
+	FieldUserName,
 	FieldTenantId,
 	FieldTenantName,
+	FieldFarmId,
+	FieldFarmName,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,

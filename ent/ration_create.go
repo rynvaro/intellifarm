@@ -25,39 +25,33 @@ func (rc *RationCreate) SetName(s string) *RationCreate {
 	return rc
 }
 
-// SetCode sets the code field.
-func (rc *RationCreate) SetCode(s string) *RationCreate {
-	rc.mutation.SetCode(s)
+// SetFormulaId sets the formulaId field.
+func (rc *RationCreate) SetFormulaId(i int64) *RationCreate {
+	rc.mutation.SetFormulaId(i)
 	return rc
 }
 
-// SetStatus sets the status field.
-func (rc *RationCreate) SetStatus(i int) *RationCreate {
-	rc.mutation.SetStatus(i)
+// SetFormulaName sets the formulaName field.
+func (rc *RationCreate) SetFormulaName(s string) *RationCreate {
+	rc.mutation.SetFormulaName(s)
 	return rc
 }
 
-// SetCreateDate sets the createDate field.
-func (rc *RationCreate) SetCreateDate(i int64) *RationCreate {
-	rc.mutation.SetCreateDate(i)
+// SetFormulaCode sets the formulaCode field.
+func (rc *RationCreate) SetFormulaCode(s string) *RationCreate {
+	rc.mutation.SetFormulaCode(s)
 	return rc
 }
 
-// SetAdjustDate sets the adjustDate field.
-func (rc *RationCreate) SetAdjustDate(i int64) *RationCreate {
-	rc.mutation.SetAdjustDate(i)
+// SetInventory sets the inventory field.
+func (rc *RationCreate) SetInventory(i int64) *RationCreate {
+	rc.mutation.SetInventory(i)
 	return rc
 }
 
-// SetDisableDate sets the disableDate field.
-func (rc *RationCreate) SetDisableDate(i int64) *RationCreate {
-	rc.mutation.SetDisableDate(i)
-	return rc
-}
-
-// SetCost sets the cost field.
-func (rc *RationCreate) SetCost(i int64) *RationCreate {
-	rc.mutation.SetCost(i)
+// SetUserName sets the userName field.
+func (rc *RationCreate) SetUserName(s string) *RationCreate {
+	rc.mutation.SetUserName(s)
 	return rc
 }
 
@@ -70,6 +64,18 @@ func (rc *RationCreate) SetTenantId(i int64) *RationCreate {
 // SetTenantName sets the tenantName field.
 func (rc *RationCreate) SetTenantName(s string) *RationCreate {
 	rc.mutation.SetTenantName(s)
+	return rc
+}
+
+// SetFarmId sets the farmId field.
+func (rc *RationCreate) SetFarmId(i int64) *RationCreate {
+	rc.mutation.SetFarmId(i)
+	return rc
+}
+
+// SetFarmName sets the farmName field.
+func (rc *RationCreate) SetFarmName(s string) *RationCreate {
+	rc.mutation.SetFarmName(s)
 	return rc
 }
 
@@ -151,29 +157,32 @@ func (rc *RationCreate) check() error {
 	if _, ok := rc.mutation.Name(); !ok {
 		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
 	}
-	if _, ok := rc.mutation.Code(); !ok {
-		return &ValidationError{Name: "code", err: errors.New("ent: missing required field \"code\"")}
+	if _, ok := rc.mutation.FormulaId(); !ok {
+		return &ValidationError{Name: "formulaId", err: errors.New("ent: missing required field \"formulaId\"")}
 	}
-	if _, ok := rc.mutation.Status(); !ok {
-		return &ValidationError{Name: "status", err: errors.New("ent: missing required field \"status\"")}
+	if _, ok := rc.mutation.FormulaName(); !ok {
+		return &ValidationError{Name: "formulaName", err: errors.New("ent: missing required field \"formulaName\"")}
 	}
-	if _, ok := rc.mutation.CreateDate(); !ok {
-		return &ValidationError{Name: "createDate", err: errors.New("ent: missing required field \"createDate\"")}
+	if _, ok := rc.mutation.FormulaCode(); !ok {
+		return &ValidationError{Name: "formulaCode", err: errors.New("ent: missing required field \"formulaCode\"")}
 	}
-	if _, ok := rc.mutation.AdjustDate(); !ok {
-		return &ValidationError{Name: "adjustDate", err: errors.New("ent: missing required field \"adjustDate\"")}
+	if _, ok := rc.mutation.Inventory(); !ok {
+		return &ValidationError{Name: "inventory", err: errors.New("ent: missing required field \"inventory\"")}
 	}
-	if _, ok := rc.mutation.DisableDate(); !ok {
-		return &ValidationError{Name: "disableDate", err: errors.New("ent: missing required field \"disableDate\"")}
-	}
-	if _, ok := rc.mutation.Cost(); !ok {
-		return &ValidationError{Name: "cost", err: errors.New("ent: missing required field \"cost\"")}
+	if _, ok := rc.mutation.UserName(); !ok {
+		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
 	}
 	if _, ok := rc.mutation.TenantId(); !ok {
 		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
 	}
 	if _, ok := rc.mutation.TenantName(); !ok {
 		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := rc.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := rc.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
 	}
 	if _, ok := rc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -222,53 +231,45 @@ func (rc *RationCreate) createSpec() (*Ration, *sqlgraph.CreateSpec) {
 		})
 		_node.Name = value
 	}
-	if value, ok := rc.mutation.Code(); ok {
+	if value, ok := rc.mutation.FormulaId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: ration.FieldFormulaId,
+		})
+		_node.FormulaId = value
+	}
+	if value, ok := rc.mutation.FormulaName(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: ration.FieldCode,
+			Column: ration.FieldFormulaName,
 		})
-		_node.Code = value
+		_node.FormulaName = value
 	}
-	if value, ok := rc.mutation.Status(); ok {
+	if value, ok := rc.mutation.FormulaCode(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
-			Column: ration.FieldStatus,
+			Column: ration.FieldFormulaCode,
 		})
-		_node.Status = value
+		_node.FormulaCode = value
 	}
-	if value, ok := rc.mutation.CreateDate(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: ration.FieldCreateDate,
-		})
-		_node.CreateDate = value
-	}
-	if value, ok := rc.mutation.AdjustDate(); ok {
+	if value, ok := rc.mutation.Inventory(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: ration.FieldAdjustDate,
+			Column: ration.FieldInventory,
 		})
-		_node.AdjustDate = value
+		_node.Inventory = value
 	}
-	if value, ok := rc.mutation.DisableDate(); ok {
+	if value, ok := rc.mutation.UserName(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
+			Type:   field.TypeString,
 			Value:  value,
-			Column: ration.FieldDisableDate,
+			Column: ration.FieldUserName,
 		})
-		_node.DisableDate = value
-	}
-	if value, ok := rc.mutation.Cost(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: ration.FieldCost,
-		})
-		_node.Cost = value
+		_node.UserName = value
 	}
 	if value, ok := rc.mutation.TenantId(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -285,6 +286,22 @@ func (rc *RationCreate) createSpec() (*Ration, *sqlgraph.CreateSpec) {
 			Column: ration.FieldTenantName,
 		})
 		_node.TenantName = value
+	}
+	if value, ok := rc.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: ration.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := rc.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: ration.FieldFarmName,
+		})
+		_node.FarmName = value
 	}
 	if value, ok := rc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

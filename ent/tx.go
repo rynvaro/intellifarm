@@ -72,6 +72,8 @@ type Tx struct {
 	CattleType *CattleTypeClient
 	// Change is the client for interacting with the Change builders.
 	Change *ChangeClient
+	// Concentrate is the client for interacting with the Concentrate builders.
+	Concentrate *ConcentrateClient
 	// ConcentrateFormula is the client for interacting with the ConcentrateFormula builders.
 	ConcentrateFormula *ConcentrateFormulaClient
 	// ConcentrateProcess is the client for interacting with the ConcentrateProcess builders.
@@ -140,6 +142,10 @@ type Tx struct {
 	PregnancyTestType *PregnancyTestTypeClient
 	// Ration is the client for interacting with the Ration builders.
 	Ration *RationClient
+	// RationFormula is the client for interacting with the RationFormula builders.
+	RationFormula *RationFormulaClient
+	// RationProcess is the client for interacting with the RationProcess builders.
+	RationProcess *RationProcessClient
 	// ReproductionParameters is the client for interacting with the ReproductionParameters builders.
 	ReproductionParameters *ReproductionParametersClient
 	// ReproductiveState is the client for interacting with the ReproductiveState builders.
@@ -337,6 +343,7 @@ func (tx *Tx) init() {
 	tx.CattleOwner = NewCattleOwnerClient(tx.config)
 	tx.CattleType = NewCattleTypeClient(tx.config)
 	tx.Change = NewChangeClient(tx.config)
+	tx.Concentrate = NewConcentrateClient(tx.config)
 	tx.ConcentrateFormula = NewConcentrateFormulaClient(tx.config)
 	tx.ConcentrateProcess = NewConcentrateProcessClient(tx.config)
 	tx.Conf = NewConfClient(tx.config)
@@ -371,6 +378,8 @@ func (tx *Tx) init() {
 	tx.PregnancyTestResult = NewPregnancyTestResultClient(tx.config)
 	tx.PregnancyTestType = NewPregnancyTestTypeClient(tx.config)
 	tx.Ration = NewRationClient(tx.config)
+	tx.RationFormula = NewRationFormulaClient(tx.config)
+	tx.RationProcess = NewRationProcessClient(tx.config)
 	tx.ReproductionParameters = NewReproductionParametersClient(tx.config)
 	tx.ReproductiveState = NewReproductiveStateClient(tx.config)
 	tx.SemenFrozenType = NewSemenFrozenTypeClient(tx.config)

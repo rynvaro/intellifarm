@@ -33,74 +33,47 @@ func (ru *RationUpdate) SetName(s string) *RationUpdate {
 	return ru
 }
 
-// SetCode sets the code field.
-func (ru *RationUpdate) SetCode(s string) *RationUpdate {
-	ru.mutation.SetCode(s)
+// SetFormulaId sets the formulaId field.
+func (ru *RationUpdate) SetFormulaId(i int64) *RationUpdate {
+	ru.mutation.ResetFormulaId()
+	ru.mutation.SetFormulaId(i)
 	return ru
 }
 
-// SetStatus sets the status field.
-func (ru *RationUpdate) SetStatus(i int) *RationUpdate {
-	ru.mutation.ResetStatus()
-	ru.mutation.SetStatus(i)
+// AddFormulaId adds i to formulaId.
+func (ru *RationUpdate) AddFormulaId(i int64) *RationUpdate {
+	ru.mutation.AddFormulaId(i)
 	return ru
 }
 
-// AddStatus adds i to status.
-func (ru *RationUpdate) AddStatus(i int) *RationUpdate {
-	ru.mutation.AddStatus(i)
+// SetFormulaName sets the formulaName field.
+func (ru *RationUpdate) SetFormulaName(s string) *RationUpdate {
+	ru.mutation.SetFormulaName(s)
 	return ru
 }
 
-// SetCreateDate sets the createDate field.
-func (ru *RationUpdate) SetCreateDate(i int64) *RationUpdate {
-	ru.mutation.ResetCreateDate()
-	ru.mutation.SetCreateDate(i)
+// SetFormulaCode sets the formulaCode field.
+func (ru *RationUpdate) SetFormulaCode(s string) *RationUpdate {
+	ru.mutation.SetFormulaCode(s)
 	return ru
 }
 
-// AddCreateDate adds i to createDate.
-func (ru *RationUpdate) AddCreateDate(i int64) *RationUpdate {
-	ru.mutation.AddCreateDate(i)
+// SetInventory sets the inventory field.
+func (ru *RationUpdate) SetInventory(i int64) *RationUpdate {
+	ru.mutation.ResetInventory()
+	ru.mutation.SetInventory(i)
 	return ru
 }
 
-// SetAdjustDate sets the adjustDate field.
-func (ru *RationUpdate) SetAdjustDate(i int64) *RationUpdate {
-	ru.mutation.ResetAdjustDate()
-	ru.mutation.SetAdjustDate(i)
+// AddInventory adds i to inventory.
+func (ru *RationUpdate) AddInventory(i int64) *RationUpdate {
+	ru.mutation.AddInventory(i)
 	return ru
 }
 
-// AddAdjustDate adds i to adjustDate.
-func (ru *RationUpdate) AddAdjustDate(i int64) *RationUpdate {
-	ru.mutation.AddAdjustDate(i)
-	return ru
-}
-
-// SetDisableDate sets the disableDate field.
-func (ru *RationUpdate) SetDisableDate(i int64) *RationUpdate {
-	ru.mutation.ResetDisableDate()
-	ru.mutation.SetDisableDate(i)
-	return ru
-}
-
-// AddDisableDate adds i to disableDate.
-func (ru *RationUpdate) AddDisableDate(i int64) *RationUpdate {
-	ru.mutation.AddDisableDate(i)
-	return ru
-}
-
-// SetCost sets the cost field.
-func (ru *RationUpdate) SetCost(i int64) *RationUpdate {
-	ru.mutation.ResetCost()
-	ru.mutation.SetCost(i)
-	return ru
-}
-
-// AddCost adds i to cost.
-func (ru *RationUpdate) AddCost(i int64) *RationUpdate {
-	ru.mutation.AddCost(i)
+// SetUserName sets the userName field.
+func (ru *RationUpdate) SetUserName(s string) *RationUpdate {
+	ru.mutation.SetUserName(s)
 	return ru
 }
 
@@ -120,6 +93,25 @@ func (ru *RationUpdate) AddTenantId(i int64) *RationUpdate {
 // SetTenantName sets the tenantName field.
 func (ru *RationUpdate) SetTenantName(s string) *RationUpdate {
 	ru.mutation.SetTenantName(s)
+	return ru
+}
+
+// SetFarmId sets the farmId field.
+func (ru *RationUpdate) SetFarmId(i int64) *RationUpdate {
+	ru.mutation.ResetFarmId()
+	ru.mutation.SetFarmId(i)
+	return ru
+}
+
+// AddFarmId adds i to farmId.
+func (ru *RationUpdate) AddFarmId(i int64) *RationUpdate {
+	ru.mutation.AddFarmId(i)
+	return ru
+}
+
+// SetFarmName sets the farmName field.
+func (ru *RationUpdate) SetFarmName(s string) *RationUpdate {
+	ru.mutation.SetFarmName(s)
 	return ru
 }
 
@@ -249,81 +241,53 @@ func (ru *RationUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: ration.FieldName,
 		})
 	}
-	if value, ok := ru.mutation.Code(); ok {
+	if value, ok := ru.mutation.FormulaId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: ration.FieldFormulaId,
+		})
+	}
+	if value, ok := ru.mutation.AddedFormulaId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: ration.FieldFormulaId,
+		})
+	}
+	if value, ok := ru.mutation.FormulaName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: ration.FieldCode,
+			Column: ration.FieldFormulaName,
 		})
 	}
-	if value, ok := ru.mutation.Status(); ok {
+	if value, ok := ru.mutation.FormulaCode(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
-			Column: ration.FieldStatus,
+			Column: ration.FieldFormulaCode,
 		})
 	}
-	if value, ok := ru.mutation.AddedStatus(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: ration.FieldStatus,
-		})
-	}
-	if value, ok := ru.mutation.CreateDate(); ok {
+	if value, ok := ru.mutation.Inventory(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: ration.FieldCreateDate,
+			Column: ration.FieldInventory,
 		})
 	}
-	if value, ok := ru.mutation.AddedCreateDate(); ok {
+	if value, ok := ru.mutation.AddedInventory(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: ration.FieldCreateDate,
+			Column: ration.FieldInventory,
 		})
 	}
-	if value, ok := ru.mutation.AdjustDate(); ok {
+	if value, ok := ru.mutation.UserName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
+			Type:   field.TypeString,
 			Value:  value,
-			Column: ration.FieldAdjustDate,
-		})
-	}
-	if value, ok := ru.mutation.AddedAdjustDate(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: ration.FieldAdjustDate,
-		})
-	}
-	if value, ok := ru.mutation.DisableDate(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: ration.FieldDisableDate,
-		})
-	}
-	if value, ok := ru.mutation.AddedDisableDate(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: ration.FieldDisableDate,
-		})
-	}
-	if value, ok := ru.mutation.Cost(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: ration.FieldCost,
-		})
-	}
-	if value, ok := ru.mutation.AddedCost(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: ration.FieldCost,
+			Column: ration.FieldUserName,
 		})
 	}
 	if value, ok := ru.mutation.TenantId(); ok {
@@ -345,6 +309,27 @@ func (ru *RationUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: ration.FieldTenantName,
+		})
+	}
+	if value, ok := ru.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: ration.FieldFarmId,
+		})
+	}
+	if value, ok := ru.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: ration.FieldFarmId,
+		})
+	}
+	if value, ok := ru.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: ration.FieldFarmName,
 		})
 	}
 	if value, ok := ru.mutation.Remarks(); ok {
@@ -420,74 +405,47 @@ func (ruo *RationUpdateOne) SetName(s string) *RationUpdateOne {
 	return ruo
 }
 
-// SetCode sets the code field.
-func (ruo *RationUpdateOne) SetCode(s string) *RationUpdateOne {
-	ruo.mutation.SetCode(s)
+// SetFormulaId sets the formulaId field.
+func (ruo *RationUpdateOne) SetFormulaId(i int64) *RationUpdateOne {
+	ruo.mutation.ResetFormulaId()
+	ruo.mutation.SetFormulaId(i)
 	return ruo
 }
 
-// SetStatus sets the status field.
-func (ruo *RationUpdateOne) SetStatus(i int) *RationUpdateOne {
-	ruo.mutation.ResetStatus()
-	ruo.mutation.SetStatus(i)
+// AddFormulaId adds i to formulaId.
+func (ruo *RationUpdateOne) AddFormulaId(i int64) *RationUpdateOne {
+	ruo.mutation.AddFormulaId(i)
 	return ruo
 }
 
-// AddStatus adds i to status.
-func (ruo *RationUpdateOne) AddStatus(i int) *RationUpdateOne {
-	ruo.mutation.AddStatus(i)
+// SetFormulaName sets the formulaName field.
+func (ruo *RationUpdateOne) SetFormulaName(s string) *RationUpdateOne {
+	ruo.mutation.SetFormulaName(s)
 	return ruo
 }
 
-// SetCreateDate sets the createDate field.
-func (ruo *RationUpdateOne) SetCreateDate(i int64) *RationUpdateOne {
-	ruo.mutation.ResetCreateDate()
-	ruo.mutation.SetCreateDate(i)
+// SetFormulaCode sets the formulaCode field.
+func (ruo *RationUpdateOne) SetFormulaCode(s string) *RationUpdateOne {
+	ruo.mutation.SetFormulaCode(s)
 	return ruo
 }
 
-// AddCreateDate adds i to createDate.
-func (ruo *RationUpdateOne) AddCreateDate(i int64) *RationUpdateOne {
-	ruo.mutation.AddCreateDate(i)
+// SetInventory sets the inventory field.
+func (ruo *RationUpdateOne) SetInventory(i int64) *RationUpdateOne {
+	ruo.mutation.ResetInventory()
+	ruo.mutation.SetInventory(i)
 	return ruo
 }
 
-// SetAdjustDate sets the adjustDate field.
-func (ruo *RationUpdateOne) SetAdjustDate(i int64) *RationUpdateOne {
-	ruo.mutation.ResetAdjustDate()
-	ruo.mutation.SetAdjustDate(i)
+// AddInventory adds i to inventory.
+func (ruo *RationUpdateOne) AddInventory(i int64) *RationUpdateOne {
+	ruo.mutation.AddInventory(i)
 	return ruo
 }
 
-// AddAdjustDate adds i to adjustDate.
-func (ruo *RationUpdateOne) AddAdjustDate(i int64) *RationUpdateOne {
-	ruo.mutation.AddAdjustDate(i)
-	return ruo
-}
-
-// SetDisableDate sets the disableDate field.
-func (ruo *RationUpdateOne) SetDisableDate(i int64) *RationUpdateOne {
-	ruo.mutation.ResetDisableDate()
-	ruo.mutation.SetDisableDate(i)
-	return ruo
-}
-
-// AddDisableDate adds i to disableDate.
-func (ruo *RationUpdateOne) AddDisableDate(i int64) *RationUpdateOne {
-	ruo.mutation.AddDisableDate(i)
-	return ruo
-}
-
-// SetCost sets the cost field.
-func (ruo *RationUpdateOne) SetCost(i int64) *RationUpdateOne {
-	ruo.mutation.ResetCost()
-	ruo.mutation.SetCost(i)
-	return ruo
-}
-
-// AddCost adds i to cost.
-func (ruo *RationUpdateOne) AddCost(i int64) *RationUpdateOne {
-	ruo.mutation.AddCost(i)
+// SetUserName sets the userName field.
+func (ruo *RationUpdateOne) SetUserName(s string) *RationUpdateOne {
+	ruo.mutation.SetUserName(s)
 	return ruo
 }
 
@@ -507,6 +465,25 @@ func (ruo *RationUpdateOne) AddTenantId(i int64) *RationUpdateOne {
 // SetTenantName sets the tenantName field.
 func (ruo *RationUpdateOne) SetTenantName(s string) *RationUpdateOne {
 	ruo.mutation.SetTenantName(s)
+	return ruo
+}
+
+// SetFarmId sets the farmId field.
+func (ruo *RationUpdateOne) SetFarmId(i int64) *RationUpdateOne {
+	ruo.mutation.ResetFarmId()
+	ruo.mutation.SetFarmId(i)
+	return ruo
+}
+
+// AddFarmId adds i to farmId.
+func (ruo *RationUpdateOne) AddFarmId(i int64) *RationUpdateOne {
+	ruo.mutation.AddFarmId(i)
+	return ruo
+}
+
+// SetFarmName sets the farmName field.
+func (ruo *RationUpdateOne) SetFarmName(s string) *RationUpdateOne {
+	ruo.mutation.SetFarmName(s)
 	return ruo
 }
 
@@ -634,81 +611,53 @@ func (ruo *RationUpdateOne) sqlSave(ctx context.Context) (_node *Ration, err err
 			Column: ration.FieldName,
 		})
 	}
-	if value, ok := ruo.mutation.Code(); ok {
+	if value, ok := ruo.mutation.FormulaId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: ration.FieldFormulaId,
+		})
+	}
+	if value, ok := ruo.mutation.AddedFormulaId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: ration.FieldFormulaId,
+		})
+	}
+	if value, ok := ruo.mutation.FormulaName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: ration.FieldCode,
+			Column: ration.FieldFormulaName,
 		})
 	}
-	if value, ok := ruo.mutation.Status(); ok {
+	if value, ok := ruo.mutation.FormulaCode(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
+			Type:   field.TypeString,
 			Value:  value,
-			Column: ration.FieldStatus,
+			Column: ration.FieldFormulaCode,
 		})
 	}
-	if value, ok := ruo.mutation.AddedStatus(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt,
-			Value:  value,
-			Column: ration.FieldStatus,
-		})
-	}
-	if value, ok := ruo.mutation.CreateDate(); ok {
+	if value, ok := ruo.mutation.Inventory(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: ration.FieldCreateDate,
+			Column: ration.FieldInventory,
 		})
 	}
-	if value, ok := ruo.mutation.AddedCreateDate(); ok {
+	if value, ok := ruo.mutation.AddedInventory(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: ration.FieldCreateDate,
+			Column: ration.FieldInventory,
 		})
 	}
-	if value, ok := ruo.mutation.AdjustDate(); ok {
+	if value, ok := ruo.mutation.UserName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
+			Type:   field.TypeString,
 			Value:  value,
-			Column: ration.FieldAdjustDate,
-		})
-	}
-	if value, ok := ruo.mutation.AddedAdjustDate(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: ration.FieldAdjustDate,
-		})
-	}
-	if value, ok := ruo.mutation.DisableDate(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: ration.FieldDisableDate,
-		})
-	}
-	if value, ok := ruo.mutation.AddedDisableDate(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: ration.FieldDisableDate,
-		})
-	}
-	if value, ok := ruo.mutation.Cost(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: ration.FieldCost,
-		})
-	}
-	if value, ok := ruo.mutation.AddedCost(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: ration.FieldCost,
+			Column: ration.FieldUserName,
 		})
 	}
 	if value, ok := ruo.mutation.TenantId(); ok {
@@ -730,6 +679,27 @@ func (ruo *RationUpdateOne) sqlSave(ctx context.Context) (_node *Ration, err err
 			Type:   field.TypeString,
 			Value:  value,
 			Column: ration.FieldTenantName,
+		})
+	}
+	if value, ok := ruo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: ration.FieldFarmId,
+		})
+	}
+	if value, ok := ruo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: ration.FieldFarmId,
+		})
+	}
+	if value, ok := ruo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: ration.FieldFarmName,
 		})
 	}
 	if value, ok := ruo.mutation.Remarks(); ok {

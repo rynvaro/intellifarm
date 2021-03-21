@@ -27,16 +27,16 @@ func (cpu *ConcentrateProcessUpdate) Where(ps ...predicate.ConcentrateProcess) *
 	return cpu
 }
 
-// SetFormulaID sets the formulaID field.
-func (cpu *ConcentrateProcessUpdate) SetFormulaID(i int64) *ConcentrateProcessUpdate {
-	cpu.mutation.ResetFormulaID()
-	cpu.mutation.SetFormulaID(i)
+// SetConcentrateId sets the concentrateId field.
+func (cpu *ConcentrateProcessUpdate) SetConcentrateId(i int64) *ConcentrateProcessUpdate {
+	cpu.mutation.ResetConcentrateId()
+	cpu.mutation.SetConcentrateId(i)
 	return cpu
 }
 
-// AddFormulaID adds i to formulaID.
-func (cpu *ConcentrateProcessUpdate) AddFormulaID(i int64) *ConcentrateProcessUpdate {
-	cpu.mutation.AddFormulaID(i)
+// AddConcentrateId adds i to concentrateId.
+func (cpu *ConcentrateProcessUpdate) AddConcentrateId(i int64) *ConcentrateProcessUpdate {
+	cpu.mutation.AddConcentrateId(i)
 	return cpu
 }
 
@@ -46,9 +46,17 @@ func (cpu *ConcentrateProcessUpdate) SetName(s string) *ConcentrateProcessUpdate
 	return cpu
 }
 
-// SetCode sets the code field.
-func (cpu *ConcentrateProcessUpdate) SetCode(s string) *ConcentrateProcessUpdate {
-	cpu.mutation.SetCode(s)
+// SetNillableName sets the name field if the given value is not nil.
+func (cpu *ConcentrateProcessUpdate) SetNillableName(s *string) *ConcentrateProcessUpdate {
+	if s != nil {
+		cpu.SetName(*s)
+	}
+	return cpu
+}
+
+// ClearName clears the value of name.
+func (cpu *ConcentrateProcessUpdate) ClearName() *ConcentrateProcessUpdate {
+	cpu.mutation.ClearName()
 	return cpu
 }
 
@@ -91,19 +99,6 @@ func (cpu *ConcentrateProcessUpdate) AddIn(i int64) *ConcentrateProcessUpdate {
 	return cpu
 }
 
-// SetInventory sets the inventory field.
-func (cpu *ConcentrateProcessUpdate) SetInventory(i int64) *ConcentrateProcessUpdate {
-	cpu.mutation.ResetInventory()
-	cpu.mutation.SetInventory(i)
-	return cpu
-}
-
-// AddInventory adds i to inventory.
-func (cpu *ConcentrateProcessUpdate) AddInventory(i int64) *ConcentrateProcessUpdate {
-	cpu.mutation.AddInventory(i)
-	return cpu
-}
-
 // SetUserName sets the userName field.
 func (cpu *ConcentrateProcessUpdate) SetUserName(s string) *ConcentrateProcessUpdate {
 	cpu.mutation.SetUserName(s)
@@ -126,6 +121,25 @@ func (cpu *ConcentrateProcessUpdate) AddTenantId(i int64) *ConcentrateProcessUpd
 // SetTenantName sets the tenantName field.
 func (cpu *ConcentrateProcessUpdate) SetTenantName(s string) *ConcentrateProcessUpdate {
 	cpu.mutation.SetTenantName(s)
+	return cpu
+}
+
+// SetFarmId sets the farmId field.
+func (cpu *ConcentrateProcessUpdate) SetFarmId(i int64) *ConcentrateProcessUpdate {
+	cpu.mutation.ResetFarmId()
+	cpu.mutation.SetFarmId(i)
+	return cpu
+}
+
+// AddFarmId adds i to farmId.
+func (cpu *ConcentrateProcessUpdate) AddFarmId(i int64) *ConcentrateProcessUpdate {
+	cpu.mutation.AddFarmId(i)
+	return cpu
+}
+
+// SetFarmName sets the farmName field.
+func (cpu *ConcentrateProcessUpdate) SetFarmName(s string) *ConcentrateProcessUpdate {
+	cpu.mutation.SetFarmName(s)
 	return cpu
 }
 
@@ -248,18 +262,18 @@ func (cpu *ConcentrateProcessUpdate) sqlSave(ctx context.Context) (n int, err er
 			}
 		}
 	}
-	if value, ok := cpu.mutation.FormulaID(); ok {
+	if value, ok := cpu.mutation.ConcentrateId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: concentrateprocess.FieldFormulaID,
+			Column: concentrateprocess.FieldConcentrateId,
 		})
 	}
-	if value, ok := cpu.mutation.AddedFormulaID(); ok {
+	if value, ok := cpu.mutation.AddedConcentrateId(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: concentrateprocess.FieldFormulaID,
+			Column: concentrateprocess.FieldConcentrateId,
 		})
 	}
 	if value, ok := cpu.mutation.Name(); ok {
@@ -269,11 +283,10 @@ func (cpu *ConcentrateProcessUpdate) sqlSave(ctx context.Context) (n int, err er
 			Column: concentrateprocess.FieldName,
 		})
 	}
-	if value, ok := cpu.mutation.Code(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+	if cpu.mutation.NameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
-			Value:  value,
-			Column: concentrateprocess.FieldCode,
+			Column: concentrateprocess.FieldName,
 		})
 	}
 	if value, ok := cpu.mutation.Date(); ok {
@@ -318,20 +331,6 @@ func (cpu *ConcentrateProcessUpdate) sqlSave(ctx context.Context) (n int, err er
 			Column: concentrateprocess.FieldIn,
 		})
 	}
-	if value, ok := cpu.mutation.Inventory(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateprocess.FieldInventory,
-		})
-	}
-	if value, ok := cpu.mutation.AddedInventory(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateprocess.FieldInventory,
-		})
-	}
 	if value, ok := cpu.mutation.UserName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -358,6 +357,27 @@ func (cpu *ConcentrateProcessUpdate) sqlSave(ctx context.Context) (n int, err er
 			Type:   field.TypeString,
 			Value:  value,
 			Column: concentrateprocess.FieldTenantName,
+		})
+	}
+	if value, ok := cpu.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateprocess.FieldFarmId,
+		})
+	}
+	if value, ok := cpu.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateprocess.FieldFarmId,
+		})
+	}
+	if value, ok := cpu.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: concentrateprocess.FieldFarmName,
 		})
 	}
 	if value, ok := cpu.mutation.Remarks(); ok {
@@ -427,16 +447,16 @@ type ConcentrateProcessUpdateOne struct {
 	mutation *ConcentrateProcessMutation
 }
 
-// SetFormulaID sets the formulaID field.
-func (cpuo *ConcentrateProcessUpdateOne) SetFormulaID(i int64) *ConcentrateProcessUpdateOne {
-	cpuo.mutation.ResetFormulaID()
-	cpuo.mutation.SetFormulaID(i)
+// SetConcentrateId sets the concentrateId field.
+func (cpuo *ConcentrateProcessUpdateOne) SetConcentrateId(i int64) *ConcentrateProcessUpdateOne {
+	cpuo.mutation.ResetConcentrateId()
+	cpuo.mutation.SetConcentrateId(i)
 	return cpuo
 }
 
-// AddFormulaID adds i to formulaID.
-func (cpuo *ConcentrateProcessUpdateOne) AddFormulaID(i int64) *ConcentrateProcessUpdateOne {
-	cpuo.mutation.AddFormulaID(i)
+// AddConcentrateId adds i to concentrateId.
+func (cpuo *ConcentrateProcessUpdateOne) AddConcentrateId(i int64) *ConcentrateProcessUpdateOne {
+	cpuo.mutation.AddConcentrateId(i)
 	return cpuo
 }
 
@@ -446,9 +466,17 @@ func (cpuo *ConcentrateProcessUpdateOne) SetName(s string) *ConcentrateProcessUp
 	return cpuo
 }
 
-// SetCode sets the code field.
-func (cpuo *ConcentrateProcessUpdateOne) SetCode(s string) *ConcentrateProcessUpdateOne {
-	cpuo.mutation.SetCode(s)
+// SetNillableName sets the name field if the given value is not nil.
+func (cpuo *ConcentrateProcessUpdateOne) SetNillableName(s *string) *ConcentrateProcessUpdateOne {
+	if s != nil {
+		cpuo.SetName(*s)
+	}
+	return cpuo
+}
+
+// ClearName clears the value of name.
+func (cpuo *ConcentrateProcessUpdateOne) ClearName() *ConcentrateProcessUpdateOne {
+	cpuo.mutation.ClearName()
 	return cpuo
 }
 
@@ -491,19 +519,6 @@ func (cpuo *ConcentrateProcessUpdateOne) AddIn(i int64) *ConcentrateProcessUpdat
 	return cpuo
 }
 
-// SetInventory sets the inventory field.
-func (cpuo *ConcentrateProcessUpdateOne) SetInventory(i int64) *ConcentrateProcessUpdateOne {
-	cpuo.mutation.ResetInventory()
-	cpuo.mutation.SetInventory(i)
-	return cpuo
-}
-
-// AddInventory adds i to inventory.
-func (cpuo *ConcentrateProcessUpdateOne) AddInventory(i int64) *ConcentrateProcessUpdateOne {
-	cpuo.mutation.AddInventory(i)
-	return cpuo
-}
-
 // SetUserName sets the userName field.
 func (cpuo *ConcentrateProcessUpdateOne) SetUserName(s string) *ConcentrateProcessUpdateOne {
 	cpuo.mutation.SetUserName(s)
@@ -526,6 +541,25 @@ func (cpuo *ConcentrateProcessUpdateOne) AddTenantId(i int64) *ConcentrateProces
 // SetTenantName sets the tenantName field.
 func (cpuo *ConcentrateProcessUpdateOne) SetTenantName(s string) *ConcentrateProcessUpdateOne {
 	cpuo.mutation.SetTenantName(s)
+	return cpuo
+}
+
+// SetFarmId sets the farmId field.
+func (cpuo *ConcentrateProcessUpdateOne) SetFarmId(i int64) *ConcentrateProcessUpdateOne {
+	cpuo.mutation.ResetFarmId()
+	cpuo.mutation.SetFarmId(i)
+	return cpuo
+}
+
+// AddFarmId adds i to farmId.
+func (cpuo *ConcentrateProcessUpdateOne) AddFarmId(i int64) *ConcentrateProcessUpdateOne {
+	cpuo.mutation.AddFarmId(i)
+	return cpuo
+}
+
+// SetFarmName sets the farmName field.
+func (cpuo *ConcentrateProcessUpdateOne) SetFarmName(s string) *ConcentrateProcessUpdateOne {
+	cpuo.mutation.SetFarmName(s)
 	return cpuo
 }
 
@@ -646,18 +680,18 @@ func (cpuo *ConcentrateProcessUpdateOne) sqlSave(ctx context.Context) (_node *Co
 		return nil, &ValidationError{Name: "ID", err: fmt.Errorf("missing ConcentrateProcess.ID for update")}
 	}
 	_spec.Node.ID.Value = id
-	if value, ok := cpuo.mutation.FormulaID(); ok {
+	if value, ok := cpuo.mutation.ConcentrateId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: concentrateprocess.FieldFormulaID,
+			Column: concentrateprocess.FieldConcentrateId,
 		})
 	}
-	if value, ok := cpuo.mutation.AddedFormulaID(); ok {
+	if value, ok := cpuo.mutation.AddedConcentrateId(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: concentrateprocess.FieldFormulaID,
+			Column: concentrateprocess.FieldConcentrateId,
 		})
 	}
 	if value, ok := cpuo.mutation.Name(); ok {
@@ -667,11 +701,10 @@ func (cpuo *ConcentrateProcessUpdateOne) sqlSave(ctx context.Context) (_node *Co
 			Column: concentrateprocess.FieldName,
 		})
 	}
-	if value, ok := cpuo.mutation.Code(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+	if cpuo.mutation.NameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
-			Value:  value,
-			Column: concentrateprocess.FieldCode,
+			Column: concentrateprocess.FieldName,
 		})
 	}
 	if value, ok := cpuo.mutation.Date(); ok {
@@ -716,20 +749,6 @@ func (cpuo *ConcentrateProcessUpdateOne) sqlSave(ctx context.Context) (_node *Co
 			Column: concentrateprocess.FieldIn,
 		})
 	}
-	if value, ok := cpuo.mutation.Inventory(); ok {
-		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateprocess.FieldInventory,
-		})
-	}
-	if value, ok := cpuo.mutation.AddedInventory(); ok {
-		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateprocess.FieldInventory,
-		})
-	}
 	if value, ok := cpuo.mutation.UserName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -756,6 +775,27 @@ func (cpuo *ConcentrateProcessUpdateOne) sqlSave(ctx context.Context) (_node *Co
 			Type:   field.TypeString,
 			Value:  value,
 			Column: concentrateprocess.FieldTenantName,
+		})
+	}
+	if value, ok := cpuo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateprocess.FieldFarmId,
+		})
+	}
+	if value, ok := cpuo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateprocess.FieldFarmId,
+		})
+	}
+	if value, ok := cpuo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: concentrateprocess.FieldFarmName,
 		})
 	}
 	if value, ok := cpuo.mutation.Remarks(); ok {

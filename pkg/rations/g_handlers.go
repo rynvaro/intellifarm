@@ -23,17 +23,19 @@ func RationAddHandler(c *gin.Context) {
 	}
 	log.Debug().Msg(form.String())
 	ration, err := db.Client.Ration.Create().
-		SetAdjustDate(form.AdjustDate).
-		SetCode(form.Code).
-		SetCost(form.Cost).
-		SetCreateDate(form.CreateDate).
-		SetDisableDate(form.DisableDate).
+		SetFarmId(form.FarmId).
+		SetFarmName(form.FarmName).
+		SetFormulaCode(form.FormulaCode).
+		SetFormulaId(form.FormulaId).
+		SetFormulaName(form.FormulaName).
+		SetInventory(form.Inventory).
 		SetName(form.Name).
 		SetRemarks(form.Remarks).
-		SetStatus(form.Status).
 		SetTenantId(form.TenantId).
 		SetTenantName(form.TenantName).
-		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
+		SetUserName(form.UserName).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
@@ -96,14 +98,17 @@ func RationUpdateHandler(c *gin.Context) {
 	}
 	log.Debug().Msg(form.String())
 	ration, err := db.Client.Ration.UpdateOneID(form.ID).
-		SetAdjustDate(form.AdjustDate).
-		SetCode(form.Code).
-		SetCost(form.Cost).
-		SetCreateDate(form.CreateDate).
-		SetDisableDate(form.DisableDate).
+		SetFarmId(form.FarmId).
+		SetFarmName(form.FarmName).
+		SetFormulaCode(form.FormulaCode).
+		SetFormulaId(form.FormulaId).
+		SetFormulaName(form.FormulaName).
+		SetInventory(form.Inventory).
 		SetName(form.Name).
 		SetRemarks(form.Remarks).
-		SetStatus(form.Status).
+		SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
+		SetUserName(form.UserName).
 		SetUpdatedAt(time.Now().Unix()).
 		Save(c.Request.Context())
 	if err != nil {

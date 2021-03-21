@@ -91,10 +91,10 @@ func IDLTE(id int64) predicate.ConcentrateProcess {
 	})
 }
 
-// FormulaID applies equality check predicate on the "formulaID" field. It's identical to FormulaIDEQ.
-func FormulaID(v int64) predicate.ConcentrateProcess {
+// ConcentrateId applies equality check predicate on the "concentrateId" field. It's identical to ConcentrateIdEQ.
+func ConcentrateId(v int64) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldFormulaID), v))
+		s.Where(sql.EQ(s.C(FieldConcentrateId), v))
 	})
 }
 
@@ -102,13 +102,6 @@ func FormulaID(v int64) predicate.ConcentrateProcess {
 func Name(v string) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldName), v))
-	})
-}
-
-// Code applies equality check predicate on the "code" field. It's identical to CodeEQ.
-func Code(v string) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCode), v))
 	})
 }
 
@@ -133,13 +126,6 @@ func In(v int64) predicate.ConcentrateProcess {
 	})
 }
 
-// Inventory applies equality check predicate on the "inventory" field. It's identical to InventoryEQ.
-func Inventory(v int64) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldInventory), v))
-	})
-}
-
 // UserName applies equality check predicate on the "userName" field. It's identical to UserNameEQ.
 func UserName(v string) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
@@ -158,6 +144,20 @@ func TenantId(v int64) predicate.ConcentrateProcess {
 func TenantName(v string) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldTenantName), v))
+	})
+}
+
+// FarmId applies equality check predicate on the "farmId" field. It's identical to FarmIdEQ.
+func FarmId(v int64) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmName applies equality check predicate on the "farmName" field. It's identical to FarmNameEQ.
+func FarmName(v string) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
 	})
 }
 
@@ -189,22 +189,22 @@ func Deleted(v int) predicate.ConcentrateProcess {
 	})
 }
 
-// FormulaIDEQ applies the EQ predicate on the "formulaID" field.
-func FormulaIDEQ(v int64) predicate.ConcentrateProcess {
+// ConcentrateIdEQ applies the EQ predicate on the "concentrateId" field.
+func ConcentrateIdEQ(v int64) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldFormulaID), v))
+		s.Where(sql.EQ(s.C(FieldConcentrateId), v))
 	})
 }
 
-// FormulaIDNEQ applies the NEQ predicate on the "formulaID" field.
-func FormulaIDNEQ(v int64) predicate.ConcentrateProcess {
+// ConcentrateIdNEQ applies the NEQ predicate on the "concentrateId" field.
+func ConcentrateIdNEQ(v int64) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldFormulaID), v))
+		s.Where(sql.NEQ(s.C(FieldConcentrateId), v))
 	})
 }
 
-// FormulaIDIn applies the In predicate on the "formulaID" field.
-func FormulaIDIn(vs ...int64) predicate.ConcentrateProcess {
+// ConcentrateIdIn applies the In predicate on the "concentrateId" field.
+func ConcentrateIdIn(vs ...int64) predicate.ConcentrateProcess {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -216,12 +216,12 @@ func FormulaIDIn(vs ...int64) predicate.ConcentrateProcess {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldFormulaID), v...))
+		s.Where(sql.In(s.C(FieldConcentrateId), v...))
 	})
 }
 
-// FormulaIDNotIn applies the NotIn predicate on the "formulaID" field.
-func FormulaIDNotIn(vs ...int64) predicate.ConcentrateProcess {
+// ConcentrateIdNotIn applies the NotIn predicate on the "concentrateId" field.
+func ConcentrateIdNotIn(vs ...int64) predicate.ConcentrateProcess {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -233,35 +233,35 @@ func FormulaIDNotIn(vs ...int64) predicate.ConcentrateProcess {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldFormulaID), v...))
+		s.Where(sql.NotIn(s.C(FieldConcentrateId), v...))
 	})
 }
 
-// FormulaIDGT applies the GT predicate on the "formulaID" field.
-func FormulaIDGT(v int64) predicate.ConcentrateProcess {
+// ConcentrateIdGT applies the GT predicate on the "concentrateId" field.
+func ConcentrateIdGT(v int64) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldFormulaID), v))
+		s.Where(sql.GT(s.C(FieldConcentrateId), v))
 	})
 }
 
-// FormulaIDGTE applies the GTE predicate on the "formulaID" field.
-func FormulaIDGTE(v int64) predicate.ConcentrateProcess {
+// ConcentrateIdGTE applies the GTE predicate on the "concentrateId" field.
+func ConcentrateIdGTE(v int64) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldFormulaID), v))
+		s.Where(sql.GTE(s.C(FieldConcentrateId), v))
 	})
 }
 
-// FormulaIDLT applies the LT predicate on the "formulaID" field.
-func FormulaIDLT(v int64) predicate.ConcentrateProcess {
+// ConcentrateIdLT applies the LT predicate on the "concentrateId" field.
+func ConcentrateIdLT(v int64) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldFormulaID), v))
+		s.Where(sql.LT(s.C(FieldConcentrateId), v))
 	})
 }
 
-// FormulaIDLTE applies the LTE predicate on the "formulaID" field.
-func FormulaIDLTE(v int64) predicate.ConcentrateProcess {
+// ConcentrateIdLTE applies the LTE predicate on the "concentrateId" field.
+func ConcentrateIdLTE(v int64) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldFormulaID), v))
+		s.Where(sql.LTE(s.C(FieldConcentrateId), v))
 	})
 }
 
@@ -362,6 +362,20 @@ func NameHasSuffix(v string) predicate.ConcentrateProcess {
 	})
 }
 
+// NameIsNil applies the IsNil predicate on the "name" field.
+func NameIsNil() predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldName)))
+	})
+}
+
+// NameNotNil applies the NotNil predicate on the "name" field.
+func NameNotNil() predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldName)))
+	})
+}
+
 // NameEqualFold applies the EqualFold predicate on the "name" field.
 func NameEqualFold(v string) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
@@ -373,117 +387,6 @@ func NameEqualFold(v string) predicate.ConcentrateProcess {
 func NameContainsFold(v string) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldName), v))
-	})
-}
-
-// CodeEQ applies the EQ predicate on the "code" field.
-func CodeEQ(v string) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCode), v))
-	})
-}
-
-// CodeNEQ applies the NEQ predicate on the "code" field.
-func CodeNEQ(v string) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldCode), v))
-	})
-}
-
-// CodeIn applies the In predicate on the "code" field.
-func CodeIn(vs ...string) predicate.ConcentrateProcess {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.In(s.C(FieldCode), v...))
-	})
-}
-
-// CodeNotIn applies the NotIn predicate on the "code" field.
-func CodeNotIn(vs ...string) predicate.ConcentrateProcess {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.NotIn(s.C(FieldCode), v...))
-	})
-}
-
-// CodeGT applies the GT predicate on the "code" field.
-func CodeGT(v string) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldCode), v))
-	})
-}
-
-// CodeGTE applies the GTE predicate on the "code" field.
-func CodeGTE(v string) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldCode), v))
-	})
-}
-
-// CodeLT applies the LT predicate on the "code" field.
-func CodeLT(v string) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldCode), v))
-	})
-}
-
-// CodeLTE applies the LTE predicate on the "code" field.
-func CodeLTE(v string) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldCode), v))
-	})
-}
-
-// CodeContains applies the Contains predicate on the "code" field.
-func CodeContains(v string) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldCode), v))
-	})
-}
-
-// CodeHasPrefix applies the HasPrefix predicate on the "code" field.
-func CodeHasPrefix(v string) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldCode), v))
-	})
-}
-
-// CodeHasSuffix applies the HasSuffix predicate on the "code" field.
-func CodeHasSuffix(v string) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldCode), v))
-	})
-}
-
-// CodeEqualFold applies the EqualFold predicate on the "code" field.
-func CodeEqualFold(v string) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldCode), v))
-	})
-}
-
-// CodeContainsFold applies the ContainsFold predicate on the "code" field.
-func CodeContainsFold(v string) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldCode), v))
 	})
 }
 
@@ -712,82 +615,6 @@ func InLT(v int64) predicate.ConcentrateProcess {
 func InLTE(v int64) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldIn), v))
-	})
-}
-
-// InventoryEQ applies the EQ predicate on the "inventory" field.
-func InventoryEQ(v int64) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldInventory), v))
-	})
-}
-
-// InventoryNEQ applies the NEQ predicate on the "inventory" field.
-func InventoryNEQ(v int64) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldInventory), v))
-	})
-}
-
-// InventoryIn applies the In predicate on the "inventory" field.
-func InventoryIn(vs ...int64) predicate.ConcentrateProcess {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.In(s.C(FieldInventory), v...))
-	})
-}
-
-// InventoryNotIn applies the NotIn predicate on the "inventory" field.
-func InventoryNotIn(vs ...int64) predicate.ConcentrateProcess {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.NotIn(s.C(FieldInventory), v...))
-	})
-}
-
-// InventoryGT applies the GT predicate on the "inventory" field.
-func InventoryGT(v int64) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldInventory), v))
-	})
-}
-
-// InventoryGTE applies the GTE predicate on the "inventory" field.
-func InventoryGTE(v int64) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldInventory), v))
-	})
-}
-
-// InventoryLT applies the LT predicate on the "inventory" field.
-func InventoryLT(v int64) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldInventory), v))
-	})
-}
-
-// InventoryLTE applies the LTE predicate on the "inventory" field.
-func InventoryLTE(v int64) predicate.ConcentrateProcess {
-	return predicate.ConcentrateProcess(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldInventory), v))
 	})
 }
 
@@ -1086,6 +913,193 @@ func TenantNameEqualFold(v string) predicate.ConcentrateProcess {
 func TenantNameContainsFold(v string) predicate.ConcentrateProcess {
 	return predicate.ConcentrateProcess(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldTenantName), v))
+	})
+}
+
+// FarmIdEQ applies the EQ predicate on the "farmId" field.
+func FarmIdEQ(v int64) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdNEQ applies the NEQ predicate on the "farmId" field.
+func FarmIdNEQ(v int64) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdIn applies the In predicate on the "farmId" field.
+func FarmIdIn(vs ...int64) predicate.ConcentrateProcess {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdNotIn applies the NotIn predicate on the "farmId" field.
+func FarmIdNotIn(vs ...int64) predicate.ConcentrateProcess {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdGT applies the GT predicate on the "farmId" field.
+func FarmIdGT(v int64) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdGTE applies the GTE predicate on the "farmId" field.
+func FarmIdGTE(v int64) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLT applies the LT predicate on the "farmId" field.
+func FarmIdLT(v int64) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLTE applies the LTE predicate on the "farmId" field.
+func FarmIdLTE(v int64) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmNameEQ applies the EQ predicate on the "farmName" field.
+func FarmNameEQ(v string) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameNEQ applies the NEQ predicate on the "farmName" field.
+func FarmNameNEQ(v string) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameIn applies the In predicate on the "farmName" field.
+func FarmNameIn(vs ...string) predicate.ConcentrateProcess {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameNotIn applies the NotIn predicate on the "farmName" field.
+func FarmNameNotIn(vs ...string) predicate.ConcentrateProcess {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameGT applies the GT predicate on the "farmName" field.
+func FarmNameGT(v string) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameGTE applies the GTE predicate on the "farmName" field.
+func FarmNameGTE(v string) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLT applies the LT predicate on the "farmName" field.
+func FarmNameLT(v string) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLTE applies the LTE predicate on the "farmName" field.
+func FarmNameLTE(v string) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContains applies the Contains predicate on the "farmName" field.
+func FarmNameContains(v string) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasPrefix applies the HasPrefix predicate on the "farmName" field.
+func FarmNameHasPrefix(v string) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasSuffix applies the HasSuffix predicate on the "farmName" field.
+func FarmNameHasSuffix(v string) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameEqualFold applies the EqualFold predicate on the "farmName" field.
+func FarmNameEqualFold(v string) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContainsFold applies the ContainsFold predicate on the "farmName" field.
+func FarmNameContainsFold(v string) predicate.ConcentrateProcess {
+	return predicate.ConcentrateProcess(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldFarmName), v))
 	})
 }
 

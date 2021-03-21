@@ -32,6 +32,7 @@ import (
 	"cattleai/pkg/cattletypes"
 	"cattleai/pkg/concentrateformulas"
 	"cattleai/pkg/concentrateprocesses"
+	"cattleai/pkg/concentrates"
 	"cattleai/pkg/customers"
 	"cattleai/pkg/diseaseinfos"
 	"cattleai/pkg/disinfects"
@@ -59,6 +60,8 @@ import (
 	"cattleai/pkg/pregnancytestresults"
 	"cattleai/pkg/pregnancytests"
 	"cattleai/pkg/pregnancytesttypes"
+	"cattleai/pkg/rationformulas"
+	rationprocess "cattleai/pkg/rationprocesses"
 	"cattleai/pkg/rations"
 	"cattleai/pkg/reproductionparameters"
 	"cattleai/pkg/reproductivestates"
@@ -169,7 +172,10 @@ func Register(g *gin.RouterGroup) {
 
 	concentrateformulas.RegisterRoutes(g)
 	concentrateprocesses.RegisterRoutes(g)
+	concentrates.RegisterRoutes(g)
 	rations.RegisterRoutes(g)
+	rationformulas.RegisterRoutes(g)
+	rationprocess.RegisterRoutes(g)
 	feedrecords.RegisterRoutes(g)
 
 	cattleins.RegisterRoutes(g)

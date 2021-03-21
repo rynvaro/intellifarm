@@ -13,12 +13,6 @@ const (
 	FieldCode = "code"
 	// FieldStatus holds the string denoting the status field in the database.
 	FieldStatus = "status"
-	// FieldCreateDate holds the string denoting the createdate field in the database.
-	FieldCreateDate = "create_date"
-	// FieldAdjustDate holds the string denoting the adjustdate field in the database.
-	FieldAdjustDate = "adjust_date"
-	// FieldDisableDate holds the string denoting the disabledate field in the database.
-	FieldDisableDate = "disable_date"
 	// FieldCost holds the string denoting the cost field in the database.
 	FieldCost = "cost"
 	// FieldData holds the string denoting the data field in the database.
@@ -27,6 +21,10 @@ const (
 	FieldTenantId = "tenant_id"
 	// FieldTenantName holds the string denoting the tenantname field in the database.
 	FieldTenantName = "tenant_name"
+	// FieldFarmId holds the string denoting the farmid field in the database.
+	FieldFarmId = "farm_id"
+	// FieldFarmName holds the string denoting the farmname field in the database.
+	FieldFarmName = "farm_name"
 	// FieldRemarks holds the string denoting the remarks field in the database.
 	FieldRemarks = "remarks"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
@@ -46,13 +44,12 @@ var Columns = []string{
 	FieldName,
 	FieldCode,
 	FieldStatus,
-	FieldCreateDate,
-	FieldAdjustDate,
-	FieldDisableDate,
 	FieldCost,
 	FieldData,
 	FieldTenantId,
 	FieldTenantName,
+	FieldFarmId,
+	FieldFarmName,
 	FieldRemarks,
 	FieldCreatedAt,
 	FieldUpdatedAt,

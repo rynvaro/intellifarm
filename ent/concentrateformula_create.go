@@ -37,24 +37,6 @@ func (cfc *ConcentrateFormulaCreate) SetStatus(i int) *ConcentrateFormulaCreate 
 	return cfc
 }
 
-// SetCreateDate sets the createDate field.
-func (cfc *ConcentrateFormulaCreate) SetCreateDate(i int64) *ConcentrateFormulaCreate {
-	cfc.mutation.SetCreateDate(i)
-	return cfc
-}
-
-// SetAdjustDate sets the adjustDate field.
-func (cfc *ConcentrateFormulaCreate) SetAdjustDate(i int64) *ConcentrateFormulaCreate {
-	cfc.mutation.SetAdjustDate(i)
-	return cfc
-}
-
-// SetDisableDate sets the disableDate field.
-func (cfc *ConcentrateFormulaCreate) SetDisableDate(i int64) *ConcentrateFormulaCreate {
-	cfc.mutation.SetDisableDate(i)
-	return cfc
-}
-
 // SetCost sets the cost field.
 func (cfc *ConcentrateFormulaCreate) SetCost(i int64) *ConcentrateFormulaCreate {
 	cfc.mutation.SetCost(i)
@@ -76,6 +58,18 @@ func (cfc *ConcentrateFormulaCreate) SetTenantId(i int64) *ConcentrateFormulaCre
 // SetTenantName sets the tenantName field.
 func (cfc *ConcentrateFormulaCreate) SetTenantName(s string) *ConcentrateFormulaCreate {
 	cfc.mutation.SetTenantName(s)
+	return cfc
+}
+
+// SetFarmId sets the farmId field.
+func (cfc *ConcentrateFormulaCreate) SetFarmId(i int64) *ConcentrateFormulaCreate {
+	cfc.mutation.SetFarmId(i)
+	return cfc
+}
+
+// SetFarmName sets the farmName field.
+func (cfc *ConcentrateFormulaCreate) SetFarmName(s string) *ConcentrateFormulaCreate {
+	cfc.mutation.SetFarmName(s)
 	return cfc
 }
 
@@ -163,15 +157,6 @@ func (cfc *ConcentrateFormulaCreate) check() error {
 	if _, ok := cfc.mutation.Status(); !ok {
 		return &ValidationError{Name: "status", err: errors.New("ent: missing required field \"status\"")}
 	}
-	if _, ok := cfc.mutation.CreateDate(); !ok {
-		return &ValidationError{Name: "createDate", err: errors.New("ent: missing required field \"createDate\"")}
-	}
-	if _, ok := cfc.mutation.AdjustDate(); !ok {
-		return &ValidationError{Name: "adjustDate", err: errors.New("ent: missing required field \"adjustDate\"")}
-	}
-	if _, ok := cfc.mutation.DisableDate(); !ok {
-		return &ValidationError{Name: "disableDate", err: errors.New("ent: missing required field \"disableDate\"")}
-	}
 	if _, ok := cfc.mutation.Cost(); !ok {
 		return &ValidationError{Name: "cost", err: errors.New("ent: missing required field \"cost\"")}
 	}
@@ -183,6 +168,12 @@ func (cfc *ConcentrateFormulaCreate) check() error {
 	}
 	if _, ok := cfc.mutation.TenantName(); !ok {
 		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := cfc.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := cfc.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
 	}
 	if _, ok := cfc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -247,30 +238,6 @@ func (cfc *ConcentrateFormulaCreate) createSpec() (*ConcentrateFormula, *sqlgrap
 		})
 		_node.Status = value
 	}
-	if value, ok := cfc.mutation.CreateDate(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateformula.FieldCreateDate,
-		})
-		_node.CreateDate = value
-	}
-	if value, ok := cfc.mutation.AdjustDate(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateformula.FieldAdjustDate,
-		})
-		_node.AdjustDate = value
-	}
-	if value, ok := cfc.mutation.DisableDate(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateformula.FieldDisableDate,
-		})
-		_node.DisableDate = value
-	}
 	if value, ok := cfc.mutation.Cost(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
@@ -302,6 +269,22 @@ func (cfc *ConcentrateFormulaCreate) createSpec() (*ConcentrateFormula, *sqlgrap
 			Column: concentrateformula.FieldTenantName,
 		})
 		_node.TenantName = value
+	}
+	if value, ok := cfc.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateformula.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := cfc.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: concentrateformula.FieldFarmName,
+		})
+		_node.FarmName = value
 	}
 	if value, ok := cfc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

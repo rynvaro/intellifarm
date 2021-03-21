@@ -15,26 +15,26 @@ type ConcentrateProcess struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int64 `json:"id,omitempty"`
-	// FormulaID holds the value of the "formulaID" field.
-	FormulaID int64 `json:"formulaID,omitempty"`
+	// ConcentrateId holds the value of the "concentrateId" field.
+	ConcentrateId int64 `json:"concentrateId,omitempty"`
 	// Name holds the value of the "name" field.
 	Name string `json:"name,omitempty"`
-	// Code holds the value of the "code" field.
-	Code string `json:"code,omitempty"`
 	// Date holds the value of the "date" field.
 	Date int64 `json:"date,omitempty"`
 	// Count holds the value of the "count" field.
 	Count int64 `json:"count,omitempty"`
 	// In holds the value of the "in" field.
 	In int64 `json:"in,omitempty"`
-	// Inventory holds the value of the "inventory" field.
-	Inventory int64 `json:"inventory,omitempty"`
 	// UserName holds the value of the "userName" field.
 	UserName string `json:"userName,omitempty"`
 	// TenantId holds the value of the "tenantId" field.
 	TenantId int64 `json:"tenantId,omitempty"`
 	// TenantName holds the value of the "tenantName" field.
 	TenantName string `json:"tenantName,omitempty"`
+	// FarmId holds the value of the "farmId" field.
+	FarmId int64 `json:"farmId,omitempty"`
+	// FarmName holds the value of the "farmName" field.
+	FarmName string `json:"farmName,omitempty"`
 	// Remarks holds the value of the "remarks" field.
 	Remarks string `json:"remarks,omitempty"`
 	// CreatedAt holds the value of the "createdAt" field.
@@ -49,16 +49,16 @@ type ConcentrateProcess struct {
 func (*ConcentrateProcess) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
-		&sql.NullInt64{},  // formulaID
+		&sql.NullInt64{},  // concentrateId
 		&sql.NullString{}, // name
-		&sql.NullString{}, // code
 		&sql.NullInt64{},  // date
 		&sql.NullInt64{},  // count
 		&sql.NullInt64{},  // in
-		&sql.NullInt64{},  // inventory
 		&sql.NullString{}, // userName
 		&sql.NullInt64{},  // tenantId
 		&sql.NullString{}, // tenantName
+		&sql.NullInt64{},  // farmId
+		&sql.NullString{}, // farmName
 		&sql.NullString{}, // remarks
 		&sql.NullInt64{},  // createdAt
 		&sql.NullInt64{},  // updatedAt
@@ -79,54 +79,54 @@ func (cp *ConcentrateProcess) assignValues(values ...interface{}) error {
 	cp.ID = int64(value.Int64)
 	values = values[1:]
 	if value, ok := values[0].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field formulaID", values[0])
+		return fmt.Errorf("unexpected type %T for field concentrateId", values[0])
 	} else if value.Valid {
-		cp.FormulaID = value.Int64
+		cp.ConcentrateId = value.Int64
 	}
 	if value, ok := values[1].(*sql.NullString); !ok {
 		return fmt.Errorf("unexpected type %T for field name", values[1])
 	} else if value.Valid {
 		cp.Name = value.String
 	}
-	if value, ok := values[2].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field code", values[2])
-	} else if value.Valid {
-		cp.Code = value.String
-	}
-	if value, ok := values[3].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field date", values[3])
+	if value, ok := values[2].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field date", values[2])
 	} else if value.Valid {
 		cp.Date = value.Int64
 	}
-	if value, ok := values[4].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field count", values[4])
+	if value, ok := values[3].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field count", values[3])
 	} else if value.Valid {
 		cp.Count = value.Int64
 	}
-	if value, ok := values[5].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field in", values[5])
+	if value, ok := values[4].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field in", values[4])
 	} else if value.Valid {
 		cp.In = value.Int64
 	}
-	if value, ok := values[6].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field inventory", values[6])
-	} else if value.Valid {
-		cp.Inventory = value.Int64
-	}
-	if value, ok := values[7].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field userName", values[7])
+	if value, ok := values[5].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field userName", values[5])
 	} else if value.Valid {
 		cp.UserName = value.String
 	}
-	if value, ok := values[8].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantId", values[8])
+	if value, ok := values[6].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[6])
 	} else if value.Valid {
 		cp.TenantId = value.Int64
 	}
-	if value, ok := values[9].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantName", values[9])
+	if value, ok := values[7].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[7])
 	} else if value.Valid {
 		cp.TenantName = value.String
+	}
+	if value, ok := values[8].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field farmId", values[8])
+	} else if value.Valid {
+		cp.FarmId = value.Int64
+	}
+	if value, ok := values[9].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field farmName", values[9])
+	} else if value.Valid {
+		cp.FarmName = value.String
 	}
 	if value, ok := values[10].(*sql.NullString); !ok {
 		return fmt.Errorf("unexpected type %T for field remarks", values[10])
@@ -174,26 +174,26 @@ func (cp *ConcentrateProcess) String() string {
 	var builder strings.Builder
 	builder.WriteString("ConcentrateProcess(")
 	builder.WriteString(fmt.Sprintf("id=%v", cp.ID))
-	builder.WriteString(", formulaID=")
-	builder.WriteString(fmt.Sprintf("%v", cp.FormulaID))
+	builder.WriteString(", concentrateId=")
+	builder.WriteString(fmt.Sprintf("%v", cp.ConcentrateId))
 	builder.WriteString(", name=")
 	builder.WriteString(cp.Name)
-	builder.WriteString(", code=")
-	builder.WriteString(cp.Code)
 	builder.WriteString(", date=")
 	builder.WriteString(fmt.Sprintf("%v", cp.Date))
 	builder.WriteString(", count=")
 	builder.WriteString(fmt.Sprintf("%v", cp.Count))
 	builder.WriteString(", in=")
 	builder.WriteString(fmt.Sprintf("%v", cp.In))
-	builder.WriteString(", inventory=")
-	builder.WriteString(fmt.Sprintf("%v", cp.Inventory))
 	builder.WriteString(", userName=")
 	builder.WriteString(cp.UserName)
 	builder.WriteString(", tenantId=")
 	builder.WriteString(fmt.Sprintf("%v", cp.TenantId))
 	builder.WriteString(", tenantName=")
 	builder.WriteString(cp.TenantName)
+	builder.WriteString(", farmId=")
+	builder.WriteString(fmt.Sprintf("%v", cp.FarmId))
+	builder.WriteString(", farmName=")
+	builder.WriteString(cp.FarmName)
 	builder.WriteString(", remarks=")
 	builder.WriteString(cp.Remarks)
 	builder.WriteString(", createdAt=")

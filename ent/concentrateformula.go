@@ -21,12 +21,6 @@ type ConcentrateFormula struct {
 	Code string `json:"code,omitempty"`
 	// Status holds the value of the "status" field.
 	Status int `json:"status,omitempty"`
-	// CreateDate holds the value of the "createDate" field.
-	CreateDate int64 `json:"createDate,omitempty"`
-	// AdjustDate holds the value of the "adjustDate" field.
-	AdjustDate int64 `json:"adjustDate,omitempty"`
-	// DisableDate holds the value of the "disableDate" field.
-	DisableDate int64 `json:"disableDate,omitempty"`
 	// Cost holds the value of the "cost" field.
 	Cost int64 `json:"cost,omitempty"`
 	// Data holds the value of the "data" field.
@@ -35,6 +29,10 @@ type ConcentrateFormula struct {
 	TenantId int64 `json:"tenantId,omitempty"`
 	// TenantName holds the value of the "tenantName" field.
 	TenantName string `json:"tenantName,omitempty"`
+	// FarmId holds the value of the "farmId" field.
+	FarmId int64 `json:"farmId,omitempty"`
+	// FarmName holds the value of the "farmName" field.
+	FarmName string `json:"farmName,omitempty"`
 	// Remarks holds the value of the "remarks" field.
 	Remarks string `json:"remarks,omitempty"`
 	// CreatedAt holds the value of the "createdAt" field.
@@ -52,13 +50,12 @@ func (*ConcentrateFormula) scanValues() []interface{} {
 		&sql.NullString{}, // name
 		&sql.NullString{}, // code
 		&sql.NullInt64{},  // status
-		&sql.NullInt64{},  // createDate
-		&sql.NullInt64{},  // adjustDate
-		&sql.NullInt64{},  // disableDate
 		&sql.NullInt64{},  // cost
 		&sql.NullString{}, // data
 		&sql.NullInt64{},  // tenantId
 		&sql.NullString{}, // tenantName
+		&sql.NullInt64{},  // farmId
+		&sql.NullString{}, // farmName
 		&sql.NullString{}, // remarks
 		&sql.NullInt64{},  // createdAt
 		&sql.NullInt64{},  // updatedAt
@@ -94,57 +91,52 @@ func (cf *ConcentrateFormula) assignValues(values ...interface{}) error {
 		cf.Status = int(value.Int64)
 	}
 	if value, ok := values[3].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createDate", values[3])
-	} else if value.Valid {
-		cf.CreateDate = value.Int64
-	}
-	if value, ok := values[4].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field adjustDate", values[4])
-	} else if value.Valid {
-		cf.AdjustDate = value.Int64
-	}
-	if value, ok := values[5].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field disableDate", values[5])
-	} else if value.Valid {
-		cf.DisableDate = value.Int64
-	}
-	if value, ok := values[6].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field cost", values[6])
+		return fmt.Errorf("unexpected type %T for field cost", values[3])
 	} else if value.Valid {
 		cf.Cost = value.Int64
 	}
-	if value, ok := values[7].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field data", values[7])
+	if value, ok := values[4].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field data", values[4])
 	} else if value.Valid {
 		cf.Data = value.String
 	}
-	if value, ok := values[8].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantId", values[8])
+	if value, ok := values[5].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[5])
 	} else if value.Valid {
 		cf.TenantId = value.Int64
 	}
-	if value, ok := values[9].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantName", values[9])
+	if value, ok := values[6].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[6])
 	} else if value.Valid {
 		cf.TenantName = value.String
 	}
-	if value, ok := values[10].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field remarks", values[10])
+	if value, ok := values[7].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field farmId", values[7])
+	} else if value.Valid {
+		cf.FarmId = value.Int64
+	}
+	if value, ok := values[8].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field farmName", values[8])
+	} else if value.Valid {
+		cf.FarmName = value.String
+	}
+	if value, ok := values[9].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field remarks", values[9])
 	} else if value.Valid {
 		cf.Remarks = value.String
 	}
-	if value, ok := values[11].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[11])
+	if value, ok := values[10].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[10])
 	} else if value.Valid {
 		cf.CreatedAt = value.Int64
 	}
-	if value, ok := values[12].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field updatedAt", values[12])
+	if value, ok := values[11].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field updatedAt", values[11])
 	} else if value.Valid {
 		cf.UpdatedAt = value.Int64
 	}
-	if value, ok := values[13].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[13])
+	if value, ok := values[12].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[12])
 	} else if value.Valid {
 		cf.Deleted = int(value.Int64)
 	}
@@ -180,12 +172,6 @@ func (cf *ConcentrateFormula) String() string {
 	builder.WriteString(cf.Code)
 	builder.WriteString(", status=")
 	builder.WriteString(fmt.Sprintf("%v", cf.Status))
-	builder.WriteString(", createDate=")
-	builder.WriteString(fmt.Sprintf("%v", cf.CreateDate))
-	builder.WriteString(", adjustDate=")
-	builder.WriteString(fmt.Sprintf("%v", cf.AdjustDate))
-	builder.WriteString(", disableDate=")
-	builder.WriteString(fmt.Sprintf("%v", cf.DisableDate))
 	builder.WriteString(", cost=")
 	builder.WriteString(fmt.Sprintf("%v", cf.Cost))
 	builder.WriteString(", data=")
@@ -194,6 +180,10 @@ func (cf *ConcentrateFormula) String() string {
 	builder.WriteString(fmt.Sprintf("%v", cf.TenantId))
 	builder.WriteString(", tenantName=")
 	builder.WriteString(cf.TenantName)
+	builder.WriteString(", farmId=")
+	builder.WriteString(fmt.Sprintf("%v", cf.FarmId))
+	builder.WriteString(", farmName=")
+	builder.WriteString(cf.FarmName)
 	builder.WriteString(", remarks=")
 	builder.WriteString(cf.Remarks)
 	builder.WriteString(", createdAt=")

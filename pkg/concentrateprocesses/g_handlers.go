@@ -21,27 +21,85 @@ func ConcentrateProcessAddHandler(c *gin.Context) {
 		log.Error().Msg(err.Error())
 		return
 	}
-	log.Debug().Msg(form.String())
-	concentrateprocess, err := db.Client.ConcentrateProcess.Create().
-		SetCode(form.Code).
-		SetFormulaID(form.FormulaID).
-		SetCount(form.Count).
-		SetDate(form.Date).
-		SetIn(form.In).
-		SetInventory(form.Inventory).
-		SetName(form.Name).
-		SetRemarks(form.Remarks).
-		SetUserName(form.UserName).
-		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
-		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
-		Save(c.Request.Context())
+
+	// concentrate, err := db.Client.Concentrate.Get(c.Request.Context(), form.ConcentrateId)
+	// if err != nil {
+	// 	log.Error().Msg(err.Error())
+	// 	c.Status(http.StatusInternalServerError)
+	// 	return
+	// }
+
+	// TODO 扣减物料库存
+	// formula, err := db.Client.ConcentrateFormula.Get(c.Request.Context(), concentrate.FormulaId)
+	// if err != nil {
+	// 	log.Error().Msg(err.Error())
+	// 	c.Status(http.StatusInternalServerError)
+	// 	return
+	// }
+
+	// formulaData := []*formulaData{}
+
+	// if err := json.Unmarshal([]byte(formula.Data), &formulaData); err != nil {
+	// 	log.Error().Msg(err.Error())
+	// 	c.Status(http.StatusInternalServerError)
+	// 	return
+	// }
+
+	// if len(formulaData) == 0 {
+	// 	log.Error().Msg(err.Error())
+	// 	c.Status(http.StatusInternalServerError)
+	// 	return
+	// }
+
+	tx, err := db.Client.Tx(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
+
+	_, err = tx.Concentrate.UpdateOneID(form.ConcentrateId).AddInventory(form.In).Save(c.Request.Context())
+	if err != nil {
+		log.Error().Msg(err.Error())
+		c.Status(http.StatusInternalServerError)
+		tx.Rollback()
+		return
+	}
+
+	log.Debug().Msg(form.String())
+	concentrateprocess, err := tx.ConcentrateProcess.Create().
+		SetConcentrateId(form.ConcentrateId).
+		SetCount(form.Count).
+		SetDate(form.Date).
+		SetIn(form.In).
+		SetName(form.Name).
+		SetRemarks(form.Remarks).
+		SetUserName(form.UserName).
+		SetTenantId(form.TenantId).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
+		SetTenantName(form.TenantName).
+		SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
+		Save(c.Request.Context())
+	if err != nil {
+		log.Error().Msg(err.Error())
+		tx.Rollback()
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+
+	if err := tx.Commit(); err != nil {
+		log.Error().Msg(err.Error())
+		tx.Rollback()
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+
 	c.JSON(http.StatusOK, resp.Success(concentrateprocess))
+}
+
+type formulaData struct {
+	Mid   int64   `json:"mid"`
+	Ratio float32 `json:"ratio"`
 }
 
 func ConcentrateProcessListHandler(c *gin.Context) {
@@ -97,13 +155,14 @@ func ConcentrateProcessUpdateHandler(c *gin.Context) {
 	}
 	log.Debug().Msg(form.String())
 	concentrateprocess, err := db.Client.ConcentrateProcess.UpdateOneID(form.ID).
-		SetCode(form.Code).
+		SetConcentrateId(form.ConcentrateId).
 		SetCount(form.Count).
-		SetFormulaID(form.FormulaID).
 		SetDate(form.Date).
 		SetIn(form.In).
-		SetInventory(form.Inventory).
 		SetName(form.Name).
+		SetTenantId(form.TenantId).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
+		SetTenantName(form.TenantName).
 		SetRemarks(form.Remarks).
 		SetUserName(form.UserName).
 		SetUpdatedAt(time.Now().Unix()).

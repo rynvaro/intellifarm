@@ -7,7 +7,7 @@ import (
 )
 
 func Where(listParams *params.ListParams) predicate.ConcentrateProcess {
-	wheres := []predicate.ConcentrateProcess{concentrateprocess.Deleted(0)}
+	wheres := []predicate.ConcentrateProcess{concentrateprocess.ConcentrateId(listParams.Id)}
 	if listParams.Q != "" {
 		wheres = append(wheres, concentrateprocess.NameContains(listParams.Q))
 	}

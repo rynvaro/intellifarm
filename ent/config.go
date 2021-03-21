@@ -54,6 +54,7 @@ type hooks struct {
 	CattleOwner            []ent.Hook
 	CattleType             []ent.Hook
 	Change                 []ent.Hook
+	Concentrate            []ent.Hook
 	ConcentrateFormula     []ent.Hook
 	ConcentrateProcess     []ent.Hook
 	Conf                   []ent.Hook
@@ -88,6 +89,8 @@ type hooks struct {
 	PregnancyTestResult    []ent.Hook
 	PregnancyTestType      []ent.Hook
 	Ration                 []ent.Hook
+	RationFormula          []ent.Hook
+	RationProcess          []ent.Hook
 	ReproductionParameters []ent.Hook
 	ReproductiveState      []ent.Hook
 	SemenFrozenType        []ent.Hook

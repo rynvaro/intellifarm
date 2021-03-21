@@ -7,10 +7,25 @@ import (
 )
 
 func Where(listParams *params.ListParams) predicate.ConcentrateFormula {
-	wheres := []predicate.ConcentrateFormula{concentrateformula.Deleted(0)}
+	wheres := []predicate.ConcentrateFormula{}
 	if listParams.Q != "" {
 		wheres = append(wheres, concentrateformula.NameContains(listParams.Q))
 	}
-	wheres = append(wheres, concentrateformula.TenantId(listParams.TenantId))
+	switch listParams.Level {
+	case 1:
+		if listParams.TenantId > 0 {
+			wheres = append(wheres, concentrateformula.TenantId(listParams.TenantId))
+		}
+		if listParams.FarmId > 0 {
+			wheres = append(wheres, concentrateformula.FarmId(listParams.FarmId))
+		}
+	case 2:
+		wheres = append(wheres, concentrateformula.TenantId(listParams.TenantId))
+		if listParams.FarmId > 0 {
+			wheres = append(wheres, concentrateformula.FarmId(listParams.FarmId))
+		}
+	case 3:
+		wheres = append(wheres, concentrateformula.FarmId(listParams.FarmId))
+	}
 	return concentrateformula.And(wheres...)
 }

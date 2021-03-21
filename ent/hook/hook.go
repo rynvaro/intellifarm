@@ -398,6 +398,19 @@ func (f ChangeFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, erro
 	return f(ctx, mv)
 }
 
+// The ConcentrateFunc type is an adapter to allow the use of ordinary
+// function as Concentrate mutator.
+type ConcentrateFunc func(context.Context, *ent.ConcentrateMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f ConcentrateFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.ConcentrateMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.ConcentrateMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The ConcentrateFormulaFunc type is an adapter to allow the use of ordinary
 // function as ConcentrateFormula mutator.
 type ConcentrateFormulaFunc func(context.Context, *ent.ConcentrateFormulaMutation) (ent.Value, error)
@@ -836,6 +849,32 @@ func (f RationFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, erro
 	mv, ok := m.(*ent.RationMutation)
 	if !ok {
 		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.RationMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The RationFormulaFunc type is an adapter to allow the use of ordinary
+// function as RationFormula mutator.
+type RationFormulaFunc func(context.Context, *ent.RationFormulaMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f RationFormulaFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.RationFormulaMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.RationFormulaMutation", m)
+	}
+	return f(ctx, mv)
+}
+
+// The RationProcessFunc type is an adapter to allow the use of ordinary
+// function as RationProcess mutator.
+type RationProcessFunc func(context.Context, *ent.RationProcessMutation) (ent.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f RationProcessFunc) Mutate(ctx context.Context, m ent.Mutation) (ent.Value, error) {
+	mv, ok := m.(*ent.RationProcessMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *ent.RationProcessMutation", m)
 	}
 	return f(ctx, mv)
 }

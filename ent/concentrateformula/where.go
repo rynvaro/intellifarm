@@ -112,27 +112,6 @@ func Status(v int) predicate.ConcentrateFormula {
 	})
 }
 
-// CreateDate applies equality check predicate on the "createDate" field. It's identical to CreateDateEQ.
-func CreateDate(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCreateDate), v))
-	})
-}
-
-// AdjustDate applies equality check predicate on the "adjustDate" field. It's identical to AdjustDateEQ.
-func AdjustDate(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldAdjustDate), v))
-	})
-}
-
-// DisableDate applies equality check predicate on the "disableDate" field. It's identical to DisableDateEQ.
-func DisableDate(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldDisableDate), v))
-	})
-}
-
 // Cost applies equality check predicate on the "cost" field. It's identical to CostEQ.
 func Cost(v int64) predicate.ConcentrateFormula {
 	return predicate.ConcentrateFormula(func(s *sql.Selector) {
@@ -158,6 +137,20 @@ func TenantId(v int64) predicate.ConcentrateFormula {
 func TenantName(v string) predicate.ConcentrateFormula {
 	return predicate.ConcentrateFormula(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldTenantName), v))
+	})
+}
+
+// FarmId applies equality check predicate on the "farmId" field. It's identical to FarmIdEQ.
+func FarmId(v int64) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmName applies equality check predicate on the "farmName" field. It's identical to FarmNameEQ.
+func FarmName(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
 	})
 }
 
@@ -484,234 +477,6 @@ func StatusLT(v int) predicate.ConcentrateFormula {
 func StatusLTE(v int) predicate.ConcentrateFormula {
 	return predicate.ConcentrateFormula(func(s *sql.Selector) {
 		s.Where(sql.LTE(s.C(FieldStatus), v))
-	})
-}
-
-// CreateDateEQ applies the EQ predicate on the "createDate" field.
-func CreateDateEQ(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldCreateDate), v))
-	})
-}
-
-// CreateDateNEQ applies the NEQ predicate on the "createDate" field.
-func CreateDateNEQ(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldCreateDate), v))
-	})
-}
-
-// CreateDateIn applies the In predicate on the "createDate" field.
-func CreateDateIn(vs ...int64) predicate.ConcentrateFormula {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.In(s.C(FieldCreateDate), v...))
-	})
-}
-
-// CreateDateNotIn applies the NotIn predicate on the "createDate" field.
-func CreateDateNotIn(vs ...int64) predicate.ConcentrateFormula {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.NotIn(s.C(FieldCreateDate), v...))
-	})
-}
-
-// CreateDateGT applies the GT predicate on the "createDate" field.
-func CreateDateGT(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldCreateDate), v))
-	})
-}
-
-// CreateDateGTE applies the GTE predicate on the "createDate" field.
-func CreateDateGTE(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldCreateDate), v))
-	})
-}
-
-// CreateDateLT applies the LT predicate on the "createDate" field.
-func CreateDateLT(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldCreateDate), v))
-	})
-}
-
-// CreateDateLTE applies the LTE predicate on the "createDate" field.
-func CreateDateLTE(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldCreateDate), v))
-	})
-}
-
-// AdjustDateEQ applies the EQ predicate on the "adjustDate" field.
-func AdjustDateEQ(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldAdjustDate), v))
-	})
-}
-
-// AdjustDateNEQ applies the NEQ predicate on the "adjustDate" field.
-func AdjustDateNEQ(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldAdjustDate), v))
-	})
-}
-
-// AdjustDateIn applies the In predicate on the "adjustDate" field.
-func AdjustDateIn(vs ...int64) predicate.ConcentrateFormula {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.In(s.C(FieldAdjustDate), v...))
-	})
-}
-
-// AdjustDateNotIn applies the NotIn predicate on the "adjustDate" field.
-func AdjustDateNotIn(vs ...int64) predicate.ConcentrateFormula {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.NotIn(s.C(FieldAdjustDate), v...))
-	})
-}
-
-// AdjustDateGT applies the GT predicate on the "adjustDate" field.
-func AdjustDateGT(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldAdjustDate), v))
-	})
-}
-
-// AdjustDateGTE applies the GTE predicate on the "adjustDate" field.
-func AdjustDateGTE(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldAdjustDate), v))
-	})
-}
-
-// AdjustDateLT applies the LT predicate on the "adjustDate" field.
-func AdjustDateLT(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldAdjustDate), v))
-	})
-}
-
-// AdjustDateLTE applies the LTE predicate on the "adjustDate" field.
-func AdjustDateLTE(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldAdjustDate), v))
-	})
-}
-
-// DisableDateEQ applies the EQ predicate on the "disableDate" field.
-func DisableDateEQ(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldDisableDate), v))
-	})
-}
-
-// DisableDateNEQ applies the NEQ predicate on the "disableDate" field.
-func DisableDateNEQ(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldDisableDate), v))
-	})
-}
-
-// DisableDateIn applies the In predicate on the "disableDate" field.
-func DisableDateIn(vs ...int64) predicate.ConcentrateFormula {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.In(s.C(FieldDisableDate), v...))
-	})
-}
-
-// DisableDateNotIn applies the NotIn predicate on the "disableDate" field.
-func DisableDateNotIn(vs ...int64) predicate.ConcentrateFormula {
-	v := make([]interface{}, len(vs))
-	for i := range v {
-		v[i] = vs[i]
-	}
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		// if not arguments were provided, append the FALSE constants,
-		// since we can't apply "IN ()". This will make this predicate falsy.
-		if len(v) == 0 {
-			s.Where(sql.False())
-			return
-		}
-		s.Where(sql.NotIn(s.C(FieldDisableDate), v...))
-	})
-}
-
-// DisableDateGT applies the GT predicate on the "disableDate" field.
-func DisableDateGT(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldDisableDate), v))
-	})
-}
-
-// DisableDateGTE applies the GTE predicate on the "disableDate" field.
-func DisableDateGTE(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldDisableDate), v))
-	})
-}
-
-// DisableDateLT applies the LT predicate on the "disableDate" field.
-func DisableDateLT(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldDisableDate), v))
-	})
-}
-
-// DisableDateLTE applies the LTE predicate on the "disableDate" field.
-func DisableDateLTE(v int64) predicate.ConcentrateFormula {
-	return predicate.ConcentrateFormula(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldDisableDate), v))
 	})
 }
 
@@ -1086,6 +851,193 @@ func TenantNameEqualFold(v string) predicate.ConcentrateFormula {
 func TenantNameContainsFold(v string) predicate.ConcentrateFormula {
 	return predicate.ConcentrateFormula(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldTenantName), v))
+	})
+}
+
+// FarmIdEQ applies the EQ predicate on the "farmId" field.
+func FarmIdEQ(v int64) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdNEQ applies the NEQ predicate on the "farmId" field.
+func FarmIdNEQ(v int64) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdIn applies the In predicate on the "farmId" field.
+func FarmIdIn(vs ...int64) predicate.ConcentrateFormula {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdNotIn applies the NotIn predicate on the "farmId" field.
+func FarmIdNotIn(vs ...int64) predicate.ConcentrateFormula {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdGT applies the GT predicate on the "farmId" field.
+func FarmIdGT(v int64) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdGTE applies the GTE predicate on the "farmId" field.
+func FarmIdGTE(v int64) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLT applies the LT predicate on the "farmId" field.
+func FarmIdLT(v int64) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLTE applies the LTE predicate on the "farmId" field.
+func FarmIdLTE(v int64) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmNameEQ applies the EQ predicate on the "farmName" field.
+func FarmNameEQ(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameNEQ applies the NEQ predicate on the "farmName" field.
+func FarmNameNEQ(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameIn applies the In predicate on the "farmName" field.
+func FarmNameIn(vs ...string) predicate.ConcentrateFormula {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameNotIn applies the NotIn predicate on the "farmName" field.
+func FarmNameNotIn(vs ...string) predicate.ConcentrateFormula {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameGT applies the GT predicate on the "farmName" field.
+func FarmNameGT(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameGTE applies the GTE predicate on the "farmName" field.
+func FarmNameGTE(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLT applies the LT predicate on the "farmName" field.
+func FarmNameLT(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLTE applies the LTE predicate on the "farmName" field.
+func FarmNameLTE(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContains applies the Contains predicate on the "farmName" field.
+func FarmNameContains(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasPrefix applies the HasPrefix predicate on the "farmName" field.
+func FarmNameHasPrefix(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasSuffix applies the HasSuffix predicate on the "farmName" field.
+func FarmNameHasSuffix(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameEqualFold applies the EqualFold predicate on the "farmName" field.
+func FarmNameEqualFold(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContainsFold applies the ContainsFold predicate on the "farmName" field.
+func FarmNameContainsFold(v string) predicate.ConcentrateFormula {
+	return predicate.ConcentrateFormula(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldFarmName), v))
 	})
 }
 

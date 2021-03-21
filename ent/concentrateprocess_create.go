@@ -19,9 +19,9 @@ type ConcentrateProcessCreate struct {
 	hooks    []Hook
 }
 
-// SetFormulaID sets the formulaID field.
-func (cpc *ConcentrateProcessCreate) SetFormulaID(i int64) *ConcentrateProcessCreate {
-	cpc.mutation.SetFormulaID(i)
+// SetConcentrateId sets the concentrateId field.
+func (cpc *ConcentrateProcessCreate) SetConcentrateId(i int64) *ConcentrateProcessCreate {
+	cpc.mutation.SetConcentrateId(i)
 	return cpc
 }
 
@@ -31,9 +31,11 @@ func (cpc *ConcentrateProcessCreate) SetName(s string) *ConcentrateProcessCreate
 	return cpc
 }
 
-// SetCode sets the code field.
-func (cpc *ConcentrateProcessCreate) SetCode(s string) *ConcentrateProcessCreate {
-	cpc.mutation.SetCode(s)
+// SetNillableName sets the name field if the given value is not nil.
+func (cpc *ConcentrateProcessCreate) SetNillableName(s *string) *ConcentrateProcessCreate {
+	if s != nil {
+		cpc.SetName(*s)
+	}
 	return cpc
 }
 
@@ -55,12 +57,6 @@ func (cpc *ConcentrateProcessCreate) SetIn(i int64) *ConcentrateProcessCreate {
 	return cpc
 }
 
-// SetInventory sets the inventory field.
-func (cpc *ConcentrateProcessCreate) SetInventory(i int64) *ConcentrateProcessCreate {
-	cpc.mutation.SetInventory(i)
-	return cpc
-}
-
 // SetUserName sets the userName field.
 func (cpc *ConcentrateProcessCreate) SetUserName(s string) *ConcentrateProcessCreate {
 	cpc.mutation.SetUserName(s)
@@ -76,6 +72,18 @@ func (cpc *ConcentrateProcessCreate) SetTenantId(i int64) *ConcentrateProcessCre
 // SetTenantName sets the tenantName field.
 func (cpc *ConcentrateProcessCreate) SetTenantName(s string) *ConcentrateProcessCreate {
 	cpc.mutation.SetTenantName(s)
+	return cpc
+}
+
+// SetFarmId sets the farmId field.
+func (cpc *ConcentrateProcessCreate) SetFarmId(i int64) *ConcentrateProcessCreate {
+	cpc.mutation.SetFarmId(i)
+	return cpc
+}
+
+// SetFarmName sets the farmName field.
+func (cpc *ConcentrateProcessCreate) SetFarmName(s string) *ConcentrateProcessCreate {
+	cpc.mutation.SetFarmName(s)
 	return cpc
 }
 
@@ -154,14 +162,8 @@ func (cpc *ConcentrateProcessCreate) SaveX(ctx context.Context) *ConcentrateProc
 
 // check runs all checks and user-defined validators on the builder.
 func (cpc *ConcentrateProcessCreate) check() error {
-	if _, ok := cpc.mutation.FormulaID(); !ok {
-		return &ValidationError{Name: "formulaID", err: errors.New("ent: missing required field \"formulaID\"")}
-	}
-	if _, ok := cpc.mutation.Name(); !ok {
-		return &ValidationError{Name: "name", err: errors.New("ent: missing required field \"name\"")}
-	}
-	if _, ok := cpc.mutation.Code(); !ok {
-		return &ValidationError{Name: "code", err: errors.New("ent: missing required field \"code\"")}
+	if _, ok := cpc.mutation.ConcentrateId(); !ok {
+		return &ValidationError{Name: "concentrateId", err: errors.New("ent: missing required field \"concentrateId\"")}
 	}
 	if _, ok := cpc.mutation.Date(); !ok {
 		return &ValidationError{Name: "date", err: errors.New("ent: missing required field \"date\"")}
@@ -172,9 +174,6 @@ func (cpc *ConcentrateProcessCreate) check() error {
 	if _, ok := cpc.mutation.In(); !ok {
 		return &ValidationError{Name: "in", err: errors.New("ent: missing required field \"in\"")}
 	}
-	if _, ok := cpc.mutation.Inventory(); !ok {
-		return &ValidationError{Name: "inventory", err: errors.New("ent: missing required field \"inventory\"")}
-	}
 	if _, ok := cpc.mutation.UserName(); !ok {
 		return &ValidationError{Name: "userName", err: errors.New("ent: missing required field \"userName\"")}
 	}
@@ -183,6 +182,12 @@ func (cpc *ConcentrateProcessCreate) check() error {
 	}
 	if _, ok := cpc.mutation.TenantName(); !ok {
 		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := cpc.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := cpc.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
 	}
 	if _, ok := cpc.mutation.Remarks(); !ok {
 		return &ValidationError{Name: "remarks", err: errors.New("ent: missing required field \"remarks\"")}
@@ -223,13 +228,13 @@ func (cpc *ConcentrateProcessCreate) createSpec() (*ConcentrateProcess, *sqlgrap
 			},
 		}
 	)
-	if value, ok := cpc.mutation.FormulaID(); ok {
+	if value, ok := cpc.mutation.ConcentrateId(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeInt64,
 			Value:  value,
-			Column: concentrateprocess.FieldFormulaID,
+			Column: concentrateprocess.FieldConcentrateId,
 		})
-		_node.FormulaID = value
+		_node.ConcentrateId = value
 	}
 	if value, ok := cpc.mutation.Name(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -238,14 +243,6 @@ func (cpc *ConcentrateProcessCreate) createSpec() (*ConcentrateProcess, *sqlgrap
 			Column: concentrateprocess.FieldName,
 		})
 		_node.Name = value
-	}
-	if value, ok := cpc.mutation.Code(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
-			Value:  value,
-			Column: concentrateprocess.FieldCode,
-		})
-		_node.Code = value
 	}
 	if value, ok := cpc.mutation.Date(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -271,14 +268,6 @@ func (cpc *ConcentrateProcessCreate) createSpec() (*ConcentrateProcess, *sqlgrap
 		})
 		_node.In = value
 	}
-	if value, ok := cpc.mutation.Inventory(); ok {
-		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeInt64,
-			Value:  value,
-			Column: concentrateprocess.FieldInventory,
-		})
-		_node.Inventory = value
-	}
 	if value, ok := cpc.mutation.UserName(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -302,6 +291,22 @@ func (cpc *ConcentrateProcessCreate) createSpec() (*ConcentrateProcess, *sqlgrap
 			Column: concentrateprocess.FieldTenantName,
 		})
 		_node.TenantName = value
+	}
+	if value, ok := cpc.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: concentrateprocess.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := cpc.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: concentrateprocess.FieldFarmName,
+		})
+		_node.FarmName = value
 	}
 	if value, ok := cpc.mutation.Remarks(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

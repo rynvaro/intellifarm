@@ -15,6 +15,10 @@ const (
 	FieldTenantId = "tenant_id"
 	// FieldTenantName holds the string denoting the tenantname field in the database.
 	FieldTenantName = "tenant_name"
+	// FieldFarmId holds the string denoting the farmid field in the database.
+	FieldFarmId = "farm_id"
+	// FieldFarmName holds the string denoting the farmname field in the database.
+	FieldFarmName = "farm_name"
 	// FieldAPI holds the string denoting the api field in the database.
 	FieldAPI = "api"
 	// FieldIP holds the string denoting the ip field in the database.
@@ -37,6 +41,8 @@ var Columns = []string{
 	FieldUserName,
 	FieldTenantId,
 	FieldTenantName,
+	FieldFarmId,
+	FieldFarmName,
 	FieldAPI,
 	FieldIP,
 	FieldMethod,

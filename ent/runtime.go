@@ -22,6 +22,7 @@ import (
 	"cattleai/ent/duty"
 	"cattleai/ent/epidemictype"
 	"cattleai/ent/estrustype"
+	"cattleai/ent/event"
 	"cattleai/ent/farm"
 	"cattleai/ent/feedinfo"
 	"cattleai/ent/hairstate"
@@ -191,6 +192,12 @@ func init() {
 	estrustypeDescName := estrustypeFields[0].Descriptor()
 	// estrustype.NameValidator is a validator for the "name" field. It is called by the builders before save.
 	estrustype.NameValidator = estrustypeDescName.Validators[0].(func(string) error)
+	eventFields := schema.Event{}.Fields()
+	_ = eventFields
+	// eventDescTimes is the schema descriptor for times field.
+	eventDescTimes := eventFields[11].Descriptor()
+	// event.DefaultTimes holds the default value on creation for the times field.
+	event.DefaultTimes = eventDescTimes.Default.(int)
 	farmFields := schema.Farm{}.Fields()
 	_ = farmFields
 	// farmDescName is the schema descriptor for name field.

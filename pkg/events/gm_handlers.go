@@ -24,8 +24,8 @@ func EventAddHandler(c *gin.Context) {
 	log.Debug().Msg(form.String())
 	event, err := db.Client.Event.Create().
 		SetEarNumber(form.EarNumber).
-		SetEventName(form.EventName).
-		SetEventType(form.EventType).
+		SetEventTypeName(form.EventTypeName).
+		SetEventSubTypeName(form.EventSubTypeName).
 		SetTenantId(form.TenantId).
 		SetTenantName(form.TenantName).
 		SetTenantId(form.TenantId).
@@ -40,13 +40,14 @@ func EventAddHandler(c *gin.Context) {
 }
 
 type EventSearchParams struct {
-	EarNumber int64  `json:"earNumber" form:"earNumber"`
-	InGroup   int    `json:"inGroup" form:"inGroup"` // 是否在群
-	Type      string `json:"type" form:"type"`
-	TimeStart int64  `json:"timeStart" form:"timeStart"`
-	TimeEnd   int64  `json:"timeEnd" form:"timeEnd"`
-	PStart    int    `json:"pStart" form:"pStart"`
-	PEnd      int    `json:"pEnd" form:"pEnd"`
+	EarNumber   int64  `json:"earNumber" form:"earNumber"`
+	InGroup     int    `json:"inGroup" form:"inGroup"` // 是否在群
+	TypeName    string `json:"typeName" form:"typeName"`
+	SubTypeName string `json:"subTypeName" form:"subTypeName"`
+	TimeStart   int64  `json:"timeStart" form:"timeStart"`
+	TimeEnd     int64  `json:"timeEnd" form:"timeEnd"`
+	PStart      int    `json:"pStart" form:"pStart"`
+	PEnd        int    `json:"pEnd" form:"pEnd"`
 	params.ListParams
 }
 
@@ -104,8 +105,8 @@ func EventUpdateHandler(c *gin.Context) {
 	log.Debug().Msg(form.String())
 	event, err := db.Client.Event.UpdateOneID(form.ID).
 		SetEarNumber(form.EarNumber).
-		SetEventName(form.EventName).
-		SetEventType(form.EventType).
+		SetEventTypeName(form.EventTypeName).
+		SetEventSubTypeName(form.EventSubTypeName).
 		SetTenantId(form.TenantId).
 		SetTenantName(form.TenantName).
 		Save(c.Request.Context())

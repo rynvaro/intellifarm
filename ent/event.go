@@ -17,14 +17,28 @@ type Event struct {
 	ID int64 `json:"id,omitempty"`
 	// EarNumber holds the value of the "earNumber" field.
 	EarNumber string `json:"earNumber,omitempty"`
-	// EventType holds the value of the "eventType" field.
-	EventType string `json:"eventType,omitempty"`
-	// EventName holds the value of the "eventName" field.
-	EventName string `json:"eventName,omitempty"`
+	// EventTypeId holds the value of the "eventTypeId" field.
+	EventTypeId int `json:"eventTypeId,omitempty"`
+	// EventTypeName holds the value of the "eventTypeName" field.
+	EventTypeName string `json:"eventTypeName,omitempty"`
+	// EventSubTypeId holds the value of the "eventSubTypeId" field.
+	EventSubTypeId int `json:"eventSubTypeId,omitempty"`
+	// EventSubTypeName holds the value of the "eventSubTypeName" field.
+	EventSubTypeName string `json:"eventSubTypeName,omitempty"`
 	// TenantId holds the value of the "tenantId" field.
 	TenantId int64 `json:"tenantId,omitempty"`
 	// TenantName holds the value of the "tenantName" field.
 	TenantName string `json:"tenantName,omitempty"`
+	// FarmId holds the value of the "farmId" field.
+	FarmId int64 `json:"farmId,omitempty"`
+	// FarmName holds the value of the "farmName" field.
+	FarmName string `json:"farmName,omitempty"`
+	// ShedId holds the value of the "shedId" field.
+	ShedId int64 `json:"shedId,omitempty"`
+	// ShedName holds the value of the "shedName" field.
+	ShedName string `json:"shedName,omitempty"`
+	// Times holds the value of the "times" field.
+	Times int `json:"times,omitempty"`
 	// CreatedAt holds the value of the "createdAt" field.
 	CreatedAt int64 `json:"createdAt,omitempty"`
 	// Deleted holds the value of the "deleted" field.
@@ -36,10 +50,17 @@ func (*Event) scanValues() []interface{} {
 	return []interface{}{
 		&sql.NullInt64{},  // id
 		&sql.NullString{}, // earNumber
-		&sql.NullString{}, // eventType
-		&sql.NullString{}, // eventName
+		&sql.NullInt64{},  // eventTypeId
+		&sql.NullString{}, // eventTypeName
+		&sql.NullInt64{},  // eventSubTypeId
+		&sql.NullString{}, // eventSubTypeName
 		&sql.NullInt64{},  // tenantId
 		&sql.NullString{}, // tenantName
+		&sql.NullInt64{},  // farmId
+		&sql.NullString{}, // farmName
+		&sql.NullInt64{},  // shedId
+		&sql.NullString{}, // shedName
+		&sql.NullInt64{},  // times
 		&sql.NullInt64{},  // createdAt
 		&sql.NullInt64{},  // deleted
 	}
@@ -62,33 +83,68 @@ func (e *Event) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		e.EarNumber = value.String
 	}
-	if value, ok := values[1].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field eventType", values[1])
+	if value, ok := values[1].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field eventTypeId", values[1])
 	} else if value.Valid {
-		e.EventType = value.String
+		e.EventTypeId = int(value.Int64)
 	}
 	if value, ok := values[2].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field eventName", values[2])
+		return fmt.Errorf("unexpected type %T for field eventTypeName", values[2])
 	} else if value.Valid {
-		e.EventName = value.String
+		e.EventTypeName = value.String
 	}
 	if value, ok := values[3].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantId", values[3])
+		return fmt.Errorf("unexpected type %T for field eventSubTypeId", values[3])
+	} else if value.Valid {
+		e.EventSubTypeId = int(value.Int64)
+	}
+	if value, ok := values[4].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field eventSubTypeName", values[4])
+	} else if value.Valid {
+		e.EventSubTypeName = value.String
+	}
+	if value, ok := values[5].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantId", values[5])
 	} else if value.Valid {
 		e.TenantId = value.Int64
 	}
-	if value, ok := values[4].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field tenantName", values[4])
+	if value, ok := values[6].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field tenantName", values[6])
 	} else if value.Valid {
 		e.TenantName = value.String
 	}
-	if value, ok := values[5].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[5])
+	if value, ok := values[7].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field farmId", values[7])
+	} else if value.Valid {
+		e.FarmId = value.Int64
+	}
+	if value, ok := values[8].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field farmName", values[8])
+	} else if value.Valid {
+		e.FarmName = value.String
+	}
+	if value, ok := values[9].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field shedId", values[9])
+	} else if value.Valid {
+		e.ShedId = value.Int64
+	}
+	if value, ok := values[10].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field shedName", values[10])
+	} else if value.Valid {
+		e.ShedName = value.String
+	}
+	if value, ok := values[11].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field times", values[11])
+	} else if value.Valid {
+		e.Times = int(value.Int64)
+	}
+	if value, ok := values[12].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[12])
 	} else if value.Valid {
 		e.CreatedAt = value.Int64
 	}
-	if value, ok := values[6].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[6])
+	if value, ok := values[13].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[13])
 	} else if value.Valid {
 		e.Deleted = int(value.Int64)
 	}
@@ -120,14 +176,28 @@ func (e *Event) String() string {
 	builder.WriteString(fmt.Sprintf("id=%v", e.ID))
 	builder.WriteString(", earNumber=")
 	builder.WriteString(e.EarNumber)
-	builder.WriteString(", eventType=")
-	builder.WriteString(e.EventType)
-	builder.WriteString(", eventName=")
-	builder.WriteString(e.EventName)
+	builder.WriteString(", eventTypeId=")
+	builder.WriteString(fmt.Sprintf("%v", e.EventTypeId))
+	builder.WriteString(", eventTypeName=")
+	builder.WriteString(e.EventTypeName)
+	builder.WriteString(", eventSubTypeId=")
+	builder.WriteString(fmt.Sprintf("%v", e.EventSubTypeId))
+	builder.WriteString(", eventSubTypeName=")
+	builder.WriteString(e.EventSubTypeName)
 	builder.WriteString(", tenantId=")
 	builder.WriteString(fmt.Sprintf("%v", e.TenantId))
 	builder.WriteString(", tenantName=")
 	builder.WriteString(e.TenantName)
+	builder.WriteString(", farmId=")
+	builder.WriteString(fmt.Sprintf("%v", e.FarmId))
+	builder.WriteString(", farmName=")
+	builder.WriteString(e.FarmName)
+	builder.WriteString(", shedId=")
+	builder.WriteString(fmt.Sprintf("%v", e.ShedId))
+	builder.WriteString(", shedName=")
+	builder.WriteString(e.ShedName)
+	builder.WriteString(", times=")
+	builder.WriteString(fmt.Sprintf("%v", e.Times))
 	builder.WriteString(", createdAt=")
 	builder.WriteString(fmt.Sprintf("%v", e.CreatedAt))
 	builder.WriteString(", deleted=")

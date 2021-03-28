@@ -33,15 +33,69 @@ func (eu *EventUpdate) SetEarNumber(s string) *EventUpdate {
 	return eu
 }
 
-// SetEventType sets the eventType field.
-func (eu *EventUpdate) SetEventType(s string) *EventUpdate {
-	eu.mutation.SetEventType(s)
+// SetEventTypeId sets the eventTypeId field.
+func (eu *EventUpdate) SetEventTypeId(i int) *EventUpdate {
+	eu.mutation.ResetEventTypeId()
+	eu.mutation.SetEventTypeId(i)
 	return eu
 }
 
-// SetEventName sets the eventName field.
-func (eu *EventUpdate) SetEventName(s string) *EventUpdate {
-	eu.mutation.SetEventName(s)
+// SetNillableEventTypeId sets the eventTypeId field if the given value is not nil.
+func (eu *EventUpdate) SetNillableEventTypeId(i *int) *EventUpdate {
+	if i != nil {
+		eu.SetEventTypeId(*i)
+	}
+	return eu
+}
+
+// AddEventTypeId adds i to eventTypeId.
+func (eu *EventUpdate) AddEventTypeId(i int) *EventUpdate {
+	eu.mutation.AddEventTypeId(i)
+	return eu
+}
+
+// ClearEventTypeId clears the value of eventTypeId.
+func (eu *EventUpdate) ClearEventTypeId() *EventUpdate {
+	eu.mutation.ClearEventTypeId()
+	return eu
+}
+
+// SetEventTypeName sets the eventTypeName field.
+func (eu *EventUpdate) SetEventTypeName(s string) *EventUpdate {
+	eu.mutation.SetEventTypeName(s)
+	return eu
+}
+
+// SetEventSubTypeId sets the eventSubTypeId field.
+func (eu *EventUpdate) SetEventSubTypeId(i int) *EventUpdate {
+	eu.mutation.ResetEventSubTypeId()
+	eu.mutation.SetEventSubTypeId(i)
+	return eu
+}
+
+// SetNillableEventSubTypeId sets the eventSubTypeId field if the given value is not nil.
+func (eu *EventUpdate) SetNillableEventSubTypeId(i *int) *EventUpdate {
+	if i != nil {
+		eu.SetEventSubTypeId(*i)
+	}
+	return eu
+}
+
+// AddEventSubTypeId adds i to eventSubTypeId.
+func (eu *EventUpdate) AddEventSubTypeId(i int) *EventUpdate {
+	eu.mutation.AddEventSubTypeId(i)
+	return eu
+}
+
+// ClearEventSubTypeId clears the value of eventSubTypeId.
+func (eu *EventUpdate) ClearEventSubTypeId() *EventUpdate {
+	eu.mutation.ClearEventSubTypeId()
+	return eu
+}
+
+// SetEventSubTypeName sets the eventSubTypeName field.
+func (eu *EventUpdate) SetEventSubTypeName(s string) *EventUpdate {
+	eu.mutation.SetEventSubTypeName(s)
 	return eu
 }
 
@@ -61,6 +115,99 @@ func (eu *EventUpdate) AddTenantId(i int64) *EventUpdate {
 // SetTenantName sets the tenantName field.
 func (eu *EventUpdate) SetTenantName(s string) *EventUpdate {
 	eu.mutation.SetTenantName(s)
+	return eu
+}
+
+// SetFarmId sets the farmId field.
+func (eu *EventUpdate) SetFarmId(i int64) *EventUpdate {
+	eu.mutation.ResetFarmId()
+	eu.mutation.SetFarmId(i)
+	return eu
+}
+
+// AddFarmId adds i to farmId.
+func (eu *EventUpdate) AddFarmId(i int64) *EventUpdate {
+	eu.mutation.AddFarmId(i)
+	return eu
+}
+
+// SetFarmName sets the farmName field.
+func (eu *EventUpdate) SetFarmName(s string) *EventUpdate {
+	eu.mutation.SetFarmName(s)
+	return eu
+}
+
+// SetShedId sets the shedId field.
+func (eu *EventUpdate) SetShedId(i int64) *EventUpdate {
+	eu.mutation.ResetShedId()
+	eu.mutation.SetShedId(i)
+	return eu
+}
+
+// SetNillableShedId sets the shedId field if the given value is not nil.
+func (eu *EventUpdate) SetNillableShedId(i *int64) *EventUpdate {
+	if i != nil {
+		eu.SetShedId(*i)
+	}
+	return eu
+}
+
+// AddShedId adds i to shedId.
+func (eu *EventUpdate) AddShedId(i int64) *EventUpdate {
+	eu.mutation.AddShedId(i)
+	return eu
+}
+
+// ClearShedId clears the value of shedId.
+func (eu *EventUpdate) ClearShedId() *EventUpdate {
+	eu.mutation.ClearShedId()
+	return eu
+}
+
+// SetShedName sets the shedName field.
+func (eu *EventUpdate) SetShedName(s string) *EventUpdate {
+	eu.mutation.SetShedName(s)
+	return eu
+}
+
+// SetNillableShedName sets the shedName field if the given value is not nil.
+func (eu *EventUpdate) SetNillableShedName(s *string) *EventUpdate {
+	if s != nil {
+		eu.SetShedName(*s)
+	}
+	return eu
+}
+
+// ClearShedName clears the value of shedName.
+func (eu *EventUpdate) ClearShedName() *EventUpdate {
+	eu.mutation.ClearShedName()
+	return eu
+}
+
+// SetTimes sets the times field.
+func (eu *EventUpdate) SetTimes(i int) *EventUpdate {
+	eu.mutation.ResetTimes()
+	eu.mutation.SetTimes(i)
+	return eu
+}
+
+// SetNillableTimes sets the times field if the given value is not nil.
+func (eu *EventUpdate) SetNillableTimes(i *int) *EventUpdate {
+	if i != nil {
+		eu.SetTimes(*i)
+	}
+	return eu
+}
+
+// AddTimes adds i to times.
+func (eu *EventUpdate) AddTimes(i int) *EventUpdate {
+	eu.mutation.AddTimes(i)
+	return eu
+}
+
+// ClearTimes clears the value of times.
+func (eu *EventUpdate) ClearTimes() *EventUpdate {
+	eu.mutation.ClearTimes()
 	return eu
 }
 
@@ -171,18 +318,58 @@ func (eu *EventUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: event.FieldEarNumber,
 		})
 	}
-	if value, ok := eu.mutation.EventType(); ok {
+	if value, ok := eu.mutation.EventTypeId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt,
 			Value:  value,
-			Column: event.FieldEventType,
+			Column: event.FieldEventTypeId,
 		})
 	}
-	if value, ok := eu.mutation.EventName(); ok {
+	if value, ok := eu.mutation.AddedEventTypeId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: event.FieldEventTypeId,
+		})
+	}
+	if eu.mutation.EventTypeIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Column: event.FieldEventTypeId,
+		})
+	}
+	if value, ok := eu.mutation.EventTypeName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: event.FieldEventName,
+			Column: event.FieldEventTypeName,
+		})
+	}
+	if value, ok := eu.mutation.EventSubTypeId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: event.FieldEventSubTypeId,
+		})
+	}
+	if value, ok := eu.mutation.AddedEventSubTypeId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: event.FieldEventSubTypeId,
+		})
+	}
+	if eu.mutation.EventSubTypeIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Column: event.FieldEventSubTypeId,
+		})
+	}
+	if value, ok := eu.mutation.EventSubTypeName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: event.FieldEventSubTypeName,
 		})
 	}
 	if value, ok := eu.mutation.TenantId(); ok {
@@ -204,6 +391,80 @@ func (eu *EventUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Type:   field.TypeString,
 			Value:  value,
 			Column: event.FieldTenantName,
+		})
+	}
+	if value, ok := eu.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: event.FieldFarmId,
+		})
+	}
+	if value, ok := eu.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: event.FieldFarmId,
+		})
+	}
+	if value, ok := eu.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: event.FieldFarmName,
+		})
+	}
+	if value, ok := eu.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: event.FieldShedId,
+		})
+	}
+	if value, ok := eu.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: event.FieldShedId,
+		})
+	}
+	if eu.mutation.ShedIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: event.FieldShedId,
+		})
+	}
+	if value, ok := eu.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: event.FieldShedName,
+		})
+	}
+	if eu.mutation.ShedNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: event.FieldShedName,
+		})
+	}
+	if value, ok := eu.mutation.Times(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: event.FieldTimes,
+		})
+	}
+	if value, ok := eu.mutation.AddedTimes(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: event.FieldTimes,
+		})
+	}
+	if eu.mutation.TimesCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Column: event.FieldTimes,
 		})
 	}
 	if value, ok := eu.mutation.CreatedAt(); ok {
@@ -258,15 +519,69 @@ func (euo *EventUpdateOne) SetEarNumber(s string) *EventUpdateOne {
 	return euo
 }
 
-// SetEventType sets the eventType field.
-func (euo *EventUpdateOne) SetEventType(s string) *EventUpdateOne {
-	euo.mutation.SetEventType(s)
+// SetEventTypeId sets the eventTypeId field.
+func (euo *EventUpdateOne) SetEventTypeId(i int) *EventUpdateOne {
+	euo.mutation.ResetEventTypeId()
+	euo.mutation.SetEventTypeId(i)
 	return euo
 }
 
-// SetEventName sets the eventName field.
-func (euo *EventUpdateOne) SetEventName(s string) *EventUpdateOne {
-	euo.mutation.SetEventName(s)
+// SetNillableEventTypeId sets the eventTypeId field if the given value is not nil.
+func (euo *EventUpdateOne) SetNillableEventTypeId(i *int) *EventUpdateOne {
+	if i != nil {
+		euo.SetEventTypeId(*i)
+	}
+	return euo
+}
+
+// AddEventTypeId adds i to eventTypeId.
+func (euo *EventUpdateOne) AddEventTypeId(i int) *EventUpdateOne {
+	euo.mutation.AddEventTypeId(i)
+	return euo
+}
+
+// ClearEventTypeId clears the value of eventTypeId.
+func (euo *EventUpdateOne) ClearEventTypeId() *EventUpdateOne {
+	euo.mutation.ClearEventTypeId()
+	return euo
+}
+
+// SetEventTypeName sets the eventTypeName field.
+func (euo *EventUpdateOne) SetEventTypeName(s string) *EventUpdateOne {
+	euo.mutation.SetEventTypeName(s)
+	return euo
+}
+
+// SetEventSubTypeId sets the eventSubTypeId field.
+func (euo *EventUpdateOne) SetEventSubTypeId(i int) *EventUpdateOne {
+	euo.mutation.ResetEventSubTypeId()
+	euo.mutation.SetEventSubTypeId(i)
+	return euo
+}
+
+// SetNillableEventSubTypeId sets the eventSubTypeId field if the given value is not nil.
+func (euo *EventUpdateOne) SetNillableEventSubTypeId(i *int) *EventUpdateOne {
+	if i != nil {
+		euo.SetEventSubTypeId(*i)
+	}
+	return euo
+}
+
+// AddEventSubTypeId adds i to eventSubTypeId.
+func (euo *EventUpdateOne) AddEventSubTypeId(i int) *EventUpdateOne {
+	euo.mutation.AddEventSubTypeId(i)
+	return euo
+}
+
+// ClearEventSubTypeId clears the value of eventSubTypeId.
+func (euo *EventUpdateOne) ClearEventSubTypeId() *EventUpdateOne {
+	euo.mutation.ClearEventSubTypeId()
+	return euo
+}
+
+// SetEventSubTypeName sets the eventSubTypeName field.
+func (euo *EventUpdateOne) SetEventSubTypeName(s string) *EventUpdateOne {
+	euo.mutation.SetEventSubTypeName(s)
 	return euo
 }
 
@@ -286,6 +601,99 @@ func (euo *EventUpdateOne) AddTenantId(i int64) *EventUpdateOne {
 // SetTenantName sets the tenantName field.
 func (euo *EventUpdateOne) SetTenantName(s string) *EventUpdateOne {
 	euo.mutation.SetTenantName(s)
+	return euo
+}
+
+// SetFarmId sets the farmId field.
+func (euo *EventUpdateOne) SetFarmId(i int64) *EventUpdateOne {
+	euo.mutation.ResetFarmId()
+	euo.mutation.SetFarmId(i)
+	return euo
+}
+
+// AddFarmId adds i to farmId.
+func (euo *EventUpdateOne) AddFarmId(i int64) *EventUpdateOne {
+	euo.mutation.AddFarmId(i)
+	return euo
+}
+
+// SetFarmName sets the farmName field.
+func (euo *EventUpdateOne) SetFarmName(s string) *EventUpdateOne {
+	euo.mutation.SetFarmName(s)
+	return euo
+}
+
+// SetShedId sets the shedId field.
+func (euo *EventUpdateOne) SetShedId(i int64) *EventUpdateOne {
+	euo.mutation.ResetShedId()
+	euo.mutation.SetShedId(i)
+	return euo
+}
+
+// SetNillableShedId sets the shedId field if the given value is not nil.
+func (euo *EventUpdateOne) SetNillableShedId(i *int64) *EventUpdateOne {
+	if i != nil {
+		euo.SetShedId(*i)
+	}
+	return euo
+}
+
+// AddShedId adds i to shedId.
+func (euo *EventUpdateOne) AddShedId(i int64) *EventUpdateOne {
+	euo.mutation.AddShedId(i)
+	return euo
+}
+
+// ClearShedId clears the value of shedId.
+func (euo *EventUpdateOne) ClearShedId() *EventUpdateOne {
+	euo.mutation.ClearShedId()
+	return euo
+}
+
+// SetShedName sets the shedName field.
+func (euo *EventUpdateOne) SetShedName(s string) *EventUpdateOne {
+	euo.mutation.SetShedName(s)
+	return euo
+}
+
+// SetNillableShedName sets the shedName field if the given value is not nil.
+func (euo *EventUpdateOne) SetNillableShedName(s *string) *EventUpdateOne {
+	if s != nil {
+		euo.SetShedName(*s)
+	}
+	return euo
+}
+
+// ClearShedName clears the value of shedName.
+func (euo *EventUpdateOne) ClearShedName() *EventUpdateOne {
+	euo.mutation.ClearShedName()
+	return euo
+}
+
+// SetTimes sets the times field.
+func (euo *EventUpdateOne) SetTimes(i int) *EventUpdateOne {
+	euo.mutation.ResetTimes()
+	euo.mutation.SetTimes(i)
+	return euo
+}
+
+// SetNillableTimes sets the times field if the given value is not nil.
+func (euo *EventUpdateOne) SetNillableTimes(i *int) *EventUpdateOne {
+	if i != nil {
+		euo.SetTimes(*i)
+	}
+	return euo
+}
+
+// AddTimes adds i to times.
+func (euo *EventUpdateOne) AddTimes(i int) *EventUpdateOne {
+	euo.mutation.AddTimes(i)
+	return euo
+}
+
+// ClearTimes clears the value of times.
+func (euo *EventUpdateOne) ClearTimes() *EventUpdateOne {
+	euo.mutation.ClearTimes()
 	return euo
 }
 
@@ -394,18 +802,58 @@ func (euo *EventUpdateOne) sqlSave(ctx context.Context) (_node *Event, err error
 			Column: event.FieldEarNumber,
 		})
 	}
-	if value, ok := euo.mutation.EventType(); ok {
+	if value, ok := euo.mutation.EventTypeId(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt,
 			Value:  value,
-			Column: event.FieldEventType,
+			Column: event.FieldEventTypeId,
 		})
 	}
-	if value, ok := euo.mutation.EventName(); ok {
+	if value, ok := euo.mutation.AddedEventTypeId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: event.FieldEventTypeId,
+		})
+	}
+	if euo.mutation.EventTypeIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Column: event.FieldEventTypeId,
+		})
+	}
+	if value, ok := euo.mutation.EventTypeName(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: event.FieldEventName,
+			Column: event.FieldEventTypeName,
+		})
+	}
+	if value, ok := euo.mutation.EventSubTypeId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: event.FieldEventSubTypeId,
+		})
+	}
+	if value, ok := euo.mutation.AddedEventSubTypeId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: event.FieldEventSubTypeId,
+		})
+	}
+	if euo.mutation.EventSubTypeIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Column: event.FieldEventSubTypeId,
+		})
+	}
+	if value, ok := euo.mutation.EventSubTypeName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: event.FieldEventSubTypeName,
 		})
 	}
 	if value, ok := euo.mutation.TenantId(); ok {
@@ -427,6 +875,80 @@ func (euo *EventUpdateOne) sqlSave(ctx context.Context) (_node *Event, err error
 			Type:   field.TypeString,
 			Value:  value,
 			Column: event.FieldTenantName,
+		})
+	}
+	if value, ok := euo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: event.FieldFarmId,
+		})
+	}
+	if value, ok := euo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: event.FieldFarmId,
+		})
+	}
+	if value, ok := euo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: event.FieldFarmName,
+		})
+	}
+	if value, ok := euo.mutation.ShedId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: event.FieldShedId,
+		})
+	}
+	if value, ok := euo.mutation.AddedShedId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: event.FieldShedId,
+		})
+	}
+	if euo.mutation.ShedIdCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Column: event.FieldShedId,
+		})
+	}
+	if value, ok := euo.mutation.ShedName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: event.FieldShedName,
+		})
+	}
+	if euo.mutation.ShedNameCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Column: event.FieldShedName,
+		})
+	}
+	if value, ok := euo.mutation.Times(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: event.FieldTimes,
+		})
+	}
+	if value, ok := euo.mutation.AddedTimes(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: event.FieldTimes,
+		})
+	}
+	if euo.mutation.TimesCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Column: event.FieldTimes,
 		})
 	}
 	if value, ok := euo.mutation.CreatedAt(); ok {

@@ -43,6 +43,18 @@ func (oc *OperationCreate) SetTenantName(s string) *OperationCreate {
 	return oc
 }
 
+// SetFarmId sets the farmId field.
+func (oc *OperationCreate) SetFarmId(i int64) *OperationCreate {
+	oc.mutation.SetFarmId(i)
+	return oc
+}
+
+// SetFarmName sets the farmName field.
+func (oc *OperationCreate) SetFarmName(s string) *OperationCreate {
+	oc.mutation.SetFarmName(s)
+	return oc
+}
+
 // SetAPI sets the api field.
 func (oc *OperationCreate) SetAPI(s string) *OperationCreate {
 	oc.mutation.SetAPI(s)
@@ -136,6 +148,12 @@ func (oc *OperationCreate) check() error {
 	if _, ok := oc.mutation.TenantName(); !ok {
 		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
 	}
+	if _, ok := oc.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := oc.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
+	}
 	if _, ok := oc.mutation.API(); !ok {
 		return &ValidationError{Name: "api", err: errors.New("ent: missing required field \"api\"")}
 	}
@@ -209,6 +227,22 @@ func (oc *OperationCreate) createSpec() (*Operation, *sqlgraph.CreateSpec) {
 			Column: operation.FieldTenantName,
 		})
 		_node.TenantName = value
+	}
+	if value, ok := oc.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: operation.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := oc.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: operation.FieldFarmName,
+		})
+		_node.FarmName = value
 	}
 	if value, ok := oc.mutation.API(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{

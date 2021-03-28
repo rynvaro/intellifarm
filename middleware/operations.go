@@ -41,6 +41,8 @@ func SaveOperation() gin.HandlerFunc {
 			SetUserName(currentUser.Name).
 			SetTenantId(currentUser.TenantId).
 			SetTenantName(currentUser.TenantName).
+			SetFarmId(currentUser.FarmId).
+			SetFarmName(currentUser.FarmName).
 			SetDeleted(0).
 			SetMethod(c.Request.Method).
 			SetIP(c.ClientIP()).

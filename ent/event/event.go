@@ -9,14 +9,28 @@ const (
 	FieldID = "id"
 	// FieldEarNumber holds the string denoting the earnumber field in the database.
 	FieldEarNumber = "ear_number"
-	// FieldEventType holds the string denoting the eventtype field in the database.
-	FieldEventType = "event_type"
-	// FieldEventName holds the string denoting the eventname field in the database.
-	FieldEventName = "event_name"
+	// FieldEventTypeId holds the string denoting the eventtypeid field in the database.
+	FieldEventTypeId = "event_type_id"
+	// FieldEventTypeName holds the string denoting the eventtypename field in the database.
+	FieldEventTypeName = "event_type_name"
+	// FieldEventSubTypeId holds the string denoting the eventsubtypeid field in the database.
+	FieldEventSubTypeId = "event_sub_type_id"
+	// FieldEventSubTypeName holds the string denoting the eventsubtypename field in the database.
+	FieldEventSubTypeName = "event_sub_type_name"
 	// FieldTenantId holds the string denoting the tenantid field in the database.
 	FieldTenantId = "tenant_id"
 	// FieldTenantName holds the string denoting the tenantname field in the database.
 	FieldTenantName = "tenant_name"
+	// FieldFarmId holds the string denoting the farmid field in the database.
+	FieldFarmId = "farm_id"
+	// FieldFarmName holds the string denoting the farmname field in the database.
+	FieldFarmName = "farm_name"
+	// FieldShedId holds the string denoting the shedid field in the database.
+	FieldShedId = "shed_id"
+	// FieldShedName holds the string denoting the shedname field in the database.
+	FieldShedName = "shed_name"
+	// FieldTimes holds the string denoting the times field in the database.
+	FieldTimes = "times"
 	// FieldCreatedAt holds the string denoting the createdat field in the database.
 	FieldCreatedAt = "created_at"
 	// FieldDeleted holds the string denoting the deleted field in the database.
@@ -30,10 +44,17 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldEarNumber,
-	FieldEventType,
-	FieldEventName,
+	FieldEventTypeId,
+	FieldEventTypeName,
+	FieldEventSubTypeId,
+	FieldEventSubTypeName,
 	FieldTenantId,
 	FieldTenantName,
+	FieldFarmId,
+	FieldFarmName,
+	FieldShedId,
+	FieldShedName,
+	FieldTimes,
 	FieldCreatedAt,
 	FieldDeleted,
 }
@@ -47,3 +68,8 @@ func ValidColumn(column string) bool {
 	}
 	return false
 }
+
+var (
+	// DefaultTimes holds the default value on creation for the times field.
+	DefaultTimes int
+)

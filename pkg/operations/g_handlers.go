@@ -28,6 +28,8 @@ func OperationAddHandler(c *gin.Context) {
 		SetMethod(form.Method).
 		SetTenantId(form.TenantId).
 		SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).
+		SetFarmName(form.FarmName).
 		SetUserId(form.UserId).
 		SetUserName(form.UserName).
 		SetTenantId(form.TenantId).
@@ -99,6 +101,8 @@ func OperationUpdateHandler(c *gin.Context) {
 		SetMethod(form.Method).
 		SetTenantId(form.TenantId).
 		SetTenantName(form.TenantName).
+		SetFarmId(form.FarmId).
+		SetFarmName(form.FarmName).
 		SetUserId(form.UserId).
 		SetUserName(form.UserName).
 		Save(c.Request.Context())

@@ -17,6 +17,8 @@ func (Operation) Fields() []ent.Field {
 		field.String("userName"),
 		field.Int64("tenantId"),
 		field.String("tenantName"),
+		field.Int64("farmId"),
+		field.String("farmName"),
 		field.String("api"),
 		field.String("ip"),
 		field.String("method"),

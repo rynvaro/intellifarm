@@ -45,8 +45,10 @@ func CattleGrowsDataAddHandler(c *gin.Context) {
 	}
 
 	if _, err := db.Client.Event.Create().SetCreatedAt(time.Now().UnixNano()).
-		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventName("体测").
-		SetEventType("其他事件").SetTenantId(form.TenantId).
+		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventTypeName("体测").
+		SetEventSubTypeName("其他事件").SetTenantId(form.TenantId).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
 		SetTenantName(form.TenantName).Save(c.Request.Context()); err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)

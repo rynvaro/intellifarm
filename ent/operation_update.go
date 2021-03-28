@@ -65,6 +65,25 @@ func (ou *OperationUpdate) SetTenantName(s string) *OperationUpdate {
 	return ou
 }
 
+// SetFarmId sets the farmId field.
+func (ou *OperationUpdate) SetFarmId(i int64) *OperationUpdate {
+	ou.mutation.ResetFarmId()
+	ou.mutation.SetFarmId(i)
+	return ou
+}
+
+// AddFarmId adds i to farmId.
+func (ou *OperationUpdate) AddFarmId(i int64) *OperationUpdate {
+	ou.mutation.AddFarmId(i)
+	return ou
+}
+
+// SetFarmName sets the farmName field.
+func (ou *OperationUpdate) SetFarmName(s string) *OperationUpdate {
+	ou.mutation.SetFarmName(s)
+	return ou
+}
+
 // SetAPI sets the api field.
 func (ou *OperationUpdate) SetAPI(s string) *OperationUpdate {
 	ou.mutation.SetAPI(s)
@@ -225,6 +244,27 @@ func (ou *OperationUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: operation.FieldTenantName,
 		})
 	}
+	if value, ok := ou.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: operation.FieldFarmId,
+		})
+	}
+	if value, ok := ou.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: operation.FieldFarmId,
+		})
+	}
+	if value, ok := ou.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: operation.FieldFarmName,
+		})
+	}
 	if value, ok := ou.mutation.API(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
@@ -327,6 +367,25 @@ func (ouo *OperationUpdateOne) AddTenantId(i int64) *OperationUpdateOne {
 // SetTenantName sets the tenantName field.
 func (ouo *OperationUpdateOne) SetTenantName(s string) *OperationUpdateOne {
 	ouo.mutation.SetTenantName(s)
+	return ouo
+}
+
+// SetFarmId sets the farmId field.
+func (ouo *OperationUpdateOne) SetFarmId(i int64) *OperationUpdateOne {
+	ouo.mutation.ResetFarmId()
+	ouo.mutation.SetFarmId(i)
+	return ouo
+}
+
+// AddFarmId adds i to farmId.
+func (ouo *OperationUpdateOne) AddFarmId(i int64) *OperationUpdateOne {
+	ouo.mutation.AddFarmId(i)
+	return ouo
+}
+
+// SetFarmName sets the farmName field.
+func (ouo *OperationUpdateOne) SetFarmName(s string) *OperationUpdateOne {
+	ouo.mutation.SetFarmName(s)
 	return ouo
 }
 
@@ -486,6 +545,27 @@ func (ouo *OperationUpdateOne) sqlSave(ctx context.Context) (_node *Operation, e
 			Type:   field.TypeString,
 			Value:  value,
 			Column: operation.FieldTenantName,
+		})
+	}
+	if value, ok := ouo.mutation.FarmId(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: operation.FieldFarmId,
+		})
+	}
+	if value, ok := ouo.mutation.AddedFarmId(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: operation.FieldFarmId,
+		})
+	}
+	if value, ok := ouo.mutation.FarmName(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: operation.FieldFarmName,
 		})
 	}
 	if value, ok := ouo.mutation.API(); ok {

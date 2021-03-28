@@ -23,6 +23,10 @@ type Operation struct {
 	TenantId int64 `json:"tenantId,omitempty"`
 	// TenantName holds the value of the "tenantName" field.
 	TenantName string `json:"tenantName,omitempty"`
+	// FarmId holds the value of the "farmId" field.
+	FarmId int64 `json:"farmId,omitempty"`
+	// FarmName holds the value of the "farmName" field.
+	FarmName string `json:"farmName,omitempty"`
 	// API holds the value of the "api" field.
 	API string `json:"api,omitempty"`
 	// IP holds the value of the "ip" field.
@@ -43,6 +47,8 @@ func (*Operation) scanValues() []interface{} {
 		&sql.NullString{}, // userName
 		&sql.NullInt64{},  // tenantId
 		&sql.NullString{}, // tenantName
+		&sql.NullInt64{},  // farmId
+		&sql.NullString{}, // farmName
 		&sql.NullString{}, // api
 		&sql.NullString{}, // ip
 		&sql.NullString{}, // method
@@ -83,28 +89,38 @@ func (o *Operation) assignValues(values ...interface{}) error {
 	} else if value.Valid {
 		o.TenantName = value.String
 	}
-	if value, ok := values[4].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field api", values[4])
+	if value, ok := values[4].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field farmId", values[4])
+	} else if value.Valid {
+		o.FarmId = value.Int64
+	}
+	if value, ok := values[5].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field farmName", values[5])
+	} else if value.Valid {
+		o.FarmName = value.String
+	}
+	if value, ok := values[6].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field api", values[6])
 	} else if value.Valid {
 		o.API = value.String
 	}
-	if value, ok := values[5].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field ip", values[5])
+	if value, ok := values[7].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field ip", values[7])
 	} else if value.Valid {
 		o.IP = value.String
 	}
-	if value, ok := values[6].(*sql.NullString); !ok {
-		return fmt.Errorf("unexpected type %T for field method", values[6])
+	if value, ok := values[8].(*sql.NullString); !ok {
+		return fmt.Errorf("unexpected type %T for field method", values[8])
 	} else if value.Valid {
 		o.Method = value.String
 	}
-	if value, ok := values[7].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field createdAt", values[7])
+	if value, ok := values[9].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field createdAt", values[9])
 	} else if value.Valid {
 		o.CreatedAt = value.Int64
 	}
-	if value, ok := values[8].(*sql.NullInt64); !ok {
-		return fmt.Errorf("unexpected type %T for field deleted", values[8])
+	if value, ok := values[10].(*sql.NullInt64); !ok {
+		return fmt.Errorf("unexpected type %T for field deleted", values[10])
 	} else if value.Valid {
 		o.Deleted = int(value.Int64)
 	}
@@ -142,6 +158,10 @@ func (o *Operation) String() string {
 	builder.WriteString(fmt.Sprintf("%v", o.TenantId))
 	builder.WriteString(", tenantName=")
 	builder.WriteString(o.TenantName)
+	builder.WriteString(", farmId=")
+	builder.WriteString(fmt.Sprintf("%v", o.FarmId))
+	builder.WriteString(", farmName=")
+	builder.WriteString(o.FarmName)
 	builder.WriteString(", api=")
 	builder.WriteString(o.API)
 	builder.WriteString(", ip=")

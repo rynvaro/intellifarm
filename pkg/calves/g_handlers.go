@@ -59,8 +59,12 @@ func CalveAddHandler(c *gin.Context) {
 	}
 
 	if _, err := db.Client.Event.Create().SetCreatedAt(time.Now().UnixNano()).
-		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventName("产犊").
-		SetEventType("繁殖事件").SetTenantId(form.TenantId).
+		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventTypeName("产犊").
+		SetEventSubTypeName("繁殖事件").SetTenantId(form.TenantId).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		SetTimes(form.Times).
+		SetTimes(form.Times).
 		SetTenantName(form.TenantName).Save(c.Request.Context()); err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)

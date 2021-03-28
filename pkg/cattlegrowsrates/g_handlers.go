@@ -40,14 +40,16 @@ func CattleGrowsRateAddHandler(c *gin.Context) {
 		return
 	}
 
-	if _, err := db.Client.Event.Create().SetCreatedAt(time.Now().UnixNano()).
-		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventName("体况评分").
-		SetEventType("其他事件").SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).Save(c.Request.Context()); err != nil {
-		log.Error().Msg(err.Error())
-		c.Status(http.StatusInternalServerError)
-		return
-	}
+	// if _, err := db.Client.Event.Create().SetCreatedAt(time.Now().UnixNano()).
+	// 	SetDeleted(0).SetEarNumber(form.EarNumber).SetEventTypeName("体况评分").
+	// 	SetEventSubTypeName("其他事件").SetTenantId(form.TenantId).
+	// 	SetFarmId(form.FarmId).SetFarmName(form.FarmName).
+	// 	SetShedId(form.ShedId).SetShedName(form.ShedName).
+	// 	SetTenantName(form.TenantName).Save(c.Request.Context()); err != nil {
+	// 	log.Error().Msg(err.Error())
+	// 	c.Status(http.StatusInternalServerError)
+	// 	return
+	// }
 
 	c.JSON(http.StatusOK, resp.Success(cattlegrowsrate))
 }

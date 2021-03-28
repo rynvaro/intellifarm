@@ -119,6 +119,20 @@ func TenantName(v string) predicate.Operation {
 	})
 }
 
+// FarmId applies equality check predicate on the "farmId" field. It's identical to FarmIdEQ.
+func FarmId(v int64) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmName applies equality check predicate on the "farmName" field. It's identical to FarmNameEQ.
+func FarmName(v string) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
+	})
+}
+
 // API applies equality check predicate on the "api" field. It's identical to APIEQ.
 func API(v string) predicate.Operation {
 	return predicate.Operation(func(s *sql.Selector) {
@@ -525,6 +539,193 @@ func TenantNameEqualFold(v string) predicate.Operation {
 func TenantNameContainsFold(v string) predicate.Operation {
 	return predicate.Operation(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldTenantName), v))
+	})
+}
+
+// FarmIdEQ applies the EQ predicate on the "farmId" field.
+func FarmIdEQ(v int64) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdNEQ applies the NEQ predicate on the "farmId" field.
+func FarmIdNEQ(v int64) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdIn applies the In predicate on the "farmId" field.
+func FarmIdIn(vs ...int64) predicate.Operation {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Operation(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdNotIn applies the NotIn predicate on the "farmId" field.
+func FarmIdNotIn(vs ...int64) predicate.Operation {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Operation(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdGT applies the GT predicate on the "farmId" field.
+func FarmIdGT(v int64) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdGTE applies the GTE predicate on the "farmId" field.
+func FarmIdGTE(v int64) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLT applies the LT predicate on the "farmId" field.
+func FarmIdLT(v int64) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLTE applies the LTE predicate on the "farmId" field.
+func FarmIdLTE(v int64) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmNameEQ applies the EQ predicate on the "farmName" field.
+func FarmNameEQ(v string) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameNEQ applies the NEQ predicate on the "farmName" field.
+func FarmNameNEQ(v string) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameIn applies the In predicate on the "farmName" field.
+func FarmNameIn(vs ...string) predicate.Operation {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Operation(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameNotIn applies the NotIn predicate on the "farmName" field.
+func FarmNameNotIn(vs ...string) predicate.Operation {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Operation(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameGT applies the GT predicate on the "farmName" field.
+func FarmNameGT(v string) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameGTE applies the GTE predicate on the "farmName" field.
+func FarmNameGTE(v string) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLT applies the LT predicate on the "farmName" field.
+func FarmNameLT(v string) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLTE applies the LTE predicate on the "farmName" field.
+func FarmNameLTE(v string) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContains applies the Contains predicate on the "farmName" field.
+func FarmNameContains(v string) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasPrefix applies the HasPrefix predicate on the "farmName" field.
+func FarmNameHasPrefix(v string) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasSuffix applies the HasSuffix predicate on the "farmName" field.
+func FarmNameHasSuffix(v string) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameEqualFold applies the EqualFold predicate on the "farmName" field.
+func FarmNameEqualFold(v string) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContainsFold applies the ContainsFold predicate on the "farmName" field.
+func FarmNameContainsFold(v string) predicate.Operation {
+	return predicate.Operation(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldFarmName), v))
 	})
 }
 

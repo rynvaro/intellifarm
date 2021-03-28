@@ -44,8 +44,10 @@ func ImmunityAddHandler(c *gin.Context) {
 	}
 
 	if _, err := db.Client.Event.Create().SetCreatedAt(time.Now().UnixNano()).
-		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventName("免疫").
-		SetEventType("兽医事件").SetTenantId(form.TenantId).
+		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventTypeName("免疫").
+		SetEventSubTypeName("兽医事件").SetTenantId(form.TenantId).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
 		SetTenantName(form.TenantName).Save(c.Request.Context()); err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)

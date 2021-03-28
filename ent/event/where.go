@@ -98,17 +98,31 @@ func EarNumber(v string) predicate.Event {
 	})
 }
 
-// EventType applies equality check predicate on the "eventType" field. It's identical to EventTypeEQ.
-func EventType(v string) predicate.Event {
+// EventTypeId applies equality check predicate on the "eventTypeId" field. It's identical to EventTypeIdEQ.
+func EventTypeId(v int) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldEventType), v))
+		s.Where(sql.EQ(s.C(FieldEventTypeId), v))
 	})
 }
 
-// EventName applies equality check predicate on the "eventName" field. It's identical to EventNameEQ.
-func EventName(v string) predicate.Event {
+// EventTypeName applies equality check predicate on the "eventTypeName" field. It's identical to EventTypeNameEQ.
+func EventTypeName(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldEventName), v))
+		s.Where(sql.EQ(s.C(FieldEventTypeName), v))
+	})
+}
+
+// EventSubTypeId applies equality check predicate on the "eventSubTypeId" field. It's identical to EventSubTypeIdEQ.
+func EventSubTypeId(v int) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldEventSubTypeId), v))
+	})
+}
+
+// EventSubTypeName applies equality check predicate on the "eventSubTypeName" field. It's identical to EventSubTypeNameEQ.
+func EventSubTypeName(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldEventSubTypeName), v))
 	})
 }
 
@@ -123,6 +137,41 @@ func TenantId(v int64) predicate.Event {
 func TenantName(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
 		s.Where(sql.EQ(s.C(FieldTenantName), v))
+	})
+}
+
+// FarmId applies equality check predicate on the "farmId" field. It's identical to FarmIdEQ.
+func FarmId(v int64) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmName applies equality check predicate on the "farmName" field. It's identical to FarmNameEQ.
+func FarmName(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
+	})
+}
+
+// ShedId applies equality check predicate on the "shedId" field. It's identical to ShedIdEQ.
+func ShedId(v int64) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldShedId), v))
+	})
+}
+
+// ShedName applies equality check predicate on the "shedName" field. It's identical to ShedNameEQ.
+func ShedName(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldShedName), v))
+	})
+}
+
+// Times applies equality check predicate on the "times" field. It's identical to TimesEQ.
+func Times(v int) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTimes), v))
 	})
 }
 
@@ -251,22 +300,22 @@ func EarNumberContainsFold(v string) predicate.Event {
 	})
 }
 
-// EventTypeEQ applies the EQ predicate on the "eventType" field.
-func EventTypeEQ(v string) predicate.Event {
+// EventTypeIdEQ applies the EQ predicate on the "eventTypeId" field.
+func EventTypeIdEQ(v int) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldEventType), v))
+		s.Where(sql.EQ(s.C(FieldEventTypeId), v))
 	})
 }
 
-// EventTypeNEQ applies the NEQ predicate on the "eventType" field.
-func EventTypeNEQ(v string) predicate.Event {
+// EventTypeIdNEQ applies the NEQ predicate on the "eventTypeId" field.
+func EventTypeIdNEQ(v int) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldEventType), v))
+		s.Where(sql.NEQ(s.C(FieldEventTypeId), v))
 	})
 }
 
-// EventTypeIn applies the In predicate on the "eventType" field.
-func EventTypeIn(vs ...string) predicate.Event {
+// EventTypeIdIn applies the In predicate on the "eventTypeId" field.
+func EventTypeIdIn(vs ...int) predicate.Event {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -278,12 +327,12 @@ func EventTypeIn(vs ...string) predicate.Event {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldEventType), v...))
+		s.Where(sql.In(s.C(FieldEventTypeId), v...))
 	})
 }
 
-// EventTypeNotIn applies the NotIn predicate on the "eventType" field.
-func EventTypeNotIn(vs ...string) predicate.Event {
+// EventTypeIdNotIn applies the NotIn predicate on the "eventTypeId" field.
+func EventTypeIdNotIn(vs ...int) predicate.Event {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -295,89 +344,68 @@ func EventTypeNotIn(vs ...string) predicate.Event {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldEventType), v...))
+		s.Where(sql.NotIn(s.C(FieldEventTypeId), v...))
 	})
 }
 
-// EventTypeGT applies the GT predicate on the "eventType" field.
-func EventTypeGT(v string) predicate.Event {
+// EventTypeIdGT applies the GT predicate on the "eventTypeId" field.
+func EventTypeIdGT(v int) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldEventType), v))
+		s.Where(sql.GT(s.C(FieldEventTypeId), v))
 	})
 }
 
-// EventTypeGTE applies the GTE predicate on the "eventType" field.
-func EventTypeGTE(v string) predicate.Event {
+// EventTypeIdGTE applies the GTE predicate on the "eventTypeId" field.
+func EventTypeIdGTE(v int) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldEventType), v))
+		s.Where(sql.GTE(s.C(FieldEventTypeId), v))
 	})
 }
 
-// EventTypeLT applies the LT predicate on the "eventType" field.
-func EventTypeLT(v string) predicate.Event {
+// EventTypeIdLT applies the LT predicate on the "eventTypeId" field.
+func EventTypeIdLT(v int) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldEventType), v))
+		s.Where(sql.LT(s.C(FieldEventTypeId), v))
 	})
 }
 
-// EventTypeLTE applies the LTE predicate on the "eventType" field.
-func EventTypeLTE(v string) predicate.Event {
+// EventTypeIdLTE applies the LTE predicate on the "eventTypeId" field.
+func EventTypeIdLTE(v int) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldEventType), v))
+		s.Where(sql.LTE(s.C(FieldEventTypeId), v))
 	})
 }
 
-// EventTypeContains applies the Contains predicate on the "eventType" field.
-func EventTypeContains(v string) predicate.Event {
+// EventTypeIdIsNil applies the IsNil predicate on the "eventTypeId" field.
+func EventTypeIdIsNil() predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldEventType), v))
+		s.Where(sql.IsNull(s.C(FieldEventTypeId)))
 	})
 }
 
-// EventTypeHasPrefix applies the HasPrefix predicate on the "eventType" field.
-func EventTypeHasPrefix(v string) predicate.Event {
+// EventTypeIdNotNil applies the NotNil predicate on the "eventTypeId" field.
+func EventTypeIdNotNil() predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldEventType), v))
+		s.Where(sql.NotNull(s.C(FieldEventTypeId)))
 	})
 }
 
-// EventTypeHasSuffix applies the HasSuffix predicate on the "eventType" field.
-func EventTypeHasSuffix(v string) predicate.Event {
+// EventTypeNameEQ applies the EQ predicate on the "eventTypeName" field.
+func EventTypeNameEQ(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldEventType), v))
+		s.Where(sql.EQ(s.C(FieldEventTypeName), v))
 	})
 }
 
-// EventTypeEqualFold applies the EqualFold predicate on the "eventType" field.
-func EventTypeEqualFold(v string) predicate.Event {
+// EventTypeNameNEQ applies the NEQ predicate on the "eventTypeName" field.
+func EventTypeNameNEQ(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldEventType), v))
+		s.Where(sql.NEQ(s.C(FieldEventTypeName), v))
 	})
 }
 
-// EventTypeContainsFold applies the ContainsFold predicate on the "eventType" field.
-func EventTypeContainsFold(v string) predicate.Event {
-	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldEventType), v))
-	})
-}
-
-// EventNameEQ applies the EQ predicate on the "eventName" field.
-func EventNameEQ(v string) predicate.Event {
-	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldEventName), v))
-	})
-}
-
-// EventNameNEQ applies the NEQ predicate on the "eventName" field.
-func EventNameNEQ(v string) predicate.Event {
-	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldEventName), v))
-	})
-}
-
-// EventNameIn applies the In predicate on the "eventName" field.
-func EventNameIn(vs ...string) predicate.Event {
+// EventTypeNameIn applies the In predicate on the "eventTypeName" field.
+func EventTypeNameIn(vs ...string) predicate.Event {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -389,12 +417,12 @@ func EventNameIn(vs ...string) predicate.Event {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldEventName), v...))
+		s.Where(sql.In(s.C(FieldEventTypeName), v...))
 	})
 }
 
-// EventNameNotIn applies the NotIn predicate on the "eventName" field.
-func EventNameNotIn(vs ...string) predicate.Event {
+// EventTypeNameNotIn applies the NotIn predicate on the "eventTypeName" field.
+func EventTypeNameNotIn(vs ...string) predicate.Event {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -406,70 +434,271 @@ func EventNameNotIn(vs ...string) predicate.Event {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldEventName), v...))
+		s.Where(sql.NotIn(s.C(FieldEventTypeName), v...))
 	})
 }
 
-// EventNameGT applies the GT predicate on the "eventName" field.
-func EventNameGT(v string) predicate.Event {
+// EventTypeNameGT applies the GT predicate on the "eventTypeName" field.
+func EventTypeNameGT(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldEventName), v))
+		s.Where(sql.GT(s.C(FieldEventTypeName), v))
 	})
 }
 
-// EventNameGTE applies the GTE predicate on the "eventName" field.
-func EventNameGTE(v string) predicate.Event {
+// EventTypeNameGTE applies the GTE predicate on the "eventTypeName" field.
+func EventTypeNameGTE(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldEventName), v))
+		s.Where(sql.GTE(s.C(FieldEventTypeName), v))
 	})
 }
 
-// EventNameLT applies the LT predicate on the "eventName" field.
-func EventNameLT(v string) predicate.Event {
+// EventTypeNameLT applies the LT predicate on the "eventTypeName" field.
+func EventTypeNameLT(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldEventName), v))
+		s.Where(sql.LT(s.C(FieldEventTypeName), v))
 	})
 }
 
-// EventNameLTE applies the LTE predicate on the "eventName" field.
-func EventNameLTE(v string) predicate.Event {
+// EventTypeNameLTE applies the LTE predicate on the "eventTypeName" field.
+func EventTypeNameLTE(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldEventName), v))
+		s.Where(sql.LTE(s.C(FieldEventTypeName), v))
 	})
 }
 
-// EventNameContains applies the Contains predicate on the "eventName" field.
-func EventNameContains(v string) predicate.Event {
+// EventTypeNameContains applies the Contains predicate on the "eventTypeName" field.
+func EventTypeNameContains(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.Contains(s.C(FieldEventName), v))
+		s.Where(sql.Contains(s.C(FieldEventTypeName), v))
 	})
 }
 
-// EventNameHasPrefix applies the HasPrefix predicate on the "eventName" field.
-func EventNameHasPrefix(v string) predicate.Event {
+// EventTypeNameHasPrefix applies the HasPrefix predicate on the "eventTypeName" field.
+func EventTypeNameHasPrefix(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.HasPrefix(s.C(FieldEventName), v))
+		s.Where(sql.HasPrefix(s.C(FieldEventTypeName), v))
 	})
 }
 
-// EventNameHasSuffix applies the HasSuffix predicate on the "eventName" field.
-func EventNameHasSuffix(v string) predicate.Event {
+// EventTypeNameHasSuffix applies the HasSuffix predicate on the "eventTypeName" field.
+func EventTypeNameHasSuffix(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.HasSuffix(s.C(FieldEventName), v))
+		s.Where(sql.HasSuffix(s.C(FieldEventTypeName), v))
 	})
 }
 
-// EventNameEqualFold applies the EqualFold predicate on the "eventName" field.
-func EventNameEqualFold(v string) predicate.Event {
+// EventTypeNameEqualFold applies the EqualFold predicate on the "eventTypeName" field.
+func EventTypeNameEqualFold(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.EqualFold(s.C(FieldEventName), v))
+		s.Where(sql.EqualFold(s.C(FieldEventTypeName), v))
 	})
 }
 
-// EventNameContainsFold applies the ContainsFold predicate on the "eventName" field.
-func EventNameContainsFold(v string) predicate.Event {
+// EventTypeNameContainsFold applies the ContainsFold predicate on the "eventTypeName" field.
+func EventTypeNameContainsFold(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
-		s.Where(sql.ContainsFold(s.C(FieldEventName), v))
+		s.Where(sql.ContainsFold(s.C(FieldEventTypeName), v))
+	})
+}
+
+// EventSubTypeIdEQ applies the EQ predicate on the "eventSubTypeId" field.
+func EventSubTypeIdEQ(v int) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldEventSubTypeId), v))
+	})
+}
+
+// EventSubTypeIdNEQ applies the NEQ predicate on the "eventSubTypeId" field.
+func EventSubTypeIdNEQ(v int) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldEventSubTypeId), v))
+	})
+}
+
+// EventSubTypeIdIn applies the In predicate on the "eventSubTypeId" field.
+func EventSubTypeIdIn(vs ...int) predicate.Event {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Event(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldEventSubTypeId), v...))
+	})
+}
+
+// EventSubTypeIdNotIn applies the NotIn predicate on the "eventSubTypeId" field.
+func EventSubTypeIdNotIn(vs ...int) predicate.Event {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Event(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldEventSubTypeId), v...))
+	})
+}
+
+// EventSubTypeIdGT applies the GT predicate on the "eventSubTypeId" field.
+func EventSubTypeIdGT(v int) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldEventSubTypeId), v))
+	})
+}
+
+// EventSubTypeIdGTE applies the GTE predicate on the "eventSubTypeId" field.
+func EventSubTypeIdGTE(v int) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldEventSubTypeId), v))
+	})
+}
+
+// EventSubTypeIdLT applies the LT predicate on the "eventSubTypeId" field.
+func EventSubTypeIdLT(v int) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldEventSubTypeId), v))
+	})
+}
+
+// EventSubTypeIdLTE applies the LTE predicate on the "eventSubTypeId" field.
+func EventSubTypeIdLTE(v int) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldEventSubTypeId), v))
+	})
+}
+
+// EventSubTypeIdIsNil applies the IsNil predicate on the "eventSubTypeId" field.
+func EventSubTypeIdIsNil() predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldEventSubTypeId)))
+	})
+}
+
+// EventSubTypeIdNotNil applies the NotNil predicate on the "eventSubTypeId" field.
+func EventSubTypeIdNotNil() predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldEventSubTypeId)))
+	})
+}
+
+// EventSubTypeNameEQ applies the EQ predicate on the "eventSubTypeName" field.
+func EventSubTypeNameEQ(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldEventSubTypeName), v))
+	})
+}
+
+// EventSubTypeNameNEQ applies the NEQ predicate on the "eventSubTypeName" field.
+func EventSubTypeNameNEQ(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldEventSubTypeName), v))
+	})
+}
+
+// EventSubTypeNameIn applies the In predicate on the "eventSubTypeName" field.
+func EventSubTypeNameIn(vs ...string) predicate.Event {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Event(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldEventSubTypeName), v...))
+	})
+}
+
+// EventSubTypeNameNotIn applies the NotIn predicate on the "eventSubTypeName" field.
+func EventSubTypeNameNotIn(vs ...string) predicate.Event {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Event(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldEventSubTypeName), v...))
+	})
+}
+
+// EventSubTypeNameGT applies the GT predicate on the "eventSubTypeName" field.
+func EventSubTypeNameGT(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldEventSubTypeName), v))
+	})
+}
+
+// EventSubTypeNameGTE applies the GTE predicate on the "eventSubTypeName" field.
+func EventSubTypeNameGTE(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldEventSubTypeName), v))
+	})
+}
+
+// EventSubTypeNameLT applies the LT predicate on the "eventSubTypeName" field.
+func EventSubTypeNameLT(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldEventSubTypeName), v))
+	})
+}
+
+// EventSubTypeNameLTE applies the LTE predicate on the "eventSubTypeName" field.
+func EventSubTypeNameLTE(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldEventSubTypeName), v))
+	})
+}
+
+// EventSubTypeNameContains applies the Contains predicate on the "eventSubTypeName" field.
+func EventSubTypeNameContains(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldEventSubTypeName), v))
+	})
+}
+
+// EventSubTypeNameHasPrefix applies the HasPrefix predicate on the "eventSubTypeName" field.
+func EventSubTypeNameHasPrefix(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldEventSubTypeName), v))
+	})
+}
+
+// EventSubTypeNameHasSuffix applies the HasSuffix predicate on the "eventSubTypeName" field.
+func EventSubTypeNameHasSuffix(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldEventSubTypeName), v))
+	})
+}
+
+// EventSubTypeNameEqualFold applies the EqualFold predicate on the "eventSubTypeName" field.
+func EventSubTypeNameEqualFold(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldEventSubTypeName), v))
+	})
+}
+
+// EventSubTypeNameContainsFold applies the ContainsFold predicate on the "eventSubTypeName" field.
+func EventSubTypeNameContainsFold(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldEventSubTypeName), v))
 	})
 }
 
@@ -657,6 +886,498 @@ func TenantNameEqualFold(v string) predicate.Event {
 func TenantNameContainsFold(v string) predicate.Event {
 	return predicate.Event(func(s *sql.Selector) {
 		s.Where(sql.ContainsFold(s.C(FieldTenantName), v))
+	})
+}
+
+// FarmIdEQ applies the EQ predicate on the "farmId" field.
+func FarmIdEQ(v int64) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdNEQ applies the NEQ predicate on the "farmId" field.
+func FarmIdNEQ(v int64) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdIn applies the In predicate on the "farmId" field.
+func FarmIdIn(vs ...int64) predicate.Event {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Event(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdNotIn applies the NotIn predicate on the "farmId" field.
+func FarmIdNotIn(vs ...int64) predicate.Event {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Event(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmId), v...))
+	})
+}
+
+// FarmIdGT applies the GT predicate on the "farmId" field.
+func FarmIdGT(v int64) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdGTE applies the GTE predicate on the "farmId" field.
+func FarmIdGTE(v int64) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLT applies the LT predicate on the "farmId" field.
+func FarmIdLT(v int64) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmIdLTE applies the LTE predicate on the "farmId" field.
+func FarmIdLTE(v int64) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmId), v))
+	})
+}
+
+// FarmNameEQ applies the EQ predicate on the "farmName" field.
+func FarmNameEQ(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameNEQ applies the NEQ predicate on the "farmName" field.
+func FarmNameNEQ(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameIn applies the In predicate on the "farmName" field.
+func FarmNameIn(vs ...string) predicate.Event {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Event(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameNotIn applies the NotIn predicate on the "farmName" field.
+func FarmNameNotIn(vs ...string) predicate.Event {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Event(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldFarmName), v...))
+	})
+}
+
+// FarmNameGT applies the GT predicate on the "farmName" field.
+func FarmNameGT(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameGTE applies the GTE predicate on the "farmName" field.
+func FarmNameGTE(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLT applies the LT predicate on the "farmName" field.
+func FarmNameLT(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameLTE applies the LTE predicate on the "farmName" field.
+func FarmNameLTE(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContains applies the Contains predicate on the "farmName" field.
+func FarmNameContains(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasPrefix applies the HasPrefix predicate on the "farmName" field.
+func FarmNameHasPrefix(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameHasSuffix applies the HasSuffix predicate on the "farmName" field.
+func FarmNameHasSuffix(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameEqualFold applies the EqualFold predicate on the "farmName" field.
+func FarmNameEqualFold(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldFarmName), v))
+	})
+}
+
+// FarmNameContainsFold applies the ContainsFold predicate on the "farmName" field.
+func FarmNameContainsFold(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldFarmName), v))
+	})
+}
+
+// ShedIdEQ applies the EQ predicate on the "shedId" field.
+func ShedIdEQ(v int64) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldShedId), v))
+	})
+}
+
+// ShedIdNEQ applies the NEQ predicate on the "shedId" field.
+func ShedIdNEQ(v int64) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldShedId), v))
+	})
+}
+
+// ShedIdIn applies the In predicate on the "shedId" field.
+func ShedIdIn(vs ...int64) predicate.Event {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Event(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldShedId), v...))
+	})
+}
+
+// ShedIdNotIn applies the NotIn predicate on the "shedId" field.
+func ShedIdNotIn(vs ...int64) predicate.Event {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Event(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldShedId), v...))
+	})
+}
+
+// ShedIdGT applies the GT predicate on the "shedId" field.
+func ShedIdGT(v int64) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldShedId), v))
+	})
+}
+
+// ShedIdGTE applies the GTE predicate on the "shedId" field.
+func ShedIdGTE(v int64) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldShedId), v))
+	})
+}
+
+// ShedIdLT applies the LT predicate on the "shedId" field.
+func ShedIdLT(v int64) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldShedId), v))
+	})
+}
+
+// ShedIdLTE applies the LTE predicate on the "shedId" field.
+func ShedIdLTE(v int64) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldShedId), v))
+	})
+}
+
+// ShedIdIsNil applies the IsNil predicate on the "shedId" field.
+func ShedIdIsNil() predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldShedId)))
+	})
+}
+
+// ShedIdNotNil applies the NotNil predicate on the "shedId" field.
+func ShedIdNotNil() predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldShedId)))
+	})
+}
+
+// ShedNameEQ applies the EQ predicate on the "shedName" field.
+func ShedNameEQ(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameNEQ applies the NEQ predicate on the "shedName" field.
+func ShedNameNEQ(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameIn applies the In predicate on the "shedName" field.
+func ShedNameIn(vs ...string) predicate.Event {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Event(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldShedName), v...))
+	})
+}
+
+// ShedNameNotIn applies the NotIn predicate on the "shedName" field.
+func ShedNameNotIn(vs ...string) predicate.Event {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Event(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldShedName), v...))
+	})
+}
+
+// ShedNameGT applies the GT predicate on the "shedName" field.
+func ShedNameGT(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameGTE applies the GTE predicate on the "shedName" field.
+func ShedNameGTE(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameLT applies the LT predicate on the "shedName" field.
+func ShedNameLT(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameLTE applies the LTE predicate on the "shedName" field.
+func ShedNameLTE(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameContains applies the Contains predicate on the "shedName" field.
+func ShedNameContains(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.Contains(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameHasPrefix applies the HasPrefix predicate on the "shedName" field.
+func ShedNameHasPrefix(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.HasPrefix(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameHasSuffix applies the HasSuffix predicate on the "shedName" field.
+func ShedNameHasSuffix(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.HasSuffix(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameIsNil applies the IsNil predicate on the "shedName" field.
+func ShedNameIsNil() predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldShedName)))
+	})
+}
+
+// ShedNameNotNil applies the NotNil predicate on the "shedName" field.
+func ShedNameNotNil() predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldShedName)))
+	})
+}
+
+// ShedNameEqualFold applies the EqualFold predicate on the "shedName" field.
+func ShedNameEqualFold(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EqualFold(s.C(FieldShedName), v))
+	})
+}
+
+// ShedNameContainsFold applies the ContainsFold predicate on the "shedName" field.
+func ShedNameContainsFold(v string) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.ContainsFold(s.C(FieldShedName), v))
+	})
+}
+
+// TimesEQ applies the EQ predicate on the "times" field.
+func TimesEQ(v int) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldTimes), v))
+	})
+}
+
+// TimesNEQ applies the NEQ predicate on the "times" field.
+func TimesNEQ(v int) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldTimes), v))
+	})
+}
+
+// TimesIn applies the In predicate on the "times" field.
+func TimesIn(vs ...int) predicate.Event {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Event(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldTimes), v...))
+	})
+}
+
+// TimesNotIn applies the NotIn predicate on the "times" field.
+func TimesNotIn(vs ...int) predicate.Event {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.Event(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldTimes), v...))
+	})
+}
+
+// TimesGT applies the GT predicate on the "times" field.
+func TimesGT(v int) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldTimes), v))
+	})
+}
+
+// TimesGTE applies the GTE predicate on the "times" field.
+func TimesGTE(v int) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldTimes), v))
+	})
+}
+
+// TimesLT applies the LT predicate on the "times" field.
+func TimesLT(v int) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldTimes), v))
+	})
+}
+
+// TimesLTE applies the LTE predicate on the "times" field.
+func TimesLTE(v int) predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldTimes), v))
+	})
+}
+
+// TimesIsNil applies the IsNil predicate on the "times" field.
+func TimesIsNil() predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldTimes)))
+	})
+}
+
+// TimesNotNil applies the NotNil predicate on the "times" field.
+func TimesNotNil() predicate.Event {
+	return predicate.Event(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldTimes)))
 	})
 }
 

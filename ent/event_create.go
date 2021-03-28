@@ -25,15 +25,43 @@ func (ec *EventCreate) SetEarNumber(s string) *EventCreate {
 	return ec
 }
 
-// SetEventType sets the eventType field.
-func (ec *EventCreate) SetEventType(s string) *EventCreate {
-	ec.mutation.SetEventType(s)
+// SetEventTypeId sets the eventTypeId field.
+func (ec *EventCreate) SetEventTypeId(i int) *EventCreate {
+	ec.mutation.SetEventTypeId(i)
 	return ec
 }
 
-// SetEventName sets the eventName field.
-func (ec *EventCreate) SetEventName(s string) *EventCreate {
-	ec.mutation.SetEventName(s)
+// SetNillableEventTypeId sets the eventTypeId field if the given value is not nil.
+func (ec *EventCreate) SetNillableEventTypeId(i *int) *EventCreate {
+	if i != nil {
+		ec.SetEventTypeId(*i)
+	}
+	return ec
+}
+
+// SetEventTypeName sets the eventTypeName field.
+func (ec *EventCreate) SetEventTypeName(s string) *EventCreate {
+	ec.mutation.SetEventTypeName(s)
+	return ec
+}
+
+// SetEventSubTypeId sets the eventSubTypeId field.
+func (ec *EventCreate) SetEventSubTypeId(i int) *EventCreate {
+	ec.mutation.SetEventSubTypeId(i)
+	return ec
+}
+
+// SetNillableEventSubTypeId sets the eventSubTypeId field if the given value is not nil.
+func (ec *EventCreate) SetNillableEventSubTypeId(i *int) *EventCreate {
+	if i != nil {
+		ec.SetEventSubTypeId(*i)
+	}
+	return ec
+}
+
+// SetEventSubTypeName sets the eventSubTypeName field.
+func (ec *EventCreate) SetEventSubTypeName(s string) *EventCreate {
+	ec.mutation.SetEventSubTypeName(s)
 	return ec
 }
 
@@ -46,6 +74,60 @@ func (ec *EventCreate) SetTenantId(i int64) *EventCreate {
 // SetTenantName sets the tenantName field.
 func (ec *EventCreate) SetTenantName(s string) *EventCreate {
 	ec.mutation.SetTenantName(s)
+	return ec
+}
+
+// SetFarmId sets the farmId field.
+func (ec *EventCreate) SetFarmId(i int64) *EventCreate {
+	ec.mutation.SetFarmId(i)
+	return ec
+}
+
+// SetFarmName sets the farmName field.
+func (ec *EventCreate) SetFarmName(s string) *EventCreate {
+	ec.mutation.SetFarmName(s)
+	return ec
+}
+
+// SetShedId sets the shedId field.
+func (ec *EventCreate) SetShedId(i int64) *EventCreate {
+	ec.mutation.SetShedId(i)
+	return ec
+}
+
+// SetNillableShedId sets the shedId field if the given value is not nil.
+func (ec *EventCreate) SetNillableShedId(i *int64) *EventCreate {
+	if i != nil {
+		ec.SetShedId(*i)
+	}
+	return ec
+}
+
+// SetShedName sets the shedName field.
+func (ec *EventCreate) SetShedName(s string) *EventCreate {
+	ec.mutation.SetShedName(s)
+	return ec
+}
+
+// SetNillableShedName sets the shedName field if the given value is not nil.
+func (ec *EventCreate) SetNillableShedName(s *string) *EventCreate {
+	if s != nil {
+		ec.SetShedName(*s)
+	}
+	return ec
+}
+
+// SetTimes sets the times field.
+func (ec *EventCreate) SetTimes(i int) *EventCreate {
+	ec.mutation.SetTimes(i)
+	return ec
+}
+
+// SetNillableTimes sets the times field if the given value is not nil.
+func (ec *EventCreate) SetNillableTimes(i *int) *EventCreate {
+	if i != nil {
+		ec.SetTimes(*i)
+	}
 	return ec
 }
 
@@ -72,6 +154,7 @@ func (ec *EventCreate) Save(ctx context.Context) (*Event, error) {
 		err  error
 		node *Event
 	)
+	ec.defaults()
 	if len(ec.hooks) == 0 {
 		if err = ec.check(); err != nil {
 			return nil, err
@@ -110,22 +193,36 @@ func (ec *EventCreate) SaveX(ctx context.Context) *Event {
 	return v
 }
 
+// defaults sets the default values of the builder before save.
+func (ec *EventCreate) defaults() {
+	if _, ok := ec.mutation.Times(); !ok {
+		v := event.DefaultTimes
+		ec.mutation.SetTimes(v)
+	}
+}
+
 // check runs all checks and user-defined validators on the builder.
 func (ec *EventCreate) check() error {
 	if _, ok := ec.mutation.EarNumber(); !ok {
 		return &ValidationError{Name: "earNumber", err: errors.New("ent: missing required field \"earNumber\"")}
 	}
-	if _, ok := ec.mutation.EventType(); !ok {
-		return &ValidationError{Name: "eventType", err: errors.New("ent: missing required field \"eventType\"")}
+	if _, ok := ec.mutation.EventTypeName(); !ok {
+		return &ValidationError{Name: "eventTypeName", err: errors.New("ent: missing required field \"eventTypeName\"")}
 	}
-	if _, ok := ec.mutation.EventName(); !ok {
-		return &ValidationError{Name: "eventName", err: errors.New("ent: missing required field \"eventName\"")}
+	if _, ok := ec.mutation.EventSubTypeName(); !ok {
+		return &ValidationError{Name: "eventSubTypeName", err: errors.New("ent: missing required field \"eventSubTypeName\"")}
 	}
 	if _, ok := ec.mutation.TenantId(); !ok {
 		return &ValidationError{Name: "tenantId", err: errors.New("ent: missing required field \"tenantId\"")}
 	}
 	if _, ok := ec.mutation.TenantName(); !ok {
 		return &ValidationError{Name: "tenantName", err: errors.New("ent: missing required field \"tenantName\"")}
+	}
+	if _, ok := ec.mutation.FarmId(); !ok {
+		return &ValidationError{Name: "farmId", err: errors.New("ent: missing required field \"farmId\"")}
+	}
+	if _, ok := ec.mutation.FarmName(); !ok {
+		return &ValidationError{Name: "farmName", err: errors.New("ent: missing required field \"farmName\"")}
 	}
 	if _, ok := ec.mutation.CreatedAt(); !ok {
 		return &ValidationError{Name: "createdAt", err: errors.New("ent: missing required field \"createdAt\"")}
@@ -168,21 +265,37 @@ func (ec *EventCreate) createSpec() (*Event, *sqlgraph.CreateSpec) {
 		})
 		_node.EarNumber = value
 	}
-	if value, ok := ec.mutation.EventType(); ok {
+	if value, ok := ec.mutation.EventTypeId(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
-			Type:   field.TypeString,
+			Type:   field.TypeInt,
 			Value:  value,
-			Column: event.FieldEventType,
+			Column: event.FieldEventTypeId,
 		})
-		_node.EventType = value
+		_node.EventTypeId = value
 	}
-	if value, ok := ec.mutation.EventName(); ok {
+	if value, ok := ec.mutation.EventTypeName(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeString,
 			Value:  value,
-			Column: event.FieldEventName,
+			Column: event.FieldEventTypeName,
 		})
-		_node.EventName = value
+		_node.EventTypeName = value
+	}
+	if value, ok := ec.mutation.EventSubTypeId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: event.FieldEventSubTypeId,
+		})
+		_node.EventSubTypeId = value
+	}
+	if value, ok := ec.mutation.EventSubTypeName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: event.FieldEventSubTypeName,
+		})
+		_node.EventSubTypeName = value
 	}
 	if value, ok := ec.mutation.TenantId(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -199,6 +312,46 @@ func (ec *EventCreate) createSpec() (*Event, *sqlgraph.CreateSpec) {
 			Column: event.FieldTenantName,
 		})
 		_node.TenantName = value
+	}
+	if value, ok := ec.mutation.FarmId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: event.FieldFarmId,
+		})
+		_node.FarmId = value
+	}
+	if value, ok := ec.mutation.FarmName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: event.FieldFarmName,
+		})
+		_node.FarmName = value
+	}
+	if value, ok := ec.mutation.ShedId(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt64,
+			Value:  value,
+			Column: event.FieldShedId,
+		})
+		_node.ShedId = value
+	}
+	if value, ok := ec.mutation.ShedName(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeString,
+			Value:  value,
+			Column: event.FieldShedName,
+		})
+		_node.ShedName = value
+	}
+	if value, ok := ec.mutation.Times(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeInt,
+			Value:  value,
+			Column: event.FieldTimes,
+		})
+		_node.Times = value
 	}
 	if value, ok := ec.mutation.CreatedAt(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -233,6 +386,7 @@ func (ecb *EventCreateBulk) Save(ctx context.Context) ([]*Event, error) {
 	for i := range ecb.builders {
 		func(i int, root context.Context) {
 			builder := ecb.builders[i]
+			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 				mutation, ok := m.(*EventMutation)
 				if !ok {

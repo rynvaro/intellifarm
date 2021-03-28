@@ -48,9 +48,13 @@ func BreedingAddHandler(c *gin.Context) {
 	}
 
 	if _, err := db.Client.Event.Create().SetCreatedAt(time.Now().UnixNano()).
-		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventName("配种").
-		SetEventType("繁殖事件").SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).Save(c.Request.Context()); err != nil {
+		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventTypeName("配种").
+		SetEventSubTypeName("繁殖事件").SetTenantId(form.TenantId).
+		SetTenantName(form.TenantName).
+		SetTimes(form.Times).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
+		Save(c.Request.Context()); err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return

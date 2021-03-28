@@ -44,8 +44,10 @@ func MedicineAddHandler(c *gin.Context) {
 	}
 
 	if _, err := db.Client.Event.Create().SetCreatedAt(time.Now().UnixNano()).
-		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventName("用药").
-		SetEventType("兽医事件").SetTenantId(form.TenantId).
+		SetDeleted(0).SetEarNumber(form.EarNumber).SetEventTypeName("用药").
+		SetEventSubTypeName("兽医事件").SetTenantId(form.TenantId).
+		SetFarmId(form.FarmId).SetFarmName(form.FarmName).
+		SetShedId(form.ShedId).SetShedName(form.ShedName).
 		SetTenantName(form.TenantName).Save(c.Request.Context()); err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)

@@ -12,10 +12,10 @@ import (
 
 const (
 	dbUser = "root"
-	dbPswd = "Smile!@#"
-	dbAddr = "localhost:3306"
-	// dbPswd = "LJOFFS87898jwjfowe@58GJj!"
-	// dbAddr = "140.143.219.11:10104"
+	// dbPswd = "Smile!@#"
+	// dbAddr = "localhost:3306"
+	dbPswd = "LJOFFS87898jwjfowe@58GJj!"
+	dbAddr = "140.143.219.11:10104"
 	dbName = "cattlems"
 )
 

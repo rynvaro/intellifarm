@@ -33,7 +33,7 @@ func InventoryFlowAddHandler(c *gin.Context) {
 	if form.Type == 2 {
 		count = -count
 	}
-	m, err := tx.Material.UpdateOneID(form.MaterialId).AddInventory(int64(count)).Save(c.Request.Context())
+	m, err := tx.Material.UpdateOneID(int(form.MaterialId)).AddInventory(int64(count)).Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
@@ -121,7 +121,7 @@ func InventoryFlowDeleteHandler(c *gin.Context) {
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
 
-	flow, err := db.Client.InventoryFlow.Get(c.Request.Context(), id.Id)
+	flow, err := db.Client.InventoryFlow.Get(c.Request.Context(), int(id.Id))
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
@@ -137,13 +137,13 @@ func InventoryFlowDeleteHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	_, err = tx.Material.UpdateOneID(flow.MaterialId).AddInventory(int64(count)).Save(c.Request.Context())
+	_, err = tx.Material.UpdateOneID(int(flow.MaterialId)).AddInventory(int64(count)).Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	err = tx.InventoryFlow.DeleteOneID(id.Id).Exec(c.Request.Context())
+	err = tx.InventoryFlow.DeleteOneID(int(id.Id)).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)

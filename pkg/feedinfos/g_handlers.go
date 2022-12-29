@@ -76,7 +76,7 @@ func FeedInfoDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	err := db.Client.FeedInfo.DeleteOneID(id.Id).Exec(c.Request.Context())
+	err := db.Client.FeedInfo.DeleteOneID(int(id.Id)).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
@@ -92,7 +92,7 @@ func FeedInfoGetHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	fInfo, err := db.Client.FeedInfo.Get(c.Request.Context(), id.Id)
+	fInfo, err := db.Client.FeedInfo.Get(c.Request.Context(), int(id.Id))
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)

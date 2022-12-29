@@ -21,7 +21,7 @@ func Where(listParams *params.ListParams) predicate.Farm {
 		wheres = append(wheres, farm.TenantId(listParams.TenantId))
 	case 3:
 		// 只能看到自己的牧场
-		wheres = append(wheres, farm.ID(listParams.FarmId))
+		wheres = append(wheres, farm.ID(int(listParams.FarmId)))
 	}
 	return farm.And(wheres...)
 }

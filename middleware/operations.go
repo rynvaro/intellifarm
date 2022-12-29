@@ -37,7 +37,7 @@ func SaveOperation() gin.HandlerFunc {
 		c.Set("tenantId", currentUser.TenantId)
 		c.Set("tenantName", currentUser.TenantName)
 		if _, err := db.Client.Operation.Create().
-			SetUserId(currentUser.ID).
+			SetUserId(int64(currentUser.ID)).
 			SetUserName(currentUser.Name).
 			SetTenantId(currentUser.TenantId).
 			SetTenantName(currentUser.TenantName).

@@ -5,12 +5,15 @@ import (
 	"cattleai/logsys"
 	"cattleai/middleware"
 	"cattleai/router"
+	"embed"
 	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/gobuffalo/packr"
 )
+
+//go:embed fe/dist
+var fe embed.FS
 
 func main() {
 	logsys.Init()
@@ -35,10 +38,11 @@ func main() {
 	db.Init()
 	defer db.Close()
 
-	box := packr.NewBox("dist")
-	static := packr.NewBox("dist/static")
-	r.StaticFS("/web", box)
-	r.StaticFS("static", static)
+	// stripped, err := fs.Sub(fe, "fe/dist")
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+	// r.StaticFS("/", http.FS(stripped))
 
 	r.Run(":8090")
 }

@@ -18,7 +18,7 @@ func PedigreeHandler(c *gin.Context) {
 		return
 	}
 
-	cattleSelf := db.Client.Cattle.GetX(c.Request.Context(), id.Id)
+	cattleSelf := db.Client.Cattle.GetX(c.Request.Context(), int(id.Id))
 
 	mother := cattleSelf.Mother
 	father := cattleSelf.Father

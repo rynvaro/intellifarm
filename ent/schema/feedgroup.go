@@ -1,6 +1,6 @@
 package schema
 
-import "github.com/facebook/ent"
+import "entgo.io/ent"
 
 // FeedGroup holds the schema definition for the FeedGroup entity.
 type FeedGroup struct {

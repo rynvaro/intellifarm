@@ -84,7 +84,7 @@ func CattleGrowDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	err := db.Client.CattleGrow.DeleteOneID(id.Id).Exec(c.Request.Context())
+	err := db.Client.CattleGrow.DeleteOneID(int(id.Id)).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)

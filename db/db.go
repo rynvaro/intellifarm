@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/facebook/ent/dialect"
+	"entgo.io/ent/dialect"
 	_ "github.com/go-sql-driver/mysql"
 )
 

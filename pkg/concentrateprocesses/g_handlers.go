@@ -58,7 +58,7 @@ func ConcentrateProcessAddHandler(c *gin.Context) {
 		return
 	}
 
-	_, err = tx.Concentrate.UpdateOneID(form.ConcentrateId).AddInventory(form.In).Save(c.Request.Context())
+	_, err = tx.Concentrate.UpdateOneID(int(form.ConcentrateId)).AddInventory(form.In).Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
@@ -138,7 +138,7 @@ func ConcentrateProcessDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	err := db.Client.ConcentrateProcess.DeleteOneID(id.Id).Exec(c.Request.Context())
+	err := db.Client.ConcentrateProcess.DeleteOneID(int(id.Id)).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)

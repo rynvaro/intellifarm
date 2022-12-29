@@ -95,7 +95,7 @@ func CattleGrowsDataDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	err := db.Client.CattleGrowsData.DeleteOneID(id.Id).Exec(c.Request.Context())
+	err := db.Client.CattleGrowsData.DeleteOneID(int(id.Id)).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)

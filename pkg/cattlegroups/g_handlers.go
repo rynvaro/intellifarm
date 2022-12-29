@@ -76,7 +76,7 @@ func CattleGroupDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	err := db.Client.CattleGroup.DeleteOneID(id.Id).Exec(c.Request.Context())
+	err := db.Client.CattleGroup.DeleteOneID(int(id.Id)).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)

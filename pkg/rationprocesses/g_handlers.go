@@ -58,7 +58,7 @@ func RationProcessAddHandler(c *gin.Context) {
 		return
 	}
 
-	_, err = tx.Ration.UpdateOneID(form.RationId).AddInventory(form.In).Save(c.Request.Context())
+	_, err = tx.Ration.UpdateOneID(int(form.RationId)).AddInventory(form.In).Save(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)
@@ -138,7 +138,7 @@ func RationProcessDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	err := db.Client.RationProcess.DeleteOneID(id.Id).Exec(c.Request.Context())
+	err := db.Client.RationProcess.DeleteOneID(int(id.Id)).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)

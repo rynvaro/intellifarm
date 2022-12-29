@@ -62,7 +62,9 @@ func UserLogin(c *gin.Context) {
 	cache.L1Cache.Add(token, string(userJsonData), time.Hour*24)
 
 	if _, err := db.Client.Operation.Create().
-		SetUserId(currentUser.ID).
+		SetFarmId(currentUser.FarmId).
+		SetFarmName(currentUser.FarmName).
+		SetUserId(int64(currentUser.ID)).
 		SetUserName(currentUser.Name).
 		SetTenantId(currentUser.TenantId).
 		SetTenantName(currentUser.TenantName).

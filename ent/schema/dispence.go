@@ -1,6 +1,6 @@
 package schema
 
-import "github.com/facebook/ent"
+import "entgo.io/ent"
 
 // Dispence holds the schema definition for the Dispence entity.
 type Dispence struct {

@@ -99,7 +99,7 @@ func PregnancyTestDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	err := db.Client.PregnancyTest.DeleteOneID(id.Id).Exec(c.Request.Context())
+	err := db.Client.PregnancyTest.DeleteOneID(int(id.Id)).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)

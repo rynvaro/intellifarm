@@ -48,7 +48,7 @@ func CattleDieAddHandler(c *gin.Context) {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	if _, err := db.Client.Cattle.UpdateOneID(form.CattleId).SetAlive(2).Save(c.Request.Context()); err != nil {
+	if _, err := db.Client.Cattle.UpdateOneID(int(form.CattleId)).SetAlive(2).Save(c.Request.Context()); err != nil {
 		log.Warn().Msg(err.Error())
 	}
 	c.JSON(http.StatusOK, resp.Success(cattledie))
@@ -90,7 +90,7 @@ func CattleDieDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	err := db.Client.CattleDie.DeleteOneID(id.Id).Exec(c.Request.Context())
+	err := db.Client.CattleDie.DeleteOneID(int(id.Id)).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)

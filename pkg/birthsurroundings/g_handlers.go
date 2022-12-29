@@ -93,7 +93,7 @@ func BirthSurroundingDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	err := db.Client.BirthSurrounding.DeleteOneID(id.Id).Exec(c.Request.Context())
+	err := db.Client.BirthSurrounding.DeleteOneID(int(id.Id)).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)

@@ -1,6 +1,6 @@
 package schema
 
-import "github.com/facebook/ent"
+import "entgo.io/ent"
 
 // ShedTrans holds the schema definition for the ShedTrans entity.
 type ShedTrans struct {

@@ -47,7 +47,7 @@ func CattleMoveAddHandler(c *gin.Context) {
 		return
 	}
 	// TODO check shed exists
-	if _, err := db.Client.Cattle.UpdateOneID(form.CattleId).SetShedId(form.ToShedId).
+	if _, err := db.Client.Cattle.UpdateOneID(int(form.CattleId)).SetShedId(form.ToShedId).
 		SetShedName(form.ToShed).Save(c.Request.Context()); err != nil {
 		log.Warn().Msg(err.Error())
 	}
@@ -90,7 +90,7 @@ func CattleMoveDeleteHandler(c *gin.Context) {
 		return
 	}
 	log.Debug().Msg(fmt.Sprintf("%+v", id))
-	err := db.Client.CattleMove.DeleteOneID(id.Id).Exec(c.Request.Context())
+	err := db.Client.CattleMove.DeleteOneID(int(id.Id)).Exec(c.Request.Context())
 	if err != nil {
 		log.Error().Msg(err.Error())
 		c.Status(http.StatusInternalServerError)

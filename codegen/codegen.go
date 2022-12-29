@@ -114,7 +114,7 @@ func Gen(model string, ins interface{}) {
 			Id("return"),
 		),
 		Id(`log.Debug().Msg(fmt.Sprintf("%+v", id))`),
-		List(Id(lowerModel), Err()).Op(":=").Id("db.Client."+model+".DeleteOneID(id.Id).Exec(c.Request.Context())"),
+		List(Id(lowerModel), Err()).Op(":=").Id("db.Client."+model+".DeleteOneID(int(id.Id)).Exec(c.Request.Context())"),
 		If(Err().Op("!=").Id("nil")).Block(
 			Id("log.Error().Msg(err.Error())"),
 			Id("c.Status(http.StatusInternalServerError)"),

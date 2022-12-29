@@ -1,6 +1,6 @@
 package schema
 
-import "github.com/facebook/ent"
+import "entgo.io/ent"
 
 // Change holds the schema definition for the Change entity.
 type Change struct {

@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/rs/zerolog/log"
 )
@@ -48,8 +49,14 @@ func dataInit() {
 
 	// init shed type
 	if !conf.InitConf.ShedTypeInitialized {
-		for _, v := range initData["shedTypes"] {
-			_, err := Client.ShedType.Create().SetName(v).Save(ctx)
+		for i, v := range initData["shedTypes"] {
+			_, err := Client.ShedType.Create().SetCode(v).
+				SetName(v).
+				SetOrder(i).
+				SetRemarks("初始化").
+				SetTenantId(1).
+				SetTenantName("SYSTEM").
+				SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).Save(ctx)
 			if err != nil {
 				log.Error().Msg(fmt.Sprintf("shedType %s init failed with error: %s", v, err.Error()))
 				continue
@@ -100,8 +107,15 @@ func dataInit() {
 
 	// init positions
 	if !conf.InitConf.PositionInitialized {
-		for _, v := range initData["positions"] {
-			_, err := Client.Position.Create().SetName(v).Save(ctx)
+		for i, v := range initData["positions"] {
+			_, err := Client.Position.Create().
+				SetCode(v).
+				SetName(v).
+				SetOrder(i + 1).
+				SetRemarks("初始化").
+				SetTenantId(1).
+				SetTenantName("SYSTEM").SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
+				Save(ctx)
 			if err != nil {
 				log.Error().Msg(fmt.Sprintf("position %s init failed with error: %s", v, err.Error()))
 				continue
@@ -194,8 +208,15 @@ func dataInit() {
 
 	// init CattleHairColor
 	if !conf.InitConf.CattleHairColor {
-		for _, v := range initData["cattleHairColors"] {
-			_, err := Client.CattleHairColor.Create().SetName(v).Save(ctx)
+		for i, v := range initData["cattleHairColors"] {
+			_, err := Client.CattleHairColor.Create().
+				SetCode(v).
+				SetName(v).
+				SetOrder(i + 1).
+				SetRemarks("初始化").
+				SetTenantId(1).
+				SetTenantName("SYSTEM").SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
+				Save(ctx)
 			if err != nil {
 				log.Error().Msg(fmt.Sprintf("CattleHairColor %s init failed with error: %s", v, err.Error()))
 				continue

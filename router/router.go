@@ -208,4 +208,5 @@ func Register(g *gin.RouterGroup) {
 	customers.RegisterRoutes(g)
 	shedsettings.RegisterRoutes(g)
 	warehousesettings.RegisterRoutes(g)
+
 }

@@ -4,16 +4,16 @@ import (
 	"cattleai/db"
 	"cattleai/logsys"
 	"cattleai/middleware"
+	"cattleai/pkg/acharts"
 	"cattleai/router"
-	"embed"
 	"time"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
-//go:embed fe/dist
-var fe embed.FS
+// go:embed index.html static
+// var index embed.FS
 
 func main() {
 	logsys.Init()
@@ -34,15 +34,19 @@ func main() {
 
 	router.Register(v1)
 
+	open := r.Group("/api/open")
+	open.GET("/indexdata", acharts.IndexDataHandler)
+
 	// init database
 	db.Init()
 	defer db.Close()
 
-	// stripped, err := fs.Sub(fe, "fe/dist")
+	// stripped, err := fs.Sub(embedFS, "dist/index.html")
 	// if err != nil {
 	// 	fmt.Println(err)
 	// }
-	// r.StaticFS("/", http.FS(stripped))
+	// static.Serve("/", static.LocalFile())
+	// r.StaticFS("/index/", http.FS(index))
 
 	r.Run(":8090")
 }

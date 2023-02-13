@@ -28,8 +28,6 @@ func ShedTypeAddHandler(c *gin.Context) {
 		SetOrder(form.Order).
 		SetRemarks(form.Remarks).
 		SetTenantId(form.TenantId).
-		SetTenantName(form.TenantName).
-		SetTenantId(form.TenantId).
 		SetTenantName(form.TenantName).SetCreatedAt(time.Now().Unix()).SetUpdatedAt(time.Now().Unix()).SetDeleted(0).
 		Save(c.Request.Context())
 	if err != nil {

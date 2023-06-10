@@ -12,8 +12,8 @@ import (
 
 const (
 	dbUser = "root"
-	dbPswd = "Hello111"
-	dbAddr = "60.205.226.62:3306"
+	dbPswd = "Hello123_"
+	dbAddr = "rm-2ze5762f29lq88w18ao.mysql.rds.aliyuncs.com:3306"
 	dbName = "cattlems"
 )
 
